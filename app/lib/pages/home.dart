@@ -15,9 +15,7 @@ class _HomeState extends State<Home> {
         title: Text('Trale'),
       ),
       body: Center(
-
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -30,7 +28,7 @@ class _HomeState extends State<Home> {
         onPressed: (){},
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }
