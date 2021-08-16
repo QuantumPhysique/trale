@@ -39,21 +39,21 @@ class Preferences {
 
   /// getter and setter for all preferences
   /// get night mode value
-  String get nightMode => prefs.getString('nightMode');
+  String get nightMode => prefs.getString('nightMode')!;
   /// set night mode value
   set nightMode(String nightMode) => prefs.setString('nightMode', nightMode);
   /// get isAmoled value
-  bool get isAmoled => prefs.getBool('isAmoled');
+  bool get isAmoled => prefs.getBool('isAmoled')!;
   /// set isAmoled value
   set isAmoled(bool isAmoled) => prefs.setBool('isAmoled', isAmoled);
   /// get language value
-  Language get language => prefs.getString('language').toLanguage();
+  Language get language => prefs.getString('language')!.toLanguage();
   /// set language value
   set language(Language language) => prefs.setString(
     'language', language.language,
   );
   /// get theme mode
-  String get theme => prefs.getString('theme');
+  String get theme => prefs.getString('theme')!;
   /// set theme mode
   set theme(String theme) => prefs.setString('theme', theme);
 

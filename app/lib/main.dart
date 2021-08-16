@@ -1,29 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:trale/pages/home.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MyApp());
+import 'package:trale/pages/home.dart';
+import 'package:trale/core/preferences.dart';
+import 'package:trale/core/traleNotifier.dart';
+
+Future<void> main() async {
+  // load singleton
+  WidgetsFlutterBinding.ensureInitialized();
+  final Preferences prefs = Preferences();
+  await prefs.loaded;
+  final TraleNotifier traleNotifier = TraleNotifier();
+
+  return runApp(
+    ChangeNotifierProvider<TraleNotifier>.value(
+      value: traleNotifier,
+      child: TraleMainApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+
+/// MaterialApp with AdonisTheme
+class TraleApp extends MaterialApp{
+  /// Constructor
+  TraleApp({
+    required this.traleNotifier,
+    Map<String, WidgetBuilder> routes = const <String, WidgetBuilder>{},
+  }) : super(
+    theme: traleNotifier.theme.light.themeData,
+    darkTheme: traleNotifier.isAmoled
+        ? traleNotifier.theme.amoled.themeData
+        : traleNotifier.theme.dark.themeData,
+    themeMode: traleNotifier.themeMode,
+    routes: routes,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    locale: traleNotifier.locale,
+  );
+
+  /// themeNotifier for interactive change of theme
+  final TraleNotifier traleNotifier;
+}
+
+
+class TraleMainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: Home(),
+    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
+
+    return TraleApp(
+      traleNotifier: traleNotifier,
+      routes: {
+        '/': (BuildContext context) => const Home(),
+      },
     );
   }
 }
