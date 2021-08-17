@@ -97,15 +97,15 @@ class TraleTheme {
   }
 
   /// Get current AdonisTheme
-  static TraleTheme of(BuildContext context) {
+  static TraleTheme? of(BuildContext context) {
     assert(context != null);
-    final TraleApp result =
+    final TraleApp? result =
     context.findAncestorWidgetOfExactType<TraleApp>();
     return Theme.of(context).brightness == Brightness.light
-      ? result.adonisNotifier.theme.light
-      : result.adonisNotifier.isAmoled
-        ? result.adonisNotifier.theme.amoled
-        : result.adonisNotifier.theme.dark;
+      ? result?.traleNotifier.theme.light
+      : (result != null && result.traleNotifier.isAmoled)
+        ? result.traleNotifier.theme.amoled
+        : result?.traleNotifier.theme.dark;
   }
 
   /// background color

@@ -35,7 +35,7 @@ class Preferences {
   /// default language
   final Language defaultLanguage = Language.system();
   /// default for theme
-  final String defaultTheme = customTheme.fire.name;
+  final String defaultTheme = CustomTheme.fire.name;
 
   /// getter and setter for all preferences
   /// get night mode value
