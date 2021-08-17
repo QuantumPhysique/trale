@@ -20,13 +20,13 @@ class Preferences {
     loadDefaultSettings();
   }
   /// if shared preferences finished to load
-  Future<void> get loaded => _loaded;
-  Future<void> _loaded;
+  Future<void>? get loaded => _loaded;
+  Future<void>? _loaded;
 
   /// singleton instance
   static final Preferences _instance = Preferences._internal();
   /// shared preference instance
-  SharedPreferences prefs;
+  late SharedPreferences prefs;
   /// default values
   /// default for nightMode setting
   final String defaultNightMode = 'auto';
@@ -35,7 +35,7 @@ class Preferences {
   /// default language
   final Language defaultLanguage = Language.system();
   /// default for theme
-  final String defaultTheme = CustomTheme.fire.name;
+  final String defaultTheme = TraleCustomTheme.fire.name;
 
   /// getter and setter for all preferences
   /// get night mode value

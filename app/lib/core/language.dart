@@ -17,7 +17,7 @@ class Language {
   Language.system() :
     _language = systemDefault;
 
-   /// contains either equipment or focus
+   /// contains country code
   final String _language;
 
   /// get locale
@@ -32,7 +32,7 @@ class Language {
   }[language] ?? 'error';
 
   @override
-  String toString() => 'Language($language)' ?? 'null';
+  String toString() => 'Language($language)';
 
   /// convert to Locale
   Locale toLocale() => Locale.fromSubtags(languageCode: language);

@@ -12,11 +12,11 @@ class TraleNotifier with ChangeNotifier {
   /// shared preferences instance
   final Preferences prefs = Preferences();
   /// getter
-  ThemeMode? get themeMode => prefs.nightMode.toThemeMode();
+  ThemeMode get themeMode => prefs.nightMode.toThemeMode();
   /// setter
-  set themeMode(ThemeMode? mode) {
+  set themeMode(ThemeMode mode) {
     if (mode != themeMode) {
-      prefs.nightMode = mode!.toCustomString()!;
+      prefs.nightMode = mode.toCustomString();
       notifyListeners();
     }
   }
@@ -30,10 +30,10 @@ class TraleNotifier with ChangeNotifier {
     }
   }
   /// getter
-  CustomTheme get theme => prefs.theme.toCustomTheme()
-      ?? prefs.defaultTheme.toCustomTheme();
+  TraleCustomTheme get theme => prefs.theme.toTraleCustomTheme()
+      ?? prefs.defaultTheme.toTraleCustomTheme()!;
   /// setter
-  set theme(CustomTheme newTheme) {
+  set theme(TraleCustomTheme newTheme) {
     if (newTheme != theme) {
       prefs.theme = newTheme.name;
       notifyListeners();

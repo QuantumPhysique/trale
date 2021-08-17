@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:trale/pages/home.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/pages/home.dart';
+
 
 Future<void> main() async {
   // load singleton

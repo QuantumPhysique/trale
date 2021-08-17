@@ -109,23 +109,23 @@ class TraleTheme {
   }
 
   /// background color
-  Color bg;
+  late Color bg;
   /// accent color
-  Color accent;
+  late Color accent;
   /// background color font
-  Color bgFont;
+  late Color bgFont;
   /// accent color font
-  Color accentFont;
+  late Color accentFont;
   /// if dark mode on
-  bool isDark;
+  late bool isDark;
   /// Light background font color
-  Color bgFontLight;
+  late Color bgFontLight;
   /// Light accent font color
-  Color accentFontLight;
+  late Color accentFontLight;
   /// Border shape
-  RoundedRectangleBorder borderShape;
+  late RoundedRectangleBorder borderShape;
   /// Padding value
-  double padding;
+  late double padding;
   /// Get border radius
   double get borderRadius => borderShape.borderRadius.resolve(
     TextDirection.ltr,
@@ -156,16 +156,16 @@ class TraleTheme {
   /// get header color of dialog
   Color? get dialogHeaderColor => isDark
     ? colorElevated(
-      themeData.dialogTheme.backgroundColor,
-      themeData.dialogTheme.elevation,
+      themeData.dialogTheme.backgroundColor!,
+      themeData.dialogTheme.elevation!,
     )
     : themeData.dialogTheme.backgroundColor;
 
   /// get background color of dialog
   Color get dialogColor => isDark
     ? colorElevated(
-      themeData.dialogTheme.backgroundColor,
-      themeData.dialogTheme.elevation / 4,
+      themeData.dialogTheme.backgroundColor!,
+      themeData.dialogTheme.elevation! / 4,
     )
     : bgShade3;
 
@@ -391,7 +391,7 @@ TraleTheme fireDarkTheme = TraleTheme(
 
 
 /// defining all workout difficulties
-enum CustomTheme {
+enum TraleCustomTheme {
   /// red theme
   fire,
   /// blue yellow theme
@@ -407,29 +407,29 @@ enum CustomTheme {
 }
 
 /// extend adonisThemes with adding AdonisTheme attributes
-extension CustomThemeExtension on CustomTheme {
+extension TraleCustomThemeExtension on TraleCustomTheme {
   /// get corresponding light theme
-  TraleTheme? get light => <CustomTheme, TraleTheme>{
-    CustomTheme.marine: marineLightTheme,
-    CustomTheme.power: powerLightTheme,
-    CustomTheme.forest: forestLightTheme,
-    CustomTheme.water: waterLightTheme,
-    CustomTheme.fire: fireLightTheme,
-    CustomTheme.sand: sandLightTheme,
-  }[this];
+  TraleTheme get light => <TraleCustomTheme, TraleTheme>{
+    TraleCustomTheme.marine: marineLightTheme,
+    TraleCustomTheme.power: powerLightTheme,
+    TraleCustomTheme.forest: forestLightTheme,
+    TraleCustomTheme.water: waterLightTheme,
+    TraleCustomTheme.fire: fireLightTheme,
+    TraleCustomTheme.sand: sandLightTheme,
+  }[this]!;
 
   /// get corresponding dark theme
-  TraleTheme? get dark => <CustomTheme, TraleTheme>{
-    CustomTheme.marine: marineDarkTheme,
-    CustomTheme.power: powerDarkTheme,
-    CustomTheme.forest: forestDarkTheme,
-    CustomTheme.water: waterDarkTheme,
-    CustomTheme.fire: fireDarkTheme,
-    CustomTheme.sand: sandDarkTheme,
-  }[this];
+  TraleTheme get dark => <TraleCustomTheme, TraleTheme>{
+    TraleCustomTheme.marine: marineDarkTheme,
+    TraleCustomTheme.power: powerDarkTheme,
+    TraleCustomTheme.forest: forestDarkTheme,
+    TraleCustomTheme.water: waterDarkTheme,
+    TraleCustomTheme.fire: fireDarkTheme,
+    TraleCustomTheme.sand: sandDarkTheme,
+  }[this]!;
 
   /// get amoled dark theme
-  TraleTheme get amoled => dark!.amoled;
+  TraleTheme get amoled => dark.amoled;
 
   /// get string expression
   String get name => toString().split('.').last;
@@ -438,29 +438,29 @@ extension CustomThemeExtension on CustomTheme {
 /// convert string to type
 extension CustomThemeParsing on String {
   /// convert number to difficulty
-  CustomTheme toCustomTheme() => CustomTheme.values.firstWhere(
-    (CustomTheme type) => this == type.name,
-    orElse: () => null,
-  );
+  TraleCustomTheme? toTraleCustomTheme() {
+    for (TraleCustomTheme theme in TraleCustomTheme.values)
+      if (this == theme.name)
+        return theme;
+    return null;
+  }
 }
 
 /// convert string to ThemeMode
 extension CustomThemeModeParsing on String {
   /// convert string
-  ThemeMode? toThemeMode() => <String, ThemeMode>{
+  ThemeMode toThemeMode() => <String, ThemeMode>{
     'on': ThemeMode.dark,
     'off': ThemeMode.light,
     'auto': ThemeMode.system,
-  }[this];
+  }[this]!;
 }
 /// convert ThemeMode to String
 extension CustomThemeModeEncoding on ThemeMode {
   /// convert Thememode
-  String? toCustomString() => <ThemeMode, String>{
+  String toCustomString() => <ThemeMode, String>{
     ThemeMode.dark: 'on',
     ThemeMode.light: 'off',
     ThemeMode.system: 'auto',
-  }[this];
+  }[this]!;
 }
-
-CustomTheme c = CustomTheme.forest;
