@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/widget/linechart.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,10 +18,9 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
+            CustomLineChart(),
           ],
         ),
       ),
