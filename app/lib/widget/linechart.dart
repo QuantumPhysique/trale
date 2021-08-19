@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
+import 'package:flutter/gestures.dart';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -12,25 +13,38 @@ class CustomLineChart extends StatefulWidget {
 }
 
 class _CustomLineChartState extends State<CustomLineChart> {
+  final List<Measurement> data = <Measurement>[
+    Measurement(weight: 83.0, date: DateTime.parse('2021-06-26 20:18:04Z')),
+    Measurement(weight: 83.3, date: DateTime.parse('2021-07-02 20:18:04Z')),
+    Measurement(weight: 82.5, date: DateTime.parse('2021-07-06 16:18:04Z')),
+    Measurement(weight: 82.2, date: DateTime.parse('2021-07-12 20:18:04Z')),
+    Measurement(weight: 81.1, date: DateTime.parse('2021-07-20 20:18:04Z')),
+    Measurement(weight: 81.8, date: DateTime.parse('2021-07-22 09:18:04Z')),
+    Measurement(weight: 81.3, date: DateTime.parse('2021-07-24 06:18:04Z')),
+    Measurement(weight: 79.9, date: DateTime.parse('2021-07-26 08:18:04Z')),
+    Measurement(weight: 80.1, date: DateTime.parse('2021-07-29 07:18:04Z')),
+    Measurement(weight: 80.3, date: DateTime.parse('2021-08-01 07:18:04Z')),
+    Measurement(weight: 79.6, date: DateTime.parse('2021-08-05 07:18:04Z')),
+    Measurement(weight: 79.1, date: DateTime.parse('2021-08-06 07:18:04Z')),
+    Measurement(weight: 78.7, date: DateTime.parse('2021-08-16 07:18:04Z')),
+  ];
+
+  late double minX;
+  late double maxX;
+  @override
+  void initState() {
+    super.initState();
+    minX = DateTime.now().subtract(const Duration(days: 21)
+                                   ).millisecondsSinceEpoch.toDouble();
+    maxX = DateTime.now().millisecondsSinceEpoch.toDouble();
+  }
 
   @override
   Widget build(BuildContext context) {
 
     final List<Color> gradientColors = <Color>[
-      TraleTheme.of(context)!.bg,
+      colorElevated(TraleTheme.of(context)!.accent, 50.0),
       TraleTheme.of(context)!.accent,
-    ];
-
-    final List<Measurement> data = <Measurement>[
-      Measurement(weight: 83.0, date: DateTime.parse('2021-06-26 20:18:04Z')),
-      Measurement(weight: 83.3, date: DateTime.parse('2021-07-02 20:18:04Z')),
-      Measurement(weight: 82.5, date: DateTime.parse('2021-07-06 16:18:04Z')),
-      Measurement(weight: 82.2, date: DateTime.parse('2021-07-12 20:18:04Z')),
-      Measurement(weight: 81.1, date: DateTime.parse('2021-07-20 20:18:04Z')),
-      Measurement(weight: 81.8, date: DateTime.parse('2021-07-22 09:18:04Z')),
-      Measurement(weight: 81.3, date: DateTime.parse('2021-07-24 06:18:04Z')),
-      Measurement(weight: 79.9, date: DateTime.parse('2021-07-26 08:18:04Z')),
-      Measurement(weight: 80.1, date: DateTime.parse('2021-07-29 07:18:04Z'))
     ];
 
 
@@ -70,8 +84,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    Widget linechart = LineChart(
+    //todo use ScatterChart for data and use LineChart for the model.
+    Widget lineChart (double minX, double maxX, double minY, double maxY) {
+      return LineChart(
         LineChartData(
+          minX: minX,
+          maxX: maxX,
+          minY: minY,
+          maxY: maxY,
           borderData: FlBorderData(show: false),
           gridData: FlGridData(
             show: false,
@@ -98,22 +118,21 @@ class _CustomLineChartState extends State<CustomLineChart> {
             show: true,
           ),
           clipData: FlClipData.all(),
-          /*         minX: 0.0,
-          maxX: 31.0,*/
-          minY: 78.0,
-          maxY: 84.0,
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
               spots: convertMeasurements(data),
-              isCurved: true,
-              colors: <Color>[TraleTheme.of(context)!.accent],
+              isCurved: false,
+              colors: gradientColors,
               barWidth: 5,
               isStrokeCapRound: true,
               dotData: FlDotData(
-                show: false,
+                show: true,
               ),
               belowBarData: BarAreaData(
                 show: true,
+                /* uncomment to make vertical gradient
+                gradientFrom: Offset(0.5, 1),
+                gradientTo: Offset(0.5, 0), */
                 colors: gradientColors.map(
                         (Color color) => color.withOpacity(0.3)).toList(),
               ),
@@ -121,12 +140,55 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ],
         ),
       );
+    }
 
     return Container(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: linechart
+      child: Listener(
+        onPointerSignal: (signal) {
+          if (signal is PointerScrollEvent) {
+            setState(() {
+              if (signal.scrollDelta.dy.isNegative) {
+                minX += 1000 * 3600 * 24;
+                maxX -= 1000 * 3600 * 24;
+              } else {
+                minX -= 1000 * 3600 * 24;
+                maxX += 1000 * 3600 * 24;
+              }
+            });
+          }
+        },
+        child: GestureDetector(
+          onDoubleTap: () {
+            setState(() {
+              minX = data.first.date.millisecondsSinceEpoch.toDouble();
+              maxX = data.last.date.millisecondsSinceEpoch.toDouble();
+            });
+          },
+          onHorizontalDragUpdate: (dragUpdDet) {
+            setState(() {
+              print(dragUpdDet.primaryDelta);
+              double primDelta = dragUpdDet.primaryDelta ?? 0.0;
+              if (primDelta != 0) {
+                if (primDelta.isNegative) {
+                  if (maxX < data.last.date.millisecondsSinceEpoch.toDouble()) {
+                    minX += 1000 * 3600 * 24;
+                    maxX += 1000 * 3600 * 24;
+                  }
+                } else {
+                  if (minX > data.first.date.millisecondsSinceEpoch.toDouble()) {
+                    minX -= 1000 * 3600 * 24;
+                    maxX -= 1000 * 3600 * 24;
+                  }
+                }
+              }
+            });
+          },
+          child: lineChart(minX, maxX, 77, 84)
+        ),
+      )
     );
   }
 }
