@@ -61,7 +61,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
       return SideTitles(
         showTitles: true,
         reservedSize: 22,
-        interval: 1000 * 60 * 60 * 24 * 2,  // 2 days
+        interval: ((maxX - minX)~/ 6).toDouble(),
+        // 1000 * 60 * 60 * 24 * 2 2 days
         margin: 10,
         getTextStyles:(double value) => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
@@ -167,20 +168,36 @@ class _CustomLineChartState extends State<CustomLineChart> {
               maxX = data.last.date.millisecondsSinceEpoch.toDouble();
             });
           },
-          onHorizontalDragUpdate: (dragUpdDet) {
+          onScaleUpdate: (ScaleUpdateDetails details) {
             setState(() {
-              print(dragUpdDet.primaryDelta);
-              double primDelta = dragUpdDet.primaryDelta ?? 0.0;
+              final double scale = details.scale;
+              if (scale < 0) {
+                if (maxX - minX > 1000 * 3600 * 24) {
+                  minX += 1000 * 3600 * 24;
+                  maxX -= 1000 * 3600 * 24;
+                }
+              } else {
+                if (minX > data.first.date.millisecondsSinceEpoch.toDouble()
+                    && maxX < data.last.date.millisecondsSinceEpoch.toDouble()){
+                  minX -= 1000 * 3600 * 24;
+                  maxX += 1000 * 3600 * 24;
+                }
+              }
+            });
+          },
+          onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
+            setState(() {
+              final double primDelta = dragUpdDet.primaryDelta ?? 0.0;
               if (primDelta != 0) {
                 if (primDelta.isNegative) {
                   if (maxX < data.last.date.millisecondsSinceEpoch.toDouble()) {
-                    minX += 1000 * 3600 * 24;
-                    maxX += 1000 * 3600 * 24;
+                    minX += 500 * 3600 * 24;
+                    maxX += 500 * 3600 * 24;
                   }
                 } else {
-                  if (minX > data.first.date.millisecondsSinceEpoch.toDouble()) {
-                    minX -= 1000 * 3600 * 24;
-                    maxX -= 1000 * 3600 * 24;
+                  if (minX > data.first.date.millisecondsSinceEpoch.toDouble()){
+                    minX -= 500 * 3600 * 24;
+                    maxX -= 500 * 3600 * 24;
                   }
                 }
               }
