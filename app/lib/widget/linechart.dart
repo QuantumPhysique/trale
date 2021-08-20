@@ -147,64 +147,59 @@ class _CustomLineChartState extends State<CustomLineChart> {
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Listener(
-        onPointerSignal: (signal) {
-          if (signal is PointerScrollEvent) {
-            setState(() {
-              if (signal.scrollDelta.dy.isNegative) {
-                minX += 1000 * 3600 * 24;
-                maxX -= 1000 * 3600 * 24;
-              } else {
-                minX -= 1000 * 3600 * 24;
-                maxX += 1000 * 3600 * 24;
-              }
-            });
-          }
-        },
-        child: GestureDetector(
-          onDoubleTap: () {
-            setState(() {
+      child: GestureDetector(
+        onDoubleTap: () {
+          setState(() {
+            if (minX == data.first.date.millisecondsSinceEpoch.toDouble()
+                && maxX == data.last.date.millisecondsSinceEpoch.toDouble()) {
+              minX = DateTime.now().subtract(const Duration(days: 21)
+              ).millisecondsSinceEpoch.toDouble();
+              maxX = DateTime.now().millisecondsSinceEpoch.toDouble();
+            } else {
               minX = data.first.date.millisecondsSinceEpoch.toDouble();
               maxX = data.last.date.millisecondsSinceEpoch.toDouble();
-            });
-          },
-          onScaleUpdate: (ScaleUpdateDetails details) {
-            setState(() {
-              final double scale = details.scale;
-              if (scale < 0) {
-                if (maxX - minX > 1000 * 3600 * 24) {
-                  minX += 1000 * 3600 * 24;
-                  maxX -= 1000 * 3600 * 24;
+            }
+          });
+        },
+        onScaleUpdate: (ScaleUpdateDetails details) {
+          setState(() {
+            final double scale = 1 - details.horizontalScale;
+            if (scale.isNegative) {
+              if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
+                minX -= (maxX - minX) * scale;
+                maxX += (maxX - minX) * scale;
+              }
+            } else {
+              if (maxX - minX < 1000 * 3600 * 24 * 7 *  8) {
+                if (minX > data.first.date.millisecondsSinceEpoch.toDouble()) {
+                  minX -= (maxX - minX) * scale;
+                }
+                if (maxX < DateTime.now().millisecondsSinceEpoch.toDouble()) {
+                  maxX += (maxX - minX) * scale;
+                }
+              }
+            }
+          });
+        },
+        onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
+          setState(() {
+            final double primDelta = dragUpdDet.primaryDelta ?? 0.0;
+            if (primDelta != 0) {
+              if (primDelta.isNegative) {
+                if (maxX < DateTime.now().millisecondsSinceEpoch.toDouble()) {
+                  minX += 500 * 3600 * 24;
+                  maxX += 500 * 3600 * 24;
                 }
               } else {
-                if (minX > data.first.date.millisecondsSinceEpoch.toDouble()
-                    && maxX < data.last.date.millisecondsSinceEpoch.toDouble()){
-                  minX -= 1000 * 3600 * 24;
-                  maxX += 1000 * 3600 * 24;
+                if (minX > data.first.date.millisecondsSinceEpoch.toDouble()){
+                  minX -= 500 * 3600 * 24;
+                  maxX -= 500 * 3600 * 24;
                 }
               }
-            });
-          },
-          onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
-            setState(() {
-              final double primDelta = dragUpdDet.primaryDelta ?? 0.0;
-              if (primDelta != 0) {
-                if (primDelta.isNegative) {
-                  if (maxX < data.last.date.millisecondsSinceEpoch.toDouble()) {
-                    minX += 500 * 3600 * 24;
-                    maxX += 500 * 3600 * 24;
-                  }
-                } else {
-                  if (minX > data.first.date.millisecondsSinceEpoch.toDouble()){
-                    minX -= 500 * 3600 * 24;
-                    maxX -= 500 * 3600 * 24;
-                  }
-                }
-              }
-            });
-          },
-          child: lineChart(minX, maxX, 77, 84)
-        ),
+            }
+          });
+        },
+        child: lineChart(minX, maxX, 77, 84)
       )
     );
   }
