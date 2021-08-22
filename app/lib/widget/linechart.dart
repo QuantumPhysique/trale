@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
 import 'package:flutter/gestures.dart';
+import 'dart:math';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -14,6 +15,7 @@ class CustomLineChart extends StatefulWidget {
 
 class _CustomLineChartState extends State<CustomLineChart> {
   final List<Measurement> data = <Measurement>[
+    Measurement(weight: 85.0, date: DateTime.parse('2021-04-23 20:18:04Z')),
     Measurement(weight: 83.0, date: DateTime.parse('2021-06-26 20:18:04Z')),
     Measurement(weight: 83.3, date: DateTime.parse('2021-07-02 20:18:04Z')),
     Measurement(weight: 82.5, date: DateTime.parse('2021-07-06 16:18:04Z')),
@@ -53,8 +55,26 @@ class _CustomLineChartState extends State<CustomLineChart> {
                     measurement.weight.toDouble());
     }
 
-    List<FlSpot> convertMeasurements(List<Measurement> measurements) {
-      return measurements.map(measurementToFlSpot).toList();
+    final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
+    final List<FlSpot> shownData = measurements.where(
+            (FlSpot e) => e.x <= maxX && e.x >= minX).toList();
+    double minY ;
+    double maxY;
+    if (shownData.isEmpty) {
+      // if no datapoint is inside of interval take closed ones.
+      minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
+      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);
+    } else {
+      minY = shownData.map((FlSpot e) => e.y).toList().reduce(min);
+      maxY = shownData.map((FlSpot e) => e.y).toList().reduce(max);
+    }
+    // add padding to minY and maxY
+    minY -= 0.2 * (maxY - minY);
+    maxY += 0.2 * (maxY - minY);
+    // ensure that minY and maxY are not to close
+    if (maxY - minY < 2) {
+      minY = (maxY + minY) / 2 - 1;
+      maxY = (maxY + minY) / 2 + 1;
     }
 
     SideTitles bottomTitles () {
@@ -62,7 +82,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
         showTitles: true,
         reservedSize: 22,
         interval: ((maxX - minX)~/ 6).toDouble(),
-        // 1000 * 60 * 60 * 24 * 2 2 days
         margin: 10,
         getTextStyles:(double value) => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
@@ -76,7 +95,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       return SideTitles(
         showTitles: true,
         reservedSize: 35,
-        interval: 1,  // 2 days
+        interval: 1,
         margin: 10,
         getTextStyles:(double value) => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
@@ -91,8 +110,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
         LineChartData(
           minX: minX,
           maxX: maxX,
-          minY: minY,
-          maxY: maxY,
+          minY: minY.floorToDouble(),
+          maxY: maxY.ceilToDouble(),
           borderData: FlBorderData(show: false),
           gridData: FlGridData(
             show: false,
@@ -121,7 +140,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           clipData: FlClipData.all(),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
-              spots: convertMeasurements(data),
+              spots: measurements,
               isCurved: false,
               colors: gradientColors,
               barWidth: 5,
@@ -163,18 +182,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
         },
         onScaleUpdate: (ScaleUpdateDetails details) {
           setState(() {
-            final double scale = 1 - details.horizontalScale;
+            final double scale = (1 - details.horizontalScale) / 50;
             if (scale.isNegative) {
               if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
                 minX -= (maxX - minX) * scale;
                 maxX += (maxX - minX) * scale;
               }
             } else {
-              if (maxX - minX < 1000 * 3600 * 24 * 7 *  8) {
-                if (minX > data.first.date.millisecondsSinceEpoch.toDouble()) {
+              if (maxX - minX < 1000 * 3600 * 24 * 7 *  12) {
+                if (minX - (maxX - minX) * scale
+                    > data.first.date.millisecondsSinceEpoch.toDouble()) {
                   minX -= (maxX - minX) * scale;
                 }
-                if (maxX < DateTime.now().millisecondsSinceEpoch.toDouble()) {
+                if (maxX + (maxX - minX) * scale
+                    < DateTime.now().millisecondsSinceEpoch.toDouble()) {
                   maxX += (maxX - minX) * scale;
                 }
               }
@@ -183,23 +204,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
         },
         onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
           setState(() {
-            final double primDelta = dragUpdDet.primaryDelta ?? 0.0;
-            if (primDelta != 0) {
-              if (primDelta.isNegative) {
-                if (maxX < DateTime.now().millisecondsSinceEpoch.toDouble()) {
-                  minX += 500 * 3600 * 24;
-                  maxX += 500 * 3600 * 24;
-                }
-              } else {
-                if (minX > data.first.date.millisecondsSinceEpoch.toDouble()){
-                  minX -= 500 * 3600 * 24;
-                  maxX -= 500 * 3600 * 24;
-                }
-              }
+            final double primDelta =
+                (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100  ;
+            if (maxX - primDelta
+                <= DateTime.now().millisecondsSinceEpoch.toDouble()
+                && minX - primDelta
+                >= data.first.date.millisecondsSinceEpoch.toDouble()) {
+              maxX -= primDelta;
+              minX -= primDelta;
             }
+            print([(maxX - minX) / 1000 / 3600 / 24,
+                   primDelta / 1000 / 3600 / 24]);
           });
         },
-        child: lineChart(minX, maxX, 77, 84)
+        child: lineChart(minX, maxX, minY, maxY)
       )
     );
   }
