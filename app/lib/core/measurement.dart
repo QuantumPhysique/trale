@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
+part 'measurement.g.dart';
 
 /// Class for weight event
+@HiveType(typeId: 0)
 class Measurement {
   /// constructor
   Measurement({
@@ -10,8 +12,10 @@ class Measurement {
   });
 
   /// weight of measurement
+  @HiveField(0)
   final num weight;
   /// date of measurement
+  @HiveField(1)
   final DateTime date;
 
   /// implement sorting entries by date

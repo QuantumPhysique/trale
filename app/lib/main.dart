@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/pages/home.dart';
 
+
+const String measurementBoxName = 'measurements';
 
 Future<void> main() async {
   // load singleton
@@ -14,6 +19,10 @@ Future<void> main() async {
   final Preferences prefs = Preferences();
   await prefs.loaded;
   final TraleNotifier traleNotifier = TraleNotifier();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter<Measurement>(MeasurementAdapter());
+  await Hive.openBox<Measurement>(measurementBoxName);
 
   return runApp(
     ChangeNotifierProvider<TraleNotifier>.value(

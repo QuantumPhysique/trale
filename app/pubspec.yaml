@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  auto_size_text_pk: ^3.0.0
   provider: ^5.0.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
@@ -41,6 +42,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  hive_generator: ^1.1.0
+  build_runner: ^2.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

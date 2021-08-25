@@ -1,48 +1,44 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/gestures.dart';
+import 'package:hive/hive.dart';
+
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:math';
+import 'package:trale/main.dart';
+
 
 
 class CustomLineChart extends StatefulWidget {
-  const CustomLineChart({Key? key}) : super(key: key);
+  CustomLineChart({Key? key, required this.box}) : super(key: key);
+
+  /// Hive box of measurments
+  final Box<Measurement> box;
 
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
 }
 
 class _CustomLineChartState extends State<CustomLineChart> {
-  final List<Measurement> data = <Measurement>[
-    Measurement(weight: 85.0, date: DateTime.parse('2021-04-23 20:18:04Z')),
-    Measurement(weight: 83.0, date: DateTime.parse('2021-06-26 20:18:04Z')),
-    Measurement(weight: 83.3, date: DateTime.parse('2021-07-02 20:18:04Z')),
-    Measurement(weight: 82.5, date: DateTime.parse('2021-07-06 16:18:04Z')),
-    Measurement(weight: 82.2, date: DateTime.parse('2021-07-12 20:18:04Z')),
-    Measurement(weight: 81.1, date: DateTime.parse('2021-07-20 20:18:04Z')),
-    Measurement(weight: 81.8, date: DateTime.parse('2021-07-22 09:18:04Z')),
-    Measurement(weight: 81.3, date: DateTime.parse('2021-07-24 06:18:04Z')),
-    Measurement(weight: 79.9, date: DateTime.parse('2021-07-26 08:18:04Z')),
-    Measurement(weight: 80.1, date: DateTime.parse('2021-07-29 07:18:04Z')),
-    Measurement(weight: 80.3, date: DateTime.parse('2021-08-01 07:18:04Z')),
-    Measurement(weight: 79.6, date: DateTime.parse('2021-08-05 07:18:04Z')),
-    Measurement(weight: 79.1, date: DateTime.parse('2021-08-06 07:18:04Z')),
-    Measurement(weight: 78.7, date: DateTime.parse('2021-08-16 07:18:04Z')),
-  ];
-
   late double minX;
   late double maxX;
   @override
   void initState() {
     super.initState();
-    minX = DateTime.now().subtract(const Duration(days: 21)
-                                   ).millisecondsSinceEpoch.toDouble();
+    minX = DateTime.now().subtract(
+        const Duration(days: 21)
+    ).millisecondsSinceEpoch.toDouble();
     maxX = DateTime.now().millisecondsSinceEpoch.toDouble();
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<Measurement> data = widget.box.values.toList();
+    data.sort((Measurement a, Measurement b) {
+      return a.compareTo(b);
+    });
 
     final List<Color> gradientColors = <Color>[
       //colorElevated(TraleTheme.of(context)!.accent, 100.0),
