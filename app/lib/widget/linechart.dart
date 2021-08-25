@@ -45,7 +45,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
   Widget build(BuildContext context) {
 
     final List<Color> gradientColors = <Color>[
-      colorElevated(TraleTheme.of(context)!.accent, 50.0),
+      //colorElevated(TraleTheme.of(context)!.accent, 100.0),
+      TraleTheme.of(context)!.accent.withOpacity(0.5),
       TraleTheme.of(context)!.accent,
     ];
 
@@ -56,14 +57,22 @@ class _CustomLineChartState extends State<CustomLineChart> {
     }
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
+
     final List<FlSpot> shownData = measurements.where(
             (FlSpot e) => e.x <= maxX && e.x >= minX).toList();
-    double minY ;
+/*    final List<FlSpot> shownData = measurements.sublist(
+      measurements.lastIndexWhere((FlSpot e) => e.x < minX),
+      measurements.indexWhere((FlSpot e) => e.x > maxX),
+    );*/
+
+    double minY;
     double maxY;
     if (shownData.isEmpty) {
       // if no datapoint is inside of interval take closed ones.
-      minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
-      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);
+      minY = measurements.lastWhere((FlSpot e) => e.x <= minX).y;
+      maxY = measurements.firstWhere((FlSpot e) => e.x >= maxX).y;
+      /*minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
+      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);*/
     } else {
       minY = shownData.map((FlSpot e) => e.y).toList().reduce(min);
       maxY = shownData.map((FlSpot e) => e.y).toList().reduce(max);
@@ -114,10 +123,11 @@ class _CustomLineChartState extends State<CustomLineChart> {
           maxY: maxY.ceilToDouble(),
           borderData: FlBorderData(show: false),
           gridData: FlGridData(
-            show: false,
-            verticalInterval: 1000 * 60 * 60 * 24,
+            show: true,
+            verticalInterval: 1000 * 3600 * 24 * 30,
             horizontalInterval: 1,
             drawVerticalLine: true,
+            drawHorizontalLine: false,
             getDrawingHorizontalLine: (double value) {
               return FlLine(
                 color: TraleTheme.of(context)!.bgShade2,
@@ -143,6 +153,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               spots: measurements,
               isCurved: false,
               colors: gradientColors,
+              gradientFrom: const Offset(0.5, 1),
+              gradientTo: const Offset(0.5, 0),
               barWidth: 5,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -150,9 +162,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               ),
               belowBarData: BarAreaData(
                 show: true,
-                /* uncomment to make vertical gradient
-                gradientFrom: Offset(0.5, 1),
-                gradientTo: Offset(0.5, 0), */
+                gradientFrom: const Offset(0.5, 1),
+                gradientTo: const Offset(0.5, 0),
                 colors: gradientColors.map(
                         (Color color) => color.withOpacity(0.3)).toList(),
               ),
@@ -208,7 +219,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                 (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100  ;
             if (maxX - primDelta
                 <= DateTime.now().millisecondsSinceEpoch.toDouble()
-                && minX - primDelta
+                && maxX - primDelta
                 >= data.first.date.millisecondsSinceEpoch.toDouble()) {
               maxX -= primDelta;
               minX -= primDelta;
