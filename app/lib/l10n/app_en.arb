@@ -1,6 +1,11 @@
 {
   "@@locale": "en",
 
+  "trale": "trale",
+  "@trale" : {
+    "description": "Name of app: trale"
+  },
+
   "user": "user profile",
   "@user" : {
     "description": "Name of user menu"

@@ -1,6 +1,7 @@
 {
   "@@locale": "de",
 
+  "trale": "Trale",
   "about": "über",
   "abort": "abbrechen",
   "abortExerciseExists": "Abbrechen. Übung existiert bereits.",
