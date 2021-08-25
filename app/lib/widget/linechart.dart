@@ -58,21 +58,25 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
 
-    final List<FlSpot> shownData = measurements.where(
-            (FlSpot e) => e.x <= maxX && e.x >= minX).toList();
-/*    final List<FlSpot> shownData = measurements.sublist(
-      measurements.lastIndexWhere((FlSpot e) => e.x < minX),
-      measurements.indexWhere((FlSpot e) => e.x > maxX),
-    );*/
+/*    final List<FlSpot> shownData = measurements.where(
+            (FlSpot e) => e.x <= maxX && e.x >= minX).toList();*/
+
+    final int indexFirst = measurements.lastIndexWhere(
+            (FlSpot e) => e.x < minX);
+    final int indexLast = measurements.indexWhere((FlSpot e) => e.x > maxX) + 1;
+    final List<FlSpot> shownData = measurements.sublist(
+      indexFirst == -1 ? 0 : indexFirst,
+      (indexLast == -1 || indexLast >= measurements.length
+          || indexLast < indexFirst)
+            ? measurements.length : indexLast,
+    );
 
     double minY;
     double maxY;
     if (shownData.isEmpty) {
-      // if no datapoint is inside of interval take closed ones.
-      minY = measurements.lastWhere((FlSpot e) => e.x <= minX).y;
-      maxY = measurements.firstWhere((FlSpot e) => e.x >= maxX).y;
-      /*minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
-      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);*/
+      // take global extrema if shownData is empty.
+      minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
+      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);
     } else {
       minY = shownData.map((FlSpot e) => e.y).toList().reduce(min);
       maxY = shownData.map((FlSpot e) => e.y).toList().reduce(max);
@@ -85,7 +89,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
       minY = (maxY + minY) / 2 - 1;
       maxY = (maxY + minY) / 2 + 1;
     }
-
     SideTitles bottomTitles () {
       return SideTitles(
         showTitles: true,
@@ -170,6 +173,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
             ),
           ],
         ),
+        swapAnimationDuration: const Duration(milliseconds: 150),
+        swapAnimationCurve: Curves.easeIn,
       );
     }
 
@@ -216,16 +221,15 @@ class _CustomLineChartState extends State<CustomLineChart> {
         onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
           setState(() {
             final double primDelta =
-                (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100  ;
-            if (maxX - primDelta
-                <= DateTime.now().millisecondsSinceEpoch.toDouble()
-                && maxX - primDelta
-                >= data.first.date.millisecondsSinceEpoch.toDouble()) {
+                (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
+            if (maxX - primDelta <=
+                  DateTime.now().millisecondsSinceEpoch.toDouble()
+                && maxX - primDelta >=
+                  data.first.date.millisecondsSinceEpoch.toDouble()
+                  + (maxX - minX) / 2) {
               maxX -= primDelta;
               minX -= primDelta;
             }
-            print([(maxX - minX) / 1000 / 3600 / 24,
-                   primDelta / 1000 / 3600 / 24]);
           });
         },
         child: lineChart(minX, maxX, minY, maxY)
