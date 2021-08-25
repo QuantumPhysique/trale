@@ -91,7 +91,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
         reservedSize: 22,
         interval: ((maxX - minX)~/ 6).toDouble(),
         margin: 10,
-        getTextStyles:(double value) => Theme.of(context).textTheme.bodyText1!,
+        getTextStyles:(BuildContext context, double value)
+          => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
           return DateTime.fromMillisecondsSinceEpoch(
               value.toInt()).day.toString();
@@ -105,7 +106,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
         reservedSize: 35,
         interval: 1,
         margin: 10,
-        getTextStyles:(double value) => Theme.of(context).textTheme.bodyText1!,
+        getTextStyles:(BuildContext context, double value)
+          => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
           return '$value kg';
         },
