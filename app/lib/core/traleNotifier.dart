@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/units.dart';
 
 /// Class to dynamically change themeMode, isAmoled and language within app
 class TraleNotifier with ChangeNotifier {
@@ -46,6 +47,16 @@ class TraleNotifier with ChangeNotifier {
   set language(Language newLanguage) {
     if (language != newLanguage) {
       prefs.language = newLanguage;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  TraleUnit get unit => prefs.unit;
+  /// setter
+  set unit(TraleUnit newUnit) {
+    if (unit != newUnit) {
+      prefs.unit = newUnit;
       notifyListeners();
     }
   }
