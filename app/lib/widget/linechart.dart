@@ -7,8 +7,6 @@ import 'package:hive/hive.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/main.dart';
-
 
 
 class CustomLineChart extends StatefulWidget {
@@ -91,7 +89,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         reservedSize: 22,
         interval: ((maxX - minX)~/ 6).toDouble(),
         margin: 10,
-        getTextStyles:(BuildContext context, double value)
+        getTextStyles: (double value)
           => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
           return DateTime.fromMillisecondsSinceEpoch(
@@ -106,7 +104,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         reservedSize: 35,
         interval: 1,
         margin: 10,
-        getTextStyles:(BuildContext context, double value)
+        getTextStyles: (double value)
           => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
           return '$value kg';
