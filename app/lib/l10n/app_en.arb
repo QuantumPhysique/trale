@@ -565,5 +565,9 @@
   "chooseExercise": "Choose an exercise",
   "@chooseExercise": {
     "description": "Choose an exercise"
+  },
+  "addWeight": "add weight",
+  "@addWeight": {
+    "description": "add weight"
   }
 }
