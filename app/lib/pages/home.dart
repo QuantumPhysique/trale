@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                     itemBuilder: (BuildContext context, int index) {
                       Measurement? currentMeasurement = box.getAt(index);
                       if (currentMeasurement == null)
-                        return SizedBox.shrink();
+                        return const SizedBox.shrink();
                       return ListTile(
                         contentPadding: EdgeInsets.symmetric(
                           horizontal: TraleTheme.of(context)!.padding * 2,
@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                   )
               ),
           ),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               Box<Measurement> box = Hive.box(measurementBoxName);
               final Random rng = Random();
@@ -108,8 +108,9 @@ class _HomeState extends State<Home> {
                 ),
               );
             },
-            tooltip: 'Increment',
-            child: Icon(Icons.add),
+            tooltip: AppLocalizations.of(context)!.addWeight,
+            icon: const Icon(Icons.add),
+            label: Text(AppLocalizations.of(context)!.addWeight),
           ),
           drawer: Drawer(
             child: Column(
