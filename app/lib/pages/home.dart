@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/main.dart';
+import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/linechart.dart';
 
 class Home extends StatefulWidget {
@@ -96,16 +97,18 @@ class _HomeState extends State<Home> {
               ),
           ),
           floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Box<Measurement> box = Hive.box(measurementBoxName);
-              final Random rng = Random();
-              box.add(
-                  Measurement(
-                    weight: 75 + rng.nextInt(50) / 10,
-                    date: DateTime.now().subtract(
-                        Duration(days: rng.nextInt(31))
-                    ),
-                ),
+            onPressed: () async {
+              // get weight from most recent measurement
+              final List<Measurement> data
+                = Hive.box<Measurement>(measurementBoxName).values.toList();
+              data.sort((Measurement a, Measurement b) {
+                return a.compareTo(b);
+              });
+              showAddWeightDialog(
+                context: context,
+                weight: data.last.weight.toDouble(),
+                date: DateTime.now(),
+                box: Hive.box<Measurement>(measurementBoxName),
               );
             },
             tooltip: AppLocalizations.of(context)!.addWeight,
