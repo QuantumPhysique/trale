@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -113,7 +111,9 @@ class _HomeState extends State<Home> {
               });
               showAddWeightDialog(
                 context: context,
-                weight: data.last.weight.toDouble(),
+                weight: data.isNotEmpty
+                  ? data.last.weight.toDouble()
+                  : 70,
                 date: DateTime.now(),
                 box: Hive.box<Measurement>(measurementBoxName),
               );
