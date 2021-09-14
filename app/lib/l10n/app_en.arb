@@ -13,6 +13,14 @@
   "@units" : {
     "description": "Units of measurements"
   },
+  "date": "date",
+  "@date" : {
+    "description": "Date"
+  },
+  "weight": "weight",
+  "@weight" : {
+    "description": "weight"
+  },
   "user": "user profile",
   "@user" : {
     "description": "Name of user menu"
