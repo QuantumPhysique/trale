@@ -5,7 +5,14 @@
   "@trale" : {
     "description": "Name of app: trale"
   },
-
+  "tralesub": "loose with ease",
+  "@tralesub" : {
+    "description": "Slogan of app"
+  },
+  "unit": "units",
+  "@units" : {
+    "description": "Units of measurements"
+  },
   "user": "user profile",
   "@user" : {
     "description": "Name of user menu"
@@ -18,8 +25,12 @@
   "@settings": {
     "description": "Name of settings menu"
   },
-  "settingsDesc": "theme, equipments and sound",
-  "@settingsDesc": {
+  "moreSettings": "more settings",
+  "@moreSettings": {
+    "description": "Name of settings menu"
+  },
+  "moreSettingsDesc": "themes, advanced",
+  "@moreSettingsDesc": {
     "description": "What to modify in the settings"
   },
   "databases": "databases",

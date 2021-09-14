@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:trale/core/language.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/units.dart';
 
 
 /// Class to coordinate shared preferences access
@@ -36,6 +37,8 @@ class Preferences {
   final Language defaultLanguage = Language.system();
   /// default for theme
   final String defaultTheme = TraleCustomTheme.fire.name;
+  /// default unit
+  final TraleUnit defaultUnit = TraleUnit.kg;
 
   /// getter and setter for all preferences
   /// get night mode value
@@ -56,6 +59,12 @@ class Preferences {
   String get theme => prefs.getString('theme')!;
   /// set theme mode
   set theme(String theme) => prefs.setString('theme', theme);
+  /// get unit mode
+  TraleUnit get unit => prefs.getString('unit')!.toTraleUnit()!;
+  /// set unit mode
+  set unit(TraleUnit unit) => prefs.setString(
+      'unit', unit.name,
+  );
 
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override=false}) {
@@ -67,6 +76,8 @@ class Preferences {
       language = defaultLanguage;
     if (override || !prefs.containsKey('theme'))
       theme = defaultTheme;
+    if (override || !prefs.containsKey('unit'))
+      unit = defaultUnit;
   }
 
   /// reset all settings

@@ -446,6 +446,12 @@ extension CustomThemeParsing on String {
   }
 }
 
+final List<ThemeMode> orderedThemeModes = <ThemeMode>[
+  ThemeMode.light,
+  ThemeMode.system,
+  ThemeMode.dark,
+];
+
 /// convert string to ThemeMode
 extension CustomThemeModeParsing on String {
   /// convert string
