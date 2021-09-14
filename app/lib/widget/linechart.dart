@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/units.dart';
+import 'package:trale/core/traleNotifier.dart';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -33,6 +36,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
+    TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
+
     final List<Measurement> data = widget.box.values.toList();
     data.sort((Measurement a, Measurement b) {
       return a.compareTo(b);
@@ -46,8 +51,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
 
     FlSpot measurementToFlSpot (Measurement measurement) {
-      return FlSpot(measurement.date.millisecondsSinceEpoch.toDouble(),
-                    measurement.weight.toDouble());
+      return FlSpot(
+        measurement.date.millisecondsSinceEpoch.toDouble(),
+        notifier.unit.scaling * measurement.weight.toDouble(),
+      );
     }
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
@@ -107,7 +114,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         getTextStyles: (double value)
           => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
-          return '$value kg';
+          return '${value.toStringAsFixed(0)} ${notifier.unit.name}';
         },
       );
     }

@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
       handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
     );
 
+    TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
 
     return Container(
       color: Theme.of(context).backgroundColor,
@@ -88,7 +89,9 @@ class _HomeState extends State<Home> {
                         ),
                         dense: true,
                         title: Text(
-                          currentMeasurement.weight.toStringAsFixed(1),
+                          (
+                              currentMeasurement.weight * notifier.unit.scaling
+                          ).toStringAsFixed(1),
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         leading: Text(
