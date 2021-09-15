@@ -53,7 +53,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     FlSpot measurementToFlSpot (Measurement measurement) {
       return FlSpot(
         measurement.date.millisecondsSinceEpoch.toDouble(),
-        notifier.unit.scaling * measurement.weight.toDouble(),
+        notifier.unit.scaling * measurement.weight,
       );
     }
 

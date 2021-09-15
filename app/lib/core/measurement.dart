@@ -13,7 +13,7 @@ class Measurement {
 
   /// weight of measurement
   @HiveField(0)
-  final num weight;
+  final double weight;
   /// date of measurement
   @HiveField(1)
   final DateTime date;

@@ -17,7 +17,7 @@ class MeasurementAdapter extends TypeAdapter<Measurement> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Measurement(
-      weight: fields[0] as num,
+      weight: fields[0] as double,
       date: fields[1] as DateTime,
     );
   }
