@@ -1,13 +1,12 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/language.dart';
-
-
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -119,7 +118,7 @@ class _HomeState extends State<Home> {
               );
             },
             tooltip: AppLocalizations.of(context)!.addWeight,
-            icon: const Icon(Icons.add),
+            icon: const Icon(CustomIcons.add),
             label: Text(AppLocalizations.of(context)!.addWeight),
           ),
           drawer: Drawer(
@@ -239,14 +238,14 @@ class _HomeState extends State<Home> {
                     renderBorder: false,
                     fillColor: Colors.transparent,
                     children: <Widget>[
-                      const Icon(Icons.brightness_5_outlined),
+                      const Icon(CustomIcons.lightmode),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: TraleTheme.of(context)!.padding,
                         ),
-                        child: const Icon(Icons.brightness_auto_outlined),
+                        child: const Icon(CustomIcons.automode),
                       ),
-                      const Icon(Icons.brightness_2_outlined),
+                      const Icon(CustomIcons.darkmode),
                     ],
                     isSelected: List<bool>.generate(
                       orderedThemeModes.length,
@@ -269,7 +268,7 @@ class _HomeState extends State<Home> {
                 ListTile(
                     dense: true,
                     leading: Icon(
-                      Icons.settings,
+                      CustomIcons.settings,
                       color: Theme.of(context).iconTheme.color,
                     ),
                     title: AutoSizeText(
@@ -281,7 +280,7 @@ class _HomeState extends State<Home> {
                 ListTile(
                   dense: true,
                   leading: Icon(
-                    Icons.question_answer_outlined,
+                    CustomIcons.faq,
                     color: Theme.of(context).iconTheme.color,
                   ),
                   title: AutoSizeText(
@@ -293,7 +292,7 @@ class _HomeState extends State<Home> {
                 ListTile(
                   dense: true,
                   leading: Icon(
-                    Icons.question_answer_outlined,
+                    CustomIcons.info,
                     color: Theme.of(context).iconTheme.color,
                   ),
                   title: AutoSizeText(
