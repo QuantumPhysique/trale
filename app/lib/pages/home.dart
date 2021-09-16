@@ -1,6 +1,7 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +38,10 @@ class _HomeState extends State<Home> {
             style: Theme.of(context).textTheme.headline4,
             maxLines: 1,
           ),
+          leading: IconButton(
+            icon: const Icon(CustomIcons.settings),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
           floating: true,
           snap: true,
           pinned: true,
@@ -61,6 +66,40 @@ class _HomeState extends State<Home> {
     );
 
     TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
+    final SlidableController slidableController = SlidableController();
+
+    void _showSnackBar(String s) {
+      final SnackBar snackBar = SnackBar(
+        content: Text(s),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            // Some code to undo the change.
+          },
+        ),
+      );
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
+    Widget deleteAction() {
+      return IconSlideAction(
+        caption: AppLocalizations.of(context)!.delete,
+        color: TraleTheme.of(context)!.accent,
+        icon: CustomIcons.delete,
+        onTap: () => _showSnackBar('delete'),
+      );
+    }
+
+    Widget editAction() {
+      return IconSlideAction(
+        caption: AppLocalizations.of(context)!.edit,
+        color: TraleTheme.of(context)!.bgShade3,
+        icon: CustomIcons.edit,
+        onTap: () => _showSnackBar('edit'),
+      );
+    }
 
     return Container(
       color: Theme.of(context).backgroundColor,
@@ -80,21 +119,37 @@ class _HomeState extends State<Home> {
                       Measurement? currentMeasurement = box.getAt(index);
                       if (currentMeasurement == null)
                         return const SizedBox.shrink();
-                      return ListTile(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: TraleTheme.of(context)!.padding * 2,
+                      return Slidable(
+                        controller: slidableController,
+                        actionPane: const SlidableDrawerActionPane(),
+                        actionExtentRatio: 0.25,
+                        child: Container(
+                          color: Colors.white,
+                          child: ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: TraleTheme.of(context)!.padding * 2,
+                            ),
+                            dense: true,
+                            title: Text(
+                              '${(
+                                  currentMeasurement.weight * notifier.unit.scaling
+                              ).toStringAsFixed(1)} ${notifier.unit.name}',
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            leading: Text(
+                              DateFormat('dd/MM/yy').format(currentMeasurement.date),
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                          ),
                         ),
-                        dense: true,
-                        title: Text(
-                          (
-                              currentMeasurement.weight * notifier.unit.scaling
-                          ).toStringAsFixed(1),
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        leading: Text(
-                          DateFormat('dd/MM/yy').format(currentMeasurement.date),
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
+                        actions: <Widget>[
+                          deleteAction(),
+                          editAction(),
+                        ],
+                        secondaryActions: <Widget>[
+                          editAction(),
+                          deleteAction()
+                        ],
                       );
                     }
                   )

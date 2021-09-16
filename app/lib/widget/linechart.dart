@@ -150,6 +150,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           titlesData: FlTitlesData(
             bottomTitles: bottomTitles(),
             leftTitles: SideTitles(showTitles: false),
+            topTitles: SideTitles(showTitles: false),
             rightTitles: rightTitles(),
             show: true,
           ),
