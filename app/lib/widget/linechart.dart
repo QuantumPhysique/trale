@@ -138,7 +138,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       return SideTitles(
         showTitles: true,
         reservedSize: 22,
-        interval: ((maxX - minX)~/ 6).toDouble(),
+        interval: max<int>((maxX - minX)~/ 6, 1).toDouble(),
         margin: 10,
         getTextStyles: (BuildContext context, double value)
           => Theme.of(context).textTheme.bodyText1!,
@@ -153,7 +153,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       return SideTitles(
         showTitles: true,
         reservedSize: 35,
-        interval: ((maxY - minY)~/ 4).toDouble(),
+        interval: max<int>((maxY - minY)~/ 4, 1).toDouble(),
         margin: 10,
         getTextStyles: (BuildContext context, double value)
           => Theme.of(context).textTheme.bodyText1!,
