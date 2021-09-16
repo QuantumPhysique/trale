@@ -26,3 +26,26 @@ class Measurement {
   static int compare(Measurement a, Measurement b) => a.compareTo(b);
 }
 
+
+class RawMeasurement {
+  /// constructor
+  RawMeasurement({
+    required this.weight,
+    required this.date,
+  });
+
+  /// construct RawMeasurment from Measurement
+  RawMeasurement.fromMeasurement({
+    required Measurement measurement,
+  }) :
+    weight = measurement.weight,
+    date = DateTime(
+      measurement.date.year, measurement.date.month, measurement.date.day
+    ).millisecondsSinceEpoch;
+
+  /// weight of measurement
+  final double weight;
+  /// date of measurement in milliseconds since epoch
+  final int date;
+}
+

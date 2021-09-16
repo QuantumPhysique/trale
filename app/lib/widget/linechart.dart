@@ -12,6 +12,47 @@ import 'package:trale/core/units.dart';
 import 'package:trale/core/traleNotifier.dart';
 
 
+/// return gaussian with std of 3 days in x [ms]
+double gaussian(
+    double x, {double sigma=72 * 3600 * 1000, double mu=0}
+) => 1 / (sigma * sqrt(2 * pi)) * exp(-1 / 2 * pow(x - mu, 2) / pow(sigma, 2));
+
+// interpolate measurements
+// measurement.date.millisecondsSinceEpoch.toDouble(),
+// notifier.unit.scaling * measurement.weight,
+List<Measurement> measurementInerpol(List<Measurement> measurements) {
+  measurements.sort((Measurement a, Measurement b) {
+    return a.compareTo(b);
+  });
+  final List<RawMeasurement> values = <RawMeasurement>[
+    for (Measurement m in measurements)
+      RawMeasurement.fromMeasurement(measurement: m)
+  ];
+
+  List<Measurement> interpol = <Measurement>[];
+
+  final int date_from = values.first.date - 7 * 24*3600*1000;
+  final int date_to = values.last.date + 7 * 24*3600*1000;
+
+  for (int date=date_from; date < date_to; date += 24*3600*1000) {
+    double weight_sum = 0;
+    double mean_sum = 0;
+    for (final RawMeasurement m in values) {
+      final double weight = gaussian(date.toDouble(), mu: m.date.toDouble());
+      weight_sum += weight;
+      mean_sum += m.weight * weight;
+    }
+    interpol.add(
+      Measurement(
+        weight: mean_sum / weight_sum,
+        date: DateTime.fromMillisecondsSinceEpoch(date),
+      )
+    );
+  }
+  return interpol;
+}
+
+
 class CustomLineChart extends StatefulWidget {
   CustomLineChart({Key? key, required this.box}) : super(key: key);
 
@@ -58,6 +99,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
     }
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
+    final List<FlSpot> measurements_interpol = measurementInerpol(
+      data,
+    ).map(measurementToFlSpot).toList();
 
 /*    final List<FlSpot> shownData = measurements.where(
             (FlSpot e) => e.x <= maxX && e.x >= minX).toList();*/
@@ -157,15 +201,15 @@ class _CustomLineChartState extends State<CustomLineChart> {
           clipData: FlClipData.all(),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
-              spots: measurements,
-              isCurved: false,
+              spots: measurements_interpol,
+              isCurved: true,
               colors: gradientColors,
               gradientFrom: const Offset(0.5, 1),
               gradientTo: const Offset(0.5, 0),
               barWidth: 5,
               isStrokeCapRound: true,
               dotData: FlDotData(
-                show: true,
+                show: false,
               ),
               belowBarData: BarAreaData(
                 show: true,
@@ -173,6 +217,18 @@ class _CustomLineChartState extends State<CustomLineChart> {
                 gradientTo: const Offset(0.5, 0),
                 colors: gradientColors.map(
                         (Color color) => color.withOpacity(0.3)).toList(),
+              ),
+            ),
+            LineChartBarData(
+              spots: measurements,
+              isCurved: false,
+              colors: gradientColors,
+              gradientFrom: const Offset(0.5, 1),
+              gradientTo: const Offset(0.5, 0),
+              barWidth: 0,
+              isStrokeCapRound: true,
+              dotData: FlDotData(
+                show: true,
               ),
             ),
           ],
