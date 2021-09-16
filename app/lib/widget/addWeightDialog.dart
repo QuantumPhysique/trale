@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/icons.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
@@ -60,7 +61,14 @@ Future<bool> showAddWeightDialog({
           vertical: TraleTheme.of(context)!.padding / 2,
           horizontal: TraleTheme.of(context)!.padding,
         ),
-        child: Text(AppLocalizations.of(context)!.save)
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Icon(CustomIcons.save),
+            SizedBox(width: TraleTheme.of(context)!.padding),
+            Text(AppLocalizations.of(context)!.save),
+          ],
+        )
         )
       ),
   ];
