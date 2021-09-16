@@ -68,39 +68,6 @@ class _HomeState extends State<Home> {
     TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
     final SlidableController slidableController = SlidableController();
 
-    void _showSnackBar(String s) {
-      final SnackBar snackBar = SnackBar(
-        content: Text(s),
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            // Some code to undo the change.
-          },
-        ),
-      );
-      // Find the ScaffoldMessenger in the widget tree
-      // and use it to show a SnackBar.
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-
-    Widget deleteAction() {
-      return IconSlideAction(
-        caption: AppLocalizations.of(context)!.delete,
-        color: TraleTheme.of(context)!.accent,
-        icon: CustomIcons.delete,
-        onTap: () => _showSnackBar('delete'),
-      );
-    }
-
-    Widget editAction() {
-      return IconSlideAction(
-        caption: AppLocalizations.of(context)!.edit,
-        color: TraleTheme.of(context)!.bgShade3,
-        icon: CustomIcons.edit,
-        onTap: () => _showSnackBar('edit'),
-      );
-    }
-
     return Container(
       color: Theme.of(context).backgroundColor,
       child: SafeArea(
@@ -119,6 +86,55 @@ class _HomeState extends State<Home> {
                       Measurement? currentMeasurement = box.getAt(index);
                       if (currentMeasurement == null)
                         return const SizedBox.shrink();
+
+                      Widget deleteAction() {
+                        return IconSlideAction(
+                          caption: AppLocalizations.of(context)!.delete,
+                          color: TraleTheme.of(context)!.accent,
+                          icon: CustomIcons.delete,
+                          onTap: () {
+                            box.deleteAt(index);
+                            final SnackBar snackBar = SnackBar(
+                              content: Text('Measurement was deleted'),
+                              behavior: SnackBarBehavior.floating,
+                              width: MediaQuery.of(context).size.width / 3 * 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                          TraleTheme.of(context)!.borderRadius)
+                                  )
+                              ),
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  box.add(currentMeasurement);
+                                },
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                          }
+                        );
+                      }
+
+                      Widget editAction() {
+                        return IconSlideAction(
+                          caption: AppLocalizations.of(context)!.edit,
+                          color: TraleTheme.of(context)!.bgShade3,
+                          icon: CustomIcons.edit,
+                          onTap: () async {
+                            final bool changed = await showAddWeightDialog(
+                              context: context,
+                              weight: currentMeasurement.weight,
+                              date: currentMeasurement.date,
+                              box: Hive.box<Measurement>(measurementBoxName),
+                            );
+                            if (changed)
+                              box.deleteAt(index);
+                          },
+                        );
+                      }
+
                       return Slidable(
                         controller: slidableController,
                         actionPane: const SlidableDrawerActionPane(),

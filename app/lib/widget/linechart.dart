@@ -104,7 +104,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         },
       );
     }
-    print(((maxY - minY)~/ 4).toDouble());
+
     SideTitles rightTitles () {
       return SideTitles(
         showTitles: true,
