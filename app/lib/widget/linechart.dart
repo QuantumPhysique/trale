@@ -96,7 +96,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         reservedSize: 22,
         interval: ((maxX - minX)~/ 6).toDouble(),
         margin: 10,
-        getTextStyles: (double value)
+        getTextStyles: (BuildContext context, double value)
           => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
           return DateTime.fromMillisecondsSinceEpoch(
@@ -104,14 +104,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
         },
       );
     }
-
+    print(((maxY - minY)~/ 4).toDouble());
     SideTitles rightTitles () {
       return SideTitles(
         showTitles: true,
         reservedSize: 35,
-        interval: 1,
+        interval: ((maxY - minY)~/ 4).toDouble(),
         margin: 10,
-        getTextStyles: (double value)
+        getTextStyles: (BuildContext context, double value)
           => Theme.of(context).textTheme.bodyText1!,
         getTitles: (double value) {
           return '${value.toStringAsFixed(0)} ${notifier.unit.name}';
