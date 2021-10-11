@@ -150,7 +150,7 @@ class _HomeState extends State<Home> {
                                   alignment: Alignment.centerLeft,
                                   child: Text(
                                     '${(
-                                        currentMeasurement.weight * notifier.unit.scaling
+                                        currentMeasurement.inUnit(context)
                                     ).toStringAsFixed(1)} ${notifier.unit.name}',
                                     style: Theme.of(context).textTheme.bodyText1,
                                   ),

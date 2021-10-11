@@ -1,4 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:provider/provider.dart';
+
+import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/units.dart';
 
 part 'measurement.g.dart';
 
@@ -21,6 +26,11 @@ class Measurement {
   /// implement sorting entries by date
   /// comparator method
   int compareTo(Measurement other) => date.compareTo(other.date);
+
+  /// return weight in active unit
+  double inUnit(BuildContext context) => weight / Provider.of<TraleNotifier>(
+      context, listen: false
+  ).unit.scaling;
 
   /// compare method to use default sort method on list
   static int compare(Measurement a, Measurement b) => a.compareTo(b);

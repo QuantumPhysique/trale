@@ -20,10 +20,10 @@ Future<bool> showAddWeightDialog({
 }) async {
   TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
 
-  double _currentSliderValue = weight.toDouble() * notifier.unit.scaling;
+  double _currentSliderValue = weight.toDouble() / notifier.unit.scaling;
   DateTime currentDate = date;
-  final double slidermin = 70.0 * notifier.unit.scaling;
-  final double slidermax = 90.0 * notifier.unit.scaling;
+  final double slidermin = 70.0 / notifier.unit.scaling;
+  final double slidermax = 90.0 / notifier.unit.scaling;
 
   final List<Widget> actions = <Widget>[
     TextButton(

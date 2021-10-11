@@ -20,7 +20,6 @@ double gaussian(
 
 // interpolate measurements
 // measurement.date.millisecondsSinceEpoch.toDouble(),
-// notifier.unit.scaling * measurement.weight,
 List<Measurement> measurementInerpol(List<Measurement> measurements) {
   measurements.sort((Measurement a, Measurement b) {
     return a.compareTo(b);
@@ -95,7 +94,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     FlSpot measurementToFlSpot (Measurement measurement) {
       return FlSpot(
         measurement.date.millisecondsSinceEpoch.toDouble(),
-        notifier.unit.scaling * measurement.weight,
+        measurement.inUnit(context),
       );
     }
 
