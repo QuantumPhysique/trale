@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurement.dart';
@@ -103,8 +104,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
       data,
     ).map(measurementToFlSpot).toList();
 
-/*    final List<FlSpot> shownData = measurements.where(
-            (FlSpot e) => e.x <= maxX && e.x >= minX).toList();*/
+    List<DateTime> monthSpan = List<DateTime>.generate(
+        12 * (1 + DateTime.now().year - data.first.date.year).toInt(),
+        (int i) => DateTime(data.first.date.year + i ~/12, i % 12, 15));
+
 
     final int indexFirst = measurements.lastIndexWhere(
             (FlSpot e) => e.x < minX);
@@ -171,25 +174,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
           maxX: maxX,
           minY: minY.floorToDouble(),
           maxY: maxY.ceilToDouble(),
+          lineTouchData: LineTouchData(enabled: false),
           borderData: FlBorderData(show: false),
           gridData: FlGridData(
-            show: true,
-            verticalInterval: 1000 * 3600 * 24 * 30,
-            horizontalInterval: 1,
-            drawVerticalLine: true,
-            drawHorizontalLine: false,
-            getDrawingHorizontalLine: (double value) {
-              return FlLine(
-                color: TraleTheme.of(context)!.bgShade2,
-                strokeWidth: 1,
-              );
-            },
-            getDrawingVerticalLine: (double value) {
-              return FlLine(
-                color: TraleTheme.of(context)!.bgShade2,
-                strokeWidth: 1,
-              );
-            },
+            show: false,
           ),
           titlesData: FlTitlesData(
             bottomTitles: bottomTitles(),
@@ -199,6 +187,26 @@ class _CustomLineChartState extends State<CustomLineChart> {
             show: true,
           ),
           clipData: FlClipData.all(),
+          extraLinesData: ExtraLinesData(
+            verticalLines: monthSpan.map((DateTime x) {
+              return VerticalLine(
+                  x: x.millisecondsSinceEpoch.toDouble(),
+                  color: TraleTheme.of(context)?.bgShade3.withOpacity(0),
+                  label: VerticalLineLabel(
+                      show: true,
+                      alignment: Alignment.bottomCenter,
+                      padding: EdgeInsets.only(
+                          bottom: 3.5 * TraleTheme.of(context)!.padding),
+                      labelResolver: (VerticalLine l) {
+                        return DateFormat('MMM', Localizations.localeOf(context).languageCode).format(
+                            DateTime.fromMillisecondsSinceEpoch(l.x.toInt()));
+                      },
+                      style: Theme.of(context).textTheme.bodyText2,
+                  ),
+              );
+            }
+            ).toList()
+          ),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
               spots: measurements_interpol,
