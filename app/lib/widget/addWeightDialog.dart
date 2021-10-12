@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
@@ -10,6 +11,8 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/widget/weightPicker.dart';
+
 
 ///
 Future<bool> showAddWeightDialog({
@@ -18,12 +21,11 @@ Future<bool> showAddWeightDialog({
   required DateTime date,
   required Box<Measurement> box,
 }) async {
-  TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
+  final TraleNotifier notifier =
+    Provider.of<TraleNotifier>(context, listen: false);
 
   double _currentSliderValue = weight.toDouble() / notifier.unit.scaling;
   DateTime currentDate = date;
-  final double slidermin = 70.0 / notifier.unit.scaling;
-  final double slidermax = 90.0 / notifier.unit.scaling;
 
   final List<Widget> actions = <Widget>[
     TextButton(
@@ -75,28 +77,30 @@ Future<bool> showAddWeightDialog({
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+      final double _sliderLabel = (
+        _currentSliderValue * notifier.unit.ticksPerStep
+      ).roundToDouble() / notifier.unit.ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
+          RulerPicker(
+            onValueChange: (num newValue) {
+              setState(() => _currentSliderValue = newValue.toDouble());
+            },
+            width: MediaQuery.of(context).size.width - 80,  // padding of dialog
+            value: _currentSliderValue,
+            ticksPerStep: notifier.unit.ticksPerStep,
+          ),
           ListTile(
               title: Text(
                 AppLocalizations.of(context)!.weight,
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               trailing: Text(
-                '${_currentSliderValue.toStringAsFixed(1)} ${notifier.unit.name}',
+                '${_sliderLabel.toStringAsFixed(notifier.unit.precision)} '
+                '${notifier.unit.name}',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-          ),
-          Slider(
-            value: _currentSliderValue,
-            onChanged: (double newValue) {
-              setState(() => _currentSliderValue = newValue);
-            },
-            min: slidermin,
-            max: slidermax,
-            divisions: ((slidermax - slidermin) * 10).toInt(),
-            label: _currentSliderValue.toStringAsFixed(1),
           ),
           ListTile(
             title: Text(
@@ -108,12 +112,11 @@ Future<bool> showAddWeightDialog({
               style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () async {
-              TimeOfDay currentTime = TimeOfDay.fromDateTime(currentDate);
-
+              final TimeOfDay currentTime = TimeOfDay.fromDateTime(currentDate);
               final DateTime? date = await showDatePicker(
                 context: context,
                 initialDate: currentDate,
-                firstDate: currentDate.subtract(const Duration(days: 180)),
+                firstDate: DateTime(currentDate.year - 2),
                 lastDate: DateTime.now(),
               );
               if (date == null)
@@ -176,13 +179,15 @@ Future<bool> showAddWeightDialog({
     },
   );
 
-  bool accepted = await showDialog<bool>(
+  final bool accepted = await showDialog<bool>(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         shape: TraleTheme.of(context)!.borderShape,
-        contentPadding: EdgeInsets.zero,
+        contentPadding: EdgeInsets.only(
+          top: TraleTheme.of(context)!.padding,
+        ),
         actionsPadding: EdgeInsets.zero,
         title: Center(
           child: Text(
@@ -192,7 +197,7 @@ Future<bool> showAddWeightDialog({
           ),
         ),
         content: content,
-        actions: actions
+        actions: actions,
       );
     }
   ) ?? false;

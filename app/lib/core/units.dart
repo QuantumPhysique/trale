@@ -16,6 +16,20 @@ extension TraleUnitExtension on TraleUnit {
     TraleUnit.pd: 0.45359237,
   }[this]!;
 
+  /// get the number of ticks
+  int get ticksPerStep => <TraleUnit, int>{
+    TraleUnit.kg: 10,
+    TraleUnit.st: 20,
+    TraleUnit.pd: 5,
+  }[this]!;
+
+  /// get the number of ticks
+  int get precision => <TraleUnit, int>{
+    TraleUnit.kg: 1,
+    TraleUnit.st: 2,
+    TraleUnit.pd: 1,
+  }[this]!;
+
   /// get string expression
   String get name => toString().split('.').last;
 }
