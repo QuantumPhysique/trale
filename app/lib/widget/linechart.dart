@@ -151,7 +151,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    SideTitles rightTitles () {
+    SideTitles leftTitles () {
       return SideTitles(
         showTitles: true,
         reservedSize: 35,
@@ -180,9 +180,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ),
           titlesData: FlTitlesData(
             bottomTitles: bottomTitles(),
-            leftTitles: SideTitles(showTitles: false),
+            leftTitles: leftTitles(),
             topTitles: SideTitles(showTitles: false),
-            rightTitles: rightTitles(),
+            rightTitles: SideTitles(showTitles: false),
             show: true,
           ),
           clipData: FlClipData.all(),
@@ -248,7 +248,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Container(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.zero,
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {
