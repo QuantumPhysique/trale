@@ -26,6 +26,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool isExtended = false;
   final GlobalKey<ScaffoldState> key = GlobalKey();
+  final Duration animationDuration = const Duration(milliseconds: 500);
   @override
   Widget build(BuildContext context) {
 
@@ -53,120 +54,126 @@ class _HomeState extends State<Home> {
           builder: (BuildContext context, Box<Measurement> box, _) =>
                 Column(
                   children: <Widget>[
-                    SizedBox(height: isExtended
-                        ? 0.0
-                        : MediaQuery.of(context).size.height / 6),
-                    Padding(
-                      padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                      child: CustomLineChart(box: box),
+                    AnimatedContainer(
+                      height: isExtended
+                          ? 0.0
+                          : MediaQuery.of(context).size.height / 6,
+                      duration: animationDuration,
                     ),
-                    SizedBox(height: isExtended
-                        ? 0.0
-                        : MediaQuery.of(context).size.height / 6),
+                    CustomLineChart(box: box),
+                    AnimatedContainer(
+                      height: isExtended
+                          ? 0.0
+                          : MediaQuery.of(context).size.height / 6,
+                      duration: animationDuration,
+                    ),
                     IconButton(
                       onPressed: () => setState(() => isExtended = !isExtended),
                       icon: Icon(isExtended
                         ? Icons.keyboard_arrow_down
                         : Icons.keyboard_arrow_up)),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: box.values.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          Measurement? currentMeasurement = box.getAt(index);
-                          if (currentMeasurement == null)
-                            return const SizedBox.shrink();
+                      child: AnimatedContainer(
+                        duration: animationDuration,
+                        child: ListView.builder(
+                          itemCount: box.values.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            Measurement? currentMeasurement = box.getAt(index);
+                            if (currentMeasurement == null)
+                              return const SizedBox.shrink();
 
-                          Widget deleteAction() {
-                            return IconSlideAction(
-                              caption: AppLocalizations.of(context)!.delete,
-                              color: TraleTheme.of(context)!.accent,
-                              icon: CustomIcons.delete,
-                              onTap: () {
-                                box.deleteAt(index);
-                                final SnackBar snackBar = SnackBar(
-                                  content: Text('Measurement was deleted'),
-                                  behavior: SnackBarBehavior.floating,
-                                  width: MediaQuery.of(context).size.width / 3 * 2,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(
-                                              TraleTheme.of(context)!.borderRadius)
-                                      )
-                                  ),
-                                  action: SnackBarAction(
-                                    label: 'Undo',
-                                    onPressed: () {
-                                      box.add(currentMeasurement);
-                                    },
-                                  ),
-                                );
-                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                              }
-                            );
-                          }
-
-                          Widget editAction() {
-                            return IconSlideAction(
-                              caption: AppLocalizations.of(context)!.edit,
-                              color: TraleTheme.of(context)!.bgShade3,
-                              icon: CustomIcons.edit,
-                              onTap: () async {
-                                final bool changed = await showAddWeightDialog(
-                                  context: context,
-                                  weight: currentMeasurement.weight,
-                                  date: currentMeasurement.date,
-                                  box: Hive.box<Measurement>(measurementBoxName),
-                                );
-                                if (changed)
+                            Widget deleteAction() {
+                              return IconSlideAction(
+                                caption: AppLocalizations.of(context)!.delete,
+                                color: TraleTheme.of(context)!.accent,
+                                icon: CustomIcons.delete,
+                                onTap: () {
                                   box.deleteAt(index);
-                              },
+                                  final SnackBar snackBar = SnackBar(
+                                    content: Text('Measurement was deleted'),
+                                    behavior: SnackBarBehavior.floating,
+                                    width: MediaQuery.of(context).size.width / 3 * 2,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(
+                                                TraleTheme.of(context)!.borderRadius)
+                                        )
+                                    ),
+                                    action: SnackBarAction(
+                                      label: 'Undo',
+                                      onPressed: () {
+                                        box.add(currentMeasurement);
+                                      },
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                                }
+                              );
+                            }
+
+                            Widget editAction() {
+                              return IconSlideAction(
+                                caption: AppLocalizations.of(context)!.edit,
+                                color: TraleTheme.of(context)!.bgShade3,
+                                icon: CustomIcons.edit,
+                                onTap: () async {
+                                  final bool changed = await showAddWeightDialog(
+                                    context: context,
+                                    weight: currentMeasurement.weight,
+                                    date: currentMeasurement.date,
+                                    box: Hive.box<Measurement>(measurementBoxName),
+                                  );
+                                  if (changed)
+                                    box.deleteAt(index);
+                                },
+                              );
+                            }
+
+                            return Slidable(
+                              controller: slidableController,
+                              actionPane: const SlidableDrawerActionPane(),
+                              actionExtentRatio: 0.25,
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    width: MediaQuery.of(context).size.width/2,
+                                    height: 45.0,
+                                    alignment: Alignment.centerRight,
+                                    padding: EdgeInsets.only(
+                                        right: TraleTheme.of(context)!.padding
+                                    ),
+                                    child: Text(
+                                      DateFormat('dd/MM/yy').format(
+                                          currentMeasurement.date),
+                                      style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width/2,
+                                    height: 45.0,
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      '${(
+                                          currentMeasurement.inUnit(context)
+                                      ).toStringAsFixed(1)} ${notifier.unit.name}',
+                                      style: Theme.of(context).textTheme.bodyText1,
+                                    ),
+                                  ),
+                                ]
+                              ),
+                              actions: <Widget>[
+                                deleteAction(),
+                                editAction(),
+                              ],
+                              secondaryActions: <Widget>[
+                                editAction(),
+                                deleteAction()
+                              ],
                             );
                           }
-
-                          return Slidable(
-                            controller: slidableController,
-                            actionPane: const SlidableDrawerActionPane(),
-                            actionExtentRatio: 0.25,
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2,
-                                  height: 45.0,
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.only(
-                                      right: TraleTheme.of(context)!.padding
-                                  ),
-                                  child: Text(
-                                    DateFormat('dd/MM/yy').format(
-                                        currentMeasurement.date),
-                                    style:
-                                      Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width/2,
-                                  height: 45.0,
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    '${(
-                                        currentMeasurement.inUnit(context)
-                                    ).toStringAsFixed(1)} ${notifier.unit.name}',
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
-                              ]
-                            ),
-                            actions: <Widget>[
-                              deleteAction(),
-                              editAction(),
-                            ],
-                            secondaryActions: <Widget>[
-                              editAction(),
-                              deleteAction()
-                            ],
-                          );
-                        }
+                        ),
                       ),
                     ),
                   ],
@@ -378,7 +385,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      ),
+      )
     );
   }
 }
