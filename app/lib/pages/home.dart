@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   final Duration animationDuration = const Duration(milliseconds: 500);
   late double collapsed;
+  final double minHeight = 45.0;
 
   @override
   void initState() {
@@ -43,24 +44,27 @@ class _HomeState extends State<Home> {
     final SlidableController slidableController = SlidableController();
     final Box<Measurement> box_ = Hive.box<Measurement>(measurementBoxName);
 
+    AppBar appBar = AppBar(
+      centerTitle: true,
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.trale.toUpperCase(),
+        style: Theme.of(context).textTheme.headline4,
+        maxLines: 1,
+      ),
+      leading: IconButton(
+        icon: const Icon(CustomIcons.settings),
+        onPressed: () => key.currentState!.openDrawer(),
+      ),
+    );
+
     return Scaffold(
       key: key,
-      appBar: AppBar(
-        centerTitle: true,
-        title: AutoSizeText(
-          AppLocalizations.of(context)!.trale.toUpperCase(),
-          style: Theme.of(context).textTheme.headline4,
-          maxLines: 1,
-        ),
-        leading: IconButton(
-          icon: const Icon(CustomIcons.settings),
-          onPressed: () => key.currentState!.openDrawer(),
-        ),
-      ),
+      appBar: appBar,
       body: SafeArea(
         child: SlidingUpPanel(
-          minHeight: 50.0,
-          maxHeight: MediaQuery.of(context).size.height / 2,
+          minHeight: minHeight,
+          maxHeight: MediaQuery.of(context).size.height / 2
+            - appBar.preferredSize.height,
           onPanelSlide: (double x) {
             setState(() {
               collapsed = 1.0 - x;
@@ -70,10 +74,10 @@ class _HomeState extends State<Home> {
             topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
             topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
           ),
-          collapsed: Container(
+/*          collapsed: Container(
             color: TraleTheme.of(context)!.bgShade3,
             child: const Icon(Icons.horizontal_rule_rounded),
-          ),
+          ),*/
           panel: Column(
             children: <Widget>[
               Container(
@@ -143,7 +147,7 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Container(
                               width: MediaQuery.of(context).size.width/2,
-                              height: 45.0,
+                              height: 40.0,
                               alignment: Alignment.centerRight,
                               padding: EdgeInsets.only(
                                   right: TraleTheme.of(context)!.padding
@@ -158,7 +162,7 @@ class _HomeState extends State<Home> {
                             ),
                             Container(
                               width: 75.0,
-                              height: 45.0,
+                              height: 40.0,
                               alignment: Alignment.centerRight,
                               child: Text(
                                 '${(
@@ -187,43 +191,49 @@ class _HomeState extends State<Home> {
           body: ValueListenableBuilder(
             valueListenable: Hive.box<Measurement>(measurementBoxName).listenable(),
             builder: (BuildContext context, Box<Measurement> box, _) =>
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        height: collapsed * MediaQuery.of(context).size.height / 6
-                          + 2 * TraleTheme.of(context)!.padding,
-                      ),
-                      CustomLineChart(box: box),
-                      Container(
-                        height: collapsed * MediaQuery.of(context).size.height / 6,
-                      ),
-                    ],
+              Column(
+                children: <Widget>[
+                  Container(
+                    height: collapsed * (MediaQuery.of(context).size.height / 3
+                                         - minHeight)
+                      + (1-collapsed) * MediaQuery.of(context).size.height / 12,
                   ),
+                  CustomLineChart(box: box),
+                ],
+              ),
           ),
         ),
       ),
       floatingActionButton: isExtended
         ? Container()
-        : FloatingActionButton.extended(
-          onPressed: () async {
-            // get weight from most recent measurement
-            final List<Measurement> data
-              = Hive.box<Measurement>(measurementBoxName).values.toList();
-            data.sort((Measurement a, Measurement b) {
-              return a.compareTo(b);
-            });
-            showAddWeightDialog(
-              context: context,
-              weight: data.isNotEmpty
-                ? data.last.weight.toDouble()
-                : 70,
-              date: DateTime.now(),
-              box: Hive.box<Measurement>(measurementBoxName),
-            );
-          },
-          tooltip: AppLocalizations.of(context)!.addWeight,
-          icon: const Icon(CustomIcons.add),
-          label: Text(AppLocalizations.of(context)!.addWeight),
+        : Padding(
+            padding: EdgeInsets.only(
+              bottom: (1 - collapsed) * (
+                  MediaQuery.of(context).size.height / 2
+                  - appBar.preferredSize.height
+                  - minHeight),
+              right: TraleTheme.of(context)!.padding,
+            ),
+            child: FloatingActionButton(
+              onPressed: () async {
+                // get weight from most recent measurement
+                final List<Measurement> data
+                  = Hive.box<Measurement>(measurementBoxName).values.toList();
+                data.sort((Measurement a, Measurement b) {
+                  return a.compareTo(b);
+                });
+                showAddWeightDialog(
+                  context: context,
+                  weight: data.isNotEmpty
+                    ? data.last.weight.toDouble()
+                    : 70,
+                  date: DateTime.now(),
+                  box: Hive.box<Measurement>(measurementBoxName),
+                );
+              },
+              tooltip: AppLocalizations.of(context)!.addWeight,
+              child: const Icon(CustomIcons.add),
+            ),
         ),
       drawer: Drawer(
         child: Column(
