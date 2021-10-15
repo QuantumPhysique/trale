@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
@@ -18,7 +19,6 @@ import 'package:trale/widget/linechart.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -27,12 +27,21 @@ class _HomeState extends State<Home> {
   bool isExtended = false;
   final GlobalKey<ScaffoldState> key = GlobalKey();
   final Duration animationDuration = const Duration(milliseconds: 500);
+  late double collapsed;
+
+  @override
+  void initState() {
+    super.initState();
+    collapsed = 1.0;
+  }
+
   @override
   Widget build(BuildContext context) {
 
     final TraleNotifier notifier =
       Provider.of<TraleNotifier>(context, listen: false);
     final SlidableController slidableController = SlidableController();
+    final Box<Measurement> box_ = Hive.box<Measurement>(measurementBoxName);
 
     return Scaffold(
       key: key,
@@ -49,135 +58,148 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: SafeArea(
-        child: ValueListenableBuilder(
-          valueListenable: Hive.box<Measurement>(measurementBoxName).listenable(),
-          builder: (BuildContext context, Box<Measurement> box, _) =>
-                Column(
-                  children: <Widget>[
-                    AnimatedContainer(
-                      height: isExtended
-                          ? 0.0
-                          : MediaQuery.of(context).size.height / 6,
-                      duration: animationDuration,
-                    ),
-                    CustomLineChart(box: box),
-                    AnimatedContainer(
-                      height: isExtended
-                          ? 0.0
-                          : MediaQuery.of(context).size.height / 6,
-                      duration: animationDuration,
-                    ),
-                    IconButton(
-                      onPressed: () => setState(() => isExtended = !isExtended),
-                      icon: Icon(isExtended
-                        ? Icons.keyboard_arrow_down
-                        : Icons.keyboard_arrow_up)),
-                    Expanded(
-                      child: AnimatedContainer(
-                        duration: animationDuration,
-                        child: ListView.builder(
-                          itemCount: box.values.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            Measurement? currentMeasurement = box.getAt(index);
-                            if (currentMeasurement == null)
-                              return const SizedBox.shrink();
+        child: SlidingUpPanel(
+          minHeight: 50.0,
+          maxHeight: MediaQuery.of(context).size.height / 2,
+          onPanelSlide: (double x) {
+            setState(() {
+              collapsed = 1.0 - x;
+            });
+          },
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
+            topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
+          ),
+          collapsed: Container(
+            color: TraleTheme.of(context)!.bgShade3,
+            child: const Icon(Icons.horizontal_rule_rounded),
+          ),
+          panel: Column(
+            children: <Widget>[
+              Container(
+                height: 50.0,
+                child: const Icon(Icons.horizontal_rule_rounded)),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: box_.values.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Measurement? currentMeasurement = box_.getAt(index);
+                    if (currentMeasurement == null)
+                      return const SizedBox.shrink();
 
-                            Widget deleteAction() {
-                              return IconSlideAction(
-                                caption: AppLocalizations.of(context)!.delete,
-                                color: TraleTheme.of(context)!.accent,
-                                icon: CustomIcons.delete,
-                                onTap: () {
-                                  box.deleteAt(index);
-                                  final SnackBar snackBar = SnackBar(
-                                    content: Text('Measurement was deleted'),
-                                    behavior: SnackBarBehavior.floating,
-                                    width: MediaQuery.of(context).size.width / 3 * 2,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                                TraleTheme.of(context)!.borderRadius)
-                                        )
-                                    ),
-                                    action: SnackBarAction(
-                                      label: 'Undo',
-                                      onPressed: () {
-                                        box.add(currentMeasurement);
-                                      },
-                                    ),
-                                  );
-                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                                }
-                              );
-                            }
-
-                            Widget editAction() {
-                              return IconSlideAction(
-                                caption: AppLocalizations.of(context)!.edit,
-                                color: TraleTheme.of(context)!.bgShade3,
-                                icon: CustomIcons.edit,
-                                onTap: () async {
-                                  final bool changed = await showAddWeightDialog(
-                                    context: context,
-                                    weight: currentMeasurement.weight,
-                                    date: currentMeasurement.date,
-                                    box: Hive.box<Measurement>(measurementBoxName),
-                                  );
-                                  if (changed)
-                                    box.deleteAt(index);
-                                },
-                              );
-                            }
-
-                            return Slidable(
-                              controller: slidableController,
-                              actionPane: const SlidableDrawerActionPane(),
-                              actionExtentRatio: 0.25,
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    width: MediaQuery.of(context).size.width/2,
-                                    height: 45.0,
-                                    alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.only(
-                                        right: TraleTheme.of(context)!.padding
-                                    ),
-                                    child: Text(
-                                      DateFormat('dd/MM/yy').format(
-                                          currentMeasurement.date),
-                                      style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width/2,
-                                    height: 45.0,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      '${(
-                                          currentMeasurement.inUnit(context)
-                                      ).toStringAsFixed(1)} ${notifier.unit.name}',
-                                      style: Theme.of(context).textTheme.bodyText1,
-                                    ),
-                                  ),
-                                ]
+                    Widget deleteAction() {
+                      return IconSlideAction(
+                          caption: AppLocalizations.of(context)!.delete,
+                          color: TraleTheme.of(context)!.accent,
+                          icon: CustomIcons.delete,
+                          onTap: () {
+                            box_.deleteAt(index);
+                            final SnackBar snackBar = SnackBar(
+                              content: Text('Measurement was deleted'),
+                              behavior: SnackBarBehavior.floating,
+                              width: MediaQuery.of(context).size.width / 3 * 2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                          TraleTheme.of(context)!.borderRadius)
+                                  )
                               ),
-                              actions: <Widget>[
-                                deleteAction(),
-                                editAction(),
-                              ],
-                              secondaryActions: <Widget>[
-                                editAction(),
-                                deleteAction()
-                              ],
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  box_.add(currentMeasurement);
+                                },
+                              ),
                             );
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                           }
-                        ),
+                      );
+                    }
+
+                    Widget editAction() {
+                      return IconSlideAction(
+                        caption: AppLocalizations.of(context)!.edit,
+                        color: TraleTheme.of(context)!.bgShade3,
+                        icon: CustomIcons.edit,
+                        onTap: () async {
+                          final bool changed = await showAddWeightDialog(
+                            context: context,
+                            weight: currentMeasurement.weight,
+                            date: currentMeasurement.date,
+                            box: Hive.box<Measurement>(measurementBoxName),
+                          );
+                          if (changed)
+                            box_.deleteAt(index);
+                        },
+                      );
+                    }
+
+                    return Slidable(
+                      controller: slidableController,
+                      actionPane: const SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
+                      child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: MediaQuery.of(context).size.width/2,
+                              height: 45.0,
+                              alignment: Alignment.centerRight,
+                              padding: EdgeInsets.only(
+                                  right: TraleTheme.of(context)!.padding
+                              ),
+                              child: Text(
+                                DateFormat('dd/MM/yy').format(
+                                    currentMeasurement.date),
+                                style:
+                                Theme.of(context).textTheme.bodyText1?.apply(
+                                    fontFamily: 'Courier'),
+                              ),
+                            ),
+                            Container(
+                              width: 75.0,
+                              height: 45.0,
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                '${(
+                                    currentMeasurement.inUnit(context)
+                                ).toStringAsFixed(1)} ${notifier.unit.name}',
+                                style: Theme.of(context).textTheme.bodyText1?.apply(
+                                    fontFamily: 'Courier'),
+                              ),
+                            ),
+                          ]
                       ),
-                    ),
-                  ],
-                ),
+                      actions: <Widget>[
+                        deleteAction(),
+                        editAction(),
+                      ],
+                      secondaryActions: <Widget>[
+                        editAction(),
+                        deleteAction()
+                      ],
+                    );
+                  }
+        ),
+              ),
+            ],
+          ),
+          body: ValueListenableBuilder(
+            valueListenable: Hive.box<Measurement>(measurementBoxName).listenable(),
+            builder: (BuildContext context, Box<Measurement> box, _) =>
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        height: collapsed * MediaQuery.of(context).size.height / 6
+                          + 2 * TraleTheme.of(context)!.padding,
+                      ),
+                      CustomLineChart(box: box),
+                      Container(
+                        height: collapsed * MediaQuery.of(context).size.height / 6,
+                      ),
+                    ],
+                  ),
+          ),
         ),
       ),
       floatingActionButton: isExtended
