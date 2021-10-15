@@ -5,11 +5,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
 
 
 /// return gaussian with std of 3 days in x [ms]
@@ -69,15 +67,15 @@ class _CustomLineChartState extends State<CustomLineChart> {
   void initState() {
     super.initState();
     minX = DateTime.now().subtract(
-        const Duration(days: 21)
+      const Duration(days: 21)
     ).millisecondsSinceEpoch.toDouble();
-    maxX = DateTime.now().millisecondsSinceEpoch.toDouble();
+    maxX = DateTime.now().add(
+      const Duration(days: 7)
+    ).millisecondsSinceEpoch.toDouble();
   }
 
   @override
   Widget build(BuildContext context) {
-    TraleNotifier notifier = Provider.of<TraleNotifier>(context, listen: false);
-
     final List<Measurement> data = widget.box.values.toList();
     data.sort((Measurement a, Measurement b) {
       return a.compareTo(b);
@@ -98,23 +96,25 @@ class _CustomLineChartState extends State<CustomLineChart> {
     }
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
-    final List<FlSpot> measurements_interpol = measurementInerpol(
+    final List<FlSpot> measurementsInterpol = measurementInerpol(
       data,
     ).map(measurementToFlSpot).toList();
 
-    List<DateTime> monthSpan = List<DateTime>.generate(
-        12 * (1 + DateTime.now().year - data.first.date.year).toInt(),
-        (int i) => DateTime(data.first.date.year + i ~/12, i % 12, 15));
-
-
     final int indexFirst = measurements.lastIndexWhere(
-            (FlSpot e) => e.x < minX);
+      (FlSpot e) => e.x < minX
+    );
     final int indexLast = measurements.indexWhere((FlSpot e) => e.x > maxX) + 1;
     final List<FlSpot> shownData = measurements.sublist(
-      indexFirst == -1 ? 0 : indexFirst,
-      (indexLast == -1 || indexLast >= measurements.length
-          || indexLast < indexFirst)
-            ? measurements.length : indexLast,
+      indexFirst == -1
+        ? 0
+        : indexFirst,
+      (
+        indexLast == -1 ||
+        indexLast >= measurements.length ||
+        indexLast < indexFirst  //TODO: this includes -1 ?
+      )
+        ? measurements.length
+        : indexLast,
     );
 
     double minY;
@@ -160,8 +160,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
           } else if (date.day % interval == 0) {
             if (
               date.day - interval ~/ 1.5 < 0 ||
-              date.month != date.add(Duration(days: interval ~/ 1.5)).month
-            ) {
+              date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
+              maxX - date.millisecondsSinceEpoch < Duration(days: 1).inMilliseconds
+          ) {
               return '';
             }
             return date.day.toString();
@@ -210,7 +211,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           clipData: FlClipData.all(),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
-              spots: measurements_interpol,
+              spots: measurementsInterpol,
               isCurved: true,
               colors: gradientColors,
               gradientFrom: const Offset(0.5, 1),
@@ -256,12 +257,19 @@ class _CustomLineChartState extends State<CustomLineChart> {
           setState(() {
             if (minX == data.first.date.millisecondsSinceEpoch.toDouble()
                 && maxX == data.last.date.millisecondsSinceEpoch.toDouble()) {
-              minX = DateTime.now().subtract(const Duration(days: 21)
+              minX = DateTime.now().subtract(
+                const Duration(days: 21)
               ).millisecondsSinceEpoch.toDouble();
-              maxX = DateTime.now().millisecondsSinceEpoch.toDouble();
+              maxX = DateTime.now().add(
+                const Duration(days: 7)
+              ).millisecondsSinceEpoch.toDouble();
             } else {
-              minX = data.first.date.millisecondsSinceEpoch.toDouble();
-              maxX = data.last.date.millisecondsSinceEpoch.toDouble();
+              minX = data.first.date.subtract(
+                const Duration(days: 7)
+              ).millisecondsSinceEpoch.toDouble();
+              maxX = data.last.date.add(
+                const Duration(days: 7)
+              ).millisecondsSinceEpoch.toDouble();
             }
           });
         },
@@ -291,11 +299,16 @@ class _CustomLineChartState extends State<CustomLineChart> {
           setState(() {
             final double primDelta =
                 (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
-            if (maxX - primDelta <=
-                  DateTime.now().millisecondsSinceEpoch.toDouble()
-                && maxX - primDelta >=
-                  data.first.date.millisecondsSinceEpoch.toDouble()
-                  + (maxX - minX) / 2) {
+            final double allowedMaxX = DateTime.now().add(
+                const Duration(days: 7)
+            ).millisecondsSinceEpoch.toDouble();
+            final double allowedMinX = data.first.date.subtract(
+                const Duration(days: 7)
+            ).millisecondsSinceEpoch.toDouble();
+            if (
+              maxX - primDelta <= allowedMaxX &&
+              minX - primDelta >= allowedMinX
+            ) {
               maxX -= primDelta;
               minX -= primDelta;
             }
