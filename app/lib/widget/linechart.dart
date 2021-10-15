@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/core/traleNotifier.dart';
 
 
@@ -140,13 +139,34 @@ class _CustomLineChartState extends State<CustomLineChart> {
       return SideTitles(
         showTitles: true,
         reservedSize: 22,
-        interval: max<int>((maxX - minX)~/ 6, 1).toDouble(),
+        interval: 24 * 3600 * 1000,
         margin: 10,
         getTextStyles: (BuildContext context, double value)
-          => Theme.of(context).textTheme.bodyText1!,
+          => Theme.of(context).textTheme.bodyText1!.apply(
+            fontFamily: 'Courier',
+          ),
         getTitles: (double value) {
-          return DateTime.fromMillisecondsSinceEpoch(
-              value.toInt()).day.toString();
+          final DateTime date = DateTime.fromMillisecondsSinceEpoch(
+              value.toInt()
+          );
+          final int interval = (
+              max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
+          ).toInt();
+          if (date.day == 1) {
+            return DateFormat(
+                'MMM',
+                Localizations.localeOf(context).languageCode
+            ).format(date);
+          } else if (date.day % interval == 0) {
+            if (
+              date.day - interval ~/ 1.5 < 0 ||
+              date.month != date.add(Duration(days: interval ~/ 1.5)).month
+            ) {
+              return '';
+            }
+            return date.day.toString();
+          }
+          return '';
         },
       );
     }
@@ -158,9 +178,11 @@ class _CustomLineChartState extends State<CustomLineChart> {
         interval: max<int>((maxY - minY)~/ 4, 1).toDouble(),
         margin: 10,
         getTextStyles: (BuildContext context, double value)
-          => Theme.of(context).textTheme.bodyText1!,
+          => Theme.of(context).textTheme.bodyText1!.apply(
+            fontFamily: 'Courier',
+          ),
         getTitles: (double value) {
-          return '${value.toStringAsFixed(0)} ${notifier.unit.name}';
+          return value.toStringAsFixed(0);
         },
       );
     }
@@ -186,26 +208,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
             show: true,
           ),
           clipData: FlClipData.all(),
-          extraLinesData: ExtraLinesData(
-            verticalLines: monthSpan.map((DateTime x) {
-              return VerticalLine(
-                  x: x.millisecondsSinceEpoch.toDouble(),
-                  color: TraleTheme.of(context)?.bgShade3.withOpacity(0),
-                  label: VerticalLineLabel(
-                      show: true,
-                      alignment: Alignment.bottomCenter,
-                      padding: EdgeInsets.only(
-                          bottom: 3.5 * TraleTheme.of(context)!.padding),
-                      labelResolver: (VerticalLine l) {
-                        return DateFormat('MMM', Localizations.localeOf(context).languageCode).format(
-                            DateTime.fromMillisecondsSinceEpoch(l.x.toInt()));
-                      },
-                      style: Theme.of(context).textTheme.bodyText2,
-                  ),
-              );
-            }
-            ).toList()
-          ),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
               spots: measurements_interpol,
