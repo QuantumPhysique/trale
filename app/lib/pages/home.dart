@@ -62,6 +62,9 @@ class _HomeState extends State<Home> {
       appBar: appBar,
       body: SafeArea(
         child: SlidingUpPanel(
+          color: TraleTheme.of(context)!.isDark
+              ? TraleTheme.of(context)!.bgShade1
+              : TraleTheme.of(context)!.bg,
           minHeight: minHeight,
           maxHeight: MediaQuery.of(context).size.height / 2
             - appBar.preferredSize.height,
