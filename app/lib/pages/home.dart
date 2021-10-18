@@ -77,10 +77,6 @@ class _HomeState extends State<Home> {
             topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
             topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
           ),
-/*          collapsed: Container(
-            color: TraleTheme.of(context)!.bgShade3,
-            child: const Icon(Icons.horizontal_rule_rounded),
-          ),*/
           panel: Column(
             children: <Widget>[
               Container(
@@ -147,30 +143,18 @@ class _HomeState extends State<Home> {
                       actionPane: const SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       child: Row(
+                          mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width/2,
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width,
                               height: 40.0,
-                              alignment: Alignment.centerRight,
-                              padding: EdgeInsets.only(
-                                  right: TraleTheme.of(context)!.padding
-                              ),
                               child: Text(
                                 DateFormat('dd/MM/yy').format(
-                                    currentMeasurement.date),
-                                style:
-                                Theme.of(context).textTheme.bodyText1?.apply(
-                                    fontFamily: 'Courier'),
-                              ),
-                            ),
-                            Container(
-                              width: 75.0,
-                              height: 40.0,
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                '${(
-                                    currentMeasurement.inUnit(context)
-                                ).toStringAsFixed(1)} ${notifier.unit.name}',
+                                  currentMeasurement.date)
+                                  + (currentMeasurement.inUnit(context))
+                                    .toStringAsFixed(1).padLeft(9, ' ')
+                                  + ' ${notifier.unit.name}',
                                 style: Theme.of(context).textTheme.bodyText1?.apply(
                                     fontFamily: 'Courier'),
                               ),
