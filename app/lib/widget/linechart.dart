@@ -1,53 +1,15 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
+import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
-
-
-/// return gaussian with std of 3 days in x [ms]
-double gaussian(
-    double x, {double sigma=72 * 3600 * 1000, double mu=0}
-) => 1 / (sigma * sqrt(2 * pi)) * exp(-1 / 2 * pow(x - mu, 2) / pow(sigma, 2));
-
-// interpolate measurements
-// measurement.date.millisecondsSinceEpoch.toDouble(),
-List<Measurement> measurementInerpol(List<Measurement> measurements) {
-  measurements.sort((Measurement a, Measurement b) {
-    return a.compareTo(b);
-  });
-  final List<RawMeasurement> values = <RawMeasurement>[
-    for (Measurement m in measurements)
-      RawMeasurement.fromMeasurement(measurement: m)
-  ];
-
-  List<Measurement> interpol = <Measurement>[];
-
-  final int date_from = values.first.date - 7 * 24*3600*1000;
-  final int date_to = values.last.date + 7 * 24*3600*1000;
-
-  for (int date=date_from; date < date_to; date += 24*3600*1000) {
-    double weight_sum = 0;
-    double mean_sum = 0;
-    for (final RawMeasurement m in values) {
-      final double weight = gaussian(date.toDouble(), mu: m.date.toDouble());
-      weight_sum += weight;
-      mean_sum += m.weight * weight;
-    }
-    interpol.add(
-      Measurement(
-        weight: mean_sum / weight_sum,
-        date: DateTime.fromMillisecondsSinceEpoch(date),
-      )
-    );
-  }
-  return interpol;
-}
 
 
 class CustomLineChart extends StatefulWidget {
@@ -76,14 +38,18 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Measurement> data = widget.box.values.toList();
-    data.sort((Measurement a, Measurement b) {
-      return a.compareTo(b);
-    });
+    final MeasurementDatabase db = MeasurementDatabase();
+    final List<Measurement> data = db.measurements;
+
+    final List<Measurement> dataInterpol = Interpolation(
+      measures: db.dailyAveragedInterpolatedMeasurements,
+    ).interpolate(InterpolFunc.gaussian);
 
     final List<Color> gradientColors = <Color>[
-      //colorElevated(TraleTheme.of(context)!.accent, 100.0),
-      TraleTheme.of(context)!.accent.withOpacity(0.5),
+      Color.alphaBlend(
+        TraleTheme.of(context)!.accent.withOpacity(0.5),
+        Colors.white,
+      ),
       TraleTheme.of(context)!.accent,
     ];
 
@@ -96,9 +62,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
     }
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
-    final List<FlSpot> measurementsInterpol = measurementInerpol(
-      data,
-    ).map(measurementToFlSpot).toList();
+    final List<FlSpot> measurementsInterpol =
+      dataInterpol.map(measurementToFlSpot).toList();
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < minX
@@ -154,14 +119,17 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ).toInt();
           if (date.day == 1) {
             return DateFormat(
-                'MMM',
-                Localizations.localeOf(context).languageCode
+              'MMM',
+              Localizations.localeOf(context).languageCode
             ).format(date);
           } else if (date.day % interval == 0) {
             if (
               date.day - interval ~/ 1.5 < 0 ||
               date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
-              maxX - date.millisecondsSinceEpoch < Duration(days: 1).inMilliseconds
+              (
+                maxX - date.millisecondsSinceEpoch <
+                const Duration(days: 1).inMilliseconds
+              )
           ) {
               return '';
             }
@@ -188,7 +156,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    //todo use ScatterChart for data and use LineChart for the model.
     Widget lineChart (double minX, double maxX, double minY, double maxY) {
       return LineChart(
         LineChartData(
@@ -213,9 +180,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurementsInterpol,
               isCurved: true,
-              colors: gradientColors,
-              gradientFrom: const Offset(0.5, 1),
-              gradientTo: const Offset(0.5, 0),
+              colors: <Color>[Colors.transparent],
               barWidth: 5,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -223,18 +188,17 @@ class _CustomLineChartState extends State<CustomLineChart> {
               ),
               belowBarData: BarAreaData(
                 show: true,
-                gradientFrom: const Offset(0.5, 1),
-                gradientTo: const Offset(0.5, 0),
+                gradientFrom: const Offset(0, 1),
+                gradientTo: const Offset(0, 0.7),
                 colors: gradientColors.map(
-                        (Color color) => color.withOpacity(0.3)).toList(),
+                  (Color color) => color.withOpacity(0.5)
+                ).toList(),
               ),
             ),
             LineChartBarData(
               spots: measurements,
               isCurved: false,
-              colors: gradientColors,
-              gradientFrom: const Offset(0.5, 1),
-              gradientTo: const Offset(0.5, 0),
+              colors: <Color>[TraleTheme.of(context)!.accent],
               barWidth: 0,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -255,8 +219,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {
-            if (minX == data.first.date.millisecondsSinceEpoch.toDouble()
-                && maxX == data.last.date.millisecondsSinceEpoch.toDouble()) {
+            if (
+              minX == dataInterpol.first.date.millisecondsSinceEpoch.toDouble() &&
+              maxX == (
+                dataInterpol.last.date.compareTo(DateTime.now()) > 0
+                  ? dataInterpol.last.date
+                  : DateTime.now()
+              ).millisecondsSinceEpoch.toDouble()
+            ) {
               minX = DateTime.now().subtract(
                 const Duration(days: 21)
               ).millisecondsSinceEpoch.toDouble();
@@ -264,11 +234,11 @@ class _CustomLineChartState extends State<CustomLineChart> {
                 const Duration(days: 7)
               ).millisecondsSinceEpoch.toDouble();
             } else {
-              minX = data.first.date.subtract(
-                const Duration(days: 7)
-              ).millisecondsSinceEpoch.toDouble();
-              maxX = data.last.date.add(
-                const Duration(days: 7)
+              minX = dataInterpol.first.dateInMs.toDouble();
+              maxX = (
+                dataInterpol.last.date.compareTo(DateTime.now()) > 0
+                  ? dataInterpol.last.date
+                  : DateTime.now()
               ).millisecondsSinceEpoch.toDouble();
             }
           });
@@ -299,12 +269,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
           setState(() {
             final double primDelta =
                 (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
-            final double allowedMaxX = DateTime.now().add(
-                const Duration(days: 7)
+
+            final double allowedMaxX = (
+                dataInterpol.last.date.compareTo(DateTime.now()) > 0
+                    ? dataInterpol.last.date
+                    : DateTime.now()
             ).millisecondsSinceEpoch.toDouble();
-            final double allowedMinX = data.first.date.subtract(
-                const Duration(days: 7)
-            ).millisecondsSinceEpoch.toDouble();
+            final double allowedMinX = dataInterpol.first.dateInMs.toDouble();
             if (
               maxX - primDelta <= allowedMaxX &&
               minX - primDelta >= allowedMinX
