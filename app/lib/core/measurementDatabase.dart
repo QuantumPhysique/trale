@@ -41,7 +41,7 @@ class MeasurementDatabase {
       for (final dynamic key in box.keys)
         SortedMeasurement(key: key, measurement: box.get(key)!)
     ]..sort(
-      (SortedMeasurement a, SortedMeasurement b) => a.compareTo(b)
+      (SortedMeasurement a, SortedMeasurement b) => b.compareTo(a)
     );
 
   /// get sorted list of daily-averaged measurements

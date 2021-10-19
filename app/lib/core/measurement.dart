@@ -32,8 +32,23 @@ class Measurement {
 
   /// return weight in active unit
   double inUnit(BuildContext context) => weight / Provider.of<TraleNotifier>(
-      context, listen: false
+    context, listen: false
   ).unit.scaling;
+
+  /// convert to String
+  String weightToString(BuildContext context, {bool showUnit=true})
+    => Provider.of<TraleNotifier>(
+        context, listen: false
+      ).unit.weightToString(this, showUnit: showUnit);
+
+  /// convert date to String
+  String dateToString(BuildContext context) => Provider.of<TraleNotifier>(
+      context, listen: false
+    ).dateFormat.format(date);
+
+  /// date followed by weight
+  String measureToString(BuildContext context, {int ws=10})
+    => dateToString(context) + weightToString(context).padLeft(ws);
 
   /// return day in milliseconds since epoch neglecting the hours, minutes
   int get dayInMs => DateTime(

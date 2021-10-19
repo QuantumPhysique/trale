@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:trale/core/language.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 
 /// Class to dynamically change themeMode, isAmoled and language within app
@@ -32,7 +33,7 @@ class TraleNotifier with ChangeNotifier {
   }
   /// getter
   TraleCustomTheme get theme => prefs.theme.toTraleCustomTheme()
-      ?? prefs.defaultTheme.toTraleCustomTheme()!;
+    ?? prefs.defaultTheme.toTraleCustomTheme()!;
   /// setter
   set theme(TraleCustomTheme newTheme) {
     if (newTheme != theme) {
@@ -50,6 +51,12 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// getter
+  DateFormat get dateFormat => DateFormat(
+    'dd/MM/yyyy',
+    locale?.languageCode,
+  );
 
   /// getter
   TraleUnit get unit => prefs.unit;
