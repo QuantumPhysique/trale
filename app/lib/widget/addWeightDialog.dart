@@ -5,12 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/icons.dart';
 
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/units.dart';
 import 'package:trale/widget/weightPicker.dart';
 
 
@@ -108,7 +108,7 @@ Future<bool> showAddWeightDialog({
               style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Text(
-              DateFormat('dd/MM/yy').format(currentDate),
+              notifier.dateFormat.format(currentDate),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () async {

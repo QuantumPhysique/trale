@@ -4,12 +4,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
@@ -39,12 +40,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
     final SlidableController slidableController = SlidableController();
     final Box<Measurement> box_ = Hive.box<Measurement>(measurementBoxName);
+    final List<SortedMeasurement> measurements =
+      MeasurementDatabase().sortedMeasurements;
 
-    AppBar appBar = AppBar(
+    final AppBar appBar = AppBar(
       centerTitle: true,
       title: AutoSizeText(
         AppLocalizations.of(context)!.trale.toUpperCase(),
@@ -84,11 +85,10 @@ class _HomeState extends State<Home> {
                 child: const Icon(Icons.horizontal_rule_rounded)),
               Expanded(
                 child: ListView.builder(
-                  itemCount: box_.values.length,
+                  itemCount: measurements.length,
                   itemBuilder: (BuildContext context, int index) {
-                    Measurement? currentMeasurement = box_.getAt(index);
-                    if (currentMeasurement == null)
-                      return const SizedBox.shrink();
+                    final SortedMeasurement currentMeasurement
+                      = measurements[index];
 
                     Widget deleteAction() {
                       return IconSlideAction(
@@ -96,9 +96,9 @@ class _HomeState extends State<Home> {
                           color: TraleTheme.of(context)!.accent,
                           icon: CustomIcons.delete,
                           onTap: () {
-                            box_.deleteAt(index);
+                            box_.delete(currentMeasurement.key);
                             final SnackBar snackBar = SnackBar(
-                              content: Text('Measurement was deleted'),
+                              content: const Text('Measurement was deleted'),
                               behavior: SnackBarBehavior.floating,
                               width: MediaQuery.of(context).size.width / 3 * 2,
                               shape: RoundedRectangleBorder(
@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
                               action: SnackBarAction(
                                 label: 'Undo',
                                 onPressed: () {
-                                  box_.add(currentMeasurement);
+                                  box_.add(currentMeasurement.measurement);
                                 },
                               ),
                             );
@@ -128,12 +128,12 @@ class _HomeState extends State<Home> {
                         onTap: () async {
                           final bool changed = await showAddWeightDialog(
                             context: context,
-                            weight: currentMeasurement.weight,
-                            date: currentMeasurement.date,
+                            weight: currentMeasurement.measurement.weight,
+                            date: currentMeasurement.measurement.date,
                             box: Hive.box<Measurement>(measurementBoxName),
                           );
                           if (changed)
-                            box_.deleteAt(index);
+                            box_.delete(currentMeasurement.key);
                         },
                       );
                     }
@@ -150,13 +150,11 @@ class _HomeState extends State<Home> {
                               width: MediaQuery.of(context).size.width,
                               height: 40.0,
                               child: Text(
-                                DateFormat('dd/MM/yy').format(
-                                  currentMeasurement.date)
-                                  + (currentMeasurement.inUnit(context))
-                                    .toStringAsFixed(1).padLeft(9, ' ')
-                                  + ' ${notifier.unit.name}',
-                                style: Theme.of(context).textTheme.bodyText1?.apply(
-                                    fontFamily: 'Courier'),
+                                currentMeasurement.measurement.measureToString(
+                                  context, ws: 12,
+                                ),
+                                style: Theme.of(context).textTheme
+                                  .bodyText1?.apply(fontFamily: 'Courier'),
                               ),
                             ),
                           ]
