@@ -1,10 +1,11 @@
+/// Units of weight measurements
 enum TraleUnit {
   /// kg
   kg,
   /// stones
   st,
   /// pounds
-  pd,
+  lb,
 }
 
 /// extend units
@@ -13,21 +14,21 @@ extension TraleUnitExtension on TraleUnit {
   double get scaling => <TraleUnit, double>{
     TraleUnit.kg: 1,
     TraleUnit.st: 6.35029318,
-    TraleUnit.pd: 0.45359237,
+    TraleUnit.lb: 0.45359237,
   }[this]!;
 
   /// get the number of ticks
   int get ticksPerStep => <TraleUnit, int>{
     TraleUnit.kg: 10,
     TraleUnit.st: 20,
-    TraleUnit.pd: 5,
+    TraleUnit.lb: 5,
   }[this]!;
 
   /// get the number of ticks
   int get precision => <TraleUnit, int>{
     TraleUnit.kg: 1,
     TraleUnit.st: 2,
-    TraleUnit.pd: 1,
+    TraleUnit.lb: 1,
   }[this]!;
 
   /// get string expression
