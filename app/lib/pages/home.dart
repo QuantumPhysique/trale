@@ -28,6 +28,8 @@ class _HomeState extends State<Home> {
   bool isExtended = false;
   final GlobalKey<ScaffoldState> key = GlobalKey();
   final Duration animationDuration = const Duration(milliseconds: 500);
+  final PanelController panelController = PanelController();
+  final SlidableController slidableController = SlidableController();
   late double collapsed;
   final double minHeight = 45.0;
 
@@ -39,8 +41,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
-    final SlidableController slidableController = SlidableController();
     final Box<Measurement> box_ = Hive.box<Measurement>(measurementBoxName);
     final List<SortedMeasurement> measurements =
       MeasurementDatabase().sortedMeasurements;
@@ -58,136 +58,144 @@ class _HomeState extends State<Home> {
       ),
     );
 
+    final SlidingUpPanel slidingUpPanel = SlidingUpPanel(
+      controller: panelController,
+      color: TraleTheme.of(context)!.isDark
+        ? TraleTheme.of(context)!.bgShade1
+        : TraleTheme.of(context)!.bg,
+      minHeight: minHeight,
+      onPanelClosed: () {
+        slidableController.activeState?.close();
+      },
+      maxHeight: MediaQuery.of(context).size.height / 2
+        - appBar.preferredSize.height,
+      onPanelSlide: (double x) {
+        setState(() {
+          collapsed = 1.0 - x;
+        });
+      },
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
+        topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
+      ),
+      panel: Column(
+        children: <Widget>[
+          Container(
+            height: 50.0,
+            child: const Icon(Icons.horizontal_rule_rounded)),
+          Expanded(
+            child: ListView.builder(
+                itemCount: measurements.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final SortedMeasurement currentMeasurement
+                    = measurements[index];
+                  Widget deleteAction() {
+                    return IconSlideAction(
+                      caption: AppLocalizations.of(context)!.delete,
+                      color: TraleTheme.of(context)!.accent,
+                      icon: CustomIcons.delete,
+                      onTap: () {
+                        box_.delete(currentMeasurement.key);
+                        final SnackBar snackBar = SnackBar(
+                          content: const Text('Measurement was deleted'),
+                          behavior: SnackBarBehavior.floating,
+                          width: MediaQuery.of(context).size.width / 3 * 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(
+                                TraleTheme.of(context)!.borderRadius
+                              )
+                            )
+                          ),
+                          action: SnackBarAction(
+                            label: 'Undo',
+                            onPressed: () {
+                              box_.add(currentMeasurement.measurement);
+                            },
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    );
+                  }
+                  Widget editAction() {
+                    return IconSlideAction(
+                      caption: AppLocalizations.of(context)!.edit,
+                      color: TraleTheme.of(context)!.bgShade3,
+                      icon: CustomIcons.edit,
+                      onTap: () async {
+                        final bool changed = await showAddWeightDialog(
+                          context: context,
+                          weight: currentMeasurement.measurement.weight,
+                          date: currentMeasurement.measurement.date,
+                          box: Hive.box<Measurement>(measurementBoxName),
+                        );
+                        if (changed)
+                          box_.delete(currentMeasurement.key);
+                      },
+                    );
+                  }
+
+                  return Slidable(
+                    controller: slidableController,
+                    actionPane: const SlidableDrawerActionPane(),
+                    actionExtentRatio: 0.25,
+                    child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            height: 40.0,
+                            child: Text(
+                              currentMeasurement.measurement.measureToString(
+                                context, ws: 12,
+                              ),
+                              style: Theme.of(context).textTheme
+                                .bodyText1?.apply(fontFamily: 'Courier'),
+                            ),
+                          ),
+                        ]
+                    ),
+                    actions: <Widget>[
+                      deleteAction(),
+                      editAction(),
+                    ],
+                    secondaryActions: <Widget>[
+                      editAction(),
+                      deleteAction()
+                    ],
+                  );
+                }
+            ),
+          ),
+        ],
+      ),
+      body: ValueListenableBuilder(
+        valueListenable: Hive.box<Measurement>(measurementBoxName).listenable(),
+        builder: (BuildContext context, Box<Measurement> box, _) =>
+          Column(
+            children: <Widget>[
+              Container(
+                height: collapsed * (
+                    MediaQuery.of(context).size.height / 3 - minHeight
+                  ) + (1-collapsed) * MediaQuery.of(context).size.height / 12,
+              ),
+              CustomLineChart(box: box),
+            ],
+          ),
+      ),
+    );
+
     return Scaffold(
       key: key,
       appBar: appBar,
+      onDrawerChanged: (bool isOpen) {
+        if (isOpen && panelController.isAttached)
+          panelController.close();
+      },
       body: SafeArea(
-        child: SlidingUpPanel(
-          color: TraleTheme.of(context)!.isDark
-              ? TraleTheme.of(context)!.bgShade1
-              : TraleTheme.of(context)!.bg,
-          minHeight: minHeight,
-          maxHeight: MediaQuery.of(context).size.height / 2
-            - appBar.preferredSize.height,
-          onPanelSlide: (double x) {
-            setState(() {
-              collapsed = 1.0 - x;
-            });
-          },
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
-            topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
-          ),
-          panel: Column(
-            children: <Widget>[
-              Container(
-                height: 50.0,
-                child: const Icon(Icons.horizontal_rule_rounded)),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: measurements.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final SortedMeasurement currentMeasurement
-                      = measurements[index];
-
-                    Widget deleteAction() {
-                      return IconSlideAction(
-                          caption: AppLocalizations.of(context)!.delete,
-                          color: TraleTheme.of(context)!.accent,
-                          icon: CustomIcons.delete,
-                          onTap: () {
-                            box_.delete(currentMeasurement.key);
-                            final SnackBar snackBar = SnackBar(
-                              content: const Text('Measurement was deleted'),
-                              behavior: SnackBarBehavior.floating,
-                              width: MediaQuery.of(context).size.width / 3 * 2,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                          TraleTheme.of(context)!.borderRadius)
-                                  )
-                              ),
-                              action: SnackBarAction(
-                                label: 'Undo',
-                                onPressed: () {
-                                  box_.add(currentMeasurement.measurement);
-                                },
-                              ),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                          }
-                      );
-                    }
-
-                    Widget editAction() {
-                      return IconSlideAction(
-                        caption: AppLocalizations.of(context)!.edit,
-                        color: TraleTheme.of(context)!.bgShade3,
-                        icon: CustomIcons.edit,
-                        onTap: () async {
-                          final bool changed = await showAddWeightDialog(
-                            context: context,
-                            weight: currentMeasurement.measurement.weight,
-                            date: currentMeasurement.measurement.date,
-                            box: Hive.box<Measurement>(measurementBoxName),
-                          );
-                          if (changed)
-                            box_.delete(currentMeasurement.key);
-                        },
-                      );
-                    }
-
-                    return Slidable(
-                      controller: slidableController,
-                      actionPane: const SlidableDrawerActionPane(),
-                      actionExtentRatio: 0.25,
-                      child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width,
-                              height: 40.0,
-                              child: Text(
-                                currentMeasurement.measurement.measureToString(
-                                  context, ws: 12,
-                                ),
-                                style: Theme.of(context).textTheme
-                                  .bodyText1?.apply(fontFamily: 'Courier'),
-                              ),
-                            ),
-                          ]
-                      ),
-                      actions: <Widget>[
-                        deleteAction(),
-                        editAction(),
-                      ],
-                      secondaryActions: <Widget>[
-                        editAction(),
-                        deleteAction()
-                      ],
-                    );
-                  }
-        ),
-              ),
-            ],
-          ),
-          body: ValueListenableBuilder(
-            valueListenable: Hive.box<Measurement>(measurementBoxName).listenable(),
-            builder: (BuildContext context, Box<Measurement> box, _) =>
-              Column(
-                children: <Widget>[
-                  Container(
-                    height: collapsed * (MediaQuery.of(context).size.height / 3
-                                         - minHeight)
-                      + (1-collapsed) * MediaQuery.of(context).size.height / 12,
-                  ),
-                  CustomLineChart(box: box),
-                ],
-              ),
-          ),
-        ),
+        child: slidingUpPanel,
       ),
       floatingActionButton: isExtended
         ? Container()
@@ -231,7 +239,6 @@ class _HomeState extends State<Home> {
                   Image.asset(
                     'assets/launcher/foreground_crop.png',
                     width: MediaQuery.of(context).size.width * 0.2,
-
                   ),
                   SizedBox(width: TraleTheme.of(context)!.padding),
                   Column(
