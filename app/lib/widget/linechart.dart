@@ -47,10 +47,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     final List<Color> gradientColors = <Color>[
       Color.alphaBlend(
-        TraleTheme.of(context)!.accent.withOpacity(0.5),
-        Colors.white,
+        TraleTheme.of(context)!.accent.withOpacity(0.2),
+        TraleTheme.of(context)!.bg,
       ),
-      TraleTheme.of(context)!.accent,
+      Color.alphaBlend(
+        TraleTheme.of(context)!.accent.withOpacity(0.4),
+        TraleTheme.of(context)!.bg,
+      ),
     ];
 
 
@@ -189,10 +192,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               belowBarData: BarAreaData(
                 show: true,
                 gradientFrom: const Offset(0, 1),
-                gradientTo: const Offset(0, 0.7),
-                colors: gradientColors.map(
-                  (Color color) => color.withOpacity(0.5)
-                ).toList(),
+                gradientTo: const Offset(0, 0.5),
+                colors: gradientColors,
               ),
             ),
             LineChartBarData(
