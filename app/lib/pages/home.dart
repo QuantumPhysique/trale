@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:trale/core/icons.dart';
+import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -278,8 +279,7 @@ class _HomeState extends State<Home> {
                 maxLines: 1,
               ),
               trailing: DropdownButton<String>(
-                value: Provider.of<TraleNotifier>(context)
-                  .language.language,
+                value: Provider.of<TraleNotifier>(context) .language.language,
                 items: <DropdownMenuItem<String>>[
                   for (Language lang in Language.supportedLanguages)
                     DropdownMenuItem<String>(
@@ -307,8 +307,7 @@ class _HomeState extends State<Home> {
                 maxLines: 1,
               ),
               trailing: DropdownButton<TraleUnit>(
-                value: Provider.of<TraleNotifier>(context)
-                    .unit,
+                value: Provider.of<TraleNotifier>(context).unit,
                 items: <DropdownMenuItem<TraleUnit>>[
                   for (TraleUnit unit in TraleUnit.values)
                     DropdownMenuItem<TraleUnit>(
@@ -329,7 +328,6 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-
             ListTile(
               dense: true,
               contentPadding: EdgeInsets.symmetric(
@@ -368,7 +366,34 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-
+            ListTile(
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.interpolation,
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 1,
+              ),
+              trailing: DropdownButton<InterpolStrength>(
+                value: Provider.of<TraleNotifier>(context).interpolStrength,
+                items: <DropdownMenuItem<InterpolStrength>>[
+                  for (InterpolStrength strength in InterpolStrength.values)
+                    DropdownMenuItem<InterpolStrength>(
+                      value: strength,
+                      child: Text(
+                        strength.nameLong(context),
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    )
+                ],
+                onChanged: (InterpolStrength? strength) async {
+                  setState(() {
+                    Provider.of<TraleNotifier>(
+                        context, listen: false
+                    ).interpolStrength = strength!;
+                  });
+                },
+              ),
+            ),
             const Spacer(),
             const Divider(),
             ListTile(

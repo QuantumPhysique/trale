@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
@@ -39,6 +40,8 @@ class Preferences {
   final String defaultTheme = TraleCustomTheme.fire.name;
   /// default unit
   final TraleUnit defaultUnit = TraleUnit.kg;
+  /// default interpolation strength
+  final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
   /// getter and setter for all preferences
   /// get night mode value
@@ -65,6 +68,13 @@ class Preferences {
   set unit(TraleUnit unit) => prefs.setString(
       'unit', unit.name,
   );
+  /// get interpolation strength mode
+  InterpolStrength get interpolStrength
+    => prefs.getString('interpolStrength')!.toInterpolStrength()!;
+  /// set interpolation strength mode
+  set interpolStrength(InterpolStrength strength) => prefs.setString(
+    'interpolStrength', strength.name,
+  );
 
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override=false}) {
@@ -78,6 +88,8 @@ class Preferences {
       theme = defaultTheme;
     if (override || !prefs.containsKey('unit'))
       unit = defaultUnit;
+    if (override || !prefs.containsKey('interpolStrength'))
+      interpolStrength = defaultInterpolStrength;
   }
 
   /// reset all settings

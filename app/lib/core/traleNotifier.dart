@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
@@ -64,6 +65,16 @@ class TraleNotifier with ChangeNotifier {
   set unit(TraleUnit newUnit) {
     if (unit != newUnit) {
       prefs.unit = newUnit;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  InterpolStrength get interpolStrength => prefs.interpolStrength;
+  /// setter
+  set interpolStrength(InterpolStrength strength) {
+    if (interpolStrength != strength) {
+      prefs.interpolStrength = strength;
       notifyListeners();
     }
   }
