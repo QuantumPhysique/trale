@@ -31,6 +31,13 @@ Measurement gaussianInterpol(int x, List<Measurement> measurements){
 
 /// x date in milliseconds since epoch, measurements sorted by date
 Measurement linearInterpol(int x, List<Measurement> measurements){
+  if (measurements.length == 1)
+    return Measurement(
+      weight: measurements.first.weight,
+      date: DateTime.fromMillisecondsSinceEpoch(x),
+      isMeasured: false,
+    );
+
   final int index = measurements.lastIndexWhere(
     (Measurement m) => m.dateInMs <= x
   );
