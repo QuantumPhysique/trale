@@ -42,7 +42,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final List<Measurement> data = db.measurements;
 
     final List<Measurement> dataInterpol = Interpolation(
-      measures: db.dailyAveragedInterpolatedMeasurements,
+      measures: db.dailyAveragedExtrapolatedMeasurements,
     ).interpolate(InterpolFunc.gaussian);
 
     final List<Color> gradientColors = <Color>[

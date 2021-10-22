@@ -1,6 +1,10 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/preferences.dart';
 
 
 /// return gaussian with std of 3 days in x [ms]
@@ -11,13 +15,16 @@ double gaussian(
 
 /// x date in milliseconds since epoch, measurements sorted by date
 Measurement gaussianInterpol(int x, List<Measurement> measurements){
+  final Preferences pref = Preferences();
   double weightSum = 0;
   double meanSum = 0;
   for (final Measurement m in measurements) {
     final double weight = gaussian(
       x.toDouble(),
       mu: m.dateInMs.toDouble(),
-      sigma: (m.isMeasured ? 4 : 2) * 24 * 3600 * 1000,
+      sigma: (
+        m.isMeasured ? pref.interpolStrength.strength : 2
+      ) * 24 * 3600 * 1000,
     ) * (m.isMeasured ? 10 : 1);
     weightSum += weight;
     meanSum += m.weight * weight;
@@ -97,7 +104,7 @@ class Interpolation {
     /// Step width [days]
     double extrapolationStepWidth=1,
     /// Extrapolation range [days]
-    double extrapolationRange=7,
+    double extrapolationRange=0,
   }) {
     this.extrapolationRange = (extrapolationRange * 24*3600*1000).toInt();
     this.extrapolationStepWidth = (
@@ -110,7 +117,11 @@ class Interpolation {
     final int dateFrom = measures.first.dateInMs - extrapolationRange;
     final int dateTo = measures.last.dateInMs + extrapolationRange;
     return <Measurement>[
-      for (int date=dateFrom; date < dateTo; date += extrapolationStepWidth)
+      for (
+        int date=dateFrom;
+        date < dateTo + extrapolationStepWidth;
+        date += extrapolationStepWidth
+      )
         interpolFunc.function(date, measures) as Measurement
     ];
   }
@@ -121,4 +132,45 @@ class Interpolation {
   late int extrapolationStepWidth;
   /// daily-averaged and sorted Measurements
   late List<Measurement> measures;
+}
+
+/// Enum with all available interpolation functions
+enum InterpolStrength {
+  /// soft
+  soft,
+  /// medium
+  medium,
+  /// strong
+  strong,
+}
+
+/// extend interpolation strength
+extension InterpolStrengthExtension on InterpolStrength {
+  /// get the interpolation strength in days
+  int get strength => <InterpolStrength, int>{
+      InterpolStrength.soft: 2,
+      InterpolStrength.medium: 4,
+      InterpolStrength.strong: 7,
+    }[this]!;
+
+  /// get international name
+  String nameLong (BuildContext context) => <InterpolStrength, String>{
+      InterpolStrength.soft: AppLocalizations.of(context)!.soft,
+      InterpolStrength.medium: AppLocalizations.of(context)!.medium,
+      InterpolStrength.strong: AppLocalizations.of(context)!.strong,
+    }[this]!;
+
+  /// get string expression
+  String get name => toString().split('.').last;
+}
+
+/// convert string to interpolation strength
+extension InterpolStrengthParsing on String {
+  /// convert string to interpolation strength
+  InterpolStrength? toInterpolStrength() {
+    for (final InterpolStrength strength in InterpolStrength.values)
+      if (this == strength.name)
+        return strength;
+    return null;
+  }
 }

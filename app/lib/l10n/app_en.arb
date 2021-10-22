@@ -588,5 +588,21 @@
   "addWeight": "add weight",
   "@addWeight": {
     "description": "add weight"
+  },
+  "interpolation": "interpolation",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "soft": "soft",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "medium",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "strong",
+  "@strong": {
+    "description": "strong interpolation"
   }
 }

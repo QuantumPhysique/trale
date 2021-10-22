@@ -88,11 +88,9 @@ class MeasurementDatabase {
     final List<Measurement> ms = dailyAveragedMeasurements;
     final List<Measurement> dailyMeasurements = <Measurement>[];
 
-    final int intervalInDays =
-      ms.last.date.difference(ms.first.date).inDays + 2 * _offsetInDays;
-    final DateTime dateStart = ms.first.date.subtract(
-      const Duration(days: _offsetInDays)
-    );
+    final int intervalInDays = ms.last.date.difference(ms.first.date).inDays;
+    final DateTime dateStart = ms.first.date;
+
     for (int days = 0; days < intervalInDays; days += 1) {
       DateTime date = dateStart.add(Duration(days: days));
       date = DateTime(date.year, date.month, date.day, _offsetInH);
@@ -112,18 +110,53 @@ class MeasurementDatabase {
       }
       if (!isDayInMeasurements) {
         dailyMeasurements.add(
-          Measurement(
-            weight: (InterpolFunc.linear.function(
-              date.millisecondsSinceEpoch, ms,
-            ) as Measurement).weight,
-            date: date,
-            isMeasured: days < _offsetInDays ||
-              days > intervalInDays - _offsetInDays,
-          )
+          InterpolFunc.linear.function(
+            date.millisecondsSinceEpoch, ms,
+          ) as Measurement
         );
       }
     }
     return dailyMeasurements;
+  }
+
+  /// get linearly extrapolation based on gaussian interpolation
+  List<Measurement> get dailyAveragedExtrapolatedMeasurements {
+    final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
+    final List<Measurement> msGaussian = Interpolation(
+      measures: dailyAveragedInterpolatedMeasurements,
+    ).interpolate(InterpolFunc.gaussian);
+
+    final List<Measurement> extrapolH = <Measurement>[];
+    final List<Measurement> extrapolF = <Measurement>[];
+
+    final DateTime dateStartH = ms.first.date.subtract(
+        const Duration(days: _offsetInDays)
+    );
+    final DateTime dateStartF = ms.last.date;
+    for (int days = 1; days - 1 <= _offsetInDays; days += 1) {
+      DateTime dateF = dateStartF.add(Duration(days: days));
+      DateTime dateH = dateStartH.add(Duration(days: days));
+      dateF = DateTime(dateF.year, dateF.month, dateF.day, _offsetInH);
+      dateH = DateTime(dateH.year, dateH.month, dateH.day, _offsetInH);
+      extrapolF.add(
+        Measurement(
+          weight: (InterpolFunc.linear.function(
+            dateF.millisecondsSinceEpoch, msGaussian,
+          ) as Measurement).weight,
+          date: dateF,
+          isMeasured: true,
+        )
+
+      );
+      extrapolH.add(
+          InterpolFunc.linear.function(
+            dateH.millisecondsSinceEpoch, msGaussian,
+          ) as Measurement
+      );
+    }
+    ms.addAll(extrapolF);
+    ms.insertAll(0, extrapolH);
+    return ms;
   }
 
   /// offset of day in hours
