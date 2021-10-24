@@ -29,6 +29,27 @@ Color colorElevated(Color color, double elevation) => Color.alphaBlend(
   getFontColor(color).withOpacity(overlayOpacity(elevation)), color,
 );
 
+
+/// Class holding three different transition durations
+class TransitionDuration {
+  /// constructor
+  TransitionDuration(this._fast, this._normal, this._slow);
+
+  /// get duration of fast transition
+  Duration get fast => Duration(milliseconds: _fast);
+  /// get duration of normal transition
+  Duration get normal => Duration(milliseconds: _normal);
+  /// get duration of slow transition
+  Duration get slow => Duration(milliseconds: _slow);
+
+  /// length of durations in ms
+  final int _fast;
+  /// length of durations in ms
+  final int _normal;
+  /// length of durations in ms
+  final int _slow;
+}
+
 /// Theme class for Adonify app
 class TraleTheme {
   /// Default constructor
@@ -130,6 +151,8 @@ class TraleTheme {
   double get borderRadius => borderShape.borderRadius.resolve(
     TextDirection.ltr,
   ).bottomLeft.x;
+  final TransitionDuration transitionDuration =
+    TransitionDuration(100, 200, 500);
 
 
 //  /// return dark mode
@@ -149,9 +172,6 @@ class TraleTheme {
   Color get bgShade3 => bgElevated(2);
   /// get elevated shade of bg
   Color bgElevated(double elevation) => colorOfElevation(elevation, bg);
-
-  /// return animation duration
-  Duration get transitionDuration => const Duration(milliseconds: 300);
 
   /// get header color of dialog
   Color? get dialogHeaderColor => isDark
