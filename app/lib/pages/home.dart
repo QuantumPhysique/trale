@@ -61,6 +61,11 @@ class _HomeState extends State<Home> {
       ),
     );
 
+    final BorderRadius borderRadius = BorderRadius.only(
+      topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
+      topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
+    );
+
     final SlidingUpPanel slidingUpPanel = SlidingUpPanel(
       controller: panelController,
       minHeight: minHeight + 10,
@@ -108,10 +113,7 @@ class _HomeState extends State<Home> {
                 : TraleTheme.of(context)!.isDark
                   ? TraleTheme.of(context)!.bgShade1
                   : TraleTheme.of(context)!.bgShade3,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
-                topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
-              ),
+              borderRadius: borderRadius,
               boxShadow: const <BoxShadow>[
                 BoxShadow(
                   blurRadius: 8.0,
@@ -120,10 +122,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
-                topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
-              ),
+              borderRadius: borderRadius,
               child: ListView.builder(
                 controller: sc,
                 clipBehavior: Clip.antiAlias,
