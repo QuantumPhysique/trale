@@ -208,7 +208,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             ),
           ],
         ),
-        swapAnimationDuration: const Duration(milliseconds: 150),
+        swapAnimationDuration: TraleTheme.of(context)!.transitionDuration,
         swapAnimationCurve: Curves.easeIn,
       );
     }
