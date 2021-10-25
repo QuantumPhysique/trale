@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
 
 import 'package:trale/core/interpolation.dart';
@@ -6,6 +7,7 @@ import 'package:trale/core/language.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
+
 
 /// Class to dynamically change themeMode, isAmoled and language within app
 class TraleNotifier with ChangeNotifier {
@@ -55,8 +57,12 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   DateFormat get dateFormat => DateFormat(
-    'dd/MM/yyyy',
-    locale?.languageCode,
+    locale != null &&
+    dateTimePatternMap().containsKey(locale!.languageCode) &&
+    dateTimePatternMap()[locale!.languageCode]!.containsKey('yMd')
+      ? dateTimePatternMap()[locale!.languageCode]!['yMd']!
+        .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
+      : 'yMd',
   );
 
   /// getter
