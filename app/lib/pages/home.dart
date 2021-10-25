@@ -16,8 +16,10 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/main.dart';
+import 'package:trale/pages/about.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/linechart.dart';
+import 'package:trale/widget/routeTransition.dart';
 
 
 class Home extends StatefulWidget {
@@ -491,6 +493,15 @@ class _HomeState extends State<Home> {
                 style: Theme.of(context).textTheme.bodyText1,
                 maxLines: 1,
               ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push<dynamic>(
+                    SlideRoute(
+                      page: About(),
+                      direction: TransitionDirection.left,
+                    )
+                );
+              },
             ),
           ],
         ),

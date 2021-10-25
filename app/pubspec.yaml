@@ -28,13 +28,16 @@ dependencies:
 
   auto_size_text_pk: ^3.0.0
   flutter_slidable: ^0.6.0
-  fl_chart: ^0.40.0
+  fl_chart: ^0.40.2
+  font_awesome_flutter: ^9.2.0
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   intl: ^0.17.0
-  provider: ^5.0.0
-  shared_preferences: ^2.0.6
+  package_info: ^2.0.2
+  provider: ^6.0.1
+  shared_preferences: ^2.0.8
   sliding_up_panel: ^2.0.0+1
+  url_launcher: 6.0.12
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
