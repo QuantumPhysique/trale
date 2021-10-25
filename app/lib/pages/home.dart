@@ -84,18 +84,18 @@ class _HomeState extends State<Home> {
         alignment: Alignment.topCenter,
         children: <Widget>[
           AnimatedContainer(
-              margin: const EdgeInsets.only(top: 10),
-              duration: TraleTheme.of(context)!.transitionDuration.normal,
-              child: Container(
-                width: 20,
-                child: Divider(
-                  color: Theme.of(context).iconTheme.color,
-                  thickness: 1.5,
-                  height: collapsed > 0.1
-                      ? 50.0
-                      : 2 * TraleTheme.of(context)!.padding,
-                ),
-              ),
+            margin: const EdgeInsets.only(top: 10),
+            duration: TraleTheme.of(context)!.transitionDuration.normal,
+            width: 20,
+            height: collapsed > 0.1
+              ? 50.0
+              : 2 * TraleTheme.of(context)!.padding,
+            alignment: Alignment.center,
+            child: Divider(
+              color: Theme.of(context).iconTheme.color,
+              thickness: 1.5,
+              height: 2,
+            ),
           ),
           AnimatedContainer(
             duration: TraleTheme.of(context)!.transitionDuration.normal,
@@ -249,7 +249,7 @@ class _HomeState extends State<Home> {
             margin: EdgeInsets.all(
               showFAB ? 0 : 0.5 * buttonHeight,
             ),
-            duration: TraleTheme.of(context)!.transitionDuration.fast,
+            duration: TraleTheme.of(context)!.transitionDuration.normal,
             child: FittedBox(
               fit: BoxFit.contain,
               child: FloatingActionButton(
