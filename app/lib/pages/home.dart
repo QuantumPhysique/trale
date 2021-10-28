@@ -17,6 +17,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/main.dart';
 import 'package:trale/pages/about.dart';
+import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/routeTransition.dart';
@@ -328,147 +329,28 @@ class _HomeState extends State<Home> {
                   : TraleTheme.of(context)!.bgShade3,
               ),
             ),
-            AutoSizeText(
-              AppLocalizations.of(context)!.settings.toUpperCase(),
-              style: Theme.of(context).textTheme.headline6,
-              maxLines: 1,
-            ),
-            ListTile(
-              dense: true,
-              title: AutoSizeText(
-                AppLocalizations.of(context)!.language,
-                style: Theme.of(context).textTheme.bodyText1,
-                maxLines: 1,
-              ),
-              trailing: DropdownButton<String>(
-                value: Provider.of<TraleNotifier>(context) .language.language,
-                items: <DropdownMenuItem<String>>[
-                  for (Language lang in Language.supportedLanguages)
-                    DropdownMenuItem<String>(
-                      value: lang.language,
-                      child: Text(
-                        lang.languageLong(context),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    )
-                ],
-                onChanged: (String? lang) async {
-                  setState(() {
-                    Provider.of<TraleNotifier>(
-                      context, listen: false
-                    ).language = lang!.toLanguage();
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              dense: true,
-              title: AutoSizeText(
-                AppLocalizations.of(context)!.unit,
-                style: Theme.of(context).textTheme.bodyText1,
-                maxLines: 1,
-              ),
-              trailing: DropdownButton<TraleUnit>(
-                value: Provider.of<TraleNotifier>(context).unit,
-                items: <DropdownMenuItem<TraleUnit>>[
-                  for (TraleUnit unit in TraleUnit.values)
-                    DropdownMenuItem<TraleUnit>(
-                      value: unit,
-                      child: Text(
-                        unit.name,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    )
-                ],
-                onChanged: (TraleUnit? newUnit) async {
-                  setState(() {
-                    if (newUnit != null)
-                      Provider.of<TraleNotifier>(
-                          context, listen: false
-                      ).unit = newUnit;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              dense: true,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: TraleTheme.of(context)!.padding,
-              ),
-              title: AutoSizeText(
-                AppLocalizations.of(context)!.darkmode,
-                style: Theme.of(context).textTheme.bodyText1,
-                maxLines: 1,
-              ),
-              trailing: ToggleButtons(
-                renderBorder: false,
-                fillColor: Colors.transparent,
-                children: <Widget>[
-                  const Icon(CustomIcons.lightmode),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: TraleTheme.of(context)!.padding,
-                    ),
-                    child: const Icon(CustomIcons.automode),
-                  ),
-                  const Icon(CustomIcons.darkmode),
-                ],
-                isSelected: List<bool>.generate(
-                  orderedThemeModes.length,
-                  (int index) => index == orderedThemeModes.indexOf(
-                    Provider.of<TraleNotifier>(context).themeMode
-                  ),
-                ),
-                onPressed: (int index) {
-                  setState(() {
-                    Provider.of<TraleNotifier>(
-                        context, listen: false,
-                    ).themeMode = orderedThemeModes[index];
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              dense: true,
-              title: AutoSizeText(
-                AppLocalizations.of(context)!.interpolation,
-                style: Theme.of(context).textTheme.bodyText1,
-                maxLines: 1,
-              ),
-              trailing: DropdownButton<InterpolStrength>(
-                value: Provider.of<TraleNotifier>(context).interpolStrength,
-                items: <DropdownMenuItem<InterpolStrength>>[
-                  for (InterpolStrength strength in InterpolStrength.values)
-                    DropdownMenuItem<InterpolStrength>(
-                      value: strength,
-                      child: Text(
-                        strength.nameLong(context),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                    )
-                ],
-                onChanged: (InterpolStrength? strength) async {
-                  setState(() {
-                    Provider.of<TraleNotifier>(
-                        context, listen: false
-                    ).interpolStrength = strength!;
-                  });
-                },
-              ),
-            ),
             const Spacer(),
             const Divider(),
             ListTile(
-                dense: true,
-                leading: Icon(
-                  CustomIcons.settings,
-                  color: Theme.of(context).iconTheme.color,
-                ),
-                title: AutoSizeText(
-                  AppLocalizations.of(context)!.moreSettings,
-                  style: Theme.of(context).textTheme.bodyText1,
-                  maxLines: 1,
-                ),
+              dense: true,
+              leading: Icon(
+                CustomIcons.settings,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.settings,
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 1,
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push<dynamic>(
+                    SlideRoute(
+                      page: Settings(),
+                      direction: TransitionDirection.left,
+                    )
+                );
+              },
             ),
             ListTile(
               dense: true,
