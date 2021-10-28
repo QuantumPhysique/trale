@@ -12,14 +12,34 @@ class ColoredContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double shadowOffset = 6;
     return Container(
         height: height + 2 * TraleTheme.of(context)!.padding,
         padding: EdgeInsets.symmetric(
-            vertical: TraleTheme.of(context)!.padding),
+          vertical: TraleTheme.of(context)!.padding
+        ),
         child: Container(
           height: height,
           width: MediaQuery.of(context).size.width,
-          color: TraleTheme.of(context)!.bgShade1,
+          decoration: BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+              ),
+              BoxShadow(
+                color: TraleTheme.of(context)!.bgShade3,
+                spreadRadius: -shadowOffset,
+                blurRadius: shadowOffset,
+                offset: const Offset(shadowOffset, 0),
+              ),
+              BoxShadow(
+                color: TraleTheme.of(context)!.bgShade3,
+                spreadRadius: -shadowOffset,
+                blurRadius: shadowOffset,
+                offset: const Offset(-shadowOffset, 0),
+              ),
+            ],
+          ),
           child: child,
         )
     );
