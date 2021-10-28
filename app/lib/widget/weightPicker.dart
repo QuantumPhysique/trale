@@ -121,13 +121,32 @@ class RulerPickerState extends State<RulerPicker> {
 
   @override
   Widget build(BuildContext context) {
+    const double shadowOffset = 6;
     return Container(
       width: widget.width,
       height: widget.height + 2 * TraleTheme.of(context)!.padding,
       padding: EdgeInsets.symmetric(
         vertical: TraleTheme.of(context)!.padding,
       ),
-      color: TraleTheme.of(context)!.bgShade3,
+      decoration: BoxDecoration(
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+          ),
+          BoxShadow(
+            color: TraleTheme.of(context)!.bgShade3,
+            spreadRadius: -shadowOffset,
+            blurRadius: shadowOffset,
+            offset: const Offset(shadowOffset, 0),
+          ),
+          BoxShadow(
+            color: TraleTheme.of(context)!.bgShade3,
+            spreadRadius: -shadowOffset,
+            blurRadius: shadowOffset,
+            offset: const Offset(-shadowOffset, 0),
+          ),
+        ],
+      ),
       child: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
