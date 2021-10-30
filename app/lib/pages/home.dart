@@ -226,7 +226,8 @@ class _HomeState extends State<Home> {
             curve: Curves.easeIn,
             alignment: Alignment.center,
             height: collapsed > 0.9
-              ? MediaQuery.of(context).size.height - appBar.preferredSize.height
+              ? MediaQuery.of(context).size.height
+                - 2 * appBar.preferredSize.height
               : MediaQuery.of(context).size.height / 2,
             child: Container(
               alignment: Alignment.center,
