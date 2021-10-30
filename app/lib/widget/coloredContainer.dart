@@ -4,9 +4,13 @@ import 'package:trale/core/theme.dart';
 /// Container with bgShade1 on full width
 class ColoredContainer extends StatelessWidget {
   /// Constructor
-  const ColoredContainer({required this.height, required this.child});
+  const ColoredContainer({
+    required this.height, required this.width, required this.child,
+  });
   /// height of inner Container
   final double height;
+  /// width
+  final double width;
   /// child of inner Container
   final Widget child;
 
@@ -18,29 +22,32 @@ class ColoredContainer extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding
         ),
-        child: Container(
-          height: height,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-              ),
-              BoxShadow(
-                color: TraleTheme.of(context)!.bgShade3,
-                spreadRadius: -shadowOffset,
-                blurRadius: shadowOffset,
-                offset: const Offset(shadowOffset, 0),
-              ),
-              BoxShadow(
-                color: TraleTheme.of(context)!.bgShade3,
-                spreadRadius: -shadowOffset,
-                blurRadius: shadowOffset,
-                offset: const Offset(-shadowOffset, 0),
-              ),
-            ],
+        child: ClipRect(
+          clipBehavior: Clip.hardEdge,
+          child: Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                ),
+                BoxShadow(
+                  color: TraleTheme.of(context)!.bgShade3,
+                  spreadRadius: -shadowOffset,
+                  blurRadius: shadowOffset,
+                  offset: const Offset(shadowOffset, 0),
+                ),
+                BoxShadow(
+                  color: TraleTheme.of(context)!.bgShade3,
+                  spreadRadius: -shadowOffset,
+                  blurRadius: shadowOffset,
+                  offset: const Offset(-shadowOffset, 0),
+                ),
+              ],
+            ),
+            child: child,
           ),
-          child: child,
         )
     );
   }

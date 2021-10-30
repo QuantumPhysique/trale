@@ -122,108 +122,110 @@ class RulerPickerState extends State<RulerPicker> {
   @override
   Widget build(BuildContext context) {
     const double shadowOffset = 6;
-    return Container(
-      width: widget.width,
-      height: widget.height + 2 * TraleTheme.of(context)!.padding,
-      padding: EdgeInsets.symmetric(
-        vertical: TraleTheme.of(context)!.padding,
-      ),
-      decoration: BoxDecoration(
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-          ),
-          BoxShadow(
-            color: TraleTheme.of(context)!.bgShade3,
-            spreadRadius: -shadowOffset,
-            blurRadius: shadowOffset,
-            offset: const Offset(shadowOffset, 0),
-          ),
-          BoxShadow(
-            color: TraleTheme.of(context)!.bgShade3,
-            spreadRadius: -shadowOffset,
-            blurRadius: shadowOffset,
-            offset: const Offset(-shadowOffset, 0),
-          ),
-        ],
-      ),
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: <Widget>[
-          Listener(
-            onPointerDown: (PointerDownEvent event) {
-              FocusScope.of(context).requestFocus(FocusNode());
-              isPosFixed = false;
-            },
-            onPointerUp: (PointerUpEvent event) {},
-            child: NotificationListener(
-              onNotification: (Object? scrollNotification) {
-                if (scrollNotification is ScrollStartNotification) {
-                } else if (scrollNotification is ScrollUpdateNotification) {
-                } else if (scrollNotification is ScrollEndNotification) {
-                  if (!isPosFixed) {
-                    isPosFixed = true;
-                    print(scrollController!.offset);
-                    fixPosition(
-                      scrollNotification.metrics.pixels.roundToDouble()
-                    );
-                    print(scrollController!.offset);
-                  }
-                }
-                return true;
+    return ClipRect(
+      child: Container(
+        width: widget.width,
+        height: widget.height + 2 * TraleTheme.of(context)!.padding,
+        padding: EdgeInsets.symmetric(
+          vertical: TraleTheme.of(context)!.padding,
+        ),
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+            ),
+            BoxShadow(
+              color: TraleTheme.of(context)!.bgShade3,
+              spreadRadius: -shadowOffset,
+              blurRadius: shadowOffset,
+              offset: const Offset(shadowOffset, 0),
+            ),
+            BoxShadow(
+              color: TraleTheme.of(context)!.bgShade3,
+              spreadRadius: -shadowOffset,
+              blurRadius: shadowOffset,
+              offset: const Offset(-shadowOffset, 0),
+            ),
+          ],
+        ),
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: <Widget>[
+            Listener(
+              onPointerDown: (PointerDownEvent event) {
+                FocusScope.of(context).requestFocus(FocusNode());
+                isPosFixed = false;
               },
-              child: ListView.builder(
-                controller: scrollController,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: EdgeInsets.only(
-                      left: index == 0
-                        ? widget.width / 2
-                        : 0
-                    ),
-                    child: Container(
-                      width: tickWidth,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: <Widget>[
-                          Container(
-                            width: index % widget.ticksPerStep == 0 ? 1 : 0.7,
-                            height: index % widget.ticksPerStep == 0
-                              ? heightLargeTick
-                              : heightSmallTick,
-                            color: TraleTheme.of(context)!.bgFontLight,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            width: tickWidth * widget.ticksPerStep,
-                            left: - tickWidth * widget.ticksPerStep / 2,
-                            child: index % widget.ticksPerStep == 0
-                                ? Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    (
-                                        index / widget.ticksPerStep
-                                    ).toStringAsFixed(0),
-                                    style: Theme.of(
-                                        context
-                                    ).textTheme.bodyText1!.apply(
-                                      color: TraleTheme.of(context)!.bgFontLight,
-                                    )
-                                  ),
-                                )
-                                : Container(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+              onPointerUp: (PointerUpEvent event) {},
+              child: NotificationListener(
+                onNotification: (Object? scrollNotification) {
+                  if (scrollNotification is ScrollStartNotification) {
+                  } else if (scrollNotification is ScrollUpdateNotification) {
+                  } else if (scrollNotification is ScrollEndNotification) {
+                    if (!isPosFixed) {
+                      isPosFixed = true;
+                      print(scrollController!.offset);
+                      fixPosition(
+                        scrollNotification.metrics.pixels.roundToDouble()
+                      );
+                      print(scrollController!.offset);
+                    }
+                  }
+                  return true;
                 },
+                child: ListView.builder(
+                  controller: scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: EdgeInsets.only(
+                        left: index == 0
+                          ? widget.width / 2
+                          : 0
+                      ),
+                      child: Container(
+                        width: tickWidth,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: <Widget>[
+                            Container(
+                              width: index % widget.ticksPerStep == 0 ? 1 : 0.7,
+                              height: index % widget.ticksPerStep == 0
+                                ? heightLargeTick
+                                : heightSmallTick,
+                              color: TraleTheme.of(context)!.bgFontLight,
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              width: tickWidth * widget.ticksPerStep,
+                              left: - tickWidth * widget.ticksPerStep / 2,
+                              child: index % widget.ticksPerStep == 0
+                                  ? Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      (
+                                          index / widget.ticksPerStep
+                                      ).toStringAsFixed(0),
+                                      style: Theme.of(
+                                          context
+                                      ).textTheme.bodyText1!.apply(
+                                        color: TraleTheme.of(context)!.bgFontLight,
+                                      )
+                                    ),
+                                  )
+                                  : Container(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          widget.marker ?? mark(context),
-        ],
+            widget.marker ?? mark(context),
+          ],
+        ),
       ),
     );
   }

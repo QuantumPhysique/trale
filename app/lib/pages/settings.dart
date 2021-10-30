@@ -224,6 +224,7 @@ class ThemeSelection extends StatelessWidget {
 
     return ColoredContainer(
       height: 0.5 * MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width,
       child: ListView.builder(
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
