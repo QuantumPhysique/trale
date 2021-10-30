@@ -219,20 +219,24 @@ class _HomeState extends State<Home> {
           ),
         ].reversed.toList(),
       ),
-      body: AnimatedContainer(
-        duration: TraleTheme.of(context)!.transitionDuration.normal,
-        curve: Curves.easeIn,
-        alignment: Alignment.center,
-        height: collapsed > 0.9
-          ? MediaQuery.of(context).size.height
-          : MediaQuery.of(context).size.height / 3,
-        child: Container(
-          alignment: Alignment.center,
-          height: MediaQuery.of(context).size.height / 3,
-          child: measurements.isNotEmpty
-            ? CustomLineChart(box: box_)
-            : const SizedBox.shrink(),
-        ),
+      body: Column(
+        children: <Widget>[
+          AnimatedContainer(
+            duration: TraleTheme.of(context)!.transitionDuration.normal,
+            curve: Curves.easeIn,
+            alignment: Alignment.center,
+            height: collapsed > 0.9
+              ? MediaQuery.of(context).size.height - appBar.preferredSize.height
+              : MediaQuery.of(context).size.height / 2,
+            child: Container(
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height / 3,
+              child: measurements.isNotEmpty
+                ? CustomLineChart(box: box_)
+                : const SizedBox.shrink(),
+            ),
+          ),
+        ],
       ),
     );
 
