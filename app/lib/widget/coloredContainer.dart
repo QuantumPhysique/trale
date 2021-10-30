@@ -18,7 +18,7 @@ class ColoredContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     const double shadowOffset = 6;
     return Container(
-        height: height + 2 * TraleTheme.of(context)!.padding,
+        height: height + 4 * TraleTheme.of(context)!.padding,
         padding: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding
         ),
@@ -27,6 +27,9 @@ class ColoredContainer extends StatelessWidget {
           child: Container(
             height: height,
             width: width,
+            padding: EdgeInsets.symmetric(
+                vertical: TraleTheme.of(context)!.padding
+            ),
             decoration: BoxDecoration(
               boxShadow: <BoxShadow>[
                 BoxShadow(
