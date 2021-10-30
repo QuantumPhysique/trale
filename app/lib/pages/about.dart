@@ -214,13 +214,14 @@ class _About extends State<About> {
             child: const Text(
               'This app completely respects your privacy. This means that we '
               'do not earn anything with it and we do not get error logs. If '
-              'you are facing problems, please open an issue at gitlab.\n\n'
+              'you are facing problems, please open an issue at GitLab.\n\n'
               'The purpose of this app is to provide a simple log of the '
-              ' weight together with an short-term extrapolation. Nothing more,'
+              ' weight together with a short-term extrapolation. Nothing more,'
               ' but nothing less. Therefore, we do not plan to add fancy '
-              'features\n\n'
+              'features.\n\n'
               'We are only two devs with little sparse time. If you like the '
-              'work consider contributing or donating.'
+              'work consider contributing or donating. \u{1F642}',
+              textAlign: TextAlign.justify,
             ),
           ),
           ListTile(
