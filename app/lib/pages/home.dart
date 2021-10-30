@@ -219,19 +219,20 @@ class _HomeState extends State<Home> {
           ),
         ].reversed.toList(),
       ),
-      body: ValueListenableBuilder(
-        valueListenable: Hive.box<Measurement>(measurementBoxName).listenable(),
-        builder: (BuildContext context, Box<Measurement> box, _) =>
-          Column(
-            children: <Widget>[
-              Container(
-                height: collapsed * (
-                    MediaQuery.of(context).size.height / 3 - minHeight
-                  ) + (1-collapsed) * MediaQuery.of(context).size.height / 12,
-              ),
-              CustomLineChart(box: box),
-            ],
-          ),
+      body: AnimatedContainer(
+        duration: TraleTheme.of(context)!.transitionDuration.normal,
+        curve: Curves.easeIn,
+        alignment: Alignment.center,
+        height: collapsed > 0.9
+          ? MediaQuery.of(context).size.height
+          : MediaQuery.of(context).size.height / 3,
+        child: Container(
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height / 3,
+          child: measurements.isNotEmpty
+            ? CustomLineChart(box: box_)
+            : const SizedBox.shrink(),
+        ),
       ),
     );
 
