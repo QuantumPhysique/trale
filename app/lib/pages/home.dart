@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
     final AppBar appBar = AppBar(
       centerTitle: true,
       title: AutoSizeText(
-        AppLocalizations.of(context)!.trale.toUpperCase(),
+        AppLocalizations.of(context)!.trale.toLowerCase(),
         style: Theme.of(context).textTheme.headline4,
         maxLines: 1,
       ),
@@ -316,7 +316,7 @@ class _HomeState extends State<Home> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AutoSizeText(
-                        AppLocalizations.of(context)!.trale,
+                        AppLocalizations.of(context)!.trale.toLowerCase(),
                         style: Theme.of(context).textTheme.headline4,
                         maxLines: 1,
                       ),
