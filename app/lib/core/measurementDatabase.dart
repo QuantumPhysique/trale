@@ -91,7 +91,7 @@ class MeasurementDatabase {
     final int intervalInDays = ms.last.date.difference(ms.first.date).inDays;
     final DateTime dateStart = ms.first.date;
 
-    for (int days = 0; days < intervalInDays; days += 1) {
+    for (int days = 0; days <= intervalInDays; days += 1) {
       DateTime date = dateStart.add(Duration(days: days));
       date = DateTime(date.year, date.month, date.day, _offsetInH);
       bool isDayInMeasurements = false;
