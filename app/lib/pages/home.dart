@@ -19,6 +19,7 @@ import 'package:trale/main.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
+import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/routeTransition.dart';
 
@@ -229,11 +230,16 @@ class _HomeState extends State<Home> {
               ? MediaQuery.of(context).size.height
                 - 2 * appBar.preferredSize.height
               : MediaQuery.of(context).size.height / 2,
-            child: Container(
-              alignment: Alignment.center,
+            child: ColoredContainer(
               height: MediaQuery.of(context).size.height / 3,
+              width: MediaQuery.of(context).size.width,
               child: measurements.isNotEmpty
-                ? CustomLineChart(box: box_)
+                ? Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: TraleTheme.of(context)!.padding,
+                  ),
+                  child: CustomLineChart(box: box_),
+                )
                 : const SizedBox.shrink(),
             ),
           ),

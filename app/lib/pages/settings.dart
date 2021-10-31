@@ -223,7 +223,7 @@ class ThemeSelection extends StatelessWidget {
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
 
     return ColoredContainer(
-      height: 0.5 * MediaQuery.of(context).size.width,
+      height: 0.7 * MediaQuery.of(context).size.width,
       width: MediaQuery.of(context).size.width,
       child: ListView.builder(
           physics: const ClampingScrollPhysics(),

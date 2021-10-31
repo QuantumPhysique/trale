@@ -18,14 +18,14 @@ class ColoredContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     const double shadowOffset = 6;
     return Container(
-        height: height + 4 * TraleTheme.of(context)!.padding,
+        height: height,
         padding: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding
         ),
         child: ClipRect(
           clipBehavior: Clip.hardEdge,
           child: Container(
-            height: height,
+            height: height - 4 * TraleTheme.of(context)!.padding,
             width: width,
             padding: EdgeInsets.symmetric(
                 vertical: TraleTheme.of(context)!.padding
