@@ -76,6 +76,36 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// getter
+  String get userName => prefs.userName;
+  /// setter
+  set userName(String newName) {
+    if (userName != newName) {
+      prefs.userName = newName;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  double? get userTargetWeight => prefs.userTargetWeight;
+  /// setter
+  set userTargetWeight(double? newWeight) {
+    if (userTargetWeight != newWeight) {
+      prefs.userTargetWeight = newWeight;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  double? get userHeight => prefs.userHeight;
+  /// setter
+  set userHeight(double? newHeight) {
+    if (userHeight != newHeight) {
+      prefs.userHeight = newHeight;
+      notifyListeners();
+    }
+  }
+
+  /// getter
   InterpolStrength get interpolStrength => prefs.interpolStrength;
   /// setter
   set interpolStrength(InterpolStrength strength) {
