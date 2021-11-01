@@ -56,14 +56,19 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// getter
-  DateFormat get dateFormat => DateFormat(
-    locale != null &&
-    dateTimePatternMap().containsKey(locale!.languageCode) &&
-    dateTimePatternMap()[locale!.languageCode]!.containsKey('yMd')
-      ? dateTimePatternMap()[locale!.languageCode]!['yMd']!
-        .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
-      : 'yMd',
-  );
+  DateFormat dateFormat(BuildContext context) {
+    final Locale activeLocale = Localizations.localeOf(context);
+    if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
+      final Map<String, String> dateTimeLocaleMap =
+        dateTimePatternMap()[activeLocale.languageCode]!;
+      if (dateTimeLocaleMap.containsKey('yMd'))
+        return DateFormat(
+          dateTimeLocaleMap['yMd']!
+            .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
+        );
+    }
+    return DateFormat('dd/MM/yyyy');
+  }
 
   /// getter
   TraleUnit get unit => prefs.unit;

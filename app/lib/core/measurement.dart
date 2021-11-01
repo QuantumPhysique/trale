@@ -44,7 +44,7 @@ class Measurement {
   /// convert date to String
   String dateToString(BuildContext context) => Provider.of<TraleNotifier>(
       context, listen: false
-    ).dateFormat.format(date);
+    ).dateFormat(context).format(date);
 
   /// date followed by weight
   String measureToString(BuildContext context, {int ws=10})

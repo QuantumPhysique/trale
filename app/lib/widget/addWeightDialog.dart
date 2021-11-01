@@ -108,7 +108,7 @@ Future<bool> showAddWeightDialog({
               style: Theme.of(context).textTheme.bodyText1,
             ),
             trailing: Text(
-              notifier.dateFormat.format(currentDate),
+              notifier.dateFormat(context).format(currentDate),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () async {
