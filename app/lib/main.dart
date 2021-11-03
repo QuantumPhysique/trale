@@ -9,6 +9,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/pages/home.dart';
+import 'package:trale/pages/onBoarding.dart';
 
 
 const String measurementBoxName = 'measurements';
@@ -61,11 +62,19 @@ class TraleMainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
+    /// shared preferences instance
+    final Preferences prefs = Preferences();
 
     return TraleApp(
       traleNotifier: traleNotifier,
-      routes: {
-        '/': (BuildContext context) => const Home(),
+      routes:  <String, Widget Function(BuildContext)>{
+        '/': (BuildContext context) {
+          if (prefs.showOnboarding) {
+            return const OnBoardingPage();
+          } else{
+            return const Home();
+          }
+        }
       },
     );
   }
