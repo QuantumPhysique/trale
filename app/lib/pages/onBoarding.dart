@@ -41,8 +41,21 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     final TraleNotifier notifier =
       Provider.of<TraleNotifier>(context, listen: false);
 
+    String askingForName = prefs.userName == ''
+      ? 'How shall we call you?'
+      : 'Hi ' + prefs.userName + ' \u{1F44B}';
+
+    String tragetWeightText =  notifier.userTargetWeight == null
+      ? '__._'
+      : '${notifier.userTargetWeight?.toStringAsFixed(notifier.unit.precision)}';
+    tragetWeightText += notifier.unit.name;
+
     final PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: Theme.of(context).textTheme.headline4!,
+      titlePadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
+      ),
       descriptionPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding),
       imagePadding: EdgeInsets.all(2 * TraleTheme.of(context)!.padding),
@@ -63,7 +76,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     final List<PageViewModel> pageViewModels = <PageViewModel>[
       PageViewModel(
         title: 'Welcome to trale  \u{1F642}',
-        body: 'This open source and privacy-friendly app provides a simple, yet beautiful log '
+        body: 'This privacy-friendly app provides a simple, yet beautiful log '
           'of your body weight.',
         image: _buildImage(
           'launcher/foreground_crop2.png',
@@ -73,7 +86,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       PageViewModel(
         title: 'Loose weight with ease',
-        body: 'Tracking body weight facilitates weight-loss.',
+        body: 'Tracking body weight facilitates weight-loss. '
+          '\n todo: animated curve as image',
         image: _buildImage(
           'launcher/foreground_crop2.png',
           MediaQuery.of(context).size.width / 2,
@@ -91,6 +105,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         bodyWidget: Expanded(
           child: Column(
             children: <Widget>[
+              Text(tragetWeightText,
+                style: Theme.of(context).textTheme.headline4!,
+              ),
+              SizedBox(height: TraleTheme.of(context)!.padding),
               Container(
                 width: MediaQuery.of(context).size.width,
                 child: RulerPicker(
@@ -134,12 +152,22 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ),
       PageViewModel(
-        title: 'How shall we call you?',
-        bodyWidget: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('...')
-          ],
+        title: askingForName,
+        bodyWidget: Container(
+          width: 2 / 3 * MediaQuery.of(context).size.width,
+          child: TextFormField(
+            decoration: const InputDecoration(
+              icon: Icon(Icons.person),
+              hintText: 'What do people call you?',
+              labelText: 'Name',
+            ),
+            onSaved: (String? name) {
+              setState(() => prefs.userName = name ?? '');
+            },
+            onChanged: (String? name) {
+              setState(() => prefs.userName = name ?? '');
+            },
+          ),
         ),
         image: _buildImage(
           'launcher/foreground_crop2.png',
