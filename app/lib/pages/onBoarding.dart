@@ -41,14 +41,15 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     final TraleNotifier notifier =
       Provider.of<TraleNotifier>(context, listen: false);
 
-    String askingForName = prefs.userName == ''
+    final String askingForName = prefs.userName == ''
       ? 'How shall we call you?'
       : 'Hi ' + prefs.userName + ' \u{1F44B}';
 
-    String tragetWeightText =  notifier.userTargetWeight == null
-      ? '__._'
-      : '${notifier.userTargetWeight?.toStringAsFixed(notifier.unit.precision)}';
-    tragetWeightText += notifier.unit.name;
+    double _currentSliderValue = notifier.userTargetWeight ?? 70;
+
+    final double _sliderLabel = (
+        _currentSliderValue * notifier.unit.ticksPerStep
+    ).roundToDouble() / notifier.unit.ticksPerStep;
 
     final PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: Theme.of(context).textTheme.headline4!,
@@ -102,53 +103,57 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
         decoration: pageDecoration.copyWith(
           descriptionPadding: EdgeInsets.zero),
-        bodyWidget: Expanded(
-          child: Column(
-            children: <Widget>[
-              Text(tragetWeightText,
-                style: Theme.of(context).textTheme.headline4!,
-              ),
-              SizedBox(height: TraleTheme.of(context)!.padding),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: RulerPicker(
-                  onValueChange: (num newValue) {
-                    setState(() => notifier.userTargetWeight = newValue.toDouble());
-                  },
-                  width: MediaQuery.of(context).size.width - 80,  // padding of dialog
-                  value: 70,
-                  ticksPerStep: notifier.unit.ticksPerStep,
-                ),
-              ),
-              SizedBox(height: TraleTheme.of(context)!.padding),
-              ToggleButtons(
-                renderBorder: false,
-                fillColor: Colors.transparent,
-                constraints: BoxConstraints(
-                  minWidth:  MediaQuery.of(context).size.width / 5
-                ),
-                children: TraleUnit.values.map(
-                  (TraleUnit unit) => Text(
-                    unit.name,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: unit == Provider.of<TraleNotifier>(context).unit
-                        ?  TraleTheme.of(context)!.accent
-                        :  TraleTheme.of(context)!.bgFont
-                    ),
-                  )
-                ).toList(),
-                isSelected: unitIsSelected,
-                onPressed: (int index) {
-                  setState(() {
-                    unitIsSelected = TraleUnit.values.map(
-                      (TraleUnit unit) => unit == TraleUnit.values[index]
-                    ).toList();
-                    notifier.unit = TraleUnit.values[index];
-                  });
+        bodyWidget: Column(
+          children: <Widget>[
+            Text('${_sliderLabel.toStringAsFixed(notifier.unit.precision)} '
+                '${notifier.unit.name}',
+              style: Theme.of(context).textTheme.headline4!,
+            ),
+            SizedBox(height: TraleTheme.of(context)!.padding),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: RulerPicker(
+                onValueChange: (num newValue) {
+                  setState(() => _currentSliderValue = newValue.toDouble());
                 },
+                width: MediaQuery.of(context).size.width,
+                value: _currentSliderValue,
+                ticksPerStep: notifier.unit.ticksPerStep,
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: TraleTheme.of(context)!.padding),
+            ToggleButtons(
+              renderBorder: false,
+              fillColor: Colors.transparent,
+              constraints: BoxConstraints(
+                minWidth:  MediaQuery.of(context).size.width / 5
+              ),
+              children: TraleUnit.values.map(
+                (TraleUnit unit) => Text(
+                  unit.name,
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                    color: unit == Provider.of<TraleNotifier>(context).unit
+                      ?  TraleTheme.of(context)!.accent
+                      :  TraleTheme.of(context)!.bgFont
+                  ),
+                )
+              ).toList(),
+              isSelected: unitIsSelected,
+              onPressed: (int index) {
+                setState(() {
+                  unitIsSelected = TraleUnit.values.map(
+                    (TraleUnit unit) => unit == TraleUnit.values[index]
+                  ).toList();
+                  notifier.unit = TraleUnit.values[index];
+                  _currentSliderValue /= notifier.unit.scaling;
+                  print(_currentSliderValue);
+                  print((
+                      _currentSliderValue * notifier.unit.ticksPerStep
+                  ).roundToDouble() / notifier.unit.ticksPerStep);
+                });
+              },
+            ),
+          ],
         ),
       ),
       PageViewModel(
