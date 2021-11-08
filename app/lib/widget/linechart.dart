@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
 import 'package:trale/core/interpolation.dart';
@@ -13,10 +12,7 @@ import 'package:trale/core/theme.dart';
 
 
 class CustomLineChart extends StatefulWidget {
-  CustomLineChart({Key? key, required this.box}) : super(key: key);
-
-  /// Hive box of measurments
-  final Box<Measurement> box;
+  CustomLineChart({Key? key}) : super(key: key);
 
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
@@ -34,6 +30,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     maxX = DateTime.now().add(
       const Duration(days: 7)
     ).millisecondsSinceEpoch.toDouble();
+
   }
 
   @override

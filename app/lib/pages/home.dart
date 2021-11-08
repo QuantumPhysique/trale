@@ -239,7 +239,7 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.symmetric(
                       vertical: TraleTheme.of(context)!.padding,
                   ),
-                  child: CustomLineChart(box: box_),
+                  child: CustomLineChart(),
                 )
                 : const SizedBox.shrink(),
             ),
