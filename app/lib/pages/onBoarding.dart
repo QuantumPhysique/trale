@@ -19,6 +19,11 @@ class OnBoardingPage extends StatefulWidget {
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
 
+  /// shared preferences instance
+  final Preferences prefs = Preferences();
+
+  late double _currentSliderValue;
+
   void _onIntroEnd(BuildContext context) {
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(builder: (_) => const Home()),
@@ -35,17 +40,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     ).toList();
 
   @override
+  void initState() {
+    _currentSliderValue = prefs.userTargetWeight
+      ?? prefs.defaultUserWeight;
+    // super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    /// shared preferences instance
-    final Preferences prefs = Preferences();
     final TraleNotifier notifier =
       Provider.of<TraleNotifier>(context, listen: false);
-
     final String askingForName = prefs.userName == ''
       ? 'How shall we call you?'
       : 'Hi ' + prefs.userName + ' \u{1F44B}';
-
-    double _currentSliderValue = notifier.userTargetWeight ?? 70;
 
     final double _sliderLabel = (
         _currentSliderValue * notifier.unit.ticksPerStep
@@ -87,8 +94,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       PageViewModel(
         title: 'Loose weight with ease',
-        body: 'Tracking body weight facilitates weight-loss. '
-          '\n todo: animated curve as image',
+        body: 'Tracking body weight facilitates weight-loss. ',
         image: _buildImage(
           'launcher/foreground_crop2.png',
           MediaQuery.of(context).size.width / 2,
@@ -105,7 +111,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           descriptionPadding: EdgeInsets.zero),
         bodyWidget: Column(
           children: <Widget>[
-            Text('${_sliderLabel.toStringAsFixed(notifier.unit.precision)} '
+            Text('${((_currentSliderValue * notifier.unit.ticksPerStep
+                      ).roundToDouble() / notifier.unit.ticksPerStep
+                     ).toStringAsFixed(notifier.unit.precision)} '
                 '${notifier.unit.name}',
               style: Theme.of(context).textTheme.headline4!,
             ),
@@ -141,15 +149,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               isSelected: unitIsSelected,
               onPressed: (int index) {
                 setState(() {
+                  // prev unit to estimate unit scaling
+                  TraleUnit prevUnit = notifier.unit;
                   unitIsSelected = TraleUnit.values.map(
                     (TraleUnit unit) => unit == TraleUnit.values[index]
                   ).toList();
                   notifier.unit = TraleUnit.values[index];
-                  _currentSliderValue /= notifier.unit.scaling;
+
+                  _currentSliderValue /=
+                    (notifier.unit.scaling / prevUnit.scaling);
+
                   print(_currentSliderValue);
-                  print((
-                      _currentSliderValue * notifier.unit.ticksPerStep
-                  ).roundToDouble() / notifier.unit.ticksPerStep);
                 });
               },
             ),
@@ -166,10 +176,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               hintText: 'What do people call you?',
               labelText: 'Name',
             ),
-            onSaved: (String? name) {
-              setState(() => prefs.userName = name ?? '');
-            },
-            onChanged: (String? name) {
+            initialValue: notifier.userName,
+            onFieldSubmitted: (String? name) {
               setState(() => prefs.userName = name ?? '');
             },
           ),
