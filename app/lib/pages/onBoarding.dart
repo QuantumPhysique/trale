@@ -22,6 +22,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   /// shared preferences instance
   final Preferences prefs = Preferences();
 
+  /// in kg
   late double _currentSliderValue;
 
   void _onIntroEnd(BuildContext context) {
@@ -40,23 +41,31 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     ).toList();
 
   @override
-  void initState() {
-    _currentSliderValue = prefs.userTargetWeight
-      ?? prefs.defaultUserWeight;
-    // super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final TraleNotifier notifier =
       Provider.of<TraleNotifier>(context, listen: false);
+    _currentSliderValue = (
+      notifier.userTargetWeight ?? prefs.defaultUserWeight
+    ) / notifier.unit.scaling;
+    print(_currentSliderValue);
     final String askingForName = prefs.userName == ''
       ? 'How shall we call you?'
       : 'Hi ' + prefs.userName + ' \u{1F44B}';
 
-    final double _sliderLabel = (
-        _currentSliderValue * notifier.unit.ticksPerStep
-    ).roundToDouble() / notifier.unit.ticksPerStep;
+    final String _sliderLabel = notifier.unit.weightToString(
+      _currentSliderValue * notifier.unit.scaling
+    );
+
+    final RulerPicker rulerPicker = RulerPicker(
+      onValueChange: (num newValue) {
+        notifier.userTargetWeight =
+        newValue.toDouble() * notifier.unit.scaling;
+      },
+      width: MediaQuery.of(context).size.width,
+      value: notifier.unit.doubleToPrecision(_currentSliderValue),
+      ticksPerStep: notifier.unit.ticksPerStep,
+      key: ValueKey<TraleUnit>(notifier.unit),
+    );
 
     final PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: Theme.of(context).textTheme.headline4!,
@@ -111,23 +120,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           descriptionPadding: EdgeInsets.zero),
         bodyWidget: Column(
           children: <Widget>[
-            Text('${((_currentSliderValue * notifier.unit.ticksPerStep
-                      ).roundToDouble() / notifier.unit.ticksPerStep
-                     ).toStringAsFixed(notifier.unit.precision)} '
-                '${notifier.unit.name}',
+            Text(
+              _sliderLabel,
               style: Theme.of(context).textTheme.headline4!,
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             Container(
               width: MediaQuery.of(context).size.width,
-              child: RulerPicker(
-                onValueChange: (num newValue) {
-                  setState(() => _currentSliderValue = newValue.toDouble());
-                },
-                width: MediaQuery.of(context).size.width,
-                value: _currentSliderValue,
-                ticksPerStep: notifier.unit.ticksPerStep,
-              ),
+              child: rulerPicker,
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             ToggleButtons(
@@ -140,7 +140,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 (TraleUnit unit) => Text(
                   unit.name,
                   style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: unit == Provider.of<TraleNotifier>(context).unit
+                    color: unit == notifier.unit
                       ?  TraleTheme.of(context)!.accent
                       :  TraleTheme.of(context)!.bgFont
                   ),
@@ -149,17 +149,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               isSelected: unitIsSelected,
               onPressed: (int index) {
                 setState(() {
-                  // prev unit to estimate unit scaling
-                  TraleUnit prevUnit = notifier.unit;
-                  unitIsSelected = TraleUnit.values.map(
-                    (TraleUnit unit) => unit == TraleUnit.values[index]
-                  ).toList();
                   notifier.unit = TraleUnit.values[index];
-
-                  _currentSliderValue /=
-                    (notifier.unit.scaling / prevUnit.scaling);
-
-                  print(_currentSliderValue);
                 });
               },
             ),
