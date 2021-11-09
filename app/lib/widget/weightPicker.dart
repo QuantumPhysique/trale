@@ -55,7 +55,10 @@ class RulerPicker extends StatefulWidget {
     this.marker,
     this.height = 60,
     this.backgroundColor = Colors.white,
-  }) : controller = RulerPickerController(value: value);
+    Key? key,
+  })
+    : controller = RulerPickerController(value: value),
+      super(key:key);
 
   final ValueChangedCallback onValueChange;
   final double width;
@@ -164,11 +167,9 @@ class RulerPickerState extends State<RulerPicker> {
                   } else if (scrollNotification is ScrollEndNotification) {
                     if (!isPosFixed) {
                       isPosFixed = true;
-                      print(scrollController!.offset);
                       fixPosition(
                         scrollNotification.metrics.pixels.roundToDouble()
                       );
-                      print(scrollController!.offset);
                     }
                   }
                   return true;
