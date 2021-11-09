@@ -33,10 +33,15 @@ extension TraleUnitExtension on TraleUnit {
     TraleUnit.lb: 1,
   }[this]!;
 
+  /// convert weight of measurement to string
+  String measurementToString(Measurement m, {bool showUnit= true}) {
+    return weightToString(m.weight, showUnit: showUnit);
+  }
+
   /// weight given in kg to string
-  String weightToString(Measurement m, {bool showUnit= true}) {
+  String weightToString(double weight, {bool showUnit= true}) {
     final String suffix = showUnit ? ' $name' : '';
-    return '${doubleToPrecision(m.weight / scaling).toStringAsFixed(precision)}'
+    return '${doubleToPrecision(weight / scaling).toStringAsFixed(precision)}'
       '$suffix';
   }
 
