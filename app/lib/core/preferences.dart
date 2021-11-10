@@ -164,8 +164,8 @@ class Preferences {
       userHeight = defaultUserHeight;
     if (override || !prefs.containsKey('showOnboarding'))
       showOnboarding = defaultShowOnboarding;
-
-    /// reset all settings
-    void resetSettings() => loadDefaultSettings(override: true);
   }
+
+  /// reset all settings
+  void resetSettings() => loadDefaultSettings(override: true);
 }

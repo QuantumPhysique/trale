@@ -15,6 +15,47 @@ import 'package:trale/widget/coloredContainer.dart';
 
 
 /// ListTile for changing Amoled settings
+class ResetListTile extends StatelessWidget {
+  /// constructor
+  const ResetListTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      dense: true,
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.factoryReset,
+        style: Theme.of(context).textTheme.bodyText1,
+        maxLines: 1,
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+      ),
+      subtitle: AutoSizeText(
+        AppLocalizations.of(context)!.factoryResetSubtitle,
+        style: Theme.of(context).textTheme.overline,
+      ),
+      trailing: IconButton(
+        icon: const Icon(CustomIcons.delete),
+        onPressed: () async {
+          final bool accepted = await showDialog<bool>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('blubb'),
+            ),
+          ) ?? false;
+          if (accepted)
+            Provider.of<TraleNotifier>(
+              context, listen: false
+            ).factoryReset();
+        },
+      ),
+    );
+  }
+}
+
+
+/// ListTile for changing Amoled settings
 class AmoledListTile extends StatelessWidget {
   /// constructor
   const AmoledListTile({Key? key}) : super(key: key);
@@ -358,6 +399,7 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
+          const ResetListTile(),
         ],
       );
     }
