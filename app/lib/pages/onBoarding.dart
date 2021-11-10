@@ -1,7 +1,13 @@
+import 'dart:async';
+
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
+import 'package:trale/core/interpolation.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -69,13 +75,18 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     final PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: Theme.of(context).textTheme.headline4!,
+      bodyTextStyle: Theme.of(context).textTheme.bodyText1!,
       titlePadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
         vertical: TraleTheme.of(context)!.padding,
       ),
+      imageFlex: 3,
+      bodyFlex: 5,
       descriptionPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding),
-      imagePadding: EdgeInsets.all(2 * TraleTheme.of(context)!.padding),
+      imagePadding: EdgeInsets.all(
+        2 * TraleTheme.of(context)!.padding,
+      ),
       contentMargin: EdgeInsets.zero,
       boxDecoration: BoxDecoration(
         gradient: LinearGradient(
@@ -90,73 +101,203 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       footerPadding: EdgeInsets.zero,
     );
 
+    final List<Color> gradientColors = <Color>[
+      Color.alphaBlend(
+        TraleTheme.of(context)!.accent.withOpacity(0.2),
+        TraleTheme.of(context)!.bg,
+      ),
+      Color.alphaBlend(
+        TraleTheme.of(context)!.accent.withOpacity(0.4),
+        TraleTheme.of(context)!.bg,
+      ),
+    ];
+
+    final List<Measurement> data = <Measurement>[
+      Measurement(weight: 5, date: DateTime.utc(2021, 11, 1)),
+      Measurement(weight: 4, date: DateTime.utc(2021, 11, 3)),
+      Measurement(weight: 4.25, date: DateTime.utc(2021, 11, 5)),
+      Measurement(weight: 3.75, date: DateTime.utc(2021, 11, 7)),
+      Measurement(weight: 3.25, date: DateTime.utc(2021, 11, 9)),
+      Measurement(weight: 3.5, date: DateTime.utc(2021, 11, 11)),
+      Measurement(weight: 3.125, date: DateTime.utc(2021, 11, 13)),
+      Measurement(weight: 2.75, date: DateTime.utc(2021, 11, 15)),
+    ];
+
+    FlSpot measurementToFlSpot (Measurement measurement) {
+      return FlSpot(
+        measurement.date.millisecondsSinceEpoch.toDouble(),
+        measurement.inUnit(context),
+      );
+    }
+
+    final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
+    final List<FlSpot> measurementsInterpol = Interpolation(
+      measures: data,
+    ).interpolate(InterpolFunc.gaussian).map(measurementToFlSpot).toList();
+
+    final Widget linechart = LineChart(
+      LineChartData(
+        lineTouchData: LineTouchData(enabled: false),
+        borderData: FlBorderData(show: false),
+        gridData: FlGridData(show: false),
+        titlesData: FlTitlesData(show: false),
+        minY: 2,
+        maxY: 6,
+        lineBarsData: <LineChartBarData>[
+          LineChartBarData(
+            spots: measurementsInterpol,
+            isCurved: true,
+            colors: <Color>[Colors.transparent],
+            barWidth: 5,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: false,
+            ),
+            belowBarData: BarAreaData(
+              show: true,
+              gradientFrom: const Offset(0, 1),
+              gradientTo: const Offset(0, 0.5),
+              colors: gradientColors,
+            ),
+          ),
+          LineChartBarData(
+            spots: measurements,
+            isCurved: false,
+            colors: <Color>[TraleTheme.of(context)!.accent],
+            barWidth: 0,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: true,
+            ),
+          ),
+        ],
+      ),
+      swapAnimationDuration: TraleTheme.of(context)!
+          .transitionDuration.normal,
+      swapAnimationCurve: Curves.easeIn,
+    );
+
     final List<PageViewModel> pageViewModels = <PageViewModel>[
       PageViewModel(
-        title: 'Welcome to trale  \u{1F642}',
-        body: 'This privacy-friendly app provides a simple, yet beautiful log '
+        title: 'Welcome \u{1F642}',
+        body: 'Tracking body weight facilitates weight-loss. \n'
+          'Trale, a privacy-friendly app, provides a simple, yet beautiful log '
           'of your body weight.',
         image: _buildImage(
           'launcher/foreground_crop2.png',
           MediaQuery.of(context).size.width / 2,
         ),
-        decoration: pageDecoration,
-      ),
-      PageViewModel(
-        title: 'Loose weight with ease',
-        body: 'Tracking body weight facilitates weight-loss. ',
-        image: _buildImage(
-          'launcher/foreground_crop2.png',
-          MediaQuery.of(context).size.width / 2,
+        decoration: pageDecoration.copyWith(
+          bodyFlex: 1,
+          imageFlex: 1,
         ),
-        decoration: pageDecoration,
       ),
       PageViewModel(
-        title: 'What is your feel-good weight?',
+        title: 'Goal \u{1F3C1}',
+        decoration: pageDecoration.copyWith(
+          descriptionPadding: EdgeInsets.zero,
+          imageFlex: 0,
+          titlePadding: EdgeInsets.symmetric(
+            horizontal: 2 * TraleTheme.of(context)!.padding,
+            vertical: 2 * TraleTheme.of(context)!.padding,
+          ),
+        ),
+        bodyWidget: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 2 * TraleTheme.of(context)!.padding),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: 200,
+                    child: linechart,
+                  ),
+                  SizedBox(height: 3 * TraleTheme.of(context)!.padding),
+                  Text('What is your feel-good weight? + setting goals is important',
+                    style: Theme.of(context).textTheme.bodyText1!,
+                    textAlign: TextAlign.center),
+                  SizedBox(height: TraleTheme.of(context)!.padding),
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(context)!.unit,
+                      style: Theme.of(context).textTheme.headline6!,
+                    ),
+                    trailing: ToggleButtons(
+                      renderBorder: false,
+                      fillColor: Colors.transparent,
+                      children: TraleUnit.values.map(
+                        (TraleUnit unit) => Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: TraleTheme.of(context)!.padding),
+                          child: Text(
+                            unit.name,
+                            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                                  color: unit == notifier.unit
+                                      ?  TraleTheme.of(context)!.accent
+                                      :  TraleTheme.of(context)!.bgFont
+                            ),
+                          ),
+                        )
+                      ).toList(),
+                      isSelected: unitIsSelected,
+                      onPressed: (int index) {
+                        setState(() {
+                          notifier.unit = TraleUnit.values[index];
+                        });
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      'target weight',
+                      style: Theme.of(context).textTheme.headline6!,
+                    ),
+                    trailing: Padding(
+                      padding: EdgeInsets.only(
+                        right: TraleTheme.of(context)!.padding),
+                      child: Text(
+                        _sliderLabel,
+                        style: Theme.of(context).textTheme.bodyText1!,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: TraleTheme.of(context)!.padding),
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: rulerPicker,
+            ),
+          ],
+        ),
+      ),
+      PageViewModel(
+        title: 'Style \u{1F60E}',
+        bodyWidget: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 2 * TraleTheme.of(context)!.padding),
+              child: Text('Choose a theme to personalize the app, '
+                'expressing your feelings.',
+                style: Theme.of(context).textTheme.bodyText1!,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const ThemeSelection(),
+          ],
+        ),
         image: _buildImage(
           'launcher/foreground_crop2.png',
           MediaQuery.of(context).size.width / 2,
         ),
         decoration: pageDecoration.copyWith(
           descriptionPadding: EdgeInsets.zero),
-        bodyWidget: Column(
-          children: <Widget>[
-            Text(
-              _sliderLabel,
-              style: Theme.of(context).textTheme.headline4!,
-            ),
-            SizedBox(height: TraleTheme.of(context)!.padding),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: rulerPicker,
-            ),
-            SizedBox(height: TraleTheme.of(context)!.padding),
-            ToggleButtons(
-              renderBorder: false,
-              fillColor: Colors.transparent,
-              constraints: BoxConstraints(
-                minWidth:  MediaQuery.of(context).size.width / 5
-              ),
-              children: TraleUnit.values.map(
-                (TraleUnit unit) => Text(
-                  unit.name,
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: unit == notifier.unit
-                      ?  TraleTheme.of(context)!.accent
-                      :  TraleTheme.of(context)!.bgFont
-                  ),
-                )
-              ).toList(),
-              isSelected: unitIsSelected,
-              onPressed: (int index) {
-                setState(() {
-                  notifier.unit = TraleUnit.values[index];
-                });
-              },
-            ),
-          ],
-        ),
       ),
-      PageViewModel(
+  /*    PageViewModel(
         title: askingForName,
         bodyWidget: Container(
           width: 2 / 3 * MediaQuery.of(context).size.width,
@@ -191,7 +332,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           MediaQuery.of(context).size.width / 2,
         ),
         decoration: pageDecoration,
-      ),
+      ),*/
     ];
 
     return IntroductionScreen(
