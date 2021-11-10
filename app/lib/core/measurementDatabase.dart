@@ -26,7 +26,7 @@ class MeasurementDatabase {
   /// constructor
   MeasurementDatabase();
 
-  static final String _boxName = measurementBoxName;
+  static const String _boxName = measurementBoxName;
 
   /// get unsorted measurements
   Box<Measurement> get box => Hive.box<Measurement>(_boxName);

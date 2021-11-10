@@ -12,6 +12,7 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
@@ -238,7 +239,7 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.symmetric(
                       vertical: TraleTheme.of(context)!.padding,
                   ),
-                  child: CustomLineChart(box: box_),
+                  child: CustomLineChart(),
                 )
                 : const SizedBox.shrink(),
             ),
@@ -276,7 +277,7 @@ class _HomeState extends State<Home> {
                     context: context,
                     weight: measurements.isNotEmpty
                         ? measurements.first.measurement.weight.toDouble()
-                        : 70,
+                        : Preferences().defaultUserWeight,
                     date: DateTime.now(),
                     box: Hive.box<Measurement>(measurementBoxName),
                   );

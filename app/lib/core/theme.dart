@@ -170,6 +170,8 @@ class TraleTheme {
   Color get bgShade2 => bgElevated(6);
   /// 2 elevation shade of bg
   Color get bgShade3 => bgElevated(2);
+  /// 2 elevation shade of bg
+  Color get bgShade4 => bgElevated(1);
   /// get elevated shade of bg
   Color bgElevated(double elevation) => colorOfElevation(elevation, bg);
 

@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.1.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -33,6 +33,7 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   intl: ^0.17.0
+  introduction_screen: ^2.1.0
   package_info: ^2.0.2
   provider: ^6.0.1
   shared_preferences: ^2.0.8
@@ -82,6 +83,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/launcher/foreground_crop.png
+    - assets/launcher/foreground_crop2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

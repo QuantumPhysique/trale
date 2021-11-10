@@ -39,6 +39,9 @@ class Preferences {
   /// default for userTargetWeight in kg
   final double defaultUserTargetWeight = -1;
 
+  /// default for userTargetWeight in kg
+  final double defaultUserWeight = 70;
+
   /// default for userHeight in mm
   final double defaultUserHeight = -1;
 
