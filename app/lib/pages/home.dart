@@ -4,18 +4,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/interpolation.dart';
-import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/main.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/settings.dart';
