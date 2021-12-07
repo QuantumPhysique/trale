@@ -192,7 +192,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           imageFlex: 1,
         ),
       ),
-      PageViewModel(
+      /*PageViewModel(
         title: 'Target weight',
         decoration: pageDecoration.copyWith(
           descriptionPadding: EdgeInsets.zero,
@@ -273,7 +273,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
           ],
         ),
-      ),
+      ),*/
       PageViewModel(
         title: 'Style \u{1F60E}',
         bodyWidget: Column(
@@ -281,16 +281,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: 2 * TraleTheme.of(context)!.padding),
-              child: Text('Choose a theme to personalize the app, '
-                'expressing your feelings.',
+              child: Text(
+                'Choosing one out of six themes to personalize your app. '
+                'Which one does express your feelings the best?',
                 style: Theme.of(context).textTheme.bodyText1!,
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(height: 2 * TraleTheme.of(context)!.padding),
             Container(
               width: MediaQuery.of(context).size.width,
               height: 0.5 * MediaQuery.of(context).size.width,
-              child: const ThemeSelection()),
+              child: const ThemeSelection()
+            ),
           ],
         ),
         image: _buildImage(
@@ -300,42 +303,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         decoration: pageDecoration.copyWith(
           descriptionPadding: EdgeInsets.zero),
       ),
-  /*    PageViewModel(
-        title: askingForName,
-        bodyWidget: Container(
-          width: 2 / 3 * MediaQuery.of(context).size.width,
-          child: TextFormField(
-            decoration: const InputDecoration(
-              icon: Icon(Icons.person),
-              hintText: 'What do people call you?',
-              labelText: 'Name',
-            ),
-            initialValue: notifier.userName,
-            onFieldSubmitted: (String? name) {
-              setState(() => prefs.userName = name ?? '');
-            },
-          ),
-        ),
-        image: _buildImage(
-          'launcher/foreground_crop2.png',
-          MediaQuery.of(context).size.width / 2,
-        ),
-        decoration: pageDecoration,
-      ),
-      PageViewModel(
-        title: "What's your body size",
-        bodyWidget: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('click')
-          ],
-        ),
-        image: _buildImage(
-          'launcher/foreground_crop2.png',
-          MediaQuery.of(context).size.width / 2,
-        ),
-        decoration: pageDecoration,
-      ),*/
     ];
 
     return IntroductionScreen(
