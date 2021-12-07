@@ -89,6 +89,8 @@
   "missingName": "Name fehlt! Ein Name wird aber benötigt.",
   "nothingDoneYet": "Noch nichts getan!\n\nGehe zurück und beende ein Workout!",
   "ok": "OK",
+  "onBoarding1": "Die Beobachtung des eigenen Körpergewichts erleichtert nachweislich die Gewichtsabnahme. Trale ist ein einfaches und ansprechendes Gewichtstagebuch und respektiert dabei Deine Privatsphäre.",
+  "onBoarding2": "Wähle eines von sechs Designs aus, um die App zu personalisieren. Welches drückt Deine Gefühle am besten aus?",
   "onlyLastVariant": "Nur die letzte Variante kann gelöscht werden.",
   "open": "öffnen",
   "overwrite": "überschreiben",
@@ -128,5 +130,6 @@
   "userDesc": "Aktivität und Errungenschaften",
   "version": "Version",
   "weight": "Gewicht",
+  "welcome": "Willkommen",
   "yes": "ja"
 }

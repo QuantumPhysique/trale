@@ -604,5 +604,17 @@
   "strong": "strong",
   "@strong": {
     "description": "strong interpolation"
+  },
+  "welcome": "welcome",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding1": "Tracking body weight facilitates weight-loss. Trale is a simple, yet beautiful log of your body weight, truly respecting your privacy.",
+  "@onBoarding1": {
+    "description": "Text on onBoarding Screen 1"
+  },
+  "onBoarding2": "Choose one out of six themes to personalize your app. Which one does express your feelings the best?",
+  "@onBoarding2": {
+    "description": "Text on onBoarding Screen 2"
   }
 }
