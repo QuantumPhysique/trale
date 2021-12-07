@@ -287,7 +287,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-            const ThemeSelection(),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 0.5 * MediaQuery.of(context).size.width,
+              child: const ThemeSelection()),
           ],
         ),
         image: _buildImage(
