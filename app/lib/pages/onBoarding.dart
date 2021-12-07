@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:provider/provider.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/settings.dart';
-import 'package:trale/widget/weightPicker.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -21,9 +18,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   /// shared preferences instance
   final Preferences prefs = Preferences();
-
-  /// in kg
-  late double _currentSliderValue;
 
   void _onIntroEnd(BuildContext context) {
     Navigator.of(context).push<void>(
@@ -42,8 +36,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
 
     final PageDecoration pageDecoration = PageDecoration(
       titleTextStyle: Theme.of(context).textTheme.headline4!,
