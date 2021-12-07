@@ -611,10 +611,14 @@
   },
   "onBoarding1": "Tracking body weight facilitates weight-loss. Trale is a simple, yet beautiful log of your body weight, truly respecting your privacy.",
   "@onBoarding1": {
-    "description": "Text on onBoarding Screen 1"
+    "description": "Text of onBoarding Screen 1"
   },
   "onBoarding2": "Choose one out of six themes to personalize your app. Which one does express your feelings the best?",
   "@onBoarding2": {
-    "description": "Text on onBoarding Screen 2"
+    "description": "Text of onBoarding Screen 2"
+  },
+  "onBoarding2Title": "Style",
+  "@onBoarding2Title": {
+    "description": "Title of onBoarding Screen 2"
   }
 }
