@@ -164,6 +164,23 @@ class MeasurementDatabase {
     measures: dailyAveragedInterpolatedMeasurements,
   ).interpolate(InterpolFunc.gaussian);
 
+  /// get slope in unit / day
+  double get slope {
+    final List<Measurement> measurementsInterpol =
+      gaussianInterpolatedMeasurements;
+
+    final Measurement mLast = measurementsInterpol.last;
+    final Measurement m2Last = measurementsInterpol.elementAt(
+      measurementsInterpol.length - 2
+    );
+
+    return (
+      mLast.weight - m2Last.weight
+    ) / (
+      mLast.dateInMs - m2Last.dateInMs
+    ) * 24 * 3600 * 1000;
+  }
+
   /// offset of day in hours
   static const int _offsetInH = 12;
   /// offset of day in interpolation
