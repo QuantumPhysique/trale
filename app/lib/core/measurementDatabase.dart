@@ -122,9 +122,7 @@ class MeasurementDatabase {
   /// get linearly extrapolation based on gaussian interpolation
   List<Measurement> get dailyAveragedExtrapolatedMeasurements {
     final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
-    final List<Measurement> msGaussian = Interpolation(
-      measures: dailyAveragedInterpolatedMeasurements,
-    ).interpolate(InterpolFunc.gaussian);
+    final List<Measurement> msGaussian = gaussianInterpolatedMeasurements;
 
     final List<Measurement> extrapolH = <Measurement>[];
     final List<Measurement> extrapolF = <Measurement>[];
@@ -139,25 +137,32 @@ class MeasurementDatabase {
       dateF = DateTime(dateF.year, dateF.month, dateF.day, _offsetInH);
       dateH = DateTime(dateH.year, dateH.month, dateH.day, _offsetInH);
       extrapolF.add(
-        Measurement(
-          weight: (InterpolFunc.linear.function(
-            dateF.millisecondsSinceEpoch, msGaussian,
-          ) as Measurement).weight,
-          date: dateF,
-          isMeasured: true,
-        )
-
+        (InterpolFunc.linear.function(
+          dateF.millisecondsSinceEpoch, msGaussian,
+        ) as Measurement).apply(isMeasured: true),
       );
       extrapolH.add(
-          InterpolFunc.linear.function(
+        (InterpolFunc.linear.function(
             dateH.millisecondsSinceEpoch, msGaussian,
-          ) as Measurement
+        ) as Measurement).apply(isMeasured: true),
       );
     }
     ms.addAll(extrapolF);
     ms.insertAll(0, extrapolH);
     return ms;
   }
+
+  /// return daily averaged and linearly extrapolated measurements
+  /// and smooth them with gaussian filter
+  List<Measurement> get gaussianExtrapolatedMeasurements => Interpolation(
+    measures: dailyAveragedExtrapolatedMeasurements,
+  ).interpolate(InterpolFunc.gaussian);
+
+  /// return daily averaged and linearly interpolated measurements
+  /// and smooth them with gaussian filter
+  List<Measurement> get gaussianInterpolatedMeasurements => Interpolation(
+    measures: dailyAveragedInterpolatedMeasurements,
+  ).interpolate(InterpolFunc.gaussian);
 
   /// offset of day in hours
   static const int _offsetInH = 12;
