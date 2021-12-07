@@ -181,8 +181,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       PageViewModel(
         title: 'Welcome \u{1F642}',
         body: 'Tracking body weight facilitates weight-loss. \n'
-          'Trale, a privacy-friendly app, provides a simple, yet beautiful log '
-          'of your body weight.',
+          'Trale provides a simple, yet beautiful log '
+          'of your body weight, truly respecting your privacy.',
         image: _buildImage(
           'launcher/foreground_crop2.png',
           MediaQuery.of(context).size.width / 2,
@@ -193,7 +193,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ),
       PageViewModel(
-        title: 'Goal \u{1F3C1}',
+        title: 'Target weight',
         decoration: pageDecoration.copyWith(
           descriptionPadding: EdgeInsets.zero,
           imageFlex: 0,
