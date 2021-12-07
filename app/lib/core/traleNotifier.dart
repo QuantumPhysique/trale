@@ -124,4 +124,10 @@ class TraleNotifier with ChangeNotifier {
   Locale? get locale => language.compareTo(Language.system())
       ? null  // defaults to systems default
       : language.locale;
+
+  /// factory reset
+  void factoryReset() {
+    prefs.resetSettings();
+    notifyListeners();
+  }
 }
