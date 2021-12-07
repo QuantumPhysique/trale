@@ -87,7 +87,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ),
       PageViewModel(
-        title: 'Style \u{1F60E}',
+        title: AppLocalizations.of(context)!.onBoarding2Title + ' \u{1F60E}',
         bodyWidget: Column(
           children: <Widget>[
             Padding(
