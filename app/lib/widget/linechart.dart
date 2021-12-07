@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
@@ -37,10 +36,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
   Widget build(BuildContext context) {
     final MeasurementDatabase db = MeasurementDatabase();
     final List<Measurement> data = db.measurements;
-
-    final List<Measurement> dataInterpol = Interpolation(
-      measures: db.dailyAveragedExtrapolatedMeasurements,
-    ).interpolate(InterpolFunc.gaussian);
+    final List<Measurement> dataInterpol = db.gaussianExtrapolatedMeasurements;
 
     final List<Color> gradientColors = <Color>[
       Color.alphaBlend(

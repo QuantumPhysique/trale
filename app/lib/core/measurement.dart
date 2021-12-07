@@ -26,6 +26,17 @@ class Measurement {
   /// to store if measured
   final bool isMeasured;
 
+  /// copy with applying change
+  Measurement apply({
+    double? weight,
+    DateTime? date,
+    bool? isMeasured,
+  }) => Measurement(
+      weight: weight ?? this.weight,
+      date: date ?? this.date,
+      isMeasured: isMeasured ?? this.isMeasured,
+  );
+
   /// implement sorting entries by date
   /// comparator method
   int compareTo(Measurement other) => date.compareTo(other.date);
