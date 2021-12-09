@@ -143,7 +143,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         AppLocalizations.of(context)!.skip,
         style: Theme.of(context).textTheme.bodyText1!,
       ),
-      next: Icon(Icons.arrow_forward),
+      next: const Icon(CustomIcons.next),
       done: Text(
         AppLocalizations.of(context)!.startApp,
         style: Theme.of(context).textTheme.bodyText1!,

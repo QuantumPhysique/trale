@@ -40,12 +40,13 @@ class CustomIcons {
   static const IconData import_icon = IconData(0xe80f, fontFamily: _kFontFam);
   static const IconData info = IconData(0xe810, fontFamily: _kFontFam);
   static const IconData lightmode = IconData(0xe811, fontFamily: _kFontFam);
-  static const IconData play = IconData(0xe812, fontFamily: _kFontFam);
-  static const IconData save = IconData(0xe813, fontFamily: _kFontFam);
-  static const IconData settings = IconData(0xe814, fontFamily: _kFontFam);
-  static const IconData trending_up = IconData(0xe815, fontFamily: _kFontFam);
-  static const IconData volume_down = IconData(0xe816, fontFamily: _kFontFam);
-  static const IconData volume_mute = IconData(0xe817, fontFamily: _kFontFam);
-  static const IconData volume_off = IconData(0xe818, fontFamily: _kFontFam);
-  static const IconData volume_up = IconData(0xe819, fontFamily: _kFontFam);
+  static const IconData next = IconData(0xe812, fontFamily: _kFontFam);
+  static const IconData play = IconData(0xe813, fontFamily: _kFontFam);
+  static const IconData save = IconData(0xe814, fontFamily: _kFontFam);
+  static const IconData settings = IconData(0xe815, fontFamily: _kFontFam);
+  static const IconData trending_up = IconData(0xe816, fontFamily: _kFontFam);
+  static const IconData volume_down = IconData(0xe817, fontFamily: _kFontFam);
+  static const IconData volume_mute = IconData(0xe818, fontFamily: _kFontFam);
+  static const IconData volume_off = IconData(0xe819, fontFamily: _kFontFam);
+  static const IconData volume_up = IconData(0xe81a, fontFamily: _kFontFam);
 }
