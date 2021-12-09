@@ -164,8 +164,8 @@ class MeasurementDatabase {
     measures: dailyAveragedInterpolatedMeasurements,
   ).interpolate(InterpolFunc.gaussian);
 
-  /// get slope in unit / day
-  double get slope {
+  /// get slope in unit
+  double get finalSlope {
     final List<Measurement> measurementsInterpol =
       gaussianInterpolatedMeasurements;
 
@@ -178,7 +178,31 @@ class MeasurementDatabase {
       mLast.weight - m2Last.weight
     ) / (
       mLast.dateInMs - m2Last.dateInMs
-    ) * 24 * 3600 * 1000;
+    );
+  }
+
+  /// get time of reaching target weight in kg
+  Duration? timeOfTargetWeight(double? targetWeight) {
+    if (targetWeight == null)
+      return null;
+
+    final Measurement mLast = gaussianInterpolatedMeasurements.last;
+    final double slope = finalSlope;
+
+    // Crossing is in the past
+    if (slope * (mLast.weight - targetWeight) > 0)
+      return null;
+
+    // in ms from last measurment
+    final int remainingTime = (
+        (targetWeight - mLast.weight) / slope
+    ).round();
+
+    // time between passed since last measurement
+    final int passedTime =
+      DateTime.now().millisecondsSinceEpoch - mLast.dateInMs;
+
+    return Duration(milliseconds: remainingTime - passedTime);
   }
 
   /// offset of day in hours
