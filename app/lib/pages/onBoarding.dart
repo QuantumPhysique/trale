@@ -70,7 +70,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     final List<PageViewModel> pageViewModels = <PageViewModel>[
       PageViewModel(
-        title: AppLocalizations.of(context)!.welcome + ' \u{1F642}',
+        title: AppLocalizations.of(context)!.welcome + ' 😃',
         body: AppLocalizations.of(context)!.onBoarding1,
         image: _buildImage(
           'launcher/foreground_crop2.png',
