@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/settings.dart';
 
+/// Page shown on the very first opening of the app
 class OnBoardingPage extends StatefulWidget {
+  ///
   const OnBoardingPage({Key? key}) : super(key: key);
 
   @override
@@ -44,8 +47,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         horizontal: 2 * TraleTheme.of(context)!.padding,
         vertical: TraleTheme.of(context)!.padding,
       ),
-      imageFlex: 3,
-      bodyFlex: 5,
+      imageFlex: 1,
+      bodyFlex: 1,
       descriptionPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding),
       imagePadding: EdgeInsets.all(
@@ -73,10 +76,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           'launcher/foreground_crop2.png',
           MediaQuery.of(context).size.width / 2,
         ),
-        decoration: pageDecoration.copyWith(
-          bodyFlex: 1,
-          imageFlex: 1,
-        ),
+        decoration: pageDecoration
       ),
       PageViewModel(
         title: AppLocalizations.of(context)!.onBoarding2Title + ' \u{1F60E}',
@@ -102,9 +102,28 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           imagePadding: EdgeInsets.symmetric(
               vertical: 2 * TraleTheme.of(context)!.padding,
               horizontal: 0),
-          bodyFlex: 1,
-          imageFlex: 1
         ),
+      ),
+      PageViewModel(
+        title: AppLocalizations.of(context)!.onBoarding3Title + ' 🤓',
+        bodyWidget: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 2 * TraleTheme.of(context)!.padding),
+              child: Text(
+                AppLocalizations.of(context)!.onBoarding3,
+                style: Theme.of(context).textTheme.bodyText1!,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+        image: _buildImage(
+          'launcher/foreground_crop2.png',
+          MediaQuery.of(context).size.width / 2,
+        ),
+        decoration: pageDecoration,
       ),
     ];
 
@@ -116,14 +135,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         prefs.showOnboarding = false;
         _onIntroEnd(context);
       },
-      //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
+      onSkip: () => _onIntroEnd(context),
       showSkipButton: true,
       skipFlex: 0,
       nextFlex: 0,
-      //rtl: true, // Display as right-to-left
-      skip: const Text('Skip'),
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Done'),
+      skip: Text(
+        AppLocalizations.of(context)!.skip,
+        style: Theme.of(context).textTheme.bodyText1!,
+      ),
+      next: Icon(Icons.arrow_forward),
+      done: Text(
+        AppLocalizations.of(context)!.startApp,
+        style: Theme.of(context).textTheme.bodyText1!,
+      ),
       skipColor: TraleTheme.of(context)!.bgFont,
       nextColor: TraleTheme.of(context)!.bgFont,
       doneColor: TraleTheme.of(context)!.bgFont,
