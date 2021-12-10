@@ -56,14 +56,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       contentMargin: EdgeInsets.zero,
       boxDecoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[
-            TraleTheme.of(context)!.bg,
-            TraleTheme.of(context)!.bgShade4,
-          ],
-        )
+        gradient: TraleTheme.of(context)!.bgGradient,
       ),
       footerPadding: EdgeInsets.zero,
     );

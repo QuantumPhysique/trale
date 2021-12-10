@@ -154,6 +154,12 @@ class TraleTheme {
   final TransitionDuration transitionDuration =
     TransitionDuration(100, 200, 500);
 
+  /// get background gradient
+  LinearGradient get bgGradient => LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: <Color>[bg, bgShade4],
+  );
 
 //  /// return dark mode
 //  bool get GetIsDark => this.isDark;

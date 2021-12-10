@@ -216,30 +216,42 @@ class _HomeState extends State<Home> {
           ),
         ].reversed.toList(),
       ),
-      body: Column(
-        children: <Widget>[
-          AnimatedContainer(
-            duration: TraleTheme.of(context)!.transitionDuration.normal,
-            curve: Curves.easeIn,
-            alignment: Alignment.center,
-            height: collapsed > 0.9
-              ? MediaQuery.of(context).size.height
-                - 2 * appBar.preferredSize.height
-              : MediaQuery.of(context).size.height / 2,
-            child: ColoredContainer(
-              height: MediaQuery.of(context).size.height / 3,
-              width: MediaQuery.of(context).size.width,
-              child: measurements.isNotEmpty
-                ? Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: TraleTheme.of(context)!.padding,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: TraleTheme.of(context)!.bgGradient,
+        ),
+        child: Column(
+          children: <Widget>[
+            AnimatedContainer(
+              duration: TraleTheme.of(context)!.transitionDuration.normal,
+              curve: Curves.easeIn,
+              alignment: Alignment.center,
+              height: collapsed > 0.9
+                ? MediaQuery.of(context).size.height
+                  - 2 * appBar.preferredSize.height
+                : MediaQuery.of(context).size.height / 2,
+              child: Container(
+                height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  shape: TraleTheme.of(context)!.borderShape,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: TraleTheme.of(context)!.padding,
                   ),
-                  child: CustomLineChart(),
-                )
-                : const SizedBox.shrink(),
+
+                  child: measurements.isNotEmpty
+                    ? Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: TraleTheme.of(context)!.padding,
+                      ),
+                      child: CustomLineChart(),
+                    )
+                    : const SizedBox.shrink(),
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
