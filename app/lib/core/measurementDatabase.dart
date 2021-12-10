@@ -181,9 +181,30 @@ class MeasurementDatabase {
     );
   }
 
+  /// get weight change [kg] within last N Days from last measurement
+  double? deltaWeightLastNDays (int nDays) {
+    if (dailyAveragedMeasurements.length < 2)
+      return null;
+
+    final List<Measurement> ms = gaussianInterpolatedMeasurements;
+    if (nDays > ms.length)
+      return null;
+
+    return ms.last.weight - ms.elementAt(ms.length - nDays).weight;
+  }
+
+  /// get weight change [kg] within last month from last measurement
+  double? get deltaWeightLastMonth => deltaWeightLastNDays(30);
+
+  /// get weight change [kg] within last week from last measurement
+  double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
+
   /// get time of reaching target weight in kg
   Duration? timeOfTargetWeight(double? targetWeight) {
     if (targetWeight == null)
+      return null;
+
+    if (dailyAveragedMeasurements.length < 2)
       return null;
 
     final Measurement mLast = gaussianInterpolatedMeasurements.last;

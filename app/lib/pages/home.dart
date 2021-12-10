@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:trale/core/icons.dart';
@@ -11,11 +12,12 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/units.dart';
 import 'package:trale/main.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/routeTransition.dart';
 
@@ -44,9 +46,20 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Box<Measurement> box_ = Hive.box<Measurement>(measurementBoxName);
-    final List<SortedMeasurement> measurements =
-      MeasurementDatabase().sortedMeasurements;
+    final MeasurementDatabase database = MeasurementDatabase();
+    final List<SortedMeasurement> measurements = database.sortedMeasurements;
     final bool showFAB = collapsed > 0.9 && !popupShown;
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
+
+    final double? userTargetWeight = notifier.userTargetWeight;
+    int? timeOfTargetWeight;
+    if (userTargetWeight != null) {
+      timeOfTargetWeight = database.timeOfTargetWeight(
+          userTargetWeight
+      )!.inDays;
+    }
+    final double? weightLostWeek = database.deltaWeightLastWeek;
+    final double? weightLostMonth = database.deltaWeightLastMonth;
 
     final AppBar appBar = AppBar(
       centerTitle: true,
@@ -220,17 +233,73 @@ class _HomeState extends State<Home> {
         decoration: BoxDecoration(
           gradient: TraleTheme.of(context)!.bgGradient,
         ),
-        child: Column(
-          children: <Widget>[
-            AnimatedContainer(
-              duration: TraleTheme.of(context)!.transitionDuration.normal,
-              curve: Curves.easeIn,
-              alignment: Alignment.center,
-              height: collapsed > 0.9
-                ? MediaQuery.of(context).size.height
-                  - 2 * appBar.preferredSize.height
-                : MediaQuery.of(context).size.height / 2,
-              child: Container(
+        child: AnimatedContainer(
+          duration: TraleTheme.of(context)!.transitionDuration.normal,
+          curve: Curves.easeIn,
+          alignment: Alignment.center,
+          height: collapsed > 0.9
+            ? MediaQuery.of(context).size.height
+              - 2 * appBar.preferredSize.height
+            : MediaQuery.of(context).size.height / 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  if (userTargetWeight != null) Expanded(
+                    child: Card(
+                        shape: TraleTheme.of(context)!.borderShape,
+                        margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                        child: Padding(
+                          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              AutoSizeText(
+                                notifier.unit.weightToString(userTargetWeight),
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              AutoSizeText(
+                                timeOfTargetWeight == null
+                                  ? '-- days'
+                                  : '$timeOfTargetWeight days',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                  ),
+                  if (weightLostWeek != null) Expanded(
+                    child: Card(
+                        shape: TraleTheme.of(context)!.borderShape,
+                        margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                        child: Padding(
+                          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              AutoSizeText(
+                                weightLostMonth == null
+                                    ? '± week'
+                                    : '± month',
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              AutoSizeText(
+                                notifier.unit.weightToString(
+                                  weightLostMonth ?? weightLostWeek
+                                ),
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                  ),
+                ],
+              ),
+              Container(
                 height: MediaQuery.of(context).size.height / 3,
                 width: MediaQuery.of(context).size.width,
                 child: Card(
@@ -249,8 +318,8 @@ class _HomeState extends State<Home> {
                     : const SizedBox.shrink(),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
