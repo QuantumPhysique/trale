@@ -97,7 +97,11 @@ class _HomeState extends State<Home> {
         alignment: Alignment.topCenter,
         children: <Widget>[
           AnimatedContainer(
-            margin: const EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(
+              top: 10,
+              left: TraleTheme.of(context)!.padding,
+              right: TraleTheme.of(context)!.padding,
+            ),
             duration: TraleTheme.of(context)!.transitionDuration.normal,
             width: 20,
             height: collapsed > 0.1
@@ -117,7 +121,11 @@ class _HomeState extends State<Home> {
                 ? 50.0
                 : 2 * TraleTheme.of(context)!.padding,
             ),
-            margin: const EdgeInsets.only(top: 10),
+            margin: EdgeInsets.only(
+              top: 10,
+              left: TraleTheme.of(context)!.padding,
+              right: TraleTheme.of(context)!.padding,
+            ),
             decoration: BoxDecoration(
               color: sc.hasClients && sc.offset == 0
                 ? TraleTheme.of(context)!.isDark
@@ -202,7 +210,8 @@ class _HomeState extends State<Home> {
                           color: TraleTheme.of(context)!.isDark
                             ? TraleTheme.of(context)!.bgShade2
                             : TraleTheme.of(context)!.bg,
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width
+                            - 2 * TraleTheme.of(context)!.padding,
                           height: 40.0,
                           child: Text(
                             currentMeasurement.measurement.measureToString(
