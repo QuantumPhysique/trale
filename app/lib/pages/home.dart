@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -79,14 +80,80 @@ class _HomeState extends State<Home> {
       topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
     );
 
+    Card userTargetWeightCard(double utw) => Card(
+        shape: TraleTheme.of(context)!.borderShape,
+        margin: EdgeInsets.symmetric(
+          vertical: TraleTheme.of(context)!.padding,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                notifier.unit.weightToString(utw),
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              AutoSizeText(
+                timeOfTargetWeight == null
+                    ? '-- days'
+                    : '$timeOfTargetWeight days',
+                style: Theme.of(context).textTheme.bodyText1,
+              )
+            ],
+          ),
+        ),
+      );
+
+    Card userWeightLostCard(String label, double lost) => Card(
+        shape: TraleTheme.of(context)!.borderShape,
+        margin: EdgeInsets.symmetric(
+          vertical: TraleTheme.of(context)!.padding,
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                label,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              AutoSizeText(
+                notifier.unit.weightToString(lost),
+                style: Theme.of(context).textTheme.bodyText1,
+              )
+            ],
+          ),
+        ),
+      );
+
+    final Container lineChart = Container(
+      height: MediaQuery.of(context).size.height / 3,
+      width: MediaQuery.of(context).size.width,
+      child: Card(
+        shape: TraleTheme.of(context)!.borderShape,
+        margin: EdgeInsets.symmetric(
+        horizontal: TraleTheme.of(context)!.padding,
+        ),
+        child: measurements.isNotEmpty
+          ? Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: TraleTheme.of(context)!.padding,
+              ),
+              child: CustomLineChart(),
+            )
+          : const SizedBox.shrink(),
+      ),
+    );
+
     final SlidingUpPanel slidingUpPanel = SlidingUpPanel(
       controller: panelController,
       minHeight: minHeight + 10,
       onPanelClosed: () {
         slidableController.activeState?.close();
       },
-      maxHeight: MediaQuery.of(context).size.height / 2
-        - appBar.preferredSize.height,
+      maxHeight: MediaQuery.of(context).size.height / 2 - kToolbarHeight,
       onPanelSlide: (double x) {
         setState(() {
           collapsed = 1.0 - x;
@@ -105,7 +172,7 @@ class _HomeState extends State<Home> {
             duration: TraleTheme.of(context)!.transitionDuration.normal,
             width: 20,
             height: collapsed > 0.1
-              ? 50.0
+              ? kToolbarHeight
               : 2 * TraleTheme.of(context)!.padding,
             alignment: Alignment.center,
             child: Divider(
@@ -118,7 +185,7 @@ class _HomeState extends State<Home> {
             duration: TraleTheme.of(context)!.transitionDuration.normal,
             padding: EdgeInsets.only(
               top: collapsed > 0.1
-                ? 50.0
+                ? kToolbarHeight
                 : 2 * TraleTheme.of(context)!.padding,
             ),
             margin: EdgeInsets.only(
@@ -242,91 +309,44 @@ class _HomeState extends State<Home> {
         decoration: BoxDecoration(
           gradient: TraleTheme.of(context)!.bgGradient,
         ),
+        alignment: Alignment.topCenter,
         child: AnimatedContainer(
           duration: TraleTheme.of(context)!.transitionDuration.normal,
           curve: Curves.easeIn,
           alignment: Alignment.center,
           height: collapsed > 0.9
-            ? MediaQuery.of(context).size.height
-              - 2 * appBar.preferredSize.height
-            : MediaQuery.of(context).size.height / 2,
+            ? MediaQuery.of(context).size.height - 3 * kToolbarHeight
+            : MediaQuery.of(context).size.height / 2 - kToolbarHeight,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  if (userTargetWeight != null) Expanded(
-                    child: Card(
-                        shape: TraleTheme.of(context)!.borderShape,
-                        margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                        child: Padding(
-                          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              AutoSizeText(
-                                notifier.unit.weightToString(userTargetWeight),
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              AutoSizeText(
-                                timeOfTargetWeight == null
-                                  ? '-- days'
-                                  : '$timeOfTargetWeight days',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              )
-                            ],
-                          ),
-                        )
+              AnimatedCrossFade(
+                crossFadeState: collapsed > 0.9
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+                duration: TraleTheme.of(context)!.transitionDuration.fast,
+                secondChild: const SizedBox.shrink(),
+                firstChild: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    if (userTargetWeight != null) Expanded(
+                      child: userTargetWeightCard(userTargetWeight)
                     ),
-                  ),
-                  if (weightLostWeek != null) Expanded(
-                    child: Card(
-                        shape: TraleTheme.of(context)!.borderShape,
-                        margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                        child: Padding(
-                          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              AutoSizeText(
-                                weightLostMonth == null
-                                    ? '± week'
-                                    : '± month',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              AutoSizeText(
-                                notifier.unit.weightToString(
-                                  weightLostMonth ?? weightLostWeek
-                                ),
-                                style: Theme.of(context).textTheme.bodyText1,
-                              )
-                            ],
-                          ),
-                        )
+                    if (weightLostWeek != null) Expanded(
+                      child: userWeightLostCard(
+                        weightLostMonth == null
+                          ? '± week'
+                          : '± month',
+                        weightLostMonth ?? weightLostWeek
+                      )
                     ),
+                  ].addGap(
+                    padding: TraleTheme.of(context)!.padding,
+                    direction: Axis.horizontal,
                   ),
-                ],
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height / 3,
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  shape: TraleTheme.of(context)!.borderShape,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: TraleTheme.of(context)!.padding,
-                  ),
-
-                  child: measurements.isNotEmpty
-                    ? Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding,
-                      ),
-                      child: CustomLineChart(),
-                    )
-                    : const SizedBox.shrink(),
                 ),
               ),
+              lineChart,
             ],
           ),
         ),
@@ -377,7 +397,6 @@ class _HomeState extends State<Home> {
         ),
       );
     }
-
 
     return Scaffold(
       key: key,
