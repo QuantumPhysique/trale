@@ -418,7 +418,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    'assets/launcher/foreground_crop.png',
+                    'assets/launcher/foreground_crop2.png',
                     width: MediaQuery.of(context).size.width * 0.2,
                   ),
                   SizedBox(width: TraleTheme.of(context)!.padding),
@@ -445,6 +445,76 @@ class _HomeState extends State<Home> {
                   ? TraleTheme.of(context)!.bgShade1
                   : TraleTheme.of(context)!.bgShade3,
               ),
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                CustomIcons.account,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              title: notifier.userName == ''
+                ? AutoSizeText(
+                  'Add a name',
+                  style: Theme.of(context).textTheme.bodyText1!.apply(
+                      color: TraleTheme.of(context)!.bgFontLight),
+                  maxLines: 1)
+                : AutoSizeText(
+                    notifier.userName,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    maxLines: 1),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push<dynamic>(
+                    SlideRoute(
+                      page: Settings(),
+                      direction: TransitionDirection.left,
+                    )
+                );
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.monitor_weight,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              title: AutoSizeText(
+                notifier.userTargetWeight != null
+                  ? notifier.unit.weightToString(notifier.userTargetWeight!)
+                  : '-- ${notifier.unit.name}',
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 1,
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push<dynamic>(
+                    SlideRoute(
+                      page: Settings(),
+                      direction: TransitionDirection.left,
+                    )
+                );
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.straighten,
+                color: Theme.of(context).iconTheme.color,
+              ),
+              title: AutoSizeText(
+                '${notifier.userHeight ?? '--'} cm',
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 1,
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push<dynamic>(
+                    SlideRoute(
+                      page: Settings(),
+                      direction: TransitionDirection.left,
+                    )
+                );
+              },
             ),
             const Spacer(),
             const Divider(),
