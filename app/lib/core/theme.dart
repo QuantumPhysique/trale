@@ -304,6 +304,9 @@ class TraleTheme {
       OutlinedButtonThemeData(
         style: buttonStyle,
     );
+    const CardTheme cardTheme = CardTheme(
+      elevation: 2,
+    );
 
     /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
     final ThemeData theme = ThemeData.from(
@@ -314,6 +317,7 @@ class TraleTheme {
           accentIconTheme: accentIconTheme,
           accentTextTheme: accentTxtTheme,
           bottomAppBarTheme: bottomAppBarTheme,
+          cardTheme: cardTheme,
           buttonColor: accent,
           buttonTheme: buttonTheme,
           cursorColor: accent,
