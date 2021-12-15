@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 
 
@@ -37,6 +38,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final MeasurementDatabase db = MeasurementDatabase();
     final List<Measurement> data = db.measurements;
     final List<Measurement> dataInterpol = db.gaussianExtrapolatedMeasurements;
+    final Size textSize = sizeOfText(
+      text: '1234',
+      context: context,
+      style: Theme.of(context).textTheme.bodyText1!.apply(
+        fontFamily: 'Courier',
+      ),
+    );
+    const double margin = 10;
 
     final List<Color> gradientColors = <Color>[
       Color.alphaBlend(
@@ -99,9 +108,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
     SideTitles bottomTitles () {
       return SideTitles(
         showTitles: true,
-        reservedSize: 22,
+        reservedSize: textSize.height,
         interval: 24 * 3600 * 1000,
-        margin: 10,
+        margin: margin,
         getTextStyles: (BuildContext context, double value)
           => Theme.of(context).textTheme.bodyText1!.apply(
             fontFamily: 'Courier',
@@ -139,9 +148,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
     SideTitles leftTitles () {
       return SideTitles(
         showTitles: true,
-        reservedSize: 35,
+        reservedSize: textSize.width,
         interval: max<int>((maxY - minY)~/ 4, 1).toDouble(),
-        margin: 10,
+        margin: margin,
         getTextStyles: (BuildContext context, double value)
           => Theme.of(context).textTheme.bodyText1!.apply(
             fontFamily: 'Courier',
@@ -210,7 +219,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Container(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.only(
+        right: margin,
+        top: margin,
+      ),
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {
