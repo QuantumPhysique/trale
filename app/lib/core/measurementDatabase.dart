@@ -34,28 +34,48 @@ class MeasurementDatabase {
   /// insert Measurments into box
   void insertMeasurement(Measurement m) {
     box.add(m);
+    _reinit();
   }
 
   /// delete Measurments into box
   void deleteMeasurement(SortedMeasurement m) {
     box.delete(m.key);
+    _reinit();
   }
 
-  /// get sorted measurements
-  List<Measurement> get measurements => box.values.toList()..sort(
-      (Measurement a, Measurement b) => a.compareTo(b)
-  );
+  void _reinit() {
+    _measurements = null;
+    _sortedMeasurements = null;
+    _dailyAveragedMeasurements = null;
+    _gaussianInterpolatedMeasurements = null;
+    _gaussianExtrapolatedMeasurements = null;
+    _dailyAveragedInterpolatedMeasurements = null;
+    _dailyAveragedExtrapolatedMeasurements = null;
+  }
 
+  List<Measurement>? _measurements;
+  /// get sorted measurements
+  List<Measurement> get measurements => _measurements ??=
+    box.values.toList()..sort(
+      (Measurement a, Measurement b) => a.compareTo(b)
+    );
+
+  List<SortedMeasurement>? _sortedMeasurements;
   /// get sorted measurements, key tuples
-  List<SortedMeasurement> get sortedMeasurements => <SortedMeasurement>[
+  List<SortedMeasurement> get sortedMeasurements => _sortedMeasurements ??=
+    <SortedMeasurement>[
       for (final dynamic key in box.keys)
         SortedMeasurement(key: key, measurement: box.get(key)!)
     ]..sort(
       (SortedMeasurement a, SortedMeasurement b) => b.compareTo(a)
     );
 
+  List<Measurement>? _dailyAveragedMeasurements;
   /// get sorted list of daily-averaged measurements
-  List<Measurement> get dailyAveragedMeasurements {
+  List<Measurement> get dailyAveragedMeasurements  =>
+    _dailyAveragedMeasurements ??= _calcDailyAveragedMeasurements();
+
+  List<Measurement> _calcDailyAveragedMeasurements() {
     final List<Measurement> ms = measurements;
     if (ms.isEmpty)
       return measurements;
@@ -93,8 +113,14 @@ class MeasurementDatabase {
     return dailyAverage;
   }
 
+  List<Measurement>? _dailyAveragedInterpolatedMeasurements;
   /// get linearly interpolated and sorted list of daily-averaged measurements
-  List<Measurement> get dailyAveragedInterpolatedMeasurements {
+  List<Measurement> get dailyAveragedInterpolatedMeasurements =>
+    _dailyAveragedInterpolatedMeasurements ??=
+      _calcDailyAveragedInterpolatedMeasurements();
+
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  List<Measurement> _calcDailyAveragedInterpolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedMeasurements;
     final List<Measurement> dailyMeasurements = <Measurement>[];
 
@@ -129,8 +155,13 @@ class MeasurementDatabase {
     return dailyMeasurements;
   }
 
+  List<Measurement>? _dailyAveragedExtrapolatedMeasurements;
   /// get linearly extrapolation based on gaussian interpolation
-  List<Measurement> get dailyAveragedExtrapolatedMeasurements {
+  List<Measurement> get dailyAveragedExtrapolatedMeasurements =>
+    _dailyAveragedExtrapolatedMeasurements ??=
+      _calcDailyAveragedExtrapolatedMeasurements();
+
+  List<Measurement> _calcDailyAveragedExtrapolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
     final List<Measurement> msGaussian = gaussianInterpolatedMeasurements;
 
@@ -162,15 +193,19 @@ class MeasurementDatabase {
     return ms;
   }
 
+  List<Measurement>? _gaussianExtrapolatedMeasurements;
   /// return daily averaged and linearly extrapolated measurements
   /// and smooth them with gaussian filter
-  List<Measurement> get gaussianExtrapolatedMeasurements => Interpolation(
+  List<Measurement> get gaussianExtrapolatedMeasurements =>
+    _gaussianExtrapolatedMeasurements ??= Interpolation(
     measures: dailyAveragedExtrapolatedMeasurements,
   ).interpolate(InterpolFunc.gaussian);
 
+  List<Measurement>? _gaussianInterpolatedMeasurements;
   /// return daily averaged and linearly interpolated measurements
   /// and smooth them with gaussian filter
-  List<Measurement> get gaussianInterpolatedMeasurements => Interpolation(
+  List<Measurement> get gaussianInterpolatedMeasurements =>
+    _gaussianInterpolatedMeasurements ??= Interpolation(
     measures: dailyAveragedInterpolatedMeasurements,
   ).interpolate(InterpolFunc.gaussian);
 
