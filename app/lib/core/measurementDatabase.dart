@@ -28,8 +28,18 @@ class MeasurementDatabase {
 
   static const String _boxName = measurementBoxName;
 
-  /// get unsorted measurements
+  /// get box
   Box<Measurement> get box => Hive.box<Measurement>(_boxName);
+
+  /// insert Measurments into box
+  void insertMeasurement(Measurement m) {
+    box.add(m);
+  }
+
+  /// delete Measurments into box
+  void deleteMeasurement(SortedMeasurement m) {
+    box.delete(m.key);
+  }
 
   /// get sorted measurements
   List<Measurement> get measurements => box.values.toList()..sort(

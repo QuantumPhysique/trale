@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
@@ -19,13 +19,13 @@ Future<bool> showAddWeightDialog({
   required BuildContext context,
   required double weight,
   required DateTime date,
-  required Box<Measurement> box,
 }) async {
   final TraleNotifier notifier =
     Provider.of<TraleNotifier>(context, listen: false);
 
   double _currentSliderValue = weight.toDouble() / notifier.unit.scaling;
   DateTime currentDate = date;
+  final MeasurementDatabase database = MeasurementDatabase();
 
   final List<Widget> actions = <Widget>[
     TextButton(
@@ -50,7 +50,7 @@ Future<bool> showAddWeightDialog({
           TraleTheme.of(context)!.accentFont),
       ),
       onPressed: () {
-        box.add(
+        database.insertMeasurement(
           Measurement(
             weight: _currentSliderValue,
             date: currentDate,

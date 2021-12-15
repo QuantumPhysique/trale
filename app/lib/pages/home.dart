@@ -2,8 +2,6 @@ import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -15,7 +13,6 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/main.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
@@ -46,7 +43,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final Box<Measurement> box_ = Hive.box<Measurement>(measurementBoxName);
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
     final bool showFAB = collapsed > 0.9 && !popupShown;
@@ -224,7 +220,7 @@ class _HomeState extends State<Home> {
                       color: TraleTheme.of(context)?.accent,
                       icon: CustomIcons.delete,
                       onTap: () {
-                        box_.delete(currentMeasurement.key);
+                        database.deleteMeasurement(currentMeasurement);
                         final SnackBar snackBar = SnackBar(
                           content: const Text('Measurement was deleted'),
                           behavior: SnackBarBehavior.floating,
@@ -239,7 +235,9 @@ class _HomeState extends State<Home> {
                           action: SnackBarAction(
                             label: 'Undo',
                             onPressed: () {
-                              box_.add(currentMeasurement.measurement);
+                              database.insertMeasurement(
+                                  currentMeasurement.measurement
+                              );
                             },
                           ),
                         );
@@ -257,10 +255,9 @@ class _HomeState extends State<Home> {
                           context: context,
                           weight: currentMeasurement.measurement.weight,
                           date: currentMeasurement.measurement.date,
-                          box: Hive.box<Measurement>(measurementBoxName),
                         );
                         if (changed)
-                          box_.delete(currentMeasurement.key);
+                          database.deleteMeasurement(currentMeasurement);
                       },
                     );
                   }
@@ -384,7 +381,6 @@ class _HomeState extends State<Home> {
                         ? measurements.first.measurement.weight.toDouble()
                         : Preferences().defaultUserWeight,
                     date: DateTime.now(),
-                    box: Hive.box<Measurement>(measurementBoxName),
                   );
                   setState(() {
                     popupShown = false;
