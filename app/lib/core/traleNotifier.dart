@@ -14,6 +14,9 @@ class TraleNotifier with ChangeNotifier {
   /// empty constructor, in main.dart load preferences is called first.
   TraleNotifier();
 
+  /// call notifier
+  void get notify => notifyListeners();
+
   /// shared preferences instance
   final Preferences prefs = Preferences();
   /// getter
