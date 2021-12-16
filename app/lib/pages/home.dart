@@ -218,6 +218,7 @@ class _HomeState extends State<Home> {
                       icon: CustomIcons.delete,
                       onTap: () {
                         database.deleteMeasurement(currentMeasurement);
+                        setState(() {});
                         final SnackBar snackBar = SnackBar(
                           content: const Text('Measurement was deleted'),
                           behavior: SnackBarBehavior.floating,
@@ -235,6 +236,7 @@ class _HomeState extends State<Home> {
                               database.insertMeasurement(
                                   currentMeasurement.measurement
                               );
+                              setState(() {});
                             },
                           ),
                         );
@@ -253,8 +255,10 @@ class _HomeState extends State<Home> {
                           weight: currentMeasurement.measurement.weight,
                           date: currentMeasurement.measurement.date,
                         );
-                        if (changed)
+                        if (changed) {
                           database.deleteMeasurement(currentMeasurement);
+                          setState(() {});
+                        }
                       },
                     );
                   }

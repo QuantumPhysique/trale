@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
 
@@ -23,8 +24,14 @@ bool dayInMeasurements(DateTime d1, List<Measurement> measurements) =>
 
 /// class providing an API to handle measurements stored in hive
 class MeasurementDatabase {
-  /// constructor
-  MeasurementDatabase();
+  /// singleton constructor
+  factory MeasurementDatabase() => _instance;
+
+  /// single instance creation
+  MeasurementDatabase._internal();
+
+  /// singleton instance
+  static final MeasurementDatabase _instance = MeasurementDatabase._internal();
 
   static const String _boxName = measurementBoxName;
 
@@ -32,25 +39,38 @@ class MeasurementDatabase {
   Box<Measurement> get box => Hive.box<Measurement>(_boxName);
 
   /// insert Measurments into box
-  void insertMeasurement(Measurement m) {
-    box.add(m);
-    _reinit();
+  Future<void> insertMeasurement(Measurement m) async {
+    await box.add(m);
+    await _reinit();
   }
 
   /// delete Measurments into box
-  void deleteMeasurement(SortedMeasurement m) {
-    box.delete(m.key);
-    _reinit();
+  Future<void> deleteMeasurement(SortedMeasurement m) async {
+    await box.delete(m.key);
+    await _reinit();
   }
 
-  void _reinit() {
+  /// re initialize database
+  Future<void> _reinit() async {
     _measurements = null;
     _sortedMeasurements = null;
     _dailyAveragedMeasurements = null;
-    _gaussianInterpolatedMeasurements = null;
-    _gaussianExtrapolatedMeasurements = null;
     _dailyAveragedInterpolatedMeasurements = null;
     _dailyAveragedExtrapolatedMeasurements = null;
+    _gaussianInterpolatedMeasurements = null;
+    _gaussianExtrapolatedMeasurements = null;
+
+    // recalc all
+    measurements;
+    sortedMeasurements;
+    dailyAveragedMeasurements;
+    dailyAveragedInterpolatedMeasurements;
+    dailyAveragedExtrapolatedMeasurements;
+    gaussianInterpolatedMeasurements;
+    gaussianExtrapolatedMeasurements;
+
+    final TraleNotifier notifier = TraleNotifier();
+    notifier.notify;
   }
 
   List<Measurement>? _measurements;
