@@ -49,12 +49,9 @@ class _HomeState extends State<Home> {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.userTargetWeight;
-    int? timeOfTargetWeight;
-    if (userTargetWeight != null) {
-      timeOfTargetWeight = database.timeOfTargetWeight(
-          userTargetWeight
-      )!.inDays;
-    }
+    final int? timeOfTargetWeight = database.timeOfTargetWeight(
+        userTargetWeight
+    )?.inDays;
     final double? weightLostWeek = database.deltaWeightLastWeek;
     final double? weightLostMonth = database.deltaWeightLastMonth;
 
