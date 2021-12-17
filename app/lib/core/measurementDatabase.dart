@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
@@ -41,20 +42,21 @@ class MeasurementDatabase {
   /// insert Measurments into box
   Future<void> insertMeasurement(Measurement m) async {
     await box.add(m);
-    await _reinit();
+    await reinit();
   }
 
   /// delete Measurments into box
   Future<void> deleteMeasurement(SortedMeasurement m) async {
     await box.delete(m.key);
-    await _reinit();
+    await reinit();
   }
 
   /// re initialize database
-  Future<void> _reinit() async {
+  Future<void> reinit() async {
     _measurements = null;
     _sortedMeasurements = null;
     _dailyAveragedMeasurements = null;
+    _dailyAveragedGaussianMeasurements = null;
     _dailyAveragedInterpolatedMeasurements = null;
     _dailyAveragedExtrapolatedMeasurements = null;
     _gaussianInterpolatedMeasurements = null;
@@ -64,6 +66,7 @@ class MeasurementDatabase {
     measurements;
     sortedMeasurements;
     dailyAveragedMeasurements;
+    dailyAveragedGaussianMeasurements;
     dailyAveragedInterpolatedMeasurements;
     dailyAveragedExtrapolatedMeasurements;
     gaussianInterpolatedMeasurements;
@@ -133,6 +136,20 @@ class MeasurementDatabase {
     return dailyAverage;
   }
 
+  List<Measurement>? _dailyAveragedGaussianMeasurements;
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  List<Measurement> get dailyAveragedGaussianMeasurements =>
+      _dailyAveragedGaussianMeasurements ??=
+          _calcDailyAveragedGaussianMeasurements();
+
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  List<Measurement> _calcDailyAveragedGaussianMeasurements() => <Measurement>[
+      for (final Measurement m in dailyAveragedMeasurements)
+        InterpolFunc.gaussian.function(
+          m.dateInMs, dailyAveragedMeasurements,
+        ) as Measurement
+    ];
+
   List<Measurement>? _dailyAveragedInterpolatedMeasurements;
   /// get linearly interpolated and sorted list of daily-averaged measurements
   List<Measurement> get dailyAveragedInterpolatedMeasurements =>
@@ -142,6 +159,7 @@ class MeasurementDatabase {
   /// get linearly interpolated and sorted list of daily-averaged measurements
   List<Measurement> _calcDailyAveragedInterpolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedMeasurements;
+    final List<Measurement> msGauss = dailyAveragedGaussianMeasurements;
     final List<Measurement> dailyMeasurements = <Measurement>[];
 
     final int intervalInDays = ms.last.date.difference(ms.first.date).inDays;
@@ -167,7 +185,7 @@ class MeasurementDatabase {
       if (!isDayInMeasurements) {
         dailyMeasurements.add(
           InterpolFunc.linear.function(
-            date.millisecondsSinceEpoch, ms,
+            date.millisecondsSinceEpoch, msGauss,
           ) as Measurement
         );
       }
@@ -259,6 +277,9 @@ class MeasurementDatabase {
   }
 
   /// get weight change [kg] within last month from last measurement
+  double? get deltaWeightLastYear => deltaWeightLastNDays(365);
+
+  /// get weight change [kg] within last month from last measurement
   double? get deltaWeightLastMonth => deltaWeightLastNDays(30);
 
   /// get weight change [kg] within last week from last measurement
@@ -289,6 +310,14 @@ class MeasurementDatabase {
       DateTime.now().millisecondsSinceEpoch - mLast.dateInMs;
 
     return Duration(milliseconds: remainingTime - passedTime);
+  }
+
+  /// bmi at last measurement
+  double? get bmi {
+    final double? height = Preferences().userHeight;
+    if (height == null || gaussianInterpolatedMeasurements.isEmpty)
+      return null;
+    return gaussianInterpolatedMeasurements.last.weight / (height * height);
   }
 
   /// offset of day in hours

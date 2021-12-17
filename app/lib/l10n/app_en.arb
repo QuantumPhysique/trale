@@ -593,6 +593,10 @@
   "@interpolation": {
     "description": "interpolation"
   },
+  "none": "none",
+  "@none": {
+    "description": "no interpolation"
+  },
   "soft": "soft",
   "@soft": {
     "description": "soft interpolation"

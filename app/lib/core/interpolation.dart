@@ -10,7 +10,11 @@ import 'package:trale/core/preferences.dart';
 /// return gaussian with std of 3 days in x [ms]
 double gaussian(
     double x, {double sigma=72 * 3600 * 1000, double mu=0}
-) => 1 / (sigma * sqrt(2 * pi)) * exp(-1 / 2 * pow(x - mu, 2) / pow(sigma, 2));
+) => sigma == 0
+  ? x - mu == 0
+    ? 1
+    : 0
+  : 1 / (sigma * sqrt(2 * pi)) * exp(-1 / 2 * pow(x - mu, 2) / pow(sigma, 2));
 
 
 /// x date in milliseconds since epoch, measurements sorted by date
@@ -23,9 +27,11 @@ Measurement gaussianInterpol(int x, List<Measurement> measurements){
       x.toDouble(),
       mu: m.dateInMs.toDouble(),
       sigma: (
-        m.isMeasured ? pref.interpolStrength.strength : 2
+        m.isMeasured
+          ? pref.interpolStrength.strengthMeasurement
+          : pref.interpolStrength.strengthInterpol
       ) * 24 * 3600 * 1000,
-    ) * (m.isMeasured ? 10 : 1);
+    ) * (m.isMeasured ? pref.interpolStrength.weight : 1);
     weightSum += weight;
     meanSum += m.weight * weight;
   }
@@ -136,6 +142,8 @@ class Interpolation {
 
 /// Enum with all available interpolation functions
 enum InterpolStrength {
+  /// none
+  none,
   /// soft
   soft,
   /// medium
@@ -146,15 +154,33 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// get the interpolation strength in days
-  int get strength => <InterpolStrength, int>{
+  /// get the interpolation strength of measurements [days]
+  double get strengthMeasurement => <InterpolStrength, double>{
+      InterpolStrength.none: 0.01,
       InterpolStrength.soft: 2,
       InterpolStrength.medium: 4,
       InterpolStrength.strong: 7,
     }[this]!;
 
+  /// get the interpolation strength of measurements [days]
+  double get strengthInterpol => <InterpolStrength, double>{
+    InterpolStrength.none: 0,
+    InterpolStrength.soft: 1,
+    InterpolStrength.medium: 2,
+    InterpolStrength.strong: 3,
+  }[this]!;
+
+  /// get the ratio how much the measurements are weighted more than interpols
+  double get weight => <InterpolStrength, double>{
+    InterpolStrength.none: 1,
+    InterpolStrength.soft: 10,
+    InterpolStrength.medium: 5,
+    InterpolStrength.strong: 3,
+  }[this]!;
+
   /// get international name
   String nameLong (BuildContext context) => <InterpolStrength, String>{
+      InterpolStrength.none: AppLocalizations.of(context)!.none,
       InterpolStrength.soft: AppLocalizations.of(context)!.soft,
       InterpolStrength.medium: AppLocalizations.of(context)!.medium,
       InterpolStrength.strong: AppLocalizations.of(context)!.strong,

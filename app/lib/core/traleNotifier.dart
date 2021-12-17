@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
 
+import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/preferences.dart';
@@ -119,6 +120,7 @@ class TraleNotifier with ChangeNotifier {
   set interpolStrength(InterpolStrength strength) {
     if (interpolStrength != strength) {
       prefs.interpolStrength = strength;
+      MeasurementDatabase().reinit();
       notifyListeners();
     }
   }
