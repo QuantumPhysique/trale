@@ -640,5 +640,13 @@
   "startApp": "start app",
   "@startApp": {
     "description": "Press to start the app."
+  },
+  "targetWeight": "target weight",
+  "@target weight": {
+    "description": "Your target weight."
+  },
+  "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
+  "@target weight": {
+    "description": "Explanation to clarify the importance of a target weight."
   }
 }

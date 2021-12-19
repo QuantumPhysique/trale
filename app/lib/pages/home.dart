@@ -459,15 +459,7 @@ class _HomeState extends State<Home> {
                     notifier.userName,
                     style: Theme.of(context).textTheme.bodyText1,
                     maxLines: 1),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push<dynamic>(
-                    SlideRoute(
-                      page: Settings(),
-                      direction: TransitionDirection.left,
-                    )
-                );
-              },
+              onTap: () {},
             ),
             ListTile(
               dense: true,
@@ -482,14 +474,14 @@ class _HomeState extends State<Home> {
                 style: Theme.of(context).textTheme.bodyText1,
                 maxLines: 1,
               ),
-              onTap: () {
+              onTap: () async {
                 Navigator.of(context).pop();
-                Navigator.of(context).push<dynamic>(
-                    SlideRoute(
-                      page: Settings(),
-                      direction: TransitionDirection.left,
-                    )
+                await showTargetWeightDialog(
+                    context: context,
+                    weight: notifier.userTargetWeight
+                      ?? Preferences().defaultUserWeight,
                 );
+                notifier.notify;
               },
             ),
             ListTile(
@@ -503,15 +495,7 @@ class _HomeState extends State<Home> {
                 style: Theme.of(context).textTheme.bodyText1,
                 maxLines: 1,
               ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).push<dynamic>(
-                    SlideRoute(
-                      page: Settings(),
-                      direction: TransitionDirection.left,
-                    )
-                );
-              },
+              onTap: () {},
             ),
             const Spacer(),
             const Divider(),
