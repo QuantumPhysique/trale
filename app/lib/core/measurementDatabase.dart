@@ -264,15 +264,17 @@ class MeasurementDatabase {
     );
   }
 
+  /// duration between first and last measurement [days]
+  int get durationMeasurements => dailyAveragedMeasurements.isNotEmpty
+    ? dailyAveragedInterpolatedMeasurements.length
+    : 0;
+
   /// get weight change [kg] within last N Days from last measurement
   double? deltaWeightLastNDays (int nDays) {
-    if (dailyAveragedMeasurements.length < 2)
+    if (durationMeasurements < nDays)
       return null;
 
     final List<Measurement> ms = gaussianInterpolatedMeasurements;
-    if (nDays > ms.length)
-      return null;
-
     return ms.last.weight - ms.elementAt(ms.length - nDays).weight;
   }
 
@@ -300,16 +302,18 @@ class MeasurementDatabase {
     if (slope * (mLast.weight - targetWeight) > 0)
       return null;
 
-    // in ms from last measurment
+    // in ms from last measurement
     final int remainingTime = (
         (targetWeight - mLast.weight) / slope
     ).round();
+    return Duration(milliseconds: remainingTime);
 
-    // time between passed since last measurement
-    final int passedTime =
-      DateTime.now().millisecondsSinceEpoch - mLast.dateInMs;
+    // // change to last measurement
+    // // time between passed since last measurement
+    // final int passedTime =
+    //   DateTime.now().millisecondsSinceEpoch - mLast.dateInMs;
 
-    return Duration(milliseconds: remainingTime - passedTime);
+    // return Duration(milliseconds: remainingTime - passedTime);
   }
 
   /// bmi at last measurement

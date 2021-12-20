@@ -5,7 +5,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -18,6 +17,7 @@ import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/routeTransition.dart';
+import 'package:trale/widget/statsWidgets.dart';
 
 
 class Home extends StatefulWidget {
@@ -48,13 +48,6 @@ class _HomeState extends State<Home> {
     final bool showFAB = collapsed > 0.9 && !popupShown;
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
-    final double? userTargetWeight = notifier.userTargetWeight;
-    final int? timeOfTargetWeight = database.timeOfTargetWeight(
-        userTargetWeight
-    )?.inDays;
-    final double? weightLostWeek = database.deltaWeightLastWeek;
-    final double? weightLostMonth = database.deltaWeightLastMonth;
-
     final AppBar appBar = AppBar(
       centerTitle: true,
       title: AutoSizeText(
@@ -72,54 +65,6 @@ class _HomeState extends State<Home> {
       topLeft: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
       topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
     );
-
-    Card userTargetWeightCard(double utw) => Card(
-        shape: TraleTheme.of(context)!.borderShape,
-        margin: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding,
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              AutoSizeText(
-                notifier.unit.weightToString(utw),
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              AutoSizeText(
-                timeOfTargetWeight == null
-                    ? '-- days'
-                    : '$timeOfTargetWeight days',
-                style: Theme.of(context).textTheme.bodyText1,
-              )
-            ],
-          ),
-        ),
-      );
-
-    Card userWeightLostCard(String label, double lost) => Card(
-        shape: TraleTheme.of(context)!.borderShape,
-        margin: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding,
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              AutoSizeText(
-                label,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              AutoSizeText(
-                notifier.unit.weightToString(lost),
-                style: Theme.of(context).textTheme.bodyText1,
-              )
-            ],
-          ),
-        ),
-      );
 
     final Container lineChart = Container(
       height: MediaQuery.of(context).size.height / 3,
@@ -307,6 +252,7 @@ class _HomeState extends State<Home> {
         decoration: BoxDecoration(
           gradient: TraleTheme.of(context)!.bgGradient,
         ),
+        height: MediaQuery.of(context).size.height,
         alignment: Alignment.topCenter,
         child: AnimatedContainer(
           duration: TraleTheme.of(context)!.transitionDuration.normal,
@@ -318,32 +264,7 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              AnimatedCrossFade(
-                crossFadeState: collapsed > 0.9
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-                duration: TraleTheme.of(context)!.transitionDuration.fast,
-                secondChild: const SizedBox.shrink(),
-                firstChild: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    if (userTargetWeight != null) Expanded(
-                      child: userTargetWeightCard(userTargetWeight)
-                    ),
-                    if (weightLostWeek != null) Expanded(
-                      child: userWeightLostCard(
-                        weightLostMonth == null
-                          ? '± week'
-                          : '± month',
-                        weightLostMonth ?? weightLostWeek
-                      )
-                    ),
-                  ].addGap(
-                    padding: TraleTheme.of(context)!.padding,
-                    direction: Axis.horizontal,
-                  ),
-                ),
-              ),
+              StatsWidgets(visible: collapsed > 0.9),
               lineChart,
             ],
           ),
