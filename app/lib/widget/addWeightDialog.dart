@@ -28,53 +28,6 @@ Future<bool> showAddWeightDialog({
   DateTime currentDate = date;
   final MeasurementDatabase database = MeasurementDatabase();
 
-  final List<Widget> actions = <Widget>[
-    TextButton(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(
-        TraleTheme.of(context)!.bgFont),
-      ),
-      onPressed: () => Navigator.pop(context, false),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding / 2,
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
-        child: Text(AppLocalizations.of(context)!.abort)
-      ),
-    ),
-    TextButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-          TraleTheme.of(context)!.accent),
-        foregroundColor: MaterialStateProperty.all<Color>(
-          TraleTheme.of(context)!.accentFont),
-      ),
-      onPressed: () {
-        database.insertMeasurement(
-          Measurement(
-            weight: _currentSliderValue,
-            date: currentDate,
-          ),
-        );
-        Navigator.pop(context, true);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding / 2,
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const Icon(CustomIcons.save),
-            SizedBox(width: TraleTheme.of(context)!.padding),
-            Text(AppLocalizations.of(context)!.save),
-          ],
-        )
-        )
-      ),
-  ];
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
@@ -198,7 +151,18 @@ Future<bool> showAddWeightDialog({
           ),
         ),
         content: content,
-        actions: actions,
+        actions: actions(
+            context,
+            () {
+              database.insertMeasurement(
+                Measurement(
+                  weight: _currentSliderValue,
+                  date: currentDate,
+                ),
+              );
+              Navigator.pop(context, true);
+            }
+        ),
       );
     }
   ) ?? false;
@@ -214,49 +178,6 @@ Future<bool> showTargetWeightDialog({
   final TraleNotifier notifier =
   Provider.of<TraleNotifier>(context, listen: false);
   double _currentSliderValue = weight.toDouble() / notifier.unit.scaling;
-
-  final List<Widget> actions = <Widget>[
-    TextButton(
-      style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(
-            TraleTheme.of(context)!.bgFont),
-      ),
-      onPressed: () => Navigator.pop(context, false),
-      child: Container(
-          padding: EdgeInsets.symmetric(
-            vertical: TraleTheme.of(context)!.padding / 2,
-            horizontal: TraleTheme.of(context)!.padding,
-          ),
-          child: Text(AppLocalizations.of(context)!.abort)
-      ),
-    ),
-    TextButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
-              TraleTheme.of(context)!.accent),
-          foregroundColor: MaterialStateProperty.all<Color>(
-              TraleTheme.of(context)!.accentFont),
-        ),
-        onPressed: () {
-          notifier.userTargetWeight = _currentSliderValue;
-          Navigator.pop(context, true);
-        },
-        child: Container(
-            padding: EdgeInsets.symmetric(
-              vertical: TraleTheme.of(context)!.padding / 2,
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Icon(CustomIcons.save),
-                SizedBox(width: TraleTheme.of(context)!.padding),
-                Text(AppLocalizations.of(context)!.save),
-              ],
-            )
-        )
-    ),
-  ];
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
@@ -320,9 +241,59 @@ Future<bool> showTargetWeightDialog({
             ),
           ),
           content: content,
-          actions: actions,
+          actions: actions(
+            context,
+            () {
+              notifier.userTargetWeight = _currentSliderValue;
+              Navigator.pop(context, true);
+            }
+          ),
         );
       }
   ) ?? false;
   return accepted;
+}
+
+
+///
+List<Widget> actions(BuildContext context, Function onPress) {
+  return <Widget>[
+    TextButton(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all<Color>(
+            TraleTheme.of(context)!.bgFont),
+      ),
+      onPressed: () => Navigator.pop(context, false),
+      child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: TraleTheme.of(context)!.padding / 2,
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
+          child: Text(AppLocalizations.of(context)!.abort)
+      ),
+    ),
+    TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              TraleTheme.of(context)!.accent),
+          foregroundColor: MaterialStateProperty.all<Color>(
+              TraleTheme.of(context)!.accentFont),
+        ),
+        onPressed: () => onPress(),
+        child: Container(
+            padding: EdgeInsets.symmetric(
+              vertical: TraleTheme.of(context)!.padding / 2,
+              horizontal: TraleTheme.of(context)!.padding,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Icon(CustomIcons.save),
+                SizedBox(width: TraleTheme.of(context)!.padding),
+                Text(AppLocalizations.of(context)!.save),
+              ],
+            )
+        )
+    ),
+];
 }
