@@ -100,24 +100,27 @@ class _StatsWidgetsState extends State<StatsWidgets> {
       );
     }
 
-    return AnimatedCrossFade(
-      crossFadeState: widget.visible
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond,
-      duration: TraleTheme.of(context)!.transitionDuration.fast,
-      secondChild: const SizedBox.shrink(),
-      firstChild: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          if (userTargetWeight != null) Expanded(
-              child: userTargetWeightCard(userTargetWeight)
+    return FractionallySizedBox(
+      widthFactor: (userTargetWeight == null || nDays < 2) ? 0.5 : 1,
+      child: AnimatedCrossFade(
+        crossFadeState: widget.visible
+            ? CrossFadeState.showFirst
+            : CrossFadeState.showSecond,
+        duration: TraleTheme.of(context)!.transitionDuration.fast,
+        secondChild: const SizedBox.shrink(),
+        firstChild: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            if (userTargetWeight != null) Expanded(
+                child: userTargetWeightCard(userTargetWeight)
+            ),
+            if (nDays >= 2) Expanded(
+                child: userWeightLostCard(nDays),
+            ),
+          ].addGap(
+            padding: TraleTheme.of(context)!.padding,
+            direction: Axis.horizontal,
           ),
-          if (nDays >= 2) Expanded(
-              child: userWeightLostCard(nDays),
-          ),
-        ].addGap(
-          padding: TraleTheme.of(context)!.padding,
-          direction: Axis.horizontal,
         ),
       ),
     );
