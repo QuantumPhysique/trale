@@ -216,8 +216,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ],
         ),
         swapAnimationDuration: TraleTheme.of(context)!
-          .transitionDuration.slow,
-        swapAnimationCurve: Curves.bounceIn,
+          .transitionDuration.normal,
+        swapAnimationCurve: Curves.easeOut,
       );
     }
 
