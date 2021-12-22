@@ -42,7 +42,7 @@ class Preferences {
   /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
 
-  /// default for userHeight in mm
+  /// default for userHeight in m
   final double defaultUserHeight = -1;
 
   /// default for show onboarding screen

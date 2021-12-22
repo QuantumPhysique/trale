@@ -83,6 +83,20 @@ class MeasurementDatabase {
       (Measurement a, Measurement b) => a.compareTo(b)
     );
 
+  /// get mean measurements
+  List<Measurement> averageMeasurements(List<Measurement> ms) {
+    if (ms.isEmpty)
+      return ms;
+
+    final double meanWeight = ms.fold(
+        0.0, (double sum, Measurement m) => sum + m.weight
+    ) / ms.length;
+    return <Measurement>[
+      for (final Measurement m in ms)
+        m.apply(weight: meanWeight)
+    ];
+  }
+
   List<SortedMeasurement>? _sortedMeasurements;
   /// get sorted measurements, key tuples
   List<SortedMeasurement> get sortedMeasurements => _sortedMeasurements ??=

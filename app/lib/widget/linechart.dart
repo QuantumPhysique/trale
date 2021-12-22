@@ -12,8 +12,9 @@ import 'package:trale/core/theme.dart';
 
 
 class CustomLineChart extends StatefulWidget {
-  CustomLineChart({Key? key}) : super(key: key);
+  CustomLineChart({required this.loadedFirst, Key? key}) : super(key: key);
 
+  final bool loadedFirst;
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
 }
@@ -36,8 +37,12 @@ class _CustomLineChartState extends State<CustomLineChart> {
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase db = MeasurementDatabase();
-    final List<Measurement> data = db.measurements;
-    final List<Measurement> dataInterpol = db.gaussianExtrapolatedMeasurements;
+    final List<Measurement> data = widget.loadedFirst
+      ? db.averageMeasurements(db.measurements)
+      : db.measurements;
+    final List<Measurement> dataInterpol = widget.loadedFirst
+      ? db.averageMeasurements(db.gaussianExtrapolatedMeasurements)
+      : db.gaussianExtrapolatedMeasurements;
     final Size textSize = sizeOfText(
       text: '1234',
       context: context,
@@ -211,8 +216,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ],
         ),
         swapAnimationDuration: TraleTheme.of(context)!
-          .transitionDuration.normal,
-        swapAnimationCurve: Curves.easeIn,
+          .transitionDuration.slow,
+        swapAnimationCurve: Curves.bounceIn,
       );
     }
 
