@@ -43,6 +43,13 @@ class _HomeState extends State<Home> {
     super.initState();
     collapsed = 1.0;
     loadedFirst = true;
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      if (loadedFirst) {
+        loadedFirst = false;
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -319,8 +326,6 @@ class _HomeState extends State<Home> {
         ),
       );
     }
-
-    loadedFirst = false;
 
     return Scaffold(
       key: key,
