@@ -83,7 +83,11 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               SizedBox(
-                height: sizeOfText(text: '0', context: context).height,
+                height: sizeOfText(
+                  text: '0',
+                  context: context,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ).height,
                 child: Transform.rotate(
                   // a change of 1kg / 30d corresponds to 45°
                   angle: -1 * atan(30 * deltaWeight / nDays),
