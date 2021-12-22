@@ -33,12 +33,14 @@ class _HomeState extends State<Home> {
   final SlidableController slidableController = SlidableController();
   late double collapsed;
   bool popupShown = false;
+  late bool loadedFirst;
   final double minHeight = 45.0;
 
   @override
   void initState() {
     super.initState();
     collapsed = 1.0;
+    loadedFirst = true;
   }
 
   @override
@@ -79,7 +81,7 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.symmetric(
                 vertical: TraleTheme.of(context)!.padding,
               ),
-              child: CustomLineChart(),
+              child: CustomLineChart(loadedFirst: loadedFirst),
             )
           : const SizedBox.shrink(),
       ),
@@ -315,6 +317,8 @@ class _HomeState extends State<Home> {
         ),
       );
     }
+
+    loadedFirst = false;
 
     return Scaffold(
       key: key,
