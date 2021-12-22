@@ -274,7 +274,7 @@ class MeasurementDatabase {
     if (durationMeasurements < nDays)
       return null;
 
-    final List<Measurement> ms = gaussianInterpolatedMeasurements;
+    final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
     return ms.last.weight - ms.elementAt(ms.length - nDays).weight;
   }
 
