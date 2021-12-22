@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
@@ -81,10 +82,13 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                 '${notifier.unit.weightToString(deltaWeight)} / $label',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              Transform.rotate(
-                // a change of 1kg / 30d corresponds to 45°
-                angle: -1 * atan(30 * deltaWeight / nDays),
-                child: const Icon(CustomIcons.next),
+              SizedBox(
+                height: sizeOfText(text: '0', context: context).height,
+                child: Transform.rotate(
+                  // a change of 1kg / 30d corresponds to 45°
+                  angle: -1 * atan(30 * deltaWeight / nDays),
+                  child: const Icon(CustomIcons.next),
+                ),
               ),
             ],
           ),
