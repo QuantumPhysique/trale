@@ -370,16 +370,16 @@ class _HomeState extends State<Home> {
                 CustomIcons.account,
                 color: Theme.of(context).iconTheme.color,
               ),
-              title: notifier.userName == ''
-                ? AutoSizeText(
-                  'Add a name',
-                  style: Theme.of(context).textTheme.bodyText1!.apply(
-                      color: TraleTheme.of(context)!.bgFontLight),
-                  maxLines: 1)
-                : AutoSizeText(
-                    notifier.userName,
-                    style: Theme.of(context).textTheme.bodyText1,
-                    maxLines: 1),
+              title: TextFormField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration.collapsed(
+                  hintText: AppLocalizations.of(context)!.addUserName,
+                ),
+                initialValue: notifier.userName,
+                onChanged: (String value) {
+                  notifier.userName = value;
+                }
+              ),
               onTap: () {},
             ),
             ListTile(
@@ -411,10 +411,16 @@ class _HomeState extends State<Home> {
                 Icons.straighten,
                 color: Theme.of(context).iconTheme.color,
               ),
-              title: AutoSizeText(
-                '${notifier.userHeight ?? '--'} cm',
-                style: Theme.of(context).textTheme.bodyText1,
-                maxLines: 1,
+              title: TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.addUserName,
+                    suffixText: 'cm',
+                  ),
+                  initialValue: (notifier.userHeight ?? '').toString(),
+                  onChanged: (String value) {
+                    notifier.userHeight = double.tryParse(value);
+                  }
               ),
               onTap: () {},
             ),
