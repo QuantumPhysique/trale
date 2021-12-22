@@ -287,9 +287,16 @@ class InterpolationListTile extends StatelessWidget {
           for (InterpolStrength strength in InterpolStrength.values)
             DropdownMenuItem<InterpolStrength>(
               value: strength,
-              child: Text(
-                strength.nameLong(context),
-                style: Theme.of(context).textTheme.bodyText1,
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    strength.icon
+                  ),
+                  Text(
+                    ' ' + strength.nameLong(context),
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
               ),
             )
         ],

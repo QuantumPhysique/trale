@@ -393,7 +393,7 @@ class _HomeState extends State<Home> {
             ListTile(
               dense: true,
               leading: Icon(
-                Icons.monitor_weight,
+                CustomIcons.goal,
                 color: Theme.of(context).iconTheme.color,
               ),
               title: AutoSizeText(
