@@ -299,7 +299,7 @@ class MeasurementDatabase {
     final double slope = finalSlope;
 
     // Crossing is in the past
-    if (slope * (mLast.weight - targetWeight) > 0)
+    if (slope * (mLast.weight - targetWeight) >= 0)
       return null;
 
     // in ms from last measurement
