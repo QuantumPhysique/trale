@@ -398,13 +398,13 @@ class _HomeState extends State<Home> {
             ListTile(
               dense: true,
               leading: Icon(
-                Icons.monitor_weight,
+                CustomIcons.goal,
                 color: Theme.of(context).iconTheme.color,
               ),
               title: AutoSizeText(
                 notifier.userTargetWeight != null
                   ? notifier.unit.weightToString(notifier.userTargetWeight!)
-                  : '-- ${notifier.unit.name}',
+                  : AppLocalizations.of(context)!.addTargetWeight,
                 style: Theme.of(context).textTheme.bodyText1,
                 maxLines: 1,
               ),
@@ -418,7 +418,7 @@ class _HomeState extends State<Home> {
                 notifier.notify;
               },
             ),
-            ListTile(
+            /*ListTile(
               dense: true,
               leading: Icon(
                 Icons.straighten,
@@ -464,7 +464,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               onTap: () {},
-            ),
+            ),*/
             const Spacer(),
             const Divider(),
             ListTile(

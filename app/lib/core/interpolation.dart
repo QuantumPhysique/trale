@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:trale/core/icons.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
@@ -188,6 +189,14 @@ extension InterpolStrengthExtension on InterpolStrength {
 
   /// get string expression
   String get name => toString().split('.').last;
+
+  /// get icon
+  IconData get icon => <InterpolStrength, IconData>{
+    InterpolStrength.none: CustomIcons.interpol_none,
+    InterpolStrength.soft: CustomIcons.interpol_weak,
+    InterpolStrength.medium: CustomIcons.interpol_medium,
+    InterpolStrength.strong: CustomIcons.interpol_strong,
+  }[this]!;
 }
 
 /// convert string to interpolation strength

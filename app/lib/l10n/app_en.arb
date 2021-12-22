@@ -652,5 +652,9 @@
   "addUserName": "How shall we call you?",
   "@addUserName": {
     "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Add target weight",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
   }
 }
