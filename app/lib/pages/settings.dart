@@ -6,12 +6,12 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
-import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/coloredContainer.dart';
+import 'package:trale/widget/customSliverAppBar.dart';
 
 
 /// ListTile for changing Amoled settings
@@ -41,7 +41,56 @@ class ResetListTile extends StatelessWidget {
           final bool accepted = await showDialog<bool>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: Text('blubb'),
+              title: Text(
+                AppLocalizations.of(context)!.factoryReset,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              content: Text(
+                AppLocalizations.of(context)!.factoryResetDialog,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      TraleTheme.of(context)!.bgFont
+                    ),
+                  ),
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: TraleTheme.of(context)!.padding / 2,
+                        horizontal: TraleTheme.of(context)!.padding,
+                      ),
+                      child: Text(AppLocalizations.of(context)!.abort)
+                  ),
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        TraleTheme.of(context)!.accent
+                      ),
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        TraleTheme.of(context)!.accentFont
+                      ),
+                    ),
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: TraleTheme.of(context)!.padding / 2,
+                          horizontal: TraleTheme.of(context)!.padding,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const Icon(CustomIcons.done),
+                            SizedBox(width: TraleTheme.of(context)!.padding),
+                            Text(AppLocalizations.of(context)!.yes),
+                          ],
+                        )
+                    )
+                ),
+              ],
             ),
           ) ?? false;
           if (accepted)
@@ -399,6 +448,17 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
+          Divider(
+            height: 2 * TraleTheme.of(context)!.padding,
+          ),
+          Padding(
+            padding: padding,
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.language.inCaps,
+              style: Theme.of(context).textTheme.headline4,
+              maxLines: 1,
+            ),
+          ),
           const ResetListTile(),
         ],
       );
