@@ -1,5 +1,6 @@
 import 'package:auto_size_text_pk/auto_size_text_pk.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
@@ -377,8 +379,10 @@ class _HomeState extends State<Home> {
               title: TextFormField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration.collapsed(
+                  hintStyle: Theme.of(context).textTheme.bodyText1,
                   hintText: AppLocalizations.of(context)!.addUserName,
                 ),
+                style: Theme.of(context).textTheme.bodyText1,
                 initialValue: notifier.userName,
                 onChanged: (String value) {
                   notifier.userName = value;
@@ -415,16 +419,44 @@ class _HomeState extends State<Home> {
                 Icons.straighten,
                 color: Theme.of(context).iconTheme.color,
               ),
-              title: TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.addUserName,
-                    suffixText: 'cm',
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    width: sizeOfText(
+                        text: '170  cm',
+                        context: context,
+                        style: Theme.of(context).textTheme.bodyText1,
+                    ).width,
+                    child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        maxLength: 3,
+                        decoration: InputDecoration(
+                          hintText: ' ',
+                          suffixText: 'cm',
+                          hintStyle: Theme.of(context).textTheme.bodyText1,
+                          suffixStyle: Theme.of(context).textTheme.bodyText1,
+                          border: InputBorder.none,
+                          counterText: '',
+                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
+                        textAlign: TextAlign.right,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                        ], // Only numbers can be entered
+                        initialValue: notifier.userHeight == null
+                          ? ' '
+                          : (100 * notifier.userHeight!).toInt().toString(),
+                        onChanged: (String value) {
+                          final double? newHeight = double.tryParse(value);
+                          if (newHeight != null)
+                            notifier.userHeight = newHeight / 100;
+                          else
+                            notifier.userHeight = null;
+                        }
+                    ),
                   ),
-                  initialValue: (notifier.userHeight ?? '').toString(),
-                  onChanged: (String value) {
-                    notifier.userHeight = double.tryParse(value);
-                  }
+                ],
               ),
               onTap: () {},
             ),
