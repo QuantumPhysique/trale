@@ -375,8 +375,10 @@ class _HomeState extends State<Home> {
               title: TextFormField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration.collapsed(
+                  hintStyle: Theme.of(context).textTheme.bodyText1,
                   hintText: AppLocalizations.of(context)!.addUserName,
                 ),
+                style: Theme.of(context).textTheme.bodyText1,
                 initialValue: notifier.userName,
                 onChanged: (String value) {
                   notifier.userName = value;
@@ -428,12 +430,12 @@ class _HomeState extends State<Home> {
                         decoration: InputDecoration(
                           hintText: ' ',
                           suffixText: 'cm',
-                          labelStyle: Theme.of(context).textTheme.bodyText1,
                           hintStyle: Theme.of(context).textTheme.bodyText1,
                           suffixStyle: Theme.of(context).textTheme.bodyText1,
                           border: InputBorder.none,
                           counterText: '',
                         ),
+                        style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.right,
                         inputFormatters: <TextInputFormatter>[
                           FilteringTextInputFormatter.allow(RegExp('[0-9]')),
