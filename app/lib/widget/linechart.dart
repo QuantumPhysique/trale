@@ -141,8 +141,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               Localizations.localeOf(context).languageCode
             ).format(date);
           } else if (
-            date.day % interval == 0 ||
-            date.day - interval ~/ 1.5 < 0
+            date.day % interval == 0 &&
+            date.day - interval ~/ 1.5 > 0
           ) {
             return date.day.toString();
           }
