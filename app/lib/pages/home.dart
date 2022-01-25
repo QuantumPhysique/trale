@@ -60,12 +60,6 @@ class _HomeState extends State<Home> {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final AppBar appBar = AppBar(
-      centerTitle: true,
-      title: AutoSizeText(
-        AppLocalizations.of(context)!.trale.toLowerCase(),
-        style: Theme.of(context).textTheme.headline4,
-        maxLines: 1,
-      ),
       leading: IconButton(
         icon: const Icon(CustomIcons.settings),
         onPressed: () => key.currentState!.openDrawer(),
