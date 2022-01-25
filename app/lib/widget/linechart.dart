@@ -127,22 +127,23 @@ class _CustomLineChartState extends State<CustomLineChart> {
           final int interval = (
               max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
           ).toInt();
-          if (date.day == 1) {
+          if (
+            date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
+            (
+              maxX - date.millisecondsSinceEpoch <
+              const Duration(days: 1).inMilliseconds
+            )
+          ) {
+            return '';
+          } else if (date.day == 1) {
             return DateFormat(
               'MMM',
               Localizations.localeOf(context).languageCode
             ).format(date);
-          } else if (date.day % interval == 0) {
-            if (
-              date.day - interval ~/ 1.5 < 0 ||
-              date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
-              (
-                maxX - date.millisecondsSinceEpoch <
-                const Duration(days: 1).inMilliseconds
-              )
+          } else if (
+            date.day % interval == 0 ||
+            date.day - interval ~/ 1.5 < 0
           ) {
-              return '';
-            }
             return date.day.toString();
           }
           return '';
