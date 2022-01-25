@@ -65,8 +65,8 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     Card userWeightLostCard(int nDays) {
       final double deltaWeight = database.deltaWeightLastNDays(nDays)!;
       final String label = nDays == 30
-          ? 'm'
-          : nDays == 7 ? 'w' : '{nDays}d';
+          ? 'month'
+          : nDays == 7 ? 'week' : '{nDays}day';
 
       return Card(
         shape: TraleTheme.of(context)!.borderShape,
