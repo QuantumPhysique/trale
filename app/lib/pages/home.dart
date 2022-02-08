@@ -33,6 +33,7 @@ class _HomeState extends State<Home> {
   final Duration animationDuration = const Duration(milliseconds: 500);
   final PanelController panelController = PanelController();
   // final SlidableController slidableController = SlidableController();
+  final String groupTag = 'groupTag';
   late double collapsed;
   bool popupShown = false;
   late bool loadedFirst;
@@ -93,9 +94,18 @@ class _HomeState extends State<Home> {
     final SlidingUpPanel slidingUpPanel = SlidingUpPanel(
       controller: panelController,
       minHeight: minHeight + 10,
-      // onPanelClosed: () {
+      onPanelClosed: () {
+        final SlidableController? sc = Slidable.of(context);
+        if (sc != null)
+          SlidableGroupNotification.dispatch(
+            context,
+            SlidableAutoCloseNotification(
+              groupTag: groupTag,
+              controller: sc,
+            )
+          );
       //   slidableController.activeState?.close();
-      // },
+      },
       maxHeight: MediaQuery.of(context).size.height / 2 - kToolbarHeight,
       onPanelSlide: (double x) {
         setState(() {
@@ -152,108 +162,113 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: borderRadius,
-              child: ListView.builder(
-                controller: sc,
-                clipBehavior: Clip.antiAlias,
-                itemCount: measurements.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final SortedMeasurement currentMeasurement
-                    = measurements[index];
-                  Widget deleteAction() {
-                    return SlidableAction(
-                      label: AppLocalizations.of(context)!.delete,
-                      backgroundColor: TraleTheme.of(context)!.accent,
-                      icon: CustomIcons.delete,
-                      onPressed: (BuildContext context) {
-                        database.deleteMeasurement(currentMeasurement);
-                        setState(() {});
-                        final SnackBar snackBar = SnackBar(
-                          content: const Text('Measurement was deleted'),
-                          behavior: SnackBarBehavior.floating,
-                          width: MediaQuery.of(context).size.width / 3 * 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(
-                                TraleTheme.of(context)!.borderRadius
-                              )
-                            )
-                          ),
-                          action: SnackBarAction(
-                            label: 'Undo',
-                            onPressed: () {
-                              database.insertMeasurement(
-                                  currentMeasurement.measurement
-                              );
-                              setState(() {});
-                            },
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    );
-                  }
-                  Widget editAction() {
-                    return SlidableAction(
-                      label: AppLocalizations.of(context)!.edit,
-                      backgroundColor: TraleTheme.of(context)!.bgShade3,
-                      icon: CustomIcons.edit,
-                      onPressed: (BuildContext context) async {
-                        final bool changed = await showAddWeightDialog(
-                          context: context,
-                          weight: currentMeasurement.measurement.weight,
-                          date: currentMeasurement.measurement.date,
-                        );
-                        if (changed) {
+            child: SlidableAutoCloseBehavior(
+              closeWhenOpened: true,
+              closeWhenTapped: true,
+              child: ClipRRect(
+                borderRadius: borderRadius,
+                child: ListView.builder(
+                  controller: sc,
+                  clipBehavior: Clip.antiAlias,
+                  itemCount: measurements.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final SortedMeasurement currentMeasurement
+                      = measurements[index];
+                    Widget deleteAction() {
+                      return SlidableAction(
+                        label: AppLocalizations.of(context)!.delete,
+                        backgroundColor: TraleTheme.of(context)!.accent,
+                        icon: CustomIcons.delete,
+                        onPressed: (BuildContext context) {
                           database.deleteMeasurement(currentMeasurement);
                           setState(() {});
+                          final SnackBar snackBar = SnackBar(
+                            content: const Text('Measurement was deleted'),
+                            behavior: SnackBarBehavior.floating,
+                            width: MediaQuery.of(context).size.width / 3 * 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(
+                                  TraleTheme.of(context)!.borderRadius
+                                )
+                              )
+                            ),
+                            action: SnackBarAction(
+                              label: 'Undo',
+                              onPressed: () {
+                                database.insertMeasurement(
+                                    currentMeasurement.measurement
+                                );
+                                setState(() {});
+                              },
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         }
-                      },
+                      );
+                    }
+                    Widget editAction() {
+                      return SlidableAction(
+                        label: AppLocalizations.of(context)!.edit,
+                        backgroundColor: TraleTheme.of(context)!.bgShade3,
+                        icon: CustomIcons.edit,
+                        onPressed: (BuildContext context) async {
+                          final bool changed = await showAddWeightDialog(
+                            context: context,
+                            weight: currentMeasurement.measurement.weight,
+                            date: currentMeasurement.measurement.date,
+                          );
+                          if (changed) {
+                            database.deleteMeasurement(currentMeasurement);
+                            setState(() {});
+                          }
+                        },
+                      );
+                    }
+                    return Slidable(
+                      groupTag: groupTag,
+                      //controller: slidableController,
+                      startActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.4,
+                        children: <Widget>[
+                          deleteAction(),
+                          editAction(),
+                        ],
+                      ),
+                      endActionPane: ActionPane(
+                        motion: const DrawerMotion(),
+                        extentRatio: 0.4,
+                        children: <Widget>[
+                          editAction(),
+                          deleteAction()
+                        ],
+                      ),
+                      closeOnScroll: true,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          Container(
+                            alignment: Alignment.center,
+                            color: TraleTheme.of(context)!.isDark
+                              ? TraleTheme.of(context)!.bgShade2
+                              : TraleTheme.of(context)!.bg,
+                            width: MediaQuery.of(context).size.width
+                              - 2 * TraleTheme.of(context)!.padding,
+                            height: 40.0,
+                            child: Text(
+                              currentMeasurement.measurement.measureToString(
+                                context, ws: 12,
+                              ),
+                              style: Theme.of(context).textTheme
+                                .bodyText1?.apply(fontFamily: 'Courier'),
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   }
-                  return Slidable(
-                    //controller: slidableController,
-                    startActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: <Widget>[
-                        deleteAction(),
-                        editAction(),
-                      ],
-                    ),
-                    endActionPane: ActionPane(
-                      motion: const DrawerMotion(),
-                      extentRatio: 0.25,
-                      children: <Widget>[
-                        editAction(),
-                        deleteAction()
-                      ],
-                    ),
-                    closeOnScroll: true,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.center,
-                          color: TraleTheme.of(context)!.isDark
-                            ? TraleTheme.of(context)!.bgShade2
-                            : TraleTheme.of(context)!.bg,
-                          width: MediaQuery.of(context).size.width
-                            - 2 * TraleTheme.of(context)!.padding,
-                          height: 40.0,
-                          child: Text(
-                            currentMeasurement.measurement.measureToString(
-                              context, ws: 12,
-                            ),
-                            style: Theme.of(context).textTheme
-                              .bodyText1?.apply(fontFamily: 'Courier'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
+                ),
               ),
             ),
           ),
