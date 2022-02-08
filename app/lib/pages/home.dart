@@ -1,4 +1,4 @@
-import 'package:auto_size_text_pk/auto_size_text_pk.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
