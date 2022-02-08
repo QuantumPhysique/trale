@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   final Duration animationDuration = const Duration(milliseconds: 500);
   final PanelController panelController = PanelController();
-  final SlidableController slidableController = SlidableController();
+  // final SlidableController slidableController = SlidableController();
   late double collapsed;
   bool popupShown = false;
   late bool loadedFirst;
@@ -93,9 +93,9 @@ class _HomeState extends State<Home> {
     final SlidingUpPanel slidingUpPanel = SlidingUpPanel(
       controller: panelController,
       minHeight: minHeight + 10,
-      onPanelClosed: () {
-        slidableController.activeState?.close();
-      },
+      // onPanelClosed: () {
+      //   slidableController.activeState?.close();
+      // },
       maxHeight: MediaQuery.of(context).size.height / 2 - kToolbarHeight,
       onPanelSlide: (double x) {
         setState(() {
@@ -162,11 +162,11 @@ class _HomeState extends State<Home> {
                   final SortedMeasurement currentMeasurement
                     = measurements[index];
                   Widget deleteAction() {
-                    return IconSlideAction(
-                      caption: AppLocalizations.of(context)!.delete,
-                      color: TraleTheme.of(context)?.accent,
+                    return SlidableAction(
+                      label: AppLocalizations.of(context)!.delete,
+                      backgroundColor: TraleTheme.of(context)!.accent,
                       icon: CustomIcons.delete,
-                      onTap: () {
+                      onPressed: (BuildContext context) {
                         database.deleteMeasurement(currentMeasurement);
                         setState(() {});
                         final SnackBar snackBar = SnackBar(
@@ -195,11 +195,11 @@ class _HomeState extends State<Home> {
                     );
                   }
                   Widget editAction() {
-                    return IconSlideAction(
-                      caption: AppLocalizations.of(context)!.edit,
-                      color: TraleTheme.of(context)!.bgShade3,
+                    return SlidableAction(
+                      label: AppLocalizations.of(context)!.edit,
+                      backgroundColor: TraleTheme.of(context)!.bgShade3,
                       icon: CustomIcons.edit,
-                      onTap: () async {
+                      onPressed: (BuildContext context) async {
                         final bool changed = await showAddWeightDialog(
                           context: context,
                           weight: currentMeasurement.measurement.weight,
@@ -213,9 +213,23 @@ class _HomeState extends State<Home> {
                     );
                   }
                   return Slidable(
-                    controller: slidableController,
-                    actionPane: const SlidableDrawerActionPane(),
-                    actionExtentRatio: 0.25,
+                    //controller: slidableController,
+                    startActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: <Widget>[
+                        deleteAction(),
+                        editAction(),
+                      ],
+                    ),
+                    endActionPane: ActionPane(
+                      motion: const DrawerMotion(),
+                      extentRatio: 0.25,
+                      children: <Widget>[
+                        editAction(),
+                        deleteAction()
+                      ],
+                    ),
                     closeOnScroll: true,
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -238,14 +252,6 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    actions: <Widget>[
-                      deleteAction(),
-                      editAction(),
-                    ],
-                    secondaryActions: <Widget>[
-                      editAction(),
-                      deleteAction()
-                    ],
                   );
                 }
               ),
