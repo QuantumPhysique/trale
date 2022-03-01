@@ -49,7 +49,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       imageFlex: 1,
       bodyFlex: 1,
-      descriptionPadding: EdgeInsets.symmetric(
+      bodyPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding),
       imagePadding: EdgeInsets.all(
         2 * TraleTheme.of(context)!.padding,
@@ -130,20 +130,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       },
       onSkip: () => _onIntroEnd(context),
       showSkipButton: true,
-      skipFlex: 0,
-      nextFlex: 0,
+      nextFlex: 1,
       skip: Text(
         AppLocalizations.of(context)!.skip,
         style: Theme.of(context).textTheme.bodyText1!,
       ),
-      next: const Icon(CustomIcons.next),
+      next: Icon(
+        CustomIcons.next,
+        color: Theme.of(context).iconTheme.color,
+      ),
       done: Text(
         AppLocalizations.of(context)!.startApp,
         style: Theme.of(context).textTheme.bodyText1!,
       ),
-      skipColor: TraleTheme.of(context)!.bgFont,
-      nextColor: TraleTheme.of(context)!.bgFont,
-      doneColor: TraleTheme.of(context)!.bgFont,
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: EdgeInsets.all(2 * TraleTheme.of(context)!.padding),
       controlsPadding: EdgeInsets.symmetric(
