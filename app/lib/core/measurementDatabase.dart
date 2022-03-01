@@ -39,20 +39,20 @@ class MeasurementDatabase {
   /// get box
   Box<Measurement> get box => Hive.box<Measurement>(_boxName);
 
-  /// insert Measurments into box
-  Future<void> insertMeasurement(Measurement m) async {
-    await box.add(m);
-    await reinit();
+  /// insert Measurements into box
+  void insertMeasurement(Measurement m) {
+    box.add(m);
+    reinit();
   }
 
-  /// delete Measurments into box
-  Future<void> deleteMeasurement(SortedMeasurement m) async {
-    await box.delete(m.key);
-    await reinit();
+  /// delete Measurements into box
+  void deleteMeasurement(SortedMeasurement m) {
+    box.delete(m.key);
+    reinit();
   }
 
   /// re initialize database
-  Future<void> reinit() async {
+  void reinit() {
     _measurements = null;
     _sortedMeasurements = null;
     _dailyAveragedMeasurements = null;
