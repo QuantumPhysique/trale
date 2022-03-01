@@ -23,6 +23,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final Preferences prefs = Preferences();
 
   void _onIntroEnd(BuildContext context) {
+    Navigator.of(context).pop();
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(builder: (_) => const Home()),
     );
