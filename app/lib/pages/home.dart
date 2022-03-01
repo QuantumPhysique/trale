@@ -362,8 +362,9 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    'assets/launcher/foreground_crop2.png',
+                    'assets/launcher/icon_large.png',
                     width: MediaQuery.of(context).size.width * 0.2,
+                    height: MediaQuery.of(context).size.width * 0.2,
                   ),
                   SizedBox(width: TraleTheme.of(context)!.padding),
                   Column(
