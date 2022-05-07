@@ -93,10 +93,13 @@ class ResetListTile extends StatelessWidget {
               ],
             ),
           ) ?? false;
-          if (accepted)
+          if (accepted) {
             Provider.of<TraleNotifier>(
-              context, listen: false
-            ).factoryReset();
+                context, listen: false
+              ).factoryReset();
+            // leave settings
+            Navigator.of(context).pop();
+          }
         },
       ),
     );
@@ -461,7 +464,7 @@ class _Settings extends State<Settings> {
           Padding(
             padding: padding,
             child: AutoSizeText(
-              AppLocalizations.of(context)!.language.inCaps,
+              AppLocalizations.of(context)!.reset.inCaps,
               style: Theme.of(context).textTheme.headline4,
               maxLines: 1,
             ),

@@ -131,8 +131,10 @@ class TraleNotifier with ChangeNotifier {
       : language.locale;
 
   /// factory reset
-  void factoryReset() {
+  void factoryReset() async {
     prefs.resetSettings();
+    /// todo: delete all measurements
+    await MeasurementDatabase().deleteAllMeasurements();
     notifyListeners();
   }
 }

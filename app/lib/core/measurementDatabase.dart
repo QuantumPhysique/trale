@@ -45,9 +45,18 @@ class MeasurementDatabase {
     reinit();
   }
 
-  /// delete Measurements into box
+  /// delete Measurements from box
   void deleteMeasurement(SortedMeasurement m) {
     box.delete(m.key);
+    reinit();
+  }
+
+  /// delete all Measurements from box
+  Future<void> deleteAllMeasurements() async {
+    for (final SortedMeasurement m in sortedMeasurements) {
+      print(m.measurement.date);
+      await box.delete(m.key);
+    }
     reinit();
   }
 
@@ -157,12 +166,17 @@ class MeasurementDatabase {
           _calcDailyAveragedGaussianMeasurements();
 
   /// get linearly interpolated and sorted list of daily-averaged measurements
-  List<Measurement> _calcDailyAveragedGaussianMeasurements() => <Measurement>[
-      for (final Measurement m in dailyAveragedMeasurements)
+  List<Measurement> _calcDailyAveragedGaussianMeasurements() {
+    final List<Measurement> ms = dailyAveragedMeasurements;
+    if (ms.isEmpty)
+      return measurements;
+    return <Measurement>[
+      for (final Measurement m in ms)
         InterpolFunc.gaussian.function(
           m.dateInMs, dailyAveragedMeasurements,
         ) as Measurement
     ];
+  }
 
   List<Measurement>? _dailyAveragedInterpolatedMeasurements;
   /// get linearly interpolated and sorted list of daily-averaged measurements
@@ -173,6 +187,8 @@ class MeasurementDatabase {
   /// get linearly interpolated and sorted list of daily-averaged measurements
   List<Measurement> _calcDailyAveragedInterpolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedMeasurements;
+    if (ms.isEmpty)
+      return measurements;
     final List<Measurement> msGauss = dailyAveragedGaussianMeasurements;
     final List<Measurement> dailyMeasurements = <Measurement>[];
 
@@ -215,6 +231,8 @@ class MeasurementDatabase {
 
   List<Measurement> _calcDailyAveragedExtrapolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
+    if (ms.isEmpty)
+      return measurements;
     final List<Measurement> msGaussian = gaussianInterpolatedMeasurements;
 
     final List<Measurement> extrapolH = <Measurement>[];
