@@ -224,7 +224,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       1,
                     ),
                   color: barData.colors.first,
-                  strokeColor: TraleTheme.of(context)!.bgFont,
+                  strokeColor: TraleTheme.of(context)!.bgFontLight,
+                  strokeWidth: 0.7,
                 )
               ),
             ),
