@@ -212,6 +212,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
               isStrokeCapRound: true,
               dotData: FlDotData(
                 show: true,
+                getDotPainter: (
+                  FlSpot spot,
+                  double percent,
+                  LineChartBarData barData,
+                  int index
+                ) => FlDotCirclePainter(
+                  radius:
+                    max<double>(
+                      5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
+                      1,
+                    ),
+                  color: barData.colors.first,
+                  strokeColor: TraleTheme.of(context)!.bgFont,
+                )
               ),
             ),
           ],
