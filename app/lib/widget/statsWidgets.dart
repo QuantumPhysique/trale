@@ -33,11 +33,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         userTargetWeight
     )?.inDays;
     final int nMeasured = database.durationMeasurements;
-    final int nDays = nMeasured > 7
-        ? nMeasured > 30
-          ? 30
-          : 7
-        : nMeasured;
+    const int nDays = 1;
 
     Card userTargetWeightCard(double utw) => Card(
       shape: TraleTheme.of(context)!.borderShape,
@@ -63,10 +59,10 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
 
     Card userWeightLostCard(int nDays) {
-      final double deltaWeight = database.deltaWeightLastNDays(nDays)!;
-      final String label = nDays == 30
-          ? 'month'
-          : nDays == 7 ? 'week' : '{nDays}day';
+      final double deltaWeight = database.deltaWeightLastNDays(
+        nDays
+      )! * (30 / nDays);
+      const String label = 'month';
 
       return Card(
         shape: TraleTheme.of(context)!.borderShape,
@@ -90,7 +86,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                 ).height,
                 child: Transform.rotate(
                   // a change of 1kg / 30d corresponds to 45°
-                  angle: -1 * atan(30 * deltaWeight / nDays),
+                  angle: -1 * atan(deltaWeight),
                   child: const Icon(CustomIcons.next),
                 ),
               ),
@@ -101,7 +97,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     }
 
     return FractionallySizedBox(
-      widthFactor: (userTargetWeight == null || nDays < 2) ? 0.5 : 1,
+      widthFactor: (userTargetWeight == null || nMeasured < 2) ? 0.5 : 1,
       child: AnimatedCrossFade(
         crossFadeState: widget.visible
             ? CrossFadeState.showFirst
@@ -114,7 +110,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
             if (userTargetWeight != null) Expanded(
                 child: userTargetWeightCard(userTargetWeight)
             ),
-            if (nDays >= 2) Expanded(
+            if (nMeasured >= 2) Expanded(
                 child: userWeightLostCard(nDays),
             ),
           ].addGap(

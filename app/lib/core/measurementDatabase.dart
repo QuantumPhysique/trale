@@ -289,7 +289,7 @@ class MeasurementDatabase {
       return null;
 
     final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
-    return ms.last.weight - ms.elementAt(ms.length - nDays).weight;
+    return ms.last.weight - ms.elementAt(ms.length - 1 - nDays).weight;
   }
 
   /// get weight change [kg] within last month from last measurement
