@@ -193,13 +193,13 @@
   "@factoryReset": {
     "description": "Factory reset app."
   },
-  "factoryResetSubtitle": "Reset all settings and delete all created workouts, exercises and history.",
+  "factoryResetSubtitle": "Reset all settings and delete all measurements.",
   "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all created workouts, exercises and history."
+    "description": "Reset all settings and delete all measurements."
   },
-  "factoryResetDialog": "Reset application to default? This will delete all settings, history, added workouts and added exercises. This can not be undone.",
+  "factoryResetDialog": "Reset application to default? This will delete all settings, and added measurements. This can not be undone.",
   "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, history, added workouts and added exercises. This can not be undone."
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
   "delete": "delete",
   "@delete": {
@@ -656,5 +656,13 @@
   "addTargetWeight": "Add target weight",
   "@addTargetWeight": {
     "description": "Press to add a target weight."
+  },
+  "intro1": "press",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "intro2": "to get started",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
   }
 }
