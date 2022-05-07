@@ -80,14 +80,43 @@ class _HomeState extends State<Home> {
         margin: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
         ),
-        child: measurements.isNotEmpty
-          ? Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: TraleTheme.of(context)!.padding,
-              ),
-              child: CustomLineChart(loadedFirst: loadedFirst),
-            )
-          : const SizedBox.shrink(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: TraleTheme.of(context)!.padding,
+          ),
+          child: CustomLineChart(loadedFirst: loadedFirst),
+        )
+      ),
+    );
+
+    final Container dummyChart = Container(
+      height: MediaQuery.of(context).size.height / 3,
+      width: MediaQuery.of(context).size.width,
+      child: Card(
+        shape: TraleTheme.of(context)!.borderShape,
+        margin: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
+        child: Center(
+          child: RichText(
+            text: TextSpan(
+              children: <InlineSpan>[
+                TextSpan(
+                  text: AppLocalizations.of(context)!.intro1,
+                ),
+                const WidgetSpan(
+                  child: Icon(CustomIcons.add),
+                  alignment: PlaceholderAlignment.middle,
+                ),
+                TextSpan(
+                  text: AppLocalizations.of(context)!.intro2,
+                ),
+              ],
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
 
@@ -350,7 +379,9 @@ class _HomeState extends State<Home> {
           panelController.close();
       },
       body: SafeArea(
-        child: slidingUpPanel,
+        child: measurements.isNotEmpty
+          ? slidingUpPanel
+          : dummyChart,
       ),
       floatingActionButton: floatingActionButton(),
       drawer: Drawer(
