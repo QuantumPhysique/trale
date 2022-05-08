@@ -15,3 +15,19 @@ extension GapListExtension on List<Widget> {
     return this;
   }
 }
+
+
+/// extend widget list
+extension DividerListExtension on List<Widget> {
+  /// Add padding between each widget
+  List<Widget> addDivider({
+    required double padding,
+  }) {
+    final Widget gap = Divider(
+      height: padding,
+    );
+    for (int i=length - 1; i >= 1; i--)
+      insert(i, gap);
+    return this;
+  }
+}

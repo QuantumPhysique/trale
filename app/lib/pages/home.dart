@@ -10,11 +10,11 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/pages/about.dart';
+import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/linechart.dart';
@@ -541,6 +541,15 @@ class _HomeState extends State<Home> {
                 style: Theme.of(context).textTheme.bodyText1,
                 maxLines: 1,
               ),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).push<dynamic>(
+                    SlideRoute(
+                      page: FAQ(),
+                      direction: TransitionDirection.left,
+                    )
+                );
+              },
             ),
             ListTile(
               dense: true,
