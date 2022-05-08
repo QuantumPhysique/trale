@@ -80,12 +80,7 @@ class _HomeState extends State<Home> {
         margin: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: TraleTheme.of(context)!.padding,
-          ),
-          child: CustomLineChart(loadedFirst: loadedFirst),
-        )
+        child: CustomLineChart(loadedFirst: loadedFirst)
       ),
     );
 

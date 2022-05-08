@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         fontFamily: 'Courier',
       ),
     );
-    const double margin = 10;
+    final double margin = TraleTheme.of(context)!.padding;
 
     final List<Color> gradientColors = <Color>[
       Color.alphaBlend(
@@ -110,60 +111,71 @@ class _CustomLineChartState extends State<CustomLineChart> {
       minY = (maxY + minY) / 2 - 1;
       maxY = (maxY + minY) / 2 + 1;
     }
-    SideTitles bottomTitles () {
-      return SideTitles(
-        showTitles: true,
-        reservedSize: textSize.height,
-        interval: 24 * 3600 * 1000,
-        margin: margin,
-        getTextStyles: (BuildContext context, double value)
-          => Theme.of(context).textTheme.bodyText1!.apply(
-            fontFamily: 'Courier',
-          ),
-        getTitles: (double value) {
-          final DateTime date = DateTime.fromMillisecondsSinceEpoch(
-              value.toInt()
-          );
-          final int interval = (
-              max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
-          ).toInt();
-          if (
-            date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
-            (
+
+    /// convert time [ms since Epoch] to xtick label
+    String time2xticklabel(double time) {
+      final DateTime date = DateTime.fromMillisecondsSinceEpoch(
+          time.toInt()
+      );
+      final int interval = (
+          max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
+      ).toInt();
+      if (
+      date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
+          (
               maxX - date.millisecondsSinceEpoch <
-              const Duration(days: 1).inMilliseconds
-            )
-          ) {
-            return '';
-          } else if (date.day == 1) {
-            return DateFormat(
-              'MMM',
-              Localizations.localeOf(context).languageCode
-            ).format(date);
-          } else if (
-            date.day % interval == 0 &&
-            date.day - interval ~/ 1.5 > 0
-          ) {
-            return date.day.toString();
-          }
-          return '';
-        },
+                  const Duration(days: 1).inMilliseconds
+          )
+      ) {
+        return '';
+      } else if (date.day == 1) {
+        return DateFormat(
+            'MMM',
+            Localizations.localeOf(context).languageCode
+        ).format(date);
+      } else if (
+      date.day % interval == 0 &&
+          date.day - interval ~/ 1.5 > 0
+      ) {
+        return date.day.toString();
+      }
+      return '';
+    }
+
+
+    AxisTitles bottomTitles () {
+      return AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: textSize.height + margin,
+          interval: 24 * 3600 * 1000,  // days
+          getTitlesWidget: (double time, TitleMeta titleMeta) => Padding(
+            padding: EdgeInsets.only(top: margin),
+            child: AutoSizeText(
+              time2xticklabel(time),
+              style: Theme.of(context).textTheme.bodyText1!.apply(
+                fontFamily: 'Courier',
+              ),
+            ),
+          ),
+        ),
       );
     }
 
-    SideTitles leftTitles () {
-      return SideTitles(
-        showTitles: true,
-        reservedSize: textSize.width,
-        interval: max<int>((maxY - minY)~/ 4, 1).toDouble(),
-        margin: margin,
-        getTextStyles: (BuildContext context, double value)
-          => Theme.of(context).textTheme.bodyText1!.apply(
-            fontFamily: 'Courier',
-          ),
-        getTitles: (double value) {
-          return value.toStringAsFixed(0);
-        },
+    AxisTitles leftTitles () {
+      return AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: textSize.width,
+          interval: max<int>((maxY - minY)~/ 4, 1).toDouble(),
+          getTitlesWidget: (double weight, TitleMeta titleMeta) =>
+            AutoSizeText(
+              weight.toStringAsFixed(0),
+              style: Theme.of(context).textTheme.bodyText1!.apply(
+                fontFamily: 'Courier',
+              ),
+            ),
+        ),
       );
     }
 
@@ -182,8 +194,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
           titlesData: FlTitlesData(
             bottomTitles: bottomTitles(),
             leftTitles: leftTitles(),
-            topTitles: SideTitles(showTitles: false),
-            rightTitles: SideTitles(showTitles: false),
+            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             show: true,
           ),
           clipData: FlClipData.all(),
@@ -191,7 +203,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurementsInterpol,
               isCurved: true,
-              colors: <Color>[Colors.transparent],
+              color: Colors.transparent,
               barWidth: 5,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -199,15 +211,18 @@ class _CustomLineChartState extends State<CustomLineChart> {
               ),
               belowBarData: BarAreaData(
                 show: true,
-                gradientFrom: const Offset(0, 1),
-                gradientTo: const Offset(0, 0.5),
-                colors: gradientColors,
+                gradient: LinearGradient(
+                  colors: gradientColors,
+                  stops: const <double>[0.2, 1.0],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
               ),
             ),
             LineChartBarData(
               spots: measurements,
               isCurved: false,
-              colors: <Color>[TraleTheme.of(context)!.accent],
+              color: TraleTheme.of(context)!.accent,
               barWidth: 0,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -223,9 +238,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
                       1,
                     ),
-                  color: barData.colors.first,
+                  color: barData.color,
                   strokeColor: TraleTheme.of(context)!.bgFontLight,
-                  strokeWidth: 0.7,
+                  strokeWidth: 0.2,
                 )
               ),
             ),
@@ -240,10 +255,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Container(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(
-        right: margin,
-        top: margin,
-      ),
+      padding: EdgeInsets.all(margin),
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {
