@@ -44,12 +44,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final List<Measurement> dataInterpol = widget.loadedFirst
       ? db.averageMeasurements(db.gaussianExtrapolatedMeasurements)
       : db.gaussianExtrapolatedMeasurements;
+
+    final TextStyle labelTextStyle =
+      Theme.of(context).textTheme.caption!.apply(fontFamily: 'Courier');
     final Size textSize = sizeOfText(
       text: '1234',
       context: context,
-      style: Theme.of(context).textTheme.bodyText1!.apply(
-        fontFamily: 'Courier',
-      ),
+      style: labelTextStyle,
     );
     final double margin = TraleTheme.of(context)!.padding;
 
@@ -153,9 +154,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             padding: EdgeInsets.only(top: margin),
             child: AutoSizeText(
               time2xticklabel(time),
-              style: Theme.of(context).textTheme.bodyText1!.apply(
-                fontFamily: 'Courier',
-              ),
+              style: labelTextStyle,
             ),
           ),
         ),
@@ -171,9 +170,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           getTitlesWidget: (double weight, TitleMeta titleMeta) =>
             AutoSizeText(
               weight.toStringAsFixed(0),
-              style: Theme.of(context).textTheme.bodyText1!.apply(
-                fontFamily: 'Courier',
-              ),
+              style: labelTextStyle,
             ),
         ),
       );
