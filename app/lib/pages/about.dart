@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info/package_info.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -19,8 +19,8 @@ Future<String> _getVersionNumber() async {
 
 /// launch url
 Future<void> _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
+  if (await canLaunchUrlString(url)) {
+    await launchUrlString(url);
   } else {
     throw 'Could not launch $url';
   }
@@ -93,13 +93,13 @@ final List<ThirdPartyLicence> tplsAssets = <ThirdPartyLicence>[
 );
 /// list of third party licences
 final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
-  ThirdPartyLicence(
-      name: 'animations',
-      url: 'https://github.com/flutter/packages/tree/master/packages/animations',
-      licence: 'BSD',
-      author: 'Flutter authors',
-      years: '2019',
-  ),
+  // ThirdPartyLicence(
+  //     name: 'animations',
+  //     url: 'https://github.com/flutter/packages/tree/master/packages/animations',
+  //     licence: 'BSD',
+  //     author: 'Flutter authors',
+  //     years: '2019',
+  // ),
   ThirdPartyLicence(
       name: 'AutoSizeText',
       url: 'https://github.com/leisim/auto_size_text',
@@ -189,6 +189,13 @@ final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
     url: 'https://github.com/hivedb/hive_flutter/',
     licence: 'Apache',
     author: 'Simon Leier',
+    years: '2019',
+  ),
+  ThirdPartyLicence(
+    name: 'fl chart',
+    url: 'https://github.com/imaNNeoFighT/fl_chart',
+    licence: 'BSD 3',
+    author: 'Iman Khoshabi',
     years: '2019',
   ),
 ]..sort(
