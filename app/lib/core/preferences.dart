@@ -94,10 +94,10 @@ class Preferences {
     : null;
 
   /// set if onboarding screen is shown
-  set showOnboarding(bool show) => prefs.setBool('showOnboarding', show);
+  set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
 
   /// get if onboarding screen is shown
-  bool get showOnboarding => prefs.getBool('showOnboarding')!;
+  bool get showOnBoarding => prefs.getBool('showOnBoarding')!;
 
   /// get night mode value
   String get nightMode => prefs.getString('nightMode')!;
@@ -165,8 +165,8 @@ class Preferences {
       userTargetWeight = defaultUserTargetWeight;
     if (override || !prefs.containsKey('userHeight'))
       userHeight = defaultUserHeight;
-    if (override || !prefs.containsKey('showOnboarding'))
-      showOnboarding = defaultShowOnboarding;
+    if (override || !prefs.containsKey('showOnBoarding'))
+      showOnBoarding = defaultShowOnboarding;
   }
 
   /// reset all settings

@@ -126,7 +126,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       isTopSafeArea: true,
       pages: pageViewModels,
       onDone: () {
-        prefs.showOnboarding = false;
+        prefs.showOnBoarding = false;
         _onIntroEnd(context);
       },
       onSkip: () => _onIntroEnd(context),

@@ -125,6 +125,16 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  bool get showOnBoarding => prefs.showOnBoarding;
+  /// setter
+  set showOnBoarding(bool onBoarding) {
+    if (onBoarding != showOnBoarding) {
+      prefs.showOnBoarding = onBoarding;
+      notifyListeners();
+    }
+  }
+
   /// get locale
   Locale? get locale => language.compareTo(Language.system())
       ? null  // defaults to systems default

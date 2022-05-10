@@ -69,7 +69,7 @@ class TraleMainApp extends StatelessWidget {
       traleNotifier: traleNotifier,
       routes:  <String, Widget Function(BuildContext)>{
         '/': (BuildContext context) {
-          if (prefs.showOnboarding) {
+          if (prefs.showOnBoarding) {
             return const OnBoardingPage();
           } else{
             return const Home();
