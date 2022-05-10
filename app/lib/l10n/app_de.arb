@@ -54,6 +54,7 @@
   "exportDb": "Exportiere alle Datenbanken",
   "exportDbSubtitle": "Vereine alle aktiven Datenbanken in einer exportierbaren.",
   "faq": "FAQ",
+  "faqtext": "Hier findest du Anworten zu den häufigsten Fragen. Falls du weitere Fragen haben solltest kannst du diese gerne in einem Gitlab Issue an uns stellen.",
   "factoryReset": "Zurücksetzen auf Werkseinstellungen",
   "factoryResetDialog": "Setzte App auf Werkseinstellungen zurück? Dadurch werden alle Einstellungen zurück gesetzt und Messungen unwideruflich gelöscht.",
   "factoryResetSubtitle": "Setzte alle Einstellungen zurück und lösche alle Messungen.",

@@ -642,11 +642,11 @@
     "description": "Press to start the app."
   },
   "targetWeight": "target weight",
-  "@target weight": {
+  "@targetWeight": {
     "description": "Your target weight."
   },
   "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
-  "@target weight": {
+  "@targetWeightMotivation": {
     "description": "Explanation to clarify the importance of a target weight."
   },
   "addUserName": "How shall we call you?",
@@ -664,5 +664,21 @@
   "intro2": "to get started",
   "@intro2": {
     "description": "End of 'press + to get started'"
+  },
+  "faqtext": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_q1": "The feature/function X is missing. When will it be implemented?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q2": "The feature/function X is missing. When will it be implemented?",
+  "@faq_q3": {
+    "description": "The feature/function X is missing. When will it be implemented?"
   }
 }
