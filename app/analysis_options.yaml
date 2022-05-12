@@ -1,3 +1,5 @@
+# include package default
+include: package:flutter_lints/flutter.yaml
 # Specify analysis options.
 #
 # Until there are meta linter rules, each desired lint must be explicitly enabled.
@@ -19,8 +21,6 @@
 # Android Studio, and the `flutter analyze` command.
 
 analyzer:
-  enable-experiment:
-    - extension-methods
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
