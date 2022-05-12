@@ -43,7 +43,7 @@ class RulerPickerController extends ValueNotifier<double> {
   }
 }
 
-typedef void ValueChangedCallback(num value);
+typedef ValueChangedCallback = void Function(num value);
 
 /// RulerPicker
 class RulerPicker extends StatefulWidget {
@@ -184,7 +184,7 @@ class RulerPickerState extends State<RulerPicker> {
                           ? widget.width / 2
                           : 0
                       ),
-                      child: Container(
+                      child: SizedBox(
                         width: tickWidth,
                         child: Stack(
                           clipBehavior: Clip.none,

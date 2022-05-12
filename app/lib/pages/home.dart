@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +44,7 @@ class _HomeState extends State<Home> {
     collapsed = 1.0;
     loadedFirst = true;
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst) {
         loadedFirst = false;
         setState(() {});
@@ -72,7 +71,7 @@ class _HomeState extends State<Home> {
       topRight: Radius.circular(2 * TraleTheme.of(context)!.borderRadius),
     );
 
-    final Container lineChart = Container(
+    final SizedBox lineChart = SizedBox(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       child: Card(
@@ -84,7 +83,7 @@ class _HomeState extends State<Home> {
       ),
     );
 
-    final Container dummyChart = Container(
+    final SizedBox dummyChart = SizedBox(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       child: Card(
@@ -120,7 +119,7 @@ class _HomeState extends State<Home> {
       minHeight: minHeight + 10,
       onPanelClosed: () {
         final SlidableController? sc = Slidable.of(context);
-        if (sc != null)
+        if (sc != null) {
           SlidableGroupNotification.dispatch(
             context,
             SlidableAutoCloseNotification(
@@ -128,6 +127,7 @@ class _HomeState extends State<Home> {
               controller: sc,
             )
           );
+        }
       //   slidableController.activeState?.close();
       },
       maxHeight: MediaQuery.of(context).size.height / 2 - kToolbarHeight,
@@ -370,8 +370,9 @@ class _HomeState extends State<Home> {
       key: key,
       appBar: appBar,
       onDrawerChanged: (bool isOpen) {
-        if (isOpen && panelController.isAttached)
+        if (isOpen && panelController.isAttached) {
           panelController.close();
+        }
       },
       body: SafeArea(
         child: measurements.isNotEmpty
@@ -383,6 +384,11 @@ class _HomeState extends State<Home> {
         child: Column(
           children: <Widget>[
             DrawerHeader(
+              decoration: BoxDecoration(
+                color: TraleTheme.of(context)!.isDark
+                  ? TraleTheme.of(context)!.bgShade1
+                  : TraleTheme.of(context)!.bgShade3,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -410,11 +416,6 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ],
-              ),
-              decoration: BoxDecoration(
-                color: TraleTheme.of(context)!.isDark
-                  ? TraleTheme.of(context)!.bgShade1
-                  : TraleTheme.of(context)!.bgShade3,
               ),
             ),
             ListTile(

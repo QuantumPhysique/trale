@@ -58,9 +58,11 @@ extension TraleUnitExtension on TraleUnit {
 extension TralUnitParsing on String {
   /// convert number to difficulty
   TraleUnit? toTraleUnit() {
-    for (final TraleUnit unit in TraleUnit.values)
-      if (this == unit.name)
+    for (final TraleUnit unit in TraleUnit.values) {
+      if (this == unit.name) {
         return unit;
+    }
+      }
     return null;
   }
 }

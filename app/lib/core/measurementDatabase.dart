@@ -10,8 +10,9 @@ import 'package:trale/main.dart';
 
 /// check if two integers corresponds to same day
 bool sameDay(DateTime? d1, DateTime? d2) {
-  if (d1 == null || d2 == null)
+  if (d1 == null || d2 == null) {
     return false;
+  }
   return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
 }
 
@@ -94,8 +95,9 @@ class MeasurementDatabase {
 
   /// get mean measurements
   List<Measurement> averageMeasurements(List<Measurement> ms) {
-    if (ms.isEmpty)
+    if (ms.isEmpty) {
       return ms;
+    }
 
     final double meanWeight = ms.fold(
         0.0, (double sum, Measurement m) => sum + m.weight
@@ -123,8 +125,9 @@ class MeasurementDatabase {
 
   List<Measurement> _calcDailyAveragedMeasurements() {
     final List<Measurement> ms = measurements;
-    if (ms.isEmpty)
+    if (ms.isEmpty) {
       return measurements;
+    }
     final List<Measurement> dailyAverage = <Measurement>[];
     final List<double> dailyWeightAverage = <double>[];
 
@@ -168,8 +171,9 @@ class MeasurementDatabase {
   /// get linearly interpolated and sorted list of daily-averaged measurements
   List<Measurement> _calcDailyAveragedGaussianMeasurements() {
     final List<Measurement> ms = dailyAveragedMeasurements;
-    if (ms.isEmpty)
+    if (ms.isEmpty) {
       return measurements;
+    }
     return <Measurement>[
       for (final Measurement m in ms)
         InterpolFunc.gaussian.function(
@@ -187,8 +191,9 @@ class MeasurementDatabase {
   /// get linearly interpolated and sorted list of daily-averaged measurements
   List<Measurement> _calcDailyAveragedInterpolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedMeasurements;
-    if (ms.isEmpty)
+    if (ms.isEmpty) {
       return measurements;
+    }
     final List<Measurement> msGauss = dailyAveragedGaussianMeasurements;
     final List<Measurement> dailyMeasurements = <Measurement>[];
 
@@ -231,8 +236,9 @@ class MeasurementDatabase {
 
   List<Measurement> _calcDailyAveragedExtrapolatedMeasurements() {
     final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
-    if (ms.isEmpty)
+    if (ms.isEmpty) {
       return measurements;
+    }
     final List<Measurement> msGaussian = gaussianInterpolatedMeasurements;
 
     final List<Measurement> extrapolH = <Measurement>[];
@@ -303,8 +309,9 @@ class MeasurementDatabase {
 
   /// get weight change [kg] within last N Days from last measurement
   double? deltaWeightLastNDays (int nDays) {
-    if (durationMeasurements < nDays)
+    if (durationMeasurements < nDays) {
       return null;
+    }
 
     final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
     return ms.last.weight - ms.elementAt(ms.length - 1 - nDays).weight;
@@ -321,18 +328,21 @@ class MeasurementDatabase {
 
   /// get time of reaching target weight in kg
   Duration? timeOfTargetWeight(double? targetWeight) {
-    if (targetWeight == null)
+    if (targetWeight == null) {
       return null;
+    }
 
-    if (dailyAveragedMeasurements.length < 2)
+    if (dailyAveragedMeasurements.length < 2) {
       return null;
+    }
 
     final Measurement mLast = gaussianInterpolatedMeasurements.last;
     final double slope = finalSlope;
 
     // Crossing is in the past
-    if (slope * (mLast.weight - targetWeight) >= 0)
+    if (slope * (mLast.weight - targetWeight) >= 0) {
       return null;
+    }
 
     // in ms from last measurement
     final int remainingTime = (
@@ -351,8 +361,9 @@ class MeasurementDatabase {
   /// bmi at last measurement
   double? get bmi {
     final double? height = Preferences().userHeight;
-    if (height == null || gaussianInterpolatedMeasurements.isEmpty)
+    if (height == null || gaussianInterpolatedMeasurements.isEmpty) {
       return null;
+    }
     return gaussianInterpolatedMeasurements.last.weight / (height * height);
   }
 

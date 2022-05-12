@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 /// Inspired by Günter Zöchbauer
 /// https://stackoverflow.com/a/29629114

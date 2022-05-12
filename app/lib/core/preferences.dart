@@ -147,26 +147,36 @@ class Preferences {
 
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
-    if (override || !prefs.containsKey('nightMode'))
+    if (override || !prefs.containsKey('nightMode')) {
       nightMode = defaultNightMode;
-    if (override || !prefs.containsKey('isAmoled'))
+    }
+    if (override || !prefs.containsKey('isAmoled')) {
       isAmoled = defaultIsAmoled;
-    if (override || !prefs.containsKey('language'))
+    }
+    if (override || !prefs.containsKey('language')) {
       language = defaultLanguage;
-    if (override || !prefs.containsKey('theme'))
+    }
+    if (override || !prefs.containsKey('theme')) {
       theme = defaultTheme;
-    if (override || !prefs.containsKey('unit'))
+    }
+    if (override || !prefs.containsKey('unit')) {
       unit = defaultUnit;
-    if (override || !prefs.containsKey('interpolStrength'))
+    }
+    if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
-    if (override || !prefs.containsKey('userName'))
+    }
+    if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;
-    if (override || !prefs.containsKey('userTargetWeight'))
+    }
+    if (override || !prefs.containsKey('userTargetWeight')) {
       userTargetWeight = defaultUserTargetWeight;
-    if (override || !prefs.containsKey('userHeight'))
+    }
+    if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
-    if (override || !prefs.containsKey('showOnBoarding'))
+    }
+    if (override || !prefs.containsKey('showOnBoarding')) {
       showOnBoarding = defaultShowOnboarding;
+    }
   }
 
   /// reset all settings

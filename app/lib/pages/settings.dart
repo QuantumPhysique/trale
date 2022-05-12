@@ -209,10 +209,11 @@ class UnitsListTile extends StatelessWidget {
             )
         ],
         onChanged: (TraleUnit? newUnit) async {
-          if (newUnit != null)
+          if (newUnit != null) {
             Provider.of<TraleNotifier>(
                 context, listen: false
             ).unit = newUnit;
+          }
         },
       ),
     );
@@ -240,16 +241,6 @@ class DarkModeListTile extends StatelessWidget {
       trailing: ToggleButtons(
         renderBorder: false,
         fillColor: Colors.transparent,
-        children: <Widget>[
-          const Icon(CustomIcons.lightmode),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: const Icon(CustomIcons.automode),
-          ),
-          const Icon(CustomIcons.darkmode),
-        ],
         isSelected: List<bool>.generate(
           orderedThemeModes.length,
               (int index) => index == orderedThemeModes.indexOf(
@@ -261,6 +252,16 @@ class DarkModeListTile extends StatelessWidget {
             context, listen: false,
           ).themeMode = orderedThemeModes[index];
         },
+        children: <Widget>[
+          const Icon(CustomIcons.lightmode),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: TraleTheme.of(context)!.padding,
+            ),
+            child: const Icon(CustomIcons.automode),
+          ),
+          const Icon(CustomIcons.darkmode),
+        ],
       ),
     );
   }
@@ -296,7 +297,7 @@ class InterpolationListTile extends StatelessWidget {
                     strength.icon
                   ),
                   Text(
-                    ' ' + strength.nameLong(context),
+                    ' ${strength.nameLong(context)}',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
@@ -401,8 +402,9 @@ class ThemeSelection extends StatelessWidget {
                   value: TraleCustomTheme.values[index],
                   groupValue: traleNotifier.theme,
                   onChanged: (TraleCustomTheme? theme) {
-                    if (theme != null)
+                    if (theme != null) {
                       traleNotifier.theme = theme;
+                    }
                   },
                 ),
               ],

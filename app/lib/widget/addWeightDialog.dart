@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
@@ -73,8 +72,9 @@ Future<bool> showAddWeightDialog({
                 firstDate: DateTime(currentDate.year - 2),
                 lastDate: DateTime.now(),
               );
-              if (date == null)
+              if (date == null) {
                 return;
+              }
               currentDate = DateTime(
                 date.year,
                 date.month,
@@ -89,8 +89,9 @@ Future<bool> showAddWeightDialog({
                 initialTime: TimeOfDay.fromDateTime(currentDate),
               );
 
-              if (time == null)
+              if (time == null) {
                 return;
+              }
               currentDate = DateTime(
                 date.year,
                 date.month,
@@ -116,8 +117,9 @@ Future<bool> showAddWeightDialog({
                 initialTime: TimeOfDay.fromDateTime(currentDate),
               );
 
-              if (time == null)
+              if (time == null) {
                 return;
+              }
               currentDate = DateTime(
                 currentDate.year,
                 currentDate.month,

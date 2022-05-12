@@ -10,8 +10,9 @@ extension GapListExtension on List<Widget> {
       height: direction == Axis.vertical ? padding : 0,
       width: direction == Axis.horizontal ? padding : 0,
     );
-    for (int i=length; i >= 0; i--)
+    for (int i=length; i >= 0; i--) {
       insert(i, gap);
+    }
     return this;
   }
 }
@@ -26,8 +27,9 @@ extension DividerListExtension on List<Widget> {
     final Widget gap = Divider(
       height: padding,
     );
-    for (int i=length - 1; i >= 1; i--)
+    for (int i=length - 1; i >= 1; i--) {
       insert(i, gap);
+    }
     return this;
   }
 }

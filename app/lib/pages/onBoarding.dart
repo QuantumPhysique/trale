@@ -64,7 +64,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     final List<PageViewModel> pageViewModels = <PageViewModel>[
       PageViewModel(
-        title: AppLocalizations.of(context)!.welcome + ' 😃',
+        title: '${AppLocalizations.of(context)!.welcome} 😃',
         body: AppLocalizations.of(context)!.onBoarding1,
         image: _buildImage(
           'launcher/foreground_crop2.png',
@@ -73,7 +73,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         decoration: pageDecoration
       ),
       PageViewModel(
-        title: AppLocalizations.of(context)!.onBoarding2Title + ' \u{1F60E}',
+        title: '${AppLocalizations.of(context)!.onBoarding2Title} \u{1F60E}',
         bodyWidget: Column(
           children: <Widget>[
             Padding(
@@ -87,7 +87,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
           ],
         ),
-        image: Container(
+        image: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 0.5 * MediaQuery.of(context).size.width,
           child: const ThemeSelection(),
@@ -99,7 +99,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ),
       PageViewModel(
-        title: AppLocalizations.of(context)!.onBoarding3Title + ' 🤓',
+        title: '${AppLocalizations.of(context)!.onBoarding3Title} 🤓',
         bodyWidget: Column(
           children: <Widget>[
             Padding(

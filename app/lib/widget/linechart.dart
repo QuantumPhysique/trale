@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,7 +12,7 @@ import 'package:trale/core/theme.dart';
 
 
 class CustomLineChart extends StatefulWidget {
-  CustomLineChart({required this.loadedFirst, Key? key}) : super(key: key);
+  const CustomLineChart({required this.loadedFirst, Key? key}) : super(key: key);
 
   final bool loadedFirst;
   @override

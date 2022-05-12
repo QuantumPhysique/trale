@@ -119,7 +119,6 @@ class TraleTheme {
 
   /// Get current AdonisTheme
   static TraleTheme? of(BuildContext context) {
-    assert(context != null);
     final TraleApp? result =
     context.findAncestorWidgetOfExactType<TraleApp>();
     return Theme.of(context).brightness == Brightness.light
@@ -218,9 +217,7 @@ class TraleTheme {
       // Decide how you want to apply your own custom them, to the MaterialApp
         brightness: isDark ? Brightness.dark : Brightness.light,
         primary: accent,
-        primaryVariant: accent,
         secondary: accent,
-        secondaryVariant: accent,
         background: bg,
         surface: bg,
         onBackground: bgFont,
@@ -313,12 +310,10 @@ class TraleTheme {
         textTheme: txtTheme,
         colorScheme: colorScheme)
         .copyWith(
+          useMaterial3: true,
           appBarTheme: appBarTheme,
-          accentIconTheme: accentIconTheme,
-          accentTextTheme: accentTxtTheme,
           bottomAppBarTheme: bottomAppBarTheme,
           cardTheme: cardTheme,
-          buttonColor: accent,
           buttonTheme: buttonTheme,
           cursorColor: accent,
           dialogTheme: dialogTheme,
@@ -471,9 +466,11 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
 extension CustomThemeParsing on String {
   /// convert number to difficulty
   TraleCustomTheme? toTraleCustomTheme() {
-    for (TraleCustomTheme theme in TraleCustomTheme.values)
-      if (this == theme.name)
+    for (final TraleCustomTheme theme in TraleCustomTheme.values) {
+      if (this == theme.name) {
         return theme;
+    }
+      }
     return null;
   }
 }

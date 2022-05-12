@@ -46,11 +46,9 @@ class _StatsWidgetsState extends State<StatsWidgets> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             AutoSizeText(
-              '${notifier.unit.weightToString(utw)} in ' + (
-                timeOfTargetWeight == null
+              '${notifier.unit.weightToString(utw)} in ${timeOfTargetWeight == null
                     ? '-- days'
-                    : '$timeOfTargetWeight days'
-              ),
+                    : '$timeOfTargetWeight days'}',
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
