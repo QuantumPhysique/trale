@@ -551,6 +551,10 @@
   "@sourcecode": {
     "description": "source code"
   },
+  "openIssue": "open issue",
+  "@openIssue": {
+    "description": "open issue"
+  },
   "undertpl": "© {years} by {author} under {licence} licence",
   "@undertpl": {
     "description": "String to show third-party license.",
@@ -677,8 +681,24 @@
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
-  "faq_q2": "The feature/function X is missing. When will it be implemented?",
+  "faq_q2": "Can I see once again the intro/onboarding screen?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Yes for sure! Simple press the icon below.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Return to onboarding screen",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "What is the app icon showing?",
   "@faq_q3": {
-    "description": "The feature/function X is missing. When will it be implemented?"
+    "description": "What is the app icon showing?"
+  },
+  "faq_a3": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'.",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   }
 }

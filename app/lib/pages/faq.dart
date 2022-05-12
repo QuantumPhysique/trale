@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -32,19 +33,15 @@ class OnBoardingListTile extends StatelessWidget {
     return ListTile(
       dense: true,
       title: AutoSizeText(
-        AppLocalizations.of(context)!.factoryReset,
+        AppLocalizations.of(context)!.faq_a2_widget,
         style: Theme.of(context).textTheme.bodyText1,
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
       ),
-      subtitle: AutoSizeText(
-        AppLocalizations.of(context)!.factoryResetSubtitle,
-        style: Theme.of(context).textTheme.overline,
-      ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.events),
+        icon: const Icon(CustomIcons.export_icon),
         onPressed: () {
           Provider.of<TraleNotifier>(
               context, listen: false
@@ -70,13 +67,14 @@ class FAQEntry {
   /// get list representation of tpl
   Widget toWidget(BuildContext context) => Column(
     children: <Widget>[
-      Padding(
+      Container(
         padding: EdgeInsets.fromLTRB(
           TraleTheme.of(context)!.padding,
           TraleTheme.of(context)!.padding,
           TraleTheme.of(context)!.padding,
           0,
         ),
+        width: MediaQuery.of(context).size.width,
         child: Text(
           'Q: $question',
           style: Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -85,10 +83,11 @@ class FAQEntry {
           textAlign: TextAlign.justify,
         ),
       ),
-      Padding(
+      Container(
         padding: EdgeInsets.all(
           TraleTheme.of(context)!.padding,
         ),
+        width: MediaQuery.of(context).size.width,
         child: Text(
           'A: $answer',
           style: Theme.of(context).textTheme.bodyText1,
@@ -124,12 +123,13 @@ class _FAQ extends State<FAQ> {
         answer: AppLocalizations.of(context)!.faq_a1,
       ),
       FAQEntry(
-        question: 'The feature X is missing. When will it be implemented?',
-        answer: 'Probably never. This app was created in our free time. '
-            'If you miss a feature feel free to open an issue or implement '
-            'on your own.'
-        ,
+        question: AppLocalizations.of(context)!.faq_q2,
+        answer: AppLocalizations.of(context)!.faq_a2,
         answerWidget: const OnBoardingListTile(),
+      ),
+      FAQEntry(
+        question: AppLocalizations.of(context)!.faq_q3,
+        answer: AppLocalizations.of(context)!.faq_a3,
       ),
     ];
 
@@ -142,6 +142,21 @@ class _FAQ extends State<FAQ> {
             child: Text(
               AppLocalizations.of(context)!.faqtext,
               textAlign: TextAlign.justify,
+            ),
+          ),
+          ListTile(
+            dense: true,
+            title: AutoSizeText(
+              AppLocalizations.of(context)!.openIssue.allInCaps,
+              style: Theme.of(context).textTheme.bodyText1,
+              maxLines: 1,
+            ),
+            trailing: FaIcon(
+              FontAwesomeIcons.gitlab,
+              color: Theme.of(context).iconTheme.color,
+            ),
+            onTap: () => _launchURL(
+                'https://gitlab.com/mobilemovement/adonify/'
             ),
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),
