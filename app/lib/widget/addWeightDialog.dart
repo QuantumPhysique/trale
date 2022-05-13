@@ -263,7 +263,8 @@ List<Widget> actions(BuildContext context, Function onPress) {
     TextButton(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all<Color>(
-            TraleTheme.of(context)!.bgFont),
+          Theme.of(context).colorScheme.onBackground,
+        ),
       ),
       onPressed: () => Navigator.pop(context, false),
       child: Container(
@@ -277,9 +278,11 @@ List<Widget> actions(BuildContext context, Function onPress) {
     TextButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
-              TraleTheme.of(context)!.accent),
+            Theme.of(context).colorScheme.primary,
+          ),
           foregroundColor: MaterialStateProperty.all<Color>(
-              TraleTheme.of(context)!.accentFont),
+            Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
         onPressed: () => onPress(),
         child: Container(

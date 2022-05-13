@@ -1,3 +1,4 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -34,7 +35,7 @@ Future<void> main() async {
 
 
 /// MaterialApp with AdonisTheme
-class TraleApp extends MaterialApp{
+class TraleApp extends MaterialApp {
   /// Constructor
   TraleApp({
     required this.traleNotifier,
@@ -64,17 +65,22 @@ class TraleMainApp extends StatelessWidget {
     /// shared preferences instance
     final Preferences prefs = Preferences();
 
-    return TraleApp(
-      traleNotifier: traleNotifier,
-      routes:  <String, Widget Function(BuildContext)>{
-        '/': (BuildContext context) {
-          if (prefs.showOnBoarding) {
-            return const OnBoardingPage();
-          } else{
-            return const Home();
-          }
-        }
-      },
+    return DynamicColorBuilder(
+        builder: (ColorScheme? systemLight, ColorScheme? systemDark) {
+          traleNotifier.setColorScheme(systemLight, systemDark);
+          return TraleApp(
+            traleNotifier: traleNotifier,
+            routes: <String, Widget Function(BuildContext)>{
+              '/': (BuildContext context) {
+                if (prefs.showOnBoarding) {
+                  return const OnBoardingPage();
+                } else {
+                  return const Home();
+                }
+              }
+            },
+          );
+      }
     );
   }
 }

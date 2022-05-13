@@ -38,7 +38,7 @@ class ColoredContainer extends StatelessWidget {
                 BoxShadow(
                   color: TraleTheme.of(context)!.isDark
                     ?  TraleTheme.of(context)!.bgShade3
-                    :  TraleTheme.of(context)!.bg,
+                    :  Theme.of(context).colorScheme.background,
                   spreadRadius: -shadowOffset,
                   blurRadius: shadowOffset,
                   offset: const Offset(2 * shadowOffset, 0),
@@ -46,7 +46,7 @@ class ColoredContainer extends StatelessWidget {
                 BoxShadow(
                   color: TraleTheme.of(context)!.isDark
                       ?  TraleTheme.of(context)!.bgShade3
-                      :  TraleTheme.of(context)!.bg,
+                      :  Theme.of(context).colorScheme.background,
                   spreadRadius: -shadowOffset,
                   blurRadius: shadowOffset,
                   offset: const Offset(- 2 * shadowOffset, 0),

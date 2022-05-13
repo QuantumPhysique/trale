@@ -83,8 +83,7 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  /// getter
+/// getter
   String get userName => prefs.userName;
   /// setter
   set userName(String newName) {
@@ -135,15 +134,27 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  ColorScheme? _systemLightDynamic;
+  ColorScheme? _systemDarkDynamic;
+
+  /// set system color accent
+  void setColorScheme(ColorScheme? systemLight, ColorScheme? systemDark) {
+    _systemDarkDynamic = systemDark;
+    _systemLightDynamic = systemLight;
+  }
+
+  /// If system accent color is available (Android OS 12+)
+  bool get systemColorsAvailable => _systemDarkDynamic != null &&
+    _systemLightDynamic != null;
+
   /// get locale
   Locale? get locale => language.compareTo(Language.system())
       ? null  // defaults to systems default
       : language.locale;
 
   /// factory reset
-  void factoryReset() async {
+  Future<void> factoryReset() async {
     prefs.resetSettings();
-    /// todo: delete all measurements
     await MeasurementDatabase().deleteAllMeasurements();
     notifyListeners();
   }

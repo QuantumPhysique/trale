@@ -174,7 +174,7 @@ class _HomeState extends State<Home> {
               color: sc.hasClients && sc.offset == 0
                 ? TraleTheme.of(context)!.isDark
                   ? TraleTheme.of(context)!.bgShade2
-                  : TraleTheme.of(context)!.bg
+                  : Theme.of(context).colorScheme.background
                 : TraleTheme.of(context)!.isDark
                   ? TraleTheme.of(context)!.bgShade1
                   : TraleTheme.of(context)!.bgShade3,
@@ -201,7 +201,7 @@ class _HomeState extends State<Home> {
                     Widget deleteAction() {
                       return SlidableAction(
                         label: AppLocalizations.of(context)!.delete,
-                        backgroundColor: TraleTheme.of(context)!.accent,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
                         icon: CustomIcons.delete,
                         onPressed: (BuildContext context) {
                           database.deleteMeasurement(currentMeasurement);
@@ -276,7 +276,7 @@ class _HomeState extends State<Home> {
                             alignment: Alignment.center,
                             color: TraleTheme.of(context)!.isDark
                               ? TraleTheme.of(context)!.bgShade2
-                              : TraleTheme.of(context)!.bg,
+                              : Theme.of(context).colorScheme.background,
                             width: MediaQuery.of(context).size.width
                               - 2 * TraleTheme.of(context)!.padding,
                             height: 40.0,
@@ -385,9 +385,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
-                color: TraleTheme.of(context)!.isDark
-                  ? TraleTheme.of(context)!.bgShade1
-                  : TraleTheme.of(context)!.bgShade3,
+                color: Theme.of(context).colorScheme.surfaceVariant,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -405,12 +403,16 @@ class _HomeState extends State<Home> {
                     children: [
                       AutoSizeText(
                         AppLocalizations.of(context)!.trale.toLowerCase(),
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headline4!.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
                         maxLines: 1,
                       ),
                       AutoSizeText(
                         AppLocalizations.of(context)!.tralesub,
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.headline6!.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
                         maxLines: 1,
                       ),
                     ],

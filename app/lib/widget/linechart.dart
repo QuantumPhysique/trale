@@ -55,12 +55,12 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     final List<Color> gradientColors = <Color>[
       Color.alphaBlend(
-        TraleTheme.of(context)!.accent.withOpacity(0.2),
-        TraleTheme.of(context)!.bg,
+        Theme.of(context).colorScheme.primary.withOpacity(0.2),
+        Theme.of(context).colorScheme.background,
       ),
       Color.alphaBlend(
-        TraleTheme.of(context)!.accent.withOpacity(0.4),
-        TraleTheme.of(context)!.bg,
+        Theme.of(context).colorScheme.primary.withOpacity(0.4),
+        Theme.of(context).colorScheme.background,
       ),
     ];
 
@@ -218,7 +218,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurements,
               isCurved: false,
-              color: TraleTheme.of(context)!.accent,
+              color: Theme.of(context).colorScheme.primary,
               barWidth: 0,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -235,7 +235,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       1,
                     ),
                   color: barData.color,
-                  strokeColor: TraleTheme.of(context)!.bgFontLight,
+                  strokeColor: Theme.of(context).colorScheme.onBackground,
                   strokeWidth: 0.2,
                 )
               ),

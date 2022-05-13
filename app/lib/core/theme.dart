@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/services.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:trale/main.dart';
 
 
@@ -54,66 +53,21 @@ class TransitionDuration {
 class TraleTheme {
   /// Default constructor
   TraleTheme({
-    required this.accent,
-    required this.isDark,
-    Color? bg,
-    Color? bgFont,
-    Color? accentFont,
-    Color? bgFontLight,
-    Color? accentFontLight,
-    double? borderRadius,
-    double? padding,
-  }) {
-    // this.isDark = isDark
-    //   ?? ThemeData.estimateBrightnessForColor(bg) == Brightness.dark;
-
-    final Color accentBlend = accent.withAlpha(isDark ? 4 : 2);
-    this.bg = bg ??
-      (isDark
-        ? Color.alphaBlend(accentBlend, const Color(0xFF121212))
-        : Color.alphaBlend(accentBlend, Colors.white));
-
-    this.bgFont = bgFont ?? getFontColor(this.bg);
-    this.accentFont = accentFont ?? getFontColor(accent);
-
-    this.bgFontLight = bgFontLight ?? Color.alphaBlend(
-        getFontColor(this.bgFont, inverse: false).withAlpha(18),
-        this.bgFont,
-    );
-    this.accentFontLight = accentFontLight ?? Color.alphaBlend(
-        getFontColor(this.accentFont, inverse: false).withAlpha(18),
-        this.bgFont,
-    );
-
-    borderShape = RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius ?? 16),
-    );
-
-    this.padding = padding ?? 16;
-  }
+    required this.seedColor,
+    required this.brightness,
+    this.isAmoled=false,
+  });
 
   /// copyWith constructor
   TraleTheme copyWith({
-    bool? isDark,
-    Color? accent,
-    Color? bg,
-    Color? bgFont,
-    Color? bgFontLight,
-    Color? accentFont,
-    Color? accentFontLight,
-    double? borderRadius,
-    double? padding,
+    Brightness? brightness,
+    Color? seedColor,
+    bool? isAmoled,
   }) {
     return TraleTheme(
-      isDark: isDark ?? this.isDark,
-      accent: accent ?? this.accent,
-      bg: bg ?? this.bg,
-      bgFont: bgFont ?? this.bgFont,
-      accentFont: accentFont ?? this.accentFont,
-      bgFontLight: bgFontLight ?? this.bgFontLight,
-      accentFontLight: accentFontLight ?? this.accentFontLight,
-      borderRadius: borderRadius ?? this.borderRadius,
-      padding: padding ?? this.padding,
+      brightness: brightness ?? this.brightness,
+      seedColor: seedColor ?? this.seedColor,
+      isAmoled: isAmoled ?? this.isAmoled,
     );
   }
 
@@ -128,28 +82,21 @@ class TraleTheme {
         : result?.traleNotifier.theme.dark;
   }
 
-  /// background color
-  late Color bg;
-  /// accent color
-  late Color accent;
-  /// background color font
-  late Color bgFont;
-  /// accent color font
-  late Color accentFont;
+  /// seed color
+  late Color seedColor;
   /// if dark mode on
-  late bool isDark;
-  /// Light background font color
-  late Color bgFontLight;
-  /// Light accent font color
-  late Color accentFontLight;
+  late Brightness brightness;
   /// Border shape
-  late RoundedRectangleBorder borderShape;
+  final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16),
+  );
   /// Padding value
-  late double padding;
+  final double padding = 16;
+  /// if true make background true black
+  late bool isAmoled;
   /// Get border radius
-  double get borderRadius => borderShape.borderRadius.resolve(
-    TextDirection.ltr,
-  ).bottomLeft.x;
+  double get borderRadius => 16;
+
   final TransitionDuration transitionDuration =
     TransitionDuration(100, 200, 500);
 
@@ -157,14 +104,12 @@ class TraleTheme {
   LinearGradient get bgGradient => LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[bg, bgShade4],
+    colors: <Color>[themeData.colorScheme.background, bgShade4],
   );
 
-//  /// return dark mode
-//  bool get GetIsDark => this.isDark;
-//  set SetIsDark(bool variable) {
-//    this.isDark = variable;
-//  }
+  /// if dark mode enabled
+  bool get isDark => brightness == Brightness.dark;
+
   /// get elevated shade of clr
   Color colorOfElevation(double elevation, Color clr) => Color.alphaBlend(
     getFontColor(clr).withOpacity(overlayOpacity(elevation)), clr,
@@ -178,7 +123,9 @@ class TraleTheme {
   /// 2 elevation shade of bg
   Color get bgShade4 => bgElevated(1);
   /// get elevated shade of bg
-  Color bgElevated(double elevation) => colorOfElevation(elevation, bg);
+  Color bgElevated(double elevation) => colorOfElevation(
+      elevation, themeData.colorScheme.background
+  );
 
   /// get header color of dialog
   Color? get dialogHeaderColor => isDark
@@ -198,136 +145,120 @@ class TraleTheme {
 
   /// get corresponding ThemeData
   ThemeData get themeData {
-    // Create a TextTheme and ColorScheme, that we can use to generate ThemeData
-    final TextTheme txtTheme = (
-      isDark ? ThemeData.dark() : ThemeData.light()
-    ).textTheme.apply(
-      fontFamily: 'Quicksand',
-      bodyColor: bgFont,
-      displayColor: bgFont,
-      decorationColor: bgFontLight,
-    );
-    final TextTheme accentTxtTheme = txtTheme.copyWith().apply(
-      displayColor: accentFont,
-      bodyColor: accentFont,
-    );
-
     // Color txtColor = txtTheme.bodyText1.color;
-    final ColorScheme colorScheme = ColorScheme(
-      // Decide how you want to apply your own custom them, to the MaterialApp
-        brightness: isDark ? Brightness.dark : Brightness.light,
-        primary: accent,
-        secondary: accent,
-        background: bg,
-        surface: bg,
-        onBackground: bgFont,
-        onSurface: bgFont,
-        onError: Colors.white,
-        onPrimary: accentFont,
-        onSecondary: accentFont,
-        error: Colors.red.shade400,
-    );
+    ColorScheme colorScheme = ColorScheme.fromSeed(
+      seedColor: seedColor,
+      brightness: brightness,
+    ).harmonized();
+    if (isAmoled) {
+      colorScheme = colorScheme.copyWith(background: Colors.black).harmonized();
+    }
+
+    // Create a TextTheme and ColorScheme, that we can use to generate ThemeData
+    final TextTheme txtTheme = ThemeData.from(
+      colorScheme: colorScheme,
+    ).textTheme.apply(fontFamily: 'Quicksand');
 
     /// icon theme data
-    final IconThemeData iconTheme = IconThemeData(
-      color: bgFont,
-      opacity: 0.8,
-      size: 24.0
-    );
+    // final IconThemeData iconTheme = IconThemeData(
+    //   color: bgFont,
+    //   opacity: 0.8,
+    //   size: 24.0
+    // );
 
-    final IconThemeData accentIconTheme = iconTheme.copyWith(
-      color: accentFont,
-    );
+    // final FloatingActionButtonThemeData FABTheme =
+    //   FloatingActionButtonThemeData(
+    //     foregroundColor: accentFont,
+    //     backgroundColor: accent,
+    //     elevation: 6,
+    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+    //   );
 
-    final FloatingActionButtonThemeData FABTheme =
-      FloatingActionButtonThemeData(
-        foregroundColor: accentFont,
-        backgroundColor: accent,
-        elevation: 6,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-      );
+    // final SnackBarThemeData snackBarTheme = SnackBarThemeData(
+    //   backgroundColor: bgElevated(67108864),
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.vertical(
+    //       top: Radius.circular(borderRadius)
+    //     ),
+    //   )
+    // );
 
-    final SnackBarThemeData snackBarTheme = SnackBarThemeData(
-      backgroundColor: bgElevated(67108864),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(borderRadius)
-        ),
-      )
-    );
+    // final DialogTheme dialogTheme = DialogTheme(
+    //   elevation: 24,
+    //   backgroundColor: bg,
+    //   shape: borderShape,
+    //   titleTextStyle: txtTheme.headline6,
+    //   contentTextStyle:txtTheme.bodyText2,
+    // );
 
-    final DialogTheme dialogTheme = DialogTheme(
-      elevation: 24,
-      backgroundColor: bg,
-      shape: borderShape,
-      titleTextStyle: txtTheme.headline6,
-      contentTextStyle:txtTheme.bodyText2,
-    );
+    // const BottomAppBarTheme bottomAppBarTheme = BottomAppBarTheme(
+    //   elevation: 8,
+    // );
 
-    const BottomAppBarTheme bottomAppBarTheme = BottomAppBarTheme(
-      elevation: 8,
-    );
+    // final AppBarTheme appBarTheme = AppBarTheme(
+    //   color: bg,
+    //   elevation: 0,
+    //   iconTheme: iconTheme,
+    // );
 
-    final AppBarTheme appBarTheme = AppBarTheme(
-      color: bg,
-      elevation: 0,
-      iconTheme: iconTheme,
-    );
+    // const PageTransitionsTheme pageTransitionsTheme = PageTransitionsTheme(
+    //   builders: <TargetPlatform, PageTransitionsBuilder>{
+    //     TargetPlatform.android: ZoomPageTransitionsBuilder(),
+    //   },
+    // );
 
-    const PageTransitionsTheme pageTransitionsTheme = PageTransitionsTheme(
-      builders: <TargetPlatform, PageTransitionsBuilder>{
-        TargetPlatform.android: ZoomPageTransitionsBuilder(),
-      },
-    );
+    // final ButtonThemeData buttonTheme = ButtonThemeData(
+    //   shape: borderShape,
+    // );
 
-    final ButtonThemeData buttonTheme = ButtonThemeData(
-      shape: borderShape,
-    );
+    // final ButtonStyle buttonStyle = ButtonStyle(
+    //   shape: MaterialStateProperty.resolveWith(
+    //     (Set<MaterialState> states) => borderShape
+    //   ),
+    // );
 
-    final ButtonStyle buttonStyle = ButtonStyle(
-      shape: MaterialStateProperty.resolveWith(
-        (Set<MaterialState> states) => borderShape
-      ),
-    );
-
-    final TextButtonThemeData textButtonTheme = TextButtonThemeData(
-      style: buttonStyle,
-    );
-    final ElevatedButtonThemeData elevatedButtonThemeData =
-      ElevatedButtonThemeData(
-        style: buttonStyle,
-    );
-    final OutlinedButtonThemeData outlinedButtonThemeData =
-      OutlinedButtonThemeData(
-        style: buttonStyle,
-    );
-    const CardTheme cardTheme = CardTheme(
-      elevation: 2,
-    );
+    // final TextButtonThemeData textButtonTheme = TextButtonThemeData(
+    //   style: buttonStyle,
+    // );
+    // final ElevatedButtonThemeData elevatedButtonThemeData =
+    //   ElevatedButtonThemeData(
+    //     style: buttonStyle,
+    // );
+    // final OutlinedButtonThemeData outlinedButtonThemeData =
+    //   OutlinedButtonThemeData(
+    //     style: buttonStyle,
+    // );
+    // const CardTheme cardTheme = CardTheme(
+    //   elevation: 2,
+    // );
 
     /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
     final ThemeData theme = ThemeData.from(
-        textTheme: txtTheme,
-        colorScheme: colorScheme)
-        .copyWith(
-          useMaterial3: true,
-          appBarTheme: appBarTheme,
-          bottomAppBarTheme: bottomAppBarTheme,
-          cardTheme: cardTheme,
-          buttonTheme: buttonTheme,
-          cursorColor: accent,
-          dialogTheme: dialogTheme,
-          elevatedButtonTheme: elevatedButtonThemeData,
-          floatingActionButtonTheme: FABTheme,
-          highlightColor: accent,
-          iconTheme: iconTheme,
-          outlinedButtonTheme: outlinedButtonThemeData,
-          pageTransitionsTheme: pageTransitionsTheme,
-          snackBarTheme: snackBarTheme,
-          textButtonTheme: textButtonTheme,
-          toggleableActiveColor: accent,
-          unselectedWidgetColor: bgFontLight,
-        );
+      textTheme: txtTheme,
+      colorScheme: colorScheme,
+      useMaterial3: true,
+    ).copyWith(
+      toggleableActiveColor: colorScheme.primary,
+    );
+
+    //    .copyWith(
+    //      useMaterial3: true,
+    //      appBarTheme: appBarTheme,
+    //      bottomAppBarTheme: bottomAppBarTheme,
+    //      cardTheme: cardTheme,
+    //      buttonTheme: buttonTheme,
+    //      dialogTheme: dialogTheme,
+    //      elevatedButtonTheme: elevatedButtonThemeData,
+    //      floatingActionButtonTheme: FABTheme,
+    //      highlightColor: accent,
+    //      iconTheme: iconTheme,
+    //      outlinedButtonTheme: outlinedButtonThemeData,
+    //      pageTransitionsTheme: pageTransitionsTheme,
+    //      snackBarTheme: snackBarTheme,
+    //      textButtonTheme: textButtonTheme,
+    //      toggleableActiveColor: accent,
+    //      unselectedWidgetColor: bgFontLight,
+    //    );
 
     /// Return the themeData which MaterialApp can now use
     return theme;
@@ -335,86 +266,9 @@ class TraleTheme {
 
   /// return amoled version with true black
   TraleTheme get amoled{
-    return copyWith(bg: Colors.black);
+    return copyWith(isAmoled: true);
   }
 }
-
-/// Light Theme
-/// Find material value shade with
-/// http://mcg.mbitson.com/#!?mcgpalette0=%230084bf
-TraleTheme waterLightTheme = TraleTheme(
-    isDark: false,
-    accent: const Color(0xFF1063a3),//const Color(0xFF2696c9),//const Color(0xFF4a8cb1), //const Color(0xFFF54149),
-  );
-
-/// Dark theme should use 200 values colors only
-/// To create them from individual colors use
-/// https://material.io/design/color/the-color-system.html#tools-for-picking-colors
-TraleTheme waterDarkTheme = TraleTheme(
-    isDark: true,
-    accent: const Color(0xFF80c2df),//const Color(0xFF95d6e7), //const Color(0xFFF54149),
-);
-
-/// Alternative Theme
-TraleTheme marineLightTheme = TraleTheme(
-  isDark: false,
-  bg: const Color(0xFF1d3557),
-  accent: const Color(0xFFe63946),
-  bgFont: const Color(0xFFf1faee),
-);
-/// Alternative Theme
-TraleTheme marineDarkTheme = TraleTheme(
-  isDark: true,
-  bg: const Color(0xFF0f1c2e),
-  accent: const Color(0xFFe6606b),
-  bgFont: const Color(0xFFf1faee),
-);
-/// Alternative Theme
-TraleTheme forestLightTheme = TraleTheme(
-  isDark: false,
-  bg: const Color(0xFFfbfffb),
-  accent: const Color(0xFF1a535c),
-);
-/// Alternative Theme
-TraleTheme forestDarkTheme = TraleTheme(
-  isDark: true,
-  bg: const Color(0xFF0d2b30),
-  accent: const Color(0xFF50BDCE),
-);
-/// Alternative Theme
-TraleTheme powerLightTheme = TraleTheme(
-  isDark: false,
-  bg: const Color(0xFFffffff),
-  accent: const Color(0xFFfca311),
-);
-/// Alternative Theme
-TraleTheme powerDarkTheme = TraleTheme(
-  isDark: true,
-  bg: const Color(0xFF14213D),
-  accent: const Color(0xFFf8b03c),
-);
-/// Alternative Theme
-TraleTheme sandLightTheme = TraleTheme(
-  isDark: false,
-  bg: const Color(0xFF292625),
-  accent: const Color(0xFFd4ad70),
-);
-/// Alternative Theme
-TraleTheme sandDarkTheme = TraleTheme(
-  isDark: true,
-  bg: const Color(0xFF151413),
-  accent: const Color(0xFFd9b981),
-);
-/// Alternative Theme
-TraleTheme fireLightTheme = TraleTheme(
-  isDark: false,
-  accent: const Color(0xFFc55959),
-);
-/// Alternative Theme
-TraleTheme fireDarkTheme = TraleTheme(
-  isDark: true,
-  accent: const Color(0xFFCD7171),
-);
 
 
 /// defining all workout difficulties
@@ -426,7 +280,7 @@ enum TraleCustomTheme {
   /// blue theme
   water,
   /// Blue dark theme
-  marine,
+  //marine,
   /// greenish theme
   forest,
   /// sand theme
@@ -435,25 +289,24 @@ enum TraleCustomTheme {
 
 /// extend adonisThemes with adding AdonisTheme attributes
 extension TraleCustomThemeExtension on TraleCustomTheme {
-  /// get corresponding light theme
-  TraleTheme get light => <TraleCustomTheme, TraleTheme>{
-    TraleCustomTheme.marine: marineLightTheme,
-    TraleCustomTheme.power: powerLightTheme,
-    TraleCustomTheme.forest: forestLightTheme,
-    TraleCustomTheme.water: waterLightTheme,
-    TraleCustomTheme.fire: fireLightTheme,
-    TraleCustomTheme.sand: sandLightTheme,
+  /// get seed color of theme
+  Color get seedColor => <TraleCustomTheme, Color>{
+    TraleCustomTheme.power: const Color(0xFFfca311),
+    TraleCustomTheme.fire: const Color(0xFFc55959),
+    TraleCustomTheme.sand: const Color(0xFFd9b981),
+    TraleCustomTheme.water: const Color(0xFF1063a3),
+    TraleCustomTheme.forest: const Color(0xFF1a535c),
   }[this]!;
 
-  /// get corresponding dark theme
-  TraleTheme get dark => <TraleCustomTheme, TraleTheme>{
-    TraleCustomTheme.marine: marineDarkTheme,
-    TraleCustomTheme.power: powerDarkTheme,
-    TraleCustomTheme.forest: forestDarkTheme,
-    TraleCustomTheme.water: waterDarkTheme,
-    TraleCustomTheme.fire: fireDarkTheme,
-    TraleCustomTheme.sand: sandDarkTheme,
-  }[this]!;
+  /// get corresponding light theme
+  TraleTheme get light => TraleTheme(
+    seedColor: seedColor, brightness: Brightness.light,
+  );
+
+  /// get corresponding light theme
+  TraleTheme get dark => TraleTheme(
+    seedColor: seedColor, brightness: Brightness.dark,
+  );
 
   /// get amoled dark theme
   TraleTheme get amoled => dark.amoled;

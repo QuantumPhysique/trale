@@ -96,28 +96,26 @@ class RulerPickerState extends State<RulerPicker> {
         height: heightLargeTick / 2,
         child: CustomPaint(
           painter: _Painter(
-            lineColor: TraleTheme.of(context)!.accent,
+            lineColor: Theme.of(context).colorScheme.primary,
             lineSize: widthLargeTick,
           ),
         ),
       );
     }
 
-    return Container(
-      child: SizedBox(
-        width: widthLargeTick,
-        height: heightLargeTick,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
-            triangle(),
-            Container(
-              width: 2,
-              height: heightLargeTick,
-              color: TraleTheme.of(context)!.accent,
-            ),
-          ],
-        ),
+    return SizedBox(
+      width: widthLargeTick,
+      height: heightLargeTick,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: <Widget>[
+          triangle(),
+          Container(
+            width: 2,
+            height: heightLargeTick,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
       ),
     );
   }
@@ -196,7 +194,7 @@ class RulerPickerState extends State<RulerPicker> {
                                 : index % 5 == 0
                                   ? 0.5 * (heightLargeTick + heightSmallTick)
                                   : heightSmallTick,
-                              color: TraleTheme.of(context)!.bgFontLight,
+                              color: Theme.of(context).colorScheme.onBackground,
                             ),
                             Positioned(
                               bottom: 0,
@@ -212,7 +210,7 @@ class RulerPickerState extends State<RulerPicker> {
                                       style: Theme.of(
                                           context
                                       ).textTheme.bodyText1!.apply(
-                                        color: TraleTheme.of(context)!.bgFontLight,
+                                        color: Theme.of(context).colorScheme.onBackground,
                                       )
                                     ),
                                   )

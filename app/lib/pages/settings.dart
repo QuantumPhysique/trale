@@ -53,7 +53,7 @@ class ResetListTile extends StatelessWidget {
                 TextButton(
                   style: ButtonStyle(
                     foregroundColor: MaterialStateProperty.all<Color>(
-                      TraleTheme.of(context)!.bgFont
+                      Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
                   onPressed: () => Navigator.pop(context, false),
@@ -68,10 +68,10 @@ class ResetListTile extends StatelessWidget {
                 TextButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
-                        TraleTheme.of(context)!.accent
+                        Theme.of(context).colorScheme.primary,
                       ),
                       foregroundColor: MaterialStateProperty.all<Color>(
-                        TraleTheme.of(context)!.accentFont
+                        Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
                     onPressed: () => Navigator.pop(context, true),
@@ -95,8 +95,8 @@ class ResetListTile extends StatelessWidget {
           ) ?? false;
           if (accepted) {
             Provider.of<TraleNotifier>(
-                context, listen: false
-              ).factoryReset();
+              context, listen: false
+            ).factoryReset();
             // leave settings
             Navigator.of(context).pop();
           }
@@ -344,13 +344,15 @@ class ThemeSelection extends StatelessWidget {
                       borderRadius:
                       TraleTheme.of(context)!.borderShape.borderRadius,
                       border: Border.all(
-                          color: TraleTheme.of(context)!.bgFont
+                          color: Theme.of(context).colorScheme.onBackground,
                       ),
-                      color: TraleTheme.of(context)!.isDark
+                      color: (
+                        TraleTheme.of(context)!.isDark
                           ? traleNotifier.isAmoled
-                            ? ctheme.dark.amoled.bg
-                            : ctheme.dark.bg
-                          : ctheme.light.bg,
+                            ? ctheme.dark.amoled
+                            : ctheme.dark
+                          : ctheme.light
+                      ).themeData.colorScheme.background,
                     ),
                     width: 0.2 * MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -371,9 +373,11 @@ class ThemeSelection extends StatelessWidget {
                           ),
                           Divider(
                             height: 5,
-                            color:  TraleTheme.of(context)!.isDark
-                                ? ctheme.dark.bgFontLight
-                                : ctheme.light.bgFontLight,
+                            color: (
+                                TraleTheme.of(context)!.isDark
+                                    ? ctheme.dark
+                                    : ctheme.light
+                            ).themeData.colorScheme.onBackground,
                           ),
                           AutoSizeText(
                             'wwwwwwwwww',
@@ -387,9 +391,11 @@ class ThemeSelection extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: TraleTheme.of(context)!
                                   .borderShape.borderRadius,
-                              color: TraleTheme.of(context)!.isDark
-                                  ? ctheme.dark.accent
-                                  : ctheme.light.accent,
+                              color: (
+                                  TraleTheme.of(context)!.isDark
+                                      ? ctheme.dark
+                                      : ctheme.light
+                              ).themeData.colorScheme.primary,
                             ),
                             height: 0.05 * MediaQuery.of(context).size.width,
                           ),
