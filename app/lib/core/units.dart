@@ -23,7 +23,7 @@ extension TraleUnitExtension on TraleUnit {
   int get ticksPerStep => <TraleUnit, int>{
     TraleUnit.kg: 10,
     TraleUnit.st: 20,
-    TraleUnit.lb: 5,
+    TraleUnit.lb: 10,
   }[this]!;
 
   /// get the number of ticks
