@@ -625,7 +625,7 @@
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
   },
-  "onBoarding3": "Thank you for giving our app a try. 🙂\n\n If you like the app, we would be very happy about a contribution or a coffee. In return, we spare you annoying and privacy-critical ads.",
+  "onBoarding3": "Thank you for giving our app a try. 🙂\n\n If you like the app, we would be very happy about your feedback, a contribution on Gitlab or a coffee. In return, we spare you annoying and privacy-critical ads.",
   "@onBoarding3": {
     "description": "Text of 3rd onBoarding screen."
   },
@@ -633,7 +633,7 @@
   "@onBoarding2Title": {
     "description": "Title of 2nd onBoarding screen."
   },
-  "onBoarding3Title": "Open Source",
+  "onBoarding3Title": "Privacy",
   "@onBoarding3Title": {
     "description": "Title of 3rd onBoarding screen."
   },

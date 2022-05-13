@@ -67,8 +67,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         title: '${AppLocalizations.of(context)!.welcome} 😃',
         body: AppLocalizations.of(context)!.onBoarding1,
         image: _buildImage(
-          'launcher/foreground_crop2.png',
-          MediaQuery.of(context).size.width / 2,
+          'launcher/icon_large.png',
+          MediaQuery.of(context).size.width / 2.5,
         ),
         decoration: pageDecoration
       ),
@@ -99,7 +99,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ),
       ),
       PageViewModel(
-        title: '${AppLocalizations.of(context)!.onBoarding3Title} 🤓',
+        title: '${AppLocalizations.of(context)!.onBoarding3Title} 🔒',
         bodyWidget: Column(
           children: <Widget>[
             Padding(
@@ -113,11 +113,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             ),
           ],
         ),
-        image: _buildImage(
-          'launcher/foreground_crop2.png',
-          MediaQuery.of(context).size.width / 2,
-        ),
-        decoration: pageDecoration,
+        image: Container(),
+        decoration: pageDecoration.copyWith(imageFlex: 1, bodyFlex: 2),
       ),
     ];
 
@@ -137,6 +134,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       skip: Text(
         AppLocalizations.of(context)!.skip,
         style: Theme.of(context).textTheme.bodyText1!,
+        overflow: TextOverflow.ellipsis,
       ),
       next: Icon(
         CustomIcons.next,
@@ -145,6 +143,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       done: Text(
         AppLocalizations.of(context)!.startApp,
         style: Theme.of(context).textTheme.bodyText1!,
+        overflow: TextOverflow.ellipsis,
       ),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: EdgeInsets.all(2 * TraleTheme.of(context)!.padding),
