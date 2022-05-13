@@ -121,15 +121,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
     ];
 
+    void closingOnBoarding (BuildContext context) {
+      prefs.showOnBoarding = false;
+      _onIntroEnd(context);
+    }
+
     return IntroductionScreen(
       globalBackgroundColor: TraleTheme.of(context)!.bgShade4,
       isTopSafeArea: true,
       pages: pageViewModels,
-      onDone: () {
-        prefs.showOnBoarding = false;
-        _onIntroEnd(context);
-      },
-      onSkip: () => _onIntroEnd(context),
+      onDone: () => closingOnBoarding(context),
+      onSkip: () => closingOnBoarding(context),
       showSkipButton: true,
       nextFlex: 1,
       skip: Text(
