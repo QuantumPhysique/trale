@@ -193,7 +193,9 @@ class RulerPickerState extends State<RulerPicker> {
                               width: index % widget.ticksPerStep == 0 ? 1 : 0.7,
                               height: index % widget.ticksPerStep == 0
                                 ? heightLargeTick
-                                : heightSmallTick,
+                                : index % 5 == 0
+                                  ? 0.5 * (heightLargeTick + heightSmallTick)
+                                  : heightSmallTick,
                               color: TraleTheme.of(context)!.bgFontLight,
                             ),
                             Positioned(
