@@ -35,7 +35,7 @@ dependencies:
   hive_flutter: ^1.1.0
   intl: ^0.17.0
   introduction_screen: ^3.0.2
-  package_info: ^2.0.2
+  package_info_plus: ^1.4.2
   provider: ^6.0.2
   shared_preferences: ^2.0.15
   sliding_up_panel: ^2.0.0+1
