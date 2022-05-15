@@ -82,9 +82,6 @@ class _OverviewScreen extends State<OverviewScreen> {
     );
 
     final Container overviewScreen = Container(
-      decoration: BoxDecoration(
-        gradient: TraleTheme.of(context)!.bgGradient,
-      ),
       height: MediaQuery.of(context).size.height,
       alignment: Alignment.topCenter,
       child: AnimatedContainer(
