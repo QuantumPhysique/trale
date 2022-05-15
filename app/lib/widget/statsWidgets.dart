@@ -42,13 +42,18 @@ class _StatsWidgetsState extends State<StatsWidgets> {
       ),
       child: Padding(
         padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             AutoSizeText(
-              '${notifier.unit.weightToString(utw)} in ${timeOfTargetWeight == null
-                    ? '-- days'
-                    : '$timeOfTargetWeight days'}',
+              '${notifier.unit.weightToString(utw)} in',
+              style: Theme.of(context).textTheme.caption,
+            ),
+            AutoSizeText(
+              timeOfTargetWeight == null
+                ? '-- days'
+                : '$timeOfTargetWeight days',
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],
@@ -69,24 +74,34 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         ),
         child: Padding(
           padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AutoSizeText(
-                '${notifier.unit.weightToString(deltaWeight)} / $label',
-                style: Theme.of(context).textTheme.bodyText1,
+                'Change / $label',
+                style: Theme.of(context).textTheme.caption,
               ),
-              SizedBox(
-                height: sizeOfText(
-                  text: '0',
-                  context: context,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ).height,
-                child: Transform.rotate(
-                  // a change of 1kg / 30d corresponds to 45°
-                  angle: -1 * atan(deltaWeight),
-                  child: const Icon(CustomIcons.next),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  AutoSizeText(
+                    notifier.unit.weightToString(deltaWeight),
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  SizedBox(
+                    height: sizeOfText(
+                      text: '0',
+                      context: context,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ).height,
+                    child: Transform.rotate(
+                      // a change of 1kg / 30d corresponds to 45°
+                      angle: -1 * atan(deltaWeight),
+                      child: const Icon(CustomIcons.next),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

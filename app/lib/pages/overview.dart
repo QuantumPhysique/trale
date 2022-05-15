@@ -82,20 +82,15 @@ class _OverviewScreen extends State<OverviewScreen> {
     );
 
     final Container overviewScreen = Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height
+        - kToolbarHeight - kBottomNavigationBarHeight,
       alignment: Alignment.topCenter,
-      child: AnimatedContainer(
-        duration: TraleTheme.of(context)!.transitionDuration.normal,
-        curve: Curves.easeIn,
-        alignment: Alignment.center,
-        height: MediaQuery.of(context).size.height - 3 * kToolbarHeight,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const StatsWidgets(visible: true),
-            lineChart,
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const StatsWidgets(visible: true),
+          lineChart,
+        ],
       ),
     );
 
