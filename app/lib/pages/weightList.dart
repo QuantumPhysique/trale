@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/core/units.dart';
-import 'package:trale/pages/about.dart';
-import 'package:trale/pages/faq.dart';
-import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/appDrawer.dart';
-import 'package:trale/widget/linechart.dart';
-import 'package:trale/widget/routeTransition.dart';
-import 'package:trale/widget/statsWidgets.dart';
 
 class WeightList extends StatefulWidget {
   const WeightList({super.key});
@@ -33,9 +20,9 @@ class _OverviewScreen extends State<WeightList> {
 
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
-    final String groupTag = 'groupTag';
+    const String groupTag = 'groupTag';
 
-    ListView listOfView = ListView.builder(
+    final ListView listOfView = ListView.builder(
         clipBehavior: Clip.antiAlias,
         itemCount: measurements.length,
         itemBuilder: (BuildContext context, int index) {
@@ -44,7 +31,8 @@ class _OverviewScreen extends State<WeightList> {
           Widget deleteAction() {
             return SlidableAction(
                 label: AppLocalizations.of(context)!.delete,
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+                foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
                 icon: CustomIcons.delete,
                 onPressed: (BuildContext context) {
                   database.deleteMeasurement(currentMeasurement);
@@ -77,7 +65,8 @@ class _OverviewScreen extends State<WeightList> {
           Widget editAction() {
             return SlidableAction(
               label: AppLocalizations.of(context)!.edit,
-              backgroundColor: TraleTheme.of(context)!.bgShade3,
+              backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+              foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
               icon: CustomIcons.edit,
               onPressed: (BuildContext context) async {
                 final bool changed = await showAddWeightDialog(
@@ -116,9 +105,7 @@ class _OverviewScreen extends State<WeightList> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  color: TraleTheme.of(context)!.isDark
-                      ? TraleTheme.of(context)!.bgShade2
-                      : Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.background,
                   width: MediaQuery.of(context).size.width
                       - 2 * TraleTheme.of(context)!.padding,
                   height: 40.0,

@@ -1,49 +1,66 @@
-// This module is heavily copied and inspired from bizz84
-// https://medium.com/coding-with-flutter/flutter-bottomappbar-navigation-with-fab-8b962bb55013
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trale/core/icons.dart';
+import 'package:trale/core/theme.dart';
 
-/// Item for FABBottomAppBar
-class FABBottomAppBarItem {
-  /// constructor
-  FABBottomAppBarItem({required this.iconData, required this.text});
-  /// icon Data
-  IconData iconData;
-  /// string below Icon when active
-  String text;
-}
+/// m3 floating action button
+class FAB extends StatefulWidget {
+  const FAB({
+    required this.show,
+    required this.onPressed,
+    Key? key
+  }) : super(key: key);
 
-/// BottomAppBar with FloatingActionButton support
-class FABBottomAppBar extends StatefulWidget {
-  /// constructor
-  FABBottomAppBar({
-    required this.items,
-    required this.onTabSelected,
-    this.selectedIndex = 0,
-  });
-  /// items
-  final List<FABBottomAppBarItem> items;
-  /// selected tab
-  final ValueChanged<int> onTabSelected;
-  /// selected Index
-  int selectedIndex;
+  /// show FAB
+  final bool show;
+  /// onPressed
+  final void Function() onPressed;
 
   @override
-  State<StatefulWidget> createState() => FABBottomAppBarState();
+  State<FAB> createState() => _FABState();
 }
 
-/// Define State
-class FABBottomAppBarState extends State<FABBottomAppBar> {
-
-  void _updateIndex(int index) {
-    widget.onTabSelected(index);
-    setState(() {
-      widget.selectedIndex = index;
-    });
-  }
-
+class _FABState extends State<FAB> {
   @override
   Widget build(BuildContext context) {
+    const double topInset = 12;
+    const double buttonHeight = 80 - 2 * topInset;
+    return Padding(
+      padding: EdgeInsets.only(
+        //todo add adaptive padding such that FAB is like a third bottom icon
+        right: TraleTheme.of(context)!.padding,
+        top: 80.0,
+      ),
+      child: AnimatedContainer(
+          alignment: Alignment.center,
+          height: widget.show ? buttonHeight : 0,
+          width: widget.show ? buttonHeight : 0,
+          margin: EdgeInsets.all(
+            widget.show ? 0 : 0.5 * buttonHeight,
+          ),
+          duration: TraleTheme.of(context)!.transitionDuration.normal,
+          child: FittedBox(
+            fit: BoxFit.contain,
+            child: FloatingActionButton(
+              elevation: 0,
+              onPressed: widget.onPressed;
+              },
+              tooltip: AppLocalizations.of(context)!.addWeight,
+              child: Icon(
+                CustomIcons.add,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+            ),
+          )
+      ),
+    );
+  }
+}
+
+
+
+
+
+
 
     Widget _buildTabItem({
       required FABBottomAppBarItem item,
