@@ -42,11 +42,12 @@ class _OverviewScreen extends State<OverviewScreen> {
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
       child: Card(
-          shape: TraleTheme.of(context)!.borderShape,
-          margin: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
-          ),
-          child: CustomLineChart(loadedFirst: loadedFirst)
+        shape: TraleTheme.of(context)!.borderShape,
+        color: Theme.of(context).colorScheme.surface,
+        margin: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
+        child: CustomLineChart(loadedFirst: loadedFirst)
       ),
     );
 
