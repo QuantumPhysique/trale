@@ -255,7 +255,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Container(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(margin),
+      padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {

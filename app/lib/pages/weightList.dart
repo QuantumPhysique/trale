@@ -81,48 +81,62 @@ class _OverviewScreen extends State<WeightList> {
               },
             );
           }
-          return Slidable(
-            groupTag: groupTag,
-            startActionPane: ActionPane(
-              motion: const DrawerMotion(),
-              extentRatio: 0.5,
-              children: <Widget>[
-                deleteAction(),
-                editAction(),
-              ],
-            ),
-            endActionPane: ActionPane(
-              motion: const DrawerMotion(),
-              extentRatio: 0.4,
-              children: <Widget>[
-                editAction(),
-                deleteAction()
-              ],
-            ),
-            closeOnScroll: true,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  color: Theme.of(context).colorScheme.background,
-                  width: MediaQuery.of(context).size.width
-                      - 2 * TraleTheme.of(context)!.padding,
-                  height: 50.0,
-                  child: Text(
-                    currentMeasurement.measurement.measureToString(
-                      context, ws: 12,
+          return SlidableAutoCloseBehavior(
+            child: Slidable(
+              groupTag: groupTag,
+              startActionPane: ActionPane(
+                motion: const DrawerMotion(),
+                extentRatio: 0.75,
+                children: <Widget>[
+                  deleteAction(),
+                  editAction(),
+                ],
+              ),
+              endActionPane: ActionPane(
+                motion: const DrawerMotion(),
+                extentRatio: 0.75,
+                children: <Widget>[
+                  editAction(),
+                  deleteAction()
+                ],
+              ),
+              closeOnScroll: true,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.center,
+                    //color: Theme.of(context).colorScheme.background,
+                    width: MediaQuery.of(context).size.width
+                        - 2 * TraleTheme.of(context)!.padding,
+                    height: 50.0,
+                    child: Text(
+                      currentMeasurement.measurement.measureToString(
+                        context, ws: 12,
+                      ),
+                      style: Theme.of(context).textTheme
+                          .bodyText1?.apply(fontFamily: 'Courier'),
                     ),
-                    style: Theme.of(context).textTheme
-                        .bodyText1?.apply(fontFamily: 'Courier'),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }
     );
 
-    return Container(child: listOfView);
+    return Container(
+      width: MediaQuery.of(context).size.width
+          - 2 * TraleTheme.of(context)!.padding,
+      padding: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
+      child: Card(
+        shape: TraleTheme.of(context)!.borderShape,
+        color: Theme.of(context).colorScheme.surface,
+        margin: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
+        child: listOfView
+      ),
+    );
   }
 }

@@ -18,11 +18,20 @@ import 'package:trale/widget/routeTransition.dart';
 Drawer appDrawer (BuildContext context) {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
   return Drawer(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+          topRight: Radius.circular(TraleTheme.of(context)!.borderRadius),
+          bottomRight: Radius.circular(TraleTheme.of(context)!.borderRadius)
+      ),
+    ),
     child: Column(
       children: <Widget>[
         DrawerHeader(
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surfaceVariant,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(TraleTheme.of(context)!.borderRadius),
+            ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
