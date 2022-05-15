@@ -85,7 +85,7 @@ class _OverviewScreen extends State<WeightList> {
             groupTag: groupTag,
             startActionPane: ActionPane(
               motion: const DrawerMotion(),
-              extentRatio: 0.4,
+              extentRatio: 0.5,
               children: <Widget>[
                 deleteAction(),
                 editAction(),
@@ -108,7 +108,7 @@ class _OverviewScreen extends State<WeightList> {
                   color: Theme.of(context).colorScheme.background,
                   width: MediaQuery.of(context).size.width
                       - 2 * TraleTheme.of(context)!.padding,
-                  height: 40.0,
+                  height: 50.0,
                   child: Text(
                     currentMeasurement.measurement.measureToString(
                       context, ws: 12,
