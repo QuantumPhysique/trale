@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 
@@ -42,8 +43,7 @@ class _FABState extends State<FAB> {
             fit: BoxFit.contain,
             child: FloatingActionButton(
               elevation: 0,
-              onPressed: widget.onPressed;
-              },
+              onPressed: widget.onPressed,
               tooltip: AppLocalizations.of(context)!.addWeight,
               child: Icon(
                 CustomIcons.add,
@@ -54,71 +54,4 @@ class _FABState extends State<FAB> {
       ),
     );
   }
-}
-
-
-
-
-
-
-
-    Widget _buildTabItem({
-      required FABBottomAppBarItem item,
-      required int index,
-      required ValueChanged<int> onPressed,
-    }) {
-      final bool isActive = widget.selectedIndex == index;
-      final Color color = isActive
-          ? Colors.amber
-          : Colors.black38; //todo change colors!!!
-      return Expanded(
-        child: SizedBox(
-          height: 80.0,
-          child: Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              onTap: () => onPressed(index),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(item.iconData, color: color),
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    height: 18,
-                    child: Text(item.text),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    final List<Widget> items = List<Widget>.generate(
-        widget.items.length, (int index) {
-      return _buildTabItem(
-        item: widget.items[index],
-        index: index,
-        onPressed: _updateIndex,
-      );
-    });
-
-    return BottomAppBar(
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(
-            0.0,
-            0.0,
-            MediaQuery.of(context).size.width / 3,
-            0.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: items,
-        ),
-      ),
-    );
-  }
-
 }

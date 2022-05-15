@@ -535,6 +535,10 @@
   "@loading": {
     "description": "loading"
   },
+  "measurements": "measurements",
+  "@measurements": {
+    "description": "measurements"
+  },
   "version": "version",
   "@version": {
     "description": "version"
