@@ -85,17 +85,13 @@ class _OverviewScreen extends State<OverviewScreen> {
       ),
     );
 
-    final Container overviewScreen = Container(
-      height: MediaQuery.of(context).size.height
-        - kToolbarHeight - kBottomNavigationBarHeight,
-      alignment: Alignment.topCenter,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          const StatsWidgets(visible: true),
-          lineChart,
-        ],
-      ),
+    final Column overviewScreen = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const StatsWidgets(visible: true),
+        lineChart,
+        const SizedBox(height: 80.0),
+      ],
     );
 
     return SafeArea(
