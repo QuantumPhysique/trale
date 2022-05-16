@@ -133,7 +133,7 @@ class _OverviewScreen extends State<WeightList> {
         width: MediaQuery.of(context).size.width
             - 2 * TraleTheme.of(context)!.padding,
         height: measurements.length * 50.0
-            + 4 * TraleTheme.of(context)!.padding,
+            + 2 * TraleTheme.of(context)!.padding,
         padding: EdgeInsets.symmetric(
             vertical: TraleTheme.of(context)!.padding
         ),
@@ -143,20 +143,15 @@ class _OverviewScreen extends State<WeightList> {
           margin: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding,
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: TraleTheme.of(context)!.padding
-            ),
-            child: SlidableAutoCloseBehavior(
-              child: ClipRRect(
-                borderRadius:
-                  TraleTheme.of(context)!.borderShape.borderRadius.resolve(
-                    Directionality.of(context)
-                  ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: listOfMeasurements,
+          child: SlidableAutoCloseBehavior(
+            child: ClipRRect(
+              borderRadius:
+                TraleTheme.of(context)!.borderShape.borderRadius.resolve(
+                  Directionality.of(context)
                 ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: listOfMeasurements,
               ),
             ),
           )
