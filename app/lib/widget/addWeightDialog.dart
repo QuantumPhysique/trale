@@ -141,7 +141,7 @@ Future<bool> showAddWeightDialog({
     builder: (BuildContext context) {
       return AlertDialog(
         shape: TraleTheme.of(context)!.borderShape,
-        // hack to mimic m3
+        // todo: hack to mimic m3
         backgroundColor: ElevationOverlay.colorWithOverlay(
           Theme.of(context).colorScheme.surface,
           Theme.of(context).colorScheme.primary,
