@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:trale/core/icons.dart';
@@ -48,6 +49,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         setState(() {});
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // color system bottom navigation bar
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        /// default values of flutter definition
+        /// https://github.com/flutter/flutter/blob/ee4e09cce01d6f2d7f4baebd247fde02e5008851/packages/flutter/lib/src/material/navigation_bar.dart#L1237
+        systemNavigationBarColor: ElevationOverlay.colorWithOverlay(
+          Theme.of(context).colorScheme.surface,
+          Theme.of(context).colorScheme.primary,
+          3.0,
+        ),
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Theme.of(context).brightness,
+      ),
+    );
   }
 
   /// Starts home with category all

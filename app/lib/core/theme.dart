@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -351,4 +352,43 @@ extension CustomThemeModeEncoding on ThemeMode {
     ThemeMode.light: 'off',
     ThemeMode.system: 'auto',
   }[this]!;
+}
+
+/// extension of theme
+@immutable
+class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
+  /// constructor
+  const TraleThemeExtension({
+    @required this.padding,
+  });
+
+  /// global padding parameter
+  final double? padding;
+
+  /// create getter for onPrimaryContainer textTheme
+  TextTheme primaryContainerTextTheme (BuildContext context) =>
+    Theme.of(context).textTheme.apply(
+      bodyColor: Theme.of(context).colorScheme.onPrimaryContainer,
+      displayColor: Theme.of(context).colorScheme.onPrimaryContainer,
+      decorationColor: Theme.of(context).colorScheme.onPrimaryContainer,
+    );
+
+  @override
+  TraleThemeExtension copyWith({double? padding}) {
+    return TraleThemeExtension(
+      padding: padding ?? this.padding,
+    );
+  }
+
+  @override
+  TraleThemeExtension lerp(
+      ThemeExtension<TraleThemeExtension>? other, double t,
+  ) {
+    if (other is! TraleThemeExtension) {
+      return this;
+    }
+    return TraleThemeExtension(
+      padding: lerpDouble(padding, other.padding, t)
+    );
+  }
 }
