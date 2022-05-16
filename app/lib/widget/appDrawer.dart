@@ -24,6 +24,11 @@ Drawer appDrawer (BuildContext context) {
           bottomRight: Radius.circular(TraleTheme.of(context)!.borderRadius)
       ),
     ),
+    backgroundColor: ElevationOverlay.colorWithOverlay(
+      Theme.of(context).colorScheme.surface,
+      Theme.of(context).colorScheme.primary,
+      1.0,
+    ),
     child: Column(
       children: <Widget>[
         DrawerHeader(
