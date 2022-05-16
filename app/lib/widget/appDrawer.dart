@@ -80,10 +80,14 @@ Drawer appDrawer (BuildContext context) {
           title: TextFormField(
               keyboardType: TextInputType.name,
               decoration: InputDecoration.collapsed(
-                hintStyle: Theme.of(context).textTheme.bodyText1,
+                hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
                 hintText: AppLocalizations.of(context)!.addUserName,
               ),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               initialValue: notifier.userName,
               onChanged: (String value) {
                 notifier.userName = value;
@@ -101,7 +105,9 @@ Drawer appDrawer (BuildContext context) {
             notifier.userTargetWeight != null
                 ? notifier.unit.weightToString(notifier.userTargetWeight!)
                 : AppLocalizations.of(context)!.addTargetWeight,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             maxLines: 1,
           ),
           onTap: () async {
@@ -124,7 +130,9 @@ Drawer appDrawer (BuildContext context) {
           ),
           title: AutoSizeText(
             AppLocalizations.of(context)!.settings,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             maxLines: 1,
           ),
           onTap: () {
@@ -145,7 +153,9 @@ Drawer appDrawer (BuildContext context) {
           ),
           title: AutoSizeText(
             AppLocalizations.of(context)!.faq,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             maxLines: 1,
           ),
           onTap: () {
@@ -166,7 +176,9 @@ Drawer appDrawer (BuildContext context) {
           ),
           title: AutoSizeText(
             AppLocalizations.of(context)!.about,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             maxLines: 1,
           ),
           onTap: () {

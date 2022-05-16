@@ -30,29 +30,30 @@ class ColoredContainer extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 vertical: TraleTheme.of(context)!.padding
             ),
-            decoration: BoxDecoration(
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                ),
-                BoxShadow(
-                  color: TraleTheme.of(context)!.isDark
-                    ?  TraleTheme.of(context)!.bgShade3
-                    :  Theme.of(context).colorScheme.background,
-                  spreadRadius: -shadowOffset,
-                  blurRadius: shadowOffset,
-                  offset: const Offset(2 * shadowOffset, 0),
-                ),
-                BoxShadow(
-                  color: TraleTheme.of(context)!.isDark
-                      ?  TraleTheme.of(context)!.bgShade3
-                      :  Theme.of(context).colorScheme.background,
-                  spreadRadius: -shadowOffset,
-                  blurRadius: shadowOffset,
-                  offset: const Offset(- 2 * shadowOffset, 0),
-                ),
-              ],
-            ),
+            color: Theme.of(context).colorScheme.primaryContainer,
+            // decoration: BoxDecoration(
+            //   boxShadow: <BoxShadow>[
+            //     BoxShadow(
+            //       color: Colors.black.withOpacity(0.2),
+            //     ),
+            //     BoxShadow(
+            //       color: TraleTheme.of(context)!.isDark
+            //         ?  TraleTheme.of(context)!.bgShade3
+            //         :  Theme.of(context).colorScheme.background,
+            //       spreadRadius: -shadowOffset,
+            //       blurRadius: shadowOffset,
+            //       offset: const Offset(2 * shadowOffset, 0),
+            //     ),
+            //     BoxShadow(
+            //       color: TraleTheme.of(context)!.isDark
+            //           ?  TraleTheme.of(context)!.bgShade3
+            //           :  Theme.of(context).colorScheme.background,
+            //       spreadRadius: -shadowOffset,
+            //       blurRadius: shadowOffset,
+            //       offset: const Offset(- 2 * shadowOffset, 0),
+            //     ),
+            //   ],
+            // ),
             child: child,
           ),
         )

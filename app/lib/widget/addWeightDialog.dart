@@ -207,7 +207,10 @@ Future<bool> showTargetWeightDialog({
             ),
             child: Text(
               AppLocalizations.of(context)!.targetWeightMotivation,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyMedium!.apply(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              textAlign: TextAlign.justify,
             ),
           ),
           RulerPicker(
@@ -221,12 +224,16 @@ Future<bool> showTargetWeightDialog({
           ListTile(
             title: Text(
               AppLocalizations.of(context)!.weight,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyMedium!.apply(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
             trailing: Text(
               '${_sliderLabel.toStringAsFixed(notifier.unit.precision)} '
                   '${notifier.unit.name}',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyMedium!.apply(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
             ),
           ),
         ],
@@ -240,6 +247,12 @@ Future<bool> showTargetWeightDialog({
       builder: (BuildContext context) {
         return AlertDialog(
           shape: TraleTheme.of(context)!.borderShape,
+          backgroundColor: ElevationOverlay.colorWithOverlay(
+            Theme.of(context).colorScheme.surface,
+            Theme.of(context).colorScheme.primary,
+            3.0,
+          ),
+          elevation: 0,
           contentPadding: EdgeInsets.only(
             top: TraleTheme.of(context)!.padding,
           ),
@@ -247,7 +260,9 @@ Future<bool> showTargetWeightDialog({
           title: Center(
             child: Text(
               AppLocalizations.of(context)!.targetWeight,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.headlineSmall!.apply(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
               maxLines: 1,
             ),
           ),
