@@ -141,6 +141,13 @@ Future<bool> showAddWeightDialog({
     builder: (BuildContext context) {
       return AlertDialog(
         shape: TraleTheme.of(context)!.borderShape,
+        // hack to mimic m3
+        backgroundColor: ElevationOverlay.colorWithOverlay(
+          Theme.of(context).colorScheme.surface,
+          Theme.of(context).colorScheme.primary,
+          3.0,
+        ),
+        elevation: 0,
         contentPadding: EdgeInsets.only(
           top: TraleTheme.of(context)!.padding,
         ),
@@ -148,7 +155,9 @@ Future<bool> showAddWeightDialog({
         title: Center(
           child: Text(
             AppLocalizations.of(context)!.addWeight,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
             maxLines: 1,
           ),
         ),
@@ -272,10 +281,16 @@ List<Widget> actions(BuildContext context, Function onPress) {
             vertical: TraleTheme.of(context)!.padding / 2,
             horizontal: TraleTheme.of(context)!.padding,
           ),
-          child: Text(AppLocalizations.of(context)!.abort)
+          child: Text(
+            AppLocalizations.of(context)!.abort,
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            )
+          )
       ),
     ),
-    TextButton(
+
+    TextButton.icon(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
             Theme.of(context).colorScheme.primary,
@@ -283,22 +298,19 @@ List<Widget> actions(BuildContext context, Function onPress) {
           foregroundColor: MaterialStateProperty.all<Color>(
             Theme.of(context).colorScheme.onPrimary,
           ),
+          // todo: remove once m3 updated button theme
+          padding: MaterialStateProperty.all<EdgeInsets>(
+            const EdgeInsets.fromLTRB(16, 0, 24, 0),
+          ),
         ),
         onPressed: () => onPress(),
-        child: Container(
-            padding: EdgeInsets.symmetric(
-              vertical: TraleTheme.of(context)!.padding / 2,
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const Icon(CustomIcons.save),
-                SizedBox(width: TraleTheme.of(context)!.padding),
-                Text(AppLocalizations.of(context)!.save),
-              ],
-            )
-        )
+        icon: const Icon(CustomIcons.save),
+        label: Text(
+          AppLocalizations.of(context)!.save,
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+            color: Theme.of(context).colorScheme.onPrimary,
+          )
+        ),
     ),
 ];
 }

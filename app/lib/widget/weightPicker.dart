@@ -123,11 +123,6 @@ class RulerPickerState extends State<RulerPicker> {
   @override
   Widget build(BuildContext context) {
     const double shadowOffset = 6;
-    final Color backgroundcolor = ElevationOverlay.colorWithOverlay(
-      Theme.of(context).colorScheme.surface,
-      Theme.of(context).colorScheme.primary,
-      3.0,
-    );
     return ClipRect(
       child: Container(
         width: widget.width,
@@ -135,29 +130,30 @@ class RulerPickerState extends State<RulerPicker> {
         padding: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding,
         ),
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: ElevationOverlay.colorWithOverlay(
-                Theme.of(context).colorScheme.surface,
-                Theme.of(context).colorScheme.onSurface,
-                1.0,
-              ),
-            ),
-            BoxShadow(
-              color: backgroundcolor,
-              spreadRadius: -shadowOffset,
-              blurRadius: shadowOffset,
-              offset: const Offset(shadowOffset, 0),
-            ),
-            BoxShadow(
-              color: backgroundcolor,
-              spreadRadius: -shadowOffset,
-              blurRadius: shadowOffset,
-              offset: const Offset(-shadowOffset, 0),
-            ),
-          ],
-        ),
+        color: Theme.of(context).colorScheme.primaryContainer,
+        // decoration: BoxDecoration(
+        //   boxShadow: <BoxShadow>[
+        //     BoxShadow(
+        //       color: ElevationOverlay.colorWithOverlay(
+        //         Theme.of(context).colorScheme.surface,
+        //         Theme.of(context).colorScheme.onSurface,
+        //         3.0,
+        //       ),
+        //     ),
+        //     BoxShadow(
+        //       color: backgroundcolor,
+        //       spreadRadius: -shadowOffset,
+        //       blurRadius: shadowOffset,
+        //       offset: const Offset(shadowOffset, 0),
+        //     ),
+        //     BoxShadow(
+        //       color: backgroundcolor,
+        //       spreadRadius: -shadowOffset,
+        //       blurRadius: shadowOffset,
+        //       offset: const Offset(-shadowOffset, 0),
+        //     ),
+        //   ],
+        // ),
         child: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
@@ -203,7 +199,7 @@ class RulerPickerState extends State<RulerPicker> {
                                 : index % 5 == 0
                                   ? 0.5 * (heightLargeTick + heightSmallTick)
                                   : heightSmallTick,
-                              color: Theme.of(context).colorScheme.onSurface,
+                              color: Theme.of(context).colorScheme.onPrimaryContainer,
                             ),
                             Positioned(
                               bottom: 0,
@@ -219,7 +215,7 @@ class RulerPickerState extends State<RulerPicker> {
                                       style: Theme.of(
                                           context
                                       ).textTheme.bodyText1!.apply(
-                                        color: Theme.of(context).colorScheme.onSurface,
+                                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                                       )
                                     ),
                                   )
