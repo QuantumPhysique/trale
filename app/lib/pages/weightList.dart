@@ -83,7 +83,7 @@ class _OverviewScreen extends State<WeightList> {
           groupTag: groupTag,
           startActionPane: ActionPane(
             motion: const DrawerMotion(),
-            extentRatio: 0.75,
+            extentRatio: 1,
             children: <Widget>[
               deleteAction(currentMeasurement),
               editAction(currentMeasurement),
@@ -91,7 +91,7 @@ class _OverviewScreen extends State<WeightList> {
           ),
           endActionPane: ActionPane(
             motion: const DrawerMotion(),
-            extentRatio: 0.75,
+            extentRatio: 1,
             children: <Widget>[
               editAction(currentMeasurement),
               deleteAction(currentMeasurement)
@@ -104,21 +104,15 @@ class _OverviewScreen extends State<WeightList> {
               Container(
                 alignment: Alignment.center,
                 //color: Theme.of(context).colorScheme.background,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width
-                    - 2 * TraleTheme.of(context)!.padding,
+                width: MediaQuery.of(context).size.width
+                    - 4 * TraleTheme.of(context)!.padding,
                 height: 50.0,
                 child: Text(
                   currentMeasurement.measurement.measureToString(
                     context, ws: 12,
                   ),
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .bodyText1
-                      ?.apply(fontFamily: 'Courier'),
+                  style: Theme.of(context).textTheme.bodyText1
+                    ?.apply(fontFamily: 'Courier'),
                 ),
               ),
             ],
@@ -141,7 +135,7 @@ class _OverviewScreen extends State<WeightList> {
           shape: TraleTheme.of(context)!.borderShape,
           color: Theme.of(context).colorScheme.surface,
           margin: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
+            horizontal: 2 * TraleTheme.of(context)!.padding,
           ),
           child: SlidableAutoCloseBehavior(
             child: ClipRRect(
