@@ -240,6 +240,7 @@ class TraleTheme {
       useMaterial3: true,
     ).copyWith(
       toggleableActiveColor: colorScheme.primary,
+      extensions: <ThemeExtension>[traleThemeExtension],
     );
 
     //    .copyWith(
@@ -392,3 +393,6 @@ class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
     );
   }
 }
+
+/// theme extension
+const TraleThemeExtension traleThemeExtension = TraleThemeExtension(padding: 16);
