@@ -25,13 +25,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
   @override
   void initState() {
     super.initState();
-    minX = DateTime.now().subtract(
+    final MeasurementDatabase db = MeasurementDatabase();
+    minX = db.sortedMeasurements.last.measurement.date.subtract(
       const Duration(days: 21)
     ).millisecondsSinceEpoch.toDouble();
-    maxX = DateTime.now().add(
+    maxX = db.sortedMeasurements.last.measurement.date.add(
       const Duration(days: 7)
     ).millisecondsSinceEpoch.toDouble();
-
   }
 
   @override
