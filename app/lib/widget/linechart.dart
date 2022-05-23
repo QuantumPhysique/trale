@@ -26,10 +26,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
   void initState() {
     super.initState();
     final MeasurementDatabase db = MeasurementDatabase();
-    minX = db.sortedMeasurements.last.measurement.date.subtract(
+    minX = db.sortedMeasurements.first.measurement.date.subtract(
       const Duration(days: 21)
     ).millisecondsSinceEpoch.toDouble();
-    maxX = db.sortedMeasurements.last.measurement.date.add(
+    maxX = db.sortedMeasurements.first.measurement.date.add(
       const Duration(days: 7)
     ).millisecondsSinceEpoch.toDouble();
   }
