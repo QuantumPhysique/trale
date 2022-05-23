@@ -45,7 +45,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
       : db.gaussianExtrapolatedMeasurements;
 
     final TextStyle labelTextStyle =
-      Theme.of(context).textTheme.caption!.apply(fontFamily: 'Courier');
+      Theme.of(context).textTheme.caption!.apply(
+        fontFamily: 'Courier',
+        color: Theme.of(context).colorScheme.onSurface,
+      );
     final Size textSize = sizeOfText(
       text: '1234',
       context: context,
@@ -207,12 +210,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
               ),
               belowBarData: BarAreaData(
                 show: true,
-                gradient: LinearGradient(
-                  colors: gradientColors,
-                  stops: const <double>[0.2, 1.0],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
+                color: Theme.of(context).colorScheme.primaryContainer,
+                //gradient: LinearGradient(
+                //  colors: gradientColors,
+                //  stops: const <double>[0.2, 1.0],
+                //  begin: Alignment.bottomCenter,
+                //  end: Alignment.topCenter,
+                //),
               ),
             ),
             LineChartBarData(
@@ -251,7 +255,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Container(
       height: MediaQuery.of(context).size.height / 3,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.all(margin),
+      padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
       child: GestureDetector(
         onDoubleTap: () {
           setState(() {

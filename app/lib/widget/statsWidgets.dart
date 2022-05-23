@@ -37,19 +37,29 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     Card userTargetWeightCard(double utw) => Card(
       shape: TraleTheme.of(context)!.borderShape,
+      color: Theme.of(context).colorScheme.secondaryContainer,
       margin: EdgeInsets.symmetric(
         vertical: TraleTheme.of(context)!.padding,
       ),
       child: Padding(
         padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             AutoSizeText(
-              '${notifier.unit.weightToString(utw)} in ${timeOfTargetWeight == null
-                    ? '-- days'
-                    : '$timeOfTargetWeight days'}',
-              style: Theme.of(context).textTheme.bodyText1,
+              '${notifier.unit.weightToString(utw)} in',
+              style: Theme.of(context).textTheme.caption!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
+            AutoSizeText(
+              timeOfTargetWeight == null
+                ? '-- days'
+                : '$timeOfTargetWeight days',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
             ),
           ],
         ),
@@ -67,26 +77,44 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         margin: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding,
         ),
+        color: Theme.of(context).colorScheme.secondaryContainer,
         child: Padding(
           padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AutoSizeText(
-                '${notifier.unit.weightToString(deltaWeight)} / $label',
-                style: Theme.of(context).textTheme.bodyText1,
+                'Change / $label',
+                style: Theme.of(context).textTheme.caption,
               ),
-              SizedBox(
-                height: sizeOfText(
-                  text: '0',
-                  context: context,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ).height,
-                child: Transform.rotate(
-                  // a change of 1kg / 30d corresponds to 45°
-                  angle: -1 * atan(deltaWeight),
-                  child: const Icon(CustomIcons.next),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  AutoSizeText(
+                    notifier.unit.weightToString(deltaWeight),
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
+                  ),
+                  SizedBox(
+                    height: sizeOfText(
+                      text: '0',
+                      context: context,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
+                    ).height,
+                    child: Transform.rotate(
+                      // a change of 1kg / 30d corresponds to 45°
+                      angle: -1 * atan(deltaWeight),
+                      child: Icon(
+                        CustomIcons.next,
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

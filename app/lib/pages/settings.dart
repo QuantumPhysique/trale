@@ -478,6 +478,7 @@ class _Settings extends State<Settings> {
             ),
           ),
           const ResetListTile(),
+          SizedBox(height: TraleTheme.of(context)!.padding),
         ],
       );
     }
