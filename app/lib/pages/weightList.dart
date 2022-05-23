@@ -77,7 +77,7 @@ class _OverviewScreen extends State<WeightList> {
       );
     }
 
-    List<Slidable> listOfMeasurements = measurements.map(
+    final List<Slidable> listOfMeasurements = measurements.map(
       (SortedMeasurement currentMeasurement) {
         return Slidable(
           groupTag: groupTag,
@@ -127,7 +127,7 @@ class _OverviewScreen extends State<WeightList> {
       }
     ).toList();
 
-    
+
     return SingleChildScrollView(
       child: Container(
         width: MediaQuery.of(context).size.width
@@ -149,9 +149,17 @@ class _OverviewScreen extends State<WeightList> {
                 TraleTheme.of(context)!.borderShape.borderRadius.resolve(
                   Directionality.of(context)
                 ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: listOfMeasurements,
+              child: StreamBuilder<List<Measurement>>(
+                stream: database.streamController.stream,
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<List<Measurement>> snapshot,
+                ) => Column(
+                  key: ValueKey<List<Measurement>>(
+                      snapshot.data ?? <Measurement>[],
+                  ),
+                  children: listOfMeasurements,
+                ),
               ),
             ),
           )

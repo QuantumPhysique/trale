@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -40,6 +42,13 @@ class MeasurementDatabase {
   /// get box
   Box<Measurement> get box => Hive.box<Measurement>(_boxName);
 
+  /// broadcast stream to track change of db
+  final StreamController<List<Measurement>> _streamController =
+    StreamController<List<Measurement>>.broadcast();
+
+  /// get broadcast stream to track change of db
+  StreamController<List<Measurement>> get streamController => _streamController;
+
   /// insert Measurements into box
   void insertMeasurement(Measurement m) {
     box.add(m);
@@ -55,7 +64,6 @@ class MeasurementDatabase {
   /// delete all Measurements from box
   Future<void> deleteAllMeasurements() async {
     for (final SortedMeasurement m in sortedMeasurements) {
-      print(m.measurement.date);
       await box.delete(m.key);
     }
     reinit();
@@ -82,8 +90,9 @@ class MeasurementDatabase {
     gaussianInterpolatedMeasurements;
     gaussianExtrapolatedMeasurements;
 
-    final TraleNotifier notifier = TraleNotifier();
-    notifier.notify;
+    // fire stream
+    streamController.add(measurements);
+    TraleNotifier().notify;
   }
 
   List<Measurement>? _measurements;

@@ -85,13 +85,35 @@ class _OverviewScreen extends State<OverviewScreen> {
       ),
     );
 
-    final Column overviewScreen = Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const StatsWidgets(visible: true),
-        lineChart,
-        const SizedBox(height: 80.0),
-      ],
+    final Widget overviewScreen = StreamBuilder<List<Measurement>>(
+      stream: database.streamController.stream,
+      builder: (
+          BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
+      ) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          StatsWidgets(
+            visible: true,
+            key: ValueKey<List<Measurement>>(snapshot.data ?? <Measurement>[]),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 3,
+            width: MediaQuery.of(context).size.width,
+            child: Card(
+                shape: TraleTheme.of(context)!.borderShape,
+                color: Theme.of(context).colorScheme.surface,
+                margin: EdgeInsets.symmetric(
+                  horizontal: TraleTheme.of(context)!.padding,
+                ),
+                child: CustomLineChart(
+                  loadedFirst: loadedFirst,
+                  key: ValueKey<List<Measurement>>(snapshot.data ?? <Measurement>[]),
+                )
+            ),
+          ),
+          const SizedBox(height: 80.0),
+        ],
+      ),
     );
 
     return SafeArea(
