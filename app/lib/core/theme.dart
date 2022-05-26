@@ -276,14 +276,18 @@ class TraleTheme {
 enum TraleCustomTheme {
   /// red theme
   fire,
-  /// blue yellow theme
-  power,
   /// blue theme
   water,
-  /// Blue dark theme
-  //marine,
   /// greenish theme
   forest,
+  /// berry theme
+  berry,
+  /// plum theme
+  plum,
+  /// blue yellow theme
+  power,
+  /// Blue dark theme
+  //marine,
   /// sand theme
   sand,
 }
@@ -292,11 +296,13 @@ enum TraleCustomTheme {
 extension TraleCustomThemeExtension on TraleCustomTheme {
   /// get seed color of theme
   Color get seedColor => <TraleCustomTheme, Color>{
-    TraleCustomTheme.power: const Color(0xFFfca311),
-    TraleCustomTheme.fire: const Color(0xFFc55959),
-    TraleCustomTheme.sand: const Color(0xFFd9b981),
-    TraleCustomTheme.water: const Color(0xFF1063a3),
-    TraleCustomTheme.forest: const Color(0xFF1a535c),
+    TraleCustomTheme.fire: const Color(0xFFb52528),
+    TraleCustomTheme.power: const Color(0xFF626200),
+    TraleCustomTheme.sand: const Color(0xFF7e5700),
+    TraleCustomTheme.water: const Color(0xFF0161a3),
+    TraleCustomTheme.forest: const Color(0xFF006e11),
+    TraleCustomTheme.berry: const Color(0xff8b4463),
+    TraleCustomTheme.plum: const Color(0xff8e4585),
   }[this]!;
 
   /// get corresponding light theme
