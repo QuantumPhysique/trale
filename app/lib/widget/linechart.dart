@@ -9,6 +9,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -56,18 +57,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
     );
     final double margin = TraleTheme.of(context)!.padding;
 
-    final List<Color> gradientColors = <Color>[
-      Color.alphaBlend(
-        Theme.of(context).colorScheme.primary.withOpacity(0.2),
-        Theme.of(context).colorScheme.background,
-      ),
-      Color.alphaBlend(
-        Theme.of(context).colorScheme.primary.withOpacity(0.4),
-        Theme.of(context).colorScheme.background,
-      ),
-    ];
-
-
     FlSpot measurementToFlSpot (Measurement measurement) {
       return FlSpot(
         measurement.date.millisecondsSinceEpoch.toDouble(),
@@ -75,9 +64,22 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
+    final double targetWeight = TraleNotifier().userTargetWeight ?? 0.0;
+
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
     final List<FlSpot> measurementsInterpol =
       dataInterpol.map(measurementToFlSpot).toList();
+
+    final List<FlSpot> targetFlSpot = <Measurement>[
+      Measurement(
+        weight: targetWeight,
+        date: DateTime.fromMicrosecondsSinceEpoch(0),
+      ),
+      Measurement(
+        weight: targetWeight,
+        date: DateTime.now().add(const Duration(days: 1000)),
+      ),
+    ].map(measurementToFlSpot).toList();
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < minX
@@ -203,7 +205,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               spots: measurementsInterpol,
               isCurved: true,
               color: Colors.transparent,
-              barWidth: 5,
+              //color: Theme.of(context).colorScheme.primaryContainer,
+              barWidth: 3,
               isStrokeCapRound: true,
               dotData: FlDotData(
                 show: false,
@@ -211,14 +214,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
               belowBarData: BarAreaData(
                 show: true,
                 color: Theme.of(context).colorScheme.primaryContainer,
-                //gradient: LinearGradient(
-                //  colors: gradientColors,
-                //  stops: const <double>[0.2, 1.0],
-                //  begin: Alignment.bottomCenter,
-                //  end: Alignment.topCenter,
-                //),
               ),
             ),
+            if (TraleNotifier().userTargetWeight != null)
+              LineChartBarData(
+                spots: targetFlSpot,
+                isCurved: false,
+                //color: Colors.transparent,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                barWidth: 3,
+                isStrokeCapRound: true,
+                dotData: FlDotData(
+                  show: false,
+                ),
+              ),
             LineChartBarData(
               spots: measurements,
               isCurved: false,
