@@ -58,7 +58,7 @@ class Preferences {
   final Language defaultLanguage = Language.system();
 
   /// default for theme
-  final String defaultTheme = TraleCustomTheme.fire.name;
+  final String defaultTheme = TraleCustomTheme.water.name;
 
   /// default unit
   final TraleUnit defaultUnit = TraleUnit.kg;

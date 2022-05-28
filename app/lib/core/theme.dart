@@ -274,22 +274,20 @@ class TraleTheme {
 
 /// defining all workout difficulties
 enum TraleCustomTheme {
-  /// red theme
-  fire,
   /// blue theme
   water,
-  /// greenish theme
-  forest,
   /// berry theme
   berry,
-  /// plum theme
-  plum,
-  /// blue yellow theme
-  power,
-  /// Blue dark theme
-  //marine,
   /// sand theme
   sand,
+  /// red theme
+  fire,
+  /// blue yellow theme
+  lemon,
+  /// greenish theme
+  forest,
+  /// plum theme
+  plum,
 }
 
 /// extend adonisThemes with adding AdonisTheme attributes
@@ -297,7 +295,7 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   /// get seed color of theme
   Color get seedColor => <TraleCustomTheme, Color>{
     TraleCustomTheme.fire: const Color(0xFFb52528),
-    TraleCustomTheme.power: const Color(0xFF626200),
+    TraleCustomTheme.lemon: const Color(0xFF626200),
     TraleCustomTheme.sand: const Color(0xFF7e5700),
     TraleCustomTheme.water: const Color(0xFF0161a3),
     TraleCustomTheme.forest: const Color(0xFF006e11),
@@ -329,8 +327,8 @@ extension CustomThemeParsing on String {
     for (final TraleCustomTheme theme in TraleCustomTheme.values) {
       if (this == theme.name) {
         return theme;
-    }
       }
+    }
     return null;
   }
 }
