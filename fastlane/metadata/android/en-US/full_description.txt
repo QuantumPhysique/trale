@@ -1,0 +1,30 @@
+Adonify – one of the only full-featured workout apps respecting your privacy.
+
+This simplistic, material design app is perfectly suited for creating, performing and sharing your workouts.
+Besides many predefined HIIT, strength and mobility workouts, you can create new workouts without any limitations.
+You can even add whole new exercises to your workout.
+By freely choosing your equipment, you can train anywhere, anytime.
+
+Join our community to adonify yourself 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+
+<h3><b>Why adonify?</b></h3>
+	🐺 Truly FREE: No annoying advertising 
+	🐺 WORKOUTS for all fitness levels
+	🐺 OFFLINE and EQUIPMENT optional: Train anytime at anywhere
+	🐺 Tracking your PROGRESS
+	🐺 DARK MODE and many custom THEMES
+	🐺 CREATE new workouts without any limitations
+	🐺 SHARE your own workouts with your friends
+	🐺 We respect your PRIVACY by using only minimal permissions
+	🐺 TRANSPARENCY: Not just empty promises, it is fully <a href="https://gitlab.com/mobilemovement/adonify">open-source</a>
+
+<h3><b>Upcoming features 🚀</b></h3>:
+	🐺 Workout plans
+	🐺 Animated illustrations of exercises
+
+<h3><b>Disclaimer</b></h3>
+Even though the app provides workouts for all fitness levels, it aims only for advanced athletes, knowing exercises and how to execute them correctly.
+This is crucial, since the incorrect execution of exercises can cause irreversible damage.
+
+This app is still in <b>alpha</b> stage and may contain bugs. It should work best with FHD/FHD+ resolution. 
+If you encounter a bug or if you are missing a feature, please <a href="https://gitlab.com/mobilemovement/adonify/-/issues">open a new issue</a>.

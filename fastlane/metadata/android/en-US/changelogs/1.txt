@@ -1,0 +1,7 @@
+- Brand new app icon
+- Improved themeing: Improved icons, tweaked theme and better transitions
+- Completely reworked workout screen
+- Added option of resetting application
+- Immersive mode as experimental feature
+- Added 10s reminder if break is longer than 30s
+- Many bug fixs and internal improvements, see changelog
