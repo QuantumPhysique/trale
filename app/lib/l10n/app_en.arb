@@ -657,6 +657,10 @@
   "@targetWeightMotivation": {
     "description": "Explanation to clarify the importance of a target weight."
   },
+  "targetWeightShort": "target",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
   "addUserName": "How shall we call you?",
   "@addUserName": {
     "description": "How shall we call you?"

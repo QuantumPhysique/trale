@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,7 +14,9 @@ import 'package:trale/core/traleNotifier.dart';
 
 
 class CustomLineChart extends StatefulWidget {
-  const CustomLineChart({required this.loadedFirst, Key? key}) : super(key: key);
+  const CustomLineChart({
+    required this.loadedFirst, Key? key
+  }) : super(key: key);
 
   final bool loadedFirst;
   @override
@@ -64,22 +67,11 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    final double targetWeight = TraleNotifier().userTargetWeight ?? 0.0;
+    final double? targetWeight = TraleNotifier().userTargetWeight;
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
     final List<FlSpot> measurementsInterpol =
       dataInterpol.map(measurementToFlSpot).toList();
-
-    final List<FlSpot> targetFlSpot = <Measurement>[
-      Measurement(
-        weight: targetWeight,
-        date: DateTime.fromMicrosecondsSinceEpoch(0),
-      ),
-      Measurement(
-        weight: targetWeight,
-        date: DateTime.now().add(const Duration(days: 1000)),
-      ),
-    ].map(measurementToFlSpot).toList();
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < minX
@@ -200,6 +192,28 @@ class _CustomLineChartState extends State<CustomLineChart> {
             show: true,
           ),
           clipData: FlClipData.all(),
+          extraLinesData: ExtraLinesData(
+          extraLinesOnTop: true,
+            horizontalLines: <HorizontalLine>[
+              if (targetWeight != null)
+                HorizontalLine(
+                  y: targetWeight,
+                  color: Theme.of(context).colorScheme.tertiaryContainer,
+                  strokeWidth: 2,
+                  dashArray: <int>[8, 6],
+                  label: HorizontalLineLabel(
+                    show: true,
+                    alignment: Alignment.topRight,
+                    padding: const EdgeInsets.only(bottom: 3),
+                    style: Theme.of(context).textTheme.caption!.apply(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    labelResolver: (HorizontalLine line) =>
+                      AppLocalizations.of(context)!.targetWeightShort,
+                  ),
+                ),
+            ],
+          ),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
               spots: measurementsInterpol,
@@ -214,20 +228,16 @@ class _CustomLineChartState extends State<CustomLineChart> {
               belowBarData: BarAreaData(
                 show: true,
                 color: Theme.of(context).colorScheme.primaryContainer,
+                // cutOffY: targetWeight ?? 0,
+                // applyCutOffY: targetWeight != null,
+              ),
+              aboveBarData: BarAreaData(
+                show: targetWeight != null,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                cutOffY: targetWeight ?? 0,
+                applyCutOffY: true,
               ),
             ),
-            if (TraleNotifier().userTargetWeight != null)
-              LineChartBarData(
-                spots: targetFlSpot,
-                isCurved: false,
-                //color: Colors.transparent,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
-                barWidth: 3,
-                isStrokeCapRound: true,
-                dotData: FlDotData(
-                  show: false,
-                ),
-              ),
             LineChartBarData(
               spots: measurements,
               isCurved: false,
