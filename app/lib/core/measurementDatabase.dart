@@ -91,7 +91,7 @@ class MeasurementDatabase {
     gaussianExtrapolatedMeasurements;
 
     // fire stream
-    streamController.add(measurements);
+    fireStream();
     TraleNotifier().notify;
   }
 
@@ -101,6 +101,11 @@ class MeasurementDatabase {
     box.values.toList()..sort(
       (Measurement a, Measurement b) => a.compareTo(b)
     );
+
+  /// fire stream
+  void fireStream() {
+    streamController.add(measurements);
+  }
 
   /// get mean measurements
   List<Measurement> averageMeasurements(List<Measurement> ms) {

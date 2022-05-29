@@ -271,6 +271,8 @@ Future<bool> showTargetWeightDialog({
             context,
             () {
               notifier.userTargetWeight = _currentSliderValue;
+              // force rebuilding linechart and widgets
+              MeasurementDatabase().fireStream();
               Navigator.pop(context, true);
             }
           ),
