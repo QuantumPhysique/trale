@@ -10,7 +10,7 @@ import 'package:trale/core/preferences.dart';
 
 /// return gaussian with std of 3 days in x [ms]
 double gaussian(
-    double x, {double sigma=72 * 3600 * 1000, double mu=0}
+  double x, {double sigma=72 * 3600 * 1000, double mu=0}
 ) => sigma == 0
   ? x - mu == 0
     ? 1
@@ -18,26 +18,181 @@ double gaussian(
   : 1 / (sigma * sqrt(2 * pi)) * exp(-1 / 2 * pow(x - mu, 2) / pow(sigma, 2));
 
 
+/// return fermi-dirac statistic based weight with fermi-edge at 2*width
+double regressionWeight({
+  required double x,
+  required double mu,
+  required double width
+}) => 1.0 / (
+  1.0 + exp(
+    ((mu - x) - 2 * width) / width
+  )
+);
+
+
+/// estimate eights based on measurments
+List<double> regressionWeights(int x, List<Measurement> measurements) {
+  final Preferences pref = Preferences();
+  final List<double> weights = <double>[
+    for (final Measurement m in measurements)
+      regressionWeight(
+        x: m.dateInMs.toDouble(),
+        mu: x.toDouble(),
+        width: pref.interpolStrength.strengthMeasurement * 24 * 3600 * 1000,
+      )
+  ];
+
+  final double totalWeights = weights.reduce(
+    (double value, double element) => value + element
+  );
+  return <double>[
+    for (final double w in weights)
+      w / totalWeights
+  ];
+}
+
+
+/// estimate weighted averaged weight
+double regressionMeanWeight(int x, List<Measurement> measurements) {
+  final List<double> weights = regressionWeights(x, measurements);
+  double meanWeight = 0;
+  for (int i=0; i <measurements.length; i++){
+    meanWeight += measurements[i].weight * weights[i];
+  }
+  return meanWeight;
+}
+
+
+/// estimate weighted averaged weight
+double regressionMeanTime(int x, List<Measurement> measurements) {
+  final List<double> weights = regressionWeights(x, measurements);
+  double meanTime = 0;
+  for (int i=0; i <measurements.length; i++){
+    meanTime += measurements[i].dateInMs * weights[i];
+  }
+  return meanTime;
+}
+
+/// estimate change of linear regression
+double regressionMeanChange(int x, List<Measurement> measurements) {
+  final List<double> weights = regressionWeights(x, measurements);
+  final double tMean = regressionMeanTime(x, measurements);
+  final double wMean = regressionMeanWeight(x, measurements);
+  double meanDeltaTime = 0;
+  double meanDeltaWeight = 0;
+  double t, w;
+  for (int i=0; i < measurements.length; i++){
+    t = measurements[i].dateInMs.toDouble();
+    w = measurements[i].weight;
+    meanDeltaWeight += (w - wMean) * (t - tMean) * weights[i];
+    meanDeltaTime += (t - tMean) * (t - tMean) * weights[i];
+  }
+  return meanDeltaWeight / meanDeltaTime;
+}
+
+
+/// estimate intercept of linear regression
+double regressionMeanIntercept(int x, List<Measurement> measurements) {
+  final double tMean = regressionMeanTime(x, measurements);
+  final double wMean = regressionMeanWeight(x, measurements);
+  final double cMean = regressionMeanChange(x, measurements);
+
+  final double intercept = wMean - cMean * tMean;
+  return intercept;
+}
+
+
+/// linear regression around time t
+Measurement linearRegression(int x, int xref, List<Measurement> measurements) {
+  final double intercept = regressionMeanIntercept(xref, measurements);
+  final double change = regressionMeanChange(xref, measurements);
+  final double weight = change * x + intercept;
+  const double weightMax = 1000;
+  final Measurement m = Measurement(
+    weight: weight < 0
+      ? 0
+      : weight > weightMax
+        ? weightMax
+        : weight,
+    date: DateTime.fromMillisecondsSinceEpoch(x),
+    isMeasured: true,
+  );
+
+  return m;
+}
+
+
+/// add value of linear regression to list of Measurements
+List<Measurement> addLinearRegression(List<Measurement> ms) {
+  final Preferences pref = Preferences();
+  final List<Measurement> msRegr = <Measurement>[
+    for (final Measurement m in ms)
+      Measurement(
+        weight: m.weight,
+        date: m.date,
+        isMeasured: m.isMeasured,
+      )
+  ];
+  final Interpolation interpol = Interpolation(
+    measures: ms,
+    extrapolationRange: pref.interpolStrength.strengthMeasurement,
+  );
+  final int dateFrom = ms.last.dateInMs + interpol.extrapolationStepWidth;
+  final int dateTo = dateFrom + 2 * interpol.extrapolationRange;
+
+  msRegr.addAll(
+      <Measurement>[
+        for (
+        int date=dateFrom;
+        date < dateTo + interpol.extrapolationStepWidth;
+        date += interpol.extrapolationStepWidth
+        )
+          linearRegression(date, dateFrom, ms)
+      ]
+  );
+  return msRegr;
+}
+
+/// estimate eights based on measurments
+List<double> measurementsToWeights(int x, List<Measurement> measurements) {
+  final Preferences pref = Preferences();
+  List<double> weights = <double>[
+    for (final Measurement m in measurements)
+      gaussian(
+        x.toDouble(),
+        mu: m.dateInMs.toDouble(),
+        sigma: (
+            m.isMeasured
+                ? pref.interpolStrength.strengthMeasurement
+                : pref.interpolStrength.strengthInterpol
+        ) * 24 * 3600 * 1000,
+      ) * (m.isMeasured ? pref.interpolStrength.weight : 1)
+  ];
+  final double totalWeights = weights.reduce(
+          (double value, double element) => value + element
+  );
+  return <double>[
+    for (final double w in weights)
+      w / totalWeights
+  ];
+}
+
+
+/// estimate weighted averaged weight
+double meanWeight(int x, List<Measurement> measurements) {
+  final List<double> weights = measurementsToWeights(x, measurements);
+  double meanWeight = 0;
+  for (int i=0; i <measurements.length; i++){
+    meanWeight += measurements[i].weight * weights[i];
+  }
+  return meanWeight;
+}
+
+
 /// x date in milliseconds since epoch, measurements sorted by date
 Measurement gaussianInterpol(int x, List<Measurement> measurements){
-  final Preferences pref = Preferences();
-  double weightSum = 0;
-  double meanSum = 0;
-  for (final Measurement m in measurements) {
-    final double weight = gaussian(
-      x.toDouble(),
-      mu: m.dateInMs.toDouble(),
-      sigma: (
-        m.isMeasured
-          ? pref.interpolStrength.strengthMeasurement
-          : pref.interpolStrength.strengthInterpol
-      ) * 24 * 3600 * 1000,
-    ) * (m.isMeasured ? pref.interpolStrength.weight : 1);
-    weightSum += weight;
-    meanSum += m.weight * weight;
-  }
   return Measurement(
-    weight: meanSum / weightSum,
+    weight: meanWeight(x, measurements),
     date: DateTime.fromMillisecondsSinceEpoch(x),
     isMeasured: false,
   );

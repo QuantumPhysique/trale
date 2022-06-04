@@ -188,10 +188,15 @@ class MeasurementDatabase {
     if (ms.isEmpty) {
       return measurements;
     }
+
+    /// add linear regression on last measurement to improve Gaussian
+    /// interpolation
+    final List<Measurement> msRegr = addLinearRegression(ms);
+
     return <Measurement>[
       for (final Measurement m in ms)
         InterpolFunc.gaussian.function(
-          m.dateInMs, dailyAveragedMeasurements,
+          m.dateInMs, msRegr,
         ) as Measurement
     ];
   }
@@ -254,6 +259,7 @@ class MeasurementDatabase {
       return measurements;
     }
     final List<Measurement> msGaussian = gaussianInterpolatedMeasurements;
+    final List<Measurement> msGaussianRegress = addLinearRegression(msGaussian);
 
     final List<Measurement> extrapolH = <Measurement>[];
     final List<Measurement> extrapolF = <Measurement>[];
@@ -269,12 +275,12 @@ class MeasurementDatabase {
       dateH = DateTime(dateH.year, dateH.month, dateH.day, _offsetInH);
       extrapolF.add(
         (InterpolFunc.linear.function(
-          dateF.millisecondsSinceEpoch, msGaussian,
+          dateF.millisecondsSinceEpoch, msGaussianRegress,
         ) as Measurement).apply(isMeasured: true),
       );
       extrapolH.add(
         (InterpolFunc.linear.function(
-            dateH.millisecondsSinceEpoch, msGaussian,
+            dateH.millisecondsSinceEpoch, msGaussianRegress,
         ) as Measurement).apply(isMeasured: true),
       );
     }
