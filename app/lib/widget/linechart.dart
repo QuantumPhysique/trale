@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 import 'package:trale/core/measurement.dart';
@@ -112,17 +112,17 @@ class _CustomLineChartState extends State<CustomLineChart> {
     /// convert time [ms since Epoch] to xtick label
     String time2xticklabel(double time) {
       final DateTime date = DateTime.fromMillisecondsSinceEpoch(
-          time.toInt()
+        time.toInt()
       );
       final int interval = (
-          max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
+        max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
       ).toInt();
       if (
-      date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
-          (
-              maxX - date.millisecondsSinceEpoch <
-                  const Duration(days: 1).inMilliseconds
-          )
+        date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
+        (
+            maxX - date.millisecondsSinceEpoch <
+                const Duration(days: 1).inMilliseconds
+        )
       ) {
         return '';
       } else if (date.day == 1) {
@@ -131,8 +131,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             Localizations.localeOf(context).languageCode
         ).format(date);
       } else if (
-      date.day % interval == 0 &&
-          date.day - interval ~/ 1.5 > 0
+        date.day % interval == 0 && date.day - interval ~/ 1.5 > 0
       ) {
         return date.day.toString();
       }
