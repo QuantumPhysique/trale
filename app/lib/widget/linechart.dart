@@ -198,7 +198,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
               if (targetWeight != null)
                 HorizontalLine(
                   y: targetWeight,
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
+                  color: Theme.of(context).colorScheme.tertiary,
                   strokeWidth: 2,
                   dashArray: <int>[8, 6],
                   label: HorizontalLineLabel(
