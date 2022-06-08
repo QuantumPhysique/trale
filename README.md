@@ -1,89 +1,65 @@
-# trale
+<div align="center">
+    <img src="fastlane/metadata/android/en-US/images/featureGraphic.jpg" />
+</div>
 
-Trale - an android app to track your weight.
+# trale – a simple body weight diary app respecting your privacy.
 
-## Getting started
+This simplistic, material design app is perfectly suited for locking your
+weight. Whether you want to gain or lose weight, this app is the perfect
+companion to reach your optimal weight.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+[[_TOC_]]
 
-## Add your files
+## Why trale?
+	🐺 Truly FREE: No annoying advertising no permission
+	🐺 Modern appearance using MATERIAL DESIGN 3
+	🐺 CUSTOMIZABLE: Many free custom themes, DARK MODE, and several UNITS. Tracking your PROGRESS
+	🐺 Track your PROGRESS with state-of-the-art data modeling 🧑‍💻
+	🐺 PRIVACY: Not just empty promises, it is fully <a href="https://gitlab.com/mobilemovement/trale">open-source</a>
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+## Upcoming features 🚀
+	🐺 Import and export of your measurements
+	🐺 Achievements and motivational messages
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/mobilemovement/trale.git
-git branch -M main
-git push -uf origin main
-```
+## Screenshots
+<div align="center">
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" />
+</div>
 
-## Integrate with your tools
+## FAQ
+##### I found a bug
+Please open a new <a href="https://gitlab.com/mobilemovement/adonify/-/issues">issue</a>.
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/integrations/)
+##### Will this app stay free
+This app will always be free on F-Droid with all features enabled. Once leaving beta, we will charge a small fee on google play store.
 
-## Collaborate with your team
+##### Could you please add feature X
+At the moment the app is in beta stage and there might be many bugs. Therefore, we focus on improving stability before integrating new features. Nevertheless, feel free to open a new <a href="https://gitlab.com/mobilemovement/adonify/-/issues">issue</a> or direclty a merge request so that we know which features are missing most.
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+##### Will the app be translated to X
+At the current stage only a few languages are available. In the near feature we will add this project to weblate to encurage the community to translate the app to new languages.
+The database itself (or mainly due to our limited sqllite knowledge) is limited to a single language. But it is possible to create new exercises and workouts with a different language.
 
-## Test and Deploy
+##### Can I contribute
+For sure, that is the reason why we opened the source code. There are many ways you can help:
+- Implementing new functionality. If you are new to flutter you should first [get started](https://flutter.dev/docs/get-started/install)
+- Open issues and help us finding bugs or simply give feedback
+- or simply share the app with your friends :)
 
-Use the built-in continuous integration in GitLab.
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://docs.gitlab.com/ee/user/application_security/sast/)
+## Disclaimer
+Anorexia is a serious disease. Especially due to the many negative examples in
+the social media, anorexia is increasingly a problem for society as a whole. In
+order to make our contribution to prevention, no target weight below 50 kg /
+110 lb / 7.9 st is possible.
 
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:bce6e53f35ca2b838f0472acf0b83cc0?https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+This app is still in <b>beta</b> stage and may contain bugs. It should work
+best with FHD/FHD+ resolution. If you encounter a bug or if you are missing a
+feature, please <a href="https://gitlab.com/mobilemovement/adonify/-/issues">open a new issue</a>.
 
 ## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
-
+The source code is licensed under the [Apache License 2.0](http://choosealicense.com/licenses/apache-2.0/).

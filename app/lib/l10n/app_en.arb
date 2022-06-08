@@ -593,9 +593,9 @@
   "@chooseExercise": {
     "description": "Choose an exercise"
   },
-  "addWeight": "add weight",
+  "addWeight": "Enter your weight",
   "@addWeight": {
-    "description": "add weight"
+    "description": "Enter your weight"
   },
   "interpolation": "interpolation",
   "@interpolation": {
