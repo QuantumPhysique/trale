@@ -4,6 +4,7 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/zoomLevel.dart';
 
 
 /// Class to coordinate shared preferences access
@@ -65,6 +66,9 @@ class Preferences {
 
   /// default interpolation strength
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
+
+  /// default zoomLevel
+  final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
   /// getter and setter for all preferences
   /// set user name
@@ -145,6 +149,16 @@ class Preferences {
         'interpolStrength', strength.name,
       );
 
+  /// get zoom level
+  ZoomLevel get zoomLevel =>
+      prefs.getInt('zoomLevel')!.toZoomLevel()!;
+
+  /// set zoom Level
+  set zoomLevel(ZoomLevel level) =>
+      prefs.setInt(
+        'zoomLevel', level.index,
+      );
+
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
     if (override || !prefs.containsKey('nightMode')) {
@@ -176,6 +190,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('showOnBoarding')) {
       showOnBoarding = defaultShowOnboarding;
+    }
+    if (override || !prefs.containsKey('zoomLevel')) {
+      zoomLevel = defaultZoomLevel;
     }
   }
 
