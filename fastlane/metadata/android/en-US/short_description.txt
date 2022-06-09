@@ -1,5 +1,1 @@
-Trale – a simple body weight diary app respecting your privacy.
-This simplistic, material design app is perfectly suited for locking your
-weight. Whether you want to gain or lose weight, this app is the perfect
-companion to reach your optimal weight.
-Join our community today to trace yourself 🐺
+trale – a beautiful body weight diary app respecting your privacy 🐺

@@ -1,0 +1,30 @@
+trale – eine schöne Gewichtsapp die deine Privatsphäre respektiert
+
+Diese schlichte App im Material Design 3 ist perfekt geeignet, um Ihr Gewicht
+zu in den Griff zu bekommen. Ob Sie zunehmen oder abnehmen wollen, diese App
+ist der perfekte Begleiter, um Ihr optimales Gewicht zu erreichen.
+
+Tritt noch heute unserer Community bei und erreich dein Traumgewicht 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+
+<b>Wieso trale 🐺?</b>
+* Komplett <b>FREI</b>: Keine nervige Werbung, keine Tracker
+* Modernes Design basierend auf <b>MATERIAL DESIGN 3</b>
+* <b>ANPASSBAR</b>: Viele kostenlose Farbthemen, <b>DARK MODE</b>, und verschiedene <b>Einheiten</b>
+* Verfolge deinen Fortschritt mit <b>STATE-OF-THE-ART</b> Datenmodellierung 🧑‍💻
+* <b>PRIVATSPHÄRE</b>: Nicht nur leere Versprechen, die App ist <a href="https://gitlab.com/mobilemovement/trale">open-source</a>
+
+<b>Geplante Funktionalität 🚀:</b>
+* Importieren und exportieren der Messungen
+* Errungenschaften und motivierende Nachrichten
+
+<b>Disclaimer</b>
+Magersucht ist eine ernste Krankheit. Insbesondere durch die vielen
+Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem
+gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten,
+ist kein Zielgewicht unter 50 kg / 110 lb / 7,9 st ist möglich.
+
+Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten.
+Sie sollte am besten mit einer FHD/FHD+ Auflösung funktionieren. Falls du einen
+Fehler findest oder eine Funktion vermisst, bitte
+<a href="https://gitlab.com/mobilemovement/adonify/-/issues">eröffne eine neues
+Issue</a>.
