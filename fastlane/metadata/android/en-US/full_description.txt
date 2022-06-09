@@ -6,18 +6,18 @@ companion to reach your optimal weight.
 
 Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
-<h3><b>Why trale?</b></h3>
-	🐺 Truly FREE: No annoying advertising no permission
-	🐺 Modern appearance using MATERIAL DESIGN 3
-	🐺 CUSTOMIZABLE: Many free custom themes, DARK MODE, and several UNITS. Tracking your PROGRESS
-	🐺 Track your PROGRESS with state-of-the-art data modeling 🧑‍💻
-	🐺 PRIVACY: Not just empty promises, it is fully <a href="https://gitlab.com/mobilemovement/trale">open-source</a>
+<b>Why trale 🐺?</b>
+* Truly <b>FREE</b>: No annoying advertising no permission
+* Modern appearance using <b>MATERIAL DESIGN 3</b>
+* <b>CUSTOMIZABLE</b>: Many free custom themes, <b>DARK MODE</b>, and several <b>UNITS</b>. Tracking your <b>PROGRESS</b>
+* Track your progress with <b>STATE-OF-THE-ART</b> data modeling 🧑‍💻
+* <b>PRIVACY</b>: Not just empty promises, it is fully <a href="https://gitlab.com/mobilemovement/trale">open-source</a>
 
-<h3><b>Upcoming features 🚀</b></h3>:
-	🐺 Import and export of your measurements
-	🐺 Achievements and motivational messages
+<b>Upcoming features 🚀:</b>
+* Import and export of your measurements
+* Achievements and motivational messages
 
-<h3><b>Disclaimer</b></h3>
+<b>Disclaimer</b>
 Anorexia is a serious disease. Especially due to the many negative examples in
 the social media, anorexia is increasingly a problem for society as a whole. In
 order to make our contribution to prevention, no target weight below 50 kg /
