@@ -11,6 +11,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/zoomLevel.dart';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -29,13 +30,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
   @override
   void initState() {
     super.initState();
-    final MeasurementDatabase db = MeasurementDatabase();
-    minX = db.sortedMeasurements.first.measurement.date.subtract(
-      const Duration(days: 21)
-    ).millisecondsSinceEpoch.toDouble();
-    maxX = db.sortedMeasurements.first.measurement.date.add(
-      const Duration(days: 7)
-    ).millisecondsSinceEpoch.toDouble();
+    final TraleNotifier notifier = TraleNotifier();
+    minX = notifier.zoomLevel.minX;
+    maxX = notifier.zoomLevel.maxX;
   }
 
   @override
@@ -67,7 +64,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    final double? targetWeight = TraleNotifier().userTargetWeight;
+    final TraleNotifier notifier = TraleNotifier();
+    final double? targetWeight = notifier.userTargetWeight;
 
     final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
     final List<FlSpot> measurementsInterpol =
@@ -276,29 +274,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
       padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
       child: GestureDetector(
         onDoubleTap: () {
+          notifier.nextZoomLevel();
           setState(() {
-            if (
-              minX == dataInterpol.first.date.millisecondsSinceEpoch.toDouble() &&
-              maxX == (
-                dataInterpol.last.date.compareTo(DateTime.now()) > 0
-                  ? dataInterpol.last.date
-                  : DateTime.now()
-              ).millisecondsSinceEpoch.toDouble()
-            ) {
-              minX = DateTime.now().subtract(
-                const Duration(days: 21)
-              ).millisecondsSinceEpoch.toDouble();
-              maxX = DateTime.now().add(
-                const Duration(days: 7)
-              ).millisecondsSinceEpoch.toDouble();
-            } else {
-              minX = dataInterpol.first.dateInMs.toDouble();
-              maxX = (
-                dataInterpol.last.date.compareTo(DateTime.now()) > 0
-                  ? dataInterpol.last.date
-                  : DateTime.now()
-              ).millisecondsSinceEpoch.toDouble();
-            }
+            maxX = notifier.zoomLevel.maxX;
+            minX = notifier.zoomLevel.minX;
           });
         },
         onScaleUpdate: (ScaleUpdateDetails details) {

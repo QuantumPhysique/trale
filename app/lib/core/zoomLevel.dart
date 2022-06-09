@@ -13,23 +13,27 @@ enum ZoomLevel {
 /// extend zoom levels
 extension ZoomLevelExtension on ZoomLevel {
   /// get the window length in month
-  double get rangeInMilliseconds => <ZoomLevel, int>{
+  double get _rangeInMilliseconds => <ZoomLevel, int>{
     ZoomLevel.two: 2,
     ZoomLevel.six: 6,
     ZoomLevel.year: 12,
     ZoomLevel.all: -1,
-  }[this]! * 31 * 24 * 3600 * 1000;
+  }[this]! * 30 * 24 * 3600 * 1000;
+
+  /// get range
+  double get rangeInMilliseconds => maxX - minX;
 
   /// get next zoom level
   ZoomLevel get next {
     final ZoomLevel nextLevel = ZoomLevel.values[
-      index % ZoomLevel.values.length
+      (index + 1) % ZoomLevel.values.length
     ];
 
     /// if range of measurements to short show all available
     if (
-      (_measurements.last.dayInMs - _measurements.first.dayInMs).toDouble()
-      < nextLevel.rangeInMilliseconds
+      (
+          _measurements.last.dayInMs - _measurements.first.dayInMs
+      ).abs() < nextLevel._rangeInMilliseconds
     ) {
       return ZoomLevel.all;
     }
@@ -44,7 +48,7 @@ extension ZoomLevelExtension on ZoomLevel {
     if (this == ZoomLevel.all) {
       return _measurements.first.dayInMs.toDouble();
     }
-    return _measurements.last.dayInMs - rangeInMilliseconds;
+    return _measurements.last.dayInMs - _rangeInMilliseconds;
   }
 
   /// get measurements to estimate range, maxX, and minX

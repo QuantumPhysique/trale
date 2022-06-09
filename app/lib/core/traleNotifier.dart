@@ -7,6 +7,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/zoomLevel.dart';
 
 
 /// Class to dynamically change themeMode, isAmoled and language within app
@@ -48,6 +49,18 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// get zoom level
+  ZoomLevel get zoomLevel => prefs.zoomLevel;
+
+  /// choose next zoom level
+  void nextZoomLevel() {
+    final ZoomLevel newLevel = prefs.zoomLevel.next;
+    if (newLevel != prefs.zoomLevel) {
+      prefs.zoomLevel = newLevel;
+      notifyListeners();
+    }
+}
+
   /// getter
   Language get language => prefs.language;
   /// setter
@@ -76,6 +89,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   TraleUnit get unit => prefs.unit;
+
   /// setter
   set unit(TraleUnit newUnit) {
     if (unit != newUnit) {
