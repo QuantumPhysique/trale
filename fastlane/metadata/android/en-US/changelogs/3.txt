@@ -1,5 +1,0 @@
-- Major UI improvements of workout screen, landing screen and editors
-- Better color themes and two new ones
-- Added logs of workout history
-- Major performance improvements
-- bug fixes and much more
