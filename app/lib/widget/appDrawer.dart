@@ -12,6 +12,7 @@ import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
+import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/routeTransition.dart';
 
 /// Drawer for home screen
@@ -39,34 +40,19 @@ Drawer appDrawer (BuildContext context) {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset(
-                'assets/launcher/icon_large.png',
-                width: MediaQuery.of(context).size.width * 0.2,
-                height: MediaQuery.of(context).size.width * 0.2,
-              ),
+              const IconHero(),
               SizedBox(width: TraleTheme.of(context)!.padding),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  AutoSizeText(
-                    AppLocalizations.of(context)!.trale.toLowerCase(),
-                    style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                    maxLines: 1,
+              Center(
+                child: AutoSizeText(
+                  AppLocalizations.of(context)!.trale.toLowerCase(),
+                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
-                  AutoSizeText(
-                    AppLocalizations.of(context)!.tralesub,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
-                    maxLines: 1,
-                  ),
-                ],
+                  maxLines: 1,
+                ),
               ),
             ],
           ),
