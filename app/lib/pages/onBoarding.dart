@@ -7,6 +7,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/settings.dart';
+import 'package:trale/widget/iconHero.dart';
 
 /// Page shown on the very first opening of the app
 class OnBoardingPage extends StatefulWidget {
@@ -27,10 +28,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     Navigator.of(context).push<void>(
       MaterialPageRoute<void>(builder: (_) => const Home()),
     );
-  }
-
-  Widget _buildImage(String assetName, [double width = 350]) {
-    return Image.asset('assets/$assetName', width: width);
   }
 
   List<bool> unitIsSelected =
@@ -66,10 +63,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       PageViewModel(
         title: '${AppLocalizations.of(context)!.welcome} 😃',
         body: AppLocalizations.of(context)!.onBoarding1,
-        image: _buildImage(
-          'launcher/icon_large.png',
-          MediaQuery.of(context).size.width / 2.5,
-        ),
+        image: IconHero(),
         decoration: pageDecoration
       ),
       PageViewModel(

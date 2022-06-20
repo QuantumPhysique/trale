@@ -86,8 +86,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/launcher/foreground_crop.png
-    - assets/launcher/foreground_crop2.png
     - assets/launcher/icon_large.png
     - assets/trale_icon.riv
 
