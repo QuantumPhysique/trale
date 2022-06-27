@@ -18,37 +18,35 @@ class _IconHeroState extends State<IconHero> {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme _ctheme = Theme.of(context).colorScheme;
-    final bool _isDark = Theme.of(context).brightness == Brightness.dark;
+    final ColorScheme ctheme = Theme.of(context).colorScheme;
 
     final Map<String, Color> colors = <String, Color>{
-      'tr': _ctheme.onPrimaryContainer,
-      'background': _ctheme.primaryContainer,
-      'wolf': _ctheme.primary,
-      'title': _ctheme.onSurface,
-      'subtitle': _ctheme.onSurfaceVariant,
-      'slogan': _ctheme.primary,
+      'background': ctheme.primaryContainer,
+      'tr': ElevationOverlay.applySurfaceTint(
+          ctheme.surface,
+          ctheme.surfaceTint,
+          Theme.of(context).drawerTheme.elevation ?? 1,
+      ),
+      'wolf': ctheme.onPrimaryContainer,
+      'title': ctheme.onSurface,
+      'subtitle': ctheme.onSurfaceVariant,
+      'slogan': ctheme.primary,
     };
 
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.3,
-      height: MediaQuery.of(context).size.width * 0.3,
-      alignment: Alignment.center,
-      child: RiveAnimation.asset(
-        _assetName,
-        onInit: (Artboard artboard) {
-          artboard.forEachComponent(
-            (Component child) {
-              if (child is Shape) {
-                if (colors.containsKey(child.name)) {
-                  final Shape shape = child;
-                  shape.fills.first.paint.color = colors[child.name]!;
-                }
+    return RiveAnimation.asset(
+      _assetName,
+      onInit: (Artboard artboard) {
+        artboard.forEachComponent(
+          (Component child) {
+            if (child is Shape) {
+              if (colors.containsKey(child.name)) {
+                final Shape shape = child;
+                shape.fills.first.paint.color = colors[child.name]!;
               }
-            },
-          );
-        },
-      ),
+            }
+          },
+        );
+      },
     );
   }
 }
