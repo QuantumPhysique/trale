@@ -22,11 +22,6 @@ class _IconHeroState extends State<IconHero> {
 
     final Map<String, Color> colors = <String, Color>{
       'background': ctheme.primaryContainer,
-      'tr': ElevationOverlay.applySurfaceTint(
-          ctheme.surface,
-          ctheme.surfaceTint,
-          Theme.of(context).drawerTheme.elevation ?? 1,
-      ),
       'wolf': ctheme.onPrimaryContainer,
       'title': ctheme.onSurface,
       'subtitle': ctheme.onSurfaceVariant,
