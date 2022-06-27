@@ -34,12 +34,11 @@ Drawer appDrawer (BuildContext context) {
       children: <Widget>[
         DrawerHeader(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surfaceVariant,
             borderRadius: BorderRadius.only(
               topRight: Radius.circular(TraleTheme.of(context)!.borderRadius),
             ),
           ),
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: const IconHero(),
           ),

@@ -24,13 +24,13 @@ class _IconHeroState extends State<IconHero> {
     final Map<String, Color> colors = <String, Color>{
       'tr': _isDark
         ? _ctheme.surfaceVariant
-        : _ctheme.surfaceVariant,
+        : _ctheme.primary,
       'background': _isDark
         ? _ctheme.primaryContainer
-        : _ctheme.onSurfaceVariant,
+        : _ctheme.primaryContainer,
       'wolf': _isDark
         ? _ctheme.onPrimaryContainer
-        : _ctheme.primary,
+        : _ctheme.onSurface,
       'title': _ctheme.onSurfaceVariant,
       'subtitle': _ctheme.onSurfaceVariant,
       'slogan': _isDark
