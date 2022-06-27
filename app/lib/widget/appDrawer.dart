@@ -39,22 +39,9 @@ Drawer appDrawer (BuildContext context) {
               topRight: Radius.circular(TraleTheme.of(context)!.borderRadius),
             ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const IconHero(),
-              SizedBox(width: TraleTheme.of(context)!.padding),
-              Center(
-                child: AutoSizeText(
-                  AppLocalizations.of(context)!.trale.toLowerCase(),
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                  maxLines: 1,
-                ),
-              ),
-            ],
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: const IconHero(),
           ),
         ),
         ListTile(
