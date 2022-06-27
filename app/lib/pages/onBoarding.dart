@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/pages/home.dart';
@@ -45,8 +46,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         horizontal: 2 * TraleTheme.of(context)!.padding,
         vertical: TraleTheme.of(context)!.padding,
       ),
-      imageFlex: 1,
-      bodyFlex: 1,
+      imageFlex: 2,
+      bodyFlex: 3,
       bodyPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding),
       imagePadding: EdgeInsets.all(
@@ -61,7 +62,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     final List<PageViewModel> pageViewModels = <PageViewModel>[
       PageViewModel(
-        title: '${AppLocalizations.of(context)!.welcome} 😃',
+        title: '${AppLocalizations.of(context)!.welcome.inCaps} 😃',
         body: AppLocalizations.of(context)!.onBoarding1,
         image: IconHero(),
         decoration: pageDecoration
@@ -90,6 +91,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           imagePadding: EdgeInsets.symmetric(
               vertical: 2 * TraleTheme.of(context)!.padding,
               horizontal: 0),
+          imageFlex: 1,
+          bodyFlex: 1
         ),
       ),
       PageViewModel(
