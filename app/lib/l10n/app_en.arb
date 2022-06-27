@@ -621,7 +621,7 @@
   "@welcome": {
     "description": "welcome"
   },
-  "onBoarding1": "This simplistic, material design app is perfectly suited for locking your weight. Whether you want to gain or lose weight, this app is the perfect companion to reach your optimal weight. \n\n Join our community today to trace yourself. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "This simplistic Material-You-design app helps you to reach your dream weight! Whether you want to gain weight, lose weight or simply maintain your weight: Reliable weight predictions and versatile statistics help you to stay on track. \n\n Join our community today to trace yourself. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
