@@ -14,9 +14,7 @@ class IconHero extends StatefulWidget {
 
 class _IconHeroState extends State<IconHero> {
   /// path to rive file
-  static const String _assetName = 'assets/trale_icon.riv';
-
-
+  static const String _assetName = 'assets/trale_icon_extended.riv';
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +22,19 @@ class _IconHeroState extends State<IconHero> {
     final bool _isDark = Theme.of(context).brightness == Brightness.dark;
 
     final Map<String, Color> colors = <String, Color>{
-      'tr_shape': _isDark
+      'tr': _isDark
         ? _ctheme.surfaceVariant
         : _ctheme.surfaceVariant,
-      'background_shape': _isDark
+      'background': _isDark
         ? _ctheme.primaryContainer
         : _ctheme.onSurfaceVariant,
-      'wolf_shape': _isDark
+      'wolf': _isDark
         ? _ctheme.onPrimaryContainer
+        : _ctheme.primary,
+      'title': _ctheme.onSurfaceVariant,
+      'subtitle': _ctheme.onSurfaceVariant,
+      'slogan': _isDark
+        ? _ctheme.primaryContainer
         : _ctheme.primary,
     };
 
