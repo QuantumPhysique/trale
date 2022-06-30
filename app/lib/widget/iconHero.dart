@@ -14,7 +14,9 @@ class IconHero extends StatefulWidget {
 
 class _IconHeroState extends State<IconHero> {
   /// path to rive file
-  static const String _assetName = 'assets/trale_icon_extended.riv';
+  static const String assetName = 'assets/trale.riv';
+  static const String artboard = 'icon';
+  static const String animation = 'idle';
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,9 @@ class _IconHeroState extends State<IconHero> {
     };
 
     return RiveAnimation.asset(
-      _assetName,
+      assetName,
+      artboard: artboard,
+      animations: const <String>[animation],
       onInit: (Artboard artboard) {
         artboard.forEachComponent(
           (Component child) {
