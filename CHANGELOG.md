@@ -7,6 +7,9 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Added nice splash screen
+- Adjust icon in drawer to theme and add slogan
 
 
 ## [0.2.0] - 2022-06-09
