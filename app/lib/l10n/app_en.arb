@@ -645,7 +645,7 @@
   "@skip": {
     "description": "Skip onboarding screen."
   },
-  "startApp": "start app",
+  "startApp": "start",
   "@startApp": {
     "description": "Press to start the app."
   },

@@ -47,6 +47,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         vertical: TraleTheme.of(context)!.padding,
       ),
       imageFlex: 2,
+      imageAlignment: Alignment.bottomCenter,
       bodyFlex: 3,
       bodyPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding),
@@ -64,7 +65,11 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       PageViewModel(
         title: '${AppLocalizations.of(context)!.welcome.inCaps} 😃',
         body: AppLocalizations.of(context)!.onBoarding1,
-        image: IconHero(),
+        image: SizedBox(
+            width: 0.75 * MediaQuery.of(context).size.width,
+            height: 0.15 * MediaQuery.of(context).size.height,
+            child: const IconHero(),
+        ),
         decoration: pageDecoration
       ),
       PageViewModel(
