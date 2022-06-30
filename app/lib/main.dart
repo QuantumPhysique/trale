@@ -8,8 +8,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/pages/home.dart';
-import 'package:trale/pages/onBoarding.dart';
+import 'package:trale/pages/splash.dart';
 
 
 const String measurementBoxName = 'measurements';
@@ -72,11 +71,7 @@ class TraleMainApp extends StatelessWidget {
             traleNotifier: traleNotifier,
             routes: <String, Widget Function(BuildContext)>{
               '/': (BuildContext context) {
-                if (prefs.showOnBoarding) {
-                  return const OnBoardingPage();
-                } else {
-                  return const Home();
-                }
+                return const Splash();
               }
             },
           );
