@@ -40,10 +40,10 @@ class _SplashHeroState extends State<SplashHero> {
 
     final Map<String, Color> colors = <String, Color>{
       'background': ctheme.primaryContainer,
-      'background_outline': ctheme.primaryContainer,
+      'background_outline': ctheme.onBackground,
       'wolf': ctheme.onPrimaryContainer,
-      'wolf_outline': ctheme.onPrimaryContainer,
-      'title': ctheme.onSurface,
+      'wolf_outline': ctheme.onBackground,
+      'title': ctheme.onBackground,
       'subtitle': ctheme.onSurface,
       'bars': ctheme.onSurface,
       'slogan': ctheme.primary,
@@ -69,6 +69,7 @@ class _SplashHeroState extends State<SplashHero> {
                 if (shape.strokes.isNotEmpty) {
                   (shape.strokes.first.children[0] as SolidColor).colorValue =
                       (colors[child.name])!.value;
+                  shape.strokes.first.thickness = 25;
                 }
               }
             }
