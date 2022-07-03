@@ -333,7 +333,7 @@ class MeasurementDatabase {
       return null;
     }
 
-    final List<Measurement> ms = dailyAveragedInterpolatedMeasurements;
+    final List<Measurement> ms = gaussianInterpolatedMeasurements;
     return ms.last.weight - ms.elementAt(ms.length - 1 - nDays).weight;
   }
 
