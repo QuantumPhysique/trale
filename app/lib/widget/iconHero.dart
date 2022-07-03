@@ -23,8 +23,8 @@ class _IconHeroState extends State<IconHero> {
     final ColorScheme ctheme = Theme.of(context).colorScheme;
 
     final Map<String, Color> colors = <String, Color>{
-      'background': ctheme.primaryContainer,
-      'wolf': ctheme.onPrimaryContainer,
+      'background': ctheme.onSurfaceVariant,
+      'wolf': ctheme.primaryContainer,
       'title': ctheme.onSurface,
       'subtitle': ctheme.onSurfaceVariant,
       'slogan': ctheme.primary,
@@ -40,7 +40,10 @@ class _IconHeroState extends State<IconHero> {
             if (child is Shape) {
               if (colors.containsKey(child.name)) {
                 final Shape shape = child;
-                shape.fills.first.paint.color = colors[child.name]!;
+                if (shape.fills.isNotEmpty) {
+                  (shape.fills.first.children[0] as SolidColor).colorValue =
+                      (colors[child.name])!.value;
+                }
               }
             }
           },

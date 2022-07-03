@@ -39,15 +39,15 @@ class _SplashHeroState extends State<SplashHero> {
     final ColorScheme ctheme = Theme.of(context).colorScheme;
 
     final Map<String, Color> colors = <String, Color>{
-      'background': ctheme.primaryContainer,
+      'background': ctheme.onSurfaceVariant,
+      'wolf': ctheme.primaryContainer,
       'background_outline': ctheme.onBackground,
-      'wolf': ctheme.onPrimaryContainer,
       'wolf_outline': ctheme.onBackground,
       'title': ctheme.onBackground,
-      'subtitle': ctheme.onSurface,
-      'bars': ctheme.onSurface,
+      'subtitle': ctheme.onSurfaceVariant,
+      'bars': ctheme.onSurfaceVariant,
       'slogan': ctheme.primary,
-      'poweredby': ctheme.onSurface,
+      'poweredby': ctheme.onSurfaceVariant,
     };
 
     return RiveAnimation.asset(
