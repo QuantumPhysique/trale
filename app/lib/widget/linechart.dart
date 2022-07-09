@@ -115,7 +115,23 @@ class _CustomLineChartState extends State<CustomLineChart> {
       final int interval = (
         max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
       ).toInt();
-      if (
+      if (date.day == 1) {
+        // if tick interval of more than 45 days show only every second tick
+        // starting from the first date of shown range.
+        if (
+          interval > 45 &&
+          (
+            DateTime.fromMillisecondsSinceEpoch(minX.toInt()).month % 2 ==
+              date.month % 2
+          )
+        ) {
+          return '';
+        }
+        return DateFormat(
+            'MMM',
+            Localizations.localeOf(context).languageCode
+        ).format(date);
+      } else if (
         date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
         (
             maxX - date.millisecondsSinceEpoch <
@@ -123,11 +139,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
         )
       ) {
         return '';
-      } else if (date.day == 1) {
-        return DateFormat(
-            'MMM',
-            Localizations.localeOf(context).languageCode
-        ).format(date);
       } else if (
         date.day % interval == 0 && date.day - interval ~/ 1.5 > 0
       ) {
