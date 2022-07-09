@@ -1,6 +1,10 @@
 {
   "@@locale": "en",
 
+  "stats": "statistics",
+  "@stats" : {
+    "description": "Header for statistics section"
+  },
   "trale": "trale",
   "@trale" : {
     "description": "Name of app: trale"

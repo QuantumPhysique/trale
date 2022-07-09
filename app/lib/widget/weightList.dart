@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,26 +6,27 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 
 class WeightList extends StatefulWidget {
   const WeightList({super.key});
   @override
-  _OverviewScreen createState() => _OverviewScreen();
+  _WeightList createState() => _WeightList();
 }
 
-class _OverviewScreen extends State<WeightList> {
+class _WeightList extends State<WeightList> {
   @override
   Widget build(BuildContext context) {
-
+    final double height = 1.5 * sizeOfText(text: '10', context: context).height;
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
     const String groupTag = 'groupTag';
 
     Widget deleteAction(SortedMeasurement currentMeasurement) {
       return SlidableAction(
-          label: AppLocalizations.of(context)!.delete,
+          // label: AppLocalizations.of(context)!.delete,
           backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
           foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
           icon: CustomIcons.delete,
@@ -59,7 +61,7 @@ class _OverviewScreen extends State<WeightList> {
 
     Widget editAction(SortedMeasurement currentMeasurement) {
       return SlidableAction(
-        label: AppLocalizations.of(context)!.edit,
+  //      label: AppLocalizations.of(context)!.edit,
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
         icon: CustomIcons.edit,
@@ -104,10 +106,9 @@ class _OverviewScreen extends State<WeightList> {
               Container(
                 alignment: Alignment.center,
                 //color: Theme.of(context).colorScheme.background,
-                width: MediaQuery.of(context).size.width
-                    - 4 * TraleTheme.of(context)!.padding,
-                height: 50.0,
-                child: Text(
+                width: MediaQuery.of(context).size.width,
+                height: height,
+                child: AutoSizeText(
                   currentMeasurement.measurement.measureToString(
                     context, ws: 12,
                   ),
@@ -121,42 +122,32 @@ class _OverviewScreen extends State<WeightList> {
       }
     ).toList();
 
-
-    return SingleChildScrollView(
-      child: Container(
-        width: MediaQuery.of(context).size.width
-            - 2 * TraleTheme.of(context)!.padding,
-        height: measurements.length * 50.0
-            + 2 * TraleTheme.of(context)!.padding,
-        padding: EdgeInsets.symmetric(
-            vertical: TraleTheme.of(context)!.padding
-        ),
-        child: Card(
-          shape: TraleTheme.of(context)!.borderShape,
-          color: Theme.of(context).colorScheme.surface,
-          margin: EdgeInsets.symmetric(
-            horizontal: 2 * TraleTheme.of(context)!.padding,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: measurements.length * height
+          + 2 * TraleTheme.of(context)!.padding,
+      padding: EdgeInsets.symmetric(
+          vertical: TraleTheme.of(context)!.padding
+      ),
+      alignment: Alignment.center,
+      child: SlidableAutoCloseBehavior(
+        child: ClipRRect(
+          borderRadius:
+          TraleTheme.of(context)!.borderShape.borderRadius.resolve(
+              Directionality.of(context)
           ),
-          child: SlidableAutoCloseBehavior(
-            child: ClipRRect(
-              borderRadius:
-                TraleTheme.of(context)!.borderShape.borderRadius.resolve(
-                  Directionality.of(context)
-                ),
-              child: StreamBuilder<List<Measurement>>(
-                stream: database.streamController.stream,
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<List<Measurement>> snapshot,
+          child: StreamBuilder<List<Measurement>>(
+            stream: database.streamController.stream,
+            builder: (
+                BuildContext context,
+                AsyncSnapshot<List<Measurement>> snapshot,
                 ) => Column(
-                  key: ValueKey<List<Measurement>>(
-                      snapshot.data ?? <Measurement>[],
-                  ),
-                  children: listOfMeasurements,
-                ),
+              key: ValueKey<List<Measurement>>(
+                snapshot.data ?? <Measurement>[],
               ),
+              children: listOfMeasurements,
             ),
-          )
+          ),
         ),
       ),
     );
