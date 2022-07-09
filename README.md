@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="fastlane/metadata/android/en-US/images/featureGraphic.jpg" />
+    <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" />
 </div>
 
 # trale – a simple body weight diary app respecting your privacy.
@@ -28,6 +28,7 @@ Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍
     <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" />
     <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" />
     <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" />
 </div>
 
 ## FAQ
