@@ -7,6 +7,9 @@ Changelog](https://keepachangelog.com/en/1.0.0/), and
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+
+## [0.2.1] - 2022-07-09
 ### Added Features and Improvements 🙌:
 - Added nice splash screen
 - Adjust icon in drawer to theme and add slogan
@@ -35,6 +38,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.2.0...main
+[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.2.1...main
+[0.2.1]: https://gitlab.com/mobilemovement/trale/compare/v0.2.0...v0.2.1
 [0.2.0]: https://gitlab.com/mobilemovement/trale/compare/v0.1.0...v0.2.0
 [0.1.0]: https://gitlab.com/mobilemovement/trale/-/tree/v0.1.0

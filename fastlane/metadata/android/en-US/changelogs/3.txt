@@ -1,0 +1,2 @@
+- Introducing new icon together with a fresh splash screen
+- Minor bug fixes and improvements
