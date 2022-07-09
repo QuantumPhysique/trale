@@ -10,6 +10,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - Added nice splash screen
 - Adjust icon in drawer to theme and add slogan
+- New and fresher icon
+
+### Bugfix 🐛:
+- Fix showing date labels for ranges larger than 7 months
+
+### Other changes:
+- Improve text on onboarding screen
+- Add German meta data
+- Remove unused files
 
 
 ## [0.2.0] - 2022-06-09
@@ -26,6 +35,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/mobilemovement/trale/compare/v0.2.0...master
+[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.2.0...main
 [0.2.0]: https://gitlab.com/mobilemovement/trale/compare/v0.1.0...v0.2.0
 [0.1.0]: https://gitlab.com/mobilemovement/trale/-/tree/v0.1.0
