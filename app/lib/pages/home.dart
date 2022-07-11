@@ -136,7 +136,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           ),
           NavigationDestination(
             icon: const Icon(CustomIcons.events),
-            label: AppLocalizations.of(context)!.measurements,
+            label: AppLocalizations.of(context)!.achievements,
           ),
           // fake container to keep space for FAB
           const NavigationDestination(
