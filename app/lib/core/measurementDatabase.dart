@@ -305,20 +305,22 @@ class MeasurementDatabase {
     measures: dailyAveragedInterpolatedMeasurements,
   ).interpolate(InterpolFunc.gaussian);
 
-  /// get slope in unit
-  double get finalSlope {
-    final List<Measurement> measurementsInterpol =
-      gaussianInterpolatedMeasurements;
-
-    final Measurement mLast = measurementsInterpol.last;
-    final Measurement m2Last = measurementsInterpol.elementAt(
-      measurementsInterpol.length - 2
+  /// get the extrapolated measurement at the time of last measurement
+  Measurement get lastMeasurement => gaussianExtrapolatedMeasurements.lastWhere(
+      (Measurement m) => (
+        m.dateInMs - gaussianInterpolatedMeasurements.last.dateInMs
+      ) < 12 * 3600 * 1000
     );
 
+  /// get slope in unit
+  double get finalSlope {
+    // estimate weight at day after last measurement
+    final Measurement mCurrent = lastMeasurement;
+    final Measurement mLast = gaussianExtrapolatedMeasurements.last;
     return (
-      mLast.weight - m2Last.weight
+      mLast.weight - mCurrent.weight
     ) / (
-      mLast.dateInMs - m2Last.dateInMs
+      mLast.dateInMs - mCurrent.dateInMs
     );
   }
 
@@ -346,20 +348,6 @@ class MeasurementDatabase {
   /// get weight change [kg] within last week from last measurement
   double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
 
-  /// slope of linear regression in [kg / ms]
-  double? get linearRegressionSlope {
-    // estimate weight at day after last measurement
-    final int time = dailyAveragedMeasurements.last.dateInMs;
-    final int timeNext = dailyAveragedMeasurements.last.date.add(
-        const Duration(days: 1)
-    ).millisecondsSinceEpoch;
-
-    return (
-      linearRegression(timeNext, time, gaussianExtrapolatedMeasurements).weight -
-      linearRegression(time, time, gaussianExtrapolatedMeasurements).weight
-    ) / (timeNext - time);
-  }
-
   /// get time of reaching target weight in kg
   Duration? timeOfTargetWeight(double? targetWeight) {
     if (targetWeight == null) {
@@ -370,7 +358,7 @@ class MeasurementDatabase {
       return null;
     }
 
-    final Measurement mLast = gaussianInterpolatedMeasurements.last;
+    final Measurement mLast = lastMeasurement;
     final double slope = finalSlope;
 
     // Crossing is in the past
