@@ -39,7 +39,11 @@ class _StatsScreen extends State<StatsScreen> {
           children: <Widget>[
             AutoSizeText(
               m.dateToString(context),
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.caption
+                ?.apply(
+                  fontFamily: 'Courier',
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
             ),
             AutoSizeText(
               '$label: ${m.weightToString(context)}',

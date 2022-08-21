@@ -67,9 +67,10 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
 
     Card userWeightLostCard(int nDays) {
-      final double deltaWeight = database.deltaWeightLastNDays(
-        nDays
-      )! * (30 / nDays);
+      // final double deltaWeight = database.deltaWeightLastNDays(
+      //     nDays
+      // )! * (30 / nDays);
+      final double deltaWeight = database.linearRegressionSlope! * 24 * 3600 * 1000 * 30;
       const String label = 'month';
 
       return Card(

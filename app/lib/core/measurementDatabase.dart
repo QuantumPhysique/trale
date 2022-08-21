@@ -346,6 +346,20 @@ class MeasurementDatabase {
   /// get weight change [kg] within last week from last measurement
   double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
 
+  /// slope of linear regression in [kg / ms]
+  double? get linearRegressionSlope {
+    // estimate weight at day after last measurement
+    final int time = dailyAveragedMeasurements.last.dateInMs;
+    final int timeNext = dailyAveragedMeasurements.last.date.add(
+        const Duration(days: 1)
+    ).millisecondsSinceEpoch;
+
+    return (
+      linearRegression(timeNext, time, gaussianExtrapolatedMeasurements).weight -
+      linearRegression(time, time, gaussianExtrapolatedMeasurements).weight
+    ) / (timeNext - time);
+  }
+
   /// get time of reaching target weight in kg
   Duration? timeOfTargetWeight(double? targetWeight) {
     if (targetWeight == null) {
