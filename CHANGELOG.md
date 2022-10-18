@@ -1,12 +1,12 @@
-# Changelog All notable changes to this project will be documented in this
-file.
+# Changelog All notable changes to this project will be documented in this file.
 
-The format is inspired by [Keep a
-Changelog](https://keepachangelog.com/en/1.0.0/), and
+The format is inspired by [Keep aChangelog](https://keepachangelog.com/en/1.0.0/), and
 [Element](https://github.com/vector-im/element-android) and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.2] - 2022-10-18
 ### Added Features and Improvements 🙌:
 - All new measurment screen including now achievemts
 
@@ -45,7 +45,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.2.1...main
+[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.2.2...main
+[0.2.2]: https://gitlab.com/mobilemovement/trale/compare/v0.2.1...v0.2.2
 [0.2.1]: https://gitlab.com/mobilemovement/trale/compare/v0.2.0...v0.2.1
 [0.2.0]: https://gitlab.com/mobilemovement/trale/compare/v0.1.0...v0.2.0
 [0.1.0]: https://gitlab.com/mobilemovement/trale/-/tree/v0.1.0
