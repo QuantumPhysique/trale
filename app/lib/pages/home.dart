@@ -7,7 +7,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/weightList.dart';
+import 'package:trale/pages/stats.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     final bool showFAB = !popupShown;
     List<Widget> activeTabs = const <Widget>[
       OverviewScreen(),
-      WeightList(),
+      StatsScreen(),
     ];
 
     return Scaffold(
@@ -136,7 +136,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           ),
           NavigationDestination(
             icon: const Icon(CustomIcons.events),
-            label: AppLocalizations.of(context)!.measurements,
+            label: AppLocalizations.of(context)!.achievements,
           ),
           // fake container to keep space for FAB
           const NavigationDestination(

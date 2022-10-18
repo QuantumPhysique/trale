@@ -22,3 +22,11 @@ samples, guidance on mobile development, and a full API reference.
 ```bash
 flutter packages pub run build_runner build
 ```
+
+# Run Dart Code Metric
+```bash
+dart run dart_code_metrics:metrics analyze lib
+dart run dart_code_metrics:metrics check-unused-files lib
+dart run dart_code_metrics:metrics check-unused-l10n lib
+dart run dart_code_metrics:metrics check-unused-code lib
+```

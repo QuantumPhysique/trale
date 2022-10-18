@@ -1,6 +1,14 @@
 {
   "@@locale": "en",
 
+  "achievements": "achievements",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "stats": "statistics",
+  "@stats" : {
+    "description": "Header for statistics section"
+  },
   "trale": "trale",
   "@trale" : {
     "description": "Name of app: trale"

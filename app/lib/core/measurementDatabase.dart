@@ -305,20 +305,22 @@ class MeasurementDatabase {
     measures: dailyAveragedInterpolatedMeasurements,
   ).interpolate(InterpolFunc.gaussian);
 
-  /// get slope in unit
-  double get finalSlope {
-    final List<Measurement> measurementsInterpol =
-      gaussianInterpolatedMeasurements;
-
-    final Measurement mLast = measurementsInterpol.last;
-    final Measurement m2Last = measurementsInterpol.elementAt(
-      measurementsInterpol.length - 2
+  /// get the extrapolated measurement at the time of last measurement
+  Measurement get lastMeasurement => gaussianExtrapolatedMeasurements.lastWhere(
+      (Measurement m) => (
+        m.dateInMs - gaussianInterpolatedMeasurements.last.dateInMs
+      ) < 12 * 3600 * 1000
     );
 
+  /// get slope in unit
+  double get finalSlope {
+    // estimate weight at day after last measurement
+    final Measurement mCurrent = lastMeasurement;
+    final Measurement mLast = gaussianExtrapolatedMeasurements.last;
     return (
-      mLast.weight - m2Last.weight
+      mLast.weight - mCurrent.weight
     ) / (
-      mLast.dateInMs - m2Last.dateInMs
+      mLast.dateInMs - mCurrent.dateInMs
     );
   }
 
@@ -356,7 +358,7 @@ class MeasurementDatabase {
       return null;
     }
 
-    final Measurement mLast = gaussianInterpolatedMeasurements.last;
+    final Measurement mLast = lastMeasurement;
     final double slope = finalSlope;
 
     // Crossing is in the past
@@ -385,6 +387,62 @@ class MeasurementDatabase {
       return null;
     }
     return gaussianInterpolatedMeasurements.last.weight / (height * height);
+  }
+
+  /// get largest measurement
+  Measurement? get max {
+    if (measurements.isEmpty) {
+      return null;
+    }
+    return dailyAveragedGaussianMeasurements.reduce(
+      (Measurement current, Measurement next) =>
+        current.weight > next.weight ? current : next
+    );
+  }
+
+  /// get lowest measurement
+  Measurement? get min {
+    if (measurements.isEmpty) {
+      return null;
+    }
+    return dailyAveragedGaussianMeasurements.reduce(
+      (Measurement current, Measurement next) =>
+        current.weight < next.weight ? current : next
+    );
+  }
+
+  /// get list of all measurement strikes
+  List<List<Measurement>>? get measurementStrikes {
+    final List<Measurement> ms = dailyAveragedMeasurements;
+    if (ms.isEmpty) {
+      return null;
+    }
+
+    final List<List<Measurement>> strikes = <List<Measurement>>[];
+    final List<Measurement> strike = <Measurement>[ms[0]];
+    for (int i=1; i < ms.length; i++) {
+      if (ms[i].date.difference(ms[i-1].date).inDays > 1) {
+        // copy list to avoid reference issue
+        strikes.add(List<Measurement>.of(strike));
+        strike.clear();
+      }
+      strike.add(ms[i]);
+    }
+    return strikes;
+  }
+
+  /// get list of all longest measurement strike
+  List<Measurement>? get longestMeasurementStrike {
+    if (measurementStrikes == null) {
+      return null;
+    }
+    final List<List<Measurement>> strikes = measurementStrikes!;
+
+    // find longest, prefer newer sequences
+    strikes.reduce(
+      (List<Measurement> current, List<Measurement> next) =>
+        current.length > next.length ? current : next
+    );
   }
 
   /// offset of day in hours
