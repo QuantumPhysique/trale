@@ -137,21 +137,36 @@ List<Measurement> addLinearRegression(List<Measurement> ms) {
     measures: ms,
     extrapolationRange: pref.interpolStrength.strengthMeasurement,
   );
-  final int dateFrom = ms.last.dateInMs + interpol.extrapolationStepWidth;
-  final int dateTo = dateFrom + 2 * interpol.extrapolationRange;
 
+  // future extrapolation
+  int dateFrom = ms.last.dateInMs + interpol.extrapolationStepWidth;
+  int dateTo = dateFrom + 2 * interpol.extrapolationRange;
   msRegr.addAll(
-      <Measurement>[
-        for (
-        int date=dateFrom;
-        date < dateTo + interpol.extrapolationStepWidth;
-        date += interpol.extrapolationStepWidth
-        )
-          linearRegression(date, dateFrom, ms)
-      ]
+    _createRegressionMeasurements(
+      ms, dateFrom, dateTo, interpol.extrapolationStepWidth,
+    ),
+  );
+
+  dateTo = ms.first.dateInMs - interpol.extrapolationStepWidth;
+  dateFrom = dateTo - 2 * interpol.extrapolationRange;
+  msRegr.insertAll(
+      0,
+      _createRegressionMeasurements(
+        ms, dateFrom, dateTo, interpol.extrapolationStepWidth,
+      ),
   );
   return msRegr;
 }
+
+List<Measurement> _createRegressionMeasurements(
+  List<Measurement> ms, int dateFrom, int dateTo, int stepWidth,
+) {
+  return <Measurement>[
+    for (int date=dateFrom; date < dateTo + stepWidth; date += stepWidth)
+      linearRegression(date, dateFrom, ms)
+  ];
+}
+
 
 /// estimate eights based on measurments
 List<double> measurementsToWeights(int x, List<Measurement> measurements) {
