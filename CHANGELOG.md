@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Bugfix 🐛:
 - Show current slope on start screen widget instead of 30 days average
 
+### Other changes:
+- Added linear regression for history prediction
 
 ## [0.2.1] - 2022-07-09
 ### Added Features and Improvements 🙌:
