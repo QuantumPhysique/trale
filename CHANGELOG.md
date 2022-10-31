@@ -6,6 +6,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added Features and Improvements 🙌:
+- Add support for themed app icon (android 13)
+
 ## [0.2.2] - 2022-10-18
 ### Added Features and Improvements 🙌:
 - All new measurment screen including now achievemts
