@@ -173,6 +173,22 @@ class MeasurementDatabase {
       ) / dailyWeightAverage.length,
       date: lastDate,
     ));
+
+    final double startWeight = dailyAverage.first.weight;
+    final int startTime = dailyAverage.first.dateInMs;
+    dailyAverage.insertAll(
+        0,
+        <Measurement>[
+          for (int idx=-7; idx < 0; idx++)
+            Measurement(
+              weight: startWeight,
+              date: DateTime.fromMillisecondsSinceEpoch(
+                  startTime + idx * 24 * 3600 * 1000
+              ),
+              isMeasured: false,
+            )
+        ],
+    );
     return dailyAverage;
   }
 
@@ -390,7 +406,7 @@ class MeasurementDatabase {
   }
 
   /// get largest measurement
-  Measurement? get max {
+  Measurement? get maxInterpolated {
     if (measurements.isEmpty) {
       return null;
     }
@@ -400,12 +416,34 @@ class MeasurementDatabase {
     );
   }
 
+  /// get largest measurement
+  Measurement? get max {
+    if (measurements.isEmpty) {
+      return null;
+    }
+    return measurements.reduce(
+      (Measurement current, Measurement next) =>
+        current.weight > next.weight ? current : next
+    );
+  }
+
+  /// get lowest measurement
+  Measurement? get minInterpolated {
+    if (measurements.isEmpty) {
+      return null;
+    }
+    return dailyAveragedGaussianMeasurements.reduce(
+      (Measurement current, Measurement next) =>
+        current.weight < next.weight ? current : next
+    );
+  }
+
   /// get lowest measurement
   Measurement? get min {
     if (measurements.isEmpty) {
       return null;
     }
-    return dailyAveragedGaussianMeasurements.reduce(
+    return measurements.reduce(
       (Measurement current, Measurement next) =>
         current.weight < next.weight ? current : next
     );
