@@ -151,7 +151,6 @@ Future<bool> showAddWeightDialog({
         contentPadding: EdgeInsets.only(
           top: TraleTheme.of(context)!.padding,
         ),
-        actionsPadding: EdgeInsets.zero,
         title: Center(
           child: Text(
             AppLocalizations.of(context)!.addWeight,
