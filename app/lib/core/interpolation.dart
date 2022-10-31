@@ -139,21 +139,12 @@ List<Measurement> addLinearRegression(List<Measurement> ms) {
   );
 
   // future extrapolation
-  int dateFrom = ms.last.dateInMs + interpol.extrapolationStepWidth;
-  int dateTo = dateFrom + 2 * interpol.extrapolationRange;
+  final int dateFrom = ms.last.dateInMs + interpol.extrapolationStepWidth;
+  final int dateTo = dateFrom + 2 * interpol.extrapolationRange;
   msRegr.addAll(
     _createRegressionMeasurements(
       ms, dateFrom, dateTo, interpol.extrapolationStepWidth,
     ),
-  );
-
-  dateTo = ms.first.dateInMs - interpol.extrapolationStepWidth;
-  dateFrom = dateTo - 2 * interpol.extrapolationRange;
-  msRegr.insertAll(
-      0,
-      _createRegressionMeasurements(
-        ms, dateFrom, dateTo, interpol.extrapolationStepWidth,
-      ),
   );
   return msRegr;
 }
