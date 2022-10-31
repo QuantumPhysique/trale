@@ -25,57 +25,75 @@ class _WeightList extends State<WeightList> {
     const String groupTag = 'groupTag';
 
     Widget deleteAction(SortedMeasurement currentMeasurement) {
-      return SlidableAction(
-          // label: AppLocalizations.of(context)!.delete,
-          backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-          foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
-          icon: CustomIcons.delete,
-          onPressed: (BuildContext context) {
-            database.deleteMeasurement(currentMeasurement);
-            setState(() {});
-            final SnackBar snackBar = SnackBar(
-              content: const Text('Measurement was deleted'),
-              behavior: SnackBarBehavior.floating,
-              width: MediaQuery.of(context).size.width / 3 * 2,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(
-                          TraleTheme.of(context)!.borderRadius
+      return Expanded(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: TraleTheme.of(context)!.padding),
+          child: SlidableAction(
+              // label: AppLocalizations.of(context)!.delete,
+              backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+              foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
+              borderRadius: BorderRadius.circular(
+                  TraleTheme.of(context)!.borderRadius
+              ),
+              icon: CustomIcons.delete,
+              onPressed: (BuildContext context) {
+                database.deleteMeasurement(currentMeasurement);
+                setState(() {});
+                final SnackBar snackBar = SnackBar(
+                  content: const Text('Measurement was deleted'),
+                  behavior: SnackBarBehavior.floating,
+                  width: MediaQuery.of(context).size.width / 3 * 2,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(
+                              TraleTheme.of(context)!.borderRadius
+                          )
                       )
-                  )
-              ),
-              action: SnackBarAction(
-                label: 'Undo',
-                onPressed: () {
-                  database.insertMeasurement(
-                      currentMeasurement.measurement
-                  );
-                  setState(() {});
-                },
-              ),
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
+                  ),
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      database.insertMeasurement(
+                          currentMeasurement.measurement
+                      );
+                      setState(() {});
+                    },
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+          ),
+        ),
       );
     }
 
     Widget editAction(SortedMeasurement currentMeasurement) {
-      return SlidableAction(
+      return Expanded(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: TraleTheme.of(context)!.padding),
+          child: SlidableAction(
   //      label: AppLocalizations.of(context)!.edit,
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-        icon: CustomIcons.edit,
-        onPressed: (BuildContext context) async {
-          final bool changed = await showAddWeightDialog(
-            context: context,
-            weight: currentMeasurement.measurement.weight,
-            date: currentMeasurement.measurement.date,
-          );
-          if (changed) {
-            database.deleteMeasurement(currentMeasurement);
-            setState(() {});
-          }
-        },
+            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+            foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+            borderRadius: BorderRadius.circular(
+                TraleTheme.of(context)!.borderRadius
+            ),
+            icon: CustomIcons.edit,
+            onPressed: (BuildContext context) async {
+              final bool changed = await showAddWeightDialog(
+                context: context,
+                weight: currentMeasurement.measurement.weight,
+                date: currentMeasurement.measurement.date,
+              );
+              if (changed) {
+                database.deleteMeasurement(currentMeasurement);
+                setState(() {});
+              }
+            },
+          ),
+        ),
       );
     }
 
