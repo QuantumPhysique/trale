@@ -27,8 +27,10 @@ class _WeightList extends State<WeightList> {
     Widget deleteAction(SortedMeasurement currentMeasurement) {
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding),
+          padding: EdgeInsets.only(
+              left: TraleTheme.of(context)!.padding / 2,
+              right: TraleTheme.of(context)!.padding,
+          ),
           child: SlidableAction(
               // label: AppLocalizations.of(context)!.delete,
               backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
@@ -71,8 +73,10 @@ class _WeightList extends State<WeightList> {
     Widget editAction(SortedMeasurement currentMeasurement) {
       return Expanded(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding),
+          padding: EdgeInsets.only(
+            right: TraleTheme.of(context)!.padding / 2,
+            left: TraleTheme.of(context)!.padding,
+          ),
           child: SlidableAction(
   //      label: AppLocalizations.of(context)!.edit,
             backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -97,26 +101,21 @@ class _WeightList extends State<WeightList> {
       );
     }
 
+    ActionPane actionPane(SortedMeasurement m) =>  ActionPane(
+      motion: const DrawerMotion(),
+      extentRatio: 0.5,
+      children: <Widget>[
+        editAction(m),
+        deleteAction(m),
+      ],
+    );
+
     final List<Slidable> listOfMeasurements = measurements.map(
       (SortedMeasurement currentMeasurement) {
         return Slidable(
           groupTag: groupTag,
-          startActionPane: ActionPane(
-            motion: const DrawerMotion(),
-            extentRatio: 1,
-            children: <Widget>[
-              deleteAction(currentMeasurement),
-              editAction(currentMeasurement),
-            ],
-          ),
-          endActionPane: ActionPane(
-            motion: const DrawerMotion(),
-            extentRatio: 1,
-            children: <Widget>[
-              editAction(currentMeasurement),
-              deleteAction(currentMeasurement)
-            ],
-          ),
+          startActionPane: actionPane(currentMeasurement),
+          endActionPane: actionPane(currentMeasurement),
           closeOnScroll: true,
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -149,22 +148,16 @@ class _WeightList extends State<WeightList> {
       ),
       alignment: Alignment.center,
       child: SlidableAutoCloseBehavior(
-        child: ClipRRect(
-          borderRadius:
-          TraleTheme.of(context)!.borderShape.borderRadius.resolve(
-              Directionality.of(context)
-          ),
-          child: StreamBuilder<List<Measurement>>(
-            stream: database.streamController.stream,
-            builder: (
-                BuildContext context,
-                AsyncSnapshot<List<Measurement>> snapshot,
-                ) => Column(
-              key: ValueKey<List<Measurement>>(
-                snapshot.data ?? <Measurement>[],
-              ),
-              children: listOfMeasurements,
+        child: StreamBuilder<List<Measurement>>(
+          stream: database.streamController.stream,
+          builder: (
+              BuildContext context,
+              AsyncSnapshot<List<Measurement>> snapshot,
+              ) => Column(
+            key: ValueKey<List<Measurement>>(
+              snapshot.data ?? <Measurement>[],
             ),
+            children: listOfMeasurements,
           ),
         ),
       ),
