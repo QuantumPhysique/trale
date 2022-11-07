@@ -9,6 +9,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/addWeightDialog.dart';
+import 'package:trale/widget/animate_in_effect.dart';
 
 class WeightList extends StatefulWidget {
   const WeightList({super.key});
@@ -16,10 +17,13 @@ class WeightList extends StatefulWidget {
   _WeightList createState() => _WeightList();
 }
 
-class _WeightList extends State<WeightList> {
+class _WeightList extends State<WeightList>{
+
+  double heightFactor = 1.5;
   @override
   Widget build(BuildContext context) {
-    final double height = 1.5 * sizeOfText(text: '10', context: context).height;
+    double height = heightFactor
+        * sizeOfText(text: '10', context: context).height;
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
     const String groupTag = 'groupTag';
@@ -110,14 +114,33 @@ class _WeightList extends State<WeightList> {
       ],
     );
 
-    final List<Slidable> listOfMeasurements = measurements.map(
+    final List<Widget> listOfMeasurements = measurements.map(
       (SortedMeasurement currentMeasurement) {
-        return Slidable(
-          groupTag: groupTag,
-          startActionPane: actionPane(currentMeasurement),
-          endActionPane: actionPane(currentMeasurement),
-          closeOnScroll: true,
-          child: Row(
+        return Row(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              //color: Theme.of(context).colorScheme.background,
+              width: MediaQuery.of(context).size.width,
+              height: height,
+              child: AutoSizeText(
+                currentMeasurement.measurement.measureToString(
+                  context, ws: 12,
+                ),
+                style: Theme.of(context).textTheme.bodyText1
+                  ?.apply(fontFamily: 'Courier'),
+              ),
+            ),
+          ],
+        );
+      }
+    ).toList();
+
+
+
+    Widget listTileMeasurement (SortedMeasurement m, BuildContext context)
+      =>  Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
@@ -126,41 +149,33 @@ class _WeightList extends State<WeightList> {
                 width: MediaQuery.of(context).size.width,
                 height: height,
                 child: AutoSizeText(
-                  currentMeasurement.measurement.measureToString(
+                  m.measurement.measureToString(
                     context, ws: 12,
                   ),
                   style: Theme.of(context).textTheme.bodyText1
-                    ?.apply(fontFamily: 'Courier'),
+                      ?.apply(fontFamily: 'Courier'),
                 ),
               ),
             ],
+          );
+
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: measurements.length,
+      shrinkWrap: true,
+      itemBuilder: (BuildContext context, int i) {
+        return AnimateInEffect(
+          keepAlive: false,
+          delayInMilliseconds: 700,
+          intervalStart: i / measurements.length,
+          child: listTileMeasurement(
+            measurements[i], context
           ),
         );
-      }
-    ).toList();
-
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: measurements.length * height
-          + 2 * TraleTheme.of(context)!.padding,
-      padding: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding
-      ),
-      alignment: Alignment.center,
-      child: SlidableAutoCloseBehavior(
-        child: StreamBuilder<List<Measurement>>(
-          stream: database.streamController.stream,
-          builder: (
-              BuildContext context,
-              AsyncSnapshot<List<Measurement>> snapshot,
-              ) => Column(
-            key: ValueKey<List<Measurement>>(
-              snapshot.data ?? <Measurement>[],
-            ),
-            children: listOfMeasurements,
-          ),
-        ),
-      ),
+      },
     );
+
   }
 }
