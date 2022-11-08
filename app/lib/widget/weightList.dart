@@ -12,7 +12,17 @@ import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 
 class WeightList extends StatefulWidget {
-  const WeightList({super.key});
+  const WeightList({
+    super.key,
+    this.durationInMilliseconds = 1000,
+    this.delayInMilliseconds = 0,
+    this.keepAlive = false,
+  });
+
+  final int durationInMilliseconds;
+  final int delayInMilliseconds;
+  final bool keepAlive;
+
   @override
   _WeightList createState() => _WeightList();
 }
@@ -161,14 +171,15 @@ class _WeightList extends State<WeightList>{
 
 
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
       physics: const NeverScrollableScrollPhysics(),
       itemCount: measurements.length,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int i) {
         return AnimateInEffect(
-          keepAlive: false,
-          delayInMilliseconds: 700,
+          keepAlive: widget.keepAlive,
+          durationInMilliseconds: widget.durationInMilliseconds,
+          delayInMilliseconds: widget.delayInMilliseconds,
           intervalStart: i / measurements.length,
           child: listTileMeasurement(
             measurements[i], context

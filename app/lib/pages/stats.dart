@@ -8,6 +8,9 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/fade_in_effect.dart';
+import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
 class StatsScreen extends StatefulWidget {
@@ -23,6 +26,14 @@ class _StatsScreen extends State<StatsScreen> {
     final EdgeInsets padding = EdgeInsets.symmetric(
       horizontal: TraleTheme.of(context)!.padding,
     );
+
+    final int animationDurationInMilliseconds =
+        TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
+    final int firstDelayInMilliseconds =
+        TraleTheme.of(context)!.transitionDuration.fast.inMilliseconds;
+    final int secondDelayInMilliseconds =
+        animationDurationInMilliseconds + 2 * firstDelayInMilliseconds;
+
 
     database.longestMeasurementStrike;
     Card getCard(String label, Measurement m) => Card(
@@ -77,22 +88,30 @@ class _StatsScreen extends State<StatsScreen> {
         children: <Widget>[
           Padding(
             padding: padding,
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.stats.inCaps,
-              style: Theme.of(context).textTheme.headline4,
-              maxLines: 1,
+            child: TextSizeInEffect(
+              text: AppLocalizations.of(context)!.stats.inCaps,
+              textStyle: Theme.of(context).textTheme.headline4!,
+              durationInMilliseconds: animationDurationInMilliseconds,
+              delayInMilliseconds: firstDelayInMilliseconds,
             ),
           ),
-          minmax_widget,
+          AnimateInEffect(
+            durationInMilliseconds: animationDurationInMilliseconds,
+            delayInMilliseconds: firstDelayInMilliseconds,
+            child: minmax_widget),
           Padding(
             padding: padding,
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.measurements.inCaps,
-              style: Theme.of(context).textTheme.headline4,
-              maxLines: 1,
+            child: TextSizeInEffect(
+              text: AppLocalizations.of(context)!.measurements.inCaps,
+              textStyle: Theme.of(context).textTheme.headline4!,
+              durationInMilliseconds: animationDurationInMilliseconds,
+              delayInMilliseconds: secondDelayInMilliseconds,
             ),
           ),
-          const WeightList(),
+          WeightList(
+            durationInMilliseconds: animationDurationInMilliseconds,
+            delayInMilliseconds: secondDelayInMilliseconds,
+          ),
         ],
       )
     );

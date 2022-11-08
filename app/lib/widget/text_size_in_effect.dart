@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 
-class FadeInEffect extends StatefulWidget {
-  const FadeInEffect({
+class TextSizeInEffect extends StatefulWidget {
+  const TextSizeInEffect({
     Key? key,
-    required this.child,
-    this.intervalStart = 0,
+    required this.text,
+    required this. textStyle,
     this.durationInMilliseconds = 1000,
     this.delayInMilliseconds = 0,
     this.keepAlive = false,
   }) : super(key: key);
 
-  final Widget child;
-  final double intervalStart;
+  final String text;
+  final TextStyle textStyle;
   final int durationInMilliseconds;
   final int delayInMilliseconds;
   final bool keepAlive;
 
   @override
-  State<FadeInEffect> createState() => _FadeInEffectState();
+  State<TextSizeInEffect> createState() => _TextSizeInEffectState();
 }
 
-class _FadeInEffectState extends State<FadeInEffect>
+class _TextSizeInEffectState extends State<TextSizeInEffect>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late final AnimationController animationController;
-  late final Animation<double> opacityAnimation;
+  late final Animation<double> sizeAnimation;
 
   @override
   void initState() {
@@ -39,10 +39,10 @@ class _FadeInEffectState extends State<FadeInEffect>
           () => animationController.forward(),
     );
 
-    opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
+    sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: animationController,
-        curve: Interval(widget.intervalStart, 1, curve: Curves.easeOut),
+        curve: const Interval(0, 1, curve: Curves.easeOut),
       ),
     );
   }
@@ -56,9 +56,16 @@ class _FadeInEffectState extends State<FadeInEffect>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return FadeTransition(
-      opacity: opacityAnimation,
-      child: widget.child,
+    return AnimatedBuilder(
+      animation: animationController,
+      builder: (BuildContext context, Widget? child) => Transform.scale(
+        scale: sizeAnimation.value,
+        child: child,
+      ),
+      child: Text(
+        widget.text,
+        style: widget.textStyle,
+      ),
     );
   }
 

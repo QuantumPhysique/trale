@@ -6,12 +6,14 @@ class AnimateInEffect extends StatefulWidget {
     Key? key,
     required this.child,
     this.intervalStart = 0,
+    this.durationInMilliseconds = 1000,
     this.delayInMilliseconds = 0,
     this.keepAlive = false,
   }) : super(key: key);
 
   final Widget child;
   final double intervalStart;
+  final int durationInMilliseconds;
   final int delayInMilliseconds;
   final bool keepAlive;
 
@@ -30,12 +32,12 @@ class _AnimateInEffectState extends State<AnimateInEffect>
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: Duration(milliseconds: widget.durationInMilliseconds),
     );
 
     Future.delayed(
       Duration(
-          milliseconds: 300 + widget.delayInMilliseconds),
+          milliseconds: widget.delayInMilliseconds),
           () => animationController.forward(),
     );
 
