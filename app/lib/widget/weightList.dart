@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,6 +12,7 @@ import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/weightListTile.dart';
 
 class WeightList extends StatefulWidget {
   const WeightList({
@@ -28,8 +31,8 @@ class WeightList extends StatefulWidget {
 }
 
 class _WeightList extends State<WeightList>{
-
   double heightFactor = 1.5;
+
   @override
   Widget build(BuildContext context) {
     double height = heightFactor
@@ -124,32 +127,8 @@ class _WeightList extends State<WeightList>{
       ],
     );
 
-    final List<Widget> listOfMeasurements = measurements.map(
-      (SortedMeasurement currentMeasurement) {
-        return Row(
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              //color: Theme.of(context).colorScheme.background,
-              width: MediaQuery.of(context).size.width,
-              height: height,
-              child: AutoSizeText(
-                currentMeasurement.measurement.measureToString(
-                  context, ws: 12,
-                ),
-                style: Theme.of(context).textTheme.bodyText1
-                  ?.apply(fontFamily: 'Courier'),
-              ),
-            ),
-          ],
-        );
-      }
-    ).toList();
 
-
-
-    Widget listTileMeasurement (SortedMeasurement m, BuildContext context)
+    Widget listTileMeasurement (SortedMeasurement m)
       =>  Row(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -167,8 +146,16 @@ class _WeightList extends State<WeightList>{
                 ),
               ),
             ],
-          );
+      );
 
+    double getIntervalStart(int i) {
+      const int maximalShownListTile = 15;
+      if (maximalShownListTile < measurements.length) {
+        return <double>[i / maximalShownListTile, 1].reduce(min).toDouble();
+      } else {
+        return i / measurements.length;
+      }
+    }
 
     return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
@@ -180,9 +167,11 @@ class _WeightList extends State<WeightList>{
           keepAlive: widget.keepAlive,
           durationInMilliseconds: widget.durationInMilliseconds,
           delayInMilliseconds: widget.delayInMilliseconds,
-          intervalStart: i / measurements.length,
-          child: listTileMeasurement(
-            measurements[i], context
+          intervalStart: getIntervalStart(i),
+          child: WeightListTile(
+            measurement: measurements[i],
+            offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
+            durationInMilliseconds: widget.delayInMilliseconds,
           ),
         );
       },

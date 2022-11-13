@@ -30,9 +30,8 @@ class _StatsScreen extends State<StatsScreen> {
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
     final int firstDelayInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.fast.inMilliseconds;
-    final int secondDelayInMilliseconds =
-        animationDurationInMilliseconds + 2 * firstDelayInMilliseconds;
+        TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
+    final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
 
 
     database.longestMeasurementStrike;
