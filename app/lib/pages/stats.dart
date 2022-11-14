@@ -2,14 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
-import 'package:trale/widget/fade_in_effect.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
@@ -20,6 +18,8 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreen extends State<StatsScreen> {
+  final ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
@@ -81,37 +81,44 @@ class _StatsScreen extends State<StatsScreen> {
     );
 
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: padding,
-            child: TextSizeInEffect(
-              text: AppLocalizations.of(context)!.stats.inCaps,
-              textStyle: Theme.of(context).textTheme.headline4!,
-              durationInMilliseconds: animationDurationInMilliseconds,
-              delayInMilliseconds: firstDelayInMilliseconds,
-            ),
-          ),
-          AnimateInEffect(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: firstDelayInMilliseconds,
-            child: minmax_widget),
-          Padding(
-            padding: padding,
-            child: TextSizeInEffect(
-              text: AppLocalizations.of(context)!.measurements.inCaps,
-              textStyle: Theme.of(context).textTheme.headline4!,
-              durationInMilliseconds: animationDurationInMilliseconds,
-              delayInMilliseconds: secondDelayInMilliseconds,
-            ),
-          ),
-          WeightList(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: secondDelayInMilliseconds,
-          ),
-        ],
+      controller: scrollController,
+      child: StreamBuilder<List<Measurement>>(
+        stream: database.streamController.stream,
+        builder: (
+            BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
+        ) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: padding,
+                child: TextSizeInEffect(
+                  text: AppLocalizations.of(context)!.stats.inCaps,
+                  textStyle: Theme.of(context).textTheme.headline4!,
+                  durationInMilliseconds: animationDurationInMilliseconds,
+                  delayInMilliseconds: firstDelayInMilliseconds,
+                ),
+              ),
+              AnimateInEffect(
+                durationInMilliseconds: animationDurationInMilliseconds,
+                delayInMilliseconds: firstDelayInMilliseconds,
+                child: minmax_widget),
+              Padding(
+                padding: padding,
+                child: TextSizeInEffect(
+                  text: AppLocalizations.of(context)!.measurements.inCaps,
+                  textStyle: Theme.of(context).textTheme.headline4!,
+                  durationInMilliseconds: animationDurationInMilliseconds,
+                  delayInMilliseconds: secondDelayInMilliseconds,
+                ),
+              ),
+              WeightList(
+                durationInMilliseconds: animationDurationInMilliseconds,
+                delayInMilliseconds: secondDelayInMilliseconds,
+                scrollController: scrollController,
+              ),
+            ],
+        )
       )
     );
   }

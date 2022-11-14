@@ -2,13 +2,17 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/widget/addWeightDialog.dart';
 
 class WeightListTile extends StatefulWidget {
   const WeightListTile({
     Key? key,
     required this.measurement,
+    required this.updateActiveState,
+    required this.activeKey,
     this.offset = const Offset(-100, 0),
     this.durationInMilliseconds = 1000,
   }) : super(key: key);
@@ -16,6 +20,8 @@ class WeightListTile extends StatefulWidget {
   final SortedMeasurement measurement;
   final Offset offset;
   final int durationInMilliseconds;
+  final Function updateActiveState;
+  final int? activeKey;
 
   @override
   State<WeightListTile> createState() => _WeightListTileState();
@@ -27,7 +33,8 @@ class _WeightListTileState extends State<WeightListTile>
   late final Animation<Offset> offsetAnimation;
   late final Animation<double> fadeAnimation;
 
-  bool reverse = false;
+  // bool reverse = false;
+  final MeasurementDatabase database = MeasurementDatabase();
 
   @override
   void initState() {
@@ -48,6 +55,14 @@ class _WeightListTileState extends State<WeightListTile>
 
   @override
   Widget build(BuildContext context) {
+    bool reverse = widget.activeKey == widget.measurement.key;
+
+    if (reverse == false) {
+      animationController.reverse();
+    } else {
+      animationController.forward();
+    }
+
     final double height = 1.5
         * sizeOfText(text: '10', context: context).height;
 
@@ -71,32 +86,92 @@ class _WeightListTileState extends State<WeightListTile>
       ],
     );
 
-    Widget actionButton(IconData icon, Color iconColor, Color containerColor)
-      => AnimatedContainer(
-        height: reverse ? height : 0,
-        width: MediaQuery.of(context).size.width / 6,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            reverse ? TraleTheme.of(context)!.borderRadius : 0,
+    Widget actionButton(IconData icon, Color iconColor, Color containerColor,
+                        Function onTap)
+      => InkWell(
+        onTap: (){onTap();},
+        child: AnimatedContainer(
+          height: reverse ? height : 0,
+          width: MediaQuery.of(context).size.width / 6,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+              reverse ? TraleTheme.of(context)!.borderRadius : 0,
+            ),
+            color: containerColor,
           ),
-          color: containerColor,
-        ),
-        duration: Duration(milliseconds: widget.durationInMilliseconds),
-        child:
-        Icon(
-          icon,
-          color: iconColor,
+          duration: Duration(milliseconds: widget.durationInMilliseconds),
+          child:
+          Icon(
+            icon,
+            color: iconColor,
+          ),
         ),
       );
 
+
+    Future<void> edit () async {
+      final bool changed = await showAddWeightDialog(
+        context: context,
+        weight: widget.measurement.measurement.weight,
+        date: widget.measurement.measurement.date,
+      );
+      if (changed) {
+        database.deleteMeasurement(widget.measurement);
+        setState(() {});
+      }
+      animationController.reverse();
+      Future<void>.delayed(
+        Duration(
+            milliseconds: widget.durationInMilliseconds),
+            () => widget.updateActiveState(null),
+      );
+    }
+
+    void delete () {
+      final SortedMeasurement deletedSortedMeasurement = widget.measurement;
+      database.deleteMeasurement(widget.measurement);
+      final SnackBar snackBar = SnackBar(
+        content: const Text('Measurement was deleted'),
+        behavior: SnackBarBehavior.floating,
+        width: MediaQuery.of(context).size.width / 3 * 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+              Radius.circular(
+                  TraleTheme.of(context)!.borderRadius
+              )
+          ),
+        ),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            database.insertMeasurement(
+                deletedSortedMeasurement.measurement
+            );
+            // setState(() {});
+            widget.updateActiveState(null);
+          },
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      animationController.reverse();
+      Future<void>.delayed(
+        Duration(
+            milliseconds: widget.durationInMilliseconds),
+            () => widget.updateActiveState(null),
+      );
+    }
+
     return InkWell(
       onLongPress: () {
-        if (reverse == false) {
+        widget.updateActiveState(widget.measurement.key);
+
+/*        if (reverse == false) {
           animationController.forward();
         } else {
           animationController.reverse();
         }
-        setState(() {reverse = !reverse;});
+        setState(() {reverse = !reverse;});*/
       },
       child: Stack(
         alignment: Alignment.center,
@@ -126,14 +201,18 @@ class _WeightListTileState extends State<WeightListTile>
                           TraleTheme.of(context)!.themeData.colorScheme
                             .onTertiaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme
-                            .tertiaryContainer),
+                            .tertiaryContainer,
+                          delete,
+                        ),
                         SizedBox(width: TraleTheme.of(context)!.padding),
                         actionButton(
-                            CustomIcons.edit,
-                            TraleTheme.of(context)!.themeData.colorScheme
-                                .onSecondaryContainer,
-                            TraleTheme.of(context)!.themeData.colorScheme
-                                .secondaryContainer),
+                          CustomIcons.edit,
+                          TraleTheme.of(context)!.themeData.colorScheme
+                              .onSecondaryContainer,
+                          TraleTheme.of(context)!.themeData.colorScheme
+                              .secondaryContainer,
+                          edit,
+                        ),
                       ],
                     ),
                   )
@@ -143,11 +222,12 @@ class _WeightListTileState extends State<WeightListTile>
           ),
           AnimatedBuilder(
             animation: animationController,
-            builder: (BuildContext context, Widget? child) => Transform.translate(
-              offset: offsetAnimation.value,
-              transformHitTests: true,
-              child: child,
-            ),
+            builder: (BuildContext context, Widget? child)
+              => Transform.translate(
+                offset: offsetAnimation.value,
+                transformHitTests: true,
+                child: child,
+              ),
             child: child,
           ),
         ],

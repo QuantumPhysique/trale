@@ -29,7 +29,6 @@ dependencies:
 
   auto_size_text: ^3.0.0
   dynamic_color: ^1.5.4
-  flutter_slidable: ^2.0.0
   fl_chart: ^0.55.2
   font_awesome_flutter: ^10.2.1
   hive: ^2.2.3
