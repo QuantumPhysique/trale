@@ -151,6 +151,10 @@ class TraleNotifier with ChangeNotifier {
   ColorScheme? _systemLightDynamic;
   ColorScheme? _systemDarkDynamic;
 
+  Color get systemSeedColor => systemColorsAvailable
+    ? _systemLightDynamic!.primary
+    : Colors.black;
+
   /// set system color accent
   void setColorScheme(ColorScheme? systemLight, ColorScheme? systemDark) {
     _systemDarkDynamic = systemDark;

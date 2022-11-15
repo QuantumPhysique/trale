@@ -1,8 +1,10 @@
 import 'dart:math' as math;
 import 'dart:ui';
+import 'package:provider/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
 
@@ -77,10 +79,10 @@ class TraleTheme {
     final TraleApp? result =
     context.findAncestorWidgetOfExactType<TraleApp>();
     return Theme.of(context).brightness == Brightness.light
-      ? result?.traleNotifier.theme.light
+      ? result?.traleNotifier.theme.light(context)
       : (result != null && result.traleNotifier.isAmoled)
-        ? result.traleNotifier.theme.amoled
-        : result?.traleNotifier.theme.dark;
+        ? result.traleNotifier.theme.amoled(context)
+        : result?.traleNotifier.theme.dark(context);
   }
 
   /// seed color
@@ -274,6 +276,8 @@ class TraleTheme {
 
 /// defining all workout difficulties
 enum TraleCustomTheme {
+  /// system theme A12+
+  system,
   /// blue theme
   water,
   /// berry theme
@@ -293,7 +297,11 @@ enum TraleCustomTheme {
 /// extend adonisThemes with adding AdonisTheme attributes
 extension TraleCustomThemeExtension on TraleCustomTheme {
   /// get seed color of theme
-  Color get seedColor => <TraleCustomTheme, Color>{
+  Color seedColor(BuildContext context) => <TraleCustomTheme, Color>{
+    TraleCustomTheme.system:
+      Provider.of<TraleNotifier>(context).systemColorsAvailable
+        ? Provider.of<TraleNotifier>(context).systemSeedColor
+        : const Color(0xFF000000),
     TraleCustomTheme.fire: const Color(0xFFb52528),
     TraleCustomTheme.lemon: const Color(0xFF626200),
     TraleCustomTheme.sand: const Color(0xFF7e5700),
@@ -304,17 +312,17 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   }[this]!;
 
   /// get corresponding light theme
-  TraleTheme get light => TraleTheme(
-    seedColor: seedColor, brightness: Brightness.light,
+  TraleTheme light(BuildContext context) => TraleTheme(
+    seedColor: seedColor(context), brightness: Brightness.light,
   );
 
   /// get corresponding light theme
-  TraleTheme get dark => TraleTheme(
-    seedColor: seedColor, brightness: Brightness.dark,
+  TraleTheme dark(BuildContext context) => TraleTheme(
+    seedColor: seedColor(context), brightness: Brightness.dark,
   );
 
   /// get amoled dark theme
-  TraleTheme get amoled => dark.amoled;
+  TraleTheme amoled(BuildContext context) => dark(context).amoled;
 
   /// get string expression
   String get name => toString().split('.').last;
