@@ -39,11 +39,14 @@ class TraleApp extends MaterialApp {
   TraleApp({
     required this.traleNotifier,
     Map<String, WidgetBuilder> routes = const <String, WidgetBuilder>{},
+    required this.light,
+    required this.dark,
+    required this.amoled,
   }) : super(
-    theme: traleNotifier.theme.light.themeData,
+    theme: light.themeData,
     darkTheme: traleNotifier.isAmoled
-        ? traleNotifier.theme.amoled.themeData
-        : traleNotifier.theme.dark.themeData,
+        ? amoled.themeData
+        : dark.themeData,
     themeMode: traleNotifier.themeMode,
     routes: routes,
     localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -53,6 +56,9 @@ class TraleApp extends MaterialApp {
 
   /// themeNotifier for interactive change of theme
   final TraleNotifier traleNotifier;
+  final TraleTheme light;
+  final TraleTheme dark;
+  final TraleTheme amoled;
 }
 
 
@@ -74,6 +80,9 @@ class TraleMainApp extends StatelessWidget {
                 return const Splash();
               }
             },
+            light: traleNotifier.theme.light(context),
+            dark: traleNotifier.theme.dark(context),
+            amoled: traleNotifier.theme.amoled(context),
           );
       }
     );

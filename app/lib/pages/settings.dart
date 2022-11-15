@@ -330,6 +330,12 @@ class ThemeSelection extends StatelessWidget {
         itemCount: TraleCustomTheme.values.length,
         itemBuilder: (BuildContext context, int index) {
           final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
+          if (
+            !traleNotifier.systemColorsAvailable &&
+            ctheme == TraleCustomTheme.system
+          ) {
+            return const SizedBox.shrink();
+          }
           return GestureDetector(
             onTap: () {
               traleNotifier.theme = TraleCustomTheme.values[index];
@@ -349,9 +355,9 @@ class ThemeSelection extends StatelessWidget {
                       color: (
                         TraleTheme.of(context)!.isDark
                           ? traleNotifier.isAmoled
-                            ? ctheme.dark.amoled
-                            : ctheme.dark
-                          : ctheme.light
+                            ? ctheme.dark(context).amoled
+                            : ctheme.dark(context)
+                          : ctheme.light(context)
                       ).themeData.colorScheme.background,
                     ),
                     width: 0.2 * MediaQuery.of(context).size.width,
@@ -367,23 +373,23 @@ class ThemeSelection extends StatelessWidget {
                           AutoSizeText(
                             ctheme.name,
                             style: TraleTheme.of(context)!.isDark
-                                ? ctheme.dark.themeData.textTheme.overline
-                                : ctheme.light.themeData.textTheme.overline,
+                                ? ctheme.dark(context).themeData.textTheme.overline
+                                : ctheme.light(context).themeData.textTheme.overline,
                             maxLines: 1,
                           ),
                           Divider(
                             height: 5,
                             color: (
                                 TraleTheme.of(context)!.isDark
-                                    ? ctheme.dark
-                                    : ctheme.light
+                                    ? ctheme.dark(context)
+                                    : ctheme.light(context)
                             ).themeData.colorScheme.onBackground,
                           ),
                           AutoSizeText(
                             'wwwwwwwwww',
                             style: TraleTheme.of(context)!.isDark
-                                ? ctheme.dark.themeData.textTheme.overline
-                                : ctheme.light.themeData.textTheme.overline,
+                                ? ctheme.dark(context).themeData.textTheme.overline
+                                : ctheme.light(context).themeData.textTheme.overline,
                             maxLines: 2,
                           ),
                           const Spacer(),
@@ -393,8 +399,8 @@ class ThemeSelection extends StatelessWidget {
                                   .borderShape.borderRadius,
                               color: (
                                   TraleTheme.of(context)!.isDark
-                                      ? ctheme.dark
-                                      : ctheme.light
+                                      ? ctheme.dark(context)
+                                      : ctheme.light(context)
                               ).themeData.colorScheme.primary,
                             ),
                             height: 0.05 * MediaQuery.of(context).size.width,
