@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/onBoarding.dart';
@@ -51,6 +52,13 @@ class _SplashState extends State<Splash> {
         ),
       );
     }
+
+    final Future<void> loadMeasurements = Future<void>(
+      () {
+        MeasurementDatabase().reinit();
+      },
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
@@ -59,7 +67,12 @@ class _SplashState extends State<Splash> {
         height: MediaQuery.of(context).size.height,
         child: SizedBox(
           width: 0.8 * MediaQuery.of(context).size.width,
-            child: SplashHero(onStop: onStop,),
+            child: FutureBuilder<void>(
+              future: loadMeasurements,
+              builder: (BuildContext context, AsyncSnapshot<void> snap) {
+                return SplashHero(onStop: onStop);
+              },
+            )
         ),
       ),
     );
