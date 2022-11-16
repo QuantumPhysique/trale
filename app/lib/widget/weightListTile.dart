@@ -39,6 +39,7 @@ class _WeightListTileState extends State<WeightListTile>
   @override
   void initState() {
     super.initState();
+
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: widget.durationInMilliseconds),
@@ -66,7 +67,7 @@ class _WeightListTileState extends State<WeightListTile>
     final double height = 1.5
         * sizeOfText(text: '10', context: context).height;
 
-    Widget child = Row(
+    final Widget child = Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         AnimatedContainer(
@@ -119,7 +120,11 @@ class _WeightListTileState extends State<WeightListTile>
         database.deleteMeasurement(widget.measurement);
         setState(() {});
       }
+      setState(() {
+        reverse = false;
+      });
       animationController.reverse();
+
       Future<void>.delayed(
         Duration(
             milliseconds: widget.durationInMilliseconds),
@@ -144,11 +149,22 @@ class _WeightListTileState extends State<WeightListTile>
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {
-            database.insertMeasurement(
-                deletedSortedMeasurement.measurement
+            setState(() {
+              reverse = false;
+            });
+            animationController.reverse();
+
+            Future<void>.delayed(
+              Duration(
+                  milliseconds: widget.durationInMilliseconds),
+                  () {
+                    database.insertMeasurement(
+                        deletedSortedMeasurement.measurement
+                    );
+                    // setState(() {});
+                    widget.updateActiveState(null);
+                  },
             );
-            // setState(() {});
-            widget.updateActiveState(null);
           },
         ),
       );
@@ -165,13 +181,6 @@ class _WeightListTileState extends State<WeightListTile>
     return InkWell(
       onLongPress: () {
         widget.updateActiveState(widget.measurement.key);
-
-/*        if (reverse == false) {
-          animationController.forward();
-        } else {
-          animationController.reverse();
-        }
-        setState(() {reverse = !reverse;});*/
       },
       child: Stack(
         alignment: Alignment.center,
@@ -190,7 +199,9 @@ class _WeightListTileState extends State<WeightListTile>
                 ),
                 alignment: Alignment.center,
                 child: AnimatedOpacity(
-                  duration: Duration(milliseconds: widget.durationInMilliseconds),
+                  duration: Duration(
+                      milliseconds: widget.durationInMilliseconds
+                  ),
                   opacity: reverse ? 1 : 0,
                   child: ClipRRect(
                     child: Row(
