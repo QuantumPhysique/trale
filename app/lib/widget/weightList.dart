@@ -14,6 +14,7 @@ class WeightList extends StatefulWidget {
   const WeightList({
     super.key,
     required this.scrollController,
+    required this.tabController,
     this.durationInMilliseconds = 1000,
     this.delayInMilliseconds = 0,
     this.keepAlive = false,
@@ -23,6 +24,7 @@ class WeightList extends StatefulWidget {
   final int delayInMilliseconds;
   final bool keepAlive;
   final ScrollController scrollController;
+  final TabController tabController;
 
   @override
   _WeightList createState() => _WeightList();
@@ -38,17 +40,25 @@ class _WeightList extends State<WeightList>{
     }
   }
 
+  void onTabChangeEvent() {
+    if (activeListTile != null){
+      setState(() => activeListTile = null);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     activeListTile = null;
     widget.scrollController.addListener(onScrollEvent);
+    widget.tabController.animation!.addListener(onTabChangeEvent);
   }
 
   @override
   void dispose() {
     super.dispose();
     widget.scrollController.removeListener(onScrollEvent);
+    widget.tabController.animation!.removeListener(onTabChangeEvent);
   }
 
 

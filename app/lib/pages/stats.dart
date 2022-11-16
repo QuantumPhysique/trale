@@ -12,7 +12,9 @@ import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
 class StatsScreen extends StatefulWidget {
-  const StatsScreen({super.key});
+  const StatsScreen({super.key, required this.tabController});
+
+  final TabController tabController;
   @override
   _StatsScreen createState() => _StatsScreen();
 }
@@ -116,6 +118,7 @@ class _StatsScreen extends State<StatsScreen> {
                 durationInMilliseconds: animationDurationInMilliseconds,
                 delayInMilliseconds: secondDelayInMilliseconds,
                 scrollController: scrollController,
+                tabController: widget.tabController,
               ),
             ],
         )
