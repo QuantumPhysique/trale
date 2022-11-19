@@ -69,6 +69,25 @@ class Measurement {
   /// return date in milliseconds
   int get dateInMs => date.millisecondsSinceEpoch;
 
+  /// return string for export
+  String get exportString
+    => '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
+
+  /// copy with applying change
+  static Measurement fromString({required String exportString}) {
+    final List<String> strings = exportString.split(' ');
+
+    if (strings.length != 2) {
+      print('error with parsing measurement!');
+    }
+
+    return Measurement(
+      weight: double.parse(strings[1]),
+      date: DateTime.parse(strings[0]),
+      isMeasured: true,
+    );
+  }
+
   /// compare method to use default sort method on list
   static int compare(Measurement a, Measurement b) => a.compareTo(b);
 }
