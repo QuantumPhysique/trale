@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -486,6 +487,27 @@ class MeasurementDatabase {
       (List<Measurement> current, List<Measurement> next) =>
         current.length > next.length ? current : next
     );
+  }
+
+  /// return string for export
+  String get exportString {
+    const String header = '# This file was created with trale.\n';
+    final String body = <String>[
+      for (final Measurement m in measurements)
+        m.exportString
+    ].join('\n');
+    return header + body;
+  }
+
+  /// parse list of measurements from export string
+  List<Measurement> parseString({required String exportString}) {
+    final List<String> lines = const LineSplitter().convert(exportString);
+    lines.removeWhere((String element) => element.startsWith('#'));
+
+    return <Measurement>[
+      for (final String line in lines)
+        Measurement.fromString(exportString: line)
+    ];
   }
 
   /// offset of day in hours
