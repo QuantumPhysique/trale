@@ -339,6 +339,7 @@ class _About extends State<About> {
           },
           icon: const Icon(CustomIcons.back),
         ),
+        size: AppBarSize.large,
       );
     }
 
