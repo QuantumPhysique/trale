@@ -81,6 +81,15 @@ class MeasurementDatabase {
     _gaussianExtrapolatedMeasurements = null;
 
     // recalc all
+    init();
+
+    // fire stream
+    fireStream();
+    TraleNotifier().notify;
+  }
+
+  /// initialize database
+  void init() {
     measurements;
     sortedMeasurements;
     dailyAveragedMeasurements;
@@ -89,10 +98,6 @@ class MeasurementDatabase {
     dailyAveragedExtrapolatedMeasurements;
     gaussianInterpolatedMeasurements;
     gaussianExtrapolatedMeasurements;
-
-    // fire stream
-    fireStream();
-    TraleNotifier().notify;
   }
 
   List<Measurement>? _measurements;
