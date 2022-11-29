@@ -7,6 +7,7 @@ import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 
+@immutable
 class WeightListTile extends StatefulWidget {
   const WeightListTile({
     Key? key,

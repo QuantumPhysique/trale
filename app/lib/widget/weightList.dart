@@ -79,13 +79,9 @@ class _WeightList extends State<WeightList>{
       });
     }
 
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: measurements.length,
-      shrinkWrap: true,
-      itemBuilder: (BuildContext context, int i) {
-        return AnimateInEffect(
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int i) => AnimateInEffect(
           keepAlive: widget.keepAlive,
           durationInMilliseconds: widget.durationInMilliseconds,
           delayInMilliseconds: widget.delayInMilliseconds,
@@ -97,8 +93,9 @@ class _WeightList extends State<WeightList>{
             offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
             durationInMilliseconds: widget.delayInMilliseconds,
           ),
-        );
-      },
+        ),
+        childCount: measurements.length,
+      ),
     );
   }
 }

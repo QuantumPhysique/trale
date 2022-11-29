@@ -82,17 +82,15 @@ class _StatsScreen extends State<StatsScreen> {
       ),
     );
 
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: StreamBuilder<List<Measurement>>(
+    return StreamBuilder<List<Measurement>>(
         stream: database.streamController.stream,
         builder: (
             BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-        ) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
+        ) => CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: Padding(
                 padding: padding,
                 child: TextSizeInEffect(
                   text: AppLocalizations.of(context)!.stats.inCaps,
@@ -101,11 +99,16 @@ class _StatsScreen extends State<StatsScreen> {
                   delayInMilliseconds: firstDelayInMilliseconds,
                 ),
               ),
-              AnimateInEffect(
+            ),
+            SliverToBoxAdapter(
+              child: AnimateInEffect(
                 durationInMilliseconds: animationDurationInMilliseconds,
                 delayInMilliseconds: firstDelayInMilliseconds,
-                child: minmax_widget),
-              Padding(
+                child: minmax_widget,
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
                 padding: padding,
                 child: TextSizeInEffect(
                   text: AppLocalizations.of(context)!.measurements.inCaps,
@@ -114,15 +117,15 @@ class _StatsScreen extends State<StatsScreen> {
                   delayInMilliseconds: secondDelayInMilliseconds,
                 ),
               ),
-              WeightList(
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: secondDelayInMilliseconds,
-                scrollController: scrollController,
-                tabController: widget.tabController,
-              ),
-            ],
+            ),
+            WeightList(
+              durationInMilliseconds: animationDurationInMilliseconds,
+              delayInMilliseconds: secondDelayInMilliseconds,
+              scrollController: scrollController,
+              tabController: widget.tabController,
+            ),
+          ],
         )
-      )
     );
   }
 }
