@@ -1,11 +1,9 @@
 import 'dart:math';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/weightListTile.dart';
@@ -61,34 +59,10 @@ class _WeightList extends State<WeightList>{
     widget.tabController.animation!.removeListener(onTabChangeEvent);
   }
 
-
   @override
   Widget build(BuildContext context) {
-    final double height = heightFactor
-        * sizeOfText(text: '10', context: context).height;
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
-    const String groupTag = 'groupTag';
-
-    Widget listTileMeasurement (SortedMeasurement m)
-      =>  Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                //color: Theme.of(context).colorScheme.background,
-                width: MediaQuery.of(context).size.width,
-                height: height,
-                child: AutoSizeText(
-                  m.measurement.measureToString(
-                    context, ws: 12,
-                  ),
-                  style: Theme.of(context).textTheme.bodyText1
-                      ?.apply(fontFamily: 'Courier'),
-                ),
-              ),
-            ],
-      );
 
     double getIntervalStart(int i) {
       const int maximalShownListTile = 15;
