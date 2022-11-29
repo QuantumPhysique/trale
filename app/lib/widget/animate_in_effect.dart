@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trale/core/theme.dart';
 
 class AnimateInEffect extends StatefulWidget {
   const AnimateInEffect({
