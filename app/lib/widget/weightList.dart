@@ -95,6 +95,7 @@ class _WeightList extends State<WeightList>{
           ),
         ),
         childCount: measurements.length,
+        addAutomaticKeepAlives: true,
       ),
     );
   }

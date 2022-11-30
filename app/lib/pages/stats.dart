@@ -68,7 +68,7 @@ class _StatsScreen extends State<StatsScreen> {
       ),
     );
 
-    final Widget minmax_widget = FractionallySizedBox(
+    final Widget minMaxWidget = FractionallySizedBox(
       widthFactor: 1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,11 +88,12 @@ class _StatsScreen extends State<StatsScreen> {
             BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
         ) => CustomScrollView(
           controller: scrollController,
+          cacheExtent: MediaQuery.of(context).size.height,
           slivers: <Widget>[
             SliverToBoxAdapter(
               child: Padding(
-                padding: padding,
-                child: TextSizeInEffect(
+                  padding: padding,
+                  child: TextSizeInEffect(
                   text: AppLocalizations.of(context)!.stats.inCaps,
                   textStyle: Theme.of(context).textTheme.headline4!,
                   durationInMilliseconds: animationDurationInMilliseconds,
@@ -104,12 +105,16 @@ class _StatsScreen extends State<StatsScreen> {
               child: AnimateInEffect(
                 durationInMilliseconds: animationDurationInMilliseconds,
                 delayInMilliseconds: firstDelayInMilliseconds,
-                child: minmax_widget,
+                child: minMaxWidget,
               ),
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: padding,
+                padding: EdgeInsets.only(
+                  left: TraleTheme.of(context)!.padding,
+                  top: TraleTheme.of(context)!.padding,
+                  bottom: TraleTheme.of(context)!.padding,
+                ),
                 child: TextSizeInEffect(
                   text: AppLocalizations.of(context)!.measurements.inCaps,
                   textStyle: Theme.of(context).textTheme.headline4!,
@@ -123,6 +128,11 @@ class _StatsScreen extends State<StatsScreen> {
               delayInMilliseconds: secondDelayInMilliseconds,
               scrollController: scrollController,
               tabController: widget.tabController,
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: TraleTheme.of(context)!.padding,
+              ),
             ),
           ],
         )
