@@ -19,17 +19,6 @@ import 'package:trale/widget/routeTransition.dart';
 Drawer appDrawer (BuildContext context) {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
   return Drawer(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-          topRight: Radius.circular(TraleTheme.of(context)!.borderRadius),
-          bottomRight: Radius.circular(TraleTheme.of(context)!.borderRadius)
-      ),
-    ),
-    backgroundColor: ElevationOverlay.colorWithOverlay(
-      Theme.of(context).colorScheme.surface,
-      Theme.of(context).colorScheme.primary,
-      1.0,
-    ),
     child: Column(
       children: <Widget>[
         DrawerHeader(
