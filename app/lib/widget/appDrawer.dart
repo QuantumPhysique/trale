@@ -15,12 +15,37 @@ import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/routeTransition.dart';
 
+// class SidebarDestination extends NavigationDrawerDestination {
+//   const SidebarDestination({
+//     super.key,
+//     required super.icon,
+//     required super.label,
+//     super.selectedIcon,
+//     required this.onTap,
+//   });
+//
+//   final void Function() onTap;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onPanDown: (_) => onTap(),
+//       child: super.build(context),
+//     );
+//   }
+// }
+
 /// Drawer for home screen
-Drawer appDrawer (BuildContext context) {
+NavigationDrawer appDrawer (
+  BuildContext context,
+  Function(int) handlePageChanged,
+  int selectedIndex,
+) {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-  return Drawer(
-    child: Column(
-      children: <Widget>[
+  return NavigationDrawer(
+    onDestinationSelected: handlePageChanged,
+    selectedIndex: selectedIndex,
+    children: <Widget>[
         DrawerHeader(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -31,129 +56,145 @@ Drawer appDrawer (BuildContext context) {
             width: MediaQuery.of(context).size.width,
             child: const IconHero(),
           ),
+      ),
+      ListTile(
+        dense: true,
+        leading: Icon(
+          CustomIcons.account,
+          color: Theme.of(context).iconTheme.color,
         ),
-        ListTile(
-          dense: true,
-          leading: Icon(
-            CustomIcons.account,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          title: TextFormField(
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration.collapsed(
-                hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                hintText: AppLocalizations.of(context)!.addUserName,
-              ),
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+        title: TextFormField(
+            keyboardType: TextInputType.name,
+            decoration: InputDecoration.collapsed(
+              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
-              initialValue: notifier.userName,
-              onChanged: (String value) {
-                notifier.userName = value;
-              }
-          ),
-          onTap: () {},
-        ),
-        ListTile(
-          dense: true,
-          leading: Icon(
-            CustomIcons.goal,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          title: AutoSizeText(
-            notifier.userTargetWeight != null
-                ? notifier.unit.weightToString(notifier.userTargetWeight!)
-                : AppLocalizations.of(context)!.addTargetWeight,
+              hintText: AppLocalizations.of(context)!.addUserName,
+            ),
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
-            maxLines: 1,
-          ),
-          onTap: () async {
-            Navigator.of(context).pop();
-            await showTargetWeightDialog(
-              context: context,
-              weight: notifier.userTargetWeight
-                  ?? Preferences().defaultUserWeight,
-            );
-            notifier.notify;
-          },
+            initialValue: notifier.userName,
+            onChanged: (String value) {
+              notifier.userName = value;
+            }
         ),
-        const Spacer(),
-        const Divider(),
-        ListTile(
-          dense: true,
-          leading: Icon(
-            CustomIcons.settings,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          title: AutoSizeText(
-            AppLocalizations.of(context)!.settings,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            maxLines: 1,
-          ),
-          onTap: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).push<dynamic>(
-                SlideRoute(
-                  page: Settings(),
-                  direction: TransitionDirection.left,
-                )
-            );
-          },
+        onTap: () {},
+      ),
+      ListTile(
+        dense: true,
+        leading: Icon(
+          CustomIcons.goal,
+          color: Theme.of(context).iconTheme.color,
         ),
-        ListTile(
-          dense: true,
-          leading: Icon(
-            CustomIcons.faq,
-            color: Theme.of(context).iconTheme.color,
+        title: AutoSizeText(
+          notifier.userTargetWeight != null
+              ? notifier.unit.weightToString(notifier.userTargetWeight!)
+              : AppLocalizations.of(context)!.addTargetWeight,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
           ),
-          title: AutoSizeText(
-            AppLocalizations.of(context)!.faq,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            maxLines: 1,
-          ),
-          onTap: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).push<dynamic>(
-                SlideRoute(
-                  page: FAQ(),
-                  direction: TransitionDirection.left,
-                )
-            );
-          },
+          maxLines: 1,
         ),
-        ListTile(
-          dense: true,
-          leading: Icon(
-            CustomIcons.info,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          title: AutoSizeText(
-            AppLocalizations.of(context)!.about,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            maxLines: 1,
-          ),
-          onTap: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).push<dynamic>(
-                SlideRoute(
-                  page: About(),
-                  direction: TransitionDirection.left,
-                )
-            );
-          },
+        onTap: () async {
+          Navigator.of(context).pop();
+          await showTargetWeightDialog(
+            context: context,
+            weight: notifier.userTargetWeight
+                ?? Preferences().defaultUserWeight,
+          );
+          notifier.notify;
+        },
+      ),
+      const Divider(),
+      // SizedBox(height: TraleTheme.of(context)!.padding),
+      // NavigationDrawerDestination(
+      //   icon: const Icon(CustomIcons.home),
+      //   label: Text(AppLocalizations.of(context)!.home),
+      // ),
+      // SidebarDestination(
+      //   onTap: () {
+      //     Navigator.of(context).pop();
+      //     Navigator.of(context).push<dynamic>(
+      //         SlideRoute(
+      //           page: Settings(),
+      //           direction: TransitionDirection.left,
+      //         )
+      //     );
+      //   },
+      //   icon: const Icon(CustomIcons.settings),
+      //   label: Text(AppLocalizations.of(context)!.settings),
+      // ),
+      ListTile(
+        dense: true,
+        leading: Icon(
+          CustomIcons.settings,
+          color: Theme.of(context).iconTheme.color,
         ),
-      ],
-    ),
+        title: AutoSizeText(
+          AppLocalizations.of(context)!.settings,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          maxLines: 1,
+        ),
+        onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).push<dynamic>(
+              SlideRoute(
+                page: Settings(),
+                direction: TransitionDirection.left,
+              )
+          );
+        },
+      ),
+      ListTile(
+        dense: true,
+        leading: Icon(
+          CustomIcons.faq,
+          color: Theme.of(context).iconTheme.color,
+        ),
+        title: AutoSizeText(
+          AppLocalizations.of(context)!.faq,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          maxLines: 1,
+        ),
+        onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).push<dynamic>(
+              SlideRoute(
+                page: FAQ(),
+                direction: TransitionDirection.left,
+              )
+          );
+        },
+      ),
+      ListTile(
+        dense: true,
+        leading: Icon(
+          CustomIcons.info,
+          color: Theme.of(context).iconTheme.color,
+        ),
+        title: AutoSizeText(
+          AppLocalizations.of(context)!.about,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          maxLines: 1,
+        ),
+        onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).push<dynamic>(
+              SlideRoute(
+                page: About(),
+                direction: TransitionDirection.left,
+              )
+          );
+        },
+      ),
+    ],
   );
 }
 

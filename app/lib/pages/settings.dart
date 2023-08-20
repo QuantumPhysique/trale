@@ -147,28 +147,30 @@ class LanguageListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: true,
       contentPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.language,
         style: Theme.of(context).textTheme.bodyText1,
         maxLines: 1,
       ),
-      trailing: DropdownButton<String>(
-        value: Provider.of<TraleNotifier>(context).language.language,
-        items: <DropdownMenuItem<String>>[
-          for (Language lang in Language.supportedLanguages)
-            DropdownMenuItem<String>(
+      trailing: DropdownMenu<String>(
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.language,
+          style: Theme.of(context).textTheme.bodyText1,
+          maxLines: 1,
+        ),
+        initialSelection: Provider.of<TraleNotifier>(context).language.language,
+        dropdownMenuEntries: <DropdownMenuEntry<String>>[
+          for (final Language lang in Language.supportedLanguages)
+            DropdownMenuEntry<String>(
               value: lang.language,
-              child: Text(
-                lang.languageLong(context),
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
+              label: lang.languageLong(context),
             )
         ],
-        onChanged: (String? lang) async {
+        onSelected: (String? lang) async {
           Provider.of<TraleNotifier>(
               context, listen: false
           ).language = lang!.toLanguage();
@@ -187,28 +189,30 @@ class UnitsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: true,
       contentPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.unit,
         style: Theme.of(context).textTheme.bodyText1,
         maxLines: 1,
       ),
-      trailing: DropdownButton<TraleUnit>(
-        value: Provider.of<TraleNotifier>(context).unit,
-        items: <DropdownMenuItem<TraleUnit>>[
-          for (TraleUnit unit in TraleUnit.values)
-            DropdownMenuItem<TraleUnit>(
+      trailing: DropdownMenu<TraleUnit>(
+        initialSelection: Provider.of<TraleNotifier>(context).unit,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.unit,
+          style: Theme.of(context).textTheme.bodyText1,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleUnit>>[
+          for (final TraleUnit unit in TraleUnit.values)
+            DropdownMenuEntry<TraleUnit>(
               value: unit,
-              child: Text(
-                unit.name,
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
+              label: unit.name,
             )
         ],
-        onChanged: (TraleUnit? newUnit) async {
+        onSelected: (TraleUnit? newUnit) async {
           if (newUnit != null) {
             Provider.of<TraleNotifier>(
                 context, listen: false
@@ -229,39 +233,54 @@ class DarkModeListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: true,
       contentPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.darkmode,
         style: Theme.of(context).textTheme.bodyText1,
         maxLines: 1,
       ),
-      trailing: ToggleButtons(
-        renderBorder: false,
-        fillColor: Colors.transparent,
-        isSelected: List<bool>.generate(
-          orderedThemeModes.length,
-              (int index) => index == orderedThemeModes.indexOf(
-              Provider.of<TraleNotifier>(context).themeMode
-          ),
-        ),
-        onPressed: (int index) {
-          Provider.of<TraleNotifier>(
-            context, listen: false,
-          ).themeMode = orderedThemeModes[index];
+      trailing: SegmentedButton<ThemeMode>(
+        selected: <ThemeMode>{
+          Provider.of<TraleNotifier>(context).themeMode
         },
-        children: <Widget>[
-          const Icon(CustomIcons.lightmode),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: const Icon(CustomIcons.automode),
-          ),
-          const Icon(CustomIcons.darkmode),
+        showSelectedIcon: false,
+        segments: <ButtonSegment<ThemeMode>>[
+          for (final ThemeMode mode in orderedThemeModes)
+            ButtonSegment<ThemeMode>(
+              value: mode,
+              tooltip: mode.nameLong(context),
+              icon: Icon(mode.icon),
+            )
         ],
+        onSelectionChanged: (Set<ThemeMode> newMode) async {
+          Provider.of<TraleNotifier>(
+              context, listen: false
+          ).themeMode = newMode.first;
+        },
+        // isSelected: List<bool>.generate(
+        //   orderedThemeModes.length,
+        //       (int index) => index == orderedThemeModes.indexOf(
+        //       Provider.of<TraleNotifier>(context).themeMode
+        //   ),
+        // ),
+        // onPressed: (int index) {
+        //   Provider.of<TraleNotifier>(
+        //     context, listen: false,
+        //   ).themeMode = orderedThemeModes[index];
+        // },
+        // children: <Widget>[
+        //   const Icon(CustomIcons.lightmode),
+        //   Padding(
+        //     padding: EdgeInsets.symmetric(
+        //       horizontal: TraleTheme.of(context)!.padding,
+        //     ),
+        //     child: const Icon(CustomIcons.automode),
+        //   ),
+        //   const Icon(CustomIcons.darkmode),
+        // ],
       ),
     );
   }
@@ -276,38 +295,32 @@ class InterpolationListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      dense: true,
       contentPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.interpolation,
         style: Theme.of(context).textTheme.bodyText1,
         maxLines: 1,
       ),
-      trailing: DropdownButton<InterpolStrength>(
-        value: Provider.of<TraleNotifier>(context).interpolStrength,
-        items: <DropdownMenuItem<InterpolStrength>>[
-          for (InterpolStrength strength in InterpolStrength.values)
-            DropdownMenuItem<InterpolStrength>(
+      trailing: SegmentedButton<InterpolStrength>(
+        selected: <InterpolStrength>{
+          Provider.of<TraleNotifier>(context).interpolStrength
+        },
+        showSelectedIcon: false,
+        segments: <ButtonSegment<InterpolStrength>>[
+          for (final InterpolStrength strength in InterpolStrength.values)
+            ButtonSegment<InterpolStrength>(
               value: strength,
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    strength.icon
-                  ),
-                  Text(
-                    ' ${strength.nameLong(context)}',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
-              ),
+              tooltip: strength.nameLong(context),
+              icon: Icon(strength.icon),
             )
         ],
-        onChanged: (InterpolStrength? strength) async {
+        onSelectionChanged: (Set<InterpolStrength> newStrength) async {
           Provider.of<TraleNotifier>(
               context, listen: false
-          ).interpolStrength = strength!;
+          ).interpolStrength = newStrength.first;
         },
       ),
     );
