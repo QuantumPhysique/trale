@@ -101,6 +101,14 @@
   "@darkmode": {
     "description": "Dark mode menu item."
   },
+  "lightmode": "light mode",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "systemmode": "system mode",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
   "exportDb": "Export all databases",
   "@exportDb": {
     "description": "Export all databases."

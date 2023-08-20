@@ -1,9 +1,11 @@
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:trale/core/icons.dart';
+
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
@@ -363,6 +365,20 @@ extension CustomThemeModeEncoding on ThemeMode {
     ThemeMode.dark: 'on',
     ThemeMode.light: 'off',
     ThemeMode.system: 'auto',
+  }[this]!;
+
+  /// get international name
+  String nameLong (BuildContext context) => <ThemeMode, String>{
+    ThemeMode.dark: AppLocalizations.of(context)!.darkmode,
+    ThemeMode.light: AppLocalizations.of(context)!.lightmode,
+    ThemeMode.system: AppLocalizations.of(context)!.systemmode,
+  }[this]!;
+
+  /// get icon
+  IconData get icon => <ThemeMode, IconData>{
+    ThemeMode.light: CustomIcons.lightmode,
+    ThemeMode.dark: CustomIcons.darkmode,
+    ThemeMode.system: CustomIcons.automode,
   }[this]!;
 }
 
