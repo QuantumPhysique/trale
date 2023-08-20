@@ -19,7 +19,7 @@ version: 0.2.2+4
 
 environment:
   sdk: ">=2.19.0 <3.0.0"
-  flutter: ">=3.10.0"
+  flutter: ">=3.13.0"
 
 dependencies:
   flutter:
@@ -28,19 +28,19 @@ dependencies:
     sdk: flutter
 
   auto_size_text: ^3.0.0
-  dynamic_color: ^1.6.2
-  fl_chart: ^0.62.0
-  font_awesome_flutter: ^10.4.0
+  dynamic_color: ^1.6.6
+  fl_chart: ^0.63.0
+  font_awesome_flutter: ^10.5.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  intl: ^0.18.0
-  introduction_screen: ^3.1.8
-  package_info_plus: ^4.0.0
+  intl: ^0.18.1
+  introduction_screen: ^3.1.11
+  package_info_plus: ^4.1.0
   provider: ^6.0.5
   rive: ^0.10.4
-  shared_preferences: ^2.1.1
+  shared_preferences: ^2.2.0
   sliding_up_panel: ^2.0.0+1
-  url_launcher: ^6.1.11
+  url_launcher: ^6.1.12
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -50,13 +50,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^2.4.4
-  dart_code_metrics: ^5.7.3
+  build_runner: ^2.4.6
+  dart_code_metrics: ^5.7.6
   # flutter_launcher_icons: ^0.10.0
   flutter_launcher_icons:
     git: https://github.com/nvi9/flutter_launcher_icons.git
-  flutter_lints: ^2.0.1
-  hive_generator: ^2.0.0
+  flutter_lints: ^2.0.2
+  hive_generator: ^2.0.1
 
 
 # define app icons

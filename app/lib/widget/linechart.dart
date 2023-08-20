@@ -46,7 +46,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       : db.gaussianExtrapolatedMeasurements;
 
     final TextStyle labelTextStyle =
-      Theme.of(context).textTheme.caption!.apply(
+      Theme.of(context).textTheme.bodySmall!.apply(
         fontFamily: 'Courier',
         color: Theme.of(context).colorScheme.onSurface,
       );
@@ -187,19 +187,21 @@ class _CustomLineChartState extends State<CustomLineChart> {
           maxX: maxX,
           minY: minY.floorToDouble(),
           maxY: maxY.ceilToDouble(),
-          lineTouchData: LineTouchData(enabled: false),
+          lineTouchData: const LineTouchData(enabled: false),
           borderData: FlBorderData(show: false),
-          gridData: FlGridData(
-            show: false,
-          ),
+          gridData: const FlGridData(show: false),
           titlesData: FlTitlesData(
             bottomTitles: bottomTitles(),
             leftTitles: leftTitles(),
-            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false)
+            ),
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false)
+            ),
             show: true,
           ),
-          clipData: FlClipData.all(),
+          clipData: const FlClipData.all(),
           extraLinesData: ExtraLinesData(
           extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
@@ -213,7 +215,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                     show: true,
                     alignment: Alignment.topRight,
                     padding: const EdgeInsets.only(bottom: 3),
-                    style: Theme.of(context).textTheme.caption!.apply(
+                    style: Theme.of(context).textTheme.bodySmall!.apply(
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
                     labelResolver: (HorizontalLine line) =>
@@ -230,9 +232,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
               //color: Theme.of(context).colorScheme.primaryContainer,
               barWidth: 3,
               isStrokeCapRound: true,
-              dotData: FlDotData(
-                show: false,
-              ),
+              dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
                 color: Theme.of(context).colorScheme.primaryContainer,
@@ -265,7 +265,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
                       1,
                     ),
-                  color: barData.color,
+                  color: barData.color ?? Colors.black,
                   strokeColor: Theme.of(context).colorScheme.onBackground,
                   strokeWidth: 0.2,
                 )
@@ -273,9 +273,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
             ),
           ],
         ),
-        swapAnimationDuration: TraleTheme.of(context)!
-          .transitionDuration.normal,
-        swapAnimationCurve: Curves.easeOut,
+        duration: TraleTheme.of(context)!.transitionDuration.normal,
+        curve: Curves.easeOut,
       );
     }
 
