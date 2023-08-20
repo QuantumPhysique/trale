@@ -127,7 +127,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     return IntroductionScreen(
       globalBackgroundColor: TraleTheme.of(context)!.bgShade4,
-      isTopSafeArea: true,
       pages: pageViewModels,
       onDone: () => closingOnBoarding(context),
       onSkip: () => closingOnBoarding(context),

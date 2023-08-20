@@ -1,165 +1,101 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'dart:math';
 
-import 'package:trale/core/icons.dart';
+import 'package:flutter/material.dart';
+
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/widget/addWeightDialog.dart';
+import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/weightListTile.dart';
 
 class WeightList extends StatefulWidget {
-  const WeightList({super.key});
+  const WeightList({
+    super.key,
+    required this.scrollController,
+    required this.tabController,
+    this.durationInMilliseconds = 1000,
+    this.delayInMilliseconds = 0,
+    this.keepAlive = false,
+  });
+
+  final int durationInMilliseconds;
+  final int delayInMilliseconds;
+  final bool keepAlive;
+  final ScrollController scrollController;
+  final TabController tabController;
+
   @override
   _WeightList createState() => _WeightList();
 }
 
-class _WeightList extends State<WeightList> {
+class _WeightList extends State<WeightList>{
+  double heightFactor = 1.5;
+  int? activeListTile;
+
+  void onScrollEvent() {
+    if (activeListTile != null){
+      setState(() => activeListTile = null);
+    }
+  }
+
+  void onTabChangeEvent() {
+    if (activeListTile != null){
+      setState(() => activeListTile = null);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    activeListTile = null;
+    widget.scrollController.addListener(onScrollEvent);
+    widget.tabController.animation!.addListener(onTabChangeEvent);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.scrollController.removeListener(onScrollEvent);
+    widget.tabController.animation!.removeListener(onTabChangeEvent);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final double height = 1.5 * sizeOfText(text: '10', context: context).height;
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
-    const String groupTag = 'groupTag';
 
-    Widget deleteAction(SortedMeasurement currentMeasurement) {
-      return Expanded(
-        child: Padding(
-          padding: EdgeInsets.only(
-              left: TraleTheme.of(context)!.padding / 2,
-              right: TraleTheme.of(context)!.padding,
-          ),
-          child: SlidableAction(
-              // label: AppLocalizations.of(context)!.delete,
-              backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-              foregroundColor: Theme.of(context).colorScheme.onTertiaryContainer,
-              borderRadius: BorderRadius.circular(
-                  TraleTheme.of(context)!.borderRadius
-              ),
-              icon: CustomIcons.delete,
-              onPressed: (BuildContext context) {
-                database.deleteMeasurement(currentMeasurement);
-                setState(() {});
-                final SnackBar snackBar = SnackBar(
-                  content: const Text('Measurement was deleted'),
-                  behavior: SnackBarBehavior.floating,
-                  width: MediaQuery.of(context).size.width / 3 * 2,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(
-                              TraleTheme.of(context)!.borderRadius
-                          )
-                      )
-                  ),
-                  action: SnackBarAction(
-                    label: 'Undo',
-                    onPressed: () {
-                      database.insertMeasurement(
-                          currentMeasurement.measurement
-                      );
-                      setState(() {});
-                    },
-                  ),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-          ),
-        ),
-      );
-    }
-
-    Widget editAction(SortedMeasurement currentMeasurement) {
-      return Expanded(
-        child: Padding(
-          padding: EdgeInsets.only(
-            right: TraleTheme.of(context)!.padding / 2,
-            left: TraleTheme.of(context)!.padding,
-          ),
-          child: SlidableAction(
-  //      label: AppLocalizations.of(context)!.edit,
-            backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-            foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-            borderRadius: BorderRadius.circular(
-                TraleTheme.of(context)!.borderRadius
-            ),
-            icon: CustomIcons.edit,
-            onPressed: (BuildContext context) async {
-              final bool changed = await showAddWeightDialog(
-                context: context,
-                weight: currentMeasurement.measurement.weight,
-                date: currentMeasurement.measurement.date,
-              );
-              if (changed) {
-                database.deleteMeasurement(currentMeasurement);
-                setState(() {});
-              }
-            },
-          ),
-        ),
-      );
-    }
-
-    ActionPane actionPane(SortedMeasurement m) =>  ActionPane(
-      motion: const DrawerMotion(),
-      extentRatio: 0.5,
-      children: <Widget>[
-        editAction(m),
-        deleteAction(m),
-      ],
-    );
-
-    final List<Slidable> listOfMeasurements = measurements.map(
-      (SortedMeasurement currentMeasurement) {
-        return Slidable(
-          groupTag: groupTag,
-          startActionPane: actionPane(currentMeasurement),
-          endActionPane: actionPane(currentMeasurement),
-          closeOnScroll: true,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                //color: Theme.of(context).colorScheme.background,
-                width: MediaQuery.of(context).size.width,
-                height: height,
-                child: AutoSizeText(
-                  currentMeasurement.measurement.measureToString(
-                    context, ws: 12,
-                  ),
-                  style: Theme.of(context).textTheme.bodyText1
-                    ?.apply(fontFamily: 'Courier'),
-                ),
-              ),
-            ],
-          ),
-        );
+    double getIntervalStart(int i) {
+      const int maximalShownListTile = 15;
+      if (maximalShownListTile < measurements.length) {
+        return <double>[i / maximalShownListTile, 1].reduce(min).toDouble();
+      } else {
+        return i / measurements.length;
       }
-    ).toList();
+    }
 
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: measurements.length * height
-          + 2 * TraleTheme.of(context)!.padding,
-      padding: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding
-      ),
-      alignment: Alignment.center,
-      child: SlidableAutoCloseBehavior(
-        child: StreamBuilder<List<Measurement>>(
-          stream: database.streamController.stream,
-          builder: (
-              BuildContext context,
-              AsyncSnapshot<List<Measurement>> snapshot,
-              ) => Column(
-            key: ValueKey<List<Measurement>>(
-              snapshot.data ?? <Measurement>[],
-            ),
-            children: listOfMeasurements,
+    void updateActiveListTile(int? key){
+      setState(() {
+        activeListTile = key;
+      });
+    }
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int i) => AnimateInEffect(
+          keepAlive: widget.keepAlive,
+          durationInMilliseconds: widget.durationInMilliseconds,
+          delayInMilliseconds: widget.delayInMilliseconds,
+          intervalStart: getIntervalStart(i),
+          child: WeightListTile(
+            measurement: measurements[i],
+            updateActiveState: updateActiveListTile,
+            activeKey: activeListTile,
+            offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
+            durationInMilliseconds: widget.delayInMilliseconds,
           ),
         ),
+        childCount: measurements.length,
+        addAutomaticKeepAlives: true,
       ),
     );
   }
