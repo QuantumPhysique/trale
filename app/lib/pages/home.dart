@@ -35,6 +35,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   void initState() {
     super.initState();
     loadedFirst = true;
+    _pageIndex = 0;
 
     _selectedTab = TabController(
       vsync: this,
@@ -76,6 +77,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   late TabController _selectedTab;
   // scrolling controller
   final ScrollController _scrollController = ScrollController();
+  // active page
+  int _pageIndex = 0;
 
   void _onItemTapped(int index) {
     if (index == _selectedTab.length) {
@@ -112,6 +115,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     );
     setState(() {
       popupShown = false;
+    });
+  }
+  void handlePageChanged(int selectedPage) {
+    setState(() {
+      _pageIndex = selectedPage;
     });
   }
 
@@ -167,7 +175,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         show: showFAB,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      drawer: appDrawer(context),
+      drawer: appDrawer(context, handlePageChanged, _pageIndex),
     );
   }
 }
