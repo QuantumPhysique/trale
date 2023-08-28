@@ -7,7 +7,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
 - Add support for themed app icon (android 13)
-- Using latest flutter 3.7 version with improved Material You theme
+- Using latest flutter 3.13 version with improved Material You theme
+
+### Bugfix 🐛:
+- Fix broken theme selection
+
 
 ## [0.2.2] - 2022-10-18
 ### Added Features and Improvements 🙌:
@@ -18,6 +22,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other changes:
 - Added linear regression for history prediction
+
 
 ## [0.2.1] - 2022-07-09
 ### Added Features and Improvements 🙌:
