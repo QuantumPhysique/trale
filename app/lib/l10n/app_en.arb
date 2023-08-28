@@ -33,9 +33,13 @@
   "@user" : {
     "description": "Name of user menu"
   },
-  "userDesc": "activity, strikes and achievements",
-  "@userDesc": {
-    "description": "What to modify in the settings"
+  "userSettings": "user settings",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "danger zone",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
   },
   "settings": "settings",
   "@settings": {
@@ -109,13 +113,17 @@
   "@systemmode": {
     "description": "System mode menu item."
   },
-  "exportDb": "Export all databases",
-  "@exportDb": {
-    "description": "Export all databases."
+  "export": "Export all measurements",
+  "@export": {
+    "description": "Export all measurements"
   },
-  "exportDbSubtitle": "Merge all active databases into a single, which can be exported.",
-  "@exportDbSubtitle": {
-    "description": "Merge all active databases into a single, which can be exported."
+  "exportSubtitle": "This exposes all measurements to all apps.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "exportDialog": "This will export all measurements to the external storage. Writing permissions are needed.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
   "open": "open",
   "@open": {
