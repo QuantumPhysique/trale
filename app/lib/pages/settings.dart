@@ -335,6 +335,10 @@ class ThemeSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Used to adjust themeMode to dark or light
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
+    final bool isDark = traleNotifier.themeMode == ThemeMode.dark || (
+        traleNotifier.themeMode == ThemeMode.system &&
+        Theme.of(context).brightness == Brightness.dark
+    );
 
     return ListView.builder(
         physics: const ClampingScrollPhysics(),
@@ -366,7 +370,7 @@ class ThemeSelection extends StatelessWidget {
                           color: Theme.of(context).colorScheme.onBackground,
                       ),
                       color: (
-                        TraleTheme.of(context)!.isDark
+                        isDark
                           ? traleNotifier.isAmoled
                             ? ctheme.dark(context).amoled
                             : ctheme.dark(context)
@@ -385,24 +389,24 @@ class ThemeSelection extends StatelessWidget {
                         children: <Widget>[
                           AutoSizeText(
                             ctheme.name,
-                            style: TraleTheme.of(context)!.isDark
-                                ? ctheme.dark(context).themeData.textTheme.overline
-                                : ctheme.light(context).themeData.textTheme.overline,
+                            style: isDark
+                              ? ctheme.dark(context).themeData.textTheme.overline
+                              : ctheme.light(context).themeData.textTheme.overline,
                             maxLines: 1,
                           ),
                           Divider(
                             height: 5,
                             color: (
-                                TraleTheme.of(context)!.isDark
-                                    ? ctheme.dark(context)
-                                    : ctheme.light(context)
+                              isDark
+                                ? ctheme.dark(context)
+                                : ctheme.light(context)
                             ).themeData.colorScheme.onBackground,
                           ),
                           AutoSizeText(
                             'wwwwwwwwww',
-                            style: TraleTheme.of(context)!.isDark
-                                ? ctheme.dark(context).themeData.textTheme.overline
-                                : ctheme.light(context).themeData.textTheme.overline,
+                            style: isDark
+                              ? ctheme.dark(context).themeData.textTheme.labelSmall
+                              : ctheme.light(context).themeData.textTheme.labelSmall,
                             maxLines: 2,
                           ),
                           const Spacer(),
@@ -411,9 +415,9 @@ class ThemeSelection extends StatelessWidget {
                               borderRadius: TraleTheme.of(context)!
                                   .borderShape.borderRadius,
                               color: (
-                                  TraleTheme.of(context)!.isDark
-                                      ? ctheme.dark(context)
-                                      : ctheme.light(context)
+                                isDark
+                                  ? ctheme.dark(context)
+                                  : ctheme.light(context)
                               ).themeData.colorScheme.primary,
                             ),
                             height: 0.05 * MediaQuery.of(context).size.width,
