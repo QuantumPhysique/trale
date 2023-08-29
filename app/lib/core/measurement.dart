@@ -41,6 +41,13 @@ class Measurement {
   /// comparator method
   int compareTo(Measurement other) => date.compareTo(other.date);
 
+  /// check if identical
+  bool isIdentical(Measurement other) => (
+    weight == other.weight
+  ) && (
+    date.difference(other.date).inMinutes < 1
+  );
+
   /// return weight in active unit
   double inUnit(BuildContext context) => weight / Provider.of<TraleNotifier>(
     context, listen: false

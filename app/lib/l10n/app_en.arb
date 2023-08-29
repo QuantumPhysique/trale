@@ -145,13 +145,13 @@
   "@successCreatedDb": {
     "description": "Text to show that database was created successfully."
   },
-  "importDb": "Import database",
-  "@importDb": {
-    "description": "Import single database file."
+  "import": "Import backup",
+  "@import": {
+    "description": "Import backup."
   },
-  "importDbSubtitle": "Import database from file.",
-  "@importDbSubtitle": {
-    "description": "Import database from file"
+  "importSubtitle": "Import measurements from txt backup file.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
   },
   "amoled": "AMOLED",
   "@amoled": {
@@ -245,15 +245,9 @@
   "@importingNoPermission": {
     "description": "Read permission denied: Import failed."
   },
-  "importingDialog": "Database {name} exists already. Do you want to override it? This can not be undone.",
-  "@importingDialog": {
-    "description": "Read permission denied: Import failed.",
-    "placeholders": {
-      "name": {
-        "type": "String",
-        "example": "default"
-      }
-    }
+  "importDialog": "Include all measurements to the current database. This can not be undone!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
   },
   "overwrite": "overwrite",
   "@overwrite": {

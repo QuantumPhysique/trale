@@ -50,10 +50,21 @@ class MeasurementDatabase {
   /// get broadcast stream to track change of db
   StreamController<List<Measurement>> get streamController => _streamController;
 
+  /// check if measuremnt exists
+  bool containsMeasurement(Measurement m) {
+    final List<bool> isMeasurement = <bool>[
+      for (final Measurement measurement in measurements)
+        measurement.isIdentical(m)
+    ];
+    return isMeasurement.contains(true);
+  }
+
   /// insert Measurements into box
   void insertMeasurement(Measurement m) {
-    box.add(m);
-    reinit();
+    if (!containsMeasurement(m)) {
+      box.add(m);
+      reinit();
+    }
   }
 
   /// delete Measurements from box

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
@@ -25,6 +27,8 @@ class ExportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
+    const Duration duration = Duration(seconds: 5);
     return ListTile(
       dense: true,
       title: AutoSizeText(
@@ -98,26 +102,168 @@ class ExportListTile extends StatelessWidget {
             ),
           ) ?? false;
           if (accepted) {
-            print('write file');
             final Directory? localPath = await getExternalStorageDirectory();
             if (localPath != null) {
               final DateFormat formatter = DateFormat('yyyy-MM-dd');
               final String filename =
                 'trale_${formatter.format(DateTime.now())}.txt';
               final String path = '${localPath.path}/$filename';
-              print(path);
               final File file = File(path);
               final MeasurementDatabase db = MeasurementDatabase();
-              print(db.exportString);
               file.writeAsString(db.exportString, mode: FileMode.write);
+              sm.showSnackBar(
+                SnackBar(
+                  content: Text('File exported to: $path'),
+                  behavior: SnackBarBehavior.floating,
+                  duration: duration,
+                ),
+              );
             } else {
-              print('no directory found');
+              sm.showSnackBar(
+                const SnackBar(
+                  content: Text('Missing write permission.'),
+                  behavior: SnackBarBehavior.floating,
+                  duration: duration,
+                ),
+              );
             }
-            // Provider.of<TraleNotifier>(
-            //     context, listen: false
-            // ).factoryReset();
-            // // leave settings
-            // Navigator.of(context).pop();
+          }
+        },
+      ),
+    );
+  }
+}
+
+
+/// ListTile for importing
+class ImportListTile extends StatelessWidget {
+  /// constructor
+  const ImportListTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
+    final MeasurementDatabase db = MeasurementDatabase();
+    const Duration duration = Duration(seconds: 5);
+    return ListTile(
+      dense: true,
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.import,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+      ),
+      subtitle: AutoSizeText(
+        AppLocalizations.of(context)!.importSubtitle,
+        style: Theme.of(context).textTheme.labelSmall,
+      ),
+      trailing: IconButton(
+        icon: const Icon(CustomIcons.import_icon),
+        onPressed: () async {
+          final bool accepted = await showDialog<bool>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                AppLocalizations.of(context)!.import,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              content: Text(
+                AppLocalizations.of(context)!.importDialog,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                      Theme.of(context).colorScheme.onBackground,
+                    ),
+                  ),
+                  onPressed: () => Navigator.pop(context, false),
+                  child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: TraleTheme.of(context)!.padding / 2,
+                        horizontal: TraleTheme.of(context)!.padding,
+                      ),
+                      child: Text(AppLocalizations.of(context)!.abort)
+                  ),
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.primary,
+                      ),
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                    onPressed: () => Navigator.pop(context, true),
+                    child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: TraleTheme.of(context)!.padding / 2,
+                          horizontal: TraleTheme.of(context)!.padding,
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            const Icon(CustomIcons.done),
+                            SizedBox(width: TraleTheme.of(context)!.padding),
+                            Text(AppLocalizations.of(context)!.yes),
+                          ],
+                        )
+                    )
+                ),
+              ],
+            ),
+          ) ?? false;
+          if (accepted) {
+            final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles(
+              type: FileType.custom,
+              allowedExtensions: <String>['txt'],
+            );
+            if (
+              pickerResult != null &&
+              pickerResult.files.single.path != null
+            ) {
+              final File file = File(pickerResult.files.single.path!);
+              int measurementCounts = 0;
+              for (final String line in file.readAsLinesSync()) {
+                // parse comments
+                if (!line.startsWith('#')) {
+                  final Measurement m = Measurement.fromString(
+                    exportString: line
+                  );
+                  if (!db.containsMeasurement(m)) {
+                    db.insertMeasurement(m);
+                    measurementCounts += 1;
+                  }
+                }
+              }
+              //final DateFormat formatter = DateFormat('yyyy-MM-dd');
+              //final String filename =
+              //    'trale_${formatter.format(DateTime.now())}.txt';
+              //final String path = '${localPath.path}/$filename';
+              //final File file = File(path);
+              //final MeasurementDatabase db = MeasurementDatabase();
+              //file.writeAsString(db.exportString, mode: FileMode.write);
+              sm.showSnackBar(
+                SnackBar(
+                  content: Text('$measurementCounts measurements added'),
+                  behavior: SnackBarBehavior.floating,
+                  duration: duration,
+                ),
+              );
+            } else {
+              sm.showSnackBar(
+                SnackBar(
+                  content: Text(
+                      AppLocalizations.of(context)!.importingAbort,
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            }
           }
         },
       ),
@@ -613,6 +759,7 @@ class _Settings extends State<Settings> {
             ),
           ),
           const ExportListTile(),
+          const ImportListTile(),
           const ResetListTile(),
           SizedBox(height: TraleTheme.of(context)!.padding),
         ],
