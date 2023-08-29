@@ -491,7 +491,8 @@ class MeasurementDatabase {
 
   /// return string for export
   String get exportString {
-    const String header = '# This file was created with trale.\n';
+    const String header = '# This file was created with trale.\n'
+      '#Date weight[kg]\n';
     final String body = <String>[
       for (final Measurement m in measurements)
         m.exportString
