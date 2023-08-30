@@ -60,11 +60,13 @@ class MeasurementDatabase {
   }
 
   /// insert Measurements into box
-  void insertMeasurement(Measurement m) {
-    if (!containsMeasurement(m)) {
+  bool insertMeasurement(Measurement m) {
+    final bool isContained = containsMeasurement(m);
+    if (!isContained) {
       box.add(m);
       reinit();
     }
+    return !isContained;
   }
 
   /// delete Measurements from box

@@ -45,7 +45,7 @@ class Measurement {
   bool isIdentical(Measurement other) => (
     weight == other.weight
   ) && (
-    date.difference(other.date).inMinutes < 1
+    date.difference(other.date).inMinutes.abs() <= 1
   );
 
   /// return weight in active unit

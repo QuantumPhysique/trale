@@ -234,8 +234,8 @@ class ImportListTile extends StatelessWidget {
                   final Measurement m = Measurement.fromString(
                     exportString: line
                   );
-                  if (!db.containsMeasurement(m)) {
-                    db.insertMeasurement(m);
+                  final bool wasInserted = db.insertMeasurement(m);
+                  if (wasInserted) {
                     measurementCounts += 1;
                   }
                 }
