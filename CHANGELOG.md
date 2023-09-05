@@ -5,9 +5,14 @@ The format is inspired by [Keep aChangelog](https://keepachangelog.com/en/1.0.0/
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+
+## [0.3.0] - 2023-09-05
 ### Added Features and Improvements 🙌:
 - Add support for themed app icon (android 13)
 - Using latest flutter 3.13 version with improved Material You theme
+- Update measurement list
+- Add import and export feature
 
 ### Bugfix 🐛:
 - Fix broken theme selection
@@ -53,7 +58,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.2.2...main
+[Unreleased]: https://gitlab.com/mobilemovement/trale/compare/v0.3.0...main
+[0.3.0]: https://gitlab.com/mobilemovement/trale/compare/v0.2.2...v0.3.0
 [0.2.2]: https://gitlab.com/mobilemovement/trale/compare/v0.2.1...v0.2.2
 [0.2.1]: https://gitlab.com/mobilemovement/trale/compare/v0.2.0...v0.2.1
 [0.2.0]: https://gitlab.com/mobilemovement/trale/compare/v0.1.0...v0.2.0
