@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
@@ -102,31 +103,36 @@ class ExportListTile extends StatelessWidget {
             ),
           ) ?? false;
           if (accepted) {
-            final Directory? localPath = await getExternalStorageDirectory();
-            if (localPath != null) {
-              final DateFormat formatter = DateFormat('yyyy-MM-dd');
-              final String filename =
-                'trale_${formatter.format(DateTime.now())}.txt';
-              final String path = '${localPath.path}/$filename';
-              final File file = File(path);
-              final MeasurementDatabase db = MeasurementDatabase();
-              file.writeAsString(db.exportString, mode: FileMode.write);
-              sm.showSnackBar(
-                SnackBar(
-                  content: Text('File exported to: $path'),
-                  behavior: SnackBarBehavior.floating,
-                  duration: duration,
-                ),
-              );
-            } else {
+            final Directory localPath = await getTemporaryDirectory();
+            final DateFormat formatter = DateFormat('yyyy-MM-dd');
+            final String filename =
+              'trale_${formatter.format(DateTime.now())}.txt';
+            final String path = '${localPath.path}/$filename';
+            final File file = File(path);
+            final MeasurementDatabase db = MeasurementDatabase();
+            file.writeAsString(db.exportString, mode: FileMode.write);
+            final ShareResult sharingResult = await Share.shareXFiles(
+              <XFile>[XFile(path)],
+              text: 'trale backup',
+              subject: 'trale backup',
+            );
+            if (sharingResult.status == ShareResultStatus.success) {
               sm.showSnackBar(
                 const SnackBar(
-                  content: Text('Missing write permission.'),
+                  content: Text('File successfully exported'),
                   behavior: SnackBarBehavior.floating,
                   duration: duration,
                 ),
               );
             }
+            await file.delete();
+            //sm.showSnackBar(
+            //  const SnackBar(
+            //    content: Text('Missing write permission.'),
+            //    behavior: SnackBarBehavior.floating,
+            //    duration: duration,
+            //  ),
+            //);
           }
         },
       ),
