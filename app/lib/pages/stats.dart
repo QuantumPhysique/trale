@@ -36,7 +36,6 @@ class _StatsScreen extends State<StatsScreen> {
     final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
 
 
-    database.longestMeasurementStrike;
     Card getCard(String label, Measurement m) => Card(
       shape: TraleTheme.of(context)!.borderShape,
       margin: EdgeInsets.symmetric(
