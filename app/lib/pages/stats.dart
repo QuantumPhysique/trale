@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:trale/core/gap.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
@@ -21,6 +23,7 @@ class StatsScreen extends StatefulWidget {
 
 class _StatsScreen extends State<StatsScreen> {
   final ScrollController scrollController = ScrollController();
+  final GlobalKey<ScaffoldState> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -67,74 +70,108 @@ class _StatsScreen extends State<StatsScreen> {
       ),
     );
 
-    final Widget minMaxWidget = FractionallySizedBox(
-      widthFactor: 1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(child: getCard('min', database.min!)),
-          Expanded(child: getCard('max', database.max!)),
-        ].addGap(
-          padding: TraleTheme.of(context)!.padding,
-          direction: Axis.horizontal,
+
+    final SizedBox dummyChart = emptyChart(
+      context,
+      <InlineSpan>[
+        TextSpan(
+          text: AppLocalizations.of(context)!.intro3,
         ),
-      ),
+        TextSpan(
+          text: '\n\n😃'
+        ),
+      ],
     );
+
+
+    Widget statsScreen(BuildContext context,
+        AsyncSnapshot<List<Measurement>> snapshot) {
+
+      final Widget minMaxWidget = FractionallySizedBox(
+        widthFactor: 1,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Expanded(child: getCard('min', database.min!)),
+            Expanded(child: getCard('max', database.max!)),
+          ].addGap(
+            padding: TraleTheme.of(context)!.padding,
+            direction: Axis.horizontal,
+          ),
+        ),
+      );
+
+      return CustomScrollView(
+        controller: scrollController,
+        cacheExtent: MediaQuery.of(context).size.height,
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Padding(
+                padding: padding,
+                child: TextSizeInEffect(
+                text: AppLocalizations.of(context)!.stats.inCaps,
+                textStyle: Theme.of(context).textTheme.headlineMedium!,
+                durationInMilliseconds: animationDurationInMilliseconds,
+                delayInMilliseconds: firstDelayInMilliseconds,
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: AnimateInEffect(
+              durationInMilliseconds: animationDurationInMilliseconds,
+              delayInMilliseconds: firstDelayInMilliseconds,
+              child: minMaxWidget,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: TraleTheme.of(context)!.padding,
+                top: TraleTheme.of(context)!.padding,
+                bottom: TraleTheme.of(context)!.padding,
+              ),
+              child: TextSizeInEffect(
+                text: AppLocalizations.of(context)!.measurements.inCaps,
+                textStyle: Theme.of(context).textTheme.headlineMedium!,
+                durationInMilliseconds: animationDurationInMilliseconds,
+                delayInMilliseconds: secondDelayInMilliseconds,
+              ),
+            ),
+          ),
+          WeightList(
+            durationInMilliseconds: animationDurationInMilliseconds,
+            delayInMilliseconds: secondDelayInMilliseconds,
+            scrollController: scrollController,
+            tabController: widget.tabController,
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: TraleTheme.of(context)!.padding,
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget statsScreenWrapper(BuildContext context,
+        AsyncSnapshot<List<Measurement>> snapshot) {
+      final MeasurementDatabase database = MeasurementDatabase();
+      final List<SortedMeasurement> measurements = database.sortedMeasurements;
+      return measurements.isNotEmpty
+          ? statsScreen(context, snapshot)
+          : dummyChart;
+    }
+
 
     return StreamBuilder<List<Measurement>>(
         stream: database.streamController.stream,
         builder: (
             BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-        ) => CustomScrollView(
-          controller: scrollController,
-          cacheExtent: MediaQuery.of(context).size.height,
-          slivers: <Widget>[
-            SliverToBoxAdapter(
-              child: Padding(
-                  padding: padding,
-                  child: TextSizeInEffect(
-                  text: AppLocalizations.of(context)!.stats.inCaps,
-                  textStyle: Theme.of(context).textTheme.headlineMedium!,
-                  durationInMilliseconds: animationDurationInMilliseconds,
-                  delayInMilliseconds: firstDelayInMilliseconds,
-                ),
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: AnimateInEffect(
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: firstDelayInMilliseconds,
-                child: minMaxWidget,
-              ),
-            ),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: TraleTheme.of(context)!.padding,
-                  top: TraleTheme.of(context)!.padding,
-                  bottom: TraleTheme.of(context)!.padding,
-                ),
-                child: TextSizeInEffect(
-                  text: AppLocalizations.of(context)!.measurements.inCaps,
-                  textStyle: Theme.of(context).textTheme.headlineMedium!,
-                  durationInMilliseconds: animationDurationInMilliseconds,
-                  delayInMilliseconds: secondDelayInMilliseconds,
-                ),
-              ),
-            ),
-            WeightList(
-              durationInMilliseconds: animationDurationInMilliseconds,
-              delayInMilliseconds: secondDelayInMilliseconds,
-              scrollController: scrollController,
-              tabController: widget.tabController,
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: TraleTheme.of(context)!.padding,
-              ),
-            ),
-          ],
+            ) => SafeArea(
+            key: key,
+            child: statsScreenWrapper(context, snapshot)
         )
     );
+
   }
 }

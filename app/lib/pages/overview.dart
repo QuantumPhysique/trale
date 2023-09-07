@@ -4,6 +4,7 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
@@ -36,7 +37,6 @@ class _OverviewScreen extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
 
     final SizedBox lineChart = SizedBox(
       height: MediaQuery.of(context).size.height / 3,
@@ -51,7 +51,22 @@ class _OverviewScreen extends State<OverviewScreen> {
       ),
     );
 
-    final SizedBox dummyChart = SizedBox(
+    final SizedBox dummyChart = emptyChart(
+      context,
+      <InlineSpan>[
+        TextSpan(
+          text: AppLocalizations.of(context)!.intro1,
+        ),
+        const WidgetSpan(
+          child: Icon(CustomIcons.add),
+          alignment: PlaceholderAlignment.middle,
+        ),
+        TextSpan(
+          text: AppLocalizations.of(context)!.intro2,
+        ),
+      ],
+    );
+ /*   final SizedBox dummyChart = SizedBox(
       height: MediaQuery.of(context).size.height / 2,
       width: MediaQuery.of(context).size.width,
       child: Card(
@@ -83,7 +98,7 @@ class _OverviewScreen extends State<OverviewScreen> {
           ),
         ),
       ),
-    );
+    );*/
 
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
