@@ -85,11 +85,9 @@ class _OverviewScreen extends State<OverviewScreen> {
       ),
     );
 
-    final Widget overviewScreen = StreamBuilder<List<Measurement>>(
-      stream: database.streamController.stream,
-      builder: (
-          BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-      ) => Column(
+    Widget overviewScreen(BuildContext context,
+        AsyncSnapshot<List<Measurement>> snapshot) {
+      return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           StatsWidgets(
@@ -107,20 +105,35 @@ class _OverviewScreen extends State<OverviewScreen> {
                 ),
                 child: CustomLineChart(
                   loadedFirst: loadedFirst,
-                  key: ValueKey<List<Measurement>>(snapshot.data ?? <Measurement>[]),
+                  key: ValueKey<List<Measurement>>(
+                      snapshot.data ?? <Measurement>[]
+                  ),
                 )
             ),
           ),
           const SizedBox(height: 80.0),
         ],
-      ),
-    );
+      );
+    }
 
-    return SafeArea(
-      key: key,
-      child: measurements.isNotEmpty
-          ? overviewScreen
-          : dummyChart,
+    Widget overviewScreenWrapper(BuildContext context,
+        AsyncSnapshot<List<Measurement>> snapshot) {
+      final MeasurementDatabase database = MeasurementDatabase();
+      final List<SortedMeasurement> measurements = database.sortedMeasurements;
+
+      return measurements.isNotEmpty
+          ? overviewScreen(context, snapshot)
+          : dummyChart;
+    }
+
+    return StreamBuilder<List<Measurement>>(
+      stream: database.streamController.stream,
+      builder: (
+          BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
+          ) => SafeArea(
+        key: key,
+        child: overviewScreenWrapper(context, snapshot)
+        )
     );
   }
 }
