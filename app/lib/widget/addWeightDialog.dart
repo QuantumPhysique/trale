@@ -164,12 +164,22 @@ Future<bool> showAddWeightDialog({
         actions: actions(
             context,
             () {
-              database.insertMeasurement(
+              final bool wasInserted = database.insertMeasurement(
                 Measurement(
                   weight: _currentSliderValue,
                   date: currentDate,
                 ),
               );
+              if (!wasInserted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Adding measurement was skipped. Measurement exists already.'
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                  )
+                );
+              }
               Navigator.pop(context, true);
             }
         ),
