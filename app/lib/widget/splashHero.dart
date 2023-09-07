@@ -64,11 +64,11 @@ class _SplashHeroState extends State<SplashHero> {
                 //shape.fills.first.paint.color = colors[child.name]!;
                 if (shape.fills.isNotEmpty) {
                   (shape.fills.first.children[0] as SolidColor).colorValue =
-                      (colors[child.name])!.value;
+                      colors[child.name]!.value;
                 }
                 if (shape.strokes.isNotEmpty) {
                   (shape.strokes.first.children[0] as SolidColor).colorValue =
-                      (colors[child.name])!.value;
+                      colors[child.name]!.value;
                   shape.strokes.first.thickness = 25;
                 }
               }

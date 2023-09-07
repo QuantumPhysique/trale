@@ -4,7 +4,7 @@ import 'package:trale/core/theme.dart';
 /// Container with bgShade1 on full width
 class ColoredContainer extends StatelessWidget {
   /// Constructor
-  const ColoredContainer({
+  const ColoredContainer({super.key,
     required this.height, required this.width, required this.child,
   });
   /// height of inner Container
@@ -16,7 +16,6 @@ class ColoredContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double shadowOffset = 6;
     return Container(
         height: height,
         padding: EdgeInsets.symmetric(

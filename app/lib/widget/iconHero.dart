@@ -42,7 +42,7 @@ class _IconHeroState extends State<IconHero> {
                 final Shape shape = child;
                 if (shape.fills.isNotEmpty) {
                   (shape.fills.first.children[0] as SolidColor).colorValue =
-                      (colors[child.name])!.value;
+                      colors[child.name]!.value;
                 }
               }
             }

@@ -50,7 +50,7 @@ class _StatsScreen extends State<StatsScreen> {
           children: <Widget>[
             AutoSizeText(
               m.dateToString(context),
-              style: Theme.of(context).textTheme.caption
+              style: Theme.of(context).textTheme.bodySmall
                 ?.apply(
                   fontFamily: 'Courier',
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
@@ -58,7 +58,7 @@ class _StatsScreen extends State<StatsScreen> {
             ),
             AutoSizeText(
               '$label: ${m.weightToString(context)}',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
             ),
@@ -94,7 +94,7 @@ class _StatsScreen extends State<StatsScreen> {
                   padding: padding,
                   child: TextSizeInEffect(
                   text: AppLocalizations.of(context)!.stats.inCaps,
-                  textStyle: Theme.of(context).textTheme.headline4!,
+                  textStyle: Theme.of(context).textTheme.headlineMedium!,
                   durationInMilliseconds: animationDurationInMilliseconds,
                   delayInMilliseconds: firstDelayInMilliseconds,
                 ),
@@ -116,7 +116,7 @@ class _StatsScreen extends State<StatsScreen> {
                 ),
                 child: TextSizeInEffect(
                   text: AppLocalizations.of(context)!.measurements.inCaps,
-                  textStyle: Theme.of(context).textTheme.headline4!,
+                  textStyle: Theme.of(context).textTheme.headlineMedium!,
                   durationInMilliseconds: animationDurationInMilliseconds,
                   delayInMilliseconds: secondDelayInMilliseconds,
                 ),

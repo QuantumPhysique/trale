@@ -122,7 +122,6 @@ class RulerPickerState extends State<RulerPicker> {
 
   @override
   Widget build(BuildContext context) {
-    const double shadowOffset = 6;
     return ClipRect(
       child: Container(
         width: widget.width,
@@ -199,7 +198,8 @@ class RulerPickerState extends State<RulerPicker> {
                                 : index % 5 == 0
                                   ? 0.5 * (heightLargeTick + heightSmallTick)
                                   : heightSmallTick,
-                              color: Theme.of(context).colorScheme.onPrimaryContainer,
+                              color: Theme.of(context).
+                                colorScheme.onPrimaryContainer,
                             ),
                             Positioned(
                               bottom: 0,
@@ -214,8 +214,9 @@ class RulerPickerState extends State<RulerPicker> {
                                       ).toStringAsFixed(0),
                                       style: Theme.of(
                                           context
-                                      ).textTheme.bodyText1!.apply(
-                                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                      ).textTheme.bodyLarge!.apply(
+                                        color: Theme.of(context).
+                                          colorScheme.onPrimaryContainer,
                                       )
                                     ),
                                   )
