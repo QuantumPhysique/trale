@@ -1,0 +1,3 @@
+- Material You Design verbessert
+- Backupfunktionalität hinzugefügt
+- Kleine Fehlerbehebungen

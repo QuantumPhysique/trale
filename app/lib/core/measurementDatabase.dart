@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -49,10 +50,23 @@ class MeasurementDatabase {
   /// get broadcast stream to track change of db
   StreamController<List<Measurement>> get streamController => _streamController;
 
+  /// check if measuremnt exists
+  bool containsMeasurement(Measurement m) {
+    final List<bool> isMeasurement = <bool>[
+      for (final Measurement measurement in measurements)
+        measurement.isIdentical(m)
+    ];
+    return isMeasurement.contains(true);
+  }
+
   /// insert Measurements into box
-  void insertMeasurement(Measurement m) {
-    box.add(m);
-    reinit();
+  bool insertMeasurement(Measurement m) {
+    final bool isContained = containsMeasurement(m);
+    if (!isContained) {
+      box.add(m);
+      reinit();
+    }
+    return !isContained;
   }
 
   /// delete Measurements from box
@@ -81,6 +95,15 @@ class MeasurementDatabase {
     _gaussianExtrapolatedMeasurements = null;
 
     // recalc all
+    init();
+
+    // fire stream
+    fireStream();
+    TraleNotifier().notify;
+  }
+
+  /// initialize database
+  void init() {
     measurements;
     sortedMeasurements;
     dailyAveragedMeasurements;
@@ -89,10 +112,6 @@ class MeasurementDatabase {
     dailyAveragedExtrapolatedMeasurements;
     gaussianInterpolatedMeasurements;
     gaussianExtrapolatedMeasurements;
-
-    // fire stream
-    fireStream();
-    TraleNotifier().notify;
   }
 
   List<Measurement>? _measurements;
@@ -481,6 +500,28 @@ class MeasurementDatabase {
       (List<Measurement> current, List<Measurement> next) =>
         current.length > next.length ? current : next
     );
+  }
+
+  /// return string for export
+  String get exportString {
+    const String header = '# This file was created with trale.\n'
+      '#Date weight[kg]\n';
+    final String body = <String>[
+      for (final Measurement m in measurements)
+        m.exportString
+    ].join('\n');
+    return header + body;
+  }
+
+  /// parse list of measurements from export string
+  List<Measurement> parseString({required String exportString}) {
+    final List<String> lines = const LineSplitter().convert(exportString);
+    lines.removeWhere((String element) => element.startsWith('#'));
+
+    return <Measurement>[
+      for (final String line in lines)
+        Measurement.fromString(exportString: line)
+    ];
   }
 
   /// offset of day in hours
