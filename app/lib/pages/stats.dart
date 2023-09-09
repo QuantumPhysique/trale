@@ -71,7 +71,7 @@ class _StatsScreen extends State<StatsScreen> {
     );
 
 
-    final SizedBox dummyChart = emptyChart(
+    final Widget dummyChart = emptyChart(
       context,
       <InlineSpan>[
         TextSpan(
