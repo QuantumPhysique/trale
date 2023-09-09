@@ -6,8 +6,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-
 ## [0.3.1] - 2023-09-8
+### Added Features and Improvements 🙌:
+- Add basic animation
 
 ### Bugfix 🐛:
 - Overview screen now updates upon adding first measurement
