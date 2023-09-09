@@ -23,46 +23,46 @@ Future<bool> showAddWeightDialog({
   final TraleNotifier notifier =
     Provider.of<TraleNotifier>(context, listen: false);
 
-  double _currentSliderValue = weight.toDouble() / notifier.unit.scaling;
+  double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
   DateTime currentDate = date;
   final MeasurementDatabase database = MeasurementDatabase();
 
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final double _sliderLabel = (
-        _currentSliderValue * notifier.unit.ticksPerStep
+      final double sliderLabel = (
+        currentSliderValue * notifier.unit.ticksPerStep
       ).roundToDouble() / notifier.unit.ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           RulerPicker(
             onValueChange: (num newValue) {
-              setState(() => _currentSliderValue = newValue.toDouble());
+              setState(() => currentSliderValue = newValue.toDouble());
             },
             width: MediaQuery.of(context).size.width - 80,  // padding of dialog
-            value: _currentSliderValue,
+            value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
           ),
           ListTile(
               title: Text(
                 AppLocalizations.of(context)!.weight,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               trailing: Text(
-                '${_sliderLabel.toStringAsFixed(notifier.unit.precision)} '
+                '${sliderLabel.toStringAsFixed(notifier.unit.precision)} '
                 '${notifier.unit.name}',
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
           ),
           ListTile(
             title: Text(
               AppLocalizations.of(context)!.date,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: Text(
               notifier.dateFormat(context).format(currentDate),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             onTap: () async {
               final TimeOfDay currentTime = TimeOfDay.fromDateTime(currentDate);
@@ -105,11 +105,11 @@ Future<bool> showAddWeightDialog({
           ListTile(
             title: Text(
               AppLocalizations.of(context)!.time,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             trailing: Text(
               DateFormat.Hm().format(currentDate),
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             onTap: () async {
               final TimeOfDay? time = await showTimePicker(
@@ -166,7 +166,7 @@ Future<bool> showAddWeightDialog({
             () {
               final bool wasInserted = database.insertMeasurement(
                 Measurement(
-                  weight: _currentSliderValue,
+                  weight: currentSliderValue,
                   date: currentDate,
                 ),
               );
@@ -197,12 +197,12 @@ Future<bool> showTargetWeightDialog({
 }) async {
   final TraleNotifier notifier =
   Provider.of<TraleNotifier>(context, listen: false);
-  double _currentSliderValue = weight.toDouble() / notifier.unit.scaling;
+  double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final double _sliderLabel = (
-          _currentSliderValue * notifier.unit.ticksPerStep
+      final double sliderLabel = (
+          currentSliderValue * notifier.unit.ticksPerStep
       ).roundToDouble() / notifier.unit.ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -224,10 +224,10 @@ Future<bool> showTargetWeightDialog({
           ),
           RulerPicker(
             onValueChange: (num newValue) {
-              setState(() => _currentSliderValue = newValue.toDouble());
+              setState(() => currentSliderValue = newValue.toDouble());
             },
             width: MediaQuery.of(context).size.width - 80,  // padding of dialog
-            value: _currentSliderValue,
+            value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
           ),
           ListTile(
@@ -238,7 +238,7 @@ Future<bool> showTargetWeightDialog({
               ),
             ),
             trailing: Text(
-              '${_sliderLabel.toStringAsFixed(notifier.unit.precision)} '
+              '${sliderLabel.toStringAsFixed(notifier.unit.precision)} '
                   '${notifier.unit.name}',
               style: Theme.of(context).textTheme.bodyMedium!.apply(
                 color: Theme.of(context).colorScheme.onSurface,
@@ -279,7 +279,7 @@ Future<bool> showTargetWeightDialog({
           actions: actions(
             context,
             () {
-              notifier.userTargetWeight = _currentSliderValue;
+              notifier.userTargetWeight = currentSliderValue;
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
               Navigator.pop(context, true);

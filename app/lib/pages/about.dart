@@ -41,11 +41,11 @@ class ThirdPartyLicence {
     dense: true,
     title: AutoSizeText(
       name.inCaps,
-      style: Theme.of(context).textTheme.bodyText1
+      style: Theme.of(context).textTheme.bodyLarge
     ),
     subtitle: AutoSizeText(
       AppLocalizations.of(context)!.undertpl(years, author, licence),
-      style: Theme.of(context).textTheme.caption,
+      style: Theme.of(context).textTheme.bodySmall,
       maxLines: 2,
     ),
     isThreeLine: false,
@@ -234,7 +234,7 @@ class _About extends State<About> {
             dense: true,
             title: AutoSizeText(
               AppLocalizations.of(context)!.version.allInCaps,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
             trailing: FutureBuilder<String>(
@@ -245,7 +245,7 @@ class _About extends State<About> {
                   snapshot.hasData
                     ? snapshot.data!
                     : '${AppLocalizations.of(context)!.loading} ...',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ),
@@ -253,7 +253,7 @@ class _About extends State<About> {
             dense: true,
             title: AutoSizeText(
               AppLocalizations.of(context)!.sourcecode.allInCaps,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
             trailing: FaIcon(
@@ -268,12 +268,12 @@ class _About extends State<About> {
             dense: true,
             title: AutoSizeText(
               AppLocalizations.of(context)!.licence.allInCaps,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
             trailing: AutoSizeText(
               'Apache 2',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
             onTap: () => _launchURL(
@@ -288,7 +288,7 @@ class _About extends State<About> {
             child: AutoSizeText(
               AppLocalizations.of(context)!.tpl.allInCaps,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
               maxLines: 1,
             ),
           ),
@@ -301,7 +301,7 @@ class _About extends State<About> {
             ),
             child: AutoSizeText(
               AppLocalizations.of(context)!.assets.allInCaps,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
               maxLines: 1,
             ),
           ),
@@ -316,7 +316,7 @@ class _About extends State<About> {
             ),
             child: AutoSizeText(
               AppLocalizations.of(context)!.packages.allInCaps,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
               maxLines: 1,
             ),
           ),
@@ -330,7 +330,7 @@ class _About extends State<About> {
       return CustomSliverAppBar(
         title: AutoSizeText(
           AppLocalizations.of(context)!.about.allInCaps,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
           maxLines: 1,
         ),
         leading: IconButton(
@@ -343,7 +343,7 @@ class _About extends State<About> {
     }
 
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       child: SafeArea(
         child: Scaffold(
             body:  NestedScrollView(

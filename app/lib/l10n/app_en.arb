@@ -695,6 +695,10 @@
   "@intro2": {
     "description": "End of 'press + to get started'"
   },
+  "intro3": "Today is a good day to start with your first measurement!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
   "faqtext": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository.",
   "@faqtext": {
     "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."

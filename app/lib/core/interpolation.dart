@@ -162,7 +162,7 @@ List<Measurement> _createRegressionMeasurements(
 /// estimate eights based on measurments
 List<double> measurementsToWeights(int x, List<Measurement> measurements) {
   final Preferences pref = Preferences();
-  List<double> weights = <double>[
+  final List<double> weights = <double>[
     for (final Measurement m in measurements)
       gaussian(
         x.toDouble(),

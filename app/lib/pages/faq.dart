@@ -33,7 +33,7 @@ class OnBoardingListTile extends StatelessWidget {
       dense: true,
       title: AutoSizeText(
         AppLocalizations.of(context)!.faq_a2_widget,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
@@ -76,7 +76,7 @@ class FAQEntry {
         width: MediaQuery.of(context).size.width,
         child: Text(
           'Q: $question',
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.justify,
@@ -89,7 +89,7 @@ class FAQEntry {
         width: MediaQuery.of(context).size.width,
         child: Text(
           'A: $answer',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
           textAlign: TextAlign.justify,
         ),
       ),
@@ -116,7 +116,7 @@ class _FAQ extends State<FAQ> {
   @override
   Widget build(BuildContext context) {
     /// list of questions and answers
-    final List<FAQEntry> faqentries = <FAQEntry>[
+    final List<FAQEntry> faqEntries = <FAQEntry>[
       FAQEntry(
         question: AppLocalizations.of(context)!.faq_q1,
         answer: AppLocalizations.of(context)!.faq_a1,
@@ -147,7 +147,7 @@ class _FAQ extends State<FAQ> {
             dense: true,
             title: AutoSizeText(
               AppLocalizations.of(context)!.openIssue.allInCaps,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
             trailing: FaIcon(
@@ -160,7 +160,7 @@ class _FAQ extends State<FAQ> {
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),
           ...<Widget>[
-            for (FAQEntry faq in faqentries)
+            for (final FAQEntry faq in faqEntries)
               faq.toWidget(context),
           ].addDivider(
             padding: 2 * TraleTheme.of(context)!.padding,
@@ -173,7 +173,7 @@ class _FAQ extends State<FAQ> {
       return CustomSliverAppBar(
         title: AutoSizeText(
           AppLocalizations.of(context)!.faq.allInCaps,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
           maxLines: 1,
         ),
         leading: IconButton(

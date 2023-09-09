@@ -7,6 +7,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
+## [0.3.1] - 2023-09-8
+
+### Bugfix 🐛:
+- Overview screen now updates upon adding first measurement
+
+
 ## [0.3.0] - 2023-09-05
 ### Added Features and Improvements 🙌:
 - Add support for themed app icon (android 13)

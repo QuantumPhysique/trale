@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 Size sizeOfText({
   required String text, required BuildContext context, TextStyle? style,
 }) {
-  style = style ?? Theme.of(context).textTheme.bodyText1;
+  style = style ?? Theme.of(context).textTheme.bodyLarge;
   return (
     TextPainter(
       text: TextSpan(text: text, style: style),

@@ -34,7 +34,7 @@ class _AnimateInEffectState extends State<AnimateInEffect>
       duration: Duration(milliseconds: widget.durationInMilliseconds),
     );
 
-    Future.delayed(
+    Future<TickerFuture>.delayed(
       Duration(
           milliseconds: widget.delayInMilliseconds),
           () => animationController.forward(),

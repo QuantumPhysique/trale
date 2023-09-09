@@ -289,7 +289,7 @@ class ResetListTile extends StatelessWidget {
       dense: true,
       title: AutoSizeText(
         AppLocalizations.of(context)!.factoryReset,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
@@ -297,7 +297,7 @@ class ResetListTile extends StatelessWidget {
       ),
       subtitle: AutoSizeText(
         AppLocalizations.of(context)!.factoryResetSubtitle,
-        style: Theme.of(context).textTheme.overline,
+        style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
         icon: const Icon(CustomIcons.delete),
@@ -307,11 +307,11 @@ class ResetListTile extends StatelessWidget {
             builder: (BuildContext context) => AlertDialog(
               title: Text(
                 AppLocalizations.of(context)!.factoryReset,
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               content: Text(
                 AppLocalizations.of(context)!.factoryResetDialog,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
               actions: <Widget>[
                 TextButton(
@@ -382,7 +382,7 @@ class AmoledListTile extends StatelessWidget {
       dense: true,
       title: AutoSizeText(
         AppLocalizations.of(context)!.amoled,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
@@ -390,7 +390,7 @@ class AmoledListTile extends StatelessWidget {
       ),
       subtitle: AutoSizeText(
         AppLocalizations.of(context)!.amoledSubtitle,
-        style: Theme.of(context).textTheme.overline,
+        style: Theme.of(context).textTheme.labelSmall,
       ),
       value: Provider.of<TraleNotifier>(context).isAmoled,
       onChanged: (bool isAmoled) async {
@@ -417,13 +417,13 @@ class LanguageListTile extends StatelessWidget {
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.language,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<String>(
         label: AutoSizeText(
           AppLocalizations.of(context)!.language,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
         initialSelection: Provider.of<TraleNotifier>(context).language.language,
@@ -459,14 +459,14 @@ class UnitsListTile extends StatelessWidget {
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.unit,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<TraleUnit>(
         initialSelection: Provider.of<TraleNotifier>(context).unit,
         label: AutoSizeText(
           AppLocalizations.of(context)!.unit,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
         dropdownMenuEntries: <DropdownMenuEntry<TraleUnit>>[
@@ -503,7 +503,7 @@ class DarkModeListTile extends StatelessWidget {
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.darkmode,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: SegmentedButton<ThemeMode>(
@@ -565,7 +565,7 @@ class InterpolationListTile extends StatelessWidget {
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.interpolation,
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: SegmentedButton<InterpolStrength>(
@@ -728,7 +728,7 @@ class _Settings extends State<Settings> {
             padding: padding,
             child: AutoSizeText(
               AppLocalizations.of(context)!.theme.inCaps,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               maxLines: 1,
             ),
           ),
@@ -776,7 +776,7 @@ class _Settings extends State<Settings> {
       return CustomSliverAppBar(
         title: AutoSizeText(
           AppLocalizations.of(context)!.settings.allInCaps,
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headlineMedium,
           maxLines: 1,
         ),
         leading: IconButton(
@@ -789,7 +789,7 @@ class _Settings extends State<Settings> {
     }
 
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).colorScheme.background,
       child: SafeArea(
         child: Scaffold(
           body:  NestedScrollView(

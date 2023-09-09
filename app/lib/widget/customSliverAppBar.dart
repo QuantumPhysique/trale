@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// SliverAppBar which prevents scrolling if not needed
 class CustomSliverAppBar extends StatefulWidget {
   /// constructor
-  const CustomSliverAppBar({
+  const CustomSliverAppBar({super.key,
     this.pinned=true,
     this.snap=false,
     this.floating=false,

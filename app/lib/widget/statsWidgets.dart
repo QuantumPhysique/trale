@@ -49,7 +49,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
           children: <Widget>[
             AutoSizeText(
               '${notifier.unit.weightToString(utw)} in',
-              style: Theme.of(context).textTheme.caption!.copyWith(
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
             ),
@@ -57,7 +57,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
               timeOfTargetWeight == null
                 ? '-- days'
                 : '$timeOfTargetWeight days',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
             ),
@@ -84,14 +84,14 @@ class _StatsWidgetsState extends State<StatsWidgets> {
             children: <Widget>[
               AutoSizeText(
                 'Change / $label',
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   AutoSizeText(
                     notifier.unit.weightToString(deltaWeight),
-                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                   ),
@@ -99,8 +99,9 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                     height: sizeOfText(
                       text: '0',
                       context: context,
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: Theme.of(context).
+                          colorScheme.onSecondaryContainer,
                       ),
                     ).height,
                     child: Transform.rotate(
@@ -108,7 +109,8 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                       angle: -1 * atan(deltaWeight),
                       child: Icon(
                         CustomIcons.next,
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        color: Theme.of(context).
+                          colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),

@@ -33,7 +33,7 @@ class _TextSizeInEffectState extends State<TextSizeInEffect>
       duration: Duration(milliseconds: widget.durationInMilliseconds),
     );
 
-    Future.delayed(
+    Future<TickerFuture>.delayed(
       Duration(
           milliseconds: widget.delayInMilliseconds),
           () => animationController.forward(),
