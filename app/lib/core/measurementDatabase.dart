@@ -493,6 +493,7 @@ class MeasurementDatabase {
 
   /// get list of all longest measurement strike
   // todo: "return" statement is missing and measurementStrikes is errorous
+  // todo: It should be streak NOT strike!!
   List<Measurement>? get longestMeasurementStrike {
     if (measurementStrikes == null) {
       return null;
