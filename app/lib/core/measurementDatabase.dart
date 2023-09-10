@@ -50,7 +50,7 @@ class MeasurementDatabase {
   /// get broadcast stream to track change of db
   StreamController<List<Measurement>> get streamController => _streamController;
 
-  /// check if measuremnt exists
+  /// check if measurement exists
   bool containsMeasurement(Measurement m) {
     final List<bool> isMeasurement = <bool>[
       for (final Measurement measurement in measurements)
@@ -470,6 +470,9 @@ class MeasurementDatabase {
 
   /// get list of all measurement strikes
   List<List<Measurement>>? get measurementStrikes {
+    // todo: dailyAveragedMeasurements is based on the interpolation!
+    // Thus, instead of dailyAveragedMeasurements the actual measurements should
+    // be used!
     final List<Measurement> ms = dailyAveragedMeasurements;
     if (ms.isEmpty) {
       return null;
@@ -489,6 +492,7 @@ class MeasurementDatabase {
   }
 
   /// get list of all longest measurement strike
+  // todo: "return" statement is missing and measurementStrikes is errorous
   List<Measurement>? get longestMeasurementStrike {
     if (measurementStrikes == null) {
       return null;
