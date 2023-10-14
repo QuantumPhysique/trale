@@ -11,7 +11,7 @@ Tritt noch heute unserer Community bei und erreich dein Traumgewicht 🐺🤸‍
 * Modernes Design basierend auf <b>MATERIAL DESIGN 3</b>
 * <b>ANPASSBAR</b>: Viele kostenlose Farbthemen, <b>DARK MODE</b>, und verschiedene <b>Einheiten</b>
 * Verfolge deinen Fortschritt mit <b>STATE-OF-THE-ART</b> Datenmodellierung 🧑‍💻
-* <b>PRIVATSPHÄRE</b>: Nicht nur leere Versprechen, die App ist <a href="https://gitlab.com/mobilemovement/trale">open-source</a>
+* <b>PRIVATSPHÄRE</b>: Nicht nur leere Versprechen, die App ist <a href="https://github.com/quantumphysique/trale">open-source</a>
 
 <b>Geplante Funktionalität 🚀:</b>
 * Importieren und exportieren der Messungen
@@ -26,5 +26,5 @@ ist kein Zielgewicht unter 50 kg / 110 lb / 7,9 st ist möglich.
 Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten.
 Sie sollte am besten mit einer FHD/FHD+ Auflösung funktionieren. Falls du einen
 Fehler findest oder eine Funktion vermisst, bitte
-<a href="https://gitlab.com/mobilemovement/adonify/-/issues">eröffne eine neues
+<a href="https://github.com/quantumphysique/trale/-/issues">eröffne eine neues
 Issue</a>.

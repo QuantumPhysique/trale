@@ -11,7 +11,7 @@ Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍
 * Modern appearance using <b>MATERIAL DESIGN 3</b>
 * <b>CUSTOMIZABLE</b>: Many free custom themes, <b>DARK MODE</b>, and several <b>UNITS</b>. Tracking your <b>PROGRESS</b>
 * Track your progress with <b>STATE-OF-THE-ART</b> data modeling 🧑‍💻
-* <b>PRIVACY</b>: Not just empty promises, it is fully <a href="https://gitlab.com/mobilemovement/trale">open-source</a>
+* <b>PRIVACY</b>: Not just empty promises, it is fully <a href="https://github.com/quantumphysique/trale">open-source</a>
 
 <b>Upcoming features 🚀:</b>
 * Import and export of your measurements
@@ -25,4 +25,4 @@ order to make our contribution to prevention, no target weight below 50 kg /
 
 This app is still in <b>beta</b> stage and may contain bugs. It should work
 best with FHD/FHD+ resolution. If you encounter a bug or if you are missing a
-feature, please <a href="https://gitlab.com/mobilemovement/adonify/-/issues">open a new issue</a>.
+feature, please <a href="https://github.com/quantumphysique/trale/-/issues">open a new issue</a>.
