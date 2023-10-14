@@ -1,0 +1,2 @@
+- Add basic animation
+- Overview screen now updates upon adding first measurement
