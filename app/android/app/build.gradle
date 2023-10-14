@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gitlab.mobilemovement.trale.app"
+        applicationId "com.github.quantumphysique.trale.app"
         minSdkVersion 19
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
