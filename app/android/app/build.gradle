@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.github.quantumphysique.trale.app"
+        applicationId "de.quantumphysique.trale"
         minSdkVersion 19
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
