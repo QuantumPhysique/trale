@@ -151,11 +151,11 @@ class _FAQ extends State<FAQ> {
               maxLines: 1,
             ),
             trailing: FaIcon(
-              FontAwesomeIcons.gitlab,
+              FontAwesomeIcons.github,
               color: Theme.of(context).iconTheme.color,
             ),
             onTap: () => _launchURL(
-                'https://gitlab.com/mobilemovement/adonify/'
+                'https://github.com/quantumphysique/trale/'
             ),
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),
