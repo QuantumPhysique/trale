@@ -1,0 +1,51 @@
+name: Build Flutter app for an environment
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  
+jobs:
+  deployAndroid:
+    permissions: write-all
+    name: 🤖📦🚀 Build & deploy Android release
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v3
+      - name: ⚙️ Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: "19.x"
+          cache: 'gradle'
+          distribution: 'adopt'
+        id: java
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.13.7"
+          channel: 'stable'
+          cache: true
+        id: flutter
+      - name: 🔐 Retrieve base64 keystore and decode it to a file
+        id: write_file
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "android-keystore.jks"
+          fileDir: "${{ github.workspace }}/"
+          encodedString: ${{ secrets.KEYSTORE_FILE_BASE64 }}
+      - name: 📝🔐 Create keystore.properties file
+        env:
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
+        run: |
+          echo "storeFile=${{ github.workspace }}/android-keystore.jks" > $KEYSTORE_PROPERTIES_PATH
+          echo "keyAlias=${{ secrets.KEYSTORE_KEY_ALIAS }}" >> $KEYSTORE_PROPERTIES_PATH
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+          echo "keyPassword=${{ secrets.KEYSTORE_KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+      - name: Pub Get Packages
+        run: flutter pub get
+      - name: 🤖📦 Create Android release
+        run: |
+          flutter build apk --split-per-abi --release
