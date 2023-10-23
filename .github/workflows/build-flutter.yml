@@ -11,6 +11,10 @@ jobs:
     name: 🤖📦🚀 Build & deploy Android release
     runs-on: ubuntu-latest
     steps:
+      - name: Set Flutter version
+        run: |
+          export FLUTTER_VERSION="$(sed -E -n -e 's/^.*flutter:\ ">=([0-9.]+)"/\1/p' app/pubspec.yaml)"
+        env: FLUTTER_VERSION: ${ { env.FLUTTER_VERSION } }
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
       - name: ⚙️ Setup Java
@@ -23,7 +27,7 @@ jobs:
       - name: ⚙️ Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.13.7"
+          flutter-version: ${ { env.FLUTTER_VERSION } }
           channel: 'stable'
           cache: true
         id: flutter
