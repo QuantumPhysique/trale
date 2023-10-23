@@ -5,8 +5,11 @@ The format is inspired by [Keep aChangelog](https://keepachangelog.com/en/1.0.0/
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add github actions
+- Upgrade dependencies
 
-## [0.3.1] - 2023-09-8
+
+## [0.3.1] - 2023-09-08
 ### Added Features and Improvements 🙌:
 - Add basic animation
 
