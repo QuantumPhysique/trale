@@ -61,4 +61,4 @@ best with FHD/FHD+ resolution. If you encounter a bug or if you are missing a
 feature, please <a href="https://github.com/QuantumPhysique/trale/-/issues">open a new issue</a>.
 
 ## License
-The source code is licensed under the [Apache License 2.0](http://choosealicense.com/licenses/apache-2.0/).
+The source code is licensed under the [GNU AGPLv3](http://choosealicense.com/licenses/agpl-3.0/).
