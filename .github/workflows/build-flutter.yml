@@ -24,8 +24,9 @@ jobs:
         run: |
           cd app
           export FLUTTER_VERSION="$(sed -E -n -e 's/^.*flutter:\ ">=([0-9.]+)"/\1/p' pubspec.yaml)"
+          echo $FLUTTER_VERSION
         env:
-          FLUTTER_VERSION: ${ { env.FLUTTER_VERSION } }
+          FLUTTER_VERSION: $FLUTTER_VERSION
       - name: ⚙️ Setup Flutter
         uses: subosito/flutter-action@v2
         with:
