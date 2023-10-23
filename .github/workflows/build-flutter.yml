@@ -49,4 +49,5 @@ jobs:
           flutter pub get
       - name: 🤖📦 Create Android release
         run: |
+          cd app
           flutter build apk --split-per-abi --release
