@@ -1,8 +1,6 @@
 name: Build Flutter app for an environment
 
-on:
-  release:
-    types: [published]
+on: [push]
 
 permissions:
   contents: read
