@@ -28,20 +28,20 @@ dependencies:
     sdk: flutter
 
   auto_size_text: ^3.0.0
-  dynamic_color: ^1.6.6
-  file_picker: ^5.5.0
-  fl_chart: ^0.63.0
-  font_awesome_flutter: ^10.5.0
+  dynamic_color: ^1.6.8
+  file_picker: ^6.0.0
+  fl_chart: ^0.64.0
+  font_awesome_flutter: ^10.6.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.18.1
-  introduction_screen: ^3.1.11
-  package_info_plus: ^4.1.0
+  introduction_screen: ^3.1.12
+  package_info_plus: ^4.2.0
   path_provider: ^2.1.1
   provider: ^6.0.5
-  rive: ^0.11.15
-  shared_preferences: ^2.2.1
-  share_plus: ^7.1.0
+  rive: ^0.11.17
+  shared_preferences: ^2.2.2
+  share_plus: ^7.2.1
   sliding_up_panel: ^2.0.0+1
   url_launcher: ^6.1.14
 
