@@ -257,11 +257,11 @@ class _About extends State<About> {
               maxLines: 1,
             ),
             trailing: FaIcon(
-              FontAwesomeIcons.gitlab,
+              FontAwesomeIcons.github,
               color: Theme.of(context).iconTheme.color,
             ),
             onTap: () => _launchURL(
-                'https://gitlab.com/mobilemovement/adonify'
+                'https://github.com/quantumphysique/trale'
             ),
           ),
           ListTile(
@@ -272,12 +272,12 @@ class _About extends State<About> {
               maxLines: 1,
             ),
             trailing: AutoSizeText(
-              'Apache 2',
+              'GNU APGLv3',
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
             onTap: () => _launchURL(
-              'https://gitlab.com/mobilemovement/trale/-/blob/main/LICENSE.md'
+              'https://github.com/quantumphysique/trale/-/blob/main/LICENSE.md'
             ),
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),
