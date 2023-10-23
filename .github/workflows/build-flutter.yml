@@ -14,7 +14,8 @@ jobs:
       - name: Set Flutter version
         run: |
           export FLUTTER_VERSION="$(sed -E -n -e 's/^.*flutter:\ ">=([0-9.]+)"/\1/p' app/pubspec.yaml)"
-        env: FLUTTER_VERSION: ${ { env.FLUTTER_VERSION } }
+        env:
+          FLUTTER_VERSION: ${ { env.FLUTTER_VERSION } }
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v3
       - name: ⚙️ Setup Java
