@@ -27,7 +27,6 @@ Future<bool> showAddWeightDialog({
   DateTime currentDate = date;
   final MeasurementDatabase database = MeasurementDatabase();
 
-
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
       final double sliderLabel = (
@@ -196,7 +195,8 @@ Future<bool> showTargetWeightDialog({
   required double weight,
 }) async {
   final TraleNotifier notifier =
-  Provider.of<TraleNotifier>(context, listen: false);
+    Provider.of<TraleNotifier>(context, listen: false);
+
   double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
 
   final Widget content = StatefulBuilder(
@@ -265,7 +265,6 @@ Future<bool> showTargetWeightDialog({
           contentPadding: EdgeInsets.only(
             top: TraleTheme.of(context)!.padding,
           ),
-          actionsPadding: EdgeInsets.zero,
           title: Center(
             child: Text(
               AppLocalizations.of(context)!.targetWeight,
