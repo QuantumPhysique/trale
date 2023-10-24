@@ -10,7 +10,7 @@ permissions:
 jobs:
   deployAndroid:
     permissions: write-all
-    name: 🤖📦🚀 Build & deploy Android release
+    name: Build & deploy Android release
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository
@@ -18,14 +18,19 @@ jobs:
       - name: ⚙️ Setup Java
         uses: actions/setup-java@v3
         with:
-          java-version: "19.x"
+          java-version: "11.x"
           cache: 'gradle'
           distribution: 'adopt'
         id: java
+      - name: Set Flutter version
+        run: |
+          cd app
+          export FLUTTER_VERSION="$(sed -E -n -e 's/^.*flutter:\ ">=([0-9.]+)"/\1/p' pubspec.yaml)"
+          echo "FLUTTER_VERSION=$FLUTTER_VERSION" >> $GITHUB_ENV
       - name: ⚙️ Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.13.7"
+          flutter-version: "${{ env.FLUTTER_VERSION }}"
           channel: 'stable'
           cache: true
         id: flutter
@@ -38,30 +43,24 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_FILE_BASE64 }}
       - name: 📝🔐 Create keystore.properties file
         env:
-          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/app/android/key.properties
         run: |
           echo "storeFile=${{ github.workspace }}/android-keystore.jks" > $KEYSTORE_PROPERTIES_PATH
           echo "keyAlias=${{ secrets.KEYSTORE_KEY_ALIAS }}" >> $KEYSTORE_PROPERTIES_PATH
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
           echo "keyPassword=${{ secrets.KEYSTORE_KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
-      - uses: olegtarasov/get-tag@v2 # that generate $GIT_TAG_NAME env
-        id: tagName
-        with:
-          tagRegex: 'internal-v([0-9]+.[0-9]+.[0-9]+\+[0-9]+)' # Optional. Returns specified group text as tag name. Full tag string is returned if regex is not defined.
-          tagRegexGroup: 1 # Optional. Default is 1.
-
-      - name: Replace YAML version with tag version
-        run: |
-          sed -i 's/99.99.99+99/'$GIT_TAG_NAME'/g' pubspec.yaml|
-          echo "Tag used version:"$GIT_TAG_NAME
       - name: Pub Get Packages
-        run: flutter pub get
+        run: |
+          cd app
+          flutter --disable-telemetry
+          flutter pub get
       - name: 🤖📦 Create Android release
         run: |
+          cd app
           flutter build appbundle --release
           flutter build apk --split-per-abi --release
       - name: 🤖🚀 Upload to GitHub release
         uses: AButler/upload-release-assets@v2.0
         with:
-          files: 'build/app/outputs/flutter-apk/*;build/app/outputs/bundle/release/*'
+          files: 'app/build/app/outputs/flutter-apk/*;app/build/app/outputs/bundle/release/*'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
