@@ -164,78 +164,11 @@ class TraleTheme {
       colorScheme: colorScheme,
     ).textTheme.apply(fontFamily: 'Quicksand');
 
-    /// icon theme data
-    // final IconThemeData iconTheme = IconThemeData(
-    //   color: bgFont,
-    //   opacity: 0.8,
-    //   size: 24.0
-    // );
-
-    // final FloatingActionButtonThemeData FABTheme =
-    //   FloatingActionButtonThemeData(
-    //     foregroundColor: accentFont,
-    //     backgroundColor: accent,
-    //     elevation: 6,
-    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-    //   );
-
-    // final SnackBarThemeData snackBarTheme = SnackBarThemeData(
-    //   backgroundColor: bgElevated(67108864),
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.vertical(
-    //       top: Radius.circular(borderRadius)
-    //     ),
-    //   )
-    // );
-
-    // final DialogTheme dialogTheme = DialogTheme(
-    //   elevation: 24,
-    //   backgroundColor: bg,
-    //   shape: borderShape,
-    //   titleTextStyle: txtTheme.headline6,
-    //   contentTextStyle:txtTheme.bodyText2,
-    // );
-
-    // const BottomAppBarTheme bottomAppBarTheme = BottomAppBarTheme(
-    //   elevation: 8,
-    // );
-
-    // final AppBarTheme appBarTheme = AppBarTheme(
-    //   color: bg,
-    //   elevation: 0,
-    //   iconTheme: iconTheme,
-    // );
-
-    // const PageTransitionsTheme pageTransitionsTheme = PageTransitionsTheme(
-    //   builders: <TargetPlatform, PageTransitionsBuilder>{
-    //     TargetPlatform.android: ZoomPageTransitionsBuilder(),
-    //   },
-    // );
-
-    // final ButtonThemeData buttonTheme = ButtonThemeData(
-    //   shape: borderShape,
-    // );
-
-    // final ButtonStyle buttonStyle = ButtonStyle(
-    //   shape: MaterialStateProperty.resolveWith(
-    //     (Set<MaterialState> states) => borderShape
-    //   ),
-    // );
-
-    // final TextButtonThemeData textButtonTheme = TextButtonThemeData(
-    //   style: buttonStyle,
-    // );
-    // final ElevatedButtonThemeData elevatedButtonThemeData =
-    //   ElevatedButtonThemeData(
-    //     style: buttonStyle,
-    // );
-    // final OutlinedButtonThemeData outlinedButtonThemeData =
-    //   OutlinedButtonThemeData(
-    //     style: buttonStyle,
-    // );
-    // const CardTheme cardTheme = CardTheme(
-    //   elevation: 2,
-    // );
+    final ListTileThemeData listTileThemeData = ListTileThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(borderRadius),
+      ),
+    );
 
     /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
     final ThemeData theme = ThemeData.from(
@@ -243,27 +176,8 @@ class TraleTheme {
       colorScheme: colorScheme,
       useMaterial3: true,
     ).copyWith(
-      toggleableActiveColor: colorScheme.primary,
+      listTileTheme: listTileThemeData,
     );
-
-    //    .copyWith(
-    //      useMaterial3: true,
-    //      appBarTheme: appBarTheme,
-    //      bottomAppBarTheme: bottomAppBarTheme,
-    //      cardTheme: cardTheme,
-    //      buttonTheme: buttonTheme,
-    //      dialogTheme: dialogTheme,
-    //      elevatedButtonTheme: elevatedButtonThemeData,
-    //      floatingActionButtonTheme: FABTheme,
-    //      highlightColor: accent,
-    //      iconTheme: iconTheme,
-    //      outlinedButtonTheme: outlinedButtonThemeData,
-    //      pageTransitionsTheme: pageTransitionsTheme,
-    //      snackBarTheme: snackBarTheme,
-    //      textButtonTheme: textButtonTheme,
-    //      toggleableActiveColor: accent,
-    //      unselectedWidgetColor: bgFontLight,
-    //    );
 
     /// Return the themeData which MaterialApp can now use
     return theme;
