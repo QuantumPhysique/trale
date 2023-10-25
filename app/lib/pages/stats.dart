@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:trale/core/gap.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -77,7 +76,7 @@ class _StatsScreen extends State<StatsScreen> {
         TextSpan(
           text: AppLocalizations.of(context)!.intro3,
         ),
-        TextSpan(
+        const TextSpan(
           text: '\n\n😃'
         ),
       ],

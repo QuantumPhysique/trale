@@ -56,12 +56,9 @@ class _TextSizeInEffectState extends State<TextSizeInEffect>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (BuildContext context, Widget? child) => Transform.scale(
-        scale: sizeAnimation.value,
-        child: child,
-      ),
+    return AnimatedOpacity(
+      opacity: sizeAnimation.value == 0 ? 0 : 1,
+      duration: Duration(milliseconds: widget.durationInMilliseconds),
       child: Text(
         widget.text,
         style: widget.textStyle,
