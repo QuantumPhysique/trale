@@ -23,9 +23,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Other changes:
 - Add github actions
 - Upgrade dependencies
+- Minor UI improvements
 
 ### Bugfix 🐛:
-- Fix padding issue on target weight dialog
+- Fix missing permission to open links
+- Fixed overlapping monthly ticks and added years
 
 
 ## [0.3.1] - 2023-09-08
