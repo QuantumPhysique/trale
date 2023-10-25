@@ -1,734 +1,399 @@
 {
-  "@@locale": "en",
-
-  "achievements": "achievements",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "stats": "statistics",
-  "@stats" : {
-    "description": "Header for statistics section"
-  },
-  "trale": "trale",
-  "@trale" : {
-    "description": "Name of app: trale"
-  },
-  "tralesub": "loose with ease",
-  "@tralesub" : {
-    "description": "Slogan of app"
-  },
-  "unit": "units",
-  "@units" : {
-    "description": "Units of measurements"
-  },
-  "date": "date",
-  "@date" : {
-    "description": "Date"
-  },
-  "weight": "weight",
-  "@weight" : {
-    "description": "weight"
-  },
-  "user": "user profile",
-  "@user" : {
-    "description": "Name of user menu"
-  },
-  "userSettings": "user settings",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "dangerzone": "danger zone",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "settings": "settings",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "moreSettings": "more settings",
-  "@moreSettings": {
-    "description": "Name of settings menu"
-  },
-  "moreSettingsDesc": "themes, advanced",
-  "@moreSettingsDesc": {
-    "description": "What to modify in the settings"
-  },
-  "databases": "databases",
-  "@databases": {
-    "description": "Name of database menu"
-  },
-  "databasesDesc": "manage active databases",
-  "@databasesDesc": {
-    "description": "What to do in the database menu"
-  },
-  "faq": "FAQ",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "about",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "exercises": "exercises",
-  "@exercises": {
-    "description": "Plural of sport exercises"
-  },
-  "exercisesDesc": "manage and create exercises",
-  "@exercisesDesc": {
-    "description": "What to do in the database menu"
-  },
-  "german": "German",
-  "@german": {
-    "description": "German"
-  },
-  "english": "English",
-  "@english": {
-    "description": "English"
-  },
-  "defaultLang": "System default",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "language": "language",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "languageSubtitle": "This effects menu only. For translating the exercises and workouts these needs to be recreated with the desired names.",
-  "@languageSubtitle": {
-    "description": "Menu entry describing effect of language setting."
-  },
-  "theme": "theme",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "darkmode": "dark mode",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "lightmode": "light mode",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "systemmode": "system mode",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "export": "Export all measurements",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "exportSubtitle": "This exposes all measurements to all apps.",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "exportDialog": "This will export all measurements to the external storage. Writing permissions are needed.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "open": "open",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "abort": "abort",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "requestWritePermission": "Access to external storage is needed for exporting the database. Open App settings?",
-  "@requestWritePermission": {
-    "description": "Access to external storage is needed for exporting the database. Open App settings?"
-  },
-  "requestReadPermission": "Access to external storage is needed for importing the database. Open App settings?",
-  "@requestReadPermission": {
-    "description":  "Access to external storage is needed for importing the database. Open App settings?"
-  },
-  "successCreatedDb": "Successfully created database.",
-  "@successCreatedDb": {
-    "description": "Text to show that database was created successfully."
-  },
-  "import": "Import backup",
-  "@import": {
-    "description": "Import backup."
-  },
-  "importSubtitle": "Import measurements from txt backup file.",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoled": "AMOLED",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "amoledSubtitle": "Change background color to true black for dark mode.",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "sound": "sound",
-  "@sound": {
-    "description": "sound menu item"
-  },
-  "voice": "voice",
-  "@voice": {
-    "description": "voice menu item"
-  },
-  "volume": "volume",
-  "@volume": {
-    "description": "volume menu item"
-  },
-  "workout": "workout",
-  "@workout": {
-    "description": "workout"
-  },
-  "workouts": "workouts",
-  "@workouts": {
-    "description": "workouts"
-  },
-  "getReady": "get ready",
-  "@getReady": {
-    "description": "Get ready"
-  },
-  "getReadySubtitle": "This defines the first rest added at the start if each workout.",
-  "@getReadySubtitle": {
-    "description": "Get ready"
-  },
-  "equipment": "equipment",
-  "@equipment": {
-    "description": "Workout equipment, e.g. dip bar."
-  },
-  "equipmentSubtitle": "Specify which equipment is available. This has an effect only on the home screen and inside workout editor.",
-  "@equipmentSubtitle": {
-    "description": "Specify which equipment is available. This has an effect only on the home screen and inside workout editor."
-  },
-  "expFeature": "Experimental features",
-  "@expFeature": {
-    "description": "Experimental features."
-  },
-  "immersiveMode": "immersive mode",
-  "@immersiveMode": {
-    "description": "Immersive mode: color complete background in color."
-  },
-  "immersiveModeSubtitle": "Color the whole background to increase visibility. Day mode only!",
-  "@immersiveModeSubttile": {
-    "description": "Immersive mode: color complete background in color."
-  },
-  "reset": "Reset app",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "factoryReset": "factory reset",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "Reset all settings and delete all measurements.",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "factoryResetDialog": "Reset application to default? This will delete all settings, and added measurements. This can not be undone.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "delete": "delete",
-  "@delete": {
-    "description": "delete"
-  },
-  "importingSuccess": "Successfully imported database.",
-  "@importingSuccess": {
-    "description": "Successfully imported database."
-  },
-  "importingAbort": "Import aborted.",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "importingFail": "Database could not be parsed.",
-  "@importingFail": {
-    "description": "Database could not be parsed."
-  },
-  "importingNoPermission": "Read permission denied: Import failed.",
-  "@importingNoPermission": {
-    "description": "Read permission denied: Import failed."
-  },
-  "importDialog": "Include all measurements to the current database. This can not be undone!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "overwrite": "overwrite",
-  "@overwrite": {
-    "description": "overwrite"
-  },
-  "home": "home",
-  "@home": {
-    "description": "home screen"
-  },
-  "diff1": "Beginner",
-  "@diff1": {
-    "description": "easiest difficulty"
-  },
-  "diff2": "Easy",
-  "@diff2": {
-    "description": "second easiest difficulty"
-  },
-  "diff3": "Intermediate",
-  "@diff3": {
-    "description": "middle difficulty"
-  },
-  "diff4": "Hard",
-  "@diff4": {
-    "description": "second hardest difficulty"
-  },
-  "diff5": "Adonis",
-  "@diff5": {
-    "description": "hardest difficulty"
-  },
-  "difficulty": "difficulty",
-  "@difficulty": {
-    "description": "difficulty (of workout)"
-  },
-  "hiit": "HIIT",
-  "@hiit": {
-    "description": "HIIT (high intensity interval training)"
-  },
-  "strength": "strength",
-  "@strength": {
-    "description": "strength (focus workout type)"
-  },
-  "stretching": "stretching",
-  "@stretching": {
-    "description": "stretching (focus workout type)"
-  },
-  "stretchingTooltip": "mobility, stretching, and yoga",
-  "@stretchingTooltip": {
-    "description": "mobility, stretching and yoga"
-  },
-  "wushu": "Wushu",
-  "@wushu": {
-    "description": "Wushu (modern Chinese Kungfu)."
-  },
-  "abs": "abs",
-  "@abs": {
-    "description": "abs (focus)."
-  },
-  "upperbody": "upper body",
-  "@upperbody": {
-    "description": "upper body (focus)."
-  },
-  "lowerbody": "lower body",
-  "@lowerbody": {
-    "description": "lower body (focus)."
-  },
-  "fullbody": "full body",
-  "@fullbody": {
-    "description": "full body (focus)."
-  },
-  "focus": "focus",
-  "@focus": {
-    "description": "focus"
-  },
-  "type": "type",
-  "@type": {
-    "description": "type"
-  },
-  "bar": "pull-up bar",
-  "@bar": {
-    "description": "pull-up bar (equipment)"
-  },
-  "dumbbell": "dumbbell",
-  "@dumbbell": {
-    "description": "dumbbell (equipment)"
-  },
-  "barbell": "barbell",
-  "@barbell": {
-    "description": "barbell (equipment)"
-  },
-  "dipbar": "dip bar",
-  "@dipbar": {
-    "description": "dip bar (equipment)"
-  },
-  "resistanceband": "resistance band",
-  "@resistanceband": {
-    "description": "resistance band (equipment)"
-  },
-  "kettlebell": "kettlebell",
-  "@kettlebell": {
-    "description": "kettlebell (equipment)"
-  },
-  "jumpingrope": "jumping rope",
-  "@jumpingrope": {
-    "description": "jumping rope (equipment)"
-  },
-  "core": "core",
-  "@core": {
-    "description": "core (exercise focus)"
-  },
-  "pushup": "pushup",
-  "@pushup": {
-    "description": "pushup (exercise focus)"
-  },
-  "plank": "plank",
-  "@plank": {
-    "description": "plank (exercise focus)"
-  },
-  "legs": "legs",
-  "@legs": {
-    "description": "legs (exercise focus)"
-  },
-  "chest": "chest",
-  "@chest": {
-    "description": "chest (exercise focus)"
-  },
-  "lowerback": "lower back",
-  "@lowerback": {
-    "description": "lower back (exercise focus)"
-  },
-  "back": "back",
-  "@back": {
-    "description": "back (exercise focus)"
-  },
-  "biceps": "biceps",
-  "@biceps": {
-    "description": "biceps (exercise focus)"
-  },
-  "triceps": "triceps",
-  "@triceps": {
-    "description": "triceps (exercise focus)"
-  },
-  "forearms": "forearms",
-  "@forearms": {
-    "description": "forearms (exercise focus)"
-  },
-  "cardio": "cardio",
-  "@cardio": {
-    "description": "cardio (exercise focus)"
-  },
-  "handstand": "handstand",
-  "@handstand": {
-    "description": "handstand (exercise focus)"
-  },
-  "shoulders": "shoulders",
-  "@shoulders": {
-    "description": "shoulders (exercise focus)"
-  },
-  "description": "description",
-  "@description": {
-    "description": "description"
-  },
-  "exerciseName": "exercise name",
-  "@exerciseName": {
-    "description": "exercise name"
-  },
-  "timePerRep": "time per repetition",
-  "@timePerRep": {
-    "description": "time per repetition"
-  },
-  "inDatabase": "in database",
-  "@inDatabase": {
-    "description": "in database"
-  },
-  "yes": "yes",
-  "@yes": {
-    "description": "yes"
-  },
-  "ok": "ok",
-  "@ok": {
-    "description": "ok"
-  },
-  "leaveEditeMode": "Leave edit mode without saving? This can not be undone.",
-  "@leaveEditMode": {
-    "description": "Leave edit mode without saving? This can not be undone."
-  },
-  "save": "save",
-  "@save": {
-    "description": "save"
-  },
-  "abortExerciseExists": "Aborting. Exercise exists already.",
-  "@abortExerciseExists": {
-    "description": "Aborting. Exercise exists already."
-  },
-  "deleteVariant": "Delete this variant permanently? This cannot be undone.",
-  "@deleteVariant": {
-    "description": "Delete this variant permanently? This cannot be undone."
-  },
-  "onlyLastVariant": "Only the last variant can be deleted.",
-  "@deleteVariant": {
-    "description": "Only the last variant can be deleted."
-  },
-  "workoutName": "workout name",
-  "@workoutName": {
-    "description": "workout name"
-  },
-  "setRest": "rest bet. sets",
-  "@setRest": {
-    "description": "rest between sets"
-  },
-  "renameWorkout": "Rename current workout?",
-  "@renameWorkout": {
-    "description": "Rename current workout?"
-  },
-  "overwriteWorkout": "Overwrite workout? Abort for renaming.",
-  "@overwriteWorkout": {
-    "description": "Overwrite workout? Abort for renaming."
-  },
-  "missingName": "Missing name! But a name is required.",
-  "@missingName": {
-    "description": "Missing name! But a name is required."
-  },
-  "renameExercise": "Rename current exercise?",
-  "@renameExercise": {
-    "description": "Rename current exercise?"
-  },
-  "overwriteExercise": "Overwrite exercise? Abort for renaming.",
-  "@overwriteExercise": {
-    "description": "Overwrite exercise? Abort for renaming."
-  },
-  "edit": "edit",
-  "@edit": {
-    "description": "edit"
-  },
-  "searchExercise": "search for exercise",
-  "@searchExercise": {
-    "description": "search for exercise"
-  },
-  "attributes": "attributes",
-  "@attributes": {
-    "description": "attributes"
-  },
-  "deleteEntry": "You are deleting '{name}' from the current database '{db}'. This cannot be undone.",
-  "@deleteEntry": {
-    "description": "You are deleting '{name}' from the current database '{db}'. This cannot be undone.",
-    "placeholders": {
-      "name": {
-        "type": "String",
-        "example": "planche"
-      },
-      "db": {
-        "type": "String",
-        "example": "own"
-      }
+    "@@locale": "en",
+    "achievements": "achievements",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "stats": "statistics",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "units",
+    "@units": {
+        "description": "Units of measurements"
+    },
+    "date": "date",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "weight",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "user profile",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "user settings",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "danger zone",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "settings",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "FAQ",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "about",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "german": "German",
+    "@german": {
+        "description": "German"
+    },
+    "english": "English",
+    "@english": {
+        "description": "English"
+    },
+    "defaultLang": "System default",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "language",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "theme",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "darkmode": "dark mode",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "light mode",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "system mode",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Export all measurements",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "This exposes all measurements to all apps.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "This will export all measurements to the external storage. Writing permissions are needed.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "open": "open",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "abort",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Import backup",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "Import measurements from txt backup file.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoled": "AMOLED",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "Change background color to true black for dark mode.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "volume": "volume",
+    "@volume": {
+        "description": "volume menu item"
+    },
+    "workout": "workout",
+    "@workout": {
+        "description": "workout"
+    },
+    "@immersiveModeSubttile": {
+        "description": "Immersive mode: color complete background in color."
+    },
+    "reset": "Reset app",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "factory reset",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Reset all settings and delete all measurements.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "Reset application to default? This will delete all settings, and added measurements. This can not be undone.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "delete",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "Import aborted.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importDialog": "Include all measurements to the current database. This can not be undone!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "home",
+    "@home": {
+        "description": "home screen"
+    },
+    "difficulty": "difficulty",
+    "@difficulty": {
+        "description": "difficulty (of workout)"
+    },
+    "strength": "strength",
+    "@strength": {
+        "description": "strength (focus workout type)"
+    },
+    "abs": "abs",
+    "@abs": {
+        "description": "abs (focus)."
+    },
+    "type": "type",
+    "@type": {
+        "description": "type"
+    },
+    "bar": "pull-up bar",
+    "@bar": {
+        "description": "pull-up bar (equipment)"
+    },
+    "core": "core",
+    "@core": {
+        "description": "core (exercise focus)"
+    },
+    "back": "back",
+    "@back": {
+        "description": "back (exercise focus)"
+    },
+    "yes": "yes",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "ok",
+    "@ok": {
+        "description": "ok"
+    },
+    "@leaveEditMode": {
+        "description": "Leave edit mode without saving? This can not be undone."
+    },
+    "save": "save",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "edit",
+    "@edit": {
+        "description": "edit"
+    },
+    "attributes": "attributes",
+    "@attributes": {
+        "description": "attributes"
+    },
+    "backup": "backup",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "time",
+    "@time": {
+        "description": "time"
+    },
+    "duration": "duration",
+    "@duration": {
+        "description": "duration"
+    },
+    "assets": "assets",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "packages",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "loading",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "measurements",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "version",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "third-party licences",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "licence",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "source code",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "openIssue": "open issue",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "undertpl": "© {years} by {author} under {licence} licence",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "Enter your weight",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "interpolation": "interpolation",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "none": "none",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "soft",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "medium",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "strong",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "welcome",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "This simplistic Material-You-design app helps you to reach your dream weight! Whether you want to gain weight, lose weight or simply maintain your weight: Reliable weight predictions and versatile statistics help you to stay on track. \n\n Join our community today to trace yourself. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "Choose one out of six themes to personalize your app. Which one does express your feelings the best?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "Thank you for giving our app a try. 🙂\n\n If you like the app, we would be very happy about your feedback, a contribution on Github or a coffee. In return, we spare you annoying and privacy-critical ads.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "Style",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Privacy",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "skip",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "start",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "target weight",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "target",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "How shall we call you?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Add target weight",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro1": "press",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "to get started",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "Today is a good day to start with your first measurement!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "The feature/function X is missing. When will it be implemented?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_q2": "Can I see once again the intro/onboarding screen?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "Yes for sure! Simple press the icon below.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Return to onboarding screen",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "What is the app icon showing?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
     }
-  },
-  "deleteDb": "You are deleting database '{name}'. This cannot be undone.",
-  "@deleteDb": {
-    "description": "You are deleting database '{name}'. This cannot be undone.",
-    "placeholders": {
-      "name": {
-        "type": "String",
-        "example": "own"
-      }
-    }
-  },
-  "deleteDefaultWorkout": "Default workouts cannot be deleted.",
-  "@deleteDefaultWorkout": {
-    "description": "Error message: Default workouts cannot be deleted."
-  },
-  "backup": "backup",
-  "@backup": {
-    "description": "backup"
-  },
-  "returnStr": "return",
-  "@returnStr": {
-    "description": "return"
-  },
-  "time": "time",
-  "@time": {
-    "description": "time"
-  },
-  "duration": "duration",
-  "@duration": {
-    "description": "duration"
-  },
-  "variant": "variant",
-  "@variant": {
-    "description": "variant"
-  },
-  "startWorkout": "start workout",
-  "@startWorkout": {
-    "description": "start workout"
-  },
-  "assets": "assets",
-  "@assets": {
-    "description": "assets"
-  },
-  "packages": "packages",
-  "@packages": {
-    "description": "packages"
-  },
-  "loading": "loading",
-  "@loading": {
-    "description": "loading"
-  },
-  "measurements": "measurements",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "version": "version",
-  "@version": {
-    "description": "version"
-  },
-  "tpl": "third-party licences",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "licence": "licence",
-  "@licence": {
-    "description": "licence"
-  },
-  "sourcecode": "source code",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "openIssue": "open issue",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "undertpl": "© {years} by {author} under {licence} licence",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
-    }
-  },
-  "nothingDoneYet": "Nothing done yet!\n\nGet back to workout!",
-  "@nothingDoneYet": {
-    "description": "Nothing done yet! Get back to workout!"
-  },
-  "chooseRest": "Choose time to rest",
-  "@chooseRest": {
-    "description": "Choose time to rest"
-  },
-  "chooseTypeDuration": "Choose exercise type and duration",
-  "@chooseTypeDuration": {
-    "description": "Choose exercise type and duration"
-  },
-  "chooseExercise": "Choose an exercise",
-  "@chooseExercise": {
-    "description": "Choose an exercise"
-  },
-  "addWeight": "Enter your weight",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "interpolation": "interpolation",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "none": "none",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "soft": "soft",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "medium": "medium",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "strong": "strong",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "welcome": "welcome",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "onBoarding1": "This simplistic Material-You-design app helps you to reach your dream weight! Whether you want to gain weight, lose weight or simply maintain your weight: Reliable weight predictions and versatile statistics help you to stay on track. \n\n Join our community today to trace yourself. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "onBoarding2": "Choose one out of six themes to personalize your app. Which one does express your feelings the best?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding3": "Thank you for giving our app a try. 🙂\n\n If you like the app, we would be very happy about your feedback, a contribution on Gitlab or a coffee. In return, we spare you annoying and privacy-critical ads.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "onBoarding2Title": "Style",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "onBoarding3Title": "Privacy",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "skip": "skip",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "startApp": "start",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "target weight",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "targetWeightShort": "target",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "addUserName": "How shall we call you?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "Add target weight",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "intro1": "press",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "intro2": "to get started",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "intro3": "Today is a good day to start with your first measurement!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faqtext": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "faq_q1": "The feature/function X is missing. When will it be implemented?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "faq_q2": "Can I see once again the intro/onboarding screen?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a2": "Yes for sure! Simple press the icon below.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "Return to onboarding screen",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "What is the app icon showing?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "faq_a3": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  }
 }

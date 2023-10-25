@@ -18,6 +18,15 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Developing
 
+# Get unused translations
+
+```
+# print which will be deleted
+dart run translations_cleaner list-unused-terms
+# delete strings
+dart run translations_cleaner clean-translations
+```
+
 # Regenerate Hive Classes
 ```bash
 flutter packages pub run build_runner build
