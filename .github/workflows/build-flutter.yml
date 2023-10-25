@@ -8,7 +8,7 @@ permissions:
 jobs:
   deployAndroid:
     permissions: write-all
-    name: 🤖📦🚀 Build & deploy Android release
+    name: Build Android apk
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository

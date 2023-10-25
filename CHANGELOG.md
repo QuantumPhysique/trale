@@ -1,12 +1,33 @@
-# Changelog All notable changes to this project will be documented in this file.
+# Changelog
+
+All notable changes to this project will be documented in this file.
 
 The format is inspired by [Keep aChangelog](https://keepachangelog.com/en/1.0.0/), and
 [Element](https://github.com/vector-im/element-android) and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[//]: # (Available sections in changelog)
+[//]: # (### API changes warning ⚠️:)
+[//]: # (### Added Features and Improvements 🙌:)
+[//]: # (### Bugfix 🐛:)
+[//]: # (### Other changes:)
+
+
 ## [Unreleased]
+### API changes warning ⚠️:
+- App id changed to `de.quantumphysique.trale`, upgrading is not possible!
+
+### Added Features and Improvements 🙌:
+- Prepare F-Droid launch
+
+### Other changes:
 - Add github actions
 - Upgrade dependencies
+- Minor UI improvements
+
+### Bugfix 🐛:
+- Fix missing permission to open links
+- Fixed overlapping monthly ticks and added years
 
 
 ## [0.3.1] - 2023-09-08
