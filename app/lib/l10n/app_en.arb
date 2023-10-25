@@ -116,14 +116,6 @@
     "@amoledSubtitle": {
         "description": "Change background color to true black for dark mode."
     },
-    "volume": "volume",
-    "@volume": {
-        "description": "volume menu item"
-    },
-    "workout": "workout",
-    "@workout": {
-        "description": "workout"
-    },
     "@immersiveModeSubttile": {
         "description": "Immersive mode: color complete background in color."
     },
@@ -159,34 +151,6 @@
     "@home": {
         "description": "home screen"
     },
-    "difficulty": "difficulty",
-    "@difficulty": {
-        "description": "difficulty (of workout)"
-    },
-    "strength": "strength",
-    "@strength": {
-        "description": "strength (focus workout type)"
-    },
-    "abs": "abs",
-    "@abs": {
-        "description": "abs (focus)."
-    },
-    "type": "type",
-    "@type": {
-        "description": "type"
-    },
-    "bar": "pull-up bar",
-    "@bar": {
-        "description": "pull-up bar (equipment)"
-    },
-    "core": "core",
-    "@core": {
-        "description": "core (exercise focus)"
-    },
-    "back": "back",
-    "@back": {
-        "description": "back (exercise focus)"
-    },
     "yes": "yes",
     "@yes": {
         "description": "yes"
@@ -206,10 +170,6 @@
     "@edit": {
         "description": "edit"
     },
-    "attributes": "attributes",
-    "@attributes": {
-        "description": "attributes"
-    },
     "backup": "backup",
     "@backup": {
         "description": "backup"
@@ -217,10 +177,6 @@
     "time": "time",
     "@time": {
         "description": "time"
-    },
-    "duration": "duration",
-    "@duration": {
-        "description": "duration"
     },
     "assets": "assets",
     "@assets": {

@@ -18,8 +18,12 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Developing
 
-# Get unused translations
+### Get untranslated strings
+```
+flutter gen-l10n
+```
 
+### Get unused translations
 ```
 # print which will be deleted
 dart run translations_cleaner list-unused-terms
@@ -27,12 +31,12 @@ dart run translations_cleaner list-unused-terms
 dart run translations_cleaner clean-translations
 ```
 
-# Regenerate Hive Classes
+### Regenerate Hive Classes
 ```bash
 flutter packages pub run build_runner build
 ```
 
-# Run Dart Code Metric
+### Run Dart Code Metric
 ```bash
 dart run dart_code_metrics:metrics analyze lib
 dart run dart_code_metrics:metrics check-unused-files lib
