@@ -2,6 +2,7 @@
     package="com.gitlab.mobilemovement.trale.app">
    <application
         android:label="trale"
+        android:usesCleartextTraffic="false"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
