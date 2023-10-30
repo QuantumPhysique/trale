@@ -15,6 +15,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+## [0.4.1] - 2023-10-30
+### Other changes:
+- Upgrade dependencies
+- Setup Proguard optimization
+
+
 ## [0.4.0] - 2023-10-25
 ### API changes warning ⚠️:
 - App id changed to `de.quantumphysique.trale`, upgrading is not possible!
@@ -91,7 +98,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.1...main
+[0.4.1]: https://github.com/quantumphysique/trale/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/quantumphysique/trale/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/quantumphysique/trale/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/quantumphysique/trale/compare/v0.2.2...v0.3.0

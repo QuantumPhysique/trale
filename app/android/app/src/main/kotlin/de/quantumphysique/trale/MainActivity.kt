@@ -1,4 +1,4 @@
-package com.gitlab.mobilemovement.trale.app
+package de.quantumphysique.trale
 
 import io.flutter.embedding.android.FlutterActivity
 
