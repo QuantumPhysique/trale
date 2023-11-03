@@ -18,6 +18,7 @@ app/.atom/
 app/.buildlog/
 app/.history
 app/.svn/
+app/untraslatedMessages.txt
 
 # IntelliJ related
 app/*.ipr
@@ -78,6 +79,8 @@ app/.fvm/
 /android/settings_aar.gradle
 /android/app/features/main/gen/
 /android/key.properfties
+/android/app_android.iml
+
 
 # iOS/XCode related
 /ios//*.mode1v3/*.mode2v3/*.moved-aside/*.pbxuser/*.perspectivev3/*sync//.sconsign.dblite/.tags*/.vagrant//DerivedData//Icon?/Pods//.symlinks//profile/xcuserdata
