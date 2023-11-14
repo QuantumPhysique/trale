@@ -51,7 +51,11 @@ jobs:
         run: |
           cd app
           flutter --disable-telemetry
-          flutter pub get
+          flutter pub get --enforce-lockfile
+      - name: Patch Packages
+        run: |
+          cd app
+          bash patch_pubdev.sh
       - name: 🤖📦 Create Android release
         run: |
           cd app

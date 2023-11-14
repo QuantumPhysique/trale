@@ -16,6 +16,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
+## [0.4.2] - 2023-11-14
+### Other changes:
+- Remove build-id from rive to enable reproducible builds
+
+
 ## [0.4.1] - 2023-10-30
 ### Other changes:
 - Upgrade dependencies
@@ -98,7 +103,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.2...main
+[0.4.2]: https://github.com/quantumphysique/trale/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/quantumphysique/trale/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/quantumphysique/trale/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/quantumphysique/trale/compare/v0.3.0...v0.3.1
