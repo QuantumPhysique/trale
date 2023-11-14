@@ -7,7 +7,7 @@ RIVE_COMMON_VERSION="$(grep -A7 -P '^..rive_common' pubspec.lock | sed -E -n -e 
 if [[ -v PUB_CACHE ]]; then
     PUB_PATH="$PUB_CACHE"
 else
-    PUB_PATH="$HOME/.pub_cache"
+    PUB_PATH="$HOME/.pub-cache"
 fi
 
-patch "${PUB_PATH}/hosted/pub.dev/rive_common-${RIVE_COMMON_VERSION}/premake5_rive_plugin.lua" "rive_common.patch"
+patch -N "${PUB_PATH}/hosted/pub.dev/rive_common-${RIVE_COMMON_VERSION}/premake5_rive_plugin.lua" "rive_common.patch"
