@@ -52,7 +52,7 @@ jobs:
       - name: Pub Get Packages
         run: |
           cd app
-          flutter --disable-telemetry
+          flutter --disable-analytics
           flutter pub get --enforce-lockfile
       - name: Patch Packages
         run: |

@@ -14,6 +14,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Using latest fluttr 3.16 with upgraded deps
+
+### Other changes:
+- Prepare for predictive back gesture
 
 
 ## [0.4.2] - 2023-11-14
