@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.quantumphysique.trale">
    <application
+        android:enableOnBackInvokedCallback="true"
         android:label="trale"
         android:usesCleartextTraffic="false"
         android:icon="@mipmap/ic_launcher">
