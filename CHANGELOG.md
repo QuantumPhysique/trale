@@ -19,6 +19,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other changes:
 - Prepare for predictive back gesture
+- Removed splash animation to fix adding to f-droid, see #1
+- Fixed list of used dependencies in about screen
 
 
 ## [0.4.2] - 2023-11-14
