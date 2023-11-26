@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+
+
+## [0.4.3] - 2023-11-26
 ### Added Features and Improvements 🙌:
 - Using latest fluttr 3.16 with upgraded deps
 
@@ -110,7 +113,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.2...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.3...main
+[0.4.3]: https://github.com/quantumphysique/trale/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/quantumphysique/trale/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/quantumphysique/trale/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/quantumphysique/trale/compare/v0.3.1...v0.4.0
