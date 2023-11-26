@@ -54,10 +54,6 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
-      - name: Patch Packages
-        run: |
-          cd app
-          bash patch_pubdev.sh
       - name: 🤖📦 Create Android release
         run: |
           cd app
