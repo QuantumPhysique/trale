@@ -42,7 +42,6 @@ dependencies:
   provider: ^6.1.1
   shared_preferences: ^2.2.2
   share_plus: ^7.2.1
-  sliding_up_panel: ^2.0.0+1
   url_launcher: ^6.2.1
 
   # The following adds the Cupertino Icons font to your application.
