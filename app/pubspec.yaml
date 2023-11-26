@@ -31,6 +31,7 @@ dependencies:
   dynamic_color: ^1.6.8
   file_picker: ^6.1.1
   fl_chart: ^0.64.0
+  flutter_svg: ^2.0.9
   font_awesome_flutter: ^10.6.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -39,7 +40,6 @@ dependencies:
   package_info_plus: ^5.0.1
   path_provider: ^2.1.1
   provider: ^6.1.1
-  rive: ^0.12.3
   shared_preferences: ^2.2.2
   share_plus: ^7.2.1
   sliding_up_panel: ^2.0.0+1
@@ -92,7 +92,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/trale.riv
+    - assets/trale_icon_extended.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -5,7 +5,6 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/onBoarding.dart';
-import 'package:trale/widget/splashHero.dart';
 
 
 /// splash scaffold
@@ -54,10 +53,10 @@ class _SplashState extends State<Splash> {
     }
 
     final Future<void> loadMeasurements = Future<void>(
-      () {
+    () {
         MeasurementDatabase().reinit();
       },
-    );
+    ).then((_) => onStop());
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -70,7 +69,7 @@ class _SplashState extends State<Splash> {
             child: FutureBuilder<void>(
               future: loadMeasurements,
               builder: (BuildContext context, AsyncSnapshot<void> snap) {
-                return SplashHero(onStop: onStop);
+                return const CircularProgressIndicator();
               },
             )
         ),

@@ -1,6 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
-import 'package:rive/src/rive_core/component.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+
+class TraleIconColorMapper implements ColorMapper {
+  const TraleIconColorMapper({
+    required this.bgColor,
+    required this.wolfColor,
+    required this.titleColor,
+    required this.sloganColor,
+  });
+
+  static const Color _defaultBgColor = Color(0xFF44464f);
+  static const Color _defaultWolfColor = Color(0xFFdae2ff);
+  static const Color _defaultTitleColor = Color(0xFF1b1b1f);
+  static const Color _defaultSloganColor = Color(0xFF0161a3);
+
+  final Color bgColor;
+  final Color wolfColor;
+  final Color titleColor;
+  final Color sloganColor;
+
+  @override
+  Color substitute(
+    String? id, String elementName, String attributeName, Color color
+  ) {
+    if (color == _defaultBgColor) {
+      return bgColor;
+    } else if (color == _defaultWolfColor) {
+      return wolfColor;
+    } else if (color == _defaultTitleColor) {
+      return titleColor;
+    } else if (color == _defaultSloganColor) {
+      return sloganColor;
+    }
+
+    return color;
+  }
+}
 
 
 /// Hero with icon for drawer
@@ -14,41 +50,21 @@ class IconHero extends StatefulWidget {
 
 class _IconHeroState extends State<IconHero> {
   /// path to rive file
-  static const String assetName = 'assets/trale.riv';
-  static const String artboard = 'icon';
-  static const String animation = 'idle';
+  static const String assetName = 'assets/trale_icon_extended.svg';
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme ctheme = Theme.of(context).colorScheme;
-
-    final Map<String, Color> colors = <String, Color>{
-      'background': ctheme.onSurfaceVariant,
-      'wolf': ctheme.primaryContainer,
-      'title': ctheme.onSurface,
-      'subtitle': ctheme.onSurfaceVariant,
-      'slogan': ctheme.primary,
-    };
-
-    return RiveAnimation.asset(
-      assetName,
-      artboard: artboard,
-      animations: const <String>[animation],
-      onInit: (Artboard artboard) {
-        artboard.forEachComponent(
-          (Component child) {
-            if (child is Shape) {
-              if (colors.containsKey(child.name)) {
-                final Shape shape = child;
-                if (shape.fills.isNotEmpty) {
-                  (shape.fills.first.children[0] as SolidColor).colorValue =
-                      colors[child.name]!.value;
-                }
-              }
-            }
-          },
-        );
-      },
+    return SvgPicture(
+      SvgAssetLoader(
+        assetName,
+        colorMapper: TraleIconColorMapper(
+          bgColor: ctheme.onSurfaceVariant,
+          wolfColor: ctheme.primaryContainer,
+          titleColor: ctheme.onSurface,
+          sloganColor: ctheme.primary,
+        ),
+      )
     );
   }
 }
