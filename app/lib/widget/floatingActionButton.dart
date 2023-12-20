@@ -8,8 +8,8 @@ class FAB extends StatefulWidget {
   const FAB({
     required this.show,
     required this.onPressed,
-    Key? key
-  }) : super(key: key);
+    super.key
+  });
 
   /// show FAB
   final bool show;

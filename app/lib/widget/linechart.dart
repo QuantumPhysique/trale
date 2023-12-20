@@ -16,8 +16,8 @@ import 'package:trale/core/zoomLevel.dart';
 
 class CustomLineChart extends StatefulWidget {
   const CustomLineChart({
-    required this.loadedFirst, Key? key
-  }) : super(key: key);
+    required this.loadedFirst, super.key
+  });
 
   final bool loadedFirst;
   @override

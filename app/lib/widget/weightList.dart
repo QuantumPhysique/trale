@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/weightListTile.dart';
 

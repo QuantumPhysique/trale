@@ -42,7 +42,7 @@ class TraleIconColorMapper implements ColorMapper {
 /// Hero with icon for drawer
 class IconHero extends StatefulWidget {
   /// constructor
-  const IconHero({Key? key}) : super(key: key);
+  const IconHero({super.key});
 
   @override
   State<IconHero> createState() => _IconHeroState();

@@ -225,6 +225,8 @@ final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
 
 /// about screen widget class
 class About extends StatefulWidget {
+  const About({super.key});
+
   @override
   _About createState() => _About();
 }
@@ -326,7 +328,7 @@ class _About extends State<About> {
               maxLines: 1,
             ),
           ),
-          for (ThirdPartyLicence tpl in tplsAssets)
+          for (final ThirdPartyLicence tpl in tplsAssets)
             tpl.toListTile(context),
           Padding(
             padding: EdgeInsets.fromLTRB(
@@ -341,7 +343,7 @@ class _About extends State<About> {
               maxLines: 1,
             ),
           ),
-          for (ThirdPartyLicence tpl in tpls)
+          for (final ThirdPartyLicence tpl in tpls)
             tpl.toListTile(context),
         ],
       );

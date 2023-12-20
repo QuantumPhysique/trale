@@ -505,6 +505,7 @@ class MeasurementDatabase {
       (List<Measurement> current, List<Measurement> next) =>
         current.length > next.length ? current : next
     );
+    return null;
   }
 
   /// return string for export

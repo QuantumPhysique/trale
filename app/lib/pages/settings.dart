@@ -24,7 +24,7 @@ import 'package:trale/widget/customSliverAppBar.dart';
 /// ListTile for changing Amoled settings
 class ExportListTile extends StatelessWidget {
   /// constructor
-  const ExportListTile({Key? key}) : super(key: key);
+  const ExportListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,7 @@ class ExportListTile extends StatelessWidget {
 /// ListTile for importing
 class ImportListTile extends StatelessWidget {
   /// constructor
-  const ImportListTile({Key? key}) : super(key: key);
+  const ImportListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -281,7 +281,7 @@ class ImportListTile extends StatelessWidget {
 /// ListTile for changing Amoled settings
 class ResetListTile extends StatelessWidget {
   /// constructor
-  const ResetListTile({Key? key}) : super(key: key);
+  const ResetListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -374,7 +374,7 @@ class ResetListTile extends StatelessWidget {
 /// ListTile for changing Amoled settings
 class AmoledListTile extends StatelessWidget {
   /// constructor
-  const AmoledListTile({Key? key}) : super(key: key);
+  const AmoledListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -406,7 +406,7 @@ class AmoledListTile extends StatelessWidget {
 /// ListTile for changing Language settings
 class LanguageListTile extends StatelessWidget {
   /// constructor
-  const LanguageListTile({Key? key}) : super(key: key);
+  const LanguageListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -448,7 +448,7 @@ class LanguageListTile extends StatelessWidget {
 /// ListTile for changing units settings
 class UnitsListTile extends StatelessWidget {
   /// constructor
-  const UnitsListTile({Key? key}) : super(key: key);
+  const UnitsListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -492,7 +492,7 @@ class UnitsListTile extends StatelessWidget {
 /// ListTile for changing dark mode settings
 class DarkModeListTile extends StatelessWidget {
   /// constructor
-  const DarkModeListTile({Key? key}) : super(key: key);
+  const DarkModeListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -554,7 +554,7 @@ class DarkModeListTile extends StatelessWidget {
 /// ListTile for changing interpolation settings
 class InterpolationListTile extends StatelessWidget {
   /// constructor
-  const InterpolationListTile({Key? key}) : super(key: key);
+  const InterpolationListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -593,7 +593,7 @@ class InterpolationListTile extends StatelessWidget {
 /// ListTile for changing interpolation settings
 class ThemeSelection extends StatelessWidget {
   /// constructor
-  const ThemeSelection({Key? key}) : super(key: key);
+  const ThemeSelection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -654,8 +654,8 @@ class ThemeSelection extends StatelessWidget {
                           AutoSizeText(
                             ctheme.name,
                             style: isDark
-                              ? ctheme.dark(context).themeData.textTheme.overline
-                              : ctheme.light(context).themeData.textTheme.overline,
+                              ? ctheme.dark(context).themeData.textTheme.labelSmall
+                              : ctheme.light(context).themeData.textTheme.labelSmall,
                             maxLines: 1,
                           ),
                           Divider(
@@ -711,6 +711,8 @@ class ThemeSelection extends StatelessWidget {
 
 /// about screen widget class
 class Settings extends StatefulWidget {
+  const Settings({super.key});
+
   @override
   _Settings createState() => _Settings();
 }
@@ -746,7 +748,7 @@ class _Settings extends State<Settings> {
             padding: padding,
             child: AutoSizeText(
               AppLocalizations.of(context)!.userSettings.inCaps,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               maxLines: 1,
             ),
           ),
@@ -760,7 +762,7 @@ class _Settings extends State<Settings> {
             padding: padding,
             child: AutoSizeText(
               AppLocalizations.of(context)!.dangerzone.inCaps,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
               maxLines: 1,
             ),
           ),
