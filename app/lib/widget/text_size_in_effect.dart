@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class TextSizeInEffect extends StatefulWidget {
   const TextSizeInEffect({
-    Key? key,
+    super.key,
     required this.text,
     required this. textStyle,
     this.durationInMilliseconds = 1000,
     this.delayInMilliseconds = 0,
     this.keepAlive = false,
-  }) : super(key: key);
+  });
 
   final String text;
   final TextStyle textStyle;

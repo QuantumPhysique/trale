@@ -283,6 +283,11 @@ class Interpolation {
 
   /// interpolate Measurements
   List<Measurement> interpolate(InterpolFunc interpolFunc){
+    // do not interpolate if empty
+    if (measures.isEmpty) {
+      return <Measurement>[];
+    }
+
     final int dateFrom = measures.first.dateInMs - extrapolationRange;
     final int dateTo = measures.last.dateInMs + extrapolationRange;
     return <Measurement>[

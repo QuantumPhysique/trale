@@ -10,7 +10,7 @@ import 'package:trale/pages/onBoarding.dart';
 /// splash scaffold
 class Splash extends StatefulWidget {
   /// constructor
-  const Splash({Key? key}) : super(key: key);
+  const Splash({super.key});
   @override
 
   /// create state

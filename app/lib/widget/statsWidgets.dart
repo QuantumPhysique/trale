@@ -14,7 +14,7 @@ import 'package:trale/core/units.dart';
 
 
 class StatsWidgets extends StatefulWidget {
-  const StatsWidgets({required this.visible, Key? key}) : super(key: key);
+  const StatsWidgets({required this.visible, super.key});
 
   final bool visible;
 

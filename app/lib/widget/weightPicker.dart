@@ -33,14 +33,6 @@ class _Painter extends CustomPainter {
 class RulerPickerController extends ValueNotifier<double> {
   RulerPickerController({double value = 0.0})
     : super(value);
-
-  @override
-  double get value => super.value;
-
-  @override
-  set value(double newValue) {
-    super.value = newValue;
-  }
 }
 
 typedef ValueChangedCallback = void Function(num value);
@@ -55,10 +47,9 @@ class RulerPicker extends StatefulWidget {
     this.marker,
     this.height = 60,
     this.backgroundColor = Colors.white,
-    Key? key,
+    super.key,
   })
-    : controller = RulerPickerController(value: value),
-      super(key:key);
+    : controller = RulerPickerController(value: value);
 
   final ValueChangedCallback onValueChange;
   final double width;

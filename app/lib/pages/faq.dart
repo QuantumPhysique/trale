@@ -25,7 +25,7 @@ Future<void> _launchURL(String url) async {
 /// ListTile for changing Amoled settings
 class OnBoardingListTile extends StatelessWidget {
   /// constructor
-  const OnBoardingListTile({Key? key}) : super(key: key);
+  const OnBoardingListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +108,8 @@ class FAQEntry {
 
 /// about screen widget class
 class FAQ extends StatefulWidget {
+  const FAQ({super.key});
+
   @override
   _FAQ createState() => _FAQ();
 }

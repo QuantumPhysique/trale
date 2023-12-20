@@ -13,7 +13,7 @@ import 'package:trale/widget/iconHero.dart';
 /// Page shown on the very first opening of the app
 class OnBoardingPage extends StatefulWidget {
   ///
-  const OnBoardingPage({Key? key}) : super(key: key);
+  const OnBoardingPage({super.key});
 
   @override
   _OnBoardingPageState createState() => _OnBoardingPageState();
@@ -40,8 +40,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
 
     final PageDecoration pageDecoration = PageDecoration(
-      titleTextStyle: Theme.of(context).textTheme.headline4!,
-      bodyTextStyle: Theme.of(context).textTheme.bodyText1!,
+      titleTextStyle: Theme.of(context).textTheme.headlineMedium!,
+      bodyTextStyle: Theme.of(context).textTheme.bodyLarge!,
       titlePadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
         vertical: TraleTheme.of(context)!.padding,
@@ -81,7 +81,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   horizontal: 2 * TraleTheme.of(context)!.padding),
               child: Text(
                 AppLocalizations.of(context)!.onBoarding2,
-                style: Theme.of(context).textTheme.bodyText1!,
+                style: Theme.of(context).textTheme.bodyLarge!,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -109,7 +109,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   horizontal: 2 * TraleTheme.of(context)!.padding),
               child: Text(
                 AppLocalizations.of(context)!.onBoarding3,
-                style: Theme.of(context).textTheme.bodyText1!,
+                style: Theme.of(context).textTheme.bodyLarge!,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -134,7 +134,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       nextFlex: 1,
       skip: Text(
         AppLocalizations.of(context)!.skip,
-        style: Theme.of(context).textTheme.bodyText1!,
+        style: Theme.of(context).textTheme.bodyLarge!,
         overflow: TextOverflow.ellipsis,
       ),
       next: Icon(
@@ -143,7 +143,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       done: Text(
         AppLocalizations.of(context)!.startApp,
-        style: Theme.of(context).textTheme.bodyText1!,
+        style: Theme.of(context).textTheme.bodyLarge!,
         overflow: TextOverflow.ellipsis,
       ),
       curve: Curves.fastLinearToSlowEaseIn,

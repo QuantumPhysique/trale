@@ -45,6 +45,11 @@ android {
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        externalNativeBuild {
+            ndkBuild {
+                arguments "LOCAL_LDFLAGS += -Wl,--build-id=none"
+            }
+        }
     }
 
     signingConfigs {

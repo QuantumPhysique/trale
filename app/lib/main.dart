@@ -27,7 +27,7 @@ Future<void> main() async {
   return runApp(
     ChangeNotifierProvider<TraleNotifier>.value(
       value: traleNotifier,
-      child: TraleMainApp(),
+      child: const TraleMainApp(),
     ),
   );
 }
@@ -37,8 +37,9 @@ Future<void> main() async {
 class TraleApp extends MaterialApp {
   /// Constructor
   TraleApp({
+    super.key,
     required this.traleNotifier,
-    Map<String, WidgetBuilder> routes = const <String, WidgetBuilder>{},
+    super.routes,
     required this.light,
     required this.dark,
     required this.amoled,
@@ -48,7 +49,6 @@ class TraleApp extends MaterialApp {
         ? amoled.themeData
         : dark.themeData,
     themeMode: traleNotifier.themeMode,
-    routes: routes,
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: AppLocalizations.supportedLocales,
     locale: traleNotifier.locale,
@@ -63,6 +63,8 @@ class TraleApp extends MaterialApp {
 
 
 class TraleMainApp extends StatelessWidget {
+  const TraleMainApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

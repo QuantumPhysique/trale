@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class AnimateInEffect extends StatefulWidget {
   const AnimateInEffect({
-    Key? key,
+    super.key,
     required this.child,
     this.intervalStart = 0,
     this.durationInMilliseconds = 1000,
     this.delayInMilliseconds = 0,
     this.keepAlive = false,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final double intervalStart;

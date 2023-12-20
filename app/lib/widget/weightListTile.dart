@@ -10,13 +10,13 @@ import 'package:trale/widget/addWeightDialog.dart';
 @immutable
 class WeightListTile extends StatefulWidget {
   const WeightListTile({
-    Key? key,
+    super.key,
     required this.measurement,
     required this.updateActiveState,
     required this.activeKey,
     this.offset = const Offset(-100, 0),
     this.durationInMilliseconds = 1000,
-  }) : super(key: key);
+  });
 
   final SortedMeasurement measurement;
   final Offset offset;

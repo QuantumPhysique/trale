@@ -17,7 +17,7 @@ import 'package:trale/widget/floatingActionButton.dart';
 /// home scaffold
 class Home extends StatefulWidget {
   /// constructor
-  const Home({Key? key}) : super(key: key);
+  const Home({super.key});
   @override
 
   /// create state

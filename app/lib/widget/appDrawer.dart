@@ -142,7 +142,7 @@ NavigationDrawer appDrawer (
           Navigator.of(context).pop();
           Navigator.of(context).push<dynamic>(
               SlideRoute(
-                page: Settings(),
+                page: const Settings(),
                 direction: TransitionDirection.left,
               )
           );
@@ -165,7 +165,7 @@ NavigationDrawer appDrawer (
           Navigator.of(context).pop();
           Navigator.of(context).push<dynamic>(
               SlideRoute(
-                page: FAQ(),
+                page: const FAQ(),
                 direction: TransitionDirection.left,
               )
           );
@@ -188,7 +188,7 @@ NavigationDrawer appDrawer (
           Navigator.of(context).pop();
           Navigator.of(context).push<dynamic>(
               SlideRoute(
-                page: About(),
+                page: const About(),
                 direction: TransitionDirection.left,
               )
           );
