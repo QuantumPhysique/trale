@@ -10,6 +10,15 @@ companion to reach your optimal weight.
 
 Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
+
+## Installation
+
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/de.quantumphysique.trale)
+
+The preferred way for now is to use fdroid. Otherwise, it is also available direclty via Github in the [latest release](https://github.com/QuantumPhysique/trale/releases/latest).
+
 ## Why trale 🐺?
 - Truly **FREE**: No annoying advertising no permission
 - Modern appearance using **MATERIAL DESIGN 3**
@@ -20,6 +29,7 @@ Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍
 ## Upcoming features 🚀
 - [x] Import and export of your measurements
 - [ ] Achievements and motivational messages
+- [ ] Add to Google play store
 
 ## Screenshots
 <div align="center">
