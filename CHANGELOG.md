@@ -16,6 +16,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
+## [0.4.5] - 2024-01-07
+### Bugfix 🐛:
+- Fix bug, when using lb and st units
+
+
 ## [0.4.4] - 2023-12-20
 ### Bugfix 🐛:
 - Fix bug, which prevented loading the app without measurements
@@ -26,7 +31,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.4.3] - 2023-11-26
 ### Added Features and Improvements 🙌:
-- Using latest fluttr 3.16 with upgraded deps
+- Using the latest flutter 3.16 with upgraded deps
 
 ### Other changes:
 - Prepare for predictive back gesture
@@ -121,7 +126,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.4...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.5...main
+[0.4.5]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/quantumphysique/trale/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/quantumphysique/trale/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/quantumphysique/trale/compare/v0.4.1...v0.4.2
