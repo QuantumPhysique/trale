@@ -159,7 +159,7 @@ List<Measurement> _createRegressionMeasurements(
 }
 
 
-/// estimate eights based on measurments
+/// estimate weights based on measurements
 List<double> measurementsToWeights(int x, List<Measurement> measurements) {
   final Preferences pref = Preferences();
   final List<double> weights = <double>[

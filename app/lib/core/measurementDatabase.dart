@@ -11,19 +11,22 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
 
-/// check if two integers corresponds to same day
-bool sameDay(DateTime? d1, DateTime? d2) {
-  if (d1 == null || d2 == null) {
-    return false;
+/// Extend DateTime for faster comparison
+extension DateTimeExtension on DateTime {
+  /// check if two integers corresponds to same day
+  bool sameDay(DateTime? other) {
+    if (other == null) {
+      return false;
+    }
+    return year == other.year && month == other.month && day == other.day;
   }
-  return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
 }
 
 /// check if day is in list
-bool dayInMeasurements(DateTime d1, List<Measurement> measurements) =>
+bool dayInMeasurements(DateTime date, List<Measurement> measurements) =>
     <bool>[
       for (final Measurement m in measurements)
-        sameDay(d1, m.date)
+        date.sameDay(m.date)
     ].reduce((bool value, bool element) => value || element);
 
 
@@ -169,7 +172,7 @@ class MeasurementDatabase {
     );
     for (int idx=0; idx < ms.length; idx++){
       final DateTime date = ms[idx].date;
-      if (!sameDay(date, lastDate)) {
+      if (!date.sameDay(lastDate)) {
         dailyAverage.add(
           Measurement(
             weight: dailyWeightAverage.reduce(
@@ -259,7 +262,7 @@ class MeasurementDatabase {
       date = DateTime(date.year, date.month, date.day, _offsetInH);
       bool isDayInMeasurements = false;
       for (final Measurement m in ms) {
-        if (sameDay(date, m.date)) {
+        if (date.sameDay(m.date)) {
           dailyMeasurements.add(
             Measurement(
               weight: m.weight,
