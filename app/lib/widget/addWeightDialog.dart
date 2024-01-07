@@ -165,7 +165,7 @@ Future<bool> showAddWeightDialog({
             () {
               final bool wasInserted = database.insertMeasurement(
                 Measurement(
-                  weight: currentSliderValue,
+                  weight: currentSliderValue * notifier.unit.scaling,
                   date: currentDate,
                 ),
               );
@@ -278,7 +278,8 @@ Future<bool> showTargetWeightDialog({
           actions: actions(
             context,
             () {
-              notifier.userTargetWeight = currentSliderValue;
+              notifier.userTargetWeight =
+                  currentSliderValue * notifier.unit.scaling;
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
               Navigator.pop(context, true);
