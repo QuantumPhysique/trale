@@ -1,1 +1,88 @@
-{}
+{
+  "achievements": "oppnåelser",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "trale": "Trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "unit": "enheter",
+  "@unit": {},
+  "date": "dato",
+  "@date": {
+    "description": "Date"
+  },
+  "german": "Tysk",
+  "@german": {
+    "description": "German"
+  },
+  "english": "Engelsk",
+  "@english": {
+    "description": "English"
+  },
+  "defaultLang": "Systemforvalg",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "language": "språk",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "stats": "statistikk",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "weight": "vekt",
+  "@weight": {
+    "description": "weight"
+  },
+  "systemmode": "system",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Eksporter alle målinger",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "user": "brukerprofil",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "lightmode": "lys",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "userSettings": "brukerinnstillinger",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "faresone",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "innstillinger",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "theme": "drakt",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "faq": "O-S-S",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "Om",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "darkmode": "mørk",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  }
+}
