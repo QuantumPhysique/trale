@@ -16,9 +16,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
-## [0.4.5] - 2024-01-07
+## [0.4.6] - 2024-01-08
 ### Bugfix 🐛:
 - Fix bug, when using lb and st units
+
+### Other changes:
+- Fix version error in 0.4.5
+- Fix f-droid metadata
 
 
 ## [0.4.4] - 2023-12-20
@@ -126,8 +130,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.5...main
-[0.4.5]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.5
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.6...main
+[0.4.6]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.6
 [0.4.4]: https://github.com/quantumphysique/trale/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/quantumphysique/trale/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/quantumphysique/trale/compare/v0.4.1...v0.4.2

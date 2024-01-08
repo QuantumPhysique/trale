@@ -1,5 +1,3 @@
-trale – eine schöne Gewichtsapp die deine Privatsphäre respektiert
-
 Diese schlichte App im Material Design 3 ist perfekt geeignet, um Ihr Gewicht
 zu in den Griff zu bekommen. Ob Sie zunehmen oder abnehmen wollen, diese App
 ist der perfekte Begleiter, um Ihr optimales Gewicht zu erreichen.
@@ -12,9 +10,9 @@ Tritt noch heute unserer Community bei und erreich dein Traumgewicht 🐺🤸‍
 * <b>ANPASSBAR</b>: Viele kostenlose Farbthemen, <b>DARK MODE</b>, und verschiedene <b>Einheiten</b>
 * Verfolge deinen Fortschritt mit <b>STATE-OF-THE-ART</b> Datenmodellierung 🧑‍💻
 * <b>PRIVATSPHÄRE</b>: Nicht nur leere Versprechen, die App ist <a href="https://github.com/quantumphysique/trale">open-source</a>
+* Importieren und exportieren der Messungen
 
 <b>Geplante Funktionalität 🚀:</b>
-* Importieren und exportieren der Messungen
 * Errungenschaften und motivierende Nachrichten
 
 <b>Disclaimer</b>
