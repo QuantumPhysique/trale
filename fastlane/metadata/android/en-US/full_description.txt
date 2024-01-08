@@ -1,5 +1,3 @@
-Trale – a simple body weight diary app respecting your privacy.
-
 This simplistic, material design app is perfectly suited for locking your
 weight. Whether you want to gain or lose weight, this app is the perfect
 companion to reach your optimal weight.
@@ -12,9 +10,9 @@ Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍
 * <b>CUSTOMIZABLE</b>: Many free custom themes, <b>DARK MODE</b>, and several <b>UNITS</b>. Tracking your <b>PROGRESS</b>
 * Track your progress with <b>STATE-OF-THE-ART</b> data modeling 🧑‍💻
 * <b>PRIVACY</b>: Not just empty promises, it is fully <a href="https://github.com/quantumphysique/trale">open-source</a>
+* Import and export of your measurements
 
 <b>Upcoming features 🚀:</b>
-* Import and export of your measurements
 * Achievements and motivational messages
 
 <b>Disclaimer</b>
