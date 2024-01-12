@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ml_linalg/linalg.dart';
 
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
@@ -90,6 +91,8 @@ class MeasurementDatabase {
   void reinit() {
     _measurements = null;
     _sortedMeasurements = null;
+    _times = null;
+    _vec_ms = null;
     _dailyAveragedMeasurements = null;
     _dailyAveragedGaussianMeasurements = null;
     _dailyAveragedInterpolatedMeasurements = null;
@@ -109,6 +112,8 @@ class MeasurementDatabase {
   void init() {
     measurements;
     sortedMeasurements;
+    times;
+    vec_ms;
     dailyAveragedMeasurements;
     dailyAveragedGaussianMeasurements;
     dailyAveragedInterpolatedMeasurements;
@@ -153,6 +158,56 @@ class MeasurementDatabase {
     ]..sort(
       (SortedMeasurement a, SortedMeasurement b) => b.compareTo(a)
     );
+
+  Vector? _times;
+  /// get vector containing the times given in [ms since epoche]
+  Vector get times => _times ??= _createTimes();
+
+
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  Vector _createTimes() {
+    final int dateFrom = sortedMeasurements.last.measurement.dateInMs
+      - _dayInMs * _offsetInDays;
+    final int dateTo = sortedMeasurements.first.measurement.dateInMs
+      + _dayInMs * _offsetInDays;
+
+    return Vector.fromList(<int>[
+      for (int date = dateFrom; date < dateTo; date += _dayInMs)
+        date
+    ]);
+  }
+
+  Vector? _vec_ms;
+  /// get vector containing the measurements correspoding to self.times
+  Vector get vec_ms => _vec_ms ??= _createVecMS();
+
+
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  Vector _createVecMS() {
+    final int N = times.length;
+    final List<double> ms = Vector.zero(N).toList();
+    final List<double> counts = Vector.zero(N).toList();
+
+    int idx = 0;
+    for (final SortedMeasurement m in sortedMeasurements.reversed) {
+      while (
+        ! m.measurement.date.sameDay(
+          DateTime.fromMillisecondsSinceEpoch(
+            times[idx].toInt(),
+          )
+        )
+      ) {
+        idx += 1;
+      }
+      ms[idx] += m.measurement.weight;
+      counts[idx] += 1;
+      print(ms[idx] / counts[idx]);
+    }
+    return Vector.fromList(ms) / Vector.fromList(
+      counts
+    ).mapToVector((double val) => val == 0 ? 1 : val);
+  }
+
 
   List<Measurement>? _dailyAveragedMeasurements;
   /// get sorted list of daily-averaged measurements
@@ -537,4 +592,6 @@ class MeasurementDatabase {
   static const int _offsetInH = 12;
   /// offset of day in interpolation
   static const int _offsetInDays = 7;
+  /// 24h given in [ms]
+  static const int _dayInMs = 24 * 3600 * 1000;
 }
