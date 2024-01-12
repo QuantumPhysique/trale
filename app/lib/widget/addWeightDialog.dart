@@ -278,8 +278,21 @@ Future<bool> showTargetWeightDialog({
           actions: actions(
             context,
             () {
-              notifier.userTargetWeight =
-                  currentSliderValue * notifier.unit.scaling;
+              // In order to make our contribution to prevention, no target
+              // weight below 50 kg / 110 lb / 7.9 st is possible.
+              if (currentSliderValue * notifier.unit.scaling < 50) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        AppLocalizations.of(context)!.target_weight_warning),
+                    behavior: SnackBarBehavior.floating,
+                    duration: const Duration(seconds: 10),
+                  ),
+                );
+              } else {
+                notifier.userTargetWeight =
+                    currentSliderValue * notifier.unit.scaling;
+              }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
               Navigator.pop(context, true);

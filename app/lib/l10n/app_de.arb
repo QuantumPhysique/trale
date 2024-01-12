@@ -82,5 +82,6 @@
     "version": "Version",
     "weight": "Gewicht",
     "welcome": "Willkommen",
-    "yes": "ja"
+    "yes": "ja",
+    "target_weight_warning": "Magersucht ist eine ernstzunehmende Erkrankung, die nicht zuletzt durch die vielen Negativbeispiele in den sozialen Medien zunehmend zu einem gesamtgesellschaftlichen Problem wird. Als Beitrag zur Prävention ist kein Zielgewicht unter 50 kg / 110 lb / 7.9 st möglich."
 }
