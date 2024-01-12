@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Bugfix 🐛:
+- Fix bug, that allowed target weights below 50kg
 
 
 ## [0.4.6] - 2024-01-08
