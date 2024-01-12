@@ -84,5 +84,157 @@
   "ok": "OK",
   "@ok": {
     "description": "ok"
+  },
+  "exportSubtitle": "Dette tilbyr alle målinger til alle programmer.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "open": "Åpne",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Avbryt",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Importer sikkerhetskopi",
+  "@import": {
+    "description": "Import backup."
+  },
+  "importingAbort": "Import avbrutt.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "amoled": "Svart",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "factoryReset": "Fabrikkinnstilling",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "delete": "Slett",
+  "@delete": {
+    "description": "delete"
+  },
+  "licence": "Lisens",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "Kildekode",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "addWeight": "Skriv inn din vekt",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "none": "Ingen",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "soft": "Myk",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "Middels",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "Høy",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "onBoarding2Title": "Stil",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "skip": "Hopp over",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "faq_q3": "Hva viser programikonet?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "startApp": "Start",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Målvekt",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "addTargetWeight": "Legg til målvekt",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro1": "Trykk",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "reset": "Tilbakestill program",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "Tilbakestill alle innstillinger og slett alle målinger.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "intro3": "I dag er en god dag for første måling.",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "targetWeightShort": "Mål",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "yes": "Ja",
+  "@yes": {
+    "description": "yes"
+  },
+  "measurements": "Målinger",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "tpl": "Tredjepartslisenser",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "onBoarding3Title": "Personvern",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "home": "Hjem",
+  "@home": {
+    "description": "home screen"
+  },
+  "save": "Lagre",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Rediger",
+  "@edit": {
+    "description": "edit"
+  },
+  "time": "Tid",
+  "@time": {
+    "description": "time"
+  },
+  "loading": "Laster inn …",
+  "@loading": {
+    "description": "loading"
+  },
+  "welcome": "Velkommen",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "version": "Versjon",
+  "@version": {
+    "description": "version"
+  },
+  "openIssue": "Åpne feilrapport",
+  "@openIssue": {
+    "description": "open issue"
   }
 }
