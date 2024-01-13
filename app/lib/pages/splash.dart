@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/onBoarding.dart';
@@ -55,6 +56,7 @@ class _SplashState extends State<Splash> {
     final Future<void> loadMeasurements = Future<void>(
     () {
         MeasurementDatabase().reinit();
+        MeasurementInterpolation().reinit();
       },
     ).then((_) => onStop());
 
