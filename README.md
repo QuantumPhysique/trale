@@ -1,14 +1,15 @@
 <div align="center">
     <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" />
+    <a href="https://www.gnu.org/licenses/agpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"></a>
+    <a href="https://github.com/QuantumPhysique/trale/releases" alt="GitHub releases"><img src="https://img.shields.io/github/release/QuantumPhysique/trale.svg" ></a>
 </div>
 
-# trale – a simple body weight diary app respecting your privacy.
+# trale – a simple body-weight diary app respecting your privacy.
 
-This simplistic, material design app is perfectly suited for locking your
-weight. Whether you want to gain or lose weight, this app is the perfect
-companion to reach your optimal weight.
+Lock in your optimal weight by losing or gaining \
+with this simple, material design app.
 
-Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
 
 ## Installation
@@ -17,19 +18,20 @@ Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/de.quantumphysique.trale)
 
-The preferred way for now is to use fdroid. Otherwise, it is also available direclty via Github in the [latest release](https://github.com/QuantumPhysique/trale/releases/latest).
+Preferably use F-Droid. \
+The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) can also be downloaded here.
 
 ## Why trale 🐺?
-- Truly **FREE**: No annoying advertising no permission
-- Modern appearance using **MATERIAL DESIGN 3**
-- **CUSTOMIZABLE**: Many free custom themes, **DARK MODE**, and several **UNITS**. Tracking your **PROGRESS**
-- Track your **PROGRESS** with state-of-the-art data modeling 🧑‍💻
-- **PRIVACY**: Not just empty promises, it is fully <a href="https://github.com/QuantumPhysique/trale">open-source</a>
+- Truly **gratis**: No annoying advertising no permission
+- Modern appearance using **Material Design 3**
+- **Customizable**: Many custom themes, **dark mode**, and several **units**. Tracking your **progress**
+- Track your **progress** with state-of-the-art data modeling 🧑‍💻
+- **Privacy**: Not just empty promises, it is fully <a href="https://github.com/QuantumPhysique/trale">copylefted libre software</a>
 
 ## Upcoming features 🚀
-- [x] Import and export of your measurements
+- [x] Import and export your measurements
 - [ ] Achievements and motivational messages
-- [ ] Add to Google play store
+- [ ] Add to Google Play store
 
 ## Screenshots
 <div align="center">
@@ -43,32 +45,36 @@ The preferred way for now is to use fdroid. Otherwise, it is also available dire
 ##### I found a bug
 Please open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">issue</a>.
 
-##### Will this app stay free
-This app will always be free on F-Droid with all features enabled. Once leaving beta, we will charge a small fee on google play store.
+##### Will this app stay gratis
+This app will always be gratis on F-Droid with all features. Once leaving beta, a small fee will be added on the Google Play store.
 
 ##### Could you please add feature X
-At the moment the app is in beta stage and there might be many bugs. Therefore, we focus on improving stability before integrating new features. Nevertheless, feel free to open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">issue</a> or direclty a merge request so that we know which features are missing most.
-
-##### Will the app be translated to X
-At the current stage only a few languages are available. In the near feature we will add this project to weblate to encurage the community to translate the app to new languages.
-The database itself (or mainly due to our limited sqllite knowledge) is limited to a single language. But it is possible to create new exercises and workouts with a different language.
+At this stage we focus on improving stability before new features. \
+Feel free to open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">issue</a> \
+or a merge request.
 
 ##### Can I contribute
-For sure, that is the reason why we opened the source code. There are many ways you can help:
-- Implementing new functionality. If you are new to flutter you should first [get started](https://flutter.dev/docs/get-started/install)
-- Open issues and help us finding bugs or simply give feedback
-- or simply share the app with your friends :)
+- Implementing new functionality. If you are new to Flutter you should first [get started](https://flutter.dev/docs/get-started/install)
+- Open issues and help us find bugs, or simply give feedback
+- Share the app with your friends :)
 
+You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/engage/trale/).
+
+<a href="https://hosted.weblate.org/engage/trale/">
+<img src="https://hosted.weblate.org/widget/trale/horizontal-auto.svg" alt="Oversettelsesstatus" />
+</a>
 
 ## Disclaimer
-Anorexia is a serious disease. Especially due to the many negative examples in
-the social media, anorexia is increasingly a problem for society as a whole. In
-order to make our contribution to prevention, no target weight below 50 kg /
-110 lb / 7.9 st is possible.
+Anorexia is a serious disease. \
+Especially due to the many negative examples in social media, \
+anorexia is increasingly a problem for society as a whole. \
+In order to make our contribution to prevention, \
+no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs. It should work
-best with FHD/FHD+ resolution. If you encounter a bug or if you are missing a
-feature, please <a href="https://github.com/QuantumPhysique/trale/-/issues">open a new issue</a>.
+This app is still in <b>beta</b> stage and may contain bugs. \
+It should work best with FHD/FHD+ resolution. \
+If you encounter a bug or if you are missing a feature, \
+please <a href="https://github.com/QuantumPhysique/trale/-/issues">open a new issue</a>.
 
 ## License
-The source code is licensed under the [GNU AGPLv3](http://choosealicense.com/licenses/agpl-3.0/).
+The source code is licensed [GNU AGPLv3+](http://choosealicense.com/licenses/agpl-3.0/).
