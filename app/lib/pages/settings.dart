@@ -226,7 +226,7 @@ class ImportListTile extends StatelessWidget {
           if (accepted) {
             final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles(
               type: FileType.custom,
-              allowedExtensions: <String>['txt'],
+              allowedExtensions: <String>['txt','csv'],
             );
             if (
               pickerResult != null &&
@@ -236,9 +236,10 @@ class ImportListTile extends StatelessWidget {
               int measurementCounts = 0;
               for (final String line in file.readAsLinesSync()) {
                 // parse comments
-                if (!line.startsWith('#')) {
+                if (!line.startsWith('#') && !line.startsWith('"')) {
                   final Measurement m = Measurement.fromString(
-                    exportString: line
+                    exportString: line,
+                    native: pickerResult.files.single.extension == 'txt',
                   );
                   final bool wasInserted = db.insertMeasurement(m);
                   if (wasInserted) {

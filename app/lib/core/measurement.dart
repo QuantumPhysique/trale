@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/traleNotifier.dart';
@@ -81,18 +82,40 @@ class Measurement {
     => '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
 
   /// copy with applying change
-  static Measurement fromString({required String exportString}) {
-    final List<String> strings = exportString.split(' ');
+  
+  static Measurement fromString({required String exportString, bool native=true}) {
+    if(native){
+      // trale format
+      final List<String> strings = exportString.split(' ');
 
-    if (strings.length != 2) {
-      print('error with parsing measurement!');
+      if(strings.length != 2){
+        print('error with parsing measurement (trale format)!');
+      }
+
+      return Measurement(
+        weight: double.parse(strings[1]),
+        date: DateTime.parse(strings[0]),
+        isMeasured: true,
+      );
+    } else {
+      // openscale format
+      final List<String> strings = exportString.split(',');
+      
+      if(strings.length != 19){
+        print('error with parsing measurement (openscale format)!');
+      }
+
+      final String dateString = strings[8].substring(1, strings[8].length-2);
+      final DateFormat format = DateFormat('yyyy-MM-dd HH:mm');
+      final DateTime date = format.parse(dateString);
+
+      
+      return Measurement(
+        weight: double.parse(strings[18]),
+        date: DateTime.parse(date.toIso8601String()),
+        isMeasured: true,
+      );
     }
-
-    return Measurement(
-      weight: double.parse(strings[1]),
-      date: DateTime.parse(strings[0]),
-      isMeasured: true,
-    );
   }
 
   /// compare method to use default sort method on list
