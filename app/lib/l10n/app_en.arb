@@ -104,9 +104,9 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "Import measurements from txt backup file.",
+    "importSubtitle": "Import measurements from txt backup file or openScale csv file.",
     "@importSubtitle": {
-        "description": "Import measurements from txt backup file."
+        "description": "Import measurements from txt backup file or openScale csv file."
     },
     "amoled": "AMOLED",
     "@amoled": {

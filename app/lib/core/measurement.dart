@@ -82,7 +82,6 @@ class Measurement {
     => '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
 
   /// copy with applying change
-  
   static Measurement fromString({required String exportString, bool native=true}) {
     if(native){
       // trale format
