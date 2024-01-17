@@ -233,26 +233,20 @@ class ImportListTile extends StatelessWidget {
               pickerResult.files.single.path != null
             ) {
               final File file = File(pickerResult.files.single.path!);
-              int measurementCounts = 0;
+              List<Measurement> newMeasurements = <Measurement>[];
               for (final String line in file.readAsLinesSync()) {
                 // parse comments
                 if (!line.startsWith('#')) {
-                  final Measurement m = Measurement.fromString(
-                    exportString: line
+                  newMeasurements.add(
+                    Measurement.fromString(
+                      exportString: line
+                    )
                   );
-                  final bool wasInserted = db.insertMeasurement(m);
-                  if (wasInserted) {
-                    measurementCounts += 1;
-                  }
-                }
               }
-              //final DateFormat formatter = DateFormat('yyyy-MM-dd');
-              //final String filename =
-              //    'trale_${formatter.format(DateTime.now())}.txt';
-              //final String path = '${localPath.path}/$filename';
-              //final File file = File(path);
-              //final MeasurementDatabase db = MeasurementDatabase();
-              //file.writeAsString(db.exportString, mode: FileMode.write);
+
+              final bool measurementCounts = db.insertMeasurementList(
+                newMeasurements
+              );
               sm.showSnackBar(
                 SnackBar(
                   content: Text('$measurementCounts measurements added'),
