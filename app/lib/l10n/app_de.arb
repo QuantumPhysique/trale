@@ -37,7 +37,7 @@
     "home": "Start",
     "import": "Importiere Backup",
     "importDialog": "Importiere alle Messungen in die aktuelle Messreihe. Dies kann nicht rückgängig gemacht werden!",
-    "importSubtitle": "Importiere Messungen aus einer Backup .txt Datei.",
+    "importSubtitle": "Importiere Messungen aus einer Backup .txt Datei oder einer openScale .csv Datei.",
     "importingAbort": "Import abgebrochen.",
     "interpolation": "Interpolation",
     "intro1": "drücke",
