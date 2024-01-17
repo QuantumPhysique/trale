@@ -72,6 +72,22 @@ class MeasurementDatabase {
     return !isContained;
   }
 
+  bool insertMeasurementList(List<Measurement> ms) {
+    int count = 0;
+    for (Measurement m in ms) {
+      final bool isContained = containsMeasurement(m);
+      if (!isContained) {
+        box.add(m);
+        count++;
+      }
+    }
+    if (count > 0) {
+      reinit();
+    }
+
+    return count;
+  }
+
   /// delete Measurements from box
   void deleteMeasurement(SortedMeasurement m) {
     box.delete(m.key);
