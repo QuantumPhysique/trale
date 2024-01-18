@@ -1,0 +1,2 @@
+- Accelerated import
+- Fix bug, that allowed target weights below 50kg
