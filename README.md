@@ -55,8 +55,8 @@ At this stage we focus on improving stability before new features. \
 Feel free to open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">issue</a> or a pull request.
 
 ##### Can I contribute
-- Implementing new functionality. If you are new to Flutter you should first [get started](https://flutter.dev/docs/get-started/install)
-- Open issues and help us find bugs, or simply give feedback
+- Implementing new functionality. If you are new to Flutter you should first [get started](https://flutter.dev/docs/get-started/install).
+- Open issues and help us find bugs, or simply give feedback.
 - Share the app with your friends :)
 
 You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/engage/trale/).
@@ -66,15 +66,15 @@ You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/enga
 </a>
 
 ## Disclaimer
-Anorexia is a serious disease. \
-Especially due to the many negative examples in social media, \
-anorexia is increasingly a problem for society as a whole. \
-In order to make our contribution to prevention, \
+Anorexia is a serious disease. 
+Especially due to the many negative examples in social media, 
+anorexia is increasingly a problem for society as a whole. 
+In order to make our contribution to prevention, 
 no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs. \
-It should work best with FHD/FHD+ resolution. \
-If you encounter a bug or if you are missing a feature, \
+This app is still in <b>beta</b> stage and may contain bugs. 
+It should work best with FHD/FHD+ resolution. 
+If you encounter a bug or if you are missing a feature, 
 please <a href="https://github.com/QuantumPhysique/trale/-/issues">open a new issue</a>.
 
 ## License
