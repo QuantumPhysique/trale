@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:ml_linalg/linalg.dart';
 
@@ -92,6 +93,7 @@ class MeasurementInterpolation {
   Vector _createWeights() {
     final List<double> ms = Vector.zero(N).toList();
     final List<double> counts = Vector.zero(N).toList();
+    final List<int> idx_ms = <int>[];
 
     int idx = 0;
     for (final SortedMeasurement m in db.sortedMeasurements.reversed) {
@@ -106,12 +108,17 @@ class MeasurementInterpolation {
       }
       ms[idx] += m.measurement.weight;
       counts[idx] += 1;
+      if (counts[idx] == 1) {
+        idx_ms.add(idx);
+      }
     }
 
     // set isMeasurement
     _isMeasurement = Vector.fromList(counts) / Vector.fromList(
         counts
     ).mapToVector((double val) => val == 0 ? 1 : val);
+
+    _idxsMeasurements = idx_ms;
 
     return Vector.fromList(ms) / Vector.fromList(
       counts
@@ -127,6 +134,10 @@ class MeasurementInterpolation {
   Vector get isNoMeasurement => _isNoMeasurement ??
     isMeasurement.mapToVector((double val) => val == 0 ? 1 : 0);
 
+  late List<int> _idxsMeasurements;
+  /// get List holding indices to all measurements
+  List<int> get idxsMeasurements => _idxsMeasurements;
+
   late Vector _isExtrapolated;
   /// get vector containing 0 if values are outside of measurement range else 1
   Vector get isExtrapolated => _isExtrapolated;
@@ -135,9 +146,79 @@ class MeasurementInterpolation {
 
   /// get vector containing 1 if values withing measurement range else 0
   Vector get isNotExtrapolated => _isNotExtrapolated ??
-      isExtrapolated.mapToVector((double val) => val == 0 ? 1 : 0);
+    isExtrapolated.mapToVector((double val) => val == 0 ? 1 : 0);
 
+  Vector? _sigma;
 
+  /// get vector containing sigma depending if measurement or not
+  Vector get sigma => _sigma ?? (
+    isMeasurement * interpolStrength.strengthMeasurement +
+    isNoMeasurement * interpolStrength.strengthInterpol
+  ) * _dayInMs;
+
+  /// estimate weights of gaussian at time t with std sigma
+  Vector gaussianWeights(double t) {
+    final Vector norm = (sigma *math.sqrt(2 * math.pi)).pow(-1);
+    final Vector gaussianWeights = (
+        (times - t).pow(2) / (sigma.pow(2) * -2)
+    ).exp() * norm;
+    return gaussianWeights / gaussianWeights.sum();
+  }
+
+  /// take mean of Vector ws weighted with Gaussian N(t, sigma)
+  double gaussianMean(double t, Vector ws) =>
+    (gaussianWeights(t) * ws).sum();
+
+  Vector? _weightsSmoothed;
+  /// get vector containing the Gaussian smoothed measurements
+  Vector get weightsSmoothed => _weightsSmoothed ?? _createSmoothedWeights();
+
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  Vector _createSmoothedWeights() => Vector.fromList(
+    <double>[
+      for (int idx = 0; idx < N; idx++)
+        (isMeasurement[idx] == 1)
+          ? gaussianMean(
+              times[idx],
+              weights,
+            )
+          : 0
+    ]
+  );
+
+  Vector? _weightsLinInterpol;
+  /// get vector containing the weights with linear interpolated missing values
+  Vector get weightsLinInterpol => _weightsLinInterpol ??
+    _createLinInterpol();
+
+  /// get linearly interpolated and sorted list of daily-averaged measurements
+  Vector _createLinInterpol() {
+    final List<double> ms_interpol = weights.toList();
+
+    int idxFrom, idxTo;
+    double changeRate;
+
+    // loop over all unique measurements
+    for (int idx = 0; idx < idxsMeasurements.length - 1; idx++) {
+      // interpolate between measurements idxs_i and idx_j
+      idxFrom = idxsMeasurements[idx];
+      idxTo = idxsMeasurements[idx + 1];
+      if (idxFrom + 1 < idxTo) {
+        // estimate change rate
+        changeRate = (
+          weights[idxTo] - weights[idxFrom]
+        ) / (
+          times[idxTo] - times[idxFrom]
+        );
+        for (int idx_j = idxFrom + 1; idx_j < idxTo; idx_j++) {
+          ms_interpol[idx_j] = weights[idxFrom] + changeRate * (
+            times[idx_j] * times[idxFrom]
+          );
+        }
+      }
+    }
+    return Vector.fromList(ms_interpol);
+  }
 
   /// offset of day in interpolation
   static const int _offsetInDays = 7;
