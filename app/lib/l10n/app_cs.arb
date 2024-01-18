@@ -124,5 +124,211 @@
   "amoledSubtitle": "Změnit barvu pozadí na opravdově červenou pro tmavý režim.",
   "@amoledSubtitle": {
     "description": "Change background color to true black for dark mode."
+  },
+  "delete": "Smazat",
+  "@delete": {
+    "description": "delete"
+  },
+  "home": "Domů",
+  "@home": {
+    "description": "home screen"
+  },
+  "intro2": "pro započetí",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro3": "Dnes je dobrý den pro přidání Vašeho prvního měření!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faq_q1": "Funkce X chybí? Kdy bude přidána?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_q2": "Mohu znovu vidět počáteční obrazovku?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Samozřejmě! Stačí stisknout ikonu níže.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Vrátit se na počáteční obrazovku",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "Co je zobrazeno na ikoně aplikace?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "faq_a3": "Vlk který sedí na písmenu \"r\" a jeho ocas je částečně skrytý písmenem \"t\".",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "factoryResetDialog": "Resetovat aplikaci do výchozího nastavení? Tohle smaže všechna nastavení a přidána měření. Tato akce je nevratná.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "importingAbort": "Importování zrušeno.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "Zahrnout všechna měření do současné databáze. Tato akce je nevratná!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "yes": "Ano",
+  "@yes": {
+    "description": "yes"
+  },
+  "save": "Uložit",
+  "@save": {
+    "description": "save"
+  },
+  "backup": "Zálohovat",
+  "@backup": {
+    "description": "backup"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "edit": "Upravit",
+  "@edit": {
+    "description": "edit"
+  },
+  "time": "Čas",
+  "@time": {
+    "description": "time"
+  },
+  "assets": "položky",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "balíčky",
+  "@packages": {
+    "description": "packages"
+  },
+  "sourcecode": "Zdrojový kód",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "undertpl": "© {years}, {author} pod licencí {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "none": "Nic",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "welcome": "Vítejte",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "loading": "Načítání",
+  "@loading": {
+    "description": "loading"
+  },
+  "version": "Verze",
+  "@version": {
+    "description": "version"
+  },
+  "licence": "License",
+  "@licence": {
+    "description": "licence"
+  },
+  "openIssue": "Otevřít problém",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "addWeight": "Zadejte svoji váhu",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "interpolace",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "measurements": "Měření",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "tpl": "License třetích stran",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "onBoarding1": "Tato jednoduchá aplikace s Material-You designem Vám pomůže dosáhnout Vaší vysněné váhy! Jak když chcete přibrat, ubrat, nebo jednoduše svoji váhu udržovat: Spolehlivé váhové předpoklady a všemožné statistiky, které Vám pomáhají pokračovat.\n\nPřidejte se do naší komunity a začněte se sledovat.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "onBoarding2": "Vyberte si jeden ze šesti motivů pro přizpůsobení Vaší aplikace. Který nejlépe vyjadřuje Vaše pocity?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding3": "Děkujeme za vyzkoušení naší aplikace. 🙂\n\nPokud se Vám líbí, byli bychom velmi rádi že Vaši zpětnou vazbu, podílení se na Githubu nebo kávičku. Na oplátku Vás ušetříme od otravných reklam narušujících soukromí.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "skip": "Přeskočí",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "targetWeightMotivation": "Nastavení cílové váhy je velmi důležité a krokem správným směrem. Mít na paměti cíl Vás motivuje, abyste dělali více pro jeho dosažení.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "addUserName": "Jak Vám máme říkat?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Přidat cílovou váhu",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "onBoarding2Title": "Styl",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "targetWeightShort": "Cíl",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "intro1": "Stiskněte",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "onBoarding3Title": "Soukromí",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "faqtext": "Zde naleznete odpovědi na některé z nejčastěji kladených otázek. Pokud máte jiné otázky, otevřete problém na github repozitáři.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "startApp": "Začít",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Cílová váha",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "faq_a1": "Tato aplikace je vyvíjena v našem volném čase a snažíme se ji nechat jednoduchou. Věříme, že přidáním velkého množství funkcí bude aplikace méně použitelná. Pokud si myslíte, že chybí klíčová funkce, otevřete problém nebo merge request.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   }
 }
