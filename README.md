@@ -4,10 +4,9 @@
     <a href="https://github.com/QuantumPhysique/trale/releases" alt="GitHub releases"><img src="https://img.shields.io/github/release/QuantumPhysique/trale.svg" ></a>
 </div>
 
-# trale – a simple body-weight diary app respecting your privacy.
+# A simple body-weight diary app respecting your privacy.
 
-Lock in your optimal weight by losing or gaining \
-with this simple, material design app.
+Lock in your optimal weight by losing or gaining with this simple, material design app.
 
 Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
@@ -24,7 +23,7 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 ## Why trale 🐺?
 - Truly **gratis**: No annoying advertising no permission
 - Modern appearance using **Material Design 3**
-- **Customizable**: Many custom themes, **dark mode**, and several **units**. Tracking your **progress**
+- **Customizable**: Many custom themes, **dark mode**, and several **units**.
 - Track your **progress** with state-of-the-art data modeling 🧑‍💻
 - **Privacy**: Not just empty promises, it is fully <a href="https://github.com/QuantumPhysique/trale">copylefted libre software</a>
 
@@ -49,9 +48,7 @@ Please open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">is
 This app will always be gratis on F-Droid with all features. Once leaving beta, a small fee will be added on the Google Play store.
 
 ##### Could you please add feature X
-At this stage we focus on improving stability before new features. \
-Feel free to open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">issue</a> \
-or a merge request.
+At this stage we focus on improving stability before new features. Feel free to open a new <a href="https://github.com/QuantumPhysique/trale/-/issues">issue</a> or a merge request.
 
 ##### Can I contribute
 - Implementing new functionality. If you are new to Flutter you should first [get started](https://flutter.dev/docs/get-started/install)
