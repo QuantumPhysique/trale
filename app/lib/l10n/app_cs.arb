@@ -1,1 +1,128 @@
-{}
+{
+  "stats": "Statistiky",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Jednotky",
+  "@unit": {},
+  "user": "Uživatelský profil",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "Uživatelská nastavení",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Zóna nebezpečí",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "faq": "Často kladené otázky",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "O aplikaci",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "english": "Angličtina",
+  "@english": {
+    "description": "English"
+  },
+  "language": "Jazyk",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "theme": "Motiv",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "darkmode": "Tmavý",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "systemmode": "Systémové",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Exportovat všechna měření",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportSubtitle": "Tohle umožní přístup ke měřením všem aplikacím.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "open": "Otevřít",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Zrušit",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Importovat zálohu",
+  "@import": {
+    "description": "Import backup."
+  },
+  "amoled": "Černý",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "reset": "Resetovat aplikaci",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryReset": "Tovární nastavení",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "Resetovat všechna nastavení a smazat všechna měření.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "achievements": "Úspěchy",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "date": "Datum",
+  "@date": {
+    "description": "Date"
+  },
+  "weight": "Váha",
+  "@weight": {
+    "description": "weight"
+  },
+  "settings": "Nastavení",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "german": "Němčina",
+  "@german": {
+    "description": "German"
+  },
+  "defaultLang": "Podle systému",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "lightmode": "Světlý",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "exportDialog": "Tohle exportuje všechna měření do externího úložiště. Jsou potřeba oprávnění k zápisu.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "importSubtitle": "Importovat měření ze zálohovaného .txt souboru.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoledSubtitle": "Změnit barvu pozadí na opravdově červenou pro tmavý režim.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  }
+}
