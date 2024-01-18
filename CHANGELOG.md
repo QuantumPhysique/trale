@@ -13,7 +13,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 
-## [Unreleased]
+## [0.4.7] - 2024-01-18
+### Added Features and Improvements 🙌:
+- Accelerated import
+
 ### Bugfix 🐛:
 - Fix bug, that allowed target weights below 50kg
 
