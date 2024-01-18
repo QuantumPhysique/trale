@@ -69,9 +69,10 @@ class MeasurementDatabase {
     return !isContained;
   }
 
-  bool insertMeasurementList(List<Measurement> ms) {
+  /// insert a list of measurements into the box
+  int insertMeasurementList(List<Measurement> ms) {
     int count = 0;
-    for (Measurement m in ms) {
+    for (final Measurement m in ms) {
       final bool isContained = containsMeasurement(m);
       if (!isContained) {
         box.add(m);

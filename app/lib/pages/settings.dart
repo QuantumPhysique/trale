@@ -224,28 +224,30 @@ class ImportListTile extends StatelessWidget {
             ),
           ) ?? false;
           if (accepted) {
-            final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles(
+            final FilePickerResult? pickerResult = await FilePicker.platform
+                .pickFiles(
               type: FileType.custom,
               allowedExtensions: <String>['txt'],
             );
             if (
-              pickerResult != null &&
-              pickerResult.files.single.path != null
+            pickerResult != null &&
+                pickerResult.files.single.path != null
             ) {
               final File file = File(pickerResult.files.single.path!);
-              List<Measurement> newMeasurements = <Measurement>[];
+              final List<Measurement> newMeasurements = <Measurement>[];
               for (final String line in file.readAsLinesSync()) {
                 // parse comments
                 if (!line.startsWith('#')) {
                   newMeasurements.add(
-                    Measurement.fromString(
-                      exportString: line
-                    )
+                      Measurement.fromString(
+                          exportString: line
+                      )
                   );
+                }
               }
 
-              final bool measurementCounts = db.insertMeasurementList(
-                newMeasurements
+              final int measurementCounts = db.insertMeasurementList(
+                  newMeasurements
               );
               sm.showSnackBar(
                 SnackBar(
@@ -258,7 +260,7 @@ class ImportListTile extends StatelessWidget {
               sm.showSnackBar(
                 SnackBar(
                   content: Text(
-                      AppLocalizations.of(context)!.importingAbort,
+                    AppLocalizations.of(context)!.importingAbort,
                   ),
                   behavior: SnackBarBehavior.floating,
                 ),
