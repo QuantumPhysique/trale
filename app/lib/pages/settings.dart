@@ -224,35 +224,31 @@ class ImportListTile extends StatelessWidget {
             ),
           ) ?? false;
           if (accepted) {
-            final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles(
+            final FilePickerResult? pickerResult = await FilePicker.platform
+                .pickFiles(
               type: FileType.custom,
               allowedExtensions: <String>['txt'],
             );
             if (
-              pickerResult != null &&
-              pickerResult.files.single.path != null
+            pickerResult != null &&
+                pickerResult.files.single.path != null
             ) {
               final File file = File(pickerResult.files.single.path!);
-              int measurementCounts = 0;
+              final List<Measurement> newMeasurements = <Measurement>[];
               for (final String line in file.readAsLinesSync()) {
                 // parse comments
                 if (!line.startsWith('#')) {
-                  final Measurement m = Measurement.fromString(
-                    exportString: line
+                  newMeasurements.add(
+                      Measurement.fromString(
+                          exportString: line
+                      )
                   );
-                  final bool wasInserted = db.insertMeasurement(m);
-                  if (wasInserted) {
-                    measurementCounts += 1;
-                  }
                 }
               }
-              //final DateFormat formatter = DateFormat('yyyy-MM-dd');
-              //final String filename =
-              //    'trale_${formatter.format(DateTime.now())}.txt';
-              //final String path = '${localPath.path}/$filename';
-              //final File file = File(path);
-              //final MeasurementDatabase db = MeasurementDatabase();
-              //file.writeAsString(db.exportString, mode: FileMode.write);
+
+              final int measurementCounts = db.insertMeasurementList(
+                  newMeasurements
+              );
               sm.showSnackBar(
                 SnackBar(
                   content: Text('$measurementCounts measurements added'),
@@ -264,7 +260,7 @@ class ImportListTile extends StatelessWidget {
               sm.showSnackBar(
                 SnackBar(
                   content: Text(
-                      AppLocalizations.of(context)!.importingAbort,
+                    AppLocalizations.of(context)!.importingAbort,
                   ),
                   behavior: SnackBarBehavior.floating,
                 ),

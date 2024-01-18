@@ -12,8 +12,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Bugfix 🐛:)
 [//]: # (### Other changes:)
 
-
 ## [Unreleased]
+
+
+## [0.4.7] - 2024-01-18
+### Added Features and Improvements 🙌:
+- Accelerated import
+
 ### Bugfix 🐛:
 - Fix bug, that allowed target weights below 50kg
 
@@ -132,7 +137,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.6...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.7...main
+[0.4.7]: https://github.com/quantumphysique/trale/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.6
 [0.4.4]: https://github.com/quantumphysique/trale/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/quantumphysique/trale/compare/v0.4.2...v0.4.3

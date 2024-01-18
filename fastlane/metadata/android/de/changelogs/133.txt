@@ -1,0 +1,2 @@
+- Beschleunigter Import
+- Fehler behoben, der Zielgewichte unter 50kg erlaubte
