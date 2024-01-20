@@ -1,26 +1,26 @@
-This simplistic, material design app is perfectly suited for locking your
-weight. Whether you want to gain or lose weight, this app is the perfect
-companion to reach your optimal weight.
+Lock in your optimal weight by losing or gaining with this simple, material design app.
 
-Join our community today to trace yourself 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
-<b>Why trale 🐺?</b>
-* Truly <b>FREE</b>: No annoying advertising no permission
-* Modern appearance using <b>MATERIAL DESIGN 3</b>
-* <b>CUSTOMIZABLE</b>: Many free custom themes, <b>DARK MODE</b>, and several <b>UNITS</b>. Tracking your <b>PROGRESS</b>
-* Track your progress with <b>STATE-OF-THE-ART</b> data modeling 🧑‍💻
-* <b>PRIVACY</b>: Not just empty promises, it is fully <a href="https://github.com/quantumphysique/trale">open-source</a>
-* Import and export of your measurements
+## Why trale 🐺?
+* Truly <b>gratis</b>: No annoying advertising no permission.
+* Modern appearance using <b>Material Design 3</b>.
+* <b>Customizable</b>: Many custom themes, <b>dark mode</b>, and several <b>units</b>.
+* Track your <b>progress</b> with state-of-the-art data modeling 🧑‍💻
+* Import and export of your measurements.
+* <b>Privacy</b>: Not just empty promises, it is fully <a href="https://github.com/comradekingu/trale/blob/main/LICENSE">copylefted libre software</a>.
+
 
 <b>Upcoming features 🚀:</b>
-* Achievements and motivational messages
+* Achievements and motivational messages.
 
 <b>Disclaimer</b>
-Anorexia is a serious disease. Especially due to the many negative examples in
-the social media, anorexia is increasingly a problem for society as a whole. In
-order to make our contribution to prevention, no target weight below 50 kg /
-110 lb / 7.9 st is possible.
+Anorexia is a serious disease. 
+Especially due to the many negative examples in social media, 
+anorexia is increasingly a problem for society as a whole. 
+In order to make our contribution to prevention, 
+no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs. It should work
-best with FHD/FHD+ resolution. If you encounter a bug or if you are missing a
-feature, please <a href="https://github.com/quantumphysique/trale/-/issues">open a new issue</a>.
+This app is still in <b>beta</b> stage and may contain bugs.
+It should work best with FHD/FHD+ resolution.
+<a href="https://github.com/quantumphysique/trale/-/issues">Open a new issue</a> to report bugs or request features.
