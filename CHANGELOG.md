@@ -14,7 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
-- Rewrite the readme
+- Improved readme
+- Improved app description (fastlane)
 
 
 ## [0.4.7] - 2024-01-18
