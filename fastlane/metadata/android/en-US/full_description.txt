@@ -1,18 +1,18 @@
 Lock in your optimal weight by losing or gaining with this simple, material design app.
 
-Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
-
 ## Why trale 🐺?
-* Truly <b>gratis</b>: No annoying advertising no permission.
-* Modern appearance using <b>Material Design 3</b>.
-* <b>Customizable</b>: Many custom themes, <b>dark mode</b>, and several <b>units</b>.
+* Truly <b>gratis</b>: No annoying advertising no permission
+* Modern appearance using <b>Material Design 3</b>
+* <b>Customizable</b>: Many custom themes, <b>dark mode</b>, and several <b>units</b>
 * Track your <b>progress</b> with state-of-the-art data modeling 🧑‍💻
-* Import and export of your measurements.
-* <b>Privacy</b>: Not just empty promises, it is fully <a href="https://github.com/comradekingu/trale/blob/main/LICENSE">copylefted libre software</a>.
+* Import and export of your measurements
+* <b>Privacy</b>: Not just empty promises, it is fully <a href="https://github.com/comradekingu/trale/blob/main/LICENSE">copylefted libre software</a>
 
 
 <b>Upcoming features 🚀:</b>
-* Achievements and motivational messages.
+* Achievements and motivational messages
+
+Join our community today! 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
 <b>Disclaimer</b>
 Anorexia is a serious disease. 
@@ -23,4 +23,4 @@ no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
 This app is still in <b>beta</b> stage and may contain bugs.
 It should work best with FHD/FHD+ resolution.
-<a href="https://github.com/quantumphysique/trale/-/issues">Open a new issue</a> to report bugs or request features.
+<a href="https://github.com/quantumphysique/trale/issues">Open a new issue</a> to report bugs or request features.
