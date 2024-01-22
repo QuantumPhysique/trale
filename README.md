@@ -25,9 +25,9 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 ## Why trale 🐺?
 - Truly **gratis**: No annoying advertising no permission
 - Modern appearance using **Material Design 3**
-- **Customizable**: Many custom themes, **dark mode**, and several **units**.
+- **Customizable**: Many custom themes, **dark mode**, and several **units**
 - Track your **progress** with state-of-the-art data modeling 🧑‍💻
-- Import and export of your measurements.
+- Import and export of your measurements
 - **Privacy**: Not just empty promises, it is fully <a href="https://github.com/comradekingu/trale/blob/main/LICENSE">copylefted libre software</a>
 
 ## Upcoming features 🚀
