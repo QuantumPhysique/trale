@@ -27,10 +27,10 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 - Modern appearance using **Material Design 3**
 - **Customizable**: Many custom themes, **dark mode**, and several **units**.
 - Track your **progress** with state-of-the-art data modeling 🧑‍💻
+- Import and export of your measurements.
 - **Privacy**: Not just empty promises, it is fully <a href="https://github.com/comradekingu/trale/blob/main/LICENSE">copylefted libre software</a>
 
 ## Upcoming features 🚀
-- [x] Import and export your measurements
 - [ ] Achievements and motivational messages
 - [ ] Add to Google Play store
 
@@ -66,15 +66,15 @@ You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/enga
 </a>
 
 ## Disclaimer
-Anorexia is a serious disease. 
-Especially due to the many negative examples in social media, 
-anorexia is increasingly a problem for society as a whole. 
-In order to make our contribution to prevention, 
+Anorexia is a serious disease. \
+Especially due to the many negative examples in social media, \
+anorexia is increasingly a problem for society as a whole. \
+In order to make our contribution to prevention, \
 no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs. 
-It should work best with FHD/FHD+ resolution. 
-If you encounter a bug or if you are missing a feature, 
+This app is still in <b>beta</b> stage and may contain bugs. \
+It should work best with FHD/FHD+ resolution. \
+If you encounter a bug or if you are missing a feature, \
 please <a href="https://github.com/QuantumPhysique/trale/issues">open a new issue</a>.
 
 ## License
