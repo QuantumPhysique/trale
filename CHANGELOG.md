@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- All new and improved interpolation API
+
 ### Bugfix 🐛:
 - Fix bug, that allowed target weights below 50kg
 
