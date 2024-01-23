@@ -1,6 +1,6 @@
 Lock in your optimal weight by losing or gaining with this simple, material design app.
 
-## Why trale 🐺?
+<b>Why trale 🐺?</b>
 * Truly <b>gratis</b>: No annoying advertising no permission
 * Modern appearance using <b>Material Design 3</b>
 * <b>Customizable</b>: Many custom themes, <b>dark mode</b>, and several <b>units</b>
@@ -14,13 +14,11 @@ Lock in your optimal weight by losing or gaining with this simple, material desi
 
 Join our community today! 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
-<b>Disclaimer</b>
+<b>Disclaimer ⚠️</b>
 Anorexia is a serious disease. 
 Especially due to the many negative examples in social media, 
 anorexia is increasingly a problem for society as a whole. 
 In order to make our contribution to prevention, 
 no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs.
-It should work best with FHD/FHD+ resolution.
-<a href="https://github.com/quantumphysique/trale/issues">Open a new issue</a> to report bugs or request features.
+This app is still in <b>beta</b> stage and may contain bugs. <a href="https://github.com/quantumphysique/trale/issues">Open a new issue</a> to report bugs or request features.

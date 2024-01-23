@@ -1,6 +1,6 @@
 Erreiche Dein optimales Gewicht mit Hilfe dieser schlichten App im Material Design.
 
-## Wieso trale 🐺?
+<b> Wieso trale 🐺?</b>
 * Komplett <b>kostenlos</b>: Keine nervige Werbung, keine Tracker
 * Modernes Design basierend auf <b>Material Design 3</b>
 * <b>Anpassbar</b>: Viele Farbthemen, <b>Dark Mode</b>, und verschiedene <b>Gewichtseinheiten</b>
@@ -13,9 +13,7 @@ Erreiche Dein optimales Gewicht mit Hilfe dieser schlichten App im Material Desi
 
 Werde noch heute Teil unserer Community! 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
-<b>Disclaimer</b>
-Magersucht ist eine ernste Krankheit. Insbesondere durch die vielen Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten, ist keine Zielgewichteingabe unter 50 kg / 110 lb / 7,9 st möglich.
+<b>Disclaimer ⚠️</b>
+Magersucht ist eine ernstzunehmende Krankheit. Insbesondere durch die vielen Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten, ist daher keine Zielgewichteingabe unter 50 kg / 110 lb / 7,9 st möglich.
 
-Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten. 
-Sie sollte am besten mit einer FHD/FHD+ Auflösung funktionieren. 
-Falls Du einen Fehler findest oder eine Funktion vermisst, bitte <a href="https://github.com/quantumphysique/trale/issues">eröffne ein neues Issue</a>.
+Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten. Falls Du einen Fehler findest oder eine Funktion vermisst, bitte <a href="https://github.com/quantumphysique/trale/issues">eröffne ein neues Issue</a>.
