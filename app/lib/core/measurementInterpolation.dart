@@ -56,6 +56,9 @@ class MeasurementInterpolation {
     isNoMeasurement;
   }
 
+  /// data type of vectors
+  static const DType dtype = DType.float64;
+
   /// length of vectors
   int get N => times.length;
 
@@ -65,35 +68,56 @@ class MeasurementInterpolation {
 
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createTimes() {
-    final int dateFrom = db.sortedMeasurements.last.measurement.dateInMs
+    final int dateFrom = db.sortedMeasurements.last.measurement.dayInMs
       - _dayInMs * _offsetInDays;
-    final int dateTo = db.sortedMeasurements.first.measurement.dateInMs
+    final int dateTo = db.sortedMeasurements.first.measurement.dayInMs
       + _dayInMs * _offsetInDays;
 
     // set isExtrapolated
     _isExtrapolated = Vector.fromList(<int>[
       for (int date = dateFrom; date < dateTo; date += _dayInMs)
         (
-          (date < db.sortedMeasurements.last.measurement.dateInMs) ||
-          (date > db.sortedMeasurements.first.measurement.dateInMs)
+          (date < db.sortedMeasurements.last.measurement.dayInMs) ||
+          (date > db.sortedMeasurements.first.measurement.dayInMs)
         ) ? 1 : 0
     ]);
 
     return Vector.fromList(<int>[
       for (int date = dateFrom; date < dateTo; date += _dayInMs)
         date
-    ]);
+    ], dtype: dtype);
+  }
+
+  Vector? _times_measured;
+  /// get vector containing the times of the measurements
+  Vector get times_measured => _times_measured ?? _createTimesMeasured();
+  /// create vector of all measurements time stamps
+  Vector _createTimesMeasured() {
+    return Vector.fromList(<int>[
+      for (final SortedMeasurement ms in db.sortedMeasurements)
+        ms.measurement.dateInMs
+    ], dtype: dtype);
+  }
+
+  Vector? _weights_measured;
+  /// get vector containing the weights of the measurements [kg]
+  Vector get weights_measured => _weights_measured ?? _createWeightsMeasured();
+  /// create vector of all measurements weights
+  Vector _createWeightsMeasured() {
+    return Vector.fromList(<double>[
+      for (final SortedMeasurement ms in db.sortedMeasurements)
+        ms.measurement.weight
+    ], dtype: dtype);
   }
 
   Vector? _weights;
   /// get vector containing the measurements corresponding to self.times
-  Vector get weights => _weights ??= _createWeights();
-
+  Vector get weights => _weights ?? _createWeights();
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createWeights() {
     final List<double> ms = Vector.zero(N).toList();
     final List<double> counts = Vector.zero(N).toList();
-    final List<int> idx_ms = <int>[];
+    final List<int> idxMs = <int>[];
 
     int idx = 0;
     for (final SortedMeasurement m in db.sortedMeasurements.reversed) {
@@ -109,18 +133,18 @@ class MeasurementInterpolation {
       ms[idx] += m.measurement.weight;
       counts[idx] += 1;
       if (counts[idx] == 1) {
-        idx_ms.add(idx);
+        idxMs.add(idx);
       }
     }
 
     // set isMeasurement
-    _isMeasurement = Vector.fromList(counts) / Vector.fromList(
+    _isMeasurement = Vector.fromList(counts, dtype: dtype) / Vector.fromList(
         counts
     ).mapToVector((double val) => val == 0 ? 1 : val);
 
-    _idxsMeasurements = idx_ms;
+    _idxsMeasurements = idxMs;
 
-    return Vector.fromList(ms) / Vector.fromList(
+    return Vector.fromList(ms, dtype: dtype) / Vector.fromList(
       counts
     ).mapToVector((double val) => val == 0 ? 1 : val);
   }
@@ -157,17 +181,20 @@ class MeasurementInterpolation {
   ) * _dayInMs;
 
   /// estimate weights of gaussian at time t with std sigma
-  Vector gaussianWeights(double t) {
-    final Vector norm = (sigma *math.sqrt(2 * math.pi)).pow(-1);
+  Vector gaussianWeights(double t, Vector ms) {
+    final Vector norm = (sigma * math.sqrt(2 * math.pi)).pow(-1);
     final Vector gaussianWeights = (
         (times - t).pow(2) / (sigma.pow(2) * -2)
     ).exp() * norm;
-    return gaussianWeights / gaussianWeights.sum();
+    final Vector mask = ms.mapToVector(
+      (double val) => val > 0 ? 1 : 0
+    );
+    return gaussianWeights / (mask * gaussianWeights).sum();
   }
 
   /// take mean of Vector ws weighted with Gaussian N(t, sigma)
-  double gaussianMean(double t, Vector ws) =>
-    (gaussianWeights(t) * ws).sum();
+  double gaussianMean(double t, Vector ms) =>
+    (gaussianWeights(t, ms) * ms).sum();
 
   Vector? _weightsSmoothed;
   /// get vector containing the Gaussian smoothed measurements
@@ -183,7 +210,7 @@ class MeasurementInterpolation {
               weights,
             )
           : 0
-    ]
+    ], dtype: dtype,
   );
 
   Vector? _weightsLinInterpol;
@@ -193,7 +220,7 @@ class MeasurementInterpolation {
 
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createLinInterpol() {
-    final List<double> ms_interpol = weights.toList();
+    final List<double> msInterpol = weightsSmoothed.toList();
 
     int idxFrom, idxTo;
     double changeRate;
@@ -206,18 +233,18 @@ class MeasurementInterpolation {
       if (idxFrom + 1 < idxTo) {
         // estimate change rate
         changeRate = (
-          weights[idxTo] - weights[idxFrom]
+          msInterpol[idxTo] - msInterpol[idxFrom]
         ) / (
           times[idxTo] - times[idxFrom]
         );
-        for (int idx_j = idxFrom + 1; idx_j < idxTo; idx_j++) {
-          ms_interpol[idx_j] = weights[idxFrom] + changeRate * (
-            times[idx_j] * times[idxFrom]
+        for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
+          msInterpol[idxJ] = msInterpol[idxFrom] + changeRate * (
+            times[idxJ] - times[idxFrom]
           );
         }
       }
     }
-    return Vector.fromList(ms_interpol);
+    return Vector.fromList(msInterpol, dtype: dtype);
   }
 
   /// offset of day in interpolation
