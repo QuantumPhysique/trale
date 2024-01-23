@@ -70,7 +70,7 @@ class Measurement {
 
   /// return day in milliseconds since epoch neglecting the hours, minutes
   int get dayInMs => DateTime(
-    date.year, date.month, date.day
+    date.year, date.month, date.day, 12,  // use 1h offset to ignore jumps
   ).millisecondsSinceEpoch;
 
   /// return date in milliseconds
