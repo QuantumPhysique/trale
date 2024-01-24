@@ -222,7 +222,6 @@
         "type": "String",
         "example": "MIT"
       }
->>>>>>> weblate/main
     }
   },
   "addWeight": "Enter your weight",
