@@ -23,12 +23,13 @@ Preferably use F-Droid. \
 The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) can also be downloaded here.
 
 ## Why trale 🐺?
-- Truly **gratis**: No annoying advertising no permission
+- Truly **gratis**: No annoying advertising, no tracker
 - Modern appearance using **Material Design 3**
 - **Customizable**: Many custom themes, **dark mode**, and several **units**
 - Track your **progress** with state-of-the-art data modeling 🧑‍💻
 - Import and export of your measurements
-- **Privacy**: Not just empty promises, it is fully <a href="https://github.com/comradekingu/trale/blob/main/LICENSE">copylefted libre software</a>
+- **Privacy**: No permissions and we do not collect any data
+- **<a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Copylefted libre software</a>**: Our words are not just empty promises
 
 ## Upcoming features 🚀
 - [ ] Achievements and motivational messages
