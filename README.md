@@ -47,17 +47,17 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 ##### I found a bug
 Please open a new <a href="https://github.com/QuantumPhysique/trale/issues">issue</a>.
 
-##### Will this app stay gratis
-This app will always be gratis on F-Droid with all features. \
-Once leaving beta, a small fee will be added on the Google Play store.
+##### Will this app stay gratis?
+This app will always be gratis on F-Droid with all features.
+Once leaving beta, a small fee will be added on the Google Play Store.
 
-##### Could you please add feature X
-At this stage we focus on improving stability before new features. \
+##### Could you please add feature X?
+At this stage we are focusing on improving stability before adding new features.
 Feel free to open a new <a href="https://github.com/QuantumPhysique/trale/issues">issue</a> or a pull request.
 
-##### Can I contribute
+##### Can I contribute?
 - Implementing new functionality. If you are new to Flutter you should first [get started](https://flutter.dev/docs/get-started/install).
-- Open issues and help us find bugs, or simply give feedback.
+- Open an issue and help us find bugs, or just give us some feedback.
 - Share the app with your friends :)
 
 You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/engage/trale/).
@@ -67,16 +67,12 @@ You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/enga
 </a>
 
 ## Disclaimer
-Anorexia is a serious disease. \
-Especially due to the many negative examples in social media, \
-anorexia is increasingly a problem for society as a whole. \
-In order to make our contribution to prevention, \
-no target weight below 50 kg / 110 lb / 7.9 st is possible.
+Anorexia is a serious disease.
+Especially due to the many negative examples on social media, anorexia is increasingly becoming a problem for society as a whole.
+As part of our contribution to prevention, no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs. \
-It should work best with FHD/FHD+ resolution. \
-If you encounter a bug or if you are missing a feature, \
-please <a href="https://github.com/QuantumPhysique/trale/issues">open a new issue</a>.
+This app is still in <b>beta</b> stage and may contain bugs.
+If you encounter a bug or if you are missing a feature, please <a href="https://github.com/QuantumPhysique/trale/issues">open a new issue</a>.
 
 ## License
 The project is licensed [GNU AGPLv3+](https://github.com/comradekingu/trale/blob/main/LICENSE).
