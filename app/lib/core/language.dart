@@ -27,8 +27,12 @@ class Language {
   /// get language name
   String languageLong(BuildContext context) => <String, String>{
     systemDefault: AppLocalizations.of(context)!.defaultLang,
-    'en': AppLocalizations.of(context)!.english,
+    'cs': AppLocalizations.of(context)!.czech,
     'de': AppLocalizations.of(context)!.german,
+    'en': AppLocalizations.of(context)!.english,
+    'ko': AppLocalizations.of(context)!.korean,
+    'nb': AppLocalizations.of(context)!.norwegian,
+    'pl': AppLocalizations.of(context)!.polish,
   }[language] ?? 'error';
 
   @override
