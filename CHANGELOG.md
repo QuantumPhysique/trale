@@ -13,9 +13,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+
+## [0.5.0] - 2024-01-25
 ### Added Features and Improvements 🙌:
-- Improved readme
-- Improved app description (fastlane)
+- Hello World! Thx to the community, the app is now available in Czech, Korean, Norwegian, and Polish 🎉
+- Improved readme, screenshots, and app description (fastlane)
 
 
 ## [0.4.7] - 2024-01-18
@@ -140,7 +143,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.4.7...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.5.0...main
+[0.5.0]: https://github.com/quantumphysique/trale/compare/v0.4.7...v0.5.0
 [0.4.7]: https://github.com/quantumphysique/trale/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.6
 [0.4.4]: https://github.com/quantumphysique/trale/compare/v0.4.3...v0.4.4
