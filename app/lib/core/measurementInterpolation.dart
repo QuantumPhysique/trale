@@ -199,7 +199,9 @@ class MeasurementInterpolation {
     final Vector norm = (sigma * math.sqrt(2 * math.pi)).pow(-1);
     final Vector gaussianWeights = (
         (times - t).pow(2) / (sigma.pow(2) * -2)
-    ).exp() * norm;
+    ).exp() * norm * (
+      isMeasurement * interpolStrength.weight + isNoMeasurement
+    );
     final Vector mask = ms.mapToVector(
       (double val) => val > 0 ? 1 : 0
     );
