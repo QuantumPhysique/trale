@@ -41,12 +41,14 @@ class MeasurementInterpolation {
     _weights = null;
     _isNoMeasurement = null;
     _isNotExtrapolated = null;
+    _times_measured = null;
+    _sigma = null;
+    _weights_measured = null;
+    _weightsLinInterpol = null;
+    _weightsSmoothed = null;
 
     // recalculate all vectors
     init();
-
-    // fire stream
-    TraleNotifier().notify;
   }
 
   /// initialize database
@@ -54,6 +56,8 @@ class MeasurementInterpolation {
     times;
     weights;
     isNoMeasurement;
+    weightsSmoothed;
+    weightsLinInterpol;
   }
 
   /// data type of vectors
@@ -63,11 +67,16 @@ class MeasurementInterpolation {
   int get N => times.length;
 
   Vector? _times;
-  /// get vector containing the times given in [ms since epoche]
+  /// get vector containing the times given in [ms since epoch]
   Vector get times => _times ??= _createTimes();
 
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createTimes() {
+    if (db.nMeasurements == 0) {
+      _isExtrapolated = Vector.empty();
+      return Vector.empty();
+    }
+
     final int dateFrom = db.sortedMeasurements.last.measurement.dayInMs
       - _dayInMs * _offsetInDays;
     final int dateTo = db.sortedMeasurements.first.measurement.dayInMs
@@ -115,6 +124,11 @@ class MeasurementInterpolation {
   Vector get weights => _weights ?? _createWeights();
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createWeights() {
+    if (db.nMeasurements == 0) {
+      _isMeasurement = Vector.empty();
+      _idxsMeasurements = <int>[];
+      return Vector.empty();
+    }
     final List<double> ms = Vector.zero(N).toList();
     final List<double> counts = Vector.zero(N).toList();
     final List<int> idxMs = <int>[];

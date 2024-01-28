@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
@@ -116,6 +117,9 @@ class MeasurementDatabase {
 
     // recalc all
     init();
+
+    // update interpolation
+    MeasurementInterpolation().reinit();
 
     // fire stream
     fireStream();
@@ -378,6 +382,9 @@ class MeasurementDatabase {
       mLast.dateInMs - mCurrent.dateInMs
     );
   }
+
+  /// get number of measurements
+  int get nMeasurements => measurements.length;
 
   /// duration between first and last measurement [days]
   int get durationMeasurements => dailyAveragedMeasurements.isNotEmpty
