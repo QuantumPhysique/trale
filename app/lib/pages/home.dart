@@ -7,7 +7,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/stats.dart';
+import 'package:trale/pages/statScreen.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';

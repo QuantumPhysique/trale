@@ -6,6 +6,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/emptyChart.dart';
+import 'package:trale/widget/sliverPersistentHeaderDelegate.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
@@ -30,19 +31,6 @@ class _MeasurementScreen extends State<MeasurementScreen> {
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
     final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
-
-    // Define empty Chart in case there are no measurements
-    final Widget dummyChart = emptyChart(
-      context,
-      <InlineSpan>[
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro3,
-        ),
-        const TextSpan(
-            text: '\n\n😃'
-        ),
-      ],
-    );
 
     Widget measurementScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
@@ -79,7 +67,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
       final List<SortedMeasurement> measurements = database.sortedMeasurements;
       return measurements.isNotEmpty
           ? measurementScreen(context, snapshot)
-          : dummyChart;
+          : defaultEmptyChart(context);
     }
 
     return StreamBuilder<List<Measurement>>(
@@ -93,47 +81,4 @@ class _MeasurementScreen extends State<MeasurementScreen> {
     );
 
   }
-}
-
-
-class HeaderDelegate extends SliverPersistentHeaderDelegate {
-  const HeaderDelegate(
-      this.title,
-      this.animationDurationInMilliseconds,
-      this.firstDelayInMilliseconds);
-  final String title;
-  final int animationDurationInMilliseconds;
-  final int firstDelayInMilliseconds;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-
-    final EdgeInsets padding = EdgeInsets.symmetric(
-      horizontal: TraleTheme.of(context)!.padding,
-    );
-    return Align(
-      child: Container(
-        padding: padding,
-        color: Theme.of(context).colorScheme.background,
-        width: MediaQuery.of(context).size.width,
-        child: TextSizeInEffect(
-          text: title,
-          textStyle: Theme.of(context).textTheme.headlineMedium!,
-          durationInMilliseconds: animationDurationInMilliseconds,
-          delayInMilliseconds: firstDelayInMilliseconds,
-        ),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => 36;
-
-  @override
-  double get minExtent => 36;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
 }
