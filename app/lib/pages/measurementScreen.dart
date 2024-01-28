@@ -1,35 +1,29 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
-class StatsScreen extends StatefulWidget {
-  const StatsScreen({super.key, required this.tabController});
+class MeasurementScreen extends StatefulWidget {
+  const MeasurementScreen({super.key, required this.tabController});
 
   final TabController tabController;
   @override
-  _StatsScreen createState() => _StatsScreen();
+  _MeasurementScreen createState() => _MeasurementScreen();
 }
 
-class _StatsScreen extends State<StatsScreen> {
+class _MeasurementScreen extends State<MeasurementScreen> {
   final ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
-    final EdgeInsets padding = EdgeInsets.symmetric(
-      horizontal: TraleTheme.of(context)!.padding,
-    );
 
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
@@ -37,39 +31,7 @@ class _StatsScreen extends State<StatsScreen> {
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
     final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
 
-
-    Card getCard(String label, Measurement m) => Card(
-      shape: TraleTheme.of(context)!.borderShape,
-      margin: EdgeInsets.symmetric(
-        vertical: TraleTheme.of(context)!.padding,
-      ),
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: Padding(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AutoSizeText(
-              m.dateToString(context),
-              style: Theme.of(context).textTheme.bodySmall
-                  ?.apply(
-                fontFamily: 'Courier',
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
-            ),
-            AutoSizeText(
-              '$label: ${m.weightToString(context)}',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-
+    // Define empty Chart in case there are no measurements
     final Widget dummyChart = emptyChart(
       context,
       <InlineSpan>[
@@ -82,60 +44,19 @@ class _StatsScreen extends State<StatsScreen> {
       ],
     );
 
-
-    Widget statsScreen(BuildContext context,
+    Widget measurementScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
-
-      final Widget minMaxWidget = FractionallySizedBox(
-        widthFactor: 1,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Expanded(child: getCard('min', database.min!)),
-            Expanded(child: getCard('max', database.max!)),
-          ].addGap(
-            padding: TraleTheme.of(context)!.padding,
-            direction: Axis.horizontal,
-          ),
-        ),
-      );
 
       return CustomScrollView(
         controller: scrollController,
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: padding,
-              child: TextSizeInEffect(
-                text: AppLocalizations.of(context)!.stats.inCaps,
-                textStyle: Theme.of(context).textTheme.headlineMedium!,
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: firstDelayInMilliseconds,
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: AnimateInEffect(
-              durationInMilliseconds: animationDurationInMilliseconds,
-              delayInMilliseconds: firstDelayInMilliseconds,
-              child: minMaxWidget,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: TraleTheme.of(context)!.padding,
-                top: TraleTheme.of(context)!.padding,
-                bottom: TraleTheme.of(context)!.padding,
-              ),
-              child: TextSizeInEffect(
-                text: AppLocalizations.of(context)!.measurements.inCaps,
-                textStyle: Theme.of(context).textTheme.headlineMedium!,
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: secondDelayInMilliseconds,
-              ),
-            ),
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: HeaderDelegate(
+                AppLocalizations.of(context)!.stats.inCaps,
+                animationDurationInMilliseconds,
+                firstDelayInMilliseconds),
           ),
           WeightList(
             durationInMilliseconds: animationDurationInMilliseconds,
@@ -152,15 +73,14 @@ class _StatsScreen extends State<StatsScreen> {
       );
     }
 
-    Widget statsScreenWrapper(BuildContext context,
+    Widget measurementScreenWrapper(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
       final MeasurementDatabase database = MeasurementDatabase();
       final List<SortedMeasurement> measurements = database.sortedMeasurements;
       return measurements.isNotEmpty
-          ? statsScreen(context, snapshot)
+          ? measurementScreen(context, snapshot)
           : dummyChart;
     }
-
 
     return StreamBuilder<List<Measurement>>(
         stream: database.streamController.stream,
@@ -168,9 +88,52 @@ class _StatsScreen extends State<StatsScreen> {
             BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
             ) => SafeArea(
             key: key,
-            child: statsScreenWrapper(context, snapshot)
+            child: measurementScreenWrapper(context, snapshot)
         )
     );
 
   }
+}
+
+
+class HeaderDelegate extends SliverPersistentHeaderDelegate {
+  const HeaderDelegate(
+      this.title,
+      this.animationDurationInMilliseconds,
+      this.firstDelayInMilliseconds);
+  final String title;
+  final int animationDurationInMilliseconds;
+  final int firstDelayInMilliseconds;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+
+    final EdgeInsets padding = EdgeInsets.symmetric(
+      horizontal: TraleTheme.of(context)!.padding,
+    );
+    return Align(
+      child: Container(
+        padding: padding,
+        color: Theme.of(context).colorScheme.background,
+        width: MediaQuery.of(context).size.width,
+        child: TextSizeInEffect(
+          text: title,
+          textStyle: Theme.of(context).textTheme.headlineMedium!,
+          durationInMilliseconds: animationDurationInMilliseconds,
+          delayInMilliseconds: firstDelayInMilliseconds,
+        ),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 36;
+
+  @override
+  double get minExtent => 36;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      false;
 }
