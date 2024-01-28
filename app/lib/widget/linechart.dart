@@ -58,10 +58,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
       : ip.weights_measured;
     final Vector interpol = widget.loadedFirst
         ? Vector.filled(
-          ip.weightsLinInterpol.length,
-           ip.weightsLinInterpol.sum() / ip.isNotExtrapolated.sum(),
+          ip.weightsGaussianExtrapol.length,
+           ip.weightsGaussianExtrapol.sum() / ip.isNotExtrapolated.sum(),
         )
-        : ip.weightsLinInterpol;
+        : ip.weightsGaussianExtrapol;
 
     for (int i=0; i<interpol.length; i++) {
       if (interpol[i] >= 0) {

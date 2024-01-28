@@ -7,7 +7,6 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/traleNotifier.dart';
 
 
 /// class providing an API to handle interpolation of measurements
@@ -44,8 +43,9 @@ class MeasurementInterpolation {
     _times_measured = null;
     _sigma = null;
     _weights_measured = null;
-    _weightsLinInterpol = null;
+    _weightsLinExtrapol = null;
     _weightsSmoothed = null;
+    _weightsExtrapolated = null;
 
     // recalculate all vectors
     init();
@@ -57,7 +57,7 @@ class MeasurementInterpolation {
     weights;
     isNoMeasurement;
     weightsSmoothed;
-    weightsLinInterpol;
+    weightsLinExtrapol;
   }
 
   /// data type of vectors
@@ -214,6 +214,7 @@ class MeasurementInterpolation {
   /// get vector containing the Gaussian smoothed measurements
   Vector get weightsSmoothed => _weightsSmoothed ?? _createSmoothedWeights();
 
+
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createSmoothedWeights() => Vector.fromList(
     <double>[
@@ -221,45 +222,94 @@ class MeasurementInterpolation {
         (isMeasurement[idx] == 1)
           ? gaussianMean(
               times[idx],
-              weights,
+              weightsExtrapolated,
             )
           : 0
     ], dtype: dtype,
   );
 
-  Vector? _weightsLinInterpol;
+  Vector? _weightsExtrapolated;
+  /// get vector containing the daily averaged weights with final linear
+  /// regression
+  Vector get weightsExtrapolated => _weightsExtrapolated
+    ?? _linearInterpolation(weights, interpolate: false, extrapolate: true);
+
+  Vector? _weightsLinExtrapol;
   /// get vector containing the weights with linear interpolated missing values
-  Vector get weightsLinInterpol => _weightsLinInterpol ??
-    _createLinInterpol();
+  Vector get weightsLinExtrapol => _weightsLinExtrapol ??
+    _linearInterpolation(weightsSmoothed, extrapolate: true);
 
-  /// get linearly interpolated and sorted list of daily-averaged measurements
-  Vector _createLinInterpol() {
-    final List<double> msInterpol = weightsSmoothed.toList();
+  Vector? _weightsGaussianExtrapol;
+  /// get vector containing the weights with linear interpolated missing values
+  Vector get weightsGaussianExtrapol => _weightsGaussianExtrapol ??
+     Vector.fromList(
+    <double>[
+      for (int idx = 0; idx < N; idx++)
+        gaussianMean(
+          times[idx],
+          weightsLinExtrapol,
+        )
+    ], dtype: dtype,
+  );
 
+  /// add linear interpolation to measurements
+  Vector _linearInterpolation(
+      Vector weights, {bool interpolate=true, bool extrapolate=false}
+  ) {
+    final List<double> weightsList = weights.toList();
     int idxFrom, idxTo;
     double changeRate;
 
-    // loop over all unique measurements
-    for (int idx = 0; idx < idxsMeasurements.length - 1; idx++) {
-      // interpolate between measurements idxs_i and idx_j
-      idxFrom = idxsMeasurements[idx];
-      idxTo = idxsMeasurements[idx + 1];
-      if (idxFrom + 1 < idxTo) {
-        // estimate change rate
-        changeRate = (
-          msInterpol[idxTo] - msInterpol[idxFrom]
-        ) / (
-          times[idxTo] - times[idxFrom]
-        );
-        for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
-          msInterpol[idxJ] = msInterpol[idxFrom] + changeRate * (
-            times[idxJ] - times[idxFrom]
-          );
+    if (interpolate) {
+      // loop over all unique measurements
+      for (int idx = 0; idx < idxsMeasurements.length - 1; idx++) {
+        // interpolate between measurements idxs_i and idx_j
+        idxFrom = idxsMeasurements[idx];
+        idxTo = idxsMeasurements[idx + 1];
+        if (idxFrom + 1 < idxTo) {
+          // estimate change rate
+          changeRate = _linearChangeRate(idxFrom, idxTo, weightsSmoothed);
+          for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
+            weightsList[idxJ] = weightsList[idxFrom] + changeRate * (
+                idxJ - idxFrom
+            );
+          }
         }
       }
     }
-    return Vector.fromList(msInterpol, dtype: dtype);
+    if (extrapolate) {
+      // add
+      final int lastIdx = idxsMeasurements.last;
+      final int secondLastIdx = idxsMeasurements.elementAt(
+          idxsMeasurements.length - 2
+      );
+      final int firstIdx = idxsMeasurements.first;
+      final int secondIdx = idxsMeasurements.elementAt(2);
+
+      final double changeRateAfter = _linearChangeRate(
+          secondLastIdx, lastIdx, weights,
+      );
+      final double changeRateBefore = _linearChangeRate(
+          firstIdx, secondIdx, weights,
+      );
+      for (int idx=0; idx < _offsetInDays; idx++) {
+        weightsList[idx] = weightsList[firstIdx] + changeRateBefore * (
+          idx - firstIdx
+        );
+        weightsList[N - 1 - idx] = weightsList[lastIdx] + changeRateAfter * (
+            idx - lastIdx
+        );
+      }
+    }
+    return Vector.fromList(weightsList, dtype: dtype);
   }
+
+  /// estimate linear change rate between two measurements in [kg/steps]
+  double _linearChangeRate(int idxFrom, int idxTo, Vector weights) => (
+    weights[idxTo] - weights[idxFrom]
+    ) / (
+    idxTo - idxFrom
+  );
 
   /// offset of day in interpolation
   static const int _offsetInDays = 7;
