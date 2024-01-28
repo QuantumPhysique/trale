@@ -124,7 +124,7 @@ class _StatsScreen extends State<StatsScreen> {
       final List<SortedMeasurement> measurements = database.sortedMeasurements;
       return measurements.isNotEmpty
           ? statsScreen(context, snapshot)
-          : defaultEmptyChart(context);
+          : defaultEmptyChart(context:context);
     }
 
 

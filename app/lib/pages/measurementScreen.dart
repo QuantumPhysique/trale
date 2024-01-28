@@ -67,7 +67,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
       final List<SortedMeasurement> measurements = database.sortedMeasurements;
       return measurements.isNotEmpty
           ? measurementScreen(context, snapshot)
-          : defaultEmptyChart(context);
+          : defaultEmptyChart(context: context);
     }
 
     return StreamBuilder<List<Measurement>>(
