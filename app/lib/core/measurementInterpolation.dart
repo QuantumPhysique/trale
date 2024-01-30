@@ -29,15 +29,16 @@ class MeasurementInterpolation {
   /// re initialize database
   void reinit() {
     _times = null;
+    _times_measured = null;
+    _weights_measured = null;
     _weights = null;
     _isNoMeasurement = null;
     _isNotExtrapolated = null;
-    _times_measured = null;
     _sigma = null;
-    _weights_measured = null;
     _weightsLinExtrapol = null;
     _weightsSmoothed = null;
     _weightsExtrapolated = null;
+    _weightsGaussianExtrapol = null;
 
     // recalculate all vectors
     init();
@@ -47,9 +48,7 @@ class MeasurementInterpolation {
   void init() {
     times;
     weights;
-    isNoMeasurement;
-    weightsSmoothed;
-    weightsLinExtrapol;
+    weightsGaussianExtrapol;
   }
 
   /// data type of vectors
@@ -95,7 +94,7 @@ class MeasurementInterpolation {
   /// create vector of all measurements time stamps
   Vector _createTimesMeasured() {
     return Vector.fromList(<int>[
-      for (final SortedMeasurement ms in db.sortedMeasurements)
+      for (final SortedMeasurement ms in db.sortedMeasurements.reversed)
         ms.measurement.dateInMs
     ], dtype: dtype);
   }
@@ -106,7 +105,7 @@ class MeasurementInterpolation {
   /// create vector of all measurements weights
   Vector _createWeightsMeasured() {
     return Vector.fromList(<double>[
-      for (final SortedMeasurement ms in db.sortedMeasurements)
+      for (final SortedMeasurement ms in db.sortedMeasurements.reversed)
         ms.measurement.weight
     ], dtype: dtype);
   }
@@ -161,8 +160,7 @@ class MeasurementInterpolation {
 
   Vector? _isNoMeasurement;
   /// get vector containing 0 if measurement else 1
-  Vector get isNoMeasurement => _isNoMeasurement ??
-    isMeasurement.mapToVector((double val) => val == 0 ? 1 : 0);
+  Vector get isNoMeasurement => _isNoMeasurement ?? (isMeasurement - 1).abs();
 
   late List<int> _idxsMeasurements;
   /// get List holding indices to all measurements
@@ -206,21 +204,8 @@ class MeasurementInterpolation {
 
   Vector? _weightsSmoothed;
   /// get vector containing the Gaussian smoothed measurements
-  Vector get weightsSmoothed => _weightsSmoothed ?? _createSmoothedWeights();
-
-
-  /// get linearly interpolated and sorted list of daily-averaged measurements
-  Vector _createSmoothedWeights() => Vector.fromList(
-    <double>[
-      for (int idx = 0; idx < N; idx++)
-        (isMeasurement[idx] == 1)
-          ? gaussianMean(
-              times[idx],
-              weightsExtrapolated,
-            )
-          : 0
-    ], dtype: dtype,
-  );
+  Vector get weightsSmoothed => _weightsSmoothed ??
+    _gaussianInterpolation(weightsExtrapolated) * isMeasurement;
 
   Vector? _weightsExtrapolated;
   /// get vector containing the daily averaged weights with final linear
@@ -236,15 +221,7 @@ class MeasurementInterpolation {
   Vector? _weightsGaussianExtrapol;
   /// get vector containing the weights with linear interpolated missing values
   Vector get weightsGaussianExtrapol => _weightsGaussianExtrapol ??
-     Vector.fromList(
-    <double>[
-      for (int idx = 0; idx < N; idx++)
-        gaussianMean(
-          times[idx],
-          weightsLinExtrapol,
-        )
-    ], dtype: dtype,
-  );
+    _gaussianInterpolation(weightsLinExtrapol);
 
   /// add linear interpolation to measurements
   Vector _linearInterpolation(
@@ -253,6 +230,10 @@ class MeasurementInterpolation {
     final List<double> weightsList = weights.toList();
     int idxFrom, idxTo;
     double changeRate;
+
+    if (weightsList.isEmpty) {
+      return Vector.empty();
+    }
 
     if (interpolate) {
       // loop over all unique measurements
@@ -291,7 +272,7 @@ class MeasurementInterpolation {
           idx - firstIdx
         );
         weightsList[N - 1 - idx] = weightsList[lastIdx] + changeRateAfter * (
-            idx - lastIdx
+            N - 1 - idx - lastIdx
         );
       }
     }
@@ -299,11 +280,78 @@ class MeasurementInterpolation {
   }
 
   /// estimate linear change rate between two measurements in [kg/steps]
-  double _linearChangeRate(int idxFrom, int idxTo, Vector weights) => (
-    weights[idxTo] - weights[idxFrom]
-    ) / (
-    idxTo - idxFrom
+  double _linearChangeRate(int idxFrom, int idxTo, Vector weights) =>
+    weights.isNotEmpty
+    ? (weights[idxTo] - weights[idxFrom]) / (idxTo - idxFrom)
+    : 0;
+
+  /// smooth weights with Gaussian kernel
+  Vector _gaussianInterpolation(Vector weights) => Vector.fromList(
+      <double>[
+        for (int idx = 0; idx < N; idx++)
+          (weights[idx] != 0)
+            ? gaussianMean(
+                times[idx],
+                weights,
+              )
+            : 0
+      ], dtype: dtype,
+    );
+
+
+  // FROM HERE ON STATS OF INTERPOLATION
+
+  /// get time span between first and last measurement
+  Duration get measurementDuration => times_measured.isNotEmpty
+    ? Duration(
+        milliseconds: (times_measured.last - times_measured.first).round(),
+      )
+    : Duration.zero;
+
+
+  /// return difference of Gaussian smoothed weights
+  double? deltaWeightLastNDays (int nDays) {
+    if (N - 2 * _offsetInDays < nDays) {
+      return null;
+    }
+    return weightsGaussianExtrapol[N - 1 - _offsetInDays] -
+    weightsGaussianExtrapol[N - 1 - _offsetInDays - nDays];
+  }
+
+  /// get weight change [kg] within last month from last measurement
+  double? get deltaWeightLastYear => deltaWeightLastNDays(365);
+
+  /// get weight change [kg] within last month from last measurement
+  double? get deltaWeightLastMonth => deltaWeightLastNDays(30);
+
+  /// get weight change [kg] within last week from last measurement
+  double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
+
+  /// final change Rate
+  double get finalChangeRate => _linearChangeRate(
+    N - 1 - _offsetInDays, N - 1, weightsGaussianExtrapol,
   );
+
+  /// get time of reaching target weight in kg
+  Duration? timeOfTargetWeight(double? targetWeight) {
+    if ((targetWeight == null) || (weights_measured.length < 2)){
+      return null;
+    }
+
+    final int idxLast = idxsMeasurements.last;
+    final double slope = finalChangeRate;
+
+    // Crossing is in the past
+    if (slope * (weightsGaussianExtrapol[idxLast] - targetWeight) >= 0) {
+      return null;
+    }
+
+    // in ms from last measurement
+    final int remainingTime = (
+        (targetWeight - weightsGaussianExtrapol[idxLast]) / slope
+    ).round();
+    return Duration(days: remainingTime);
+  }
 
   /// offset of day in interpolation
   static const int _offsetInDays = 7;
