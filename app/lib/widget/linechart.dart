@@ -42,8 +42,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final MeasurementInterpolation ip = MeasurementInterpolation();
 
     // load times
-    final Vector ms_times = ip.times_measured;
-    final Vector interpol_times = ip.times;
+    final Vector msTimes = ip.times_measured;
+    final Vector interpolTimes = ip.times;
 
     // scale to unit
     final double unitScaling = Provider.of<TraleNotifier>(
@@ -86,9 +86,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final double? targetWeight = notifier.userTargetWeight;
 
     final List<FlSpot> measurements =
-      vectorsToFlSpot(ms_times, ms);
+      vectorsToFlSpot(msTimes, ms);
     final List<FlSpot> measurementsInterpol =
-      vectorsToFlSpot(interpol_times, interpol);
+      vectorsToFlSpot(interpolTimes, interpol);
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < minX
@@ -323,7 +323,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
               }
             } else {
               if (maxX - minX < 1000 * 3600 * 24 * 7 *  12) {
-                if (minX - (maxX - minX) * scale > ms_times.first) {
+                if (minX - (maxX - minX) * scale > msTimes.first) {
                   minX -= (maxX - minX) * scale;
                 }
                 if (maxX + (maxX - minX) * scale
@@ -340,10 +340,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
                 (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
 
             final double allowedMaxX =
-              interpol_times.last > DateTime.now().millisecondsSinceEpoch
-                ? interpol_times.last
+              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+                ? interpolTimes.last
                 : DateTime.now().millisecondsSinceEpoch.toDouble();
-            final double allowedMinX = interpol_times.first;
+            final double allowedMinX = interpolTimes.first;
             if (
               maxX - primDelta <= allowedMaxX &&
               minX - primDelta >= allowedMinX
