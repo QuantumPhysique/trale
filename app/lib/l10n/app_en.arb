@@ -1,359 +1,367 @@
 {
-    "@@locale": "en",
-    "achievements": "achievements",
-    "@achievements": {
-        "description": "achievements"
-    },
-    "stats": "statistics",
-    "@stats": {
-        "description": "Header for statistics section"
-    },
-    "trale": "trale",
-    "@trale": {
-        "description": "Name of app: trale"
-    },
-    "unit": "units",
-    "@units": {
-        "description": "Units of measurements"
-    },
-    "date": "date",
-    "@date": {
-        "description": "Date"
-    },
-    "weight": "weight",
-    "@weight": {
-        "description": "weight"
-    },
-    "user": "user profile",
-    "@user": {
-        "description": "Name of user menu"
-    },
-    "userSettings": "user settings",
-    "@userSettings": {
-        "description": "Settings to customize user experience"
-    },
-    "dangerzone": "danger zone",
-    "@dangerzone": {
-        "description": "Settings which cannot be undone."
-    },
-    "settings": "settings",
-    "@settings": {
-        "description": "Name of settings menu"
-    },
-    "faq": "FAQ",
-    "@faq": {
-        "description": "Frequently ask questions"
-    },
-    "about": "about",
-    "@about": {
-        "description": "Name of about menu section"
-    },
-    "german": "German",
-    "@german": {
-        "description": "German"
-    },
-    "english": "English",
-    "@english": {
-        "description": "English"
-    },
-    "defaultLang": "System default",
-    "@defaultLang": {
-        "description": "System default language."
-    },
-    "language": "language",
-    "@language": {
-        "description": "Language menu item."
-    },
-    "theme": "theme",
-    "@theme": {
-        "description": "Theme menu item."
-    },
-    "darkmode": "dark mode",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "light mode",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "system mode",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
-    "export": "Export all measurements",
-    "@export": {
-        "description": "Export all measurements"
-    },
-    "exportSubtitle": "This exposes all measurements to all apps.",
-    "@exportSubtitle": {
-        "description": "This exposes all measurements to all apps."
-    },
-    "exportDialog": "This will export all measurements to the external storage. Writing permissions are needed.",
-    "@exportDialog": {
-        "description": "This will export all measurements to the external storage. Writing permissions are needed."
-    },
-    "open": "open",
-    "@open": {
-        "description": "Open (file)."
-    },
-    "abort": "abort",
-    "@abort": {
-        "description": "Abort (action)."
-    },
-    "import": "Import backup",
-    "@import": {
-        "description": "Import backup."
-    },
-    "importSubtitle": "Import measurements from txt backup file.",
-    "@importSubtitle": {
-        "description": "Import measurements from txt backup file."
-    },
-    "amoled": "AMOLED",
-    "@amoled": {
-        "description": "AMOLED"
-    },
-    "amoledSubtitle": "Change background color to true black for dark mode.",
-    "@amoledSubtitle": {
-        "description": "Change background color to true black for dark mode."
-    },
-    "@immersiveModeSubttile": {
-        "description": "Immersive mode: color complete background in color."
-    },
-    "reset": "Reset app",
-    "@reset": {
-        "description": "Factory reset app."
-    },
-    "factoryReset": "factory reset",
-    "@factoryReset": {
-        "description": "Factory reset app."
-    },
-    "factoryResetSubtitle": "Reset all settings and delete all measurements.",
-    "@factoryResetSubtitle": {
-        "description": "Reset all settings and delete all measurements."
-    },
-    "factoryResetDialog": "Reset application to default? This will delete all settings, and added measurements. This can not be undone.",
-    "@factoryResetDialog": {
-        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-    },
-    "delete": "delete",
-    "@delete": {
-        "description": "delete"
-    },
-    "importingAbort": "Import aborted.",
-    "@importingAbort": {
-        "description": "Import aborted."
-    },
-    "importDialog": "Include all measurements to the current database. This can not be undone!",
-    "@importDialog": {
-        "description": "Include all measurements to the current database. This can not be undone!"
-    },
-    "home": "home",
-    "@home": {
-        "description": "home screen"
-    },
-    "yes": "yes",
-    "@yes": {
-        "description": "yes"
-    },
-    "ok": "ok",
-    "@ok": {
-        "description": "ok"
-    },
-    "@leaveEditMode": {
-        "description": "Leave edit mode without saving? This can not be undone."
-    },
-    "save": "save",
-    "@save": {
-        "description": "save"
-    },
-    "edit": "edit",
-    "@edit": {
-        "description": "edit"
-    },
-    "backup": "backup",
-    "@backup": {
-        "description": "backup"
-    },
-    "time": "time",
-    "@time": {
-        "description": "time"
-    },
-    "assets": "assets",
-    "@assets": {
-        "description": "assets"
-    },
-    "packages": "packages",
-    "@packages": {
-        "description": "packages"
-    },
-    "loading": "loading",
-    "@loading": {
-        "description": "loading"
-    },
-    "measurements": "measurements",
-    "@measurements": {
-        "description": "measurements"
-    },
-    "version": "version",
-    "@version": {
-        "description": "version"
-    },
-    "tpl": "third-party licences",
-    "@tpl": {
-        "description": "third-party licences"
-    },
-    "licence": "licence",
-    "@licence": {
-        "description": "licence"
-    },
-    "sourcecode": "source code",
-    "@sourcecode": {
-        "description": "source code"
-    },
-    "openIssue": "open issue",
-    "@openIssue": {
-        "description": "open issue"
-    },
-    "undertpl": "© {years} by {author} under {licence} licence",
-    "@undertpl": {
-        "description": "String to show third-party license.",
-        "placeholders": {
-            "years": {
-                "type": "String",
-                "example": "2019"
-            },
-            "author": {
-                "type": "String",
-                "example": "Linux foundation"
-            },
-            "licence": {
-                "type": "String",
-                "example": "MIT"
-            }
-        }
-    },
-    "addWeight": "Enter your weight",
-    "@addWeight": {
-        "description": "Enter your weight"
-    },
-    "interpolation": "interpolation",
-    "@interpolation": {
-        "description": "interpolation"
-    },
-    "none": "none",
-    "@none": {
-        "description": "no interpolation"
-    },
-    "soft": "soft",
-    "@soft": {
-        "description": "soft interpolation"
-    },
-    "medium": "medium",
-    "@medium": {
-        "description": "medium interpolation"
-    },
-    "strong": "strong",
-    "@strong": {
-        "description": "strong interpolation"
-    },
-    "welcome": "welcome",
-    "@welcome": {
-        "description": "welcome"
-    },
-    "onBoarding1": "This simplistic Material-You-design app helps you to reach your dream weight! Whether you want to gain weight, lose weight or simply maintain your weight: Reliable weight predictions and versatile statistics help you to stay on track. \n\n Join our community today to trace yourself. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-    "@onBoarding1": {
-        "description": "Text of 1st onBoarding screen."
-    },
-    "onBoarding2": "Choose one out of six themes to personalize your app. Which one does express your feelings the best?",
-    "@onBoarding2": {
-        "description": "Text of 2nd onBoarding screen."
-    },
-    "onBoarding3": "Thank you for giving our app a try. 🙂\n\n If you like the app, we would be very happy about your feedback, a contribution on Github or a coffee. In return, we spare you annoying and privacy-critical ads.",
-    "@onBoarding3": {
-        "description": "Text of 3rd onBoarding screen."
-    },
-    "onBoarding2Title": "Style",
-    "@onBoarding2Title": {
-        "description": "Title of 2nd onBoarding screen."
-    },
-    "onBoarding3Title": "Privacy",
-    "@onBoarding3Title": {
-        "description": "Title of 3rd onBoarding screen."
-    },
-    "skip": "skip",
-    "@skip": {
-        "description": "Skip onboarding screen."
-    },
-    "startApp": "start",
-    "@startApp": {
-        "description": "Press to start the app."
-    },
-    "targetWeight": "target weight",
-    "@targetWeight": {
-        "description": "Your target weight."
-    },
-    "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
-    "@targetWeightMotivation": {
-        "description": "Explanation to clarify the importance of a target weight."
-    },
-    "targetWeightShort": "target",
-    "@targetWeightShort": {
-        "description": "Short label to show for indicating target weight in line chart."
-    },
-    "addUserName": "How shall we call you?",
-    "@addUserName": {
-        "description": "How shall we call you?"
-    },
-    "addTargetWeight": "Add target weight",
-    "@addTargetWeight": {
-        "description": "Press to add a target weight."
-    },
-    "intro1": "press",
-    "@intro1": {
-        "description": "Start of 'press + to get started'"
-    },
-    "intro2": "to get started",
-    "@intro2": {
-        "description": "End of 'press + to get started'"
-    },
-    "intro3": "Today is a good day to start with your first measurement!",
-    "@intro3": {
-        "description": "Text shown on statsOverview in case of no measurements"
-    },
-    "faqtext": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository.",
-    "@faqtext": {
-        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-    },
-    "faq_q1": "The feature/function X is missing. When will it be implemented?",
-    "@faq_q1": {
-        "description": "The feature/function X is missing. When will it be implemented?"
-    },
-    "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
-    "@faq_a1": {
-        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-    },
-    "faq_q2": "Can I see once again the intro/onboarding screen?",
-    "@faq_q2": {
-        "description": "Can I see once again the intro/onboarding screen?"
-    },
-    "faq_a2": "Yes for sure! Simple press the icon below.",
-    "@faq_a2": {
-        "description": "Yes for sure! Simple press the icon below."
-    },
-    "faq_a2_widget": "Return to onboarding screen",
-    "@faq_a2_widget": {
-        "description": "Return to onboarding screen"
-    },
-    "faq_q3": "What is the app icon showing?",
-    "@faq_q3": {
-        "description": "What is the app icon showing?"
-    },
-    "faq_a3": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'.",
-    "@faq_a3": {
-        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-    },
-    "target_weight_warning": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible.",
-    "@target_weight_warning": {
-        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  "@@locale": "en",
+  "achievements": "Achievements",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "stats": "Statistics",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "unit": "Units",
+  "@unit": {},
+  "date": "Date",
+  "@date": {
+    "description": "Date"
+  },
+  "weight": "Weight",
+  "@weight": {
+    "description": "weight"
+  },
+  "user": "User profile",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "User settings",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Danger zone",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "faq": "FAQ",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "About",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "german": "German",
+  "@german": {
+    "description": "German"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English"
+  },
+  "czech": "Czech",
+  "@czech": {
+    "description": "Czech"
+  },
+  "korean": "Korean",
+  "@korean": {
+    "description": "Korean"
+  },
+  "polish": "Polish",
+  "@polish": {
+    "description": "Polish"
+  },
+  "norwegian": "Norwegian",
+  "@norwegian": {
+    "description": "Norwegian"
+  },
+  "defaultLang": "System default",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "darkmode": "Dark",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "lightmode": "Light",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "systemmode": "System",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Export all measurements",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportSubtitle": "This exposes all measurements to all apps.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "exportDialog": "This will export all measurements to the external storage. Writing permissions are needed.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "open": "Open",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Abort",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Import backup",
+  "@import": {
+    "description": "Import backup."
+  },
+  "importSubtitle": "Import measurements from .txt backup file.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoled": "Black",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "amoledSubtitle": "Change background color to true black for dark mode.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Reset app",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryReset": "Factory reset",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "Reset all settings and delete all measurements.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "factoryResetDialog": "Reset application to default? This will delete all settings, and added measurements. This can not be undone.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "Import aborted.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "Include all measurements to the current database. This can not be undone!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "home": "Home",
+  "@home": {
+    "description": "home screen"
+  },
+  "yes": "Yes",
+  "@yes": {
+    "description": "yes"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "Backup",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Time",
+  "@time": {
+    "description": "time"
+  },
+  "assets": "assets",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "packages",
+  "@packages": {
+    "description": "packages"
+  },
+  "loading": "Loading",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Measurements",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "version"
+  },
+  "tpl": "Third-party licenses",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "licence": "License",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "Source code",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "openIssue": "Open issue",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "undertpl": "© {years} by {author} under {licence} licence",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
     }
+  },
+  "addWeight": "Enter your weight",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "interpolation",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "none": "None",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "soft": "Soft",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "Medium",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "Strong",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "welcome": "Welcome",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding1": "This simplistic Material-You-design app helps you to reach your dream weight! Whether you want to gain weight, lose weight or simply maintain your weight: Reliable weight predictions and versatile statistics help you to stay on track. \n\n Join our community today to trace yourself. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "onBoarding2": "Choose one out of six themes to personalize your app. Which one does express your feelings the best?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding3": "Thank you for giving our app a try. 🙂\n\n If you like the app, we would be very happy about your feedback, a contribution on Github or a coffee. In return, we spare you annoying and privacy-critical ads.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "onBoarding2Title": "Style",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Privacy",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "skip": "Skip",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "startApp": "Start",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Target weight",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "targetWeightShort": "Target",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "addUserName": "How shall we call you?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Add target weight",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro1": "Press",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "intro2": "to get started",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro3": "Today is a good day to start with your first measurement!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faqtext": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_q1": "The feature/function X is missing. When will it be implemented?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q2": "Can I see once again the intro/onboarding screen?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Yes for sure! Simple press the icon below.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Return to onboarding screen",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "What is the app icon showing?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "faq_a3": "A wolf sitting, and the letter 'r' and its tail is partially hidden by the letter 't'.",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "target_weight_warning": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  }
 }

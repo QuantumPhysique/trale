@@ -1,28 +1,20 @@
-Diese schlichte App im Material Design 3 ist perfekt geeignet, um Ihr Gewicht
-zu in den Griff zu bekommen. Ob Sie zunehmen oder abnehmen wollen, diese App
-ist der perfekte Begleiter, um Ihr optimales Gewicht zu erreichen.
+Erreiche Dein optimales Gewicht mit Hilfe dieser schlichten App im Material Design.
 
-Tritt noch heute unserer Community bei und erreich dein Traumgewicht 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+<b> Wieso trale 🐺?</b>
+* Komplett <b>kostenlos</b>: Keine nervige Werbung, keine Tracker
+* Modernes Design basierend auf <b>Material Design 3</b>
+* <b>Anpassbar</b>: Viele Farbthemen, <b>Dark Mode</b>, und verschiedene <b>Gewichtseinheiten</b>
+* Verfolge deinen Fortschritt mit <b>state-of-the-art</b> Datenmodellierung 🧑‍💻
+* Import und Export der Messwerte möglich
+* <b>Privatsphäre</b>: Keine Berechtigungen und wir sammeln keinerlei Daten
+* <b><a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Open-source</a></b>: Unsere Worte sind nicht nur leere Versprechen
 
-<b>Wieso trale 🐺?</b>
-* Komplett <b>FREI</b>: Keine nervige Werbung, keine Tracker
-* Modernes Design basierend auf <b>MATERIAL DESIGN 3</b>
-* <b>ANPASSBAR</b>: Viele kostenlose Farbthemen, <b>DARK MODE</b>, und verschiedene <b>Einheiten</b>
-* Verfolge deinen Fortschritt mit <b>STATE-OF-THE-ART</b> Datenmodellierung 🧑‍💻
-* <b>PRIVATSPHÄRE</b>: Nicht nur leere Versprechen, die App ist <a href="https://github.com/quantumphysique/trale">open-source</a>
-* Importieren und exportieren der Messungen
-
-<b>Geplante Funktionalität 🚀:</b>
+<b>Zukünftige Funktionen 🚀</b>
 * Errungenschaften und motivierende Nachrichten
 
-<b>Disclaimer</b>
-Magersucht ist eine ernste Krankheit. Insbesondere durch die vielen
-Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem
-gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten,
-ist kein Zielgewicht unter 50 kg / 110 lb / 7,9 st ist möglich.
+Werde noch heute Teil unserer Community! 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
-Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten.
-Sie sollte am besten mit einer FHD/FHD+ Auflösung funktionieren. Falls du einen
-Fehler findest oder eine Funktion vermisst, bitte
-<a href="https://github.com/quantumphysique/trale/-/issues">eröffne eine neues
-Issue</a>.
+<b>Disclaimer ⚠️</b>
+Magersucht ist eine ernstzunehmende Krankheit. Insbesondere durch die vielen Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten, ist daher keine Zielgewichteingabe unter 50 kg / 110 lb / 7,9 st möglich.
+
+Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten. Falls Du einen Fehler findest oder eine Funktion vermisst, bitte <a href="https://github.com/quantumphysique/trale/issues">eröffne ein neues Issue</a>.

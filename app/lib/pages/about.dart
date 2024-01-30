@@ -241,15 +241,12 @@ class _About extends State<About> {
           Padding(
             padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
             child: const Text(
-              'This app completely respects your privacy. This means that we '
-              'do not earn anything with it and we do not get error logs. If '
-              'you are facing problems, please open an issue at GitLab.\n\n'
-              'The purpose of this app is to provide a simple log of the '
-              ' weight together with a short-term extrapolation. Nothing more,'
-              ' but nothing less. Therefore, we do not plan to add fancy '
-              'features.\n\n'
-              'We are only two devs with little sparse time. If you like the '
-              'work consider contributing or donating. \u{1F642}',
+              'A simple weight log with short-term extrapolation.\n\n'
+              'Your privacy is respected.\n'
+              'No revenue sources in the app, nor error logs sent.\n'
+              'Please open an issue if you have problems.\n\n'
+              'Made by two devs with little spare time.\n'
+              'Consider contributing or donating. \u{1F642}',
               textAlign: TextAlign.justify,
             ),
           ),
@@ -295,7 +292,7 @@ class _About extends State<About> {
               maxLines: 1,
             ),
             trailing: AutoSizeText(
-              'GNU APGLv3',
+              'GNU APGLv3+',
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),

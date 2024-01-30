@@ -1,0 +1,2 @@
+- Dank der Community unterstützt die App nun Tschechisch, Koreanisch, Norwegisch und Polnisch 🎉
+- Verbessertes Readme, Screenshots und Appbeschreibungen
