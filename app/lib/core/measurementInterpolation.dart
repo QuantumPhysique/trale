@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:ml_linalg/linalg.dart';
@@ -25,14 +24,7 @@ class MeasurementInterpolation {
   MeasurementDatabase get db => MeasurementDatabase();
 
   /// get interpolation strength values
-  InterpolStrength interpolStrength = Preferences().interpolStrength;
-
-  /// broadcast stream to track change of db
-  final StreamController<List<Measurement>> _streamController =
-    StreamController<List<Measurement>>.broadcast();
-
-  /// get broadcast stream to track change of db
-  StreamController<List<Measurement>> get streamController => _streamController;
+  InterpolStrength get interpolStrength => Preferences().interpolStrength;
 
   /// re initialize database
   void reinit() {
