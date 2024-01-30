@@ -200,7 +200,7 @@ class MeasurementInterpolation {
 
   /// take mean of Vector ws weighted with Gaussian N(t, sigma)
   double gaussianMean(double t, Vector ms) =>
-    (gaussianWeights(t, ms) * ms).sum();
+    gaussianWeights(t, ms).dot(ms);
 
   Vector? _weightsSmoothed;
   /// get vector containing the Gaussian smoothed measurements
@@ -231,8 +231,10 @@ class MeasurementInterpolation {
     int idxFrom, idxTo;
     double changeRate;
 
-    if (weightsList.isEmpty) {
+    if (db.nMeasurements == 0) {
       return Vector.empty();
+    } else if (idxsMeasurements.length == 1) {
+      return Vector.filled(N, weights[idxsMeasurements[0]]);
     }
 
     if (interpolate) {
@@ -259,7 +261,7 @@ class MeasurementInterpolation {
           idxsMeasurements.length - 2
       );
       final int firstIdx = idxsMeasurements.first;
-      final int secondIdx = idxsMeasurements.elementAt(2);
+      final int secondIdx = idxsMeasurements.elementAt(1);
 
       final double changeRateAfter = _linearChangeRate(
           secondLastIdx, lastIdx, weights,
@@ -334,7 +336,7 @@ class MeasurementInterpolation {
 
   /// get time of reaching target weight in kg
   Duration? timeOfTargetWeight(double? targetWeight) {
-    if ((targetWeight == null) || (weights_measured.length < 2)){
+    if ((targetWeight == null) || (db.nMeasurements < 2)){
       return null;
     }
 
