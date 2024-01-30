@@ -19,27 +19,17 @@ enum InterpolStrength {
 extension InterpolStrengthExtension on InterpolStrength {
   /// get the interpolation strength of measurements [days]
   double get strengthMeasurement => <InterpolStrength, double>{
-      InterpolStrength.none: 0.01,
+      InterpolStrength.none: 0.1,
       InterpolStrength.soft: 2,
       InterpolStrength.medium: 4,
       InterpolStrength.strong: 7,
     }[this]!;
 
   /// get the interpolation strength of measurements [days]
-  double get strengthInterpol => <InterpolStrength, double>{
-    InterpolStrength.none: 0,
-    InterpolStrength.soft: 1,
-    InterpolStrength.medium: 2,
-    InterpolStrength.strong: 3,
-  }[this]!;
+  double get strengthInterpol => strengthMeasurement / 2;
 
   /// get the ratio how much the measurements are weighted more than interpols
-  double get weight => <InterpolStrength, double>{
-    InterpolStrength.none: 1,
-    InterpolStrength.soft: 10,
-    InterpolStrength.medium: 5,
-    InterpolStrength.strong: 3,
-  }[this]!;
+  double get weight => 2;
 
   /// get international name
   String nameLong (BuildContext context) => <InterpolStrength, String>{
