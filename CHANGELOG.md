@@ -15,10 +15,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
-- All new and improved interpolation API
+- All new and improved interpolation API, the predictions are now more reliable
 
 ### Bugfix 🐛:
 - Fix bug, that allowed target weights below 50kg
+- Fix bug, when reloading theme
 
 
 ## [0.4.6] - 2024-01-08
