@@ -63,15 +63,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
         )
         : ip.weightsGaussianExtrapol;
 
-    for (int i=0; i<interpol.length; i++) {
-      if (interpol[i] >= 0) {
-        print(
-            DateTime.fromMillisecondsSinceEpoch(interpol_times[i].toInt()).toString()
-            + ' ${interpol[i]} '
-        );
-      }
-    }
-
     final TextStyle labelTextStyle =
       Theme.of(context).textTheme.bodySmall!.apply(
         fontFamily: 'Courier',
