@@ -56,10 +56,15 @@ jobs:
         run: |
           cd app
           flutter build apk --split-per-abi --release
+      - name: Create Artifact Name
+        run: |
+          BRANCH_NAME="apks_${{ github.head_ref || github.ref_name }}"
+          export ARTIFACT_NAME="${BRANCH_NAME////\_}"
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
       - name: ⬆️ 📦 Upload apks
         uses: actions/upload-artifact@v4
         with:
-          name: "apks_${{ github.head_ref || github.ref_name }}"
+          name: "${{ env.ARTIFACT_NAME }}"
           path: "app/build/app/outputs/flutter-apk/*.apk"
           retention-days: 30
           overwrite: true
