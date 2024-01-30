@@ -215,8 +215,8 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   /// get seed color of theme
   Color seedColor(BuildContext context) => <TraleCustomTheme, Color>{
     TraleCustomTheme.system:
-      Provider.of<TraleNotifier>(context).systemColorsAvailable
-        ? Provider.of<TraleNotifier>(context).systemSeedColor
+      Provider.of<TraleNotifier>(context, listen: false).systemColorsAvailable
+        ? Provider.of<TraleNotifier>(context, listen: false).systemSeedColor
         : const Color(0xFF000000),
     TraleCustomTheme.fire: const Color(0xFFb52528),
     TraleCustomTheme.lemon: const Color(0xFF626200),
