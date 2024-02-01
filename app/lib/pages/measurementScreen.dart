@@ -7,7 +7,6 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/sliverPersistentHeaderDelegate.dart';
-import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:trale/widget/weightList.dart';
 
 class MeasurementScreen extends StatefulWidget {
