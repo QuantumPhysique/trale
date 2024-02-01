@@ -148,3 +148,54 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
   }
 }
+
+
+class SmallStatCard extends StatefulWidget {
+  const SmallStatCard({
+    required this.firstRow,
+    required this.secondRow,
+    super.key});
+
+  final String firstRow;
+  final String secondRow;
+
+  @override
+  _SmallStatCardState createState() => _SmallStatCardState();
+}
+
+class _SmallStatCardState extends State<SmallStatCard> {
+  @override
+  Widget build(BuildContext context) {
+
+    final Card card = Card(
+      shape: TraleTheme.of(context)!.borderShape,
+      color: Theme.of(context).colorScheme.secondaryContainer,
+      margin: EdgeInsets.symmetric(
+        vertical: TraleTheme.of(context)!.padding,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            AutoSizeText(
+              widget.firstRow,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
+            AutoSizeText(
+              widget.secondRow,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return card;
+  }
+}
