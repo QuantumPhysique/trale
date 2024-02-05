@@ -41,7 +41,7 @@ dependencies:
   path_provider: ^2.1.1
   provider: ^6.1.1
   shared_preferences: ^2.2.2
-  share_plus: ^7.2.1
+  share_plus: ^7.2.2
   url_launcher: ^6.2.4
 
   # The following adds the Cupertino Icons font to your application.
