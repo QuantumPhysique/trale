@@ -75,7 +75,7 @@ class MeasurementInterpolation {
 
     // set isExtrapolated
     _isExtrapolated = Vector.fromList(<int>[
-      for (int date = dateFrom; date < dateTo; date += _dayInMs)
+      for (int date = dateFrom; date <= dateTo; date += _dayInMs)
         (
           (date < db.sortedMeasurements.last.measurement.dayInMs) ||
           (date > db.sortedMeasurements.first.measurement.dayInMs)
@@ -83,7 +83,7 @@ class MeasurementInterpolation {
     ]);
 
     return Vector.fromList(<int>[
-      for (int date = dateFrom; date < dateTo; date += _dayInMs)
+      for (int date = dateFrom; date <= dateTo; date += _dayInMs)
         date
     ], dtype: dtype);
   }
