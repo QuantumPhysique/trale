@@ -211,12 +211,14 @@ class MeasurementInterpolation {
   /// get vector containing the daily averaged weights with final linear
   /// regression
   Vector get weightsExtrapolated => _weightsExtrapolated
-    ?? _linearInterpolation(weights, interpolate: false, extrapolate: true);
+    ?? _linearExtrapolation(weights);
 
   Vector? _weightsLinExtrapol;
   /// get vector containing the weights with linear interpolated missing values
   Vector get weightsLinExtrapol => _weightsLinExtrapol ??
-    _linearInterpolation(weightsSmoothed, extrapolate: true);
+    _linearExtrapolation(
+    _linearInterpolation(weightsSmoothed)
+    );
 
   Vector? _weightsGaussianExtrapol;
   /// get vector containing the weights with linear interpolated missing values
@@ -224,9 +226,78 @@ class MeasurementInterpolation {
     _gaussianInterpolation(weightsLinExtrapol);
 
   /// add linear interpolation to measurements
-  Vector _linearInterpolation(
-      Vector weights, {bool interpolate=true, bool extrapolate=false}
-  ) {
+  Vector _linearExtrapolation(Vector weights) {
+    final List<double> weightsList = weights.toList();
+    int idxFrom, idxTo;
+
+    if (db.nMeasurements == 0) {
+      return Vector.empty();
+    } else if (idxsMeasurements.length == 1) {
+      return Vector.filled(N, weights[idxsMeasurements[0]]);
+    }
+
+    // add
+    final int lastIdx = idxsMeasurements.last;
+    final int firstIdx = idxsMeasurements.first;
+
+    final Vector initialExtrapolation = _linearRegression(
+      weights,
+      times[firstIdx],
+      Vector.fromList(<double>[
+        for (int idx=0; idx < firstIdx; idx++)
+          times[idx]
+      ]),
+    );
+
+    final Vector finalExtrapolation = _linearRegression(
+      weights,
+      times[lastIdx],
+      Vector.fromList(<double>[
+        for (int idx=lastIdx + 1; idx < N; idx++)
+          times[idx]
+      ]),
+    );
+
+    for (int idx=0; idx < _offsetInDays; idx++) {
+      weightsList[idx] = initialExtrapolation[idx];
+      weightsList[lastIdx + idx] = finalExtrapolation[idx];
+    }
+    print(weights.toList());
+    print(initialExtrapolation.toList());
+    print(finalExtrapolation.toList());
+    print(weightsList);
+    return Vector.fromList(weightsList, dtype: dtype);
+  }
+
+  /// Estimate linear regression for time ts with Gaussian weights relative to
+  /// tRef
+  Vector _linearRegression(Vector weights, double tRef, Vector ts) {
+    final Vector ws = gaussianWeights(tRef, weights);
+
+    final double meanWeight = gaussianMean(tRef, weights);
+    final double meanTime = gaussianMean(tRef, times);
+    final double meanChange = gaussianMean(
+        tRef, (weights - meanWeight) * (times - meanTime) * ws
+    ) / gaussianMean(
+        tRef, (times - meanTime).pow(2) * ws
+    );
+    final double intercept = meanWeight - meanChange * meanTime;
+
+    print('mean weight: $meanWeight kg');
+    print('mean time: ${DateTime.fromMillisecondsSinceEpoch(meanTime.round())}');
+    print('mean change / day: ${meanChange * _dayInMs}');
+    print('intercept: $intercept');
+
+    return Vector.fromList(<double>[
+      for (final double t in ts)
+        meanChange * t + intercept < 0
+          ? 0
+          : meanChange * t + intercept
+    ], dtype: dtype);
+  }
+
+  /// add linear interpolation to measurements
+  Vector _linearInterpolation(Vector weights) {
     final List<double> weightsList = weights.toList();
     int idxFrom, idxTo;
     double changeRate;
@@ -237,45 +308,19 @@ class MeasurementInterpolation {
       return Vector.filled(N, weights[idxsMeasurements[0]]);
     }
 
-    if (interpolate) {
-      // loop over all unique measurements
-      for (int idx = 0; idx < idxsMeasurements.length - 1; idx++) {
-        // interpolate between measurements idxs_i and idx_j
-        idxFrom = idxsMeasurements[idx];
-        idxTo = idxsMeasurements[idx + 1];
-        if (idxFrom + 1 < idxTo) {
-          // estimate change rate
-          changeRate = _linearChangeRate(idxFrom, idxTo, weightsSmoothed);
-          for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
-            weightsList[idxJ] = weightsList[idxFrom] + changeRate * (
-                idxJ - idxFrom
-            );
-          }
+    // loop over all unique measurements
+    for (int idx = 0; idx < idxsMeasurements.length - 1; idx++) {
+      // interpolate between measurements idxs_i and idx_j
+      idxFrom = idxsMeasurements[idx];
+      idxTo = idxsMeasurements[idx + 1];
+      if (idxFrom + 1 < idxTo) {
+        // estimate change rate
+        changeRate = _linearChangeRate(idxFrom, idxTo, weightsSmoothed);
+        for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
+          weightsList[idxJ] = weightsList[idxFrom] + changeRate * (
+              idxJ - idxFrom
+          );
         }
-      }
-    }
-    if (extrapolate) {
-      // add
-      final int lastIdx = idxsMeasurements.last;
-      final int secondLastIdx = idxsMeasurements.elementAt(
-          idxsMeasurements.length - 2
-      );
-      final int firstIdx = idxsMeasurements.first;
-      final int secondIdx = idxsMeasurements.elementAt(1);
-
-      final double changeRateAfter = _linearChangeRate(
-          secondLastIdx, lastIdx, weights,
-      );
-      final double changeRateBefore = _linearChangeRate(
-          firstIdx, secondIdx, weights,
-      );
-      for (int idx=0; idx < _offsetInDays; idx++) {
-        weightsList[idx] = weightsList[firstIdx] + changeRateBefore * (
-          idx - firstIdx
-        );
-        weightsList[N - 1 - idx] = weightsList[lastIdx] + changeRateAfter * (
-            N - 1 - idx - lastIdx
-        );
       }
     }
     return Vector.fromList(weightsList, dtype: dtype);
