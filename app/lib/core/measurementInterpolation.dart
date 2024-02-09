@@ -260,7 +260,7 @@ class MeasurementInterpolation {
 
     for (int idx=0; idx < _offsetInDays; idx++) {
       weightsList[idx] = initialExtrapolation[idx];
-      weightsList[lastIdx + idx] = finalExtrapolation[idx];
+      weightsList[lastIdx + 1 + idx] = finalExtrapolation[idx];
     }
     print(weights.toList());
     print(initialExtrapolation.toList());
@@ -272,15 +272,19 @@ class MeasurementInterpolation {
   /// Estimate linear regression for time ts with Gaussian weights relative to
   /// tRef
   Vector _linearRegression(Vector weights, double tRef, Vector ts) {
-    final Vector ws = gaussianWeights(tRef, weights);
+    // final double meanWeight = gaussianMean(tRef, weights);
+    // final double meanTime = gaussianMean(tRef, times);
+    // final double meanChange = gaussianMean(
+    //     tRef, (weights - meanWeight) * (times - meanTime)
+    // ) / gaussianMean(
+    //     tRef, (times - meanTime).pow(2)
+    // );
+    final double meanWeight = weights_measured.mean();
+    final double meanTime = times_measured.mean();
+    final double meanChange = (
+        (weights_measured - meanWeight) * (times_measured - meanTime)
+    ).mean() / (times_measured - meanTime).pow(2).mean();
 
-    final double meanWeight = gaussianMean(tRef, weights);
-    final double meanTime = gaussianMean(tRef, times);
-    final double meanChange = gaussianMean(
-        tRef, (weights - meanWeight) * (times - meanTime) * ws
-    ) / gaussianMean(
-        tRef, (times - meanTime).pow(2) * ws
-    );
     final double intercept = meanWeight - meanChange * meanTime;
 
     print('mean weight: $meanWeight kg');
