@@ -31,7 +31,7 @@ dependencies:
   dynamic_color: ^1.6.9
   file_picker: ^6.1.1
   fl_chart: ^0.66.2
-  flutter_svg: ^2.0.9
+  flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
