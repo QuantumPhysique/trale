@@ -37,7 +37,6 @@ class MeasurementInterpolation {
     _sigma = null;
     _weightsLinExtrapol = null;
     _weightsSmoothed = null;
-    _weightsExtrapolated = null;
     _weightsGaussianExtrapol = null;
 
     // recalculate all vectors
@@ -178,7 +177,7 @@ class MeasurementInterpolation {
 
   Vector? _sigma;
 
-  /// get vector containing sigma depending if measurement or not
+  /// get vector containing sigma depending if measurement or not [ms]
   Vector get sigma => _sigma ?? (
     isMeasurement * interpolStrength.strengthMeasurement +
     isNoMeasurement * interpolStrength.strengthInterpol
@@ -205,13 +204,11 @@ class MeasurementInterpolation {
   Vector? _weightsSmoothed;
   /// get vector containing the Gaussian smoothed measurements
   Vector get weightsSmoothed => _weightsSmoothed ??
-    _gaussianInterpolation(weightsExtrapolated) * isMeasurement;
-
-  Vector? _weightsExtrapolated;
-  /// get vector containing the daily averaged weights with final linear
-  /// regression
-  Vector get weightsExtrapolated => _weightsExtrapolated
-    ?? _linearExtrapolation(weights);
+    _gaussianInterpolation(
+      _linearExtrapolation(
+        _linearInterpolation(weights)
+      )
+    ) * isMeasurement;  // set all non Measurements to zero.
 
   Vector? _weightsLinExtrapol;
   /// get vector containing the weights with linear interpolated missing values
@@ -223,7 +220,8 @@ class MeasurementInterpolation {
   Vector? _weightsGaussianExtrapol;
   /// get vector containing the weights with linear interpolated missing values
   Vector get weightsGaussianExtrapol => _weightsGaussianExtrapol ??
-    _gaussianInterpolation(weightsLinExtrapol);
+  //  _gaussianInterpolation(weightsLinExtrapol);
+    _linearExtrapolation(_linearInterpolation(weights));
 
   /// add linear interpolation to measurements
   Vector _linearExtrapolation(Vector weights) {
@@ -272,18 +270,18 @@ class MeasurementInterpolation {
   /// Estimate linear regression for time ts with Gaussian weights relative to
   /// tRef
   Vector _linearRegression(Vector weights, double tRef, Vector ts) {
-    // final double meanWeight = gaussianMean(tRef, weights);
-    // final double meanTime = gaussianMean(tRef, times);
-    // final double meanChange = gaussianMean(
-    //     tRef, (weights - meanWeight) * (times - meanTime)
-    // ) / gaussianMean(
-    //     tRef, (times - meanTime).pow(2)
-    // );
-    final double meanWeight = weights_measured.mean();
-    final double meanTime = times_measured.mean();
-    final double meanChange = (
-        (weights_measured - meanWeight) * (times_measured - meanTime)
-    ).mean() / (times_measured - meanTime).pow(2).mean();
+    final double meanWeight = gaussianMean(tRef, weights);
+    final double meanTime = gaussianMean(tRef, times);
+    final double meanChange = gaussianMean(
+        tRef, (weights - meanWeight) * times
+    ) / gaussianMean(
+        tRef, (times - meanTime) * times
+    );
+    // final double meanWeight = weights_measured.mean();
+    // final double meanTime = times_measured.mean();
+    // final double meanChange = (
+    //     (weights_measured - meanWeight) * (times_measured - meanTime)
+    // ).mean() / (times_measured - meanTime).pow(2).mean();
 
     final double intercept = meanWeight - meanChange * meanTime;
 
@@ -319,7 +317,7 @@ class MeasurementInterpolation {
       idxTo = idxsMeasurements[idx + 1];
       if (idxFrom + 1 < idxTo) {
         // estimate change rate
-        changeRate = _linearChangeRate(idxFrom, idxTo, weightsSmoothed);
+        changeRate = _linearChangeRate(idxFrom, idxTo, weights);
         for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
           weightsList[idxJ] = weightsList[idxFrom] + changeRate * (
               idxJ - idxFrom
