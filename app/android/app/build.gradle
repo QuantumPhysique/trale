@@ -32,7 +32,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion "25.1.8937393"
 
     sourceSets {
@@ -42,7 +42,7 @@ android {
     defaultConfig {
         applicationId "de.quantumphysique.trale"
         minSdkVersion 19
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         externalNativeBuild {
