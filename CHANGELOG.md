@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Using the latest flutter 3.19 with upgraded deps
 
 
 ## [0.5.0] - 2024-01-25
