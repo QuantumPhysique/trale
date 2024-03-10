@@ -289,7 +289,7 @@
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "faq_a1": "Ta aplikacja jest rozwijana w naszym wolnym czasie, staramy się ją zachować elegancką i prostą. Wierzymy, że dodanie zbyt dużej ilości funkcji spowoduje, że aplikacja stanie się mniej przydatna. Jeśli wierzysz, że nie ma w niej ważnej funkcji, to zaproponuj lub zaimplementują ją poprzez repozytorium na Githubie.",
+  "faq_a1": "Ta aplikacja jest rozwijana w naszym wolnym czasie, staramy się ją zachować elegancką i prostą. Wierzymy, że dodanie zbyt dużej ilości funkcji spowoduje, że aplikacja stanie się mniej przydatna. Jeśli uważasz, że nie ma w niej ważnej funkcji, to zaproponuj lub zaimplementują ją poprzez repozytorium na Githubie.",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
@@ -342,5 +342,21 @@
   "onBoarding2": "Wybierz jeden z sześciu motywów, aby spersonalizować swoją aplikację. Który najbardziej odpowiada Twoim uczuciom?",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
+  },
+  "czech": "Czeski",
+  "@czech": {
+    "description": "Czech"
+  },
+  "korean": "Koreański",
+  "@korean": {
+    "description": "Korean"
+  },
+  "polish": "Polski",
+  "@polish": {
+    "description": "Polish"
+  },
+  "norwegian": "Norweski",
+  "@norwegian": {
+    "description": "Norwegian"
   }
 }
