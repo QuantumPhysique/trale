@@ -16,6 +16,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
 - All new and improved interpolation API, the predictions are now more reliable
+- Using the latest flutter 3.19 with upgraded deps
+- Compile against Android 14 (SDK34)
 
 ### Bugfix 🐛:
 - Fix bug, when reloading theme
