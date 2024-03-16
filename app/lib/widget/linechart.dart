@@ -43,7 +43,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     // load times
     final Vector msTimes = ip.times_measured;
-    final Vector interpolTimes = ip.times;
+    final Vector interpolTimes = ip.timesDisplay;
 
     // scale to unit
     final double unitScaling = Provider.of<TraleNotifier>(
@@ -58,10 +58,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
       : ip.weights_measured;
     final Vector interpol = widget.loadedFirst
         ? Vector.filled(
-          ip.weightsGaussianExtrapol.length,
-           ip.weightsGaussianExtrapol.sum() / ip.isNotExtrapolated.sum(),
+          ip.weightsDisplay.length,
+           ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
         )
-        : ip.weightsGaussianExtrapol;
+        : ip.weightsDisplay;
 
     final TextStyle labelTextStyle =
       Theme.of(context).textTheme.bodySmall!.apply(

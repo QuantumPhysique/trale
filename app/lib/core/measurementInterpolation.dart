@@ -30,8 +30,10 @@ class MeasurementInterpolation {
   void reinit() {
     _times = null;
     _times_measured = null;
+    _timesDisplay = null;
     _weights_measured = null;
     _weights = null;
+    _weightsDisplay = null;
     _isNoMeasurement = null;
     _isNotExtrapolated = null;
     _sigma = null;
@@ -194,7 +196,8 @@ class MeasurementInterpolation {
     final Vector mask = ms.mapToVector(
       (double val) => val > 0 ? 1 : 0
     );
-    return gaussianWeights / (mask * gaussianWeights).sum();
+
+    return (gaussianWeights * mask) / (gaussianWeights * mask).sum();
   }
 
   /// take mean of Vector ws weighted with Gaussian N(t, sigma)
@@ -220,8 +223,31 @@ class MeasurementInterpolation {
   Vector? _weightsGaussianExtrapol;
   /// get vector containing the weights with linear interpolated missing values
   Vector get weightsGaussianExtrapol => _weightsGaussianExtrapol ??
-  //  _gaussianInterpolation(weightsLinExtrapol);
-    _linearExtrapolation(_linearInterpolation(weights));
+    _gaussianInterpolation(weightsLinExtrapol);
+
+  Vector? _weightsDisplay;
+  /// get vector containing the weights to display
+  Vector get weightsDisplay => _weightsDisplay ??
+    Vector.fromList([
+      for (
+        int idx=_offsetInDays - _offsetInDaysShown;
+        idx < N - _offsetInDays + _offsetInDaysShown;
+        idx++
+      )
+        weightsGaussianExtrapol.elementAt(idx)
+    ]);
+
+  Vector? _timesDisplay;
+  /// get vector containing the weights to display
+  Vector get timesDisplay => _timesDisplay ??
+    Vector.fromList([
+      for (
+        int idx=_offsetInDays - _offsetInDaysShown;
+        idx < N - _offsetInDays + _offsetInDaysShown;
+        idx++
+      )
+        times.elementAt(idx)
+    ]);
 
   /// add linear interpolation to measurements
   Vector _linearExtrapolation(Vector weights) {
@@ -260,35 +286,22 @@ class MeasurementInterpolation {
       weightsList[idx] = initialExtrapolation[idx];
       weightsList[lastIdx + 1 + idx] = finalExtrapolation[idx];
     }
-    print(weights.toList());
-    print(initialExtrapolation.toList());
-    print(finalExtrapolation.toList());
-    print(weightsList);
+
     return Vector.fromList(weightsList, dtype: dtype);
   }
 
   /// Estimate linear regression for time ts with Gaussian weights relative to
   /// tRef
   Vector _linearRegression(Vector weights, double tRef, Vector ts) {
-    final double meanWeight = gaussianMean(tRef, weights);
-    final double meanTime = gaussianMean(tRef, times);
-    final double meanChange = gaussianMean(
-        tRef, (weights - meanWeight) * times
-    ) / gaussianMean(
-        tRef, (times - meanTime) * times
+    final Vector gsWeights = gaussianWeights(tRef, weights);
+    final double meanWeight = gsWeights.dot(weights);
+    final double meanTime = gsWeights.dot(times);
+    final double meanChange = gsWeights.dot(
+        (weights - meanWeight) * times
+    ) / gsWeights.dot(
+        (times - meanTime) * times
     );
-    // final double meanWeight = weights_measured.mean();
-    // final double meanTime = times_measured.mean();
-    // final double meanChange = (
-    //     (weights_measured - meanWeight) * (times_measured - meanTime)
-    // ).mean() / (times_measured - meanTime).pow(2).mean();
-
     final double intercept = meanWeight - meanChange * meanTime;
-
-    print('mean weight: $meanWeight kg');
-    print('mean time: ${DateTime.fromMillisecondsSinceEpoch(meanTime.round())}');
-    print('mean change / day: ${meanChange * _dayInMs}');
-    print('intercept: $intercept');
 
     return Vector.fromList(<double>[
       for (final double t in ts)
@@ -403,7 +416,11 @@ class MeasurementInterpolation {
   }
 
   /// offset of day in interpolation
-  static const int _offsetInDays = 7;
+  static const int _offsetInDays = 21;
+
+  /// offset of day in interpolation shown
+  static const int _offsetInDaysShown = 7;
+
   /// 24h given in [ms]
   static const int _dayInMs = 24 * 3600 * 1000;
 }
