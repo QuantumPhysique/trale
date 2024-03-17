@@ -153,33 +153,9 @@
   "@about": {
     "description": "Name of about menu section"
   },
-  "german": "Alemán",
-  "@german": {
-    "description": "German"
-  },
-  "english": "Inglés",
-  "@english": {
-    "description": "English"
-  },
-  "czech": "Checho",
-  "@czech": {
-    "description": "Czech"
-  },
-  "polish": "Polaco",
-  "@polish": {
-    "description": "Polish"
-  },
-  "korean": "Coreano",
-  "@korean": {
-    "description": "Korean"
-  },
   "exportSubtitle": "Todas las demás apps tendrán acceso a las mediciones.",
   "@exportSubtitle": {
     "description": "This exposes all measurements to all apps."
-  },
-  "norwegian": "Noruego",
-  "@norwegian": {
-    "description": "Norwegian"
   },
   "defaultLang": "Sistema",
   "@defaultLang": {

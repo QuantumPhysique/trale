@@ -46,30 +46,6 @@
   "@about": {
     "description": "Name of about menu section"
   },
-  "german": "German",
-  "@german": {
-    "description": "German"
-  },
-  "english": "English",
-  "@english": {
-    "description": "English"
-  },
-  "czech": "Czech",
-  "@czech": {
-    "description": "Czech"
-  },
-  "korean": "Korean",
-  "@korean": {
-    "description": "Korean"
-  },
-  "polish": "Polish",
-  "@polish": {
-    "description": "Polish"
-  },
-  "norwegian": "Norwegian",
-  "@norwegian": {
-    "description": "Norwegian"
-  },
   "defaultLang": "System default",
   "@defaultLang": {
     "description": "System default language."

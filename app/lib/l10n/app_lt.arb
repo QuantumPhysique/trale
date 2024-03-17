@@ -29,30 +29,6 @@
   "@about": {
     "description": "Name of about menu section"
   },
-  "german": "Vokiečių",
-  "@german": {
-    "description": "German"
-  },
-  "english": "Anglų",
-  "@english": {
-    "description": "English"
-  },
-  "czech": "Čekų",
-  "@czech": {
-    "description": "Czech"
-  },
-  "korean": "Korėjiečių",
-  "@korean": {
-    "description": "Korean"
-  },
-  "polish": "Lenkų",
-  "@polish": {
-    "description": "Polish"
-  },
-  "norwegian": "Norvegų",
-  "@norwegian": {
-    "description": "Norwegian"
-  },
   "defaultLang": "Sistemos numatytoji",
   "@defaultLang": {
     "description": "System default language."
