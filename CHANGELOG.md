@@ -21,6 +21,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Bugfix 🐛:
 - Fix bug, when reloading theme
+- Fix bug that the interpolation was not shown for disabled smoothing, #25
+
+### Other changes:
+- Disabling interpolation, will now use sigma=2days for extrapolation prediction
 
 
 ## [0.5.0] - 2024-01-25
