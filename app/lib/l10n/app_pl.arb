@@ -37,10 +37,6 @@
   "@faq": {
     "description": "Frequently ask questions"
   },
-  "english": "Angielski",
-  "@english": {
-    "description": "English"
-  },
   "about": "O aplikacji",
   "@about": {
     "description": "Name of about menu section"
@@ -124,10 +120,6 @@
   "userSettings": "Ustawienia użytkownika",
   "@userSettings": {
     "description": "Settings to customize user experience"
-  },
-  "german": "Niemiecki",
-  "@german": {
-    "description": "German"
   },
   "theme": "Motyw",
   "@theme": {
@@ -342,21 +334,5 @@
   "onBoarding2": "Wybierz jeden z sześciu motywów, aby spersonalizować swoją aplikację. Który najbardziej odpowiada Twoim uczuciom?",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
-  },
-  "czech": "Czeski",
-  "@czech": {
-    "description": "Czech"
-  },
-  "korean": "Koreański",
-  "@korean": {
-    "description": "Korean"
-  },
-  "polish": "Polski",
-  "@polish": {
-    "description": "Polish"
-  },
-  "norwegian": "Norweski",
-  "@norwegian": {
-    "description": "Norwegian"
   }
 }

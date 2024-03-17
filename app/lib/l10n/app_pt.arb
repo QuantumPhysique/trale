@@ -12,9 +12,5 @@
   "about": "Sobre",
   "@about": {
     "description": "Name of about menu section"
-  },
-  "german": "Alemão",
-  "@german": {
-    "description": "German"
   }
 }
