@@ -49,7 +49,7 @@ class MeasurementInterpolation {
   void init() {
     times;
     weights;
-    weightsGaussianExtrapol;
+    weightsDisplay;
   }
 
   /// data type of vectors
