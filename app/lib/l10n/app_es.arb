@@ -39,7 +39,7 @@
   "@amoled": {
     "description": "AMOLED"
   },
-  "reset": "Restablecer app",
+  "reset": "Restablecer la aplicación",
   "@reset": {
     "description": "Factory reset app."
   },
@@ -99,7 +99,7 @@
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "faq_q3": "¿Qué muestra el icono de la App?",
+  "faq_q3": "¿Qué muestra el icono de la aplicación?",
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
@@ -153,11 +153,11 @@
   "@about": {
     "description": "Name of about menu section"
   },
-  "exportSubtitle": "Todas las demás apps tendrán acceso a las mediciones.",
+  "exportSubtitle": "Esto expone todas las mediciones a todas las aplicaciones.",
   "@exportSubtitle": {
     "description": "This exposes all measurements to all apps."
   },
-  "defaultLang": "Sistema",
+  "defaultLang": "Predeterminado del sistema",
   "@defaultLang": {
     "description": "System default language."
   },
@@ -189,7 +189,7 @@
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
-  "welcome": "Bienvenido/a",
+  "welcome": "Bienvenid@",
   "@welcome": {
     "description": "welcome"
   },
@@ -267,15 +267,15 @@
   "@interpolation": {
     "description": "interpolation"
   },
-  "onBoarding1": "Esta sencilla aplicación con diseño Material-You te ayuda a alcanzar tu peso deseado. No importa si quieres ganar peso, perder peso o simplemente mantener tu peso actual: unas previsiones de peso fiables y unas estadísticas versátiles te ayudarán a mantenerte en curso hacia tu objetivo.\n\n Únete hoy mismo a nuestra comunidad para hacer un seguimiento de tu peso.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "¡Esta sencilla aplicación de diseño Material-You te ayuda a alcanzar el peso de tus sueños! Tanto si quieres engordar, adelgazar o simplemente mantener tu peso: Las fiables predicciones de peso y las versátiles estadísticas te ayudarán a mantenerte en el buen camino. \n\n Únete a nuestra comunidad hoy para trazarte. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
-  "onBoarding2": "Elige entre seis diseños para personalizar tu app. ¿Cuál se ajusta mejor a ti?",
+  "onBoarding2": "Elige uno de los seis temas para personalizar tu aplicación. ¿Cuál expresa mejor tus sentimientos?",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
   },
-  "onBoarding3": "Gracias por probar nuestra app. 🙂\n\nSi te gusta la app, estaríamos encantados de recibir tus comentarios, contribuciones en Github o un café. A cambio, te evitamos anuncios molestos e intrusivos.",
+  "onBoarding3": "Gracias por darle una oportunidad a nuestra aplicación 🙂 .\n\n Si te gusta la app, nos encantaría recibir tus comentarios, una contribución en Github o un café. A cambio, te ahorramos molestos anuncios que atentan contra tu privacidad.",
   "@onBoarding3": {
     "description": "Text of 3rd onBoarding screen."
   },
@@ -319,7 +319,7 @@
   "@faqtext": {
     "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
   },
-  "faq_a1": "Trabajamos en esta App en nuestro tiempo libre e intentamos mantenerla simple y funcional. Creemos que añadir demasiadas funciones haría la App más difícil de usar. Si crees que falta una funcionalidad importante, puedes abrir una incidencia o aportar código en GitHub.",
+  "faq_a1": "Mantenemos la aplicación en nuestro tiempo libre e intentamos que sea elegante y sencilla. Creemos que añadir demasiadas funciones hace que la aplicación sea menos útil. Si crees que nos falta una función clave, no dudes en abrir una incidencia o una solicitud de fusión.",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
@@ -331,11 +331,11 @@
   "@faq_a2_widget": {
     "description": "Return to onboarding screen"
   },
-  "target_weight_warning": "La anorexia es una desorden alimentario serio que supone un problema creciente en nuestra sociedad, en parte debido a muchos ejemplos negativos en redes sociales. Para intentar contribuir a su prevención, en esta App no es posible establecer un peso objetivo inferior a 50kg / 110 lb / 7,9 st.",
+  "target_weight_warning": "La anorexia es una enfermedad grave que se está convirtiendo cada vez más en un problema para la sociedad en su conjunto, en parte debido a los numerosos ejemplos negativos que aparecen en las redes sociales. Como parte de nuestra contribución a la prevención, no es posible alcanzar un peso inferior a 50 kg/110 lb/7,9 st.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
   },
-  "faq_a3": "Muestra un lobo aullando con su cuerpo parcialmente cubierto por las letras \"t\" y \"r\".",
+  "faq_a3": "Un lobo aullador sentado, con la cola parcialmente oculta por la letra \"t\", y la letra \"r\".",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   }
