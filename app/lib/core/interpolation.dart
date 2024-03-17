@@ -19,7 +19,7 @@ enum InterpolStrength {
 extension InterpolStrengthExtension on InterpolStrength {
   /// get the interpolation strength of measurements [days]
   double get strengthMeasurement => <InterpolStrength, double>{
-      InterpolStrength.none: 0.1,
+      InterpolStrength.none: 2,
       InterpolStrength.soft: 2,
       InterpolStrength.medium: 4,
       InterpolStrength.strong: 7,

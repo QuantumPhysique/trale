@@ -227,22 +227,42 @@ class MeasurementInterpolation {
 
   Vector? _weightsDisplay;
   /// get vector containing the weights to display
-  Vector get weightsDisplay => _weightsDisplay ??
-    Vector.fromList([
-      for (
-        int idx=_offsetInDays - _offsetInDaysShown;
-        idx < N - _offsetInDays + _offsetInDaysShown;
-        idx++
-      )
-        weightsGaussianExtrapol.elementAt(idx)
-    ]);
+  Vector get weightsDisplay => _weightsDisplay ?? _createWeightsDisplay();
+
+  Vector _createWeightsDisplay() {
+      if (interpolStrength == InterpolStrength.none) {
+        final Vector weightsLinear = _linearInterpolation(weights);
+        return Vector.fromList([
+          for (
+            int idx=_offsetInDays;
+            idx < N - _offsetInDays + _offsetInDaysShown;
+            idx++
+          )
+            idx <= N - _offsetInDays - 1
+              ? weightsLinear.elementAt(idx)
+              : weightsLinear.elementAt(N - _offsetInDays - 1)
+                + finalChangeRate * (idx - N + _offsetInDays + 1)
+        ]);
+      }
+      return Vector.fromList([
+        for (
+          int idx=_offsetInDays - _offsetInDaysShown;
+          idx < N - _offsetInDays + _offsetInDaysShown;
+          idx++
+        )
+          weightsGaussianExtrapol.elementAt(idx)
+      ]);
+  }
+
 
   Vector? _timesDisplay;
   /// get vector containing the weights to display
   Vector get timesDisplay => _timesDisplay ??
     Vector.fromList([
       for (
-        int idx=_offsetInDays - _offsetInDaysShown;
+        int idx=(interpolStrength == InterpolStrength.none)
+          ? _offsetInDays
+          : _offsetInDays - _offsetInDaysShown;
         idx < N - _offsetInDays + _offsetInDaysShown;
         idx++
       )
@@ -391,7 +411,9 @@ class MeasurementInterpolation {
 
   /// final change Rate
   double get finalChangeRate => _linearChangeRate(
-    N - 1 - _offsetInDays, N - 1, weightsGaussianExtrapol,
+    N - 1 - _offsetInDays,
+    N - 1 - _offsetInDaysShown,
+    weightsGaussianExtrapol,
   );
 
   /// get time of reaching target weight in kg
@@ -404,13 +426,13 @@ class MeasurementInterpolation {
     final double slope = finalChangeRate;
 
     // Crossing is in the past
-    if (slope * (weightsGaussianExtrapol[idxLast] - targetWeight) >= 0) {
+    if (slope * (weightsDisplay[idxLast] - targetWeight) >= 0) {
       return null;
     }
 
     // in ms from last measurement
     final int remainingTime = (
-        (targetWeight - weightsGaussianExtrapol[idxLast]) / slope
+        (targetWeight - weightsDisplay[idxLast]) / slope
     ).round();
     return Duration(days: remainingTime);
   }
