@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
@@ -134,7 +133,7 @@ class TraleNotifier with ChangeNotifier {
   set interpolStrength(InterpolStrength strength) {
     if (interpolStrength != strength) {
       prefs.interpolStrength = strength;
-      MeasurementInterpolation().reinit();
+      MeasurementDatabase().reinit();
       notifyListeners();
     }
   }
