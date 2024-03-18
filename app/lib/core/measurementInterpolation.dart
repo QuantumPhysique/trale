@@ -29,6 +29,7 @@ class MeasurementInterpolation {
   /// re initialize database
   void reinit() {
     _times = null;
+    _timesIdx = null;
     _times_measured = null;
     _timesDisplay = null;
     _weights_measured = null;
@@ -47,8 +48,14 @@ class MeasurementInterpolation {
 
   /// initialize database
   void init() {
+    //final stopwatch = Stopwatch()..start();
     times;
+    //print('  times: ${stopwatch.elapsed}');
+    //stopwatch..reset()..start();
     weights;
+    //print('  weights: ${stopwatch.elapsed}');
+
+    weightsGaussianExtrapol;
     weightsDisplay;
   }
 
@@ -88,6 +95,13 @@ class MeasurementInterpolation {
         date
     ], dtype: dtype);
   }
+
+  List<int>? _timesIdx;
+  /// get vector containing the times given in [ms since epoch]
+  List<int> get timesIdx => _timesIdx ??= <int>[
+    for (int idx=0; idx < N; idx++)
+      idx
+  ];
 
   Vector? _times_measured;
   /// get vector containing the times of the measurements
@@ -230,37 +244,43 @@ class MeasurementInterpolation {
   Vector get weightsDisplay => _weightsDisplay ??= _createWeightsDisplay();
 
   Vector _createWeightsDisplay() {
-      if (interpolStrength == InterpolStrength.none) {
-        final Vector weightsLinear = _linearInterpolation(weights).subvector(
-            _offsetInDays,
-            N - _offsetInDays,
-        );
+    if (N == 0) {
+      return weights;
+    }
 
-        final Vector weightsExtrapol = Vector.fromList(<double>[
-          for (int idx=1; idx <= _offsetInDaysShown; idx++)
-            finalChangeRate * idx
-        ]) + weightsLinear.last;
-
-        return Vector.fromList(
-          weightsLinear.toList()..addAll(weightsExtrapol)
-        );
-      }
-      return weightsGaussianExtrapol.subvector(
-        _offsetInDays - _offsetInDaysShown,
-        N - _offsetInDays + _offsetInDaysShown,
+    if (interpolStrength == InterpolStrength.none) {
+      final Vector weightsLinear = _linearInterpolation(weights).subvector(
+          _offsetInDays,
+          N - _offsetInDays,
       );
+
+      final Vector weightsExtrapol = Vector.fromList(<double>[
+        for (int idx=1; idx <= _offsetInDaysShown; idx++)
+          finalChangeRate * idx
+      ]) + weightsLinear.last;
+
+      return Vector.fromList(
+        weightsLinear.toList()..addAll(weightsExtrapol)
+      );
+    }
+    return weightsGaussianExtrapol.subvector(
+      _offsetInDays - _offsetInDaysShown,
+      N - _offsetInDays + _offsetInDaysShown,
+    );
   }
 
 
   Vector? _timesDisplay;
   /// get vector containing the weights to display
   Vector get timesDisplay => _timesDisplay ??=
-    times.subvector(
-      (interpolStrength == InterpolStrength.none)
-        ? _offsetInDays
-        : _offsetInDays - _offsetInDaysShown,
-        N - _offsetInDays + _offsetInDaysShown,
-    );
+    N == 0
+      ? times
+      : times.subvector(
+        (interpolStrength == InterpolStrength.none)
+          ? _offsetInDays
+          : _offsetInDays - _offsetInDaysShown,
+          N - _offsetInDays + _offsetInDaysShown,
+      );
 
   /// add linear interpolation to measurements
   Vector _linearExtrapolation(Vector weights) {
@@ -362,12 +382,9 @@ class MeasurementInterpolation {
   /// smooth weights with Gaussian kernel
   Vector _gaussianInterpolation(Vector weights) => Vector.fromList(
       <double>[
-        for (int idx = 0; idx < N; idx++)
+        for (int idx in timesIdx)
           (weights[idx] != 0)
-            ? gaussianMean(
-                times[idx],
-                weights,
-              )
+            ? gaussianMean(times[idx], weights)
             : 0
       ], dtype: dtype,
     );
