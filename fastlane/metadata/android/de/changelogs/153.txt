@@ -1,0 +1,4 @@
+- Komplett neue Interpolations API mit schnelleren und genauren Vorhersagen 🎉
+- Upgrade auf flutter 3.19 und aktuelle Abhängigkeiten und Android 14
+- Dank der Community ist die App jetzt auf Lithuanian, Chinese and Spanish
+- Und viele weitere kleine Verbesserungen
