@@ -215,7 +215,4 @@ class MeasurementDatabase {
         Measurement.fromString(exportString: line)
     ];
   }
-
-  /// offset of day in hours
-  static const int _offsetInH = 12;
 }

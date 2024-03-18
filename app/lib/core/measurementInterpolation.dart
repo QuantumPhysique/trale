@@ -77,9 +77,9 @@ class MeasurementInterpolation {
     }
 
     final int dateFrom = db.sortedMeasurements.last.measurement.dayInMs
-      - _dayInMs * _offsetInDays;
+      - _dayInMs * _offsetInDays + _dailyOffsetInHours;
     final int dateTo = db.sortedMeasurements.first.measurement.dayInMs
-      + _dayInMs * _offsetInDays;
+      + _dayInMs * _offsetInDays + _dailyOffsetInHours;
 
     // set isExtrapolated
     _isExtrapolated = Vector.fromList(<int>[
@@ -382,7 +382,7 @@ class MeasurementInterpolation {
   /// smooth weights with Gaussian kernel
   Vector _gaussianInterpolation(Vector weights) => Vector.fromList(
       <double>[
-        for (int idx in timesIdx)
+        for (final int idx in timesIdx)
           (weights[idx] != 0)
             ? gaussianMean(times[idx], weights)
             : 0
@@ -451,6 +451,9 @@ class MeasurementInterpolation {
 
   /// offset of day in interpolation shown
   static const int _offsetInDaysShown = 7;
+
+  /// offset of day in interpolation shown
+  static const int _dailyOffsetInHours = 8;
 
   /// 24h given in [ms]
   static const int _dayInMs = 24 * 3600 * 1000;
