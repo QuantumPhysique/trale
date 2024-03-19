@@ -12,7 +12,23 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Bugfix 🐛:)
 [//]: # (### Other changes:)
 
+
 ## [Unreleased]
+
+
+## [0.6.0] - 2024-03-19
+### Added Features and Improvements 🙌:
+- All new and improved interpolation API, the predictions are now more reliable
+- Using the latest flutter 3.19 with upgraded deps
+- Compile against Android 14 (SDK34)
+- Hello World! Thx to the community, the app is now available in Lithuanian, Chinese and Spanish 🎉
+
+### Bugfix 🐛:
+- Fix bug, when reloading theme
+- Fix bug that the interpolation was not shown for disabled smoothing, #25
+
+### Other changes:
+- Disabling interpolation, will now use sigma=2days for extrapolation prediction
 
 
 ## [0.5.0] - 2024-01-25
@@ -27,6 +43,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Bugfix 🐛:
 - Fix bug, that allowed target weights below 50kg
+
+
+## [0.4.6] - 2024-01-08
+### Bugfix 🐛:
+- Fix bug, when using lb and st units
+
+### Other changes:
+- Fix version error in 0.4.5
+- Fix f-droid metadata
 
 
 ## [0.4.6] - 2024-01-08
@@ -143,7 +168,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.5.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.6.0...main
+[0.6.0]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/quantumphysique/trale/compare/v0.4.7...v0.5.0
 [0.4.7]: https://github.com/quantumphysique/trale/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.6

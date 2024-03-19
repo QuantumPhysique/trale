@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -25,15 +25,14 @@ class StatsWidgets extends StatefulWidget {
 class _StatsWidgetsState extends State<StatsWidgets> {
   @override
   Widget build(BuildContext context) {
-    final MeasurementDatabase database = MeasurementDatabase();
+    final MeasurementInterpolation ip = MeasurementInterpolation();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.userTargetWeight;
-    final int? timeOfTargetWeight = database.timeOfTargetWeight(
+    final int? timeOfTargetWeight = ip.timeOfTargetWeight(
         userTargetWeight
     )?.inDays;
-    final int nMeasured = database.durationMeasurements;
-    const int nDays = 1;
+    final int nMeasured = ip.measurementDuration.inDays;
 
     Card userTargetWeightCard(double utw) => Card(
       shape: TraleTheme.of(context)!.borderShape,
@@ -66,8 +65,8 @@ class _StatsWidgetsState extends State<StatsWidgets> {
       ),
     );
 
-    Card userWeightLostCard(int nDays) {
-      final double deltaWeight = database.finalSlope * 24 * 3600 * 1000 * 30;
+    Card userWeightLostCard() {
+      final double deltaWeight = ip.finalChangeRate * 30;
       const String label = 'month';
 
       return Card(
@@ -137,7 +136,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                 child: userTargetWeightCard(userTargetWeight)
             ),
             if (nMeasured >= 2) Expanded(
-                child: userWeightLostCard(nDays),
+                child: userWeightLostCard(),
             ),
           ].addGap(
             padding: TraleTheme.of(context)!.padding,

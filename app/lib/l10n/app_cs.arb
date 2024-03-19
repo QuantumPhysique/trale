@@ -25,10 +25,6 @@
   "@about": {
     "description": "Name of about menu section"
   },
-  "english": "Angličtina",
-  "@english": {
-    "description": "English"
-  },
   "language": "Jazyk",
   "@language": {
     "description": "Language menu item."
@@ -100,10 +96,6 @@
   "settings": "Nastavení",
   "@settings": {
     "description": "Name of settings menu"
-  },
-  "german": "Němčina",
-  "@german": {
-    "description": "German"
   },
   "defaultLang": "Podle systému",
   "@defaultLang": {

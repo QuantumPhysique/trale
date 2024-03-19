@@ -1,0 +1,72 @@
+{
+  "stats": "统计",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "单位",
+  "@unit": {},
+  "date": "日期",
+  "@date": {
+    "description": "Date"
+  },
+  "user": "用户资料",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "用户设置",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "危险区域",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "设置",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "faq": "常见问题",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "关于",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "language": "语言",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "theme": "主题",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "darkmode": "暗黑",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "lightmode": "浅色",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "export": "导出全部测量值",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "defaultLang": "系统默认",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "achievements": "成就",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "weight": "重量",
+  "@weight": {
+    "description": "weight"
+  },
+  "systemmode": "系统",
+  "@systemmode": {
+    "description": "System mode menu item."
+  }
+}
