@@ -16,7 +16,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
-## [0.6.0] - 2024-03-19
+## [0.6.1] - 2024-03-21
 ### Added Features and Improvements 🙌:
 - All new and improved interpolation API, the predictions are now more reliable
 - Using the latest flutter 3.19 with upgraded deps
@@ -29,6 +29,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other changes:
 - Disabling interpolation, will now use sigma=2days for extrapolation prediction
+- Removed v0.6.0 due to critical bug when user targe weight was set.
 
 
 ## [0.5.0] - 2024-01-25
@@ -168,8 +169,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.6.0...main
-[0.6.0]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.0
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.6.1...main
+[0.6.0]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.1
 [0.5.0]: https://github.com/quantumphysique/trale/compare/v0.4.7...v0.5.0
 [0.4.7]: https://github.com/quantumphysique/trale/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.6
