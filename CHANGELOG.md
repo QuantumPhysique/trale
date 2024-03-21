@@ -170,7 +170,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 [Unreleased]: https://github.com/quantumphysique/trale/compare/v0.6.1...main
-[0.6.0]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.1
+[0.6.1]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.1
 [0.5.0]: https://github.com/quantumphysique/trale/compare/v0.4.7...v0.5.0
 [0.4.7]: https://github.com/quantumphysique/trale/compare/v0.4.6...v0.4.7
 [0.4.6]: https://github.com/quantumphysique/trale/compare/v0.4.4...v0.4.6
