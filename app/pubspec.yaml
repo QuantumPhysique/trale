@@ -36,7 +36,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.18.1
-  introduction_screen: ^3.1.12
+  introduction_screen: ^3.1.14
   ml_linalg: ^13.12.2
   package_info_plus: ^5.0.1
   path_provider: ^2.1.2
