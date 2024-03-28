@@ -1,0 +1,342 @@
+{
+  "date": "Päivämäärä",
+  "@date": {
+    "description": "Date"
+  },
+  "user": "Käyttäjäprofiili",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "Käyttäjäasetukset",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Vaaravyöhyke",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Asetukset",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "faq": "FAQ",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "Tietoja",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "darkmode": "Tumma",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "systemmode": "Järjestelmä",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "exportSubtitle": "Tämä paljastaa kaikki mittaukset kaikille sovelluksille.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "abort": "Keskeytä",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Tuo varmuuskopio",
+  "@import": {
+    "description": "Import backup."
+  },
+  "amoledSubtitle": "Vaihda taustaväri täysin mustaan tummassa tilassa.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Nollaa sovellus",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryReset": "Palauta tehdasasetuksiin",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "Nollaa kaikki asetukset ja poista kaikki mittaukset.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "importingAbort": "Tuonti keskeytetty.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "Sisällytä kaikki mittaukset nykyiseen tietokantaan. Tätä ei voi kumota!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "save": "Tallenna",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Muokkaa",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "Varmuuskopioi",
+  "@backup": {
+    "description": "backup"
+  },
+  "assets": "resurssit",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "paketit",
+  "@packages": {
+    "description": "packages"
+  },
+  "measurements": "Mittaukset",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "licence": "Lisenssi",
+  "@licence": {
+    "description": "licence"
+  },
+  "openIssue": "Avaa ongelma",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "undertpl": "© {years} by {author} under {licence} licence",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "soft": "Pehmeä",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "Keskisuuri",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "Vahva",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "onBoarding2": "Valitse yksi kuudesta teemasta muokataksesi sovellustasi. Mikä niistä ilmaisee tunteitasi parhaiten?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding2Title": "Tyyli",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Tietosuoja",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "startApp": "Aloita",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Tavoitepaino",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "addUserName": "Millä nimellä kutsumme sinua?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "intro1": "Paina",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "intro3": "Tänään on hyvä päivä aloittaa ensimmäisellä mittauksella!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faq_q1": "Ominaisuus/toiminto X puuttuu. Milloin se tulee käyttöön?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_a2": "Kyllä! Paina vain alla olevaa kuvaketta.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Palaa esittelyyn",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "Mitä sovelluskuvake näyttää?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "achievements": "Saavutukset",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "stats": "Tilastot",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "unit": "Yksiköt",
+  "@unit": {},
+  "weight": "Paino",
+  "@weight": {
+    "description": "weight"
+  },
+  "defaultLang": "Järjestelmäoletus",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "language": "Kieli",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "theme": "Teema",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "lightmode": "Vaalea",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "export": "Vie kaikki mittaukset",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportDialog": "Tämä vie kaikki mittauksesi ulkoiseen tallennustilaan. Kirjoitusoikeudet vaaditaan.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "open": "Avaa",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "importSubtitle": "Tuo mittaukset .txt varmuuskopiotiedostosta.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoled": "Musta",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "factoryResetDialog": "Asetetaanko sovellus alkutilaan? Tämä poistaa kaikki asetukset ja lisätyt mittaukset. Tätä ei voi kumota.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "delete": "Poista",
+  "@delete": {
+    "description": "delete"
+  },
+  "home": "Koti",
+  "@home": {
+    "description": "home screen"
+  },
+  "yes": "Kyllä",
+  "@yes": {
+    "description": "yes"
+  },
+  "time": "Aika",
+  "@time": {
+    "description": "time"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "loading": "Ladataan",
+  "@loading": {
+    "description": "loading"
+  },
+  "version": "Versio",
+  "@version": {
+    "description": "version"
+  },
+  "tpl": "Kolmannen osapuolen lisenssit",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "sourcecode": "Lähdekoodi",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "addWeight": "Syötä painosi",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "interpolaatio",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "none": "Ei mitään",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "welcome": "Tervetuloa",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding1": "Tämä yksinkertainen Material-You-design-sovellus auttaa sinua saavuttamaan unelmapainosi! Halusitpa sitten lihoa, laihtua tai vain säilyttää painosi: Luotettavat painoennusteet ja monipuoliset tilastot auttavat sinua pysymään raiteilla.\n\n Liity yhteisöömme tänään seurataksesi itseäsi. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "onBoarding3": "Kiitos, että kokeilet sovellustamme. 🙂\n\n Jos pidät sovelluksesta, olisimme erittäin iloisia palautteestasi, lahjoituksestasi Githubista tai kahvista. Vastineeksi säästämme sinut ärsyttäviltä ja tietosuojaasi mainoksilta.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "skip": "Ohita",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "targetWeightMotivation": "Tavoitepainon asettaminen on erittäin tärkeää ja askel oikeaan suuntaan. Tavoitteen pitäminen mielessä motivoi sinua tekemään enemmän sen saavuttamiseksi.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "targetWeightShort": "Tavoite",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "addTargetWeight": "Lisää tavoitepaino",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro2": "aloittaaksesi",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "faqtext": "Täältä löydät vastaukset joihinkin kysytyimpiin kysymyksiin. Jos sinulla on muita kysymyksiä, voit avata ongelman Githubissa.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_a1": "Sovellusta ylläpidetään vapaa-ajallamme ja pyrimme pitämään sovelluksen tyylikkäänä ja yksinkertaisena. Uskomme, että liian monien ominaisuuksien lisääminen tekee sovelluksesta vähemmän käyttökelpoisen. Jos uskot, että meiltä puuttuu jokin keskeinen ominaisuus, voit avata ongelman tai liittämispyynnön.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q2": "Voinko nähdä uudelleen esittelyn?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a3": "Ulvovaa sutta istumassa, sen häntää peittää osittain kirjain \"t\" ja kirjain \"r\".",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "target_weight_warning": "Anoreksia on vakava sairaus, josta on tulossa yhä enemmän koko yhteiskunnan ongelma, osittain sosiaalisen median monien negatiivisten esimerkkien vuoksi. Osana panostamme sen ennaltaehkäisyyn, alle 50 kg / 110 lb / 7,9 st tavoitepaino ei ole mahdollinen.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  }
+}
