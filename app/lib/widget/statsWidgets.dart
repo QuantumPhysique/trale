@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -26,10 +27,11 @@ class _StatsWidgetsState extends State<StatsWidgets> {
   @override
   Widget build(BuildContext context) {
     final MeasurementInterpolation ip = MeasurementInterpolation();
+    final MeasurementStats stats = MeasurementStats();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.userTargetWeight;
-    final int? timeOfTargetWeight = ip.timeOfTargetWeight(
+    final int? timeOfTargetWeight = stats.timeOfTargetWeight(
         userTargetWeight
     )?.inDays;
     final int nMeasured = ip.measurementDuration.inDays;
@@ -66,7 +68,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
 
     Card userWeightLostCard() {
-      final double deltaWeight = ip.finalChangeRate * 30;
+      final double deltaWeight = ip.finalSlope * 30;
       const String label = 'month';
 
       return Card(
