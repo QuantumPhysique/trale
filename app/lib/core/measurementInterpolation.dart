@@ -65,6 +65,9 @@ class MeasurementInterpolation {
   /// length of vectors
   int get N => times.length;
 
+  /// length of displayed vectors
+  int get NDisplay => timesDisplay.length;
+
   Vector? _times;
   /// get vector containing the times given in [ms since epoch]
   Vector get times => _times ??= _createTimes();
@@ -421,7 +424,7 @@ class MeasurementInterpolation {
   /// final change Rate
   double get finalChangeRate => _linearChangeRate(
     N - 1 - _offsetInDays,
-    N - 1 - _offsetInDaysShown,
+    N - 1 - _offsetInDays + _offsetInDaysShown,
     weightsGaussianExtrapol,
   );
 
@@ -431,7 +434,7 @@ class MeasurementInterpolation {
       return null;
     }
 
-    final int idxLast = idxsMeasurements.last;
+    final int idxLast = NDisplay - 1 - _offsetInDaysShown;
     final double slope = finalChangeRate;
 
     // Crossing is in the past
