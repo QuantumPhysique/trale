@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Bugfix 🐛:
+- Fixed a bug that caused a small icon to be displayed in the F-Droid store (German).
 
 
 ## [0.6.1] - 2024-03-21

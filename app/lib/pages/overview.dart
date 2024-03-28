@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
@@ -43,35 +41,6 @@ class _OverviewScreen extends State<OverviewScreen> {
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
-
-    final SizedBox lineChart = SizedBox(
-      height: MediaQuery.of(context).size.height / 3,
-      width: MediaQuery.of(context).size.width,
-      child: Card(
-        shape: TraleTheme.of(context)!.borderShape,
-        color: Theme.of(context).colorScheme.surface,
-        margin: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
-        child: CustomLineChart(loadedFirst: loadedFirst)
-      ),
-    );
-
-    final Widget dummyChart = emptyChart(
-      context,
-      <InlineSpan>[
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro1,
-        ),
-        const WidgetSpan(
-          child: Icon(CustomIcons.add),
-          alignment: PlaceholderAlignment.middle,
-        ),
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro2,
-        ),
-      ],
-    );
 
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
@@ -119,7 +88,7 @@ class _OverviewScreen extends State<OverviewScreen> {
 
       return measurements.isNotEmpty
           ? overviewScreen(context, snapshot)
-          : dummyChart;
+          : defaultEmptyChart(context: context, overviewScreen: true);
     }
 
     return StreamBuilder<List<Measurement>>(
