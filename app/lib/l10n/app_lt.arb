@@ -1,0 +1,342 @@
+{
+  "stats": "Statistika",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Matavimo vienetai",
+  "@unit": {},
+  "weight": "Svoris",
+  "@weight": {
+    "description": "weight"
+  },
+  "user": "Vartotojo profilis",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "Vartotojo nustatymai",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Rizikos sritis",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Nustatymai",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "about": "Apie",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "defaultLang": "Sistemos numatytoji",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "language": "Kalba",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "theme": "Motyvas",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "darkmode": "Tamsus",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "lightmode": "Šviesus",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "export": "Eksportuoti visus matavimus",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportSubtitle": "Taip visi matavimai bus pasiekiami visoms programėlėms.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "open": "Atverti",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Nutraukti",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Importuoti atsarginę kopiją",
+  "@import": {
+    "description": "Import backup."
+  },
+  "importSubtitle": "Importuoti matavimus iš .txt failo atsarginės kopijos.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoledSubtitle": "Pakeiskite fono spalvą į tikrą juodą tamsiajame režime.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Nustatyti programėlę iš naujo",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "importingAbort": "Importavimas nutrauktas.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "Įtraukti visus matavimus į dabartinę duomenų bazę? To bus negalima atšaukti!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "ok": "Gerai",
+  "@ok": {
+    "description": "ok"
+  },
+  "save": "Išsaugoti",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Redaguoti",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "Atsarginė kopija",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Laikas",
+  "@time": {
+    "description": "time"
+  },
+  "assets": "aktyvai",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "paketai",
+  "@packages": {
+    "description": "packages"
+  },
+  "loading": "Kraunama",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Matavimai",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Versija",
+  "@version": {
+    "description": "version"
+  },
+  "tpl": "Trečiųjų šalių licencijos",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "sourcecode": "Išeitinis kodas",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "openIssue": "Atidaryti klausimą ar problemą",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "addWeight": "Įveskite savo svorį",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "interpoliacija",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "none": "Jokios",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "soft": "Minkšta",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "Vidutinė",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "Stipri",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "welcome": "Sveiki atvykę",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding2": "Pasirinkite vieną iš šešių spalvų motyvų ir suasmeninkite savo programėlę. Kuris iš jų geriausiai išreiškia jūsų jausmus?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding3": "Dėkojame, kad išbandėte mūsų programėlę. 🙂\n\nJei programėlė jums patinka, labai džiaugsimės jūsų atsiliepimais, indėliu į \"Github\" arba kava. Savo ruožtu, mes atsisakome jus erzinančių ir privatumą pažeidžiančių reklamų.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "onBoarding2Title": "Stilius",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Privatumas",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "skip": "Praleisti",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "startApp": "Pradėti",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Siektinas svoris",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightShort": "Tikslas",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "addUserName": "Kaip jus vadinti?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Pridėti siektiną svorį",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro2": ", kad pradėtumėte",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro1": "Paspauskite",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "intro3": "Šiandien gera diena atlikti pirmąjį matavimą!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faqtext": "Čia rasite atsakymus į kai kuriuos dažniausiai užduodamus klausimus. Jei turite kitų klausimų, nedvejodami atidarykite problemą \"github\" saugykloje.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_q1": "Trūksta funkcijos X. Kada ji bus įdiegta?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_q3": "Kas ant programos piktogramos?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "achievements": "Pasiekimai",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "date": "Data",
+  "@date": {
+    "description": "Date"
+  },
+  "faq": "DUK",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "systemmode": "Sistema",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "exportDialog": "Taip visi matavimai bus eksportuoti į išorinę saugyklą. Reikalingos įrašymo teisės.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "amoled": "Tikrą juodą",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "factoryReset": "Gamyklinis atkūrimas",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "Iš naujo atkurti visus nustatymus ir ištrinti visus matavimus.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "factoryResetDialog": "Iš naujo atkurti numatytuosius programos nustatymus? Tai ištrins visus nustatymus ir pridėtus matavimus. To bus neįmanoma atkurti.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "delete": "Ištrinti",
+  "@delete": {
+    "description": "delete"
+  },
+  "home": "Pradžia",
+  "@home": {
+    "description": "home screen"
+  },
+  "yes": "Taip",
+  "@yes": {
+    "description": "yes"
+  },
+  "licence": "Licencija",
+  "@licence": {
+    "description": "licence"
+  },
+  "undertpl": "© {years} autorius {author} pagal {licence} licenciją",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "onBoarding1": "Ši paprasta \"Material-You-design\" programėlė padės jums pasiekti svajonių svorį! Nesvarbu, ar norite priaugti, numesti ar tiesiog išlaikyti svorį. Patikimos svorio prognozės ir įvairiapusė statistika padės jums nenukrypti nuo tikslo.\n\nPrisijunkite prie mūsų bendruomenės ir sekite save.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "targetWeightMotivation": "Nustatyti siektiną svorį yra labai svarbu ir tai yra žingsnis teisinga linkme. Tikslo turėjimas motyvuoja jus labiau stengtis jį pasiekti.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "faq_a1": "Programėlę prižiūrime laisvalaikiu ir stengiamės, kad ji būtų paprasta ir elegantiška. Manome, kad per daug funkcijų programėlę padaro mažiau patogią naudoti. Jei manote, kad mums trūksta svarbios funkcijos, nedvejodami atidarykite problemą (issue) arba sujungimo užklausą (merge request).",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q2": "Ar galiu dar kartą pamatyti įvadinį ekraną?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Tikrai taip! Tiesiog paspauskite žemiau esančią piktogramą.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Grįžti į įvadinį ekraną",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_a3": "Sėdinti vilką ir raidę \"r\", o jo uodegą iš dalies slepia raidę \"t\".",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "target_weight_warning": "Anoreksija yra rimta liga, kuri vis dažniau tampa visos visuomenės problema, iš dalies dėl daugybės neigiamų pavyzdžių socialinėje žiniasklaidoje. Prisidėdami prie prevencijos, apribojome galimybę siekti mažesnio nei 50 kg / 110 svarų / 7,9 st. svorio.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  }
+}

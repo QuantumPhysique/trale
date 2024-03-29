@@ -5,12 +5,14 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:ml_linalg/linalg.dart';
+import 'package:provider/provider.dart';
 
-import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 
 
@@ -37,13 +39,29 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    final MeasurementDatabase db = MeasurementDatabase();
-    final List<Measurement> data = widget.loadedFirst
-      ? db.averageMeasurements(db.measurements)
-      : db.measurements;
-    final List<Measurement> dataInterpol = widget.loadedFirst
-      ? db.averageMeasurements(db.gaussianExtrapolatedMeasurements)
-      : db.gaussianExtrapolatedMeasurements;
+    final MeasurementInterpolation ip = MeasurementInterpolation();
+
+    // load times
+    final Vector msTimes = ip.times_measured;
+    final Vector interpolTimes = ip.timesDisplay;
+
+    // scale to unit
+    final double unitScaling = Provider.of<TraleNotifier>(
+      context, listen: false
+    ).unit.scaling;
+
+    final Vector ms = widget.loadedFirst
+      ? Vector.filled(
+          ip.weights_measured.length,
+          ip.weights_measured.mean(),
+        )
+      : ip.weights_measured;
+    final Vector interpol = widget.loadedFirst
+        ? Vector.filled(
+          ip.weightsDisplay.length,
+           ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
+        )
+        : ip.weightsDisplay;
 
     final TextStyle labelTextStyle =
       Theme.of(context).textTheme.bodySmall!.apply(
@@ -57,19 +75,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
     );
     final double margin = TraleTheme.of(context)!.padding;
 
-    FlSpot measurementToFlSpot (Measurement measurement) {
-      return FlSpot(
-        measurement.date.millisecondsSinceEpoch.toDouble(),
-        measurement.inUnit(context),
-      );
+    List<FlSpot> vectorsToFlSpot (Vector times, Vector weights) {
+      return <FlSpot>[
+        for (int idx = 0; idx < times.length; idx++)
+          FlSpot(times[idx], weights[idx] / unitScaling)
+      ];
     }
 
     final TraleNotifier notifier = TraleNotifier();
     final double? targetWeight = notifier.userTargetWeight;
 
-    final List<FlSpot> measurements = data.map(measurementToFlSpot).toList();
+    final List<FlSpot> measurements =
+      vectorsToFlSpot(msTimes, ms);
     final List<FlSpot> measurementsInterpol =
-      dataInterpol.map(measurementToFlSpot).toList();
+      vectorsToFlSpot(interpolTimes, interpol);
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < minX
@@ -304,8 +323,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
               }
             } else {
               if (maxX - minX < 1000 * 3600 * 24 * 7 *  12) {
-                if (minX - (maxX - minX) * scale
-                    > data.first.date.millisecondsSinceEpoch.toDouble()) {
+                if (minX - (maxX - minX) * scale > msTimes.first) {
                   minX -= (maxX - minX) * scale;
                 }
                 if (maxX + (maxX - minX) * scale
@@ -321,12 +339,11 @@ class _CustomLineChartState extends State<CustomLineChart> {
             final double primDelta =
                 (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
 
-            final double allowedMaxX = (
-                dataInterpol.last.date.compareTo(DateTime.now()) > 0
-                    ? dataInterpol.last.date
-                    : DateTime.now()
-            ).millisecondsSinceEpoch.toDouble();
-            final double allowedMinX = dataInterpol.first.dateInMs.toDouble();
+            final double allowedMaxX =
+              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+                ? interpolTimes.last
+                : DateTime.now().millisecondsSinceEpoch.toDouble();
+            final double allowedMinX = interpolTimes.first;
             if (
               maxX - primDelta <= allowedMaxX &&
               minX - primDelta >= allowedMinX

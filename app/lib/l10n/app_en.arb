@@ -46,30 +46,6 @@
   "@about": {
     "description": "Name of about menu section"
   },
-  "german": "German",
-  "@german": {
-    "description": "German"
-  },
-  "english": "English",
-  "@english": {
-    "description": "English"
-  },
-  "czech": "Czech",
-  "@czech": {
-    "description": "Czech"
-  },
-  "korean": "Korean",
-  "@korean": {
-    "description": "Korean"
-  },
-  "polish": "Polish",
-  "@polish": {
-    "description": "Polish"
-  },
-  "norwegian": "Norwegian",
-  "@norwegian": {
-    "description": "Norwegian"
-  },
   "defaultLang": "System default",
   "@defaultLang": {
     "description": "System default language."
@@ -336,7 +312,7 @@
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
+  "faq_a1": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding too many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request.",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
@@ -344,7 +320,7 @@
   "@faq_q2": {
     "description": "Can I see once again the intro/onboarding screen?"
   },
-  "faq_a2": "Yes for sure! Simple press the icon below.",
+  "faq_a2": "Yes for sure! Just press the icon below.",
   "@faq_a2": {
     "description": "Yes for sure! Simple press the icon below."
   },
@@ -356,7 +332,7 @@
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
-  "faq_a3": "A wolf sitting, and the letter 'r' and its tail is partially hidden by the letter 't'.",
+  "faq_a3": "A howling wolf sitting, its tail partially hidden by the letter 't', and the letter 'r'.",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   },

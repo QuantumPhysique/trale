@@ -17,14 +17,6 @@
   "@user": {
     "description": "Name of user menu"
   },
-  "german": "독일어",
-  "@german": {
-    "description": "German"
-  },
-  "english": "영어",
-  "@english": {
-    "description": "English"
-  },
   "defaultLang": "시스템 언어",
   "@defaultLang": {
     "description": "System default language."

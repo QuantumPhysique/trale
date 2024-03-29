@@ -13,14 +13,6 @@
   "@date": {
     "description": "Date"
   },
-  "german": "Tysk",
-  "@german": {
-    "description": "German"
-  },
-  "english": "Engelsk",
-  "@english": {
-    "description": "English"
-  },
   "defaultLang": "Systemforvalg",
   "@defaultLang": {
     "description": "System default language."

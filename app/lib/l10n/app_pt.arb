@@ -1,0 +1,16 @@
+{
+  "achievements": "Conquistas",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "stats": "Métricas",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Unidades",
+  "@unit": {},
+  "about": "Sobre",
+  "@about": {
+    "description": "Name of about menu section"
+  }
+}
