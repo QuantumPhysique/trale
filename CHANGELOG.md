@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Other changes:
+- Add backup reminder, see settings for more options
 
 
 ## [0.6.1] - 2024-03-21

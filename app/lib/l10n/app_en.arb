@@ -4,6 +4,22 @@
   "@achievements": {
     "description": "achievements"
   },
+  "never": "never",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "weekly",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "biweekly",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "monthly",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
   "stats": "Statistics",
   "@stats": {
     "description": "Header for statistics section"
