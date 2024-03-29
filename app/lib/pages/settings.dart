@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:trale/core/backupInterval.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
@@ -484,6 +485,50 @@ class UnitsListTile extends StatelessWidget {
   }
 }
 
+/// ListTile for changing units settings
+class BackupIntervalListTile extends StatelessWidget {
+  /// constructor
+  const BackupIntervalListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.backupInterval,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<BackupInterval>(
+        initialSelection: Provider.of<TraleNotifier>(context).backupInterval,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.backupInterval,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<BackupInterval>>[
+          for (final BackupInterval interval in BackupInterval.values)
+            DropdownMenuEntry<BackupInterval>(
+              value: interval,
+              label: interval.name,
+            )
+        ],
+        onSelected: (BackupInterval? newInterval) async {
+          if (newInterval != null) {
+            Provider.of<TraleNotifier>(
+                context, listen: false
+            ).backupInterval = newInterval;
+          }
+        },
+      ),
+    );
+  }
+}
+
+
 
 /// ListTile for changing dark mode settings
 class DarkModeListTile extends StatelessWidget {
@@ -751,6 +796,7 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
+          const BackupIntervalListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),

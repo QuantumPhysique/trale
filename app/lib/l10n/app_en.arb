@@ -20,6 +20,10 @@
   "@monthly": {
     "description": "Frequency of backup interval"
   },
+  "backupInterval": "Backups",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
   "stats": "Statistics",
   "@stats": {
     "description": "Header for statistics section"
