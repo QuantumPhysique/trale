@@ -57,7 +57,7 @@ dev_dependencies:
   # flutter_launcher_icons: ^0.10.0
   flutter_launcher_icons:
     git: https://github.com/nvi9/flutter_launcher_icons.git
-  flutter_lints: ^3.0.1
+  flutter_lints: ^3.0.2
   hive_generator: ^2.0.1
   translations_cleaner: ^0.0.5
 
