@@ -56,6 +56,12 @@ class _WeightListTileState extends State<WeightListTile>
   }
 
   @override
+  void dispose() {
+    animationController.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bool reverse = widget.activeKey == widget.measurement.key;
 
