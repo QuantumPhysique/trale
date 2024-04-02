@@ -1,0 +1,1 @@
+- Behebt einen Fehler, der das Öffnen der Anwendung verhindert

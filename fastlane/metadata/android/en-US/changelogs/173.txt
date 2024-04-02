@@ -1,0 +1,1 @@
+- Fixes a bug that prevents the opening of the app
