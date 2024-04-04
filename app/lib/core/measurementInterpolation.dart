@@ -316,10 +316,11 @@ class MeasurementInterpolation {
           times[idx]
       ]),
     );
-
     for (int idx=0; idx < _offsetInDays; idx++) {
       weightsList[idx] = initialExtrapolation[idx];
-      weightsList[lastIdx + 1 + idx] = finalExtrapolation[idx];
+      if (idx < _offsetInDays - 1){
+        weightsList[lastIdx + 1 + idx] = finalExtrapolation[idx];
+      }
     }
 
     return Vector.fromList(weightsList, dtype: dtype);
@@ -456,7 +457,7 @@ class MeasurementInterpolation {
   static const int _offsetInDaysShown = 7;
 
   /// offset of day in interpolation shown
-  static const int _dailyOffsetInHours = 8;
+  static const int _dailyOffsetInHours = 0;
 
   /// 24h given in [ms]
   static const int _dayInMs = 24 * 3600 * 1000;
