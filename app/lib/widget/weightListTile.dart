@@ -122,6 +122,7 @@ class _WeightListTileState extends State<WeightListTile>
         context: context,
         weight: widget.measurement.measurement.weight,
         date: widget.measurement.measurement.date,
+        editMode: true,
       );
       if (changed) {
         database.deleteMeasurement(widget.measurement);
