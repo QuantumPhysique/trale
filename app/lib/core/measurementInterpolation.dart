@@ -80,9 +80,9 @@ class MeasurementInterpolation {
     }
 
     final int dateFrom = db.sortedMeasurements.last.measurement.dayInMs
-      - _dayInMs * _offsetInDays + _dailyOffsetInHours;
+      - _dayInMs * _offsetInDays;
     final int dateTo = db.sortedMeasurements.first.measurement.dayInMs
-      + _dayInMs * _offsetInDays + _dailyOffsetInHours;
+      + _dayInMs * _offsetInDays;
 
     // set isExtrapolated
     _isExtrapolated = Vector.fromList(<int>[
@@ -283,7 +283,7 @@ class MeasurementInterpolation {
           ? _offsetInDays
           : _offsetInDays - _offsetInDaysShown,
           N - _offsetInDays + _offsetInDaysShown,
-      );
+      ) + _dailyOffsetInHours / 24 * _dayInMs;
 
   /// add linear interpolation to measurements
   Vector _linearExtrapolation(Vector weights) {
@@ -457,7 +457,7 @@ class MeasurementInterpolation {
   static const int _offsetInDaysShown = 7;
 
   /// offset of day in interpolation shown
-  static const int _dailyOffsetInHours = 0;
+  static const int _dailyOffsetInHours = 12;
 
   /// 24h given in [ms]
   static const int _dayInMs = 24 * 3600 * 1000;
