@@ -18,7 +18,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.6.2] - 2024-04-02
 ### Bugfix 🐛:
-- Fix bug #70
+- Fix bug that prevents app to start, #70
 
 ## [0.6.1] - 2024-03-21
 ### Added Features and Improvements 🙌:
