@@ -41,7 +41,7 @@ dependencies:
   package_info_plus: ^5.0.1
   path_provider: ^2.1.2
   provider: ^6.1.2
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.3
   share_plus: ^7.2.2
   url_launcher: ^6.2.5
 
