@@ -1,1 +1,342 @@
-{}
+{
+  "unit": "Unités",
+  "@unit": {},
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "achievements": "Succès",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "user": "Profil utilisateur",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "dangerzone": "Zone dangereuse",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Paramètres",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "faq": "FAQ",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "À propos",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "defaultLang": "Par défaut (système)",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "language": "Langue",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "darkmode": "Sombre",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "lightmode": "Lumineux",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "systemmode": "Système",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "userSettings": "Paramètres utilisateur",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "amoledSubtitle": "En mode sombre, utiliser du noir pur en tant que couleur d'arrière-plan.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "export": "Exporter l'intégralité des mesures",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "open": "Ouvrir",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Annuler",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Importer une sauvegarde",
+  "@import": {
+    "description": "Import backup."
+  },
+  "importSubtitle": "Importer des mesures depuis une sauvegarde au format .txt.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoled": "Noir",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "reset": "Réinitialiser l'application",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "Réinitialiser tous les paramètres et supprimer toutes les mesures.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "delete": "Supprimer",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "Importation annulée.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "Ajouter toutes les mesures dans la base de données actuelle. Cette opération est irréversible !",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "home": "Accueil",
+  "@home": {
+    "description": "home screen"
+  },
+  "loading": "Chargement",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Mesures",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "version"
+  },
+  "tpl": "Licences tierces",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "exportSubtitle": "Partager toutes les mesures vers n'importe quelle application.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "assets": "ressources",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "packages",
+  "@packages": {
+    "description": "packages"
+  },
+  "factoryReset": "Réinitialisation aux paramètres d'usine",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "licence": "Licence",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "Code source",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "openIssue": "Ouvrir une issue",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "none": "Aucune",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "soft": "Légère",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "Moyenne",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "Forte",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "welcome": "Bienvenue",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding2": "Choisissez l'un des six thèmes pour personnaliser l'application. Lequel reflète le mieux votre état d'esprit ?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding2Title": "Style",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Vie privée",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "skip": "Passer",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "startApp": "Démarrer",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Objectif de poids",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightMotivation": "Définir un objectif de poids est très important, et c'est un premier pas dans la bonne direction. Avoir un objectif clairement en tête vous motive à faire plus pour l'atteindre.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "addUserName": "Comment devons-nous vous appeler ?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Ajoutez votre objectif de poids",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro1": "Appuyez",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "intro2": "pour commencer",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro3": "C'est une belle journée pour ajouter votre première mesure de poids !",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "onBoarding1": "Cette application épurée conçue en design Material-You vous aide à atteindre votre poids de rêve ! Que vous souhaitiez prendre du poids, en perdre, ou simplement conserver votre poids actuel : des prévisions de poids fiables et des statistiques élaborées vous aident à tenir vos objectifs.\n\n Rejoignez dès aujourd'hui aujourd'hui notre communauté afin de vous tracer vous-même.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "faq_q1": "Il manque lafonctionnalité X. Quand avez-vous prévu de l'implémenter ?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_a2": "Bien sûr ! Appuyez simplement sur l'icône ci-dessous.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_q3": "Que représente l'icône de l'application ?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "stats": "Statistiques",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "exportDialog": "Ceci exporte toutes les mesures vers le stockage externe. Nécessite les permissions en écriture.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Date"
+  },
+  "weight": "Poids",
+  "@weight": {
+    "description": "weight"
+  },
+  "theme": "Thème",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "factoryResetDialog": "Réinitialiser complètement l'application ? Cela va supprimer tous vos réglages ainsi que toutes les mesures que vous auriez pu ajouter. Cette opération est irréversible.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "yes": "Oui",
+  "@yes": {
+    "description": "yes"
+  },
+  "save": "Enregistrer",
+  "@save": {
+    "description": "save"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "edit": "Modifier",
+  "@edit": {
+    "description": "edit"
+  },
+  "time": "Horaire",
+  "@time": {
+    "description": "time"
+  },
+  "backup": "Sauvegarde",
+  "@backup": {
+    "description": "backup"
+  },
+  "undertpl": "© {years} par {author} sous licence {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "addWeight": "Entrez votre poids",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "interpolation",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "onBoarding3": "Merci à vous d'essayer notre application. 🙂\n\nSi vous l'appréciez, nous serions ravis d'avoir vos retours, une contribution sur GitHub ou un café. En retour, on vous épargne les publicités embêtantes et intrusives pour votre vie privée.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "targetWeightShort": "Objectif",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "faqtext": "Vous trouverez ici des réponses aux questions les plus fréquemment posées. Si vous n'y trouvez pas la réponse souhaitée, n'hésitez pas à ouvrir une issue dans le projet GitHub.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_q2": "Puis-je voir à nouveau l'écran de bienvenue/présentation ?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2_widget": "Revenir à l'écran de présentation",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_a3": "Un loup assis qui hurle, sa queue étant partiellement cachée par les lettres «t» et «r».",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "target_weight_warning": "L'anorexie est une maladie grave qui devient un problème de société de plus en plus grave, en partie à cause des mauvais exemples présents sur les réseaux sociaux. Afin de faire notre part de prévention sur ce sujet, il est impossible de définir un objectif de poids inférieur à 50kg / 110 lb / 7.9 st.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "faq_a1": "L'application est développée pendant notre temps libre, et nous essayons de la garder simple et efficace. Ajouter trop de fonctionnalités la rendrait selon nous moins pratique. Si vous pensez néanmoins que nous oublions une fonctionnalité importante, n'hésitez pas à ouvrir une issue ou à nous soumettre une merge request.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  }
+}
