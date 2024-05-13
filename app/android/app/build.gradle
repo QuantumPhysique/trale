@@ -87,7 +87,7 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.23"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.24"
 }
 
 // Map for the version code that gives each ABI a value.
