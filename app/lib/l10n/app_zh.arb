@@ -17,7 +17,7 @@
   "@userSettings": {
     "description": "Settings to customize user experience"
   },
-  "dangerzone": "危险区域",
+  "dangerzone": "风险选项",
   "@dangerzone": {
     "description": "Settings which cannot be undone."
   },
@@ -45,7 +45,7 @@
   "@darkmode": {
     "description": "Dark mode menu item."
   },
-  "lightmode": "浅色",
+  "lightmode": "亮色模式",
   "@lightmode": {
     "description": "Light mode menu item."
   },
@@ -65,7 +65,7 @@
   "@weight": {
     "description": "weight"
   },
-  "systemmode": "系统",
+  "systemmode": "跟随系统",
   "@systemmode": {
     "description": "System mode menu item."
   },
@@ -127,7 +127,7 @@
   "@openIssue": {
     "description": "open issue"
   },
-  "medium": "中等",
+  "medium": "中",
   "@medium": {
     "description": "medium interpolation"
   },
@@ -187,11 +187,11 @@
   "@onBoarding2Title": {
     "description": "Title of 2nd onBoarding screen."
   },
-  "soft": "轻度",
+  "soft": "弱",
   "@soft": {
     "description": "soft interpolation"
   },
-  "strong": "重度",
+  "strong": "强",
   "@strong": {
     "description": "strong interpolation"
   },
@@ -311,7 +311,7 @@
   "@addTargetWeight": {
     "description": "Press to add a target weight."
   },
-  "intro1": "压",
+  "intro1": "按下",
   "@intro1": {
     "description": "Start of 'press + to get started'"
   },
