@@ -41,7 +41,7 @@
   "@theme": {
     "description": "Theme menu item."
   },
-  "darkmode": "暗黑",
+  "darkmode": "暗色模式",
   "@darkmode": {
     "description": "Dark mode menu item."
   },
@@ -68,5 +68,275 @@
   "systemmode": "系统",
   "@systemmode": {
     "description": "System mode menu item."
+  },
+  "licence": "许可证",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "源码",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "undertpl": "© {years} 年由 {author} 根据 {licence} 许可",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "addWeight": "输入您的体重",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "插值",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "onBoarding2": "从六个主题中选择一个，个性化您的应用程序。哪个颜色最能表达您的感受？",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding3": "感谢您试用我们的应用程序。🙂\n\n 如果您喜欢我们的应用程序，我们将非常高兴收到您的反馈，欢迎在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽恼人的、涉及隐私的广告。",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "intro3": "今天是个好日子，开始您的第一次测量吧！",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faqtext": "在这里，您可以找到一些最常见问题的答案。如果您有任何其他问题，请随时在 github 存储库中提交讨论。",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_q1": "软件缺少某特征/功能。它何时能被实现？",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "openIssue": "提出讨论",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "medium": "中等",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "intro2": "开始",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "none": "无",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "exportSubtitle": "这将向所有应用披露全部测量数据",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "exportDialog": "该操作将导出所有测量数据至外置存储空间，需要写入权限",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "factoryResetDialog": "要将应用重置吗？这将清除所有的设定，以及已添加的测量数据。注意，该操作无法撤销！",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "measurements": "测量数据",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "tpl": "第三方许可证",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "onBoarding1": "这款简约 \"Material-You \"设计应用程序将助力您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与灵活的统计数据有助您循序渐进。\n\n 现在就加入我们的社区，追踪自己的体重。\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "onBoarding3Title": "隐私",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "targetWeightShort": "目标",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "faq_a1": "我们利用业余时间维护该应用程序，并努力使其保持流畅和简洁。我们认为，添加过多的功能会降低应用程序的可用性。如果您认为我们缺少某个关键功能，请随时提出问题或合并请求。",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "target_weight_warning": "厌食症是一种恶疾，正日益成为整个社会的问题，部分原因是社交媒体上出现了过多负面事例。作为我们对预防厌食症的努力之一，应用不允许目标体重低于 50 kg/110 lb/7.9 st。",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "welcome": "欢迎",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding2Title": "风格",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "soft": "轻度",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "strong": "重度",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "abort": "中止",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "导入备份",
+  "@import": {
+    "description": "Import backup."
+  },
+  "importSubtitle": "从 .txt 备份文件中导入测量数据",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoledSubtitle": "暗色主题使用纯黑色背景",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "factoryReset": "恢复出厂设置",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "factoryResetSubtitle": "重置所有选项并清除全部测量数据",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "delete": "删除",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "导入中止",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "导入所有测量值至当前数据库。此操作无法撤销！",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "open": "打开",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "amoled": "纯黑",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "reset": "重置应用",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "home": "主页",
+  "@home": {
+    "description": "home screen"
+  },
+  "save": "保存",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "编辑",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "备份",
+  "@backup": {
+    "description": "backup"
+  },
+  "loading": "加载中...",
+  "@loading": {
+    "description": "loading"
+  },
+  "yes": "是",
+  "@yes": {
+    "description": "yes"
+  },
+  "ok": "好",
+  "@ok": {
+    "description": "ok"
+  },
+  "time": "时间",
+  "@time": {
+    "description": "time"
+  },
+  "assets": "资产",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "库",
+  "@packages": {
+    "description": "packages"
+  },
+  "skip": "跳过",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "startApp": "开始",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "目标体重",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightMotivation": "设定目标体重非常重要，是朝着正确方向迈出的一步。有了目标，就会激励自己为实现目标做出更多努力。",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "addUserName": "我们该如何称呼您？",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "填写目标体重",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro1": "压",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "version": "版本号",
+  "@version": {
+    "description": "version"
+  },
+  "faq_q2": "我能再看一遍应用介绍/起始页吗？",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "当然可以！只需点击下面这个按钮。",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "返回起始页",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "应用程序图标显示的是什么？",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "faq_a3": "一只坐着嚎叫的狼，它的尾巴被字母 \"t \"和字母 \"r \"遮住了一部分。",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   }
 }
