@@ -72,7 +72,12 @@ class Preferences {
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
   /// default backup interval
-  final BackupInterval defaultBackupInterval = BackupInterval.weekly;
+  final BackupInterval defaultBackupInterval = BackupInterval.monthly;
+
+  /// latest backup date
+  final DateTime defaultLatestBackupDate = DateTime.fromMillisecondsSinceEpoch(
+    0,
+  );
 
   /// getter and setter for all preferences
   /// set user name
@@ -157,10 +162,20 @@ class Preferences {
   BackupInterval get backupInterval =>
       prefs.getString('backupInterval')!.toBackupInterval()!;
 
-  /// set interpolation strength mode
+  /// set backup frequency
   set backupInterval(BackupInterval interval) =>
       prefs.setString(
         'backupInterval', interval.name,
+      );
+
+  /// get latest backup date
+  DateTime get latestBackupDate =>
+      DateTime.parse(prefs.getString('latestBackupDate')!);
+
+  /// set latest backup date
+  set latestBackupDate(DateTime date) =>
+      prefs.setString(
+        'latestBackupDate', date.toString(),
       );
 
   /// get zoom level
@@ -210,6 +225,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('backupInterval')) {
       backupInterval = defaultBackupInterval;
+    }
+    if (override || !prefs.containsKey('latestBackupDate')) {
+      latestBackupDate = defaultLatestBackupDate;
     }
   }
 

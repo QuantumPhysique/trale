@@ -72,6 +72,25 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// get latest backup date
+  DateTime? get latestBackupDate {
+    if (prefs.defaultLatestBackupDate.sameDay(prefs.latestBackupDate)) {
+      return null;
+    }
+    return prefs.latestBackupDate;
+  }
+
+  /// set latest backup date
+  set latestBackupDate(DateTime? newDate) {
+    if (latestBackupDate != newDate) {
+      if (newDate == null) {
+        prefs.latestBackupDate = prefs.defaultLatestBackupDate;
+      } else {
+        prefs.latestBackupDate = newDate;
+      }
+    }
+  }
+
   /// getter
   Language get language => prefs.language;
   /// setter
