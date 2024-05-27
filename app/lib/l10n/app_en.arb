@@ -20,6 +20,10 @@
   "@monthly": {
     "description": "Frequency of backup interval"
   },
+  "quarterly": "quarterly",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
   "backupInterval": "Backups",
   "@backupInterval": {
     "description": "Frequency of backup interval"

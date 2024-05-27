@@ -12,6 +12,8 @@ enum BackupInterval {
   biweekly,
   /// monthly
   monthly,
+  /// quarterly
+  quarterly,
 }
 
 /// extend interpolation strength
@@ -21,7 +23,8 @@ extension BackupIntervalExtension on BackupInterval {
       BackupInterval.never: -1,
       BackupInterval.weekly: 7,
       BackupInterval.biweekly: 14,
-      BackupInterval.monthly: 28,
+      BackupInterval.monthly: 30,
+      BackupInterval.quarterly: 90,
     }[this]!;
 
   /// get international name
@@ -30,6 +33,7 @@ extension BackupIntervalExtension on BackupInterval {
       BackupInterval.weekly: AppLocalizations.of(context)!.weekly,
       BackupInterval.biweekly: AppLocalizations.of(context)!.biweekly,
       BackupInterval.monthly: AppLocalizations.of(context)!.monthly,
+      BackupInterval.quarterly: AppLocalizations.of(context)!.quarterly,
     }[this]!;
 
   /// get string expression
