@@ -24,6 +24,18 @@
   "@quarterly": {
     "description": "Frequency of backup interval"
   },
+  "backupReminder": "Please back up regularly",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupReminderButton": "back up now",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Backup successfully exported",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
   "backupInterval": "Backups",
   "@backupInterval": {
     "description": "Frequency of backup interval"
