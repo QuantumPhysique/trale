@@ -155,7 +155,7 @@ class Preferences {
 
   /// get backup frequency
   BackupInterval get backupInterval =>
-      prefs.getString('backupInverval')!.toBackupInterval()!;
+      prefs.getString('backupInterval')!.toBackupInterval()!;
 
   /// set interpolation strength mode
   set backupInterval(BackupInterval interval) =>
