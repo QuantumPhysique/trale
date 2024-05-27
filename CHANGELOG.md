@@ -17,7 +17,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.7.0] - 2024-05-29
 ### Added Features and Improvements 🙌:
-- Hello World! Thx to the community, the app is now available in French, Italian 🎉
+- Hello World! Thx to the community, the app is now available in French, Finnish, and Italian 🎉
 - Using the latest flutter 3.22 with upgraded deps
 
 ### Other changes:
@@ -33,7 +33,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - All new and improved interpolation API, the predictions are now more reliable
 - Using the latest flutter 3.19 with upgraded deps
 - Compile against Android 14 (SDK34)
-- Hello World! Thx to the community, the app is now available in Lithuanian, Chinese and Spanish 🎉
+- Hello World! Thx to the community, the app is now available in Lithuanian, Chinese, and Spanish 🎉
 
 ### Bugfix 🐛:
 - Fix bug, when reloading theme
