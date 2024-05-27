@@ -125,7 +125,7 @@
   "@theme": {
     "description": "Theme menu item."
   },
-  "defaultLang": "Systemowy",
+  "defaultLang": "Domyślne ustawienia systemu",
   "@defaultLang": {
     "description": "System default language."
   },

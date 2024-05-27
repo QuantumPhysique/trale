@@ -3,11 +3,11 @@
   "@achievements": {
     "description": "achievements"
   },
-  "trale": "Trale",
+  "trale": "trale",
   "@trale": {
     "description": "Name of app: trale"
   },
-  "unit": "Enheter",
+  "unit": "Måleenheter",
   "@unit": {},
   "date": "Dato",
   "@date": {
