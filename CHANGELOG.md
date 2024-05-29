@@ -15,6 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
 ## [0.7.0] - 2024-05-29
 ### Added Features and Improvements 🙌:
 - Hello World! Thx to the community, the app is now available in French, Finnish, and Italian 🎉
