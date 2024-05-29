@@ -1,0 +1,2 @@
+- Thx to the community, the app is now available in French, Finnish, and Italian
+- Using the latest flutter 3.22 with upgraded deps and gradle 8+
