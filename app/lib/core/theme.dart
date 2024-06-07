@@ -102,8 +102,12 @@ class TraleTheme {
   /// Get border radius
   double get borderRadius => 16;
 
+  /// get transition durations
   final TransitionDuration transitionDuration =
     TransitionDuration(100, 200, 500);
+
+  /// get duration of snackbar
+  final Duration snackbarDuration = Duration(seconds: 5);
 
   /// get background gradient
   LinearGradient get bgGradient => LinearGradient(
