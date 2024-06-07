@@ -1,16 +1,21 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:collection/collection.dart';
 
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/units.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/emptyChart.dart';
+import 'package:trale/widget/statsWidgets.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
-import 'package:trale/widget/weightList.dart';
+import 'package:provider/provider.dart';
+import 'package:trale/core/traleNotifier.dart';
 
 class StatsScreen extends StatefulWidget {
   const StatsScreen({super.key, required this.tabController});
@@ -27,6 +32,7 @@ class _StatsScreen extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
+    final MeasurementStats stats = MeasurementStats();
     final EdgeInsets padding = EdgeInsets.symmetric(
       horizontal: TraleTheme.of(context)!.padding,
     );
@@ -37,62 +43,38 @@ class _StatsScreen extends State<StatsScreen> {
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
     final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
 
-
-    Card getCard(String label, Measurement m) => Card(
-      shape: TraleTheme.of(context)!.borderShape,
-      margin: EdgeInsets.symmetric(
-        vertical: TraleTheme.of(context)!.padding,
-      ),
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: Padding(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AutoSizeText(
-              m.dateToString(context),
-              style: Theme.of(context).textTheme.bodySmall
-                ?.apply(
-                  fontFamily: 'Courier',
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
-            ),
-            AutoSizeText(
-              '$label: ${m.weightToString(context)}',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-
-    final Widget dummyChart = emptyChart(
-      context,
-      <InlineSpan>[
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro3,
-        ),
-        const TextSpan(
-          text: '\n\n😃'
-        ),
-      ],
-    );
-
+    /// convert to String
+    String weightToString(double weight)
+      => Provider.of<TraleNotifier>(context, listen: false).
+        unit.weightToString(weight);
+    /*
+    * What Stats do we want to implement?
+    * Trend   |   Change
+    * Min  | Max  | Icon
+    * Mean | Icon | Icon
+    * #n    |    Delta t
+    * [Freq , freq 28days]
+    *  */
 
     Widget statsScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
 
-      final Widget minMaxWidget = FractionallySizedBox(
+      final Widget minMeanMaxWidget = FractionallySizedBox(
         widthFactor: 1,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Expanded(child: getCard('min', database.min!)),
-            Expanded(child: getCard('max', database.max!)),
+            Expanded(child: SmallStatCard(
+              firstRow: 'min',
+              secondRow: weightToString(stats.minWeight!))
+            ),
+            Expanded(child: SmallStatCard(
+                firstRow: 'mean',
+                secondRow: weightToString(stats.meanWeight!))
+            ),Expanded(child: SmallStatCard(
+                firstRow: 'max',
+                secondRow: weightToString(stats.maxWeight!))
+            ),
           ].addGap(
             padding: TraleTheme.of(context)!.padding,
             direction: Axis.horizontal,
@@ -106,8 +88,8 @@ class _StatsScreen extends State<StatsScreen> {
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Padding(
-                padding: padding,
-                child: TextSizeInEffect(
+              padding: padding,
+              child: TextSizeInEffect(
                 text: AppLocalizations.of(context)!.stats.inCaps,
                 textStyle: Theme.of(context).textTheme.headlineMedium!,
                 durationInMilliseconds: animationDurationInMilliseconds,
@@ -119,29 +101,8 @@ class _StatsScreen extends State<StatsScreen> {
             child: AnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               delayInMilliseconds: firstDelayInMilliseconds,
-              child: minMaxWidget,
+              child: minMeanMaxWidget,
             ),
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: TraleTheme.of(context)!.padding,
-                top: TraleTheme.of(context)!.padding,
-                bottom: TraleTheme.of(context)!.padding,
-              ),
-              child: TextSizeInEffect(
-                text: AppLocalizations.of(context)!.measurements.inCaps,
-                textStyle: Theme.of(context).textTheme.headlineMedium!,
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: secondDelayInMilliseconds,
-              ),
-            ),
-          ),
-          WeightList(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: secondDelayInMilliseconds,
-            scrollController: scrollController,
-            tabController: widget.tabController,
           ),
           SliverToBoxAdapter(
             child: SizedBox(
@@ -158,7 +119,7 @@ class _StatsScreen extends State<StatsScreen> {
       final List<SortedMeasurement> measurements = database.sortedMeasurements;
       return measurements.isNotEmpty
           ? statsScreen(context, snapshot)
-          : dummyChart;
+          : defaultEmptyChart(context:context);
     }
 
 

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -26,10 +27,11 @@ class _StatsWidgetsState extends State<StatsWidgets> {
   @override
   Widget build(BuildContext context) {
     final MeasurementInterpolation ip = MeasurementInterpolation();
+    final MeasurementStats stats = MeasurementStats();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.userTargetWeight;
-    final int? timeOfTargetWeight = ip.timeOfTargetWeight(
+    final int? timeOfTargetWeight = stats.timeOfTargetWeight(
         userTargetWeight
     )?.inDays;
     final int nMeasured = ip.measurementDuration.inDays;
@@ -66,7 +68,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
 
     Card userWeightLostCard() {
-      final double deltaWeight = ip.finalChangeRate * 30;
+      final double deltaWeight = ip.finalSlope * 30;
       const String label = 'month';
 
       return Card(
@@ -145,5 +147,56 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         ),
       ),
     );
+  }
+}
+
+
+class SmallStatCard extends StatefulWidget {
+  const SmallStatCard({
+    required this.firstRow,
+    required this.secondRow,
+    super.key});
+
+  final String firstRow;
+  final String secondRow;
+
+  @override
+  _SmallStatCardState createState() => _SmallStatCardState();
+}
+
+class _SmallStatCardState extends State<SmallStatCard> {
+  @override
+  Widget build(BuildContext context) {
+
+    final Card card = Card(
+      shape: TraleTheme.of(context)!.borderShape,
+      color: Theme.of(context).colorScheme.secondaryContainer,
+      margin: EdgeInsets.symmetric(
+        vertical: TraleTheme.of(context)!.padding,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            AutoSizeText(
+              widget.firstRow,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
+            AutoSizeText(
+              widget.secondRow,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return card;
   }
 }
