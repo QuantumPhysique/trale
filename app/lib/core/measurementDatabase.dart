@@ -165,6 +165,11 @@ class MeasurementDatabase {
   /// get number of measurements
   int get nMeasurements => measurements.length;
 
+  /// date of latest measurement
+  DateTime get lastDate => sortedMeasurements.first.measurement.date;
+  /// date of first measurement
+  DateTime get firstDate => sortedMeasurements.last.measurement.date;
+
   /// bmi at last measurement
   // double? get bmi {
   //   final double? height = Preferences().userHeight;
