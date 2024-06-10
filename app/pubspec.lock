@@ -578,10 +578,10 @@ packages:
     dependency: "direct main"
     description:
       name: ml_linalg
-      sha256: "304cb8a2a172f2303226d672d0b6f18dbfe558e2db49d27c8aa9f3e15475c0cd"
+      sha256: abbbd506dc894f8b0394cf5c5d45aab45b7e2a89b86bba9c9b5b8a412b4bec5d
       url: "https://pub.dev"
     source: hosted
-    version: "13.12.2"
+    version: "13.12.6"
   nested:
     dependency: transitive
     description:
