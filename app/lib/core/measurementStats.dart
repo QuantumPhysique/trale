@@ -56,6 +56,14 @@ class MeasurementStats {
   /// get min weight
   double? get meanWeight => ip.weights_measured.mean();
 
+  /// get total change in weight
+  double? get deltaWeight => maxWeight! - minWeight!;
+
+  /// todo: Define some kind of 'total duration' spanning from
+  /// the start of the first measurement until now
+  /// get time of records
+  int get deltaTime => DateTime.now().difference(db.firstDate).inDays;
+
   /// get number of measurements
   int get nMeasurements => ip.NMeasurements;
 
@@ -82,6 +90,18 @@ class MeasurementStats {
     }
     return Vector.fromList(streakList);
   }
+
+  /// get frequency of taking measurements
+  double _getFrequency(int nDays) {
+    /// todo: Add function returning the measurement frequency for a given
+    /// duration (always starting from now?)
+    double f = 2.1;
+    return f;
+  }
+  /// get frequency of taking measurements (last week)
+  double? get frequencyLastWeek => _getFrequency(7);
+  /// get frequency of taking measurements (in total)
+  double? get frequencyInTotal => this.nMeasurements / this.deltaTime;
 
   /// get weight change [kg] within last month from last measurement
   double? get deltaWeightLastYear => deltaWeightLastNDays(365);
