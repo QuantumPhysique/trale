@@ -87,8 +87,7 @@ class _WeightListTileState extends State<WeightListTile>
             widget.measurement.measurement.measureToString(
               context, ws: 12,
             ),
-            style: Theme.of(context).textTheme.bodyLarge
-                ?.apply(fontFamily: 'Courier'),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
       ],
