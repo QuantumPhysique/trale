@@ -497,8 +497,8 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
 
 
 /// define StatCard for change per week, month, and year
-Widget getMinWidget(BuildContext context, MeasurementStats stats)
-  => OneThirdStatCard(
+Widget getMinWidget(BuildContext context, MeasurementStats stats) {
+  return OneThirdStatCard(
     childWidget: Padding(
       padding: EdgeInsets.zero,
       child: Column(
@@ -526,8 +526,9 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats)
                 '70.1',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w700,
                   fontSize: 200,
+                  height: 0.70,
                 ),
                 maxLines: 1,
               ),
@@ -537,6 +538,7 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats)
       ),
     ),
   );
+}
 
 /// define StatCard for change per week, month, and year
 Widget getMaxWidget(BuildContext context, MeasurementStats stats)
@@ -554,8 +556,9 @@ Widget getMaxWidget(BuildContext context, MeasurementStats stats)
                 '80.1',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w700,
                   fontSize: 200,
+                  height: 0.70,
                 ),
                 maxLines: 1,
               ),
