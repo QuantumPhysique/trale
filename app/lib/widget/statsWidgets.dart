@@ -168,35 +168,434 @@ class _SmallStatCardState extends State<SmallStatCard> {
   @override
   Widget build(BuildContext context) {
 
-    final Card card = Card(
-      shape: TraleTheme.of(context)!.borderShape,
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: EdgeInsets.symmetric(
-        vertical: TraleTheme.of(context)!.padding,
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AutoSizeText(
-              widget.firstRow,
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
+    final StatCard card = StatCard(childWidget:
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          AutoSizeText(
+            widget.firstRow,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
             ),
-            AutoSizeText(
-              widget.secondRow,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            maxLines: 1,
+          ),
+          AutoSizeText(
+            widget.secondRow,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
+                fontWeight: FontWeight.w700
             ),
-          ],
-        ),
-      ),
+            maxLines: 1,
+          ),
+        ])
     );
 
     return card;
+  }
+}
+
+
+class StatCard extends StatefulWidget {
+  const StatCard({
+    required this.childWidget,
+    this.backgroundColor,
+    this.nx = 1,
+    this.ny = 1,
+    super.key});
+
+  final Widget childWidget;
+  final int nx;
+  final int ny;
+  final Color? backgroundColor;
+
+  @override
+  _StatCardState createState() => _StatCardState();
+}
+
+class _StatCardState extends State<StatCard> {
+  @override
+  Widget build(BuildContext context) {
+
+    Color backgroundcolor = widget.backgroundColor
+        ?? Theme.of(context).colorScheme.secondaryContainer;
+    double x_width = (MediaQuery.sizeOf(context).width
+        - 3 * TraleTheme.of(context)!.padding) / 2;
+    double y_width = (x_width - TraleTheme.of(context)!.padding) / 2;
+
+    double height = widget.ny == 1
+        ? y_width * widget.ny
+        : y_width * widget.ny
+          + (widget.ny - 1) * TraleTheme.of(context)!.padding;
+    double width = widget.nx == 1
+        ? x_width * widget.nx
+        : x_width * widget.nx
+          + (widget.nx - 1) * TraleTheme.of(context)!.padding;
+
+    final Card card = Card(
+      shape: TraleTheme.of(context)!.borderShape,
+      color: backgroundcolor,
+      margin: EdgeInsets.zero,
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: widget.childWidget,
+      ),
+      clipBehavior: Clip.hardEdge,
+    );
+    return card;
+  }
+}
+
+
+class OneThirdStatCard extends StatefulWidget {
+  const OneThirdStatCard({
+    required this.childWidget,
+    super.key});
+
+  final Widget childWidget;
+
+  @override
+  _OneThirdStatCardState createState() => _OneThirdStatCardState();
+}
+
+class _OneThirdStatCardState extends State<OneThirdStatCard> {
+  @override
+  Widget build(BuildContext context) {
+
+    final double xWidth = (MediaQuery.sizeOf(context).width
+        - 3 * TraleTheme.of(context)!.padding) / 2;
+    final double height = (xWidth - TraleTheme.of(context)!.padding) / 2;
+    final double width = (MediaQuery.sizeOf(context).width
+        - 4 * TraleTheme.of(context)!.padding - height) / 2;
+
+    final Card card = Card(
+      shape: TraleTheme.of(context)!.borderShape,
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.hardEdge,
+      color: Theme.of(context).colorScheme.secondaryContainer,
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: widget.childWidget,
+      ),
+    );
+    return card;
+  }
+}
+
+
+/// define StatCard for number of days until target weight is reached
+StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats stats)
+  => StatCard(
+    backgroundColor: Theme.of(context).primaryColor,
+    ny: 2,
+    childWidget: Padding(
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                '55',
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
+                'days left to reach\ntarget weight',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]),
+    ),
+  );
+
+
+/// define StatCard for number of days until target weight is reached
+StatCard getMeanWidget(BuildContext context, MeasurementStats stats)
+  => StatCard(
+    ny: 2,
+    childWidget: Padding(
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              flex: 3,
+              child: Align(
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  '75',
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    fontFamily: 'Lexend',
+                    fontWeight: FontWeight.w900,
+                    fontSize: 200,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: AutoSizeText(
+                  'mean (kg)',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    height: 1.0,
+                  ),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ]),
+    ),
+  );
+
+
+/// define StatCard for number of days until target weight is reached
+StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats)
+=> StatCard(
+  nx: 2,
+  backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+  childWidget: Padding(
+    padding: EdgeInsets.all(0),
+    child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                '10.2',
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w900,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                'total change\n(kg)',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]),
+  ),
+);
+
+
+/// define StatCard for change per week, month, and year
+StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
+=> StatCard(
+  nx: 2,
+  childWidget: Padding(
+    padding: EdgeInsets.all(0),
+    child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                'change (kg)',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontFamily: 'Lexend',
+                  fontWeight: FontWeight.w900,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                '/week\n-0.3',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                '/month\n-0.3',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                '/year\n-0.3',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]),
+  ),
+);
+
+
+/// define StatCard for change per week, month, and year
+Widget getMinWidget(BuildContext context, MeasurementStats stats)
+  => OneThirdStatCard(
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: AutoSizeText(
+                'min (kg)',
+                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                   color: Theme.of(context).colorScheme.onSecondaryContainer,
+                   fontFamily: 'Lexend',
+                 ),
+                 maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: AutoSizeText(
+                '70.1',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ]
+      ),
+    ),
+  );
+
+/// define StatCard for change per week, month, and year
+Widget getMaxWidget(BuildContext context, MeasurementStats stats)
+=> OneThirdStatCard(
+  childWidget: Padding(
+    padding: EdgeInsets.zero,
+    child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: AutoSizeText(
+                '80.1',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
+                'max (kg)',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontFamily: 'Lexend',
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ]
+    ),
+  ),
+);
+
+/// convert to String
+String weightToStringWithUnit(BuildContext context, double weight)
+  => Provider.of<TraleNotifier>(context, listen: false).
+  unit.weightToString(weight);
+
+/// convert
+String weightToStringWithoutUnit(BuildContext context, double weight)
+  => '$weight';
+
+String daysToString(BuildContext context, int days){
+  if (days < 1000) {
+    return '$days days';
+  } else if(days >= 1000) {
+    int weeks = (days / 7).round();
+    return '$weeks weeks';
+  } else {
+    return '-';
   }
 }

@@ -12,6 +12,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/emptyChart.dart';
+import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/statsWidgets.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 import 'package:provider/provider.dart';
@@ -47,33 +48,91 @@ class _StatsScreen extends State<StatsScreen> {
     String weightToString(double weight)
       => Provider.of<TraleNotifier>(context, listen: false).
         unit.weightToString(weight);
-    /*
-    * What Stats do we want to implement?
-    * Trend   |   Change
-    * Min  | Max  | Icon
-    * Mean | Icon | Icon
-    * #n    |    Delta t
-    * [Freq , freq 28days]
-    *  */
+
+    String daysToString(int days){
+        if (days < 1000) {
+          return '${days} days';
+        } else if(days >= 1000) {
+          int weeks = (days / 7).round();
+          return '${weeks} weeks';
+        } else {
+          return '-';
+        }
+    }
 
     Widget statsScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
 
-      final Widget minMeanMaxWidget = FractionallySizedBox(
+      final Widget minMeanMaxWidget = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          getMinWidget(context, stats),
+          SizedBox(
+            width: 82,
+            height: 82,
+            child: const IconHeroStatScreen(),
+          ),
+          getMaxWidget(context, stats),
+        ].addGap(
+          padding: TraleTheme.of(context)!.padding,
+          direction: Axis.horizontal,
+        ),
+      );
+
+      final Widget streakWidget = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          SmallStatCard(
+              firstRow: 'current streak',
+              secondRow: daysToString(stats.currentStreak)),
+          SmallStatCard(
+              firstRow: 'longest streak',
+              secondRow: daysToString(stats.maxStreak)),
+        ].addGap(
+          padding: TraleTheme.of(context)!.padding,
+          direction: Axis.horizontal,
+        ),
+      );
+
+      final Widget col234 = Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Column(
+            children: [
+              getReachingTargetWeightWidget(context, stats),
+              SizedBox(height: TraleTheme.of(context)!.padding),
+              SmallStatCard(
+                  firstRow: 'total time',
+                  secondRow: daysToString(stats.deltaTime)),
+            ],
+          ),
+          Column(
+            children: [
+              SmallStatCard(
+                  firstRow: '# measurements',
+                  secondRow: '${stats.nMeasurements}'),
+              SizedBox(height: TraleTheme.of(context)!.padding),
+              getMeanWidget(context, stats),
+            ],
+          ),
+        ].addGap(
+          padding: TraleTheme.of(context)!.padding,
+          direction: Axis.horizontal,
+        ),
+      );
+
+      final Widget nWidget = FractionallySizedBox(
         widthFactor: 1,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Expanded(child: SmallStatCard(
-              firstRow: 'min',
-              secondRow: weightToString(stats.minWeight!))
+                firstRow: '# measurements',
+                secondRow: '${stats.nMeasurements!}')
             ),
             Expanded(child: SmallStatCard(
                 firstRow: 'mean',
                 secondRow: weightToString(stats.meanWeight!))
-            ),Expanded(child: SmallStatCard(
-                firstRow: 'max',
-                secondRow: weightToString(stats.maxWeight!))
             ),
           ].addGap(
             padding: TraleTheme.of(context)!.padding,
@@ -101,12 +160,20 @@ class _StatsScreen extends State<StatsScreen> {
             child: AnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               delayInMilliseconds: firstDelayInMilliseconds,
-              child: minMeanMaxWidget,
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: TraleTheme.of(context)!.padding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  getChangeRatesWidget(context, stats),
+                  col234,
+                  minMeanMaxWidget,
+                  streakWidget,
+                  getTotalChangeWidget(context, stats),
+                  SizedBox(height: TraleTheme.of(context)!.padding)
+                ].addGap(
+                  padding: TraleTheme.of(context)!.padding,
+                  direction: Axis.vertical,
+                ),
+              ),
             ),
           ),
         ],
