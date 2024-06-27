@@ -69,3 +69,33 @@ class _IconHeroState extends State<IconHero> {
   }
 }
 
+
+/// Hero with icon for drawer
+class IconHeroStatScreen extends StatefulWidget {
+  /// constructor
+  const IconHeroStatScreen({super.key});
+
+  @override
+  State<IconHeroStatScreen> createState() => _IconHeroStatScreenState();
+}
+
+class _IconHeroStatScreenState extends State<IconHeroStatScreen> {
+  /// path to rive file
+  static const String assetName = 'assets/trale_icon.svg';
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme ctheme = Theme.of(context).colorScheme;
+    return SvgPicture(
+        SvgAssetLoader(
+          assetName,
+          colorMapper: TraleIconColorMapper(
+            bgColor: ctheme.onSecondaryContainer,
+            wolfColor: ctheme.primary,
+            titleColor: ctheme.onSurface,
+            sloganColor: ctheme.primary,
+          ),
+        )
+    );
+  }
+}
