@@ -146,17 +146,6 @@ class _StatsScreen extends State<StatsScreen> {
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: Padding(
-              padding: padding,
-              child: TextSizeInEffect(
-                text: AppLocalizations.of(context)!.stats.inCaps,
-                textStyle: Theme.of(context).textTheme.headlineMedium!,
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: firstDelayInMilliseconds,
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
             child: AnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               delayInMilliseconds: firstDelayInMilliseconds,
