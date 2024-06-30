@@ -12,6 +12,9 @@ import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/iconHero.dart';
+import 'package:trale/widget/statsCards.dart';
 
 
 class StatsWidgets extends StatefulWidget {
@@ -151,142 +154,10 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 }
 
 
-class SmallStatCard extends StatefulWidget {
-  const SmallStatCard({
-    required this.firstRow,
-    required this.secondRow,
-    super.key});
-
-  final String firstRow;
-  final String secondRow;
-
-  @override
-  _SmallStatCardState createState() => _SmallStatCardState();
-}
-
-class _SmallStatCardState extends State<SmallStatCard> {
-  @override
-  Widget build(BuildContext context) {
-
-    final StatCard card = StatCard(childWidget:
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          AutoSizeText(
-            widget.firstRow,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
-            ),
-            maxLines: 1,
-          ),
-          AutoSizeText(
-            widget.secondRow,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                fontWeight: FontWeight.w700
-            ),
-            maxLines: 1,
-          ),
-        ])
-    );
-
-    return card;
-  }
-}
-
-
-class StatCard extends StatefulWidget {
-  const StatCard({
-    required this.childWidget,
-    this.backgroundColor,
-    this.nx = 1,
-    this.ny = 1,
-    super.key});
-
-  final Widget childWidget;
-  final int nx;
-  final int ny;
-  final Color? backgroundColor;
-
-  @override
-  _StatCardState createState() => _StatCardState();
-}
-
-class _StatCardState extends State<StatCard> {
-  @override
-  Widget build(BuildContext context) {
-
-    Color backgroundcolor = widget.backgroundColor
-        ?? Theme.of(context).colorScheme.secondaryContainer;
-    double x_width = (MediaQuery.sizeOf(context).width
-        - 3 * TraleTheme.of(context)!.padding) / 2;
-    double y_width = (x_width - TraleTheme.of(context)!.padding) / 2;
-
-    double height = widget.ny == 1
-        ? y_width * widget.ny
-        : y_width * widget.ny
-          + (widget.ny - 1) * TraleTheme.of(context)!.padding;
-    double width = widget.nx == 1
-        ? x_width * widget.nx
-        : x_width * widget.nx
-          + (widget.nx - 1) * TraleTheme.of(context)!.padding;
-
-    final Card card = Card(
-      shape: TraleTheme.of(context)!.borderShape,
-      color: backgroundcolor,
-      margin: EdgeInsets.zero,
-      child: SizedBox(
-        height: height,
-        width: width,
-        child: widget.childWidget,
-      ),
-      clipBehavior: Clip.hardEdge,
-    );
-    return card;
-  }
-}
-
-
-class OneThirdStatCard extends StatefulWidget {
-  const OneThirdStatCard({
-    required this.childWidget,
-    super.key});
-
-  final Widget childWidget;
-
-  @override
-  _OneThirdStatCardState createState() => _OneThirdStatCardState();
-}
-
-class _OneThirdStatCardState extends State<OneThirdStatCard> {
-  @override
-  Widget build(BuildContext context) {
-
-    final double xWidth = (MediaQuery.sizeOf(context).width
-        - 3 * TraleTheme.of(context)!.padding) / 2;
-    final double height = (xWidth - TraleTheme.of(context)!.padding) / 2;
-    final double width = (MediaQuery.sizeOf(context).width
-        - 4 * TraleTheme.of(context)!.padding - height) / 2;
-
-    final Card card = Card(
-      shape: TraleTheme.of(context)!.borderShape,
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.hardEdge,
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: SizedBox(
-        height: height,
-        width: width,
-        child: widget.childWidget,
-      ),
-    );
-    return card;
-  }
-}
-
-
 /// define StatCard for number of days until target weight is reached
-StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats stats) {
+StatCard getReachingTargetWeightWidget({required BuildContext context,
+                                        required MeasurementStats stats,
+                                        int? delayInMilliseconds}) {
 
   final double? userTargetWeight =
       Provider.of<TraleNotifier>(context).userTargetWeight;
@@ -296,6 +167,7 @@ StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats st
 
   return StatCard(
     backgroundColor: Theme.of(context).primaryColor,
+    delayInMilliseconds: delayInMilliseconds,
     ny: 2,
     childWidget: Padding(
       padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
@@ -341,11 +213,14 @@ StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats st
 
 
 /// define StatCard for number of days until target weight is reached
-StatCard getMeanWidget(BuildContext context, MeasurementStats stats) {
+StatCard getMeanWidget({required BuildContext context,
+                        required MeasurementStats stats,
+                        int? delayInMilliseconds}) {
   final String unit =
       Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return StatCard(
     ny: 2,
+    delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
       padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
       child: Column(
@@ -389,11 +264,14 @@ StatCard getMeanWidget(BuildContext context, MeasurementStats stats) {
 
 
 /// define StatCard for number of days until target weight is reached
-StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats) {
+Widget getTotalChangeWidget({required BuildContext context,
+                             required MeasurementStats stats,
+                             int? delayInMilliseconds}) {
   final String unit =
       Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return StatCard(
     nx: 2,
+    delayInMilliseconds: delayInMilliseconds,
     backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     childWidget: Padding(
       padding: EdgeInsets.zero,
@@ -438,13 +316,16 @@ StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats) {
 
 
 /// define StatCard for change per week, month, and year
-StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats) {
+StatCard getChangeRatesWidget({required BuildContext context,
+                               required MeasurementStats stats,
+                               int? delayInMilliseconds}) {
   final String unit =
       Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return StatCard(
     nx: 2,
+    delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
-      padding: EdgeInsets.all(0),
+      padding: EdgeInsets.zero,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -456,7 +337,6 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats) {
                 'change ($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontFamily: 'Lexend',
                   fontWeight: FontWeight.w900,
                 ),
                 maxLines: 2,
@@ -517,10 +397,13 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats) {
 
 
 /// define StatCard for change per week, month, and year
-Widget getMinWidget(BuildContext context, MeasurementStats stats) {
+Widget getMinWidget({required BuildContext context,
+                     required MeasurementStats stats,
+                     int? delayInMilliseconds}) {
   final String unit =
       Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return OneThirdStatCard(
+    delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
       padding: EdgeInsets.zero,
       child: Column(
@@ -534,7 +417,6 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats) {
                 'min ($unit)',
                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                   fontFamily: 'Lexend',
                  ),
                  maxLines: 1,
               ),
@@ -563,13 +445,16 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats) {
 }
 
 /// define StatCard for change per week, month, and year
-Widget getMaxWidget(BuildContext context, MeasurementStats stats) {
+Widget getMaxWidget({required BuildContext context,
+                     required MeasurementStats stats,
+                     int? delayInMilliseconds}) {
   final String unit =
       Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return OneThirdStatCard(
-  childWidget: Padding(
-    padding: EdgeInsets.zero,
-    child: Column(
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
@@ -608,6 +493,30 @@ Widget getMaxWidget(BuildContext context, MeasurementStats stats) {
 }
 
 
+/// define StatCard for change per week, month, and year
+Widget getIconWidget({required BuildContext context,
+                      required MeasurementStats stats,
+                      int? delayInMilliseconds}) {
+  final double iconHeroSize =
+      (MediaQuery.sizeOf(context).width
+       - 5 * TraleTheme.of(context)!.padding) / 4;
+  final int animationDurationInMilliseconds =
+      TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
+
+  return AnimateInEffect(
+    delayInMilliseconds: delayInMilliseconds ?? 0,
+    durationInMilliseconds: animationDurationInMilliseconds,
+    child: SizedBox(
+      width: iconHeroSize,
+      height: iconHeroSize,
+      child: const IconHeroStatScreen(),
+    ),
+  );
+}
+
+
+
+
 String daysToString(BuildContext context, int days){
   if (days < 1000) {
     return '$days days';
@@ -621,7 +530,7 @@ String daysToString(BuildContext context, int days){
 
 String doubleToString(BuildContext context, double? d, {int fractionDigits = 1}){
   return d == null
-    ? '--'
-    : Provider.of<TraleNotifier>(context).unit.weightToString(
+      ? '--'
+      : Provider.of<TraleNotifier>(context).unit.weightToString(
       d!, showUnit: false);
 }
