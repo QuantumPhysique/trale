@@ -286,8 +286,15 @@ class _OneThirdStatCardState extends State<OneThirdStatCard> {
 
 
 /// define StatCard for number of days until target weight is reached
-StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats stats)
-  => StatCard(
+StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats stats) {
+
+  final double? userTargetWeight =
+      Provider.of<TraleNotifier>(context).userTargetWeight;
+  final int? timeOfTargetWeight = stats.timeOfTargetWeight(
+      userTargetWeight
+  )?.inDays;
+
+  return StatCard(
     backgroundColor: Theme.of(context).primaryColor,
     ny: 2,
     childWidget: Padding(
@@ -300,7 +307,9 @@ StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats st
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                '55',
+                timeOfTargetWeight == null
+                    ? '--'
+                    : daysToString(context, timeOfTargetWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w700,
@@ -320,7 +329,7 @@ StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats st
                   color: Theme.of(context).colorScheme.onPrimary,
                   height: 1.0,
                 ),
-                maxLines: 2,
+                maxLines: 3,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -328,61 +337,67 @@ StatCard getReachingTargetWeightWidget(BuildContext context, MeasurementStats st
         ]),
     ),
   );
+}
 
 
 /// define StatCard for number of days until target weight is reached
-StatCard getMeanWidget(BuildContext context, MeasurementStats stats)
-  => StatCard(
+StatCard getMeanWidget(BuildContext context, MeasurementStats stats) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return StatCard(
     ny: 2,
     childWidget: Padding(
       padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Align(
-                alignment: Alignment.center,
-                child: AutoSizeText(
-                  '75',
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    fontFamily: 'Lexend',
-                    fontWeight: FontWeight.w900,
-                    fontSize: 200,
-                  ),
-                  maxLines: 1,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                doubleToString(context, stats.meanWeight, fractionDigits: 0),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 200,
                 ),
+                maxLines: 1,
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: AutoSizeText(
-                  'mean (kg)',
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    height: 1.0,
-                  ),
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
+                'mean ($unit)',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
                 ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
               ),
-            )
-          ]),
+            ),
+          )
+        ]
+      ),
     ),
   );
+}
 
 
 /// define StatCard for number of days until target weight is reached
-StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats)
-=> StatCard(
-  nx: 2,
-  backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-  childWidget: Padding(
-    padding: EdgeInsets.all(0),
-    child: Row(
+StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return StatCard(
+    nx: 2,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
@@ -390,10 +405,9 @@ StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                '10.2',
+                doubleToString(context, stats.deltaWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
-                  fontFamily: 'Lexend',
                   fontWeight: FontWeight.w900,
                   fontSize: 200,
                 ),
@@ -406,7 +420,7 @@ StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                'total change\n(kg)',
+                'total change\n($unit)',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   height: 1.0,
@@ -416,18 +430,22 @@ StatCard getTotalChangeWidget(BuildContext context, MeasurementStats stats)
               ),
             ),
           )
-        ]),
-  ),
-);
+        ]
+      ),
+    ),
+  );
+}
 
 
 /// define StatCard for change per week, month, and year
-StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
-=> StatCard(
-  nx: 2,
-  childWidget: Padding(
-    padding: EdgeInsets.all(0),
-    child: Row(
+StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return StatCard(
+    nx: 2,
+    childWidget: Padding(
+      padding: EdgeInsets.all(0),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
@@ -435,7 +453,7 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                'change (kg)',
+                'change ($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   fontFamily: 'Lexend',
@@ -451,7 +469,7 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                '/week\n-0.3',
+                '/week\n${doubleToString(context, stats.deltaWeightLastWeek)}',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   height: 1.0,
@@ -466,7 +484,7 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                '/month\n-0.3',
+                '/month\n${doubleToString(context, stats.deltaWeightLastMonth)}',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   height: 1.0,
@@ -481,7 +499,7 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                '/year\n-0.3',
+                '/year\n${doubleToString(context, stats.deltaWeightLastYear)}',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   height: 1.0,
@@ -491,13 +509,17 @@ StatCard getChangeRatesWidget(BuildContext context, MeasurementStats stats)
               ),
             ),
           )
-        ]),
-  ),
-);
+        ]
+      ),
+    ),
+  );
+}
 
 
 /// define StatCard for change per week, month, and year
 Widget getMinWidget(BuildContext context, MeasurementStats stats) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return OneThirdStatCard(
     childWidget: Padding(
       padding: EdgeInsets.zero,
@@ -509,7 +531,7 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats) {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: AutoSizeText(
-                'min (kg)',
+                'min ($unit)',
                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                    fontFamily: 'Lexend',
@@ -523,7 +545,7 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats) {
             child: Align(
               alignment: Alignment.bottomLeft,
               child: AutoSizeText(
-                '70.1',
+                doubleToString(context, stats.minWeight),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   fontWeight: FontWeight.w700,
@@ -541,8 +563,10 @@ Widget getMinWidget(BuildContext context, MeasurementStats stats) {
 }
 
 /// define StatCard for change per week, month, and year
-Widget getMaxWidget(BuildContext context, MeasurementStats stats)
-=> OneThirdStatCard(
+Widget getMaxWidget(BuildContext context, MeasurementStats stats) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return OneThirdStatCard(
   childWidget: Padding(
     padding: EdgeInsets.zero,
     child: Column(
@@ -553,7 +577,7 @@ Widget getMaxWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.topRight,
               child: AutoSizeText(
-                '80.1',
+                doubleToString(context, stats.maxWeight),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   fontWeight: FontWeight.w700,
@@ -569,28 +593,20 @@ Widget getMaxWidget(BuildContext context, MeasurementStats stats)
             child: Align(
               alignment: Alignment.topCenter,
               child: AutoSizeText(
-                'max (kg)',
+                'max ($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontFamily: 'Lexend',
                 ),
                 maxLines: 1,
               ),
             ),
           ),
         ]
+      ),
     ),
-  ),
-);
+  );
+}
 
-/// convert to String
-String weightToStringWithUnit(BuildContext context, double weight)
-  => Provider.of<TraleNotifier>(context, listen: false).
-  unit.weightToString(weight);
-
-/// convert
-String weightToStringWithoutUnit(BuildContext context, double weight)
-  => '$weight';
 
 String daysToString(BuildContext context, int days){
   if (days < 1000) {
@@ -601,4 +617,11 @@ String daysToString(BuildContext context, int days){
   } else {
     return '-';
   }
+}
+
+String doubleToString(BuildContext context, double? d, {int fractionDigits = 1}){
+  return d == null
+    ? '--'
+    : Provider.of<TraleNotifier>(context).unit.weightToString(
+      d!, showUnit: false);
 }
