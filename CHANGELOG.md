@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Bugfix 🐛:
+- Fix broken color of linechart
+- Allow adding measurements older than 2 years
 
 
 ## [0.7.0] - 2024-05-29
