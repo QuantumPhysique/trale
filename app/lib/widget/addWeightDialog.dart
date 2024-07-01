@@ -72,7 +72,7 @@ Future<bool> showAddWeightDialog({
               final DateTime? date = await showDatePicker(
                 context: context,
                 initialDate: currentDate,
-                firstDate: DateTime(currentDate.year - 2),
+                firstDate: DateTime.fromMillisecondsSinceEpoch(0),
                 lastDate: DateTime.now(),
               );
               if (date == null) {
