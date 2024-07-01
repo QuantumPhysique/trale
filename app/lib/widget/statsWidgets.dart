@@ -7,10 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/iconHero.dart';
+import 'package:trale/widget/statsCards.dart';
 
 
 class StatsWidgets extends StatefulWidget {
@@ -26,10 +30,11 @@ class _StatsWidgetsState extends State<StatsWidgets> {
   @override
   Widget build(BuildContext context) {
     final MeasurementInterpolation ip = MeasurementInterpolation();
+    final MeasurementStats stats = MeasurementStats();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.userTargetWeight;
-    final int? timeOfTargetWeight = ip.timeOfTargetWeight(
+    final int? timeOfTargetWeight = stats.timeOfTargetWeight(
         userTargetWeight
     )?.inDays;
     final int nMeasured = ip.measurementDuration.inDays;
@@ -66,7 +71,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
 
     Card userWeightLostCard() {
-      final double deltaWeight = ip.finalChangeRate * 30;
+      final double deltaWeight = ip.finalSlope * 30;
       const String label = 'month';
 
       return Card(
@@ -146,4 +151,386 @@ class _StatsWidgetsState extends State<StatsWidgets> {
       ),
     );
   }
+}
+
+
+/// define StatCard for number of days until target weight is reached
+StatCard getReachingTargetWeightWidget({required BuildContext context,
+                                        required MeasurementStats stats,
+                                        int? delayInMilliseconds}) {
+
+  final double? userTargetWeight =
+      Provider.of<TraleNotifier>(context).userTargetWeight;
+  final int? timeOfTargetWeight = stats.timeOfTargetWeight(
+      userTargetWeight
+  )?.inDays;
+
+  return StatCard(
+    backgroundColor: Theme.of(context).primaryColor,
+    delayInMilliseconds: delayInMilliseconds,
+    ny: 2,
+    childWidget: Padding(
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                timeOfTargetWeight == null
+                    ? '--'
+                    : daysToString(context, timeOfTargetWeight),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
+                'days left to reach\ntarget weight',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  height: 1.0,
+                ),
+                maxLines: 3,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]),
+    ),
+  );
+}
+
+
+/// define StatCard for number of days until target weight is reached
+StatCard getMeanWidget({required BuildContext context,
+                        required MeasurementStats stats,
+                        int? delayInMilliseconds}) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return StatCard(
+    ny: 2,
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Padding(
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 3,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                doubleToString(context, stats.meanWeight, fractionDigits: 0),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
+                'mean ($unit)',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]
+      ),
+    ),
+  );
+}
+
+
+/// define StatCard for number of days until target weight is reached
+Widget getTotalChangeWidget({required BuildContext context,
+                             required MeasurementStats stats,
+                             int? delayInMilliseconds}) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return StatCard(
+    nx: 2,
+    delayInMilliseconds: delayInMilliseconds,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                doubleToString(context, stats.deltaWeight),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 200,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                'total change\n($unit)',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]
+      ),
+    ),
+  );
+}
+
+
+/// define StatCard for change per week, month, and year
+StatCard getChangeRatesWidget({required BuildContext context,
+                               required MeasurementStats stats,
+                               int? delayInMilliseconds}) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return StatCard(
+    nx: 2,
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                'change ($unit)',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w900,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                '/week\n${doubleToString(context, stats.deltaWeightLastWeek)}',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                '/month\n${doubleToString(context, stats.deltaWeightLastMonth)}',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: AutoSizeText(
+                '/year\n${doubleToString(context, stats.deltaWeightLastYear)}',
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  height: 1.0,
+                ),
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+        ]
+      ),
+    ),
+  );
+}
+
+
+/// define StatCard for change per week, month, and year
+Widget getMinWidget({required BuildContext context,
+                     required MeasurementStats stats,
+                     int? delayInMilliseconds}) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return OneThirdStatCard(
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: AutoSizeText(
+                'min ($unit)',
+                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                   color: Theme.of(context).colorScheme.onSecondaryContainer,
+                 ),
+                 maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: AutoSizeText(
+                doubleToString(context, stats.minWeight),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 200,
+                  height: 0.70,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ]
+      ),
+    ),
+  );
+}
+
+/// define StatCard for change per week, month, and year
+Widget getMaxWidget({required BuildContext context,
+                     required MeasurementStats stats,
+                     int? delayInMilliseconds}) {
+  final String unit =
+      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+  return OneThirdStatCard(
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Padding(
+      padding: EdgeInsets.zero,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: AutoSizeText(
+                doubleToString(context, stats.maxWeight),
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 200,
+                  height: 0.70,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
+                'max ($unit)',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+                maxLines: 1,
+              ),
+            ),
+          ),
+        ]
+      ),
+    ),
+  );
+}
+
+
+/// define StatCard for change per week, month, and year
+Widget getIconWidget({required BuildContext context,
+                      required MeasurementStats stats,
+                      int? delayInMilliseconds}) {
+  final double iconHeroSize =
+      (MediaQuery.sizeOf(context).width
+       - 5 * TraleTheme.of(context)!.padding) / 4;
+  final int animationDurationInMilliseconds =
+      TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
+
+  return AnimateInEffect(
+    delayInMilliseconds: delayInMilliseconds ?? 0,
+    durationInMilliseconds: animationDurationInMilliseconds,
+    child: SizedBox(
+      width: iconHeroSize,
+      height: iconHeroSize,
+      child: const IconHeroStatScreen(),
+    ),
+  );
+}
+
+
+
+
+String daysToString(BuildContext context, int days){
+  if (days < 1000) {
+    return '$days days';
+  } else if(days >= 1000) {
+    int weeks = (days / 7).round();
+    return '$weeks weeks';
+  } else {
+    return '-';
+  }
+}
+
+String doubleToString(BuildContext context, double? d, {int fractionDigits = 1}){
+  return d == null
+      ? '--'
+      : Provider.of<TraleNotifier>(context).unit.weightToString(
+      d!, showUnit: false);
 }

@@ -80,11 +80,11 @@ final List<ThirdPartyLicence> tplsAssets = <ThirdPartyLicence>[
       years: '2015',
   ),
   ThirdPartyLicence(
-    name: 'Quicksand Font',
-    url: 'https://github.com/andrew-paglinawan/QuicksandFamily',
+    name: 'Lexend Font',
+    url: 'https://github.com/googlefonts/lexend',
     licence: 'SIL Open Font',
-    author: 'Quicksand project authors',
-    years: '2011',
+    author: 'The Lexend Project Authors',
+    years: '2018',
   ),
 ]..sort(
   (ThirdPartyLicence tpl1, ThirdPartyLicence tpl2)

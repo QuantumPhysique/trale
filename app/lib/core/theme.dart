@@ -162,7 +162,7 @@ class TraleTheme {
     // Create a TextTheme and ColorScheme, that we can use to generate ThemeData
     final TextTheme txtTheme = ThemeData.from(
       colorScheme: colorScheme,
-    ).textTheme.apply(fontFamily: 'Quicksand');
+    ).textTheme.apply(fontFamily: 'Lexend');
 
     final ListTileThemeData listTileThemeData = ListTileThemeData(
       shape: RoundedRectangleBorder(
