@@ -44,19 +44,6 @@ class _OverviewScreen extends State<OverviewScreen> {
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
-    final SizedBox lineChart = SizedBox(
-      height: MediaQuery.of(context).size.height / 3,
-      width: MediaQuery.of(context).size.width,
-      child: Card(
-        shape: TraleTheme.of(context)!.borderShape,
-        color: Theme.of(context).colorScheme.surface,
-        margin: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
-        child: CustomLineChart(loadedFirst: loadedFirst)
-      ),
-    );
-
     final Widget dummyChart = emptyChart(
       context,
       <InlineSpan>[
@@ -95,7 +82,6 @@ class _OverviewScreen extends State<OverviewScreen> {
               width: MediaQuery.of(context).size.width,
               child: Card(
                 shape: TraleTheme.of(context)!.borderShape,
-                color: Theme.of(context).colorScheme.surface,
                 margin: EdgeInsets.symmetric(
                   horizontal: TraleTheme.of(context)!.padding,
                 ),
