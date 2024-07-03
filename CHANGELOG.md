@@ -16,10 +16,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ### Other changes:
 - Upgraded dependencies
+- Improve readability of target weight label
 
 ### Bugfix 🐛:
 - Fix broken color of linechart
 - Allow adding measurements older than 2 years
+- Fix bug of showing target weight correctly using st/lb
 - Fixed a bug where saving an unmodified measurement resulted in it being deleted
 
 
