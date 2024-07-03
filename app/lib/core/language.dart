@@ -39,6 +39,7 @@ class Language {
     'nb': 'Bokmål',
     'pl': 'język polski',
     'pt': 'Português',
+    'tr': 'Türkçe',
     'zh': '汉语',
   }[language] ?? 'error';
 
