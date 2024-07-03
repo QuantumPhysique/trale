@@ -173,7 +173,10 @@ Future<bool> showAddWeightDialog({
                 date: currentDate,
               ),
             );
-            if (!wasInserted) {
+            if (
+              !wasInserted && !(editMode && currentDate == initialDate &&
+                  currentSliderValue == initialSliderValue)
+            ) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text(
@@ -183,15 +186,9 @@ Future<bool> showAddWeightDialog({
                 )
               );
             }
-            Navigator.pop(context, true);
+            Navigator.pop(context, wasInserted);
           },
           enabled: true,
-          // enabled: editMode
-          //   ? !(
-          //       currentDate == initialDate &&
-          //       initialSliderValue == currentSliderValue
-          //     )
-          //   : !editMode,
         ),
       );
     }
