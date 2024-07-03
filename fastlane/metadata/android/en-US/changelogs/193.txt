@@ -1,0 +1,3 @@
+- Merhaba dünya, the app is now available in Turkish
+- Upgraded dependencies
+- Several bug fixes and minor improvements
