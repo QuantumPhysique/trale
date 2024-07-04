@@ -14,6 +14,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+
+
+## [0.7.1] - 2024-07-03
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in Turkish 🎉
+
 ### Other changes:
 - Upgraded dependencies
 - Improve readability of target weight label
@@ -191,7 +197,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.7.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.7.1...main
+[0.7.1]: https://github.com/quantumphysique/trale/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/quantumphysique/trale/compare/v0.6.2...v0.7.0
 [0.6.2]: https://github.com/quantumphysique/trale/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.1
