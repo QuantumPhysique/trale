@@ -57,7 +57,7 @@
   "@save": {
     "description": "save"
   },
-  "time": "Zaman",
+  "time": "Saat",
   "@time": {
     "description": "time"
   },
@@ -77,7 +77,7 @@
   "@licence": {
     "description": "licence"
   },
-  "openIssue": "Sorun oluştur",
+  "openIssue": "Sorun bildir",
   "@openIssue": {
     "description": "open issue"
   },
@@ -209,7 +209,7 @@
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
-  "importSubtitle": "Ölçümleri .txt yedek dosyasından içe aktarın.",
+  "importSubtitle": "Ölçümleri .txt yedek dosyasından içe aktarır.",
   "@importSubtitle": {
     "description": "Import measurements from txt backup file."
   },
@@ -273,16 +273,70 @@
   "@targetWeightMotivation": {
     "description": "Explanation to clarify the importance of a target weight."
   },
-  "faqtext": "Burada en sık sorulan bazı soruların yanıtlarını bulabilirsiniz. Başka sorularınız varsa, GitHub deposunda bir sorun oluşturmaktan çekinmeyin.",
+  "faqtext": "Burada en sık sorulan bazı soruların yanıtlarını bulabilirsiniz. Başka sorularınız varsa, GitHub üzerinden bir sorun bildirmekten çekinmeyin.",
   "@faqtext": {
     "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
   },
-  "faq_a1": "Uygulamanın yönetimi boş zamanlarımızda gerçekleştiriliyor ve uygulamayı şık ve basit tutmaya çalışıyoruz. Çok fazla özellik eklemenin uygulamayı daha az kullanılabilir hale getireceğine inanıyoruz. Önemli bir özelliği kaçırdığımızı düşünüyorsanız, bir sorun veya birleştirme isteği oluşturmaktan çekinmeyin.",
+  "faq_a1": "Uygulamanın sürekliliğini boş zamanlarımızda sağlıyor, uygulamayı şık ve basit tutmaya çalışıyoruz. Çok sayıda özellik eklemenin uygulamayı daha az kullanışlı hale getirdiğine inanıyoruz. Önemli bir özelliği kaçırdığımızı düşünüyorsanız, bir sorun bildirin veya birleştirme isteği açmaktan çekinmeyin.",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
   "target_weight_warning": "Anoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önlemeye yönelik katkımızın bir parçası olarak, 50 kg'nin altında hedef ağırlık mümkün değildir.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "backup": "Yedekleme",
+  "@backup": {
+    "description": "backup"
+  },
+  "none": "Yok",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "soft": "Hafif",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "intro1": "Başlamak için",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "faq_a2_widget": "Giriş ekranına geri dön",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "interpolation": "ara değer hesabı",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "intro2": "tuşuna basın",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "medium": "Orta",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "undertpl": "© {years} {author} tarafından {licence} lisansı altında",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
   }
 }
