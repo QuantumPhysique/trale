@@ -109,7 +109,7 @@ class TraleTheme {
   LinearGradient get bgGradient => LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: <Color>[themeData.colorScheme.background, bgShade4],
+    colors: <Color>[themeData.colorScheme.surface, bgShade4],
   );
 
   /// if dark mode enabled
@@ -129,7 +129,7 @@ class TraleTheme {
   Color get bgShade4 => bgElevated(1);
   /// get elevated shade of bg
   Color bgElevated(double elevation) => colorOfElevation(
-      elevation, themeData.colorScheme.background
+      elevation, themeData.colorScheme.surface
   );
 
   /// get header color of dialog
@@ -156,7 +156,7 @@ class TraleTheme {
       brightness: brightness,
     ).harmonized();
     if (isAmoled) {
-      colorScheme = colorScheme.copyWith(background: Colors.black).harmonized();
+      colorScheme = colorScheme.copyWith(surface: Colors.black).harmonized();
     }
 
     // Create a TextTheme and ColorScheme, that we can use to generate ThemeData
