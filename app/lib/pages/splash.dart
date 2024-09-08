@@ -59,7 +59,7 @@ class _SplashState extends State<Splash> {
     ).then((_) => onStop());
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width,

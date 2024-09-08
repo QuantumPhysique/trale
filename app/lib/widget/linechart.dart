@@ -293,7 +293,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       1,
                     ),
                   color: barData.color ?? Colors.black,
-                  strokeColor: Theme.of(context).colorScheme.onBackground,
+                  strokeColor: Theme.of(context).colorScheme.onSurface,
                   strokeWidth: 0.2,
                 )
               ),
