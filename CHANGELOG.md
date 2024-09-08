@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Using the latest flutter 3.24 with upgraded deps
 
 
 ## [0.7.1] - 2024-07-03
