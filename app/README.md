@@ -43,3 +43,9 @@ dart run dart_code_metrics:metrics check-unused-files lib
 dart run dart_code_metrics:metrics check-unused-l10n lib
 dart run dart_code_metrics:metrics check-unused-code lib
 ```
+
+### Generate apks for Accrescent
+
+```bash
+ bundletool build-apks --bundle=app-release.aab --output=app-release.apks --overwrite --ks-key-alias="key" --ks=/path/to/key.jks --ks-pass=pass:"..."
+```

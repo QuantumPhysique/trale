@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "app.accrescent.tools.bundletool" version "0.2.4"
 }
 
 def localProperties = new Properties()
@@ -27,6 +28,7 @@ def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
+def useKeystoreProperties = keystorePropertiesFile.canRead()
 
 android {
     compileSdkVersion 34
@@ -88,6 +90,17 @@ android {
         jvmTarget = '17'
     }
     namespace 'de.quantumphysique.trale'
+}
+
+if (useKeystoreProperties) {
+    bundletool {
+        signingConfig {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
 }
 
 flutter {
