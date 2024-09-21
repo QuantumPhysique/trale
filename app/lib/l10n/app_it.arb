@@ -1,0 +1,284 @@
+{
+  "stats": "Statistiche",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Unità",
+  "@unit": {},
+  "date": "Data",
+  "@date": {
+    "description": "Date"
+  },
+  "userSettings": "Impostazioni Utente",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "about": "Riguardo",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "defaultLang": "Impostazione Predefinita del Sistema",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "lightmode": "Chiaro",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "systemmode": "Sistema",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Esporta Dati",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportSubtitle": "Questo rende disponibili tutte le misurazioni a tutte le app.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "abort": "Interrompere",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "importSubtitle": "Importa misure da file di backup .txt",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoled": "Nero",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "reset": "Ripristina app",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryReset": "Ripristino di Fabbrica",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "delete": "Cancella",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "Importazione interrotta.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "home": "Home",
+  "@home": {
+    "description": "home screen"
+  },
+  "yes": "Si",
+  "@yes": {
+    "description": "yes"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "save": "Salva",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Modifica",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "Backup",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Tempo",
+  "@time": {
+    "description": "time"
+  },
+  "loading": "Caricamento",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Misure",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Versione",
+  "@version": {
+    "description": "version"
+  },
+  "licence": "Licenza",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "Codice sorgente",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "welcome": "Benvenuto",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding2": "Scegli uno dei sei temi per personalizzare la tua app. Quale ti piace?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Privacy",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "skip": "Salta",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "startApp": "Inizia",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Peso Target",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightShort": "Target",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "faq_q1": "Manca la funzione X. Quando verrà aggiunta?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_q2": "Posso rivedere la schermata iniziale?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Certo! Premi il pulsante qui sotto.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Torna alla schermata iniziale",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "achievements": "Obbiettivi",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "weight": "Peso",
+  "@weight": {
+    "description": "weight"
+  },
+  "faq": "FAQ",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "user": "Utente",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "dangerzone": "Danger Zone",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Impostazioni",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "language": "Lingua",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "darkmode": "Scuro",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "open": "Apri",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "exportDialog": "Questo esporterà tutte le misurazioni nel dispositivo di archiviazione esterno. Sono richiesti i permessi di scrittura.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "import": "Importa Backup",
+  "@import": {
+    "description": "Import backup."
+  },
+  "tpl": "Third-party licenses",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "factoryResetDialog": "Ripristinare l'app? Questo comporterà la cancellazione di tutte le impostazioni e le registrazioni. Questa azione non può essere annullata.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "importDialog": "Aggiungi tutte le misure al database attuale. Questa azione non può essere annullata!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "amoledSubtitle": "Cambia il colore di sfondo a nero puro per la modalità scura.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "factoryResetSubtitle": "Ripristina tutte le impostazioni ed elimina tutte le misurazioni.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "addWeight": "Inserisci il tuo peso",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "onBoarding1": "Questa app in Material You ti aiuta a raggiungere il tuo peso ideale! Che tu voglia ingrassare, dimagrire o mantenere il peso forma: previsioni affidabili e statistiche complete ti aiuteranno a monitorare i tuoi progressi.\n\nUnisciti alla nostra community per tenere traccia dei tuoi obiettivi.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "onBoarding3": "Grazie per aver provato la nostra app. 🙂\n\nSe ti piace l'app, saremmo molto felici di ricevere un tuo feedback, un contributo su Github o un caffè. In cambio, ti risparmieremo fastidiose pubblicità che violano la privacy.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "onBoarding2Title": "Stile",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "targetWeightMotivation": "Stabilire un peso target è molto importante ed è un passo nella giusta direzione. Avere un traguardo da raggiungere ti motiva a fare di più.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "addUserName": "Come ti chiami?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Aggiungi peso target",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro2": "per iniziare",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro3": "Oggi è un buon giorno per iniziare la tua prima misurazione!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faqtext": "Qui trovi le risposte alle domande più frequenti. Per altre domande, apri una segnalazione su GitHub.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_a1": "L'app viene mantenuta nel nostro tempo libero e cerchiamo di tenerla semplice ed essenziale. Crediamo che aggiungere troppe funzioni la renda meno utilizzabile. Se pensi che manchi una funzione importante, apri una segnalazione o una richiesta di modifica.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q3": "Qual è l'icona dell'app?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "target_weight_warning": "L'anoressia è una malattia grave che sta diventando sempre più un problema per la società nel suo complesso, in parte a causa dei molti esempi negativi sui social media. Per contribuire alla prevenzione, non è possibile impostare un peso come obiettivo al di sotto dei 50 kg.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  }
+}

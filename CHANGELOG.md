@@ -14,16 +14,47 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Using the latest flutter 3.24 with upgraded deps
+
 ### Other changes:
 - Add backup reminder, see settings for more options
 
+
+## [0.7.1] - 2024-07-03
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in Turkish 🎉
+
+### Other changes:
+- Upgraded dependencies
+- Improve readability of target weight label
+
+### Bugfix 🐛:
+- Fix broken color of linechart
+- Allow adding measurements older than 2 years
+- Fix bug of showing target weight correctly using st/lb
+- Fixed a bug where saving an unmodified measurement resulted in it being deleted
+
+
+## [0.7.0] - 2024-05-29
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in French, Finnish, and Italian 🎉
+- Using the latest flutter 3.22 with upgraded deps
+
+### Other changes:
+- Improved translations
+
+
+## [0.6.2] - 2024-04-02
+### Bugfix 🐛:
+- Fix bug that prevents app to start, #70
 
 ## [0.6.1] - 2024-03-21
 ### Added Features and Improvements 🙌:
 - All new and improved interpolation API, the predictions are now more reliable
 - Using the latest flutter 3.19 with upgraded deps
 - Compile against Android 14 (SDK34)
-- Hello World! Thx to the community, the app is now available in Lithuanian, Chinese and Spanish 🎉
+- Hello World! Thx to the community, the app is now available in Lithuanian, Chinese, and Spanish 🎉
 
 ### Bugfix 🐛:
 - Fix bug, when reloading theme
@@ -171,7 +202,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.6.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.7.1...main
+[0.7.1]: https://github.com/quantumphysique/trale/compare/v0.7.0...v0.7.1
+[0.7.0]: https://github.com/quantumphysique/trale/compare/v0.6.2...v0.7.0
+[0.6.2]: https://github.com/quantumphysique/trale/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/quantumphysique/trale/compare/v0.5.0...v0.6.1
 [0.5.0]: https://github.com/quantumphysique/trale/compare/v0.4.7...v0.5.0
 [0.4.7]: https://github.com/quantumphysique/trale/compare/v0.4.6...v0.4.7

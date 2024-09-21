@@ -188,7 +188,7 @@ class _FAQ extends State<FAQ> {
     }
 
     return Container(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         child: Scaffold(
             body:  NestedScrollView(

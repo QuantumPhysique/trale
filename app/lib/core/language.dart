@@ -31,11 +31,15 @@ class Language {
     'de': 'Deutsch',
     'en': 'English',
     'es': 'Español',
+    'fi': 'Suomi',
+    'fr': 'Français',
+    'it': 'Italiano',
     'ko': '조선말',
     'lt': 'Lietuvių',
     'nb': 'Bokmål',
     'pl': 'język polski',
     'pt': 'Português',
+    'tr': 'Türkçe',
     'zh': '汉语',
   }[language] ?? 'error';
 

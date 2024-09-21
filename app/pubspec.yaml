@@ -15,11 +15,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.6.1+16
+version: 0.7.1+19
 
 environment:
-  sdk: ">=3.3.0 <4.0.0"
-  flutter: ">=3.19.3"
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.24.2"
 
 dependencies:
   flutter:
@@ -29,21 +29,21 @@ dependencies:
 
   auto_size_text: ^3.0.0
   dynamic_color: ^1.7.0
-  file_picker: ^8.0.0+1
-  fl_chart: ^0.66.2
+  file_picker: ^8.1.2
+  fl_chart: ^0.69.0
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  intl: ^0.18.1
+  intl: ^0.19.0
   introduction_screen: ^3.1.14
-  ml_linalg: ^13.12.2
-  package_info_plus: ^5.0.1
-  path_provider: ^2.1.2
+  ml_linalg: ^13.12.6
+  package_info_plus: ^8.0.2
+  path_provider: ^2.1.4
   provider: ^6.1.2
-  shared_preferences: ^2.2.2
-  share_plus: ^7.2.2
-  url_launcher: ^6.2.5
+  shared_preferences: ^2.3.2
+  share_plus: ^10.0.2
+  url_launcher: ^6.3.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,11 +53,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^2.4.8
+  build_runner: ^2.4.12
   # flutter_launcher_icons: ^0.10.0
   flutter_launcher_icons:
     git: https://github.com/nvi9/flutter_launcher_icons.git
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
   hive_generator: ^2.0.1
   translations_cleaner: ^0.0.5
 

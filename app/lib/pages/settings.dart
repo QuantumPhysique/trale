@@ -91,8 +91,8 @@ class ImportListTile extends StatelessWidget {
               actions: <Widget>[
                 TextButton(
                   style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.onBackground,
+                    foregroundColor: WidgetStateProperty.all<Color>(
+                      Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   onPressed: () => Navigator.pop(context, false),
@@ -106,10 +106,10 @@ class ImportListTile extends StatelessWidget {
                 ),
                 TextButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         Theme.of(context).colorScheme.primary,
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
+                      foregroundColor: WidgetStateProperty.all<Color>(
                         Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
@@ -221,8 +221,8 @@ class ResetListTile extends StatelessWidget {
               actions: <Widget>[
                 TextButton(
                   style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.onBackground,
+                    foregroundColor: WidgetStateProperty.all<Color>(
+                      Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   onPressed: () => Navigator.pop(context, false),
@@ -236,10 +236,10 @@ class ResetListTile extends StatelessWidget {
                 ),
                 TextButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                         Theme.of(context).colorScheme.primary,
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
+                      foregroundColor: WidgetStateProperty.all<Color>(
                         Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
@@ -580,7 +580,7 @@ class ThemeSelection extends StatelessWidget {
                       borderRadius:
                       TraleTheme.of(context)!.borderShape.borderRadius,
                       border: Border.all(
-                          color: Theme.of(context).colorScheme.onBackground,
+                          color: Theme.of(context).colorScheme.onSurface,
                       ),
                       color: (
                         isDark
@@ -588,7 +588,7 @@ class ThemeSelection extends StatelessWidget {
                             ? ctheme.dark(context).amoled
                             : ctheme.dark(context)
                           : ctheme.light(context)
-                      ).themeData.colorScheme.background,
+                      ).themeData.colorScheme.surface,
                     ),
                     width: 0.2 * MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -613,7 +613,7 @@ class ThemeSelection extends StatelessWidget {
                               isDark
                                 ? ctheme.dark(context)
                                 : ctheme.light(context)
-                            ).themeData.colorScheme.onBackground,
+                            ).themeData.colorScheme.onSurface,
                           ),
                           AutoSizeText(
                             'wwwwwwwwww',
@@ -741,7 +741,7 @@ class _Settings extends State<Settings> {
     }
 
     return Container(
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         child: Scaffold(
           body:  NestedScrollView(

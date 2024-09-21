@@ -28,6 +28,7 @@ class MeasurementInterpolation {
 
   /// re initialize database
   void reinit() {
+    _dateTimes = null;
     _times = null;
     _timesIdx = null;
     _times_measured = null;
@@ -68,43 +69,67 @@ class MeasurementInterpolation {
   /// length of displayed vectors
   int get NDisplay => timesDisplay.length;
 
+
+  List<DateTime>? _dateTimes;
+  /// get vector containing the times given in [ms since epoch]
+  List<DateTime> get dateTimes => _dateTimes ??= _createDateTimes();
+
+  /// get DateTime List corresponding to times and weights
+  List<DateTime> _createDateTimes() {
+    if (db.nMeasurements == 0) {
+      return <DateTime>[];
+    }
+
+    final int timeSpawn = db.lastDate.difference(
+      db.firstDate
+    ).inDays + 1 + 2 * _offsetInDays;
+
+    return List<DateTime>.generate(
+      timeSpawn,
+        (int idx) => DateTime(
+          db.firstDate.year,
+          db.firstDate.month,
+          db.firstDate.day + idx - _offsetInDays,
+      )
+    );
+
+  }
+
   Vector? _times;
   /// get vector containing the times given in [ms since epoch]
   Vector get times => _times ??= _createTimes();
 
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createTimes() {
-    if (db.nMeasurements == 0) {
+    final List<DateTime> dts = dateTimes;
+    if (dts.isEmpty) {
       _isExtrapolated = Vector.empty();
       return Vector.empty();
     }
-
-    final int dateFrom = db.sortedMeasurements.last.measurement.dayInMs
-      - _dayInMs * _offsetInDays + _dailyOffsetInHours;
-    final int dateTo = db.sortedMeasurements.first.measurement.dayInMs
-      + _dayInMs * _offsetInDays + _dailyOffsetInHours;
-
     // set isExtrapolated
-    _isExtrapolated = Vector.fromList(<int>[
-      for (int date = dateFrom; date <= dateTo; date += _dayInMs)
-        (
-          (date < db.sortedMeasurements.last.measurement.dayInMs) ||
-          (date > db.sortedMeasurements.first.measurement.dayInMs)
-        ) ? 1 : 0
-    ]);
-
-    return Vector.fromList(<int>[
-      for (int date = dateFrom; date <= dateTo; date += _dayInMs)
-        date
-    ], dtype: dtype);
+    _isExtrapolated = Vector.fromList(
+      List.generate(
+        dts.length,
+        (int idx) =>
+          (
+            (idx < _offsetInDays) ||
+            (idx + 1 > dts.length - _offsetInDays)
+          ) ? 1 : 0,
+      )
+    );
+    return Vector.fromList(
+      dts.map(
+        (DateTime dt) => dt.millisecondsSinceEpoch
+      ).toList(),
+      dtype: dtype,
+    );
   }
 
   List<int>? _timesIdx;
   /// get vector containing the times given in [ms since epoch]
-  List<int> get timesIdx => _timesIdx ??= <int>[
-    for (int idx=0; idx < N; idx++)
-      idx
-  ];
+  List<int> get timesIdx => _timesIdx ??= List<int>.generate(
+    N, (int idx) => idx
+  );
 
   Vector? _times_measured;
   /// get vector containing the times of the measurements
@@ -133,7 +158,7 @@ class MeasurementInterpolation {
   Vector get weights => _weights ??= _createWeights();
   /// get linearly interpolated and sorted list of daily-averaged measurements
   Vector _createWeights() {
-    if (db.nMeasurements == 0) {
+    if (N == 0) {
       _isMeasurement = Vector.empty();
       _idxsMeasurements = <int>[];
       return Vector.empty();
@@ -145,11 +170,7 @@ class MeasurementInterpolation {
     int idx = 0;
     for (final SortedMeasurement m in db.sortedMeasurements.reversed) {
       while (
-        ! m.measurement.date.sameDay(
-          DateTime.fromMillisecondsSinceEpoch(
-            times[idx].toInt(),
-          )
-        )
+        ! m.measurement.date.sameDay(dateTimes[idx])
       ) {
         idx += 1;
       }
@@ -283,7 +304,7 @@ class MeasurementInterpolation {
           ? _offsetInDays
           : _offsetInDays - _offsetInDaysShown,
           N - _offsetInDays + _offsetInDaysShown,
-      );
+      ) + _dailyOffsetInHours / 24 * _dayInMs;
 
   /// add linear interpolation to measurements
   Vector _linearExtrapolation(Vector weights) {
@@ -295,31 +316,21 @@ class MeasurementInterpolation {
       return Vector.filled(N, weights[idxsMeasurements[0]]);
     }
 
-    // add
-    final int lastIdx = idxsMeasurements.last;
-    final int firstIdx = idxsMeasurements.first;
-
+    // add extrapolation
     final Vector initialExtrapolation = _linearRegression(
       weights,
-      times[firstIdx],
-      Vector.fromList(<double>[
-        for (int idx=0; idx < firstIdx; idx++)
-          times[idx]
-      ]),
+      times[_offsetInDays],
+      times.subvector(0, _offsetInDays),
     );
-
     final Vector finalExtrapolation = _linearRegression(
       weights,
-      times[lastIdx],
-      Vector.fromList(<double>[
-        for (int idx=lastIdx + 1; idx < N; idx++)
-          times[idx]
-      ]),
+      times[N - _offsetInDays],
+      times.subvector(N - _offsetInDays, N),
     );
 
     for (int idx=0; idx < _offsetInDays; idx++) {
       weightsList[idx] = initialExtrapolation[idx];
-      weightsList[lastIdx + 1 + idx] = finalExtrapolation[idx];
+      weightsList[N - _offsetInDays + idx] = finalExtrapolation[idx];
     }
 
     return Vector.fromList(weightsList, dtype: dtype);
@@ -456,7 +467,7 @@ class MeasurementInterpolation {
   static const int _offsetInDaysShown = 7;
 
   /// offset of day in interpolation shown
-  static const int _dailyOffsetInHours = 8;
+  static const int _dailyOffsetInHours = 12;
 
   /// 24h given in [ms]
   static const int _dayInMs = 24 * 3600 * 1000;
