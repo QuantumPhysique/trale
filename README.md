@@ -75,4 +75,4 @@ This app is still in <b>beta</b> stage and may contain bugs.
 If you encounter a bug or if you are missing a feature, please <a href="https://github.com/QuantumPhysique/trale/issues">open a new issue</a>.
 
 ## License
-The project is licensed [GNU AGPLv3+](https://github.com/comradekingu/trale/blob/main/LICENSE).
+The project is licensed [GNU AGPLv3+](https://github.com/QuantumPhysique/trale/blob/main/LICENSE).
