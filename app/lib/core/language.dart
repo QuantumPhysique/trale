@@ -33,6 +33,7 @@ class Language {
     'es': 'Español',
     'fi': 'Suomi',
     'fr': 'Français',
+    'hr': 'hrvatski',
     'it': 'Italiano',
     'ko': '조선말',
     'lt': 'Lietuvių',
