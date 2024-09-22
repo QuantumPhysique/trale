@@ -21,6 +21,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Hello World! Thx to the community, the app is now available in Croatian 🎉
 - Using the latest flutter 3.24 with upgraded deps
 
+### Bugfix 🐛:
+- Fix showing ukraine as supported language
+
 
 ## [0.7.1] - 2024-07-03
 ### Added Features and Improvements 🙌:

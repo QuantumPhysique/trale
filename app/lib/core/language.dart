@@ -41,6 +41,7 @@ class Language {
     'pl': 'język polski',
     'pt': 'Português',
     'tr': 'Türkçe',
+    'uk': 'Українська мова',
     'zh': '汉语',
   }[language] ?? 'error';
 
