@@ -15,9 +15,10 @@ Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
 ## Installation
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/de.quantumphysique.trale)
+<div align="center">
+    [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/de.quantumphysique.trale)
+    [<img src="assets/get-it-on.png" alt="Get it on Accrescent" height="80">](https://accrescent.app/)
+</div>
 
 Preferably use F-Droid. \
 The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) can also be downloaded here.
