@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Changed font and icons to improve overall accessibility
+
 ### Other changes:
 - Add backup reminder, see settings for more options
 
