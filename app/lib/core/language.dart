@@ -33,12 +33,15 @@ class Language {
     'es': 'Español',
     'fi': 'Suomi',
     'fr': 'Français',
+    'hr': 'hrvatski',
     'it': 'Italiano',
     'ko': '조선말',
     'lt': 'Lietuvių',
     'nb': 'Bokmål',
     'pl': 'język polski',
     'pt': 'Português',
+    'tr': 'Türkçe',
+    'uk': 'Українська мова',
     'zh': '汉语',
   }[language] ?? 'error';
 

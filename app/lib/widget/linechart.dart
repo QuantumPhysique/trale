@@ -230,16 +230,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
             horizontalLines: <HorizontalLine>[
               if (targetWeight != null)
                 HorizontalLine(
-                  y: targetWeight,
+                  y: targetWeight / unitScaling,
                   color: Theme.of(context).colorScheme.tertiary,
                   strokeWidth: 2,
                   dashArray: <int>[8, 6],
                   label: HorizontalLineLabel(
                     show: true,
-                    alignment: Alignment.topRight,
+                    alignment:
+                      ip.db.sortedMeasurements.first.measurement.weight > targetWeight
+                        ? Alignment.bottomRight
+                        : Alignment.topRight,
                     padding: const EdgeInsets.only(bottom: 3),
                     style: Theme.of(context).textTheme.bodySmall!.apply(
                         color: Theme.of(context).colorScheme.onSurface,
+                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
                       ),
                     labelResolver: (HorizontalLine line) =>
                       AppLocalizations.of(context)!.targetWeightShort,
@@ -289,7 +293,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       1,
                     ),
                   color: barData.color ?? Colors.black,
-                  strokeColor: Theme.of(context).colorScheme.onBackground,
+                  strokeColor: Theme.of(context).colorScheme.onSurface,
                   strokeWidth: 0.2,
                 )
               ),

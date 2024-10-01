@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/backupDialog.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/fade_in_effect.dart';
 import 'package:trale/widget/linechart.dart';
@@ -28,6 +34,29 @@ class _OverviewScreen extends State<OverviewScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst) {
         loadedFirst = false;
+        TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
+          context, listen: false,
+        );
+        if (
+          traleNotifier.latestBackupDate != null &&
+          traleNotifier.backupInterval != BackupInterval.never &&
+          traleNotifier.latestBackupDate!.difference(
+            DateTime.now()
+          ).inDays > traleNotifier.backupInterval.inDays
+        ) {
+          final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
+          sm.showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.backupReminder),
+              behavior: SnackBarBehavior.fixed,
+              duration: TraleTheme.of(context)!.snackbarDuration,
+              action: SnackBarAction(
+                label: AppLocalizations.of(context)!.backupReminderButton,
+                onPressed: () => backupDialog(context),
+              ),
+            ),
+          );
+        }
         setState(() {});
       }
     });
@@ -42,6 +71,25 @@ class _OverviewScreen extends State<OverviewScreen> {
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
+<<<<<<< HEAD
+=======
+    final Widget dummyChart = emptyChart(
+      context,
+      <InlineSpan>[
+        TextSpan(
+          text: AppLocalizations.of(context)!.intro1,
+        ),
+        const WidgetSpan(
+          child: Icon(CustomIcons.add),
+          alignment: PlaceholderAlignment.middle,
+        ),
+        TextSpan(
+          text: AppLocalizations.of(context)!.intro2,
+        ),
+      ],
+    );
+
+>>>>>>> main
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
       return Column(
@@ -64,7 +112,6 @@ class _OverviewScreen extends State<OverviewScreen> {
               width: MediaQuery.of(context).size.width,
               child: Card(
                 shape: TraleTheme.of(context)!.borderShape,
-                color: Theme.of(context).colorScheme.surface,
                 margin: EdgeInsets.symmetric(
                   horizontal: TraleTheme.of(context)!.padding,
                 ),

@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trale/core/backupInterval.dart';
 
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
@@ -69,6 +70,14 @@ class Preferences {
 
   /// default zoomLevel
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
+
+  /// default backup interval
+  final BackupInterval defaultBackupInterval = BackupInterval.monthly;
+
+  /// latest backup date
+  final DateTime defaultLatestBackupDate = DateTime.fromMillisecondsSinceEpoch(
+    0,
+  );
 
   /// getter and setter for all preferences
   /// set user name
@@ -149,6 +158,26 @@ class Preferences {
         'interpolStrength', strength.name,
       );
 
+  /// get backup frequency
+  BackupInterval get backupInterval =>
+      prefs.getString('backupInterval')!.toBackupInterval()!;
+
+  /// set backup frequency
+  set backupInterval(BackupInterval interval) =>
+      prefs.setString(
+        'backupInterval', interval.name,
+      );
+
+  /// get latest backup date
+  DateTime get latestBackupDate =>
+      DateTime.parse(prefs.getString('latestBackupDate')!);
+
+  /// set latest backup date
+  set latestBackupDate(DateTime date) =>
+      prefs.setString(
+        'latestBackupDate', date.toString(),
+      );
+
   /// get zoom level
   ZoomLevel get zoomLevel =>
       prefs.getInt('zoomLevel')!.toZoomLevel()!;
@@ -193,6 +222,12 @@ class Preferences {
     }
     if (override || !prefs.containsKey('zoomLevel')) {
       zoomLevel = defaultZoomLevel;
+    }
+    if (override || !prefs.containsKey('backupInterval')) {
+      backupInterval = defaultBackupInterval;
+    }
+    if (override || !prefs.containsKey('latestBackupDate')) {
+      latestBackupDate = defaultLatestBackupDate;
     }
   }
 

@@ -153,7 +153,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           horizontal: TraleTheme.of(context)!.padding),
       dotsDecorator: DotsDecorator(
         size: const Size(10.0, 10.0),
-        color: Theme.of(context).colorScheme.onBackground,
+        color: Theme.of(context).colorScheme.onSurface,
         activeSize: const Size(22.0, 10.0),
         activeShape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
