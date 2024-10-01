@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -60,7 +59,7 @@ NavigationDrawer appDrawer (
       ListTile(
         dense: true,
         leading: Icon(
-          CustomIcons.account,
+          Icons.person_outline_rounded,
           color: Theme.of(context).iconTheme.color,
         ),
         title: TextFormField(
@@ -84,7 +83,7 @@ NavigationDrawer appDrawer (
       ListTile(
         dense: true,
         leading: Icon(
-          CustomIcons.goal,
+          Icons.flag_outlined,
           color: Theme.of(context).iconTheme.color,
         ),
         title: AutoSizeText(
@@ -128,7 +127,7 @@ NavigationDrawer appDrawer (
       ListTile(
         dense: true,
         leading: Icon(
-          CustomIcons.settings,
+          Icons.settings_outlined,
           color: Theme.of(context).iconTheme.color,
         ),
         title: AutoSizeText(
@@ -151,7 +150,7 @@ NavigationDrawer appDrawer (
       ListTile(
         dense: true,
         leading: Icon(
-          CustomIcons.faq,
+          Icons.question_answer_outlined,
           color: Theme.of(context).iconTheme.color,
         ),
         title: AutoSizeText(
@@ -174,7 +173,7 @@ NavigationDrawer appDrawer (
       ListTile(
         dense: true,
         leading: Icon(
-          CustomIcons.info,
+          Icons.info_outline_rounded,
           color: Theme.of(context).iconTheme.color,
         ),
         title: AutoSizeText(
