@@ -14,11 +14,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
-### Added Features and Improvements 🙌:
-- Using the latest flutter 3.24 with upgraded deps
-
 ### Other changes:
 - Add backup reminder, see settings for more options
+
+
+## [0.7.2] - 2024-09-22
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in Croatian 🎉
+- Using the latest flutter 3.24 with upgraded deps
+
+### Bugfix 🐛:
+- Fix showing ukraine as supported language
 
 
 ## [0.7.1] - 2024-07-03
@@ -202,7 +208,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.7.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.7.2...main
+[0.7.2]: https://github.com/quantumphysique/trale/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/quantumphysique/trale/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/quantumphysique/trale/compare/v0.6.2...v0.7.0
 [0.6.2]: https://github.com/quantumphysique/trale/compare/v0.6.1...v0.6.2
