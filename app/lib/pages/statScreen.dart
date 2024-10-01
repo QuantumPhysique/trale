@@ -52,10 +52,7 @@ class _StatsScreen extends State<StatsScreen> {
         stream: database.streamController.stream,
         builder: (
             BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-            ) => SafeArea(
-            key: key,
-            child: statsScreenWrapper(context, snapshot)
-        )
+            ) => statsScreenWrapper(context, snapshot)
     );
 
   }

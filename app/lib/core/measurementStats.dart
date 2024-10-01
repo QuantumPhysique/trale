@@ -118,7 +118,6 @@ class MeasurementStats {
       return null;
     }
     final double slope = ip.finalSlope;
-
     // Crossing is in the past
     if (slope * (ip.weightsDisplay[ip.idxLastDisplay] - targetWeight) >= 0) {
       return null;

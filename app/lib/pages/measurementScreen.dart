@@ -38,13 +38,6 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         controller: scrollController,
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: HeaderDelegate(
-                AppLocalizations.of(context)!.stats.inCaps,
-                animationDurationInMilliseconds,
-                firstDelayInMilliseconds),
-          ),
           WeightList(
             durationInMilliseconds: animationDurationInMilliseconds,
             delayInMilliseconds: secondDelayInMilliseconds,
@@ -73,10 +66,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         stream: database.streamController.stream,
         builder: (
             BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-            ) => SafeArea(
-            key: key,
-            child: measurementScreenWrapper(context, snapshot)
-        )
+            ) => measurementScreenWrapper(context, snapshot)
     );
 
   }
