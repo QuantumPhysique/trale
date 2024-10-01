@@ -41,7 +41,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
       return firstDelayInMilliseconds * (1 + i / 2).round();
     }
 
-    final Widget minMeanMaxWidget = Row(
+    final Widget minIconMaxWidget = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         getMinWidget(
@@ -109,7 +109,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
               delayInMilliseconds: getDelayInMilliseconds(1),
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
-            getMeanWidget(
+            getTotalChangeWidget(
               context: context,
               stats: stats,
               delayInMilliseconds: getDelayInMilliseconds(3)),
@@ -129,13 +129,13 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
           stats:stats,
           delayInMilliseconds: getDelayInMilliseconds(0)),
         col234,
-        minMeanMaxWidget,
-        streakWidget,
-        getTotalChangeWidget(
-          context: context,
-          stats: stats,
-          delayInMilliseconds: getDelayInMilliseconds(10)
+        minIconMaxWidget,
+        getMeanWidget(
+            context: context,
+            stats: stats,
+            delayInMilliseconds: getDelayInMilliseconds(10)
         ),
+        streakWidget,
         SizedBox(height: TraleTheme.of(context)!.padding)
       ].addGap(
         padding: TraleTheme.of(context)!.padding,

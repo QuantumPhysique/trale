@@ -213,7 +213,7 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
 
 
 /// define StatCard for number of days until target weight is reached
-StatCard getMeanWidget({required BuildContext context,
+StatCard getTotalChangeWidget({required BuildContext context,
                         required MeasurementStats stats,
                         int? delayInMilliseconds}) {
   final String unit =
@@ -221,6 +221,7 @@ StatCard getMeanWidget({required BuildContext context,
   return StatCard(
     ny: 2,
     delayInMilliseconds: delayInMilliseconds,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     childWidget: Padding(
       padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
       child: Column(
@@ -231,7 +232,7 @@ StatCard getMeanWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.meanWeight, fractionDigits: 0),
+                doubleToString(context, stats.deltaWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   fontWeight: FontWeight.w900,
@@ -246,7 +247,7 @@ StatCard getMeanWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.topCenter,
               child: AutoSizeText(
-                'mean ($unit)',
+                'total change\n($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   height: 1.0,
@@ -264,7 +265,7 @@ StatCard getMeanWidget({required BuildContext context,
 
 
 /// define StatCard for number of days until target weight is reached
-Widget getTotalChangeWidget({required BuildContext context,
+Widget getMeanWidget({required BuildContext context,
                              required MeasurementStats stats,
                              int? delayInMilliseconds}) {
   final String unit =
@@ -272,7 +273,6 @@ Widget getTotalChangeWidget({required BuildContext context,
   return StatCard(
     nx: 2,
     delayInMilliseconds: delayInMilliseconds,
-    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     childWidget: Padding(
       padding: EdgeInsets.zero,
       child: Row(
@@ -283,7 +283,7 @@ Widget getTotalChangeWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.deltaWeight),
+                doubleToString(context, stats.meanWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   fontWeight: FontWeight.w900,
@@ -298,7 +298,7 @@ Widget getTotalChangeWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.centerLeft,
               child: AutoSizeText(
-                'total change\n($unit)',
+                'mean ($unit)',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   height: 1.0,
@@ -405,14 +405,14 @@ Widget getMinWidget({required BuildContext context,
   return OneThirdStatCard(
     delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             flex: 1,
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: AutoSizeText(
                 'min ($unit)',
                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -425,7 +425,7 @@ Widget getMinWidget({required BuildContext context,
           Expanded(
             flex: 2,
             child: Align(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.center,
               child: AutoSizeText(
                 doubleToString(context, stats.minWeight),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -453,14 +453,14 @@ Widget getMaxWidget({required BuildContext context,
   return OneThirdStatCard(
     delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             flex: 2,
             child: Align(
-              alignment: Alignment.topRight,
+              alignment: Alignment.center,
               child: AutoSizeText(
                 doubleToString(context, stats.maxWeight),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -476,7 +476,7 @@ Widget getMaxWidget({required BuildContext context,
           Expanded(
             flex: 1,
             child: Align(
-              alignment: Alignment.topCenter,
+              alignment: Alignment.center,
               child: AutoSizeText(
                 'max ($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -528,7 +528,7 @@ String daysToString(BuildContext context, int days){
   }
 }
 
-String doubleToString(BuildContext context, double? d, {int fractionDigits = 1}){
+String doubleToString(BuildContext context, double? d){
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
