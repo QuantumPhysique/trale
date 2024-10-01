@@ -4,10 +4,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:trale/core/backupInterval.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
@@ -18,6 +16,7 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/widget/backupDialog.dart';
 import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 
@@ -29,7 +28,6 @@ class ExportListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
-    const Duration duration = Duration(seconds: 5);
     return ListTile(
       dense: true,
       title: AutoSizeText(
@@ -46,95 +44,7 @@ class ExportListTile extends StatelessWidget {
       ),
       trailing: IconButton(
         icon: const Icon(CustomIcons.export_icon),
-        onPressed: () async {
-          final bool accepted = await showDialog<bool>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                AppLocalizations.of(context)!.export,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              content: Text(
-                AppLocalizations.of(context)!.exportDialog,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              actions: <Widget>[
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.onSurface,
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: TraleTheme.of(context)!.padding / 2,
-                        horizontal: TraleTheme.of(context)!.padding,
-                      ),
-                      child: Text(AppLocalizations.of(context)!.abort)
-                  ),
-                ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
-                ),
-              ],
-            ),
-          ) ?? false;
-          if (accepted) {
-            final Directory localPath = await getTemporaryDirectory();
-            final DateFormat formatter = DateFormat('yyyy-MM-dd');
-            final String filename =
-              'trale_${formatter.format(DateTime.now())}.txt';
-            final String path = '${localPath.path}/$filename';
-            final File file = File(path);
-            final MeasurementDatabase db = MeasurementDatabase();
-            file.writeAsString(db.exportString, mode: FileMode.write);
-            final ShareResult sharingResult = await Share.shareXFiles(
-              <XFile>[XFile(path)],
-              text: 'trale backup',
-              subject: 'trale backup',
-            );
-            if (sharingResult.status == ShareResultStatus.success) {
-              sm.showSnackBar(
-                const SnackBar(
-                  content: Text('File successfully exported'),
-                  behavior: SnackBarBehavior.floating,
-                  duration: duration,
-                ),
-              );
-            }
-            await file.delete();
-            //sm.showSnackBar(
-            //  const SnackBar(
-            //    content: Text('Missing write permission.'),
-            //    behavior: SnackBarBehavior.floating,
-            //    duration: duration,
-            //  ),
-            //);
-          }
-        },
+        onPressed: () => backupDialog(context),
       ),
     );
   }
@@ -150,7 +60,6 @@ class ImportListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
     final MeasurementDatabase db = MeasurementDatabase();
-    const Duration duration = Duration(seconds: 5);
     return ListTile(
       dense: true,
       title: AutoSizeText(
@@ -253,7 +162,7 @@ class ImportListTile extends StatelessWidget {
                 SnackBar(
                   content: Text('$measurementCounts measurements added'),
                   behavior: SnackBarBehavior.floating,
-                  duration: duration,
+                  duration: TraleTheme.of(context)!.snackbarDuration,
                 ),
               );
             } else {
@@ -483,6 +392,50 @@ class UnitsListTile extends StatelessWidget {
     );
   }
 }
+
+/// ListTile for changing units settings
+class BackupIntervalListTile extends StatelessWidget {
+  /// constructor
+  const BackupIntervalListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.backupInterval,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<BackupInterval>(
+        initialSelection: Provider.of<TraleNotifier>(context).backupInterval,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.backupInterval,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<BackupInterval>>[
+          for (final BackupInterval interval in BackupInterval.values)
+            DropdownMenuEntry<BackupInterval>(
+              value: interval,
+              label: interval.name,
+            )
+        ],
+        onSelected: (BackupInterval? newInterval) async {
+          if (newInterval != null) {
+            Provider.of<TraleNotifier>(
+                context, listen: false
+            ).backupInterval = newInterval;
+          }
+        },
+      ),
+    );
+  }
+}
+
 
 
 /// ListTile for changing dark mode settings
@@ -751,6 +704,7 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
+          const BackupIntervalListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),

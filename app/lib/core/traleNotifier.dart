@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
+import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -59,7 +60,36 @@ class TraleNotifier with ChangeNotifier {
       prefs.zoomLevel = newLevel;
       notifyListeners();
     }
-}
+  }
+
+  /// get backup frequency
+  BackupInterval get backupInterval => prefs.backupInterval;
+  /// setter backup frequency
+  set backupInterval(BackupInterval newInterval) {
+    if (backupInterval != newInterval) {
+      prefs.backupInterval = newInterval;
+      notifyListeners();
+    }
+  }
+
+  /// get latest backup date
+  DateTime? get latestBackupDate {
+    if (prefs.defaultLatestBackupDate.sameDay(prefs.latestBackupDate)) {
+      return null;
+    }
+    return prefs.latestBackupDate;
+  }
+
+  /// set latest backup date
+  set latestBackupDate(DateTime? newDate) {
+    if (latestBackupDate != newDate) {
+      if (newDate == null) {
+        prefs.latestBackupDate = prefs.defaultLatestBackupDate;
+      } else {
+        prefs.latestBackupDate = newDate;
+      }
+    }
+  }
 
   /// getter
   Language get language => prefs.language;
