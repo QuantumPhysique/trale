@@ -71,8 +71,6 @@ class _OverviewScreen extends State<OverviewScreen> {
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
-<<<<<<< HEAD
-=======
     final Widget dummyChart = emptyChart(
       context,
       <InlineSpan>[
@@ -89,7 +87,6 @@ class _OverviewScreen extends State<OverviewScreen> {
       ],
     );
 
->>>>>>> main
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
       return Column(
