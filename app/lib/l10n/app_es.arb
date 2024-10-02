@@ -338,5 +338,41 @@
   "faq_a3": "Un lobo aullador sentado, con la cola parcialmente oculta por la letra \"t\", y la letra \"r\".",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "never": "nunca",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "semanalmente",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "quincenalmente",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "mensualmente",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "trimestralmente",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "Por favor, haz copias de seguridad con regularidad",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupReminderButton": "Realizar copia de seguridad ahora",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Copia de seguridad exportada correctamente",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "backupInterval": "Copias de seguridad",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
   }
 }
