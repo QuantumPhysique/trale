@@ -6,7 +6,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/gap.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/textSize.dart';
@@ -100,7 +99,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                   ),
-                  SizedBox(width: 5),
+                  const SizedBox(width: 5),
                   SizedBox(
                     height: sizeOfText(
                       text: '0',
@@ -525,7 +524,7 @@ String daysToString(BuildContext context, int days){
   if (days < 1000) {
     return '$days days';
   } else if(days >= 1000) {
-    int weeks = (days / 7).round();
+    final int weeks = (days / 7).round();
     return '$weeks weeks';
   } else {
     return '-';
@@ -536,5 +535,5 @@ String doubleToString(BuildContext context, double? d){
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
-      d!, showUnit: false);
+      d, showUnit: false);
 }

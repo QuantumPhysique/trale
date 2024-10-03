@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/emptyChart.dart';
-import 'package:trale/widget/sliverPersistentHeaderDelegate.dart';
 import 'package:trale/widget/weightList.dart';
 
 class MeasurementScreen extends StatefulWidget {

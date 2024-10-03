@@ -31,19 +31,19 @@ class _StatCardState extends State<StatCard> {
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
 
-    Color backgroundcolor = widget.backgroundColor
+    final Color backgroundcolor = widget.backgroundColor
         ?? Theme.of(context).colorScheme.secondaryContainer;
-    double x_width = (MediaQuery.sizeOf(context).width
+    final double xWidth = (MediaQuery.sizeOf(context).width
         - 3 * TraleTheme.of(context)!.padding) / 2;
-    double y_width = (x_width - TraleTheme.of(context)!.padding) / 2;
+    final double yWidth = (xWidth - TraleTheme.of(context)!.padding) / 2;
 
-    double height = widget.ny == 1
-        ? y_width * widget.ny
-        : y_width * widget.ny
+    final double height = widget.ny == 1
+        ? yWidth * widget.ny
+        : yWidth * widget.ny
           + (widget.ny - 1) * TraleTheme.of(context)!.padding;
-    double width = widget.nx == 1
-        ? x_width * widget.nx
-        : x_width * widget.nx
+    final double width = widget.nx == 1
+        ? xWidth * widget.nx
+        : xWidth * widget.nx
           + (widget.nx - 1) * TraleTheme.of(context)!.padding;
 
     final Card card = Card(

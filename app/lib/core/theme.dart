@@ -108,7 +108,7 @@ class TraleTheme {
     TransitionDuration(100, 200, 500);
 
   /// get duration of snackbar
-  final Duration snackbarDuration = Duration(seconds: 5);
+  final Duration snackbarDuration = const Duration(seconds: 5);
 
   /// get background gradient
   LinearGradient get bgGradient => LinearGradient(

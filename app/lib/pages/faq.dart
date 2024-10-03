@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../core/gap.dart';
+import '../core/icons.dart';
 import '../core/stringExtension.dart';
 import '../core/theme.dart';
 import '../core/traleNotifier.dart';
 import '../widget/customSliverAppBar.dart';
-import '../core/icons.dart';
 
 
 /// launch url

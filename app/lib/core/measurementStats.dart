@@ -1,13 +1,9 @@
-import 'dart:math' as math;
 
 import 'package:ml_linalg/linalg.dart';
 import 'package:ml_linalg/vector.dart';
 
-import 'package:trale/core/interpolation.dart';
-import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
-import 'package:trale/core/preferences.dart';
 
 
 /// class providing an API to handle interpolation of measurements
@@ -80,7 +76,7 @@ class MeasurementStats {
     int streak = 0;
     final List<int> streakList = <int>[];
     for (
-    final bool isMS in ip.isMeasurement.toList().map((e) => e.round() == 1)
+    final bool isMS in ip.isMeasurement.toList().map((double e) => e.round() == 1)
     ) {
       streak++;
       if (!isMS){
@@ -95,13 +91,13 @@ class MeasurementStats {
   double _getFrequency(int nDays) {
     /// todo: Add function returning the measurement frequency for a given
     /// duration (always starting from now?)
-    double f = 2.1;
+    const double f = 2.1;
     return f;
   }
   /// get frequency of taking measurements (last week)
   double? get frequencyLastWeek => _getFrequency(7);
   /// get frequency of taking measurements (in total)
-  double? get frequencyInTotal => this.nMeasurements / this.deltaTime;
+  double? get frequencyInTotal => nMeasurements / deltaTime;
 
   /// get weight change [kg] within last month from last measurement
   double? get deltaWeightLastYear => deltaWeightLastNDays(365);

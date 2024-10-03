@@ -14,7 +14,6 @@
 ///
 ///
 library;
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -34,30 +33,19 @@ class CustomIcons {
 
 class PPIcon extends PhosphorIcon {
   PPIcon(
-    IconData icon,
+    super.icon,
     BuildContext context, {
-    Key? key,
-    double? size,
-    double? fill,
-    double? weight,
-    double? grade,
-    double? opticalSize,
-    Color? color,
-    List<Shadow>? shadows,
-    String? semanticLabel,
-    TextDirection? textDirection,
+    super.key,
+    super.size,
+    super.fill,
+    super.weight,
+    super.grade,
+    super.opticalSize,
+    super.color,
+    super.shadows,
+    super.semanticLabel,
+    super.textDirection,
   }) : super(
-          icon,
-          color: color,
-          fill: fill,
-          grade: grade,
-          key: key,
-          opticalSize: opticalSize,
-          semanticLabel: semanticLabel,
-          shadows: shadows,
-          size: size,
-          textDirection: textDirection,
-          weight: weight,
           duotoneSecondaryOpacity: 1.0,
           duotoneSecondaryColor: Theme.of(context).colorScheme.secondaryContainer,
         );
