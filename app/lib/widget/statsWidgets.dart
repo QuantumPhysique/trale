@@ -164,7 +164,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
   )?.inDays;
 
   return StatCard(
-    backgroundColor: Theme.of(context).primaryColor,
+    backgroundColor: Theme.of(context).brightness == Brightness.light
+      ? Theme.of(context).primaryColor
+      : Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
     ny: 2,
     childWidget: Padding(
@@ -181,7 +183,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
                     ? '--'
                     : daysToString(context, timeOfTargetWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onPrimaryContainer,
                   fontWeight: FontWeight.w700,
                   fontSize: 200,
                 ),
@@ -196,7 +200,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
               child: AutoSizeText(
                 'days left to reach\ntarget weight',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onPrimaryContainer,
                   height: 1.0,
                 ),
                 maxLines: 3,
