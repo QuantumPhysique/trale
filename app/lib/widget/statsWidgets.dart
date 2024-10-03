@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/gap.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/textSize.dart';
@@ -99,6 +99,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                   ),
+                  const SizedBox(width: 5),
                   SizedBox(
                     height: sizeOfText(
                       text: '0',
@@ -111,11 +112,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                     child: Transform.rotate(
                       // a change of 1kg / 30d corresponds to 45°
                       angle: -1 * atan(deltaWeight),
-                      child: Icon(
-                        CustomIcons.next,
-                        color: Theme.of(context).
-                          colorScheme.onSecondaryContainer,
-                      ),
+                      child: const Icon( PhosphorIconsRegular.arrowRight),
                     ),
                   ),
                 ],
@@ -166,7 +163,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
   )?.inDays;
 
   return StatCard(
-    backgroundColor: Theme.of(context).primaryColor,
+    backgroundColor: Theme.of(context).brightness == Brightness.light
+      ? Theme.of(context).primaryColor
+      : Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
     ny: 2,
     childWidget: Padding(
@@ -183,7 +182,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
                     ? '--'
                     : daysToString(context, timeOfTargetWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onPrimaryContainer,
                   fontWeight: FontWeight.w700,
                   fontSize: 200,
                 ),
@@ -198,7 +199,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
               child: AutoSizeText(
                 'days left to reach\ntarget weight',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).brightness == Brightness.light
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.onPrimaryContainer,
                   height: 1.0,
                 ),
                 maxLines: 3,
@@ -521,7 +524,7 @@ String daysToString(BuildContext context, int days){
   if (days < 1000) {
     return '$days days';
   } else if(days >= 1000) {
-    int weeks = (days / 7).round();
+    final int weeks = (days / 7).round();
     return '$weeks weeks';
   } else {
     return '-';
@@ -532,5 +535,5 @@ String doubleToString(BuildContext context, double? d){
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
-      d!, showUnit: false);
+      d, showUnit: false);
 }

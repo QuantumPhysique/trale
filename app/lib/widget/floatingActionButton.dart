@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 
@@ -39,10 +41,7 @@ class _FABState extends State<FAB> {
             elevation: 0,
             onPressed: widget.onPressed,
             tooltip: AppLocalizations.of(context)!.addWeight,
-            child: Icon(
-              CustomIcons.add,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
+            child: PPIcon(PhosphorIconsRegular.plus, context),
           ),
         )
     );

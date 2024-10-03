@@ -19,6 +19,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other changes:
 - Add backup reminder, see settings for more options
+- Minor clean up of deprecated flutter code
 
 ### Bugfix 🐛:
 - Fixed a bug that caused a small icon to be displayed in the F-Droid store (German).

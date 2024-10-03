@@ -74,8 +74,7 @@ class MeasurementStats {
     int streak = 0;
     final List<int> streakList = <int>[];
     for (
-    final bool isMS in ip.isMeasurement.toList().map(
-      (double e) => e.round() == 1)
+    final bool isMS in ip.isMeasurement.toList().map((double e) => e.round() == 1)
     ) {
       streak++;
       if (!isMS){

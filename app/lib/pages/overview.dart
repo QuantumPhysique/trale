@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/icons.dart';
@@ -34,7 +35,7 @@ class _OverviewScreen extends State<OverviewScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst) {
         loadedFirst = false;
-        TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
+        final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
           context, listen: false,
         );
         if (
@@ -77,8 +78,8 @@ class _OverviewScreen extends State<OverviewScreen> {
         TextSpan(
           text: AppLocalizations.of(context)!.intro1,
         ),
-        const WidgetSpan(
-          child: Icon(CustomIcons.add),
+        WidgetSpan(
+          child: PPIcon(PhosphorIconsDuotone.plusCircle, context),
           alignment: PlaceholderAlignment.middle,
         ),
         TextSpan(

@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
@@ -85,6 +85,13 @@ final List<ThirdPartyLicence> tplsAssets = <ThirdPartyLicence>[
     licence: 'SIL Open Font',
     author: 'The Lexend Project Authors',
     years: '2018',
+  ),
+  ThirdPartyLicence(
+    name: 'Phosphor Icons',
+    url: 'https://phosphoricons.com/',
+    licence: 'MIT',
+    author: 'Phosphor Icons',
+    years: '2020',
   ),
 ]..sort(
   (ThirdPartyLicence tpl1, ThirdPartyLicence tpl2)
@@ -242,11 +249,11 @@ class _About extends State<About> {
             padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
             child: const Text(
               'A simple weight log with short-term extrapolation.\n\n'
-              'Your privacy is respected.\n'
-              'No revenue sources in the app, nor error logs sent.\n'
+              'Your privacy is respected.'
+              'No revenue sources in the app, nor error logs sent.'
               'Please open an issue if you have problems.\n\n'
               'Made by two devs with little spare time.\n'
-              'Consider contributing or donating. \u{1F642}',
+              'Consider contributing or donating.',
               textAlign: TextAlign.justify,
             ),
           ),
@@ -276,10 +283,7 @@ class _About extends State<About> {
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
-            trailing: FaIcon(
-              FontAwesomeIcons.github,
-              color: Theme.of(context).iconTheme.color,
-            ),
+            trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
             onTap: () => _launchURL(
                 'https://github.com/quantumphysique/trale'
             ),
@@ -357,7 +361,7 @@ class _About extends State<About> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(CustomIcons.back),
+          icon: const Icon(PhosphorIconsRegular.arrowLeft),
         ),
       );
     }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
@@ -55,8 +57,8 @@ Widget defaultEmptyChart({required BuildContext context,
       TextSpan(
         text: AppLocalizations.of(context)!.intro1,
       ),
-      const WidgetSpan(
-        child: Icon(CustomIcons.add),
+      WidgetSpan(
+        child: PPIcon(PhosphorIconsDuotone.plusCircle, context),
         alignment: PlaceholderAlignment.middle,
       ),
       TextSpan(

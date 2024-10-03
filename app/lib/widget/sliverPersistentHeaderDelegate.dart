@@ -22,7 +22,7 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate{
     return Align(
       child: Container(
         padding: padding,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         width: MediaQuery.of(context).size.width,
         child: TextSizeInEffect(
           text: title,
