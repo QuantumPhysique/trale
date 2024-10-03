@@ -4,8 +4,9 @@ import 'dart:ui';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/icons.dart';
+
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
@@ -294,9 +295,9 @@ extension CustomThemeModeEncoding on ThemeMode {
 
   /// get icon
   IconData get icon => <ThemeMode, IconData>{
-    ThemeMode.light: CustomIcons.lightmode,
-    ThemeMode.dark: CustomIcons.darkmode,
-    ThemeMode.system: CustomIcons.automode,
+    ThemeMode.light: PhosphorIconsDuotone.sun,
+    ThemeMode.dark: PhosphorIconsDuotone.moon,
+    ThemeMode.system: PhosphorIconsDuotone.cloudSun,
   }[this]!;
 }
 

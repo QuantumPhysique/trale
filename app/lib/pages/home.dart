@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
@@ -114,15 +115,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     ];
     final List<Widget> destinations = <Widget>[
       NavigationDestination(
-        icon: const Icon(CustomIcons.home),
+        icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
+        selectedIcon: PPIcon(PhosphorIconsFill.lineSegments, context),
         label: AppLocalizations.of(context)!.home,
       ),
       NavigationDestination(
-        icon: const Icon(CustomIcons.events),
+        icon: PPIcon(PhosphorIconsDuotone.trophy, context),
+        selectedIcon: PPIcon(PhosphorIconsFill.trophy, context),
         label: AppLocalizations.of(context)!.achievements,
       ),
       NavigationDestination(
-        icon: const Icon(Icons.assignment_outlined),
+        icon: PPIcon(PhosphorIconsDuotone.archive, context),
+        selectedIcon: PPIcon(PhosphorIconsFill.archive, context),
         label: AppLocalizations.of(context)!.measurements,
       ),
     ];
@@ -141,7 +145,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           return <Widget>[
             CustomSliverAppBar(
               leading: IconButton(
-                icon: const Icon(CustomIcons.settings),
+                icon: const Icon(PhosphorIconsRegular.list),
                 onPressed: () => key.currentState!.openDrawer(),
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:trale/core/icons.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
@@ -215,7 +215,7 @@ class _WeightListTileState extends State<WeightListTile>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         actionButton(
-                          CustomIcons.delete,
+                          PhosphorIconsRegular.trash,
                           TraleTheme.of(context)!.themeData.colorScheme
                             .onTertiaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme
@@ -224,7 +224,7 @@ class _WeightListTileState extends State<WeightListTile>
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding),
                         actionButton(
-                          CustomIcons.edit,
+                          PhosphorIconsRegular.lockSimpleOpen,
                           TraleTheme.of(context)!.themeData.colorScheme
                               .onSecondaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/gap.dart';
@@ -99,6 +100,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ),
                   ),
+                  SizedBox(width: 5),
                   SizedBox(
                     height: sizeOfText(
                       text: '0',
@@ -111,11 +113,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
                     child: Transform.rotate(
                       // a change of 1kg / 30d corresponds to 45°
                       angle: -1 * atan(deltaWeight),
-                      child: Icon(
-                        CustomIcons.next,
-                        color: Theme.of(context).
-                          colorScheme.onSecondaryContainer,
-                      ),
+                      child: const Icon( PhosphorIconsRegular.arrowRight),
                     ),
                   ),
                 ],

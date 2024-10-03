@@ -40,6 +40,7 @@ dependencies:
   ml_linalg: ^13.12.6
   package_info_plus: ^8.0.2
   path_provider: ^2.1.4
+  phosphor_flutter: ^2.1.0
   provider: ^6.1.2
   shared_preferences: ^2.3.2
   share_plus: ^10.0.2

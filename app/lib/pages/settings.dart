@@ -4,10 +4,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/backupInterval.dart';
 
 import 'package:trale/core/icons.dart';
+import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
@@ -43,7 +44,7 @@ class ExportListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.export_icon),
+        icon: PPIcon(PhosphorIconsDuotone.upload, context),
         onPressed: () => backupDialog(context),
       ),
     );
@@ -75,7 +76,7 @@ class ImportListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.import_icon),
+        icon: PPIcon(PhosphorIconsDuotone.download, context),
         onPressed: () async {
           final bool accepted = await showDialog<bool>(
             context: context,
@@ -104,30 +105,10 @@ class ImportListTile extends StatelessWidget {
                       child: Text(AppLocalizations.of(context)!.abort)
                   ),
                 ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
+                FilledButton.icon(
+                  onPressed: () => Navigator.pop(context, true),
+                  label: Text(AppLocalizations.of(context)!.yes),
+                  icon: PPIcon(PhosphorIconsRegular.download, context),
                 ),
               ],
             ),
@@ -205,7 +186,7 @@ class ResetListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.delete),
+        icon: PPIcon(PhosphorIconsDuotone.trash, context),
         onPressed: () async {
           final bool accepted = await showDialog<bool>(
             context: context,
@@ -234,30 +215,10 @@ class ResetListTile extends StatelessWidget {
                       child: Text(AppLocalizations.of(context)!.abort)
                   ),
                 ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
+                FilledButton.icon(
+                  onPressed: () => Navigator.pop(context, true),
+                  label: Text(AppLocalizations.of(context)!.yes),
+                  icon: PPIcon(PhosphorIconsRegular.trash, context),
                 ),
               ],
             ),
@@ -465,7 +426,7 @@ class DarkModeListTile extends StatelessWidget {
             ButtonSegment<ThemeMode>(
               value: mode,
               tooltip: mode.nameLong(context),
-              icon: Icon(mode.icon),
+              icon: PPIcon(mode.icon, context),
             )
         ],
         onSelectionChanged: (Set<ThemeMode> newMode) async {
@@ -735,7 +696,7 @@ class _Settings extends State<Settings> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(CustomIcons.back),
+          icon: const Icon(PhosphorIconsDuotone.arrowLeft),
         ),
       );
     }

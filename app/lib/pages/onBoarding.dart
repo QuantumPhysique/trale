@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -137,10 +138,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         style: Theme.of(context).textTheme.bodyLarge!,
         overflow: TextOverflow.ellipsis,
       ),
-      next: Icon(
-        CustomIcons.next,
-        color: Theme.of(context).iconTheme.color,
-      ),
+      next: PPIcon( PhosphorIconsDuotone.caretDoubleRight, context),
       done: Text(
         AppLocalizations.of(context)!.startApp,
         style: Theme.of(context).textTheme.bodyLarge!,

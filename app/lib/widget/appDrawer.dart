@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -58,10 +60,7 @@ NavigationDrawer appDrawer (
       ),
       ListTile(
         dense: true,
-        leading: Icon(
-          Icons.person_outline_rounded,
-          color: Theme.of(context).iconTheme.color,
-        ),
+        leading: PPIcon( PhosphorIconsDuotone.user, context),
         title: TextFormField(
             keyboardType: TextInputType.name,
             decoration: InputDecoration.collapsed(
@@ -82,10 +81,7 @@ NavigationDrawer appDrawer (
       ),
       ListTile(
         dense: true,
-        leading: Icon(
-          Icons.flag_outlined,
-          color: Theme.of(context).iconTheme.color,
-        ),
+        leading: PPIcon(PhosphorIconsDuotone.target, context),
         title: AutoSizeText(
           notifier.userTargetWeight != null
               ? notifier.unit.weightToString(notifier.userTargetWeight!)
@@ -126,10 +122,7 @@ NavigationDrawer appDrawer (
       // ),
       ListTile(
         dense: true,
-        leading: Icon(
-          Icons.settings_outlined,
-          color: Theme.of(context).iconTheme.color,
-        ),
+        leading: PPIcon(PhosphorIconsDuotone.sliders, context),
         title: AutoSizeText(
           AppLocalizations.of(context)!.settings,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -149,10 +142,7 @@ NavigationDrawer appDrawer (
       ),
       ListTile(
         dense: true,
-        leading: Icon(
-          Icons.question_answer_outlined,
-          color: Theme.of(context).iconTheme.color,
-        ),
+        leading: PPIcon(PhosphorIconsDuotone.question, context),
         title: AutoSizeText(
           AppLocalizations.of(context)!.faq,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -172,10 +162,7 @@ NavigationDrawer appDrawer (
       ),
       ListTile(
         dense: true,
-        leading: Icon(
-          Icons.info_outline_rounded,
-          color: Theme.of(context).iconTheme.color,
-        ),
+        leading: PPIcon(PhosphorIconsDuotone.info, context),
         title: AutoSizeText(
           AppLocalizations.of(context)!.about,
           style: Theme.of(context).textTheme.titleSmall!.copyWith(
