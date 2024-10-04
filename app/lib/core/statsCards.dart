@@ -135,7 +135,7 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
 
     final StatCard card = StatCard(childWidget:
-    Column(
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[

@@ -14,7 +14,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
-import 'package:trale/widget/statsCards.dart';
+import 'package:trale/core/statsCards.dart';
 
 
 class StatsWidgets extends StatefulWidget {
@@ -215,6 +215,62 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
 }
 
 
+/// define StatCard for the frequency in total
+StatCard getFrequencyInTotal({required BuildContext context,
+                              required MeasurementStats stats,
+                              int? delayInMilliseconds}) {
+
+  return StatCard(
+    backgroundColor: Theme.of(context).brightness == Brightness.light
+        ? Theme.of(context).primaryColor
+        : Theme.of(context).colorScheme.primaryContainer,
+    delayInMilliseconds: delayInMilliseconds,
+    ny: 2,
+    childWidget: Padding(
+      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Align(
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  stats.frequencyInTotal!.toStringAsFixed(2),
+                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.onPrimaryContainer,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 200,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: AutoSizeText(
+                  'total frequency\n(/ day)',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.onPrimaryContainer,
+                    height: 1.0,
+                  ),
+                  maxLines: 3,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          ]),
+    ),
+  );
+}
+
+
 /// define StatCard for number of days until target weight is reached
 StatCard getTotalChangeWidget({required BuildContext context,
                         required MeasurementStats stats,
@@ -276,43 +332,40 @@ Widget getMeanWidget({required BuildContext context,
   return StatCard(
     nx: 2,
     delayInMilliseconds: delayInMilliseconds,
-    childWidget: Padding(
-      padding: EdgeInsets.zero,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                doubleToString(context, stats.meanWeight),
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryContainer,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 200,
-                ),
-                maxLines: 1,
+    childWidget: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              doubleToString(context, stats.meanWeight),
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onTertiaryContainer,
+                fontWeight: FontWeight.w900,
+                fontSize: 200,
               ),
+              maxLines: 1,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                'mean ($unit)',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 2,
-                textAlign: TextAlign.center,
+        ),
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              'mean ($unit)',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onTertiaryContainer,
+                height: 1.0,
               ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
-          )
-        ]
-      ),
+          ),
+        )
+      ]
     ),
   );
 }
@@ -327,73 +380,70 @@ StatCard getChangeRatesWidget({required BuildContext context,
   return StatCard(
     nx: 2,
     delayInMilliseconds: delayInMilliseconds,
-    childWidget: Padding(
-      padding: EdgeInsets.zero,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                'change ($unit)',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontWeight: FontWeight.w900,
-                ),
-                maxLines: 2,
-                textAlign: TextAlign.center,
+    childWidget: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              'change ($unit)',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                fontWeight: FontWeight.w900,
               ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                '/week\n${doubleToString(context, stats.deltaWeightLastWeek)}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 2,
-                textAlign: TextAlign.center,
+        ),
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              '/week\n${doubleToString(context, stats.deltaWeightLastWeek)}',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                height: 1.0,
               ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                '/month\n${doubleToString(context, stats.deltaWeightLastMonth)}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 2,
-                textAlign: TextAlign.center,
+        ),
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              '/month\n${doubleToString(context, stats.deltaWeightLastMonth)}',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                height: 1.0,
               ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: AutoSizeText(
-                '/year\n${doubleToString(context, stats.deltaWeightLastYear)}',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 2,
-                textAlign: TextAlign.center,
+        ),
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              '/year\n${doubleToString(context, stats.deltaWeightLastYear)}',
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                height: 1.0,
               ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
-          )
-        ]
-      ),
+          ),
+        )
+      ]
     ),
   );
 }
@@ -518,8 +568,6 @@ Widget getIconWidget({required BuildContext context,
 }
 
 
-
-
 String daysToString(BuildContext context, int days){
   if (days < 1000) {
     return '$days days';
@@ -530,6 +578,7 @@ String daysToString(BuildContext context, int days){
     return '-';
   }
 }
+
 
 String doubleToString(BuildContext context, double? d){
   return d == null
