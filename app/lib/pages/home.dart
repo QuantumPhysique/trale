@@ -107,7 +107,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    final bool showFAB = !popupShown;
+    final bool showFAB = !popupShown & (_selectedIndex == 0);
     final List<Widget> activeTabs = <Widget>[
       const OverviewScreen(),
       StatsScreen(tabController: _selectedTab),
