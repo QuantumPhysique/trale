@@ -135,26 +135,31 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
 
     final StatCard card = StatCard(childWidget:
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          AutoSizeText(
-            widget.firstRow,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
-            ),
-            maxLines: 1,
-          ),
-          AutoSizeText(
-            widget.secondRow,
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+      Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: TraleTheme.of(context)!.padding / 2),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            AutoSizeText(
+              widget.firstRow,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
-                fontWeight: FontWeight.w700
+              ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
             ),
-            maxLines: 1,
-          ),
-        ])
+            AutoSizeText(
+              widget.secondRow,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  fontWeight: FontWeight.w700
+              ),
+              maxLines: 1,
+            ),
+          ]),
+      )
     );
 
     return AnimateInEffect(

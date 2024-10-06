@@ -2,19 +2,20 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
+import 'package:trale/core/statsCards.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
-import 'package:trale/core/statsCards.dart';
 
 
 class StatsWidgets extends StatefulWidget {
@@ -34,11 +35,10 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.userTargetWeight;
-    final int? timeOfTargetWeight = stats.timeOfTargetWeight(
+    final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
         userTargetWeight
-    )?.inDays;
+    );
     final int nMeasured = ip.measurementDuration.inDays;
-
     Card userTargetWeightCard(double utw) => Card(
       shape: TraleTheme.of(context)!.borderShape,
       color: Theme.of(context).colorScheme.secondaryContainer,
@@ -59,8 +59,8 @@ class _StatsWidgetsState extends State<StatsWidgets> {
             ),
             AutoSizeText(
               timeOfTargetWeight == null
-                ? '-- days'
-                : '$timeOfTargetWeight days',
+                ? '--'
+                : timeOfTargetWeight.durationToString(context),
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
@@ -158,9 +158,18 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
 
   final double? userTargetWeight =
       Provider.of<TraleNotifier>(context).userTargetWeight;
-  final int? timeOfTargetWeight = stats.timeOfTargetWeight(
+  final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
       userTargetWeight
-  )?.inDays;
+  );
+
+  List<String> textLabels=
+    (timeOfTargetWeight?.durationToString(context) ??
+     '-- ${AppLocalizations.of(context)!.days}'
+    ).split(' ');
+
+  String subtext = textLabels.length == 1
+      ? 'you reached your target weight!'
+      : '${textLabels[1]} ' + 'left to reach target weight';
 
   return StatCard(
     backgroundColor: Theme.of(context).brightness == Brightness.light
@@ -178,9 +187,7 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                timeOfTargetWeight == null
-                    ? '--'
-                    : daysToString(context, timeOfTargetWeight),
+                textLabels[0],
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).brightness == Brightness.light
                     ? Theme.of(context).colorScheme.onPrimary
@@ -197,7 +204,7 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.topCenter,
               child: AutoSizeText(
-                'days left to reach\ntarget weight',
+                subtext,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).brightness == Brightness.light
                     ? Theme.of(context).colorScheme.onPrimary
@@ -253,7 +260,7 @@ StatCard getFrequencyInTotal({required BuildContext context,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: AutoSizeText(
-                  'total frequency\n(/ day)',
+                  'measurement frequency\n(/ day)',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
@@ -311,7 +318,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   height: 1.0,
                 ),
-                maxLines: 1,
+                maxLines: 2,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -565,18 +572,6 @@ Widget getIconWidget({required BuildContext context,
       child: const IconHeroStatScreen(),
     ),
   );
-}
-
-
-String daysToString(BuildContext context, int days){
-  if (days < 1000) {
-    return '$days days';
-  } else if(days >= 1000) {
-    final int weeks = (days / 7).round();
-    return '$weeks weeks';
-  } else {
-    return '-';
-  }
 }
 
 

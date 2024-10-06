@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/theme.dart';
@@ -16,17 +17,6 @@ class StatsWidgetsList extends StatefulWidget {
 }
 
 class _StatsWidgetsListState extends State<StatsWidgetsList> {
-
-  String daysToString(int days){
-    if (days < 1000) {
-      return '$days days';
-    } else if(days >= 1000) {
-      final int weeks = (days / 7).round();
-      return '$weeks weeks';
-    } else {
-      return '-';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,39 +51,20 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
       ),
     );
 
-    final Widget streakWidget = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        DefaultStatCard(
-          firstRow: 'current streak',
-          secondRow: daysToString(stats.currentStreak),
-          delayInMilliseconds: getDelayInMilliseconds(9),
-        ),
-        DefaultStatCard(
-          firstRow: 'longest streak',
-          secondRow: daysToString(stats.maxStreak),
-          delayInMilliseconds: getDelayInMilliseconds(10),
-        ),
-      ].addGap(
-        padding: TraleTheme.of(context)!.padding,
-        direction: Axis.horizontal,
-      ),
-    );
-
-    final Widget strikeFrequency = Row(
+    final Widget streakAndFrequencyWidget = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Column(
           children: <Widget>[
             DefaultStatCard(
               firstRow: 'current streak',
-              secondRow: daysToString(stats.currentStreak),
+              secondRow: stats.currentStreak.durationToString(context),
               delayInMilliseconds: getDelayInMilliseconds(9),
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             DefaultStatCard(
               firstRow: 'longest streak',
-              secondRow: daysToString(stats.maxStreak),
+              secondRow: stats.maxStreak.durationToString(context),
               delayInMilliseconds: getDelayInMilliseconds(10),
             ),
           ],
@@ -103,7 +74,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             getFrequencyInTotal(
                 context: context,
                 stats: stats,
-                delayInMilliseconds: getDelayInMilliseconds(3)),
+                delayInMilliseconds: getDelayInMilliseconds(11)),
           ],
         ),
       ].addGap(
@@ -124,8 +95,8 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
               delayInMilliseconds: getDelayInMilliseconds(2)),
             SizedBox(height: TraleTheme.of(context)!.padding),
             DefaultStatCard(
-              firstRow: 'total time',
-              secondRow: daysToString(stats.deltaTime),
+              firstRow: 'time since first measurement',
+              secondRow: stats.deltaTime.durationToString(context),
               delayInMilliseconds: getDelayInMilliseconds(4),
             ),
           ],
@@ -164,7 +135,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             stats: stats,
             delayInMilliseconds: getDelayInMilliseconds(8)
         ),
-        strikeFrequency,
+        streakAndFrequencyWidget,
         SizedBox(height: TraleTheme.of(context)!.padding)
       ].addGap(
         padding: TraleTheme.of(context)!.padding,

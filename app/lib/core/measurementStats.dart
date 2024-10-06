@@ -52,20 +52,20 @@ class MeasurementStats {
   double? get meanWeight => ip.weights_measured.mean();
 
   /// get total change in weight
-  double? get deltaWeight => maxWeight! - minWeight!;
+  double? get deltaWeight => maxWeight! - ip.weights_measured.last!;
 
   /// the start of the first measurement until now
   /// get time of records
-  int get deltaTime => DateTime.now().difference(db.firstDate).inDays;
+  Duration get deltaTime => DateTime.now().difference(db.firstDate);
 
   /// get number of measurements
   int get nMeasurements => ip.NMeasurements;
 
   /// get current streak
-  int get currentStreak => streakList.last.round();
+  Duration get currentStreak => Duration(days: streakList.last.round());
 
   /// get max streak
-  int get maxStreak => streakList.max().round();
+  Duration get maxStreak => Duration(days: streakList.max().round());
 
   Vector? _streakList;
   /// get list of all streaks
@@ -73,13 +73,13 @@ class MeasurementStats {
   Vector _estimateStreakList() {
     int streak = 0;
     final List<int> streakList = <int>[];
-    for (
-    final bool isMS in ip.isMeasurement.toList().map((double e) => e.round() == 1)
+    for (final bool isMS
+         in ip.isMeasurement.toList().map((double e) => e.round() == 1)
     ) {
-      streak++;
-      if (!isMS){
-        streakList.add(streak - 1);
-        streak = 0;
+        streak++;
+        if (!isMS){
+          streakList.add(streak - 1);
+          streak = 0;
       }
     }
     return Vector.fromList(streakList);
@@ -98,8 +98,8 @@ class MeasurementStats {
     }
     // to ensure that the time before the very first measurement is not
     // biasing the result, use as duration min of nDays or days since first m
-    if (deltaTime < nDays) {
-        return numberOfMeasurements / deltaTime;
+    if (deltaTime.inDays < nDays) {
+        return numberOfMeasurements / deltaTime.inDays;
     } else {
         return numberOfMeasurements / nDays;
     }
@@ -111,7 +111,7 @@ class MeasurementStats {
   /// get frequency of taking measurements (last year)
   double? get frequencyLastYear => _getFrequency(365);
   /// get frequency of taking measurements (in total)
-  double? get frequencyInTotal => nMeasurements / deltaTime;
+  double? get frequencyInTotal => nMeasurements / deltaTime.inDays;
 
   /// get weight change [kg] within last month from last measurement
   double? get deltaWeightLastYear => deltaWeightLastNDays(365);
@@ -127,6 +127,12 @@ class MeasurementStats {
     if ((targetWeight == null) || (db.nMeasurements < 2)){
       return null;
     }
+
+    // Check if target weight is already completed
+    if (targetWeight > ip.weightsDisplay[ip.idxLastDisplay]){
+      return const Duration(days: -1);
+    }
+
     final double slope = ip.finalSlope;
     // Crossing is in the past
     if (slope * (ip.weightsDisplay[ip.idxLastDisplay] - targetWeight) >= 0) {
