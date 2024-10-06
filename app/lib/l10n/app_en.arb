@@ -4,6 +4,14 @@
   "@achievements": {
     "description": "achievements"
   },
+  "days": "days",
+  "@days": {},
+  "weeks": "weeks",
+  "@weeks": {},
+  "months": "months",
+  "@months": {},
+  "years": "years",
+  "@years": {},
   "never": "never",
   "@never": {
     "description": "Frequency of backup interval"

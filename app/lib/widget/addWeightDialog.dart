@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/icons.dart';
@@ -336,7 +337,7 @@ List<Widget> actions(
     ),
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
-      icon: const Icon(CustomIcons.save),
+      icon: PPIcon(PhosphorIconsRegular.floppyDiskBack, context),
       label: Text(
         AppLocalizations.of(context)!.save,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
