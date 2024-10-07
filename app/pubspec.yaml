@@ -53,7 +53,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^2.4.12
+  build_runner: ^2.4.13
   # flutter_launcher_icons: ^0.10.0
   flutter_launcher_icons:
     git: https://github.com/nvi9/flutter_launcher_icons.git
