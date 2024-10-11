@@ -28,6 +28,26 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
     final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
 
+    final List<SortedMeasurement> measurements = database.sortedMeasurements;
+
+    final List<int> years = <int>[
+      for (
+        int year= measurements.first.measurement.date.year;
+        year >= measurements.last.measurement.date.year;
+        year--
+      )
+        year
+    ];
+
+    final Map<int, List<SortedMeasurement>> measurements_per_year = {
+      for (final int year in years)
+        year: <SortedMeasurement>[
+          for (final m in measurements)
+            if (m.measurement.date.year == year)
+              m
+        ]
+    };
+
     Widget measurementScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
 
@@ -35,12 +55,26 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         controller: scrollController,
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
-          WeightList(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: secondDelayInMilliseconds,
-            scrollController: scrollController,
-            tabController: widget.tabController,
-          ),
+          ...[
+          for (final int year in years)
+            ...[
+              SliverToBoxAdapter(
+                child: Center(
+                    child: Text(
+                      '$year',
+                      style: Theme.of(context).textTheme.displayMedium,
+                    )
+                ),
+              ),
+              WeightList(
+                measurements: measurements_per_year[year]!,
+                durationInMilliseconds: animationDurationInMilliseconds,
+                delayInMilliseconds: secondDelayInMilliseconds,
+                scrollController: scrollController,
+                tabController: widget.tabController,
+              ),
+            ],
+          ],
           SliverToBoxAdapter(
             child: SizedBox(
               height: TraleTheme.of(context)!.padding,
