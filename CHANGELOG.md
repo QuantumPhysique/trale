@@ -47,7 +47,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Allow adding measurements older than 2 years
 - Fix bug of showing target weight correctly using st/lb
 - Fixed a bug where saving an unmodified measurement resulted in it being deleted
->>>>>>> main
 
 
 ## [0.7.0] - 2024-05-29
