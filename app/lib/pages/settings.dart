@@ -425,7 +425,12 @@ class DarkModeListTile extends StatelessWidget {
             ButtonSegment<ThemeMode>(
               value: mode,
               tooltip: mode.nameLong(context),
-              icon: PPIcon(mode.icon, context),
+              icon: PPIcon(
+                Provider.of<TraleNotifier>(context).themeMode == mode
+                  ? mode.activeIcon
+                  : mode.icon,
+                context,
+              ),
             )
         ],
         onSelectionChanged: (Set<ThemeMode> newMode) async {

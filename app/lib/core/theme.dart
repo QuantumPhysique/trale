@@ -299,6 +299,13 @@ extension CustomThemeModeEncoding on ThemeMode {
     ThemeMode.dark: PhosphorIconsDuotone.moon,
     ThemeMode.system: PhosphorIconsDuotone.cloudSun,
   }[this]!;
+
+  /// get icon
+  IconData get activeIcon => <ThemeMode, IconData>{
+    ThemeMode.light: PhosphorIconsFill.sun,
+    ThemeMode.dark: PhosphorIconsFill.moon,
+    ThemeMode.system: PhosphorIconsFill.cloudSun,
+  }[this]!;
 }
 
 /// extension of theme
