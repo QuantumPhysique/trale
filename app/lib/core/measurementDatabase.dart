@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
@@ -111,6 +112,7 @@ class MeasurementDatabase {
 
     // update interpolation
     MeasurementInterpolation().reinit();
+    MeasurementStats().reinit();
 
     // fire stream
     fireStream();

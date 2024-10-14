@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
@@ -47,30 +47,10 @@ Future<void> backupDialog(BuildContext context) async {
               child: Text(AppLocalizations.of(context)!.abort)
           ),
         ),
-        TextButton(
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all<Color>(
-                Theme.of(context).colorScheme.primary,
-              ),
-              foregroundColor: WidgetStateProperty.all<Color>(
-                Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-            onPressed: () => Navigator.pop(context, true),
-            child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: TraleTheme.of(context)!.padding / 2,
-                  horizontal: TraleTheme.of(context)!.padding,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Icon(CustomIcons.done),
-                    SizedBox(width: TraleTheme.of(context)!.padding),
-                    Text(AppLocalizations.of(context)!.yes),
-                  ],
-                )
-            )
+        FilledButton.icon(
+          onPressed: () => Navigator.pop(context, true),
+          label: Text(AppLocalizations.of(context)!.yes),
+          icon: PPIcon(PhosphorIconsRegular.upload, context),
         ),
       ],
     ),

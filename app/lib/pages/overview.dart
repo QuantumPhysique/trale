@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/icons.dart';
@@ -34,13 +35,12 @@ class _OverviewScreen extends State<OverviewScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst) {
         loadedFirst = false;
-        TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
+        final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
           context, listen: false,
         );
         if (
-          traleNotifier.latestBackupDate != null &&
           traleNotifier.backupInterval != BackupInterval.never &&
-          traleNotifier.latestBackupDate!.difference(
+          traleNotifier.latestBackupDate.difference(
             DateTime.now()
           ).inDays > traleNotifier.backupInterval.inDays
         ) {
@@ -77,8 +77,8 @@ class _OverviewScreen extends State<OverviewScreen> {
         TextSpan(
           text: AppLocalizations.of(context)!.intro1,
         ),
-        const WidgetSpan(
-          child: Icon(CustomIcons.add),
+        WidgetSpan(
+          child: PPIcon(PhosphorIconsDuotone.plusCircle, context),
           alignment: PlaceholderAlignment.middle,
         ),
         TextSpan(
@@ -132,7 +132,7 @@ class _OverviewScreen extends State<OverviewScreen> {
 
       return measurements.isNotEmpty
           ? overviewScreen(context, snapshot)
-          : dummyChart;
+          : defaultEmptyChart(context: context, overviewScreen: true);
     }
 
     return StreamBuilder<List<Measurement>>(

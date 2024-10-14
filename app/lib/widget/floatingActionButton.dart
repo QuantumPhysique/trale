@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 
@@ -25,33 +27,23 @@ class _FABState extends State<FAB> {
   Widget build(BuildContext context) {
     const double topInset = 12;
     const double buttonHeight = 80 - 2 * topInset;
-    return Padding(
-      padding: EdgeInsets.only(
-        //todo add adaptive padding such that FAB is like a third bottom icon
-        right: TraleTheme.of(context)!.padding,
-        top: 80.0,
-      ),
-      child: AnimatedContainer(
-          alignment: Alignment.center,
-          height: widget.show ? buttonHeight : 0,
-          width: widget.show ? buttonHeight : 0,
-          margin: EdgeInsets.all(
-            widget.show ? 0 : 0.5 * buttonHeight,
+    return AnimatedContainer(
+        alignment: Alignment.center,
+        height: widget.show ? buttonHeight : 0,
+        width: widget.show ? buttonHeight : 0,
+        margin: EdgeInsets.all(
+          widget.show ? 0 : 0.5 * buttonHeight,
+        ),
+        duration: TraleTheme.of(context)!.transitionDuration.normal,
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: FloatingActionButton(
+            elevation: 0,
+            onPressed: widget.onPressed,
+            tooltip: AppLocalizations.of(context)!.addWeight,
+            child: PPIcon(PhosphorIconsRegular.plus, context),
           ),
-          duration: TraleTheme.of(context)!.transitionDuration.normal,
-          child: FittedBox(
-            fit: BoxFit.contain,
-            child: FloatingActionButton(
-              elevation: 0,
-              onPressed: widget.onPressed,
-              tooltip: AppLocalizations.of(context)!.addWeight,
-              child: Icon(
-                CustomIcons.add,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
-          )
-      ),
+        )
     );
   }
 }
