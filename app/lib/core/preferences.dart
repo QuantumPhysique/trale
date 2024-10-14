@@ -75,9 +75,7 @@ class Preferences {
   final BackupInterval defaultBackupInterval = BackupInterval.monthly;
 
   /// latest backup date
-  final DateTime defaultLatestBackupDate = DateTime.fromMillisecondsSinceEpoch(
-    0,
-  );
+  final DateTime defaultLatestBackupDate = DateTime.now();
 
   /// getter and setter for all preferences
   /// set user name

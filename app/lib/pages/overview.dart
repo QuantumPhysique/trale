@@ -39,9 +39,8 @@ class _OverviewScreen extends State<OverviewScreen> {
           context, listen: false,
         );
         if (
-          traleNotifier.latestBackupDate != null &&
           traleNotifier.backupInterval != BackupInterval.never &&
-          traleNotifier.latestBackupDate!.difference(
+          traleNotifier.latestBackupDate.difference(
             DateTime.now()
           ).inDays > traleNotifier.backupInterval.inDays
         ) {
