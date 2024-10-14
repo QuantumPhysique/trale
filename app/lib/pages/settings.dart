@@ -438,27 +438,6 @@ class DarkModeListTile extends StatelessWidget {
               context, listen: false
           ).themeMode = newMode.first;
         },
-        // isSelected: List<bool>.generate(
-        //   orderedThemeModes.length,
-        //       (int index) => index == orderedThemeModes.indexOf(
-        //       Provider.of<TraleNotifier>(context).themeMode
-        //   ),
-        // ),
-        // onPressed: (int index) {
-        //   Provider.of<TraleNotifier>(
-        //     context, listen: false,
-        //   ).themeMode = orderedThemeModes[index];
-        // },
-        // children: <Widget>[
-        //   const Icon(CustomIcons.lightmode),
-        //   Padding(
-        //     padding: EdgeInsets.symmetric(
-        //       horizontal: TraleTheme.of(context)!.padding,
-        //     ),
-        //     child: const Icon(CustomIcons.automode),
-        //   ),
-        //   const Icon(CustomIcons.darkmode),
-        // ],
       ),
     );
   }
