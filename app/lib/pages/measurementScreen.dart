@@ -51,36 +51,41 @@ class _MeasurementScreen extends State<MeasurementScreen> {
     Widget measurementScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
 
-      return CustomScrollView(
-        controller: scrollController,
-        cacheExtent: MediaQuery.of(context).size.height,
-        slivers: <Widget>[
-          ...[
-          for (final int year in years)
+      return Scrollbar(
+        radius: const Radius.circular(4),
+        thickness: 8,
+        interactive: true,
+        child: CustomScrollView(
+          controller: scrollController,
+          cacheExtent: 2 * MediaQuery.of(context).size.height,
+          slivers: <Widget>[
             ...[
-              SliverToBoxAdapter(
-                child: Center(
-                    child: Text(
-                      '$year',
-                      style: Theme.of(context).textTheme.displayMedium,
-                    )
+            for (final int year in years)
+              ...[
+                SliverToBoxAdapter(
+                  child: Center(
+                      child: Text(
+                        '$year',
+                        style: Theme.of(context).textTheme.displayMedium,
+                      )
+                  ),
                 ),
-              ),
-              WeightList(
-                measurements: measurements_per_year[year]!,
-                durationInMilliseconds: animationDurationInMilliseconds,
-                delayInMilliseconds: secondDelayInMilliseconds,
-                scrollController: scrollController,
-                tabController: widget.tabController,
-              ),
+                WeightList(
+                  measurements: measurements_per_year[year]!,
+                  durationInMilliseconds: animationDurationInMilliseconds,
+                  delayInMilliseconds: secondDelayInMilliseconds,
+                  scrollController: scrollController,
+                  tabController: widget.tabController,
+                ),
+              ],
             ],
-          ],
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: TraleTheme.of(context)!.padding,
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: TraleTheme.of(context)!.padding,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       );
     }
 
