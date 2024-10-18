@@ -6,9 +6,7 @@ extension StringExtension on Duration {
 
   String durationToString (BuildContext context){
     final int days = inDays;
-    if (days == null) {
-      return '-- ${AppLocalizations.of(context)!.days}';
-    } else if (days == -1) {
+    if (days == -1) {
       return '🥳';
     } else if (days < 28) {
       return '$days ${AppLocalizations.of(context)!.days}';

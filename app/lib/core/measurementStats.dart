@@ -52,7 +52,8 @@ class MeasurementStats {
   double? get meanWeight => ip.weights_measured.mean();
 
   /// get total change in weight
-  double? get deltaWeight => maxWeight! - ip.weights_measured.last!;
+  double? get deltaWeight => maxWeight == null ?
+    null : maxWeight! - ip.weights_measured.last;
 
   /// the start of the first measurement until now
   /// get time of records

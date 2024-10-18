@@ -39,10 +39,10 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         year
     ];
 
-    final Map<int, List<SortedMeasurement>> measurements_per_year = {
+    final Map<int, List<SortedMeasurement>> measurementsPerYear = <int, List<SortedMeasurement>>{
       for (final int year in years)
         year: <SortedMeasurement>[
-          for (final m in measurements)
+          for (final SortedMeasurement m in measurements)
             if (m.measurement.date.year == year)
               m
         ]
@@ -59,9 +59,9 @@ class _MeasurementScreen extends State<MeasurementScreen> {
           controller: scrollController,
           cacheExtent: 2 * MediaQuery.of(context).size.height,
           slivers: <Widget>[
-            ...[
+            ...<Widget>[
             for (final int year in years)
-              ...[
+              ...<Widget>[
                 SliverToBoxAdapter(
                   child: Center(
                       child: Text(
@@ -71,7 +71,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
                   ),
                 ),
                 WeightList(
-                  measurements: measurements_per_year[year]!,
+                  measurements: measurementsPerYear[year]!,
                   durationInMilliseconds: animationDurationInMilliseconds,
                   delayInMilliseconds: secondDelayInMilliseconds,
                   scrollController: scrollController,

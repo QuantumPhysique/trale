@@ -162,14 +162,14 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
       userTargetWeight
   );
 
-  List<String> textLabels=
+  final List<String> textLabels=
     (timeOfTargetWeight?.durationToString(context) ??
      '-- ${AppLocalizations.of(context)!.days}'
     ).split(' ');
 
-  String subtext = textLabels.length == 1
+  final String subtext = textLabels.length == 1
       ? 'you reached your target weight!'
-      : '${textLabels[1]} ' + 'left to reach target weight';
+      : '${textLabels[1]} left to reach target weight';
 
   return StatCard(
     backgroundColor: Theme.of(context).brightness == Brightness.light
