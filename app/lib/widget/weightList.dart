@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/weightListTile.dart';
 
 class WeightList extends StatefulWidget {
   const WeightList({
     super.key,
+    required this.measurements,
     required this.scrollController,
     required this.tabController,
     this.durationInMilliseconds = 1000,
@@ -17,6 +17,7 @@ class WeightList extends StatefulWidget {
     this.keepAlive = false,
   });
 
+  final List<SortedMeasurement> measurements;
   final int durationInMilliseconds;
   final int delayInMilliseconds;
   final bool keepAlive;
@@ -60,15 +61,12 @@ class _WeightList extends State<WeightList>{
 
   @override
   Widget build(BuildContext context) {
-    final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
-
     double getIntervalStart(int i) {
       const int maximalShownListTile = 15;
-      if (maximalShownListTile < measurements.length) {
+      if (maximalShownListTile < widget.measurements.length) {
         return <double>[i / maximalShownListTile, 1].reduce(min).toDouble();
       } else {
-        return i / measurements.length;
+        return i / widget.measurements.length;
       }
     }
 
@@ -86,14 +84,14 @@ class _WeightList extends State<WeightList>{
           delayInMilliseconds: widget.delayInMilliseconds,
           intervalStart: getIntervalStart(i),
           child: WeightListTile(
-            measurement: measurements[i],
+            measurement: widget.measurements[i],
             updateActiveState: updateActiveListTile,
             activeKey: activeListTile,
             offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
             durationInMilliseconds: widget.delayInMilliseconds,
           ),
         ),
-        childCount: measurements.length,
+        childCount: widget.measurements.length,
         addAutomaticKeepAlives: true,
       ),
     );

@@ -65,7 +65,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     final TextStyle labelTextStyle =
       Theme.of(context).textTheme.bodySmall!.apply(
-        fontFamily: 'Courier',
+        fontFamily: 'CourierPrime',
         color: Theme.of(context).colorScheme.onSurface,
       );
     final Size textSize = sizeOfText(
