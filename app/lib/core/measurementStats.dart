@@ -144,18 +144,7 @@ class MeasurementStats {
         (targetWeight - ip.weightsDisplay[ip.idxLastDisplay]) / slope
     ).round();
 
-    final DateTime timeOfReachingTargetWeight =
-      DateTime.fromMillisecondsSinceEpoch(
-        ip.times_measured.last.round() + remainingTime
-      );
-
-    final int dayUntilReachingTargetWeight =
-      timeOfReachingTargetWeight.day - DateTime.now().day;
-
-    if (dayUntilReachingTargetWeight > 0){
-      return Duration(days: dayUntilReachingTargetWeight);
-    }
-    return null;
+    return Duration(days: remainingTime);
   }
 
 }
