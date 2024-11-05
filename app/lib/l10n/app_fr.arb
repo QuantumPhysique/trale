@@ -327,7 +327,7 @@
   "@faq_a2_widget": {
     "description": "Return to onboarding screen"
   },
-  "faq_a3": "Un loup assis qui hurle, sa queue étant partiellement cachée par les lettres «t» et «r».",
+  "faq_a3": "Un loup assis qui hurle, sa queue étant partiellement cachée par les lettres « t » et « r ».",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   },
@@ -338,5 +338,41 @@
   "faq_a1": "L'application est développée pendant notre temps libre, et nous essayons de la garder simple et efficace. Ajouter trop de fonctionnalités la rendrait selon nous moins pratique. Si vous pensez néanmoins que nous oublions une fonctionnalité importante, n'hésitez pas à ouvrir une issue ou à nous soumettre une merge request.",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "never": "jamais",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "trimestriellement",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "hebdomadairement",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "mensuellement",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "bihebdomadairement",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "Sauvegardez régulièrement",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupReminderButton": "sauvegarder maintenant",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Sauvegarde exportée avec succès",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "backupInterval": "Sauvegardes",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
   }
 }
