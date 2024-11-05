@@ -397,6 +397,65 @@ class BackupIntervalListTile extends StatelessWidget {
 }
 
 
+/// ListTile for changing units settings
+class LastBackupListTile extends StatelessWidget {
+  /// constructor
+  const LastBackupListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                AppLocalizations.of(context)!.lastBackup,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+
+              Text(
+                Provider.of<TraleNotifier>(
+                    context, listen: false
+                ).dateFormat(context).format(
+                    Provider.of<TraleNotifier>(context).latestBackupDate
+                ),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                AppLocalizations.of(context)!.nextBackup,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+
+              Text(
+                Provider.of<TraleNotifier>(
+                    context, listen: false
+                ).dateFormat(context).format(
+                    Provider.of<TraleNotifier>(context).nextBackupDate
+                ),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 /// ListTile for changing dark mode settings
 class DarkModeListTile extends StatelessWidget {
@@ -648,7 +707,21 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
+          Divider(
+            height: 2 * TraleTheme.of(context)!.padding,
+          ),
+          Padding(
+            padding: padding,
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.backup.inCaps,
+              style: Theme.of(context).textTheme.headlineMedium,
+              maxLines: 1,
+            ),
+          ),
+          const ExportListTile(),
+          const ImportListTile(),
           const BackupIntervalListTile(),
+          const LastBackupListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),
@@ -660,8 +733,6 @@ class _Settings extends State<Settings> {
               maxLines: 1,
             ),
           ),
-          const ExportListTile(),
-          const ImportListTile(),
           const ResetListTile(),
           SizedBox(height: TraleTheme.of(context)!.padding),
         ],

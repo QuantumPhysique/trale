@@ -44,9 +44,17 @@
   "@backupSuccess": {
     "description": "Back successfully exported"
   },
-  "backupInterval": "Backups",
+  "backupInterval": "Interval",
   "@backupInterval": {
     "description": "Frequency of backup interval"
+  },
+  "lastBackup": "last backup",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "next backup",
+  "@nextBackup": {
+    "description": "Time of last backup"
   },
   "stats": "Statistics",
   "@stats": {

@@ -83,6 +83,11 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// get latest backup date
+  DateTime get nextBackupDate => prefs.latestBackupDate.add(
+    Duration(days: backupInterval.inDays)
+  );
+
   /// getter
   Language get language => prefs.language;
   /// setter
