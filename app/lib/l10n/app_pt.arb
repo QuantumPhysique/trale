@@ -9,6 +9,10 @@
   },
   "unit": "Unidades",
   "@unit": {},
+  "firstDay": "Primeiro dia",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "about": "Sobre",
   "@about": {
     "description": "Name of about menu section"

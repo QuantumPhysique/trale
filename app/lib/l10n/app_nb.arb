@@ -9,6 +9,10 @@
   },
   "unit": "Måleenheter",
   "@unit": {},
+  "firstDay": "Første dagen",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "Dato",
   "@date": {
     "description": "Date"

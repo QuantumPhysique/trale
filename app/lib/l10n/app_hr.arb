@@ -13,6 +13,10 @@
   },
   "unit": "Jedinice",
   "@unit": {},
+  "firstDay": "Prvi dan",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "Datum",
   "@date": {
     "description": "Date"

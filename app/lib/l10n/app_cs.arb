@@ -5,6 +5,10 @@
   },
   "unit": "Jednotky",
   "@unit": {},
+  "firstDay": "První den",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "user": "Uživatelský profil",
   "@user": {
     "description": "Name of user menu"

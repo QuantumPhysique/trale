@@ -109,6 +109,10 @@
   },
   "unit": "Unidades",
   "@unit": {},
+  "firstDay": "Primer dia",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "Fecha",
   "@date": {
     "description": "Date"
