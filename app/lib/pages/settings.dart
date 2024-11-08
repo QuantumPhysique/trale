@@ -6,12 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/firstDay.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -50,7 +52,6 @@ class ExportListTile extends StatelessWidget {
   }
 }
 
-
 /// ListTile for importing
 class ImportListTile extends StatelessWidget {
   /// constructor
@@ -78,86 +79,79 @@ class ImportListTile extends StatelessWidget {
         icon: const Icon(CustomIcons.import_icon),
         onPressed: () async {
           final bool accepted = await showDialog<bool>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                AppLocalizations.of(context)!.import,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              content: Text(
-                AppLocalizations.of(context)!.importDialog,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              actions: <Widget>[
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.onSurface,
-                    ),
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text(
+                    AppLocalizations.of(context)!.import,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: TraleTheme.of(context)!.padding / 2,
-                        horizontal: TraleTheme.of(context)!.padding,
-                      ),
-                      child: Text(AppLocalizations.of(context)!.abort)
+                  content: Text(
+                    AppLocalizations.of(context)!.importDialog,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
+                  actions: <Widget>[
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: WidgetStateProperty.all<Color>(
+                          Theme.of(context).colorScheme.onSurface,
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
+                      ),
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: TraleTheme.of(context)!.padding / 2,
+                            horizontal: TraleTheme.of(context)!.padding,
+                          ),
+                          child: Text(AppLocalizations.of(context)!.abort)),
+                    ),
+                    TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all<Color>(
+                            Theme.of(context).colorScheme.primary,
+                          ),
+                          foregroundColor: WidgetStateProperty.all<Color>(
+                            Theme.of(context).colorScheme.onPrimary,
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context, true),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: TraleTheme.of(context)!.padding / 2,
+                              horizontal: TraleTheme.of(context)!.padding,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Icon(CustomIcons.done),
+                                SizedBox(
+                                    width: TraleTheme.of(context)!.padding),
+                                Text(AppLocalizations.of(context)!.yes),
+                              ],
+                            ))),
+                  ],
                 ),
-              ],
-            ),
-          ) ?? false;
+              ) ??
+              false;
           if (accepted) {
-            final FilePickerResult? pickerResult = await FilePicker.platform
-                .pickFiles(
+            final FilePickerResult? pickerResult =
+                await FilePicker.platform.pickFiles(
               type: FileType.custom,
               allowedExtensions: <String>['txt'],
             );
-            if (
-            pickerResult != null &&
-                pickerResult.files.single.path != null
-            ) {
+            if (pickerResult != null &&
+                pickerResult.files.single.path != null) {
               final File file = File(pickerResult.files.single.path!);
               final List<Measurement> newMeasurements = <Measurement>[];
               for (final String line in file.readAsLinesSync()) {
                 // parse comments
                 if (!line.startsWith('#')) {
-                  newMeasurements.add(
-                      Measurement.fromString(
-                          exportString: line
-                      )
-                  );
+                  newMeasurements
+                      .add(Measurement.fromString(exportString: line));
                 }
               }
 
-              final int measurementCounts = db.insertMeasurementList(
-                  newMeasurements
-              );
+              final int measurementCounts =
+                  db.insertMeasurementList(newMeasurements);
               sm.showSnackBar(
                 SnackBar(
                   content: Text('$measurementCounts measurements added'),
@@ -181,7 +175,6 @@ class ImportListTile extends StatelessWidget {
     );
   }
 }
-
 
 /// ListTile for changing Amoled settings
 class ResetListTile extends StatelessWidget {
@@ -208,64 +201,61 @@ class ResetListTile extends StatelessWidget {
         icon: const Icon(CustomIcons.delete),
         onPressed: () async {
           final bool accepted = await showDialog<bool>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                AppLocalizations.of(context)!.factoryReset,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              content: Text(
-                AppLocalizations.of(context)!.factoryResetDialog,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              actions: <Widget>[
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: WidgetStateProperty.all<Color>(
-                      Theme.of(context).colorScheme.onSurface,
-                    ),
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text(
+                    AppLocalizations.of(context)!.factoryReset,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  onPressed: () => Navigator.pop(context, false),
-                  child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: TraleTheme.of(context)!.padding / 2,
-                        horizontal: TraleTheme.of(context)!.padding,
-                      ),
-                      child: Text(AppLocalizations.of(context)!.abort)
+                  content: Text(
+                    AppLocalizations.of(context)!.factoryResetDialog,
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
+                  actions: <Widget>[
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: WidgetStateProperty.all<Color>(
+                          Theme.of(context).colorScheme.onSurface,
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
+                      ),
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: TraleTheme.of(context)!.padding / 2,
+                            horizontal: TraleTheme.of(context)!.padding,
+                          ),
+                          child: Text(AppLocalizations.of(context)!.abort)),
+                    ),
+                    TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all<Color>(
+                            Theme.of(context).colorScheme.primary,
+                          ),
+                          foregroundColor: WidgetStateProperty.all<Color>(
+                            Theme.of(context).colorScheme.onPrimary,
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context, true),
+                        child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: TraleTheme.of(context)!.padding / 2,
+                              horizontal: TraleTheme.of(context)!.padding,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Icon(CustomIcons.done),
+                                SizedBox(
+                                    width: TraleTheme.of(context)!.padding),
+                                Text(AppLocalizations.of(context)!.yes),
+                              ],
+                            ))),
+                  ],
                 ),
-              ],
-            ),
-          ) ?? false;
+              ) ??
+              false;
           if (accepted) {
-            Provider.of<TraleNotifier>(
-              context, listen: false
-            ).factoryReset();
+            Provider.of<TraleNotifier>(context, listen: false).factoryReset();
             // leave settings
             Navigator.of(context).pop();
           }
@@ -274,7 +264,6 @@ class ResetListTile extends StatelessWidget {
     );
   }
 }
-
 
 /// ListTile for changing Amoled settings
 class AmoledListTile extends StatelessWidget {
@@ -299,14 +288,11 @@ class AmoledListTile extends StatelessWidget {
       ),
       value: Provider.of<TraleNotifier>(context).isAmoled,
       onChanged: (bool isAmoled) async {
-        Provider.of<TraleNotifier>(
-            context, listen: false
-        ).isAmoled = isAmoled;
+        Provider.of<TraleNotifier>(context, listen: false).isAmoled = isAmoled;
       },
     );
   }
 }
-
 
 /// ListTile for changing Language settings
 class LanguageListTile extends StatelessWidget {
@@ -340,15 +326,13 @@ class LanguageListTile extends StatelessWidget {
             )
         ],
         onSelected: (String? lang) async {
-          Provider.of<TraleNotifier>(
-              context, listen: false
-          ).language = lang!.toLanguage();
+          Provider.of<TraleNotifier>(context, listen: false).language =
+              lang!.toLanguage();
         },
       ),
     );
   }
 }
-
 
 /// ListTile for changing units settings
 class UnitsListTile extends StatelessWidget {
@@ -383,9 +367,7 @@ class UnitsListTile extends StatelessWidget {
         ],
         onSelected: (TraleUnit? newUnit) async {
           if (newUnit != null) {
-            Provider.of<TraleNotifier>(
-                context, listen: false
-            ).unit = newUnit;
+            Provider.of<TraleNotifier>(context, listen: false).unit = newUnit;
           }
         },
       ),
@@ -426,9 +408,8 @@ class BackupIntervalListTile extends StatelessWidget {
         ],
         onSelected: (BackupInterval? newInterval) async {
           if (newInterval != null) {
-            Provider.of<TraleNotifier>(
-                context, listen: false
-            ).backupInterval = newInterval;
+            Provider.of<TraleNotifier>(context, listen: false).backupInterval =
+                newInterval;
           }
         },
       ),
@@ -436,7 +417,90 @@ class BackupIntervalListTile extends StatelessWidget {
   }
 }
 
+/// ListTile for changing units settings
+class FirstDayListTile extends StatelessWidget {
+  /// constructor
+  const FirstDayListTile({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.firstDay,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<TraleFirstDay>(
+        initialSelection: Provider.of<TraleNotifier>(context).firstDay,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.firstDay,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleFirstDay>>[
+          for (final TraleFirstDay firstDay in TraleFirstDay.values)
+            DropdownMenuEntry<TraleFirstDay>(
+              value: firstDay,
+              label: firstDay.name,
+            )
+        ],
+        onSelected: (TraleFirstDay? newFirstDay) async {
+          if (newFirstDay != null) {
+            Provider.of<TraleNotifier>(context, listen: false).firstDay =
+                newFirstDay;
+          }
+        },
+      ),
+    );
+  }
+}
+
+/// ListTile for changing units settings
+class DatePrintListTile extends StatelessWidget {
+  /// constructor
+  const DatePrintListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        'Format',
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<TraleDatePrintFormat>(
+        initialSelection: Provider.of<TraleNotifier>(context).datePrintFormat,
+        label: AutoSizeText(
+          'Format',
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleDatePrintFormat>>[
+          for (final TraleDatePrintFormat datePrintFormat
+              in TraleDatePrintFormat.values)
+            DropdownMenuEntry<TraleDatePrintFormat>(
+              value: datePrintFormat,
+              label: datePrintFormat.name,
+            )
+        ],
+        onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
+          if (newDatePrintFormat != null) {
+            Provider.of<TraleNotifier>(context, listen: false).datePrintFormat =
+                newDatePrintFormat;
+          }
+        },
+      ),
+    );
+  }
+}
 
 /// ListTile for changing dark mode settings
 class DarkModeListTile extends StatelessWidget {
@@ -456,9 +520,7 @@ class DarkModeListTile extends StatelessWidget {
         maxLines: 1,
       ),
       trailing: SegmentedButton<ThemeMode>(
-        selected: <ThemeMode>{
-          Provider.of<TraleNotifier>(context).themeMode
-        },
+        selected: <ThemeMode>{Provider.of<TraleNotifier>(context).themeMode},
         showSelectedIcon: false,
         segments: <ButtonSegment<ThemeMode>>[
           for (final ThemeMode mode in orderedThemeModes)
@@ -469,9 +531,8 @@ class DarkModeListTile extends StatelessWidget {
             )
         ],
         onSelectionChanged: (Set<ThemeMode> newMode) async {
-          Provider.of<TraleNotifier>(
-              context, listen: false
-          ).themeMode = newMode.first;
+          Provider.of<TraleNotifier>(context, listen: false).themeMode =
+              newMode.first;
         },
         // isSelected: List<bool>.generate(
         //   orderedThemeModes.length,
@@ -498,7 +559,6 @@ class DarkModeListTile extends StatelessWidget {
     );
   }
 }
-
 
 /// ListTile for changing interpolation settings
 class InterpolationListTile extends StatelessWidget {
@@ -531,14 +591,14 @@ class InterpolationListTile extends StatelessWidget {
             )
         ],
         onSelectionChanged: (Set<InterpolStrength> newStrength) async {
-          Provider.of<TraleNotifier>(
-              context, listen: false
-          ).interpolStrength = newStrength.first;
+          Provider.of<TraleNotifier>(context, listen: false).interpolStrength =
+              newStrength.first;
         },
       ),
     );
   }
 }
+
 /// ListTile for changing interpolation settings
 class ThemeSelection extends StatelessWidget {
   /// constructor
@@ -548,10 +608,9 @@ class ThemeSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Used to adjust themeMode to dark or light
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
-    final bool isDark = traleNotifier.themeMode == ThemeMode.dark || (
-        traleNotifier.themeMode == ThemeMode.system &&
-        Theme.of(context).brightness == Brightness.dark
-    );
+    final bool isDark = traleNotifier.themeMode == ThemeMode.dark ||
+        (traleNotifier.themeMode == ThemeMode.system &&
+            Theme.of(context).brightness == Brightness.dark);
 
     return ListView.builder(
         physics: const ClampingScrollPhysics(),
@@ -560,10 +619,8 @@ class ThemeSelection extends StatelessWidget {
         itemCount: TraleCustomTheme.values.length,
         itemBuilder: (BuildContext context, int index) {
           final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
-          if (
-            !traleNotifier.systemColorsAvailable &&
-            ctheme == TraleCustomTheme.system
-          ) {
+          if (!traleNotifier.systemColorsAvailable &&
+              ctheme == TraleCustomTheme.system) {
             return const SizedBox.shrink();
           }
           return GestureDetector(
@@ -578,24 +635,24 @@ class ThemeSelection extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius:
-                      TraleTheme.of(context)!.borderShape.borderRadius,
+                          TraleTheme.of(context)!.borderShape.borderRadius,
                       border: Border.all(
-                          color: Theme.of(context).colorScheme.onSurface,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
-                      color: (
-                        isDark
-                          ? traleNotifier.isAmoled
-                            ? ctheme.dark(context).amoled
-                            : ctheme.dark(context)
-                          : ctheme.light(context)
-                      ).themeData.colorScheme.surface,
+                      color: (isDark
+                              ? traleNotifier.isAmoled
+                                  ? ctheme.dark(context).amoled
+                                  : ctheme.dark(context)
+                              : ctheme.light(context))
+                          .themeData
+                          .colorScheme
+                          .surface,
                     ),
                     width: 0.2 * MediaQuery.of(context).size.width,
                     margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
                     child: Container(
                       margin: EdgeInsets.all(
-                          0.04 * MediaQuery.of(context).size.width
-                      ),
+                          0.04 * MediaQuery.of(context).size.width),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -603,35 +660,54 @@ class ThemeSelection extends StatelessWidget {
                           AutoSizeText(
                             ctheme.name,
                             style: isDark
-                              ? ctheme.dark(context).themeData.textTheme.labelSmall
-                              : ctheme.light(context).themeData.textTheme.labelSmall,
+                                ? ctheme
+                                    .dark(context)
+                                    .themeData
+                                    .textTheme
+                                    .labelSmall
+                                : ctheme
+                                    .light(context)
+                                    .themeData
+                                    .textTheme
+                                    .labelSmall,
                             maxLines: 1,
                           ),
                           Divider(
                             height: 5,
-                            color: (
-                              isDark
-                                ? ctheme.dark(context)
-                                : ctheme.light(context)
-                            ).themeData.colorScheme.onSurface,
+                            color: (isDark
+                                    ? ctheme.dark(context)
+                                    : ctheme.light(context))
+                                .themeData
+                                .colorScheme
+                                .onSurface,
                           ),
                           AutoSizeText(
                             'wwwwwwwwww',
                             style: isDark
-                              ? ctheme.dark(context).themeData.textTheme.labelSmall
-                              : ctheme.light(context).themeData.textTheme.labelSmall,
+                                ? ctheme
+                                    .dark(context)
+                                    .themeData
+                                    .textTheme
+                                    .labelSmall
+                                : ctheme
+                                    .light(context)
+                                    .themeData
+                                    .textTheme
+                                    .labelSmall,
                             maxLines: 2,
                           ),
                           const Spacer(),
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: TraleTheme.of(context)!
-                                  .borderShape.borderRadius,
-                              color: (
-                                isDark
-                                  ? ctheme.dark(context)
-                                  : ctheme.light(context)
-                              ).themeData.colorScheme.primary,
+                                  .borderShape
+                                  .borderRadius,
+                              color: (isDark
+                                      ? ctheme.dark(context)
+                                      : ctheme.light(context))
+                                  .themeData
+                                  .colorScheme
+                                  .primary,
                             ),
                             height: 0.05 * MediaQuery.of(context).size.width,
                           ),
@@ -652,11 +728,9 @@ class ThemeSelection extends StatelessWidget {
               ],
             ),
           );
-        }
-    );
+        });
   }
 }
-
 
 /// about screen widget class
 class Settings extends StatefulWidget {
@@ -691,7 +765,7 @@ class _Settings extends State<Settings> {
           const DarkModeListTile(),
           const AmoledListTile(),
           Divider(
-              height: 2 * TraleTheme.of(context)!.padding,
+            height: 2 * TraleTheme.of(context)!.padding,
           ),
           Padding(
             padding: padding,
@@ -703,8 +777,10 @@ class _Settings extends State<Settings> {
           ),
           const LanguageListTile(),
           const UnitsListTile(),
-          const InterpolationListTile(),
           const BackupIntervalListTile(),
+          const FirstDayListTile(),
+          const DatePrintListTile(),
+          const InterpolationListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),
@@ -744,7 +820,7 @@ class _Settings extends State<Settings> {
       color: Theme.of(context).colorScheme.surface,
       child: SafeArea(
         child: Scaffold(
-          body:  NestedScrollView(
+          body: NestedScrollView(
             headerSliverBuilder: (BuildContext context, bool _) {
               return <Widget>[appBar()];
             },

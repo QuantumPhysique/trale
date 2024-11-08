@@ -5,6 +5,10 @@
   },
   "unit": "Unità",
   "@unit": {},
+  "firstDay": "Primo giorno",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "Data",
   "@date": {
     "description": "Date"

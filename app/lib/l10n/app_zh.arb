@@ -5,6 +5,10 @@
   },
   "unit": "单位",
   "@unit": {},
+  "firstDay": "第一天",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "日期",
   "@date": {
     "description": "Date"

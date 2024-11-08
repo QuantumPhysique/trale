@@ -150,6 +150,10 @@
   "@undertpl": {},
   "unit": "Einheiten",
   "@unit": {},
+  "firstDay": "Erste tag",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "user": "Nutzer Profil",
   "@user": {},
   "userSettings": "Nutzereinstellungen",

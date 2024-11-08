@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
 import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
-
 
 /// Class to dynamically change themeMode, isAmoled and language within app
 class TraleNotifier with ChangeNotifier {
@@ -21,8 +22,10 @@ class TraleNotifier with ChangeNotifier {
 
   /// shared preferences instance
   final Preferences prefs = Preferences();
+
   /// getter
   ThemeMode get themeMode => prefs.nightMode.toThemeMode();
+
   /// setter
   set themeMode(ThemeMode mode) {
     if (mode != themeMode) {
@@ -30,8 +33,10 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
+
   /// getter
   bool get isAmoled => prefs.isAmoled;
+
   /// setter
   set isAmoled(bool amoled) {
     if (amoled != isAmoled) {
@@ -39,9 +44,12 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
+
   /// getter
-  TraleCustomTheme get theme => prefs.theme.toTraleCustomTheme()
-    ?? prefs.defaultTheme.toTraleCustomTheme()!;
+  TraleCustomTheme get theme =>
+      prefs.theme.toTraleCustomTheme() ??
+      prefs.defaultTheme.toTraleCustomTheme()!;
+
   /// setter
   set theme(TraleCustomTheme newTheme) {
     if (newTheme != theme) {
@@ -64,6 +72,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// get backup frequency
   BackupInterval get backupInterval => prefs.backupInterval;
+
   /// setter backup frequency
   set backupInterval(BackupInterval newInterval) {
     if (backupInterval != newInterval) {
@@ -93,6 +102,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   Language get language => prefs.language;
+
   /// setter
   set language(Language newLanguage) {
     if (language != newLanguage) {
@@ -106,12 +116,11 @@ class TraleNotifier with ChangeNotifier {
     final Locale activeLocale = Localizations.localeOf(context);
     if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
       final Map<String, String> dateTimeLocaleMap =
-        dateTimePatternMap()[activeLocale.languageCode]!;
+          dateTimePatternMap()[activeLocale.languageCode]!;
       if (dateTimeLocaleMap.containsKey('yMd')) {
-        return DateFormat(
-          dateTimeLocaleMap['yMd']!
-            .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
-        );
+        return DateFormat(dateTimeLocaleMap['yMd']!
+            .replaceFirst('d', 'dd')
+            .replaceFirst('M', 'MM'));
       }
     }
     return DateFormat('dd/MM/yyyy');
@@ -127,8 +136,32 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
-/// getter
+
+  /// getter
+  TraleFirstDay get firstDay => prefs.firstDay;
+
+  /// setter
+  set firstDay(TraleFirstDay newFirstDay) {
+    if (firstDay != newFirstDay) {
+      prefs.firstDay = newFirstDay;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  TraleDatePrintFormat get datePrintFormat => prefs.datePrintFormat;
+
+  /// setter
+  set datePrintFormat(TraleDatePrintFormat newDatePrintFormat) {
+    if (datePrintFormat != newDatePrintFormat) {
+      prefs.datePrintFormat = newDatePrintFormat;
+      notifyListeners();
+    }
+  }
+
+  /// getter
   String get userName => prefs.userName;
+
   /// setter
   set userName(String newName) {
     if (userName != newName) {
@@ -139,6 +172,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   double? get userTargetWeight => prefs.userTargetWeight;
+
   /// setter
   set userTargetWeight(double? newWeight) {
     if (userTargetWeight != newWeight) {
@@ -149,6 +183,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// get user height in [m]
   double? get userHeight => prefs.userHeight;
+
   /// set user height in [m]
   set userHeight(double? newHeight) {
     if (userHeight != newHeight) {
@@ -159,6 +194,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   InterpolStrength get interpolStrength => prefs.interpolStrength;
+
   /// setter
   set interpolStrength(InterpolStrength strength) {
     if (interpolStrength != strength) {
@@ -170,6 +206,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   bool get showOnBoarding => prefs.showOnBoarding;
+
   /// setter
   set showOnBoarding(bool onBoarding) {
     if (onBoarding != showOnBoarding) {
@@ -181,9 +218,8 @@ class TraleNotifier with ChangeNotifier {
   ColorScheme? _systemLightDynamic;
   ColorScheme? _systemDarkDynamic;
 
-  Color get systemSeedColor => systemColorsAvailable
-    ? _systemLightDynamic!.primary
-    : Colors.black;
+  Color get systemSeedColor =>
+      systemColorsAvailable ? _systemLightDynamic!.primary : Colors.black;
 
   /// set system color accent
   void setColorScheme(ColorScheme? systemLight, ColorScheme? systemDark) {
@@ -192,12 +228,12 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// If system accent color is available (Android OS 12+)
-  bool get systemColorsAvailable => _systemDarkDynamic != null &&
-    _systemLightDynamic != null;
+  bool get systemColorsAvailable =>
+      _systemDarkDynamic != null && _systemLightDynamic != null;
 
   /// get locale
   Locale? get locale => language.compareTo(Language.system())
-      ? null  // defaults to systems default
+      ? null // defaults to systems default
       : language.locale;
 
   /// factory reset

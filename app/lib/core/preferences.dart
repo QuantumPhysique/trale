@@ -1,12 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/firstDay.dart';
 
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
+import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
-
 
 /// Class to coordinate shared preferences access
 class Preferences {
@@ -14,7 +15,7 @@ class Preferences {
   factory Preferences() => _instance;
 
   /// single instance creation
-  Preferences._internal(){
+  Preferences._internal() {
     _loaded = loadPreferences();
   }
 
@@ -65,6 +66,13 @@ class Preferences {
   /// default unit
   final TraleUnit defaultUnit = TraleUnit.kg;
 
+  /// default first day
+  final TraleFirstDay defaultFirstDay = TraleFirstDay.sunday;
+
+  /// default date format
+  final TraleDatePrintFormat defaultDatePrintFormat =
+      TraleDatePrintFormat.MMddyyyy;
+
   /// default interpolation strength
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
@@ -88,23 +96,25 @@ class Preferences {
 
   /// set user height
   set userHeight(double? height) => prefs.setDouble(
-      'userHeight', height ?? -1,
-  );
+        'userHeight',
+        height ?? -1,
+      );
 
   /// get user height
   double? get userHeight => prefs.getDouble('userHeight')! > 0
-    ? prefs.getDouble('userHeight')!
-    : null;
+      ? prefs.getDouble('userHeight')!
+      : null;
 
   /// set user target weight
   set userTargetWeight(double? weight) => prefs.setDouble(
-      'userTargetWeight', weight ?? -1,
-  );
+        'userTargetWeight',
+        weight ?? -1,
+      );
 
   /// get user target weight
   double? get userTargetWeight => prefs.getDouble('userTargetWeight')! > 0
-    ? prefs.getDouble('userTargetWeight')!
-    : null;
+      ? prefs.getDouble('userTargetWeight')!
+      : null;
 
   /// set if onboarding screen is shown
   set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
@@ -128,9 +138,9 @@ class Preferences {
   Language get language => prefs.getString('language')!.toLanguage();
 
   /// set language value
-  set language(Language language) =>
-      prefs.setString(
-        'language', language.language,
+  set language(Language language) => prefs.setString(
+        'language',
+        language.language,
       );
 
   /// get theme mode
@@ -143,9 +153,28 @@ class Preferences {
   TraleUnit get unit => prefs.getString('unit')!.toTraleUnit()!;
 
   /// set unit mode
-  set unit(TraleUnit unit) =>
-      prefs.setString(
-        'unit', unit.name,
+  set unit(TraleUnit unit) => prefs.setString(
+        'unit',
+        unit.name,
+      );
+
+  /// get first day
+  TraleFirstDay get firstDay => prefs.getString('firstDay')!.toTraleFirstDay()!;
+
+  /// set first day
+  set firstDay(TraleFirstDay day) => prefs.setString(
+        'firstDay',
+        day.name,
+      );
+
+  /// Get date format
+  TraleDatePrintFormat get datePrintFormat =>
+      prefs.getString('dateFormat')!.toTraleDateFormat()!;
+
+  /// Set date format
+  set datePrintFormat(TraleDatePrintFormat format) => prefs.setString(
+        'dateFormat',
+        format.name,
       );
 
   /// get interpolation strength mode
@@ -153,9 +182,9 @@ class Preferences {
       prefs.getString('interpolStrength')!.toInterpolStrength()!;
 
   /// set interpolation strength mode
-  set interpolStrength(InterpolStrength strength) =>
-      prefs.setString(
-        'interpolStrength', strength.name,
+  set interpolStrength(InterpolStrength strength) => prefs.setString(
+        'interpolStrength',
+        strength.name,
       );
 
   /// get backup frequency
@@ -163,9 +192,9 @@ class Preferences {
       prefs.getString('backupInterval')!.toBackupInterval()!;
 
   /// set backup frequency
-  set backupInterval(BackupInterval interval) =>
-      prefs.setString(
-        'backupInterval', interval.name,
+  set backupInterval(BackupInterval interval) => prefs.setString(
+        'backupInterval',
+        interval.name,
       );
 
   /// get latest backup date
@@ -173,19 +202,18 @@ class Preferences {
       DateTime.parse(prefs.getString('latestBackupDate')!);
 
   /// set latest backup date
-  set latestBackupDate(DateTime date) =>
-      prefs.setString(
-        'latestBackupDate', date.toString(),
+  set latestBackupDate(DateTime date) => prefs.setString(
+        'latestBackupDate',
+        date.toString(),
       );
 
   /// get zoom level
-  ZoomLevel get zoomLevel =>
-      prefs.getInt('zoomLevel')!.toZoomLevel()!;
+  ZoomLevel get zoomLevel => prefs.getInt('zoomLevel')!.toZoomLevel()!;
 
   /// set zoom Level
-  set zoomLevel(ZoomLevel level) =>
-      prefs.setInt(
-        'zoomLevel', level.index,
+  set zoomLevel(ZoomLevel level) => prefs.setInt(
+        'zoomLevel',
+        level.index,
       );
 
   /// set default settings /or reset to default
@@ -228,6 +256,12 @@ class Preferences {
     }
     if (override || !prefs.containsKey('latestBackupDate')) {
       latestBackupDate = defaultLatestBackupDate;
+    }
+    if (override || !prefs.containsKey('firstDay')) {
+      firstDay = defaultFirstDay;
+    }
+    if (override || !prefs.containsKey('dateFormat')) {
+      datePrintFormat = datePrintFormat;
     }
   }
 

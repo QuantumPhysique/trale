@@ -9,6 +9,10 @@
   },
   "unit": "단위",
   "@unit": {},
+  "firstDay": "첫날",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "날짜",
   "@date": {
     "description": "Date"

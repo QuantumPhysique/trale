@@ -195,6 +195,10 @@
   },
   "unit": "Yksiköt",
   "@unit": {},
+  "firstDay": "Ensimmäinen päivä",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "weight": "Paino",
   "@weight": {
     "description": "weight"
