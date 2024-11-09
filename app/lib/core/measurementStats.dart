@@ -112,7 +112,7 @@ class MeasurementStats {
   /// get frequency of taking measurements (last year)
   double? get frequencyLastYear => _getFrequency(365);
   /// get frequency of taking measurements (in total)
-  double? get frequencyInTotal => nMeasurements / deltaTime.inDays;
+  double? get frequencyInTotal => nMeasurements / (deltaTime.inDays + 1);
 
   /// get weight change [kg] within last month from last measurement
   double? get deltaWeightLastYear => deltaWeightLastNDays(365);
