@@ -87,7 +87,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AutoSizeText(
-                'Change / $label',
+                '${AppLocalizations.of(context)!.change} / $label',
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               Row(
@@ -168,8 +168,8 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
     ).split(' ');
 
   final String subtext = textLabels.length == 1
-      ? 'you reached your target weight!'
-      : '${textLabels[1]} left to reach target weight';
+      ? AppLocalizations.of(context)!.targetWeightReached
+      : '${textLabels[1]} ${AppLocalizations.of(context)!.targetWeightReachedIn}';
 
   return StatCard(
     backgroundColor: Theme.of(context).brightness == Brightness.light
@@ -260,7 +260,7 @@ StatCard getFrequencyInTotal({required BuildContext context,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: AutoSizeText(
-                  'measurement frequency\n(/ day)',
+                  '${AppLocalizations.of(context)!.measurementFrequency}\n(/ day)',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
@@ -313,7 +313,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.topCenter,
               child: AutoSizeText(
-                'total change\n($unit)',
+                '${AppLocalizations.of(context)!.totalChange}\n($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                   height: 1.0,
@@ -362,7 +362,7 @@ Widget getMeanWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              'mean ($unit)',
+              '${AppLocalizations.of(context)!.mean} ($unit)',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).colorScheme.onTertiaryContainer,
                 height: 1.0,
@@ -395,7 +395,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.center,
             child: AutoSizeText(
-              'change ($unit)',
+              '${AppLocalizations.of(context)!.change} ($unit)',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontWeight: FontWeight.w900,
@@ -410,7 +410,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              '/week\n${doubleToString(context, stats.deltaWeightLastWeek)}',
+              '/ ${AppLocalizations.of(context)!.week}\n'
+                '${doubleToString(context, stats.deltaWeightLastWeek)}',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
                 height: 1.0,
@@ -425,7 +426,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              '/month\n${doubleToString(context, stats.deltaWeightLastMonth)}',
+              '/ ${AppLocalizations.of(context)!.month}\n'
+                '${doubleToString(context, stats.deltaWeightLastMonth)}',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
                 height: 1.0,
@@ -440,7 +442,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              '/year\n${doubleToString(context, stats.deltaWeightLastYear)}',
+              '/ ${AppLocalizations.of(context)!.year}\n'
+                '${doubleToString(context, stats.deltaWeightLastYear)}',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
                 height: 1.0,
@@ -474,7 +477,7 @@ Widget getMinWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                'min ($unit)',
+                '${AppLocalizations.of(context)!.min} ($unit)',
                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                  ),
@@ -538,7 +541,7 @@ Widget getMaxWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                'max ($unit)',
+                '${AppLocalizations.of(context)!.max} ($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),

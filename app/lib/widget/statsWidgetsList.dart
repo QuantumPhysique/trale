@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementStats.dart';
@@ -50,19 +51,20 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
       ),
     );
 
+
     final Widget streakAndFrequencyWidget = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Column(
           children: <Widget>[
             DefaultStatCard(
-              firstRow: 'current streak',
+              firstRow: AppLocalizations.of(context)!.currentStreak,
               secondRow: stats.currentStreak.durationToString(context),
               delayInMilliseconds: getDelayInMilliseconds(9),
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             DefaultStatCard(
-              firstRow: 'longest streak',
+              firstRow: AppLocalizations.of(context)!.maxStreak,
               secondRow: stats.maxStreak.durationToString(context),
               delayInMilliseconds: getDelayInMilliseconds(10),
             ),
@@ -94,7 +96,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
               delayInMilliseconds: getDelayInMilliseconds(2)),
             SizedBox(height: TraleTheme.of(context)!.padding),
             DefaultStatCard(
-              firstRow: 'time since first measurement',
+              firstRow: AppLocalizations.of(context)!.timeSinceFirstMeasurement,
               secondRow: stats.deltaTime.durationToString(context),
               delayInMilliseconds: getDelayInMilliseconds(4),
             ),
@@ -103,7 +105,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
         Column(
           children: <Widget>[
             DefaultStatCard(
-              firstRow: '# measurements',
+              firstRow: '# ${AppLocalizations.of(context)!.measurements.toLowerCase()}',
               secondRow: '${stats.nMeasurements}',
               delayInMilliseconds: getDelayInMilliseconds(1),
             ),
