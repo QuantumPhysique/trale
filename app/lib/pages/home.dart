@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/stats.dart';
+import 'package:trale/pages/statScreen.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 
     _selectedTab = TabController(
       vsync: this,
-      length: 2,
+      length: 3,
       initialIndex: _selectedIndex,
     );
     _selectedTab.addListener(_onSlideTab);
@@ -50,25 +51,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         setState(() {});
       }
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // color system bottom navigation bar
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        /// default values of flutter definition
-        /// https://github.com/flutter/flutter/blob/ee4e09cce01d6f2d7f4baebd247fde02e5008851/packages/flutter/lib/src/material/navigation_bar.dart#L1237
-        systemNavigationBarColor: ElevationOverlay.colorWithOverlay(
-          Theme.of(context).colorScheme.surface,
-          Theme.of(context).colorScheme.primary,
-          3.0,
-        ),
-        systemNavigationBarDividerColor: Colors.transparent,
-        systemNavigationBarIconBrightness: Theme.of(context).brightness,
-      ),
-    );
   }
 
   /// Starts home with category all
@@ -125,10 +107,28 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    final bool showFAB = !popupShown;
+    final bool showFAB = !popupShown & (_selectedIndex == 0);
     final List<Widget> activeTabs = <Widget>[
       const OverviewScreen(),
       StatsScreen(tabController: _selectedTab),
+      MeasurementScreen(tabController: _selectedTab),
+    ];
+    final List<Widget> destinations = <Widget>[
+      NavigationDestination(
+        icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
+        selectedIcon: PPIcon(PhosphorIconsFill.lineSegments, context),
+        label: AppLocalizations.of(context)!.home,
+      ),
+      NavigationDestination(
+        icon: PPIcon(PhosphorIconsDuotone.trophy, context),
+        selectedIcon: PPIcon(PhosphorIconsFill.trophy, context),
+        label: AppLocalizations.of(context)!.achievements,
+      ),
+      NavigationDestination(
+        icon: PPIcon(PhosphorIconsDuotone.archive, context),
+        selectedIcon: PPIcon(PhosphorIconsFill.archive, context),
+        label: AppLocalizations.of(context)!.measurements,
+      ),
     ];
 
     return Scaffold(
@@ -137,21 +137,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,
-        destinations: <Widget>[
-          NavigationDestination(
-            icon: const Icon(CustomIcons.home),
-            label: AppLocalizations.of(context)!.home,
-          ),
-          NavigationDestination(
-            icon: const Icon(CustomIcons.events),
-            label: AppLocalizations.of(context)!.achievements,
-          ),
-          // fake container to keep space for FAB
-          const NavigationDestination(
-            icon: SizedBox.shrink(),
-            label: '',
-          ),
-        ],
+        destinations: destinations,
       ),
       body: NestedScrollView(
         controller: _scrollController,
@@ -159,7 +145,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           return <Widget>[
             CustomSliverAppBar(
               leading: IconButton(
-                icon: const Icon(CustomIcons.settings),
+                icon: const Icon(PhosphorIconsRegular.list),
                 onPressed: () => key.currentState!.openDrawer(),
               ),
             ),
@@ -174,7 +160,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         onPressed: onFABpress,
         show: showFAB,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       drawer: appDrawer(context, handlePageChanged, _pageIndex),
     );
   }

@@ -14,8 +14,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Extensively revised UI with lots of statistics to keep you engaged in achieving your dream weight 🎉
+
 ### Other changes:
+- Changed font and icons to improve overall accessibility
 - Add backup reminder, see settings for more options
+- Minor clean up of deprecated flutter code
+
+### Bugfix 🐛:
+- Fixed a bug that caused a small icon to be displayed in the F-Droid store (German).
 
 
 ## [0.7.2] - 2024-09-22

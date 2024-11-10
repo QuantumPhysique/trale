@@ -4,8 +4,9 @@ import 'dart:ui';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/icons.dart';
+
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
@@ -107,7 +108,7 @@ class TraleTheme {
     TransitionDuration(100, 200, 500);
 
   /// get duration of snackbar
-  final Duration snackbarDuration = Duration(seconds: 5);
+  final Duration snackbarDuration = const Duration(seconds: 5);
 
   /// get background gradient
   LinearGradient get bgGradient => LinearGradient(
@@ -166,7 +167,7 @@ class TraleTheme {
     // Create a TextTheme and ColorScheme, that we can use to generate ThemeData
     final TextTheme txtTheme = ThemeData.from(
       colorScheme: colorScheme,
-    ).textTheme.apply(fontFamily: 'Quicksand');
+    ).textTheme.apply(fontFamily: 'Lexend');
 
     final ListTileThemeData listTileThemeData = ListTileThemeData(
       shape: RoundedRectangleBorder(
@@ -294,9 +295,16 @@ extension CustomThemeModeEncoding on ThemeMode {
 
   /// get icon
   IconData get icon => <ThemeMode, IconData>{
-    ThemeMode.light: CustomIcons.lightmode,
-    ThemeMode.dark: CustomIcons.darkmode,
-    ThemeMode.system: CustomIcons.automode,
+    ThemeMode.light: PhosphorIconsDuotone.sun,
+    ThemeMode.dark: PhosphorIconsDuotone.moon,
+    ThemeMode.system: PhosphorIconsDuotone.cloudSun,
+  }[this]!;
+
+  /// get icon
+  IconData get activeIcon => <ThemeMode, IconData>{
+    ThemeMode.light: PhosphorIconsFill.sun,
+    ThemeMode.dark: PhosphorIconsFill.moon,
+    ThemeMode.system: PhosphorIconsFill.cloudSun,
   }[this]!;
 }
 

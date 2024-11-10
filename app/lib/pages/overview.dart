@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -34,20 +34,16 @@ class _OverviewScreen extends State<OverviewScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst) {
         loadedFirst = false;
-        TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
+        final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
           context, listen: false,
         );
-        if (
-          traleNotifier.latestBackupDate != null &&
-          traleNotifier.backupInterval != BackupInterval.never &&
-          traleNotifier.latestBackupDate!.difference(
-            DateTime.now()
-          ).inDays > traleNotifier.backupInterval.inDays
-        ) {
+        if (traleNotifier.showBackupReminder) {
           final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
           sm.showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context)!.backupReminder),
+              content: Text(
+                AppLocalizations.of(context)!.backupReminder,
+              ),
               behavior: SnackBarBehavior.fixed,
               duration: TraleTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
@@ -56,6 +52,7 @@ class _OverviewScreen extends State<OverviewScreen> {
               ),
             ),
           );
+          traleNotifier.latestBackupReminderDate = DateTime.now();
         }
         setState(() {});
       }
@@ -70,22 +67,6 @@ class _OverviewScreen extends State<OverviewScreen> {
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
-
-    final Widget dummyChart = emptyChart(
-      context,
-      <InlineSpan>[
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro1,
-        ),
-        const WidgetSpan(
-          child: Icon(CustomIcons.add),
-          alignment: PlaceholderAlignment.middle,
-        ),
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro2,
-        ),
-      ],
-    );
 
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
@@ -132,7 +113,7 @@ class _OverviewScreen extends State<OverviewScreen> {
 
       return measurements.isNotEmpty
           ? overviewScreen(context, snapshot)
-          : dummyChart;
+          : defaultEmptyChart(context: context, overviewScreen: true);
     }
 
     return StreamBuilder<List<Measurement>>(

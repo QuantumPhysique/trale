@@ -75,9 +75,12 @@ class Preferences {
   final BackupInterval defaultBackupInterval = BackupInterval.monthly;
 
   /// latest backup date
-  final DateTime defaultLatestBackupDate = DateTime.fromMillisecondsSinceEpoch(
-    0,
-  );
+  final DateTime defaultLatestBackupDate =
+    DateTime.fromMillisecondsSinceEpoch(0);
+
+  /// latest backup date
+  final DateTime defaultLatestBackupReminderDate =
+  DateTime.fromMillisecondsSinceEpoch(0);
 
   /// getter and setter for all preferences
   /// set user name
@@ -168,14 +171,38 @@ class Preferences {
         'backupInterval', interval.name,
       );
 
-  /// get latest backup date
-  DateTime get latestBackupDate =>
-      DateTime.parse(prefs.getString('latestBackupDate')!);
+  /// get last backup date
+  DateTime? get latestBackupDate {
+    final DateTime latestBackup = DateTime.parse(
+      prefs.getString('latestBackupDate')!
+    );
+    return latestBackup == defaultLatestBackupDate
+      ? null
+      : latestBackup;
+  }
 
   /// set latest backup date
-  set latestBackupDate(DateTime date) =>
+  set latestBackupDate(DateTime? date) =>
+    prefs.setString(
+      'latestBackupDate',
+      (date ?? defaultLatestBackupDate).toString(),
+    );
+
+  /// get last backup date
+  DateTime? get latestBackupReminderDate {
+    final DateTime latestBackupReminder = DateTime.parse(
+        prefs.getString('latestBackupReminderDate')!
+    );
+    return latestBackupReminder == defaultLatestBackupReminderDate
+        ? null
+        : latestBackupReminder;
+  }
+
+  /// set latest backup date
+  set latestBackupReminderDate(DateTime? date) =>
       prefs.setString(
-        'latestBackupDate', date.toString(),
+        'latestBackupReminderDate',
+        (date ?? defaultLatestBackupReminderDate).toString(),
       );
 
   /// get zoom level
@@ -228,6 +255,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('latestBackupDate')) {
       latestBackupDate = defaultLatestBackupDate;
+    }
+    if (override || !prefs.containsKey('latestBackupReminderDate')) {
+      latestBackupReminderDate = defaultLatestBackupReminderDate;
     }
   }
 

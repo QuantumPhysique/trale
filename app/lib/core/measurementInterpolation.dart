@@ -69,7 +69,6 @@ class MeasurementInterpolation {
   /// length of displayed vectors
   int get NDisplay => timesDisplay.length;
 
-
   List<DateTime>? _dateTimes;
   /// get vector containing the times given in [ms since epoch]
   List<DateTime> get dateTimes => _dateTimes ??= _createDateTimes();
@@ -94,6 +93,17 @@ class MeasurementInterpolation {
     );
 
   }
+
+  /// number of measurements
+  int get NMeasurements => times_measured.length;
+
+  /// time span of measurements
+  int get measuredTimeSpan => N == 0 ? 0 : N - 2 * _offsetInDays;
+
+  /// idx of last measurement
+  int get idxLast => N - 1 - _offsetInDays;
+  /// idx of last displayed measurement
+  int get idxLastDisplay => NDisplay - 1 - _offsetInDaysShown;
 
   Vector? _times;
   /// get vector containing the times given in [ms since epoch]
@@ -280,7 +290,7 @@ class MeasurementInterpolation {
 
       final Vector weightsExtrapol = Vector.fromList(<double>[
         for (int idx=1; idx <= _offsetInDaysShown; idx++)
-          finalChangeRate * idx
+          finalSlope * idx
       ]) + weightsLinear.last;
 
       return Vector.fromList(
@@ -292,7 +302,6 @@ class MeasurementInterpolation {
       N - _offsetInDays + _offsetInDaysShown,
     );
   }
-
 
   Vector? _timesDisplay;
   /// get vector containing the weights to display
@@ -376,7 +385,7 @@ class MeasurementInterpolation {
       idxTo = idxsMeasurements[idx + 1];
       if (idxFrom + 1 < idxTo) {
         // estimate change rate
-        changeRate = _linearChangeRate(idxFrom, idxTo, weights);
+        changeRate = _slope(idxFrom, idxTo, weights);
         for (int idxJ = idxFrom + 1; idxJ < idxTo; idxJ++) {
           weightsList[idxJ] = weightsList[idxFrom] + changeRate * (
               idxJ - idxFrom
@@ -387,8 +396,8 @@ class MeasurementInterpolation {
     return Vector.fromList(weightsList, dtype: dtype);
   }
 
-  /// estimate linear change rate between two measurements in [kg/steps]
-  double _linearChangeRate(int idxFrom, int idxTo, Vector weights) =>
+  /// estimate slope between two measurements in [kg/steps]
+  double _slope(int idxFrom, int idxTo, Vector weights) =>
     weights.isNotEmpty
     ? (weights[idxTo] - weights[idxFrom]) / (idxTo - idxFrom)
     : 0;
@@ -403,9 +412,6 @@ class MeasurementInterpolation {
       ], dtype: dtype,
     );
 
-
-  // FROM HERE ON STATS OF INTERPOLATION
-
   /// get time span between first and last measurement
   Duration get measurementDuration => times_measured.isNotEmpty
     ? Duration(
@@ -413,52 +419,12 @@ class MeasurementInterpolation {
       )
     : Duration.zero;
 
-
-  /// return difference of Gaussian smoothed weights
-  double? deltaWeightLastNDays (int nDays) {
-    if (N - 2 * _offsetInDays < nDays) {
-      return null;
-    }
-    return weightsGaussianExtrapol[N - 1 - _offsetInDays] -
-    weightsGaussianExtrapol[N - 1 - _offsetInDays - nDays];
-  }
-
-  /// get weight change [kg] within last month from last measurement
-  double? get deltaWeightLastYear => deltaWeightLastNDays(365);
-
-  /// get weight change [kg] within last month from last measurement
-  double? get deltaWeightLastMonth => deltaWeightLastNDays(30);
-
-  /// get weight change [kg] within last week from last measurement
-  double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
-
-  /// final change Rate
-  double get finalChangeRate => _linearChangeRate(
-    N - 1 - _offsetInDays,
-    N - 1 - _offsetInDays + _offsetInDaysShown,
+  /// final slope of extrapolation
+  double get finalSlope => _slope(
+    idxLast,
+    idxLast + _offsetInDaysShown,
     weightsGaussianExtrapol,
   );
-
-  /// get time of reaching target weight in kg
-  Duration? timeOfTargetWeight(double? targetWeight) {
-    if ((targetWeight == null) || (db.nMeasurements < 2)){
-      return null;
-    }
-
-    final int idxLast = NDisplay - 1 - _offsetInDaysShown;
-    final double slope = finalChangeRate;
-
-    // Crossing is in the past
-    if (slope * (weightsDisplay[idxLast] - targetWeight) >= 0) {
-      return null;
-    }
-
-    // in ms from last measurement
-    final int remainingTime = (
-        (targetWeight - weightsDisplay[idxLast]) / slope
-    ).round();
-    return Duration(days: remainingTime);
-  }
 
   /// offset of day in interpolation
   static const int _offsetInDays = 21;

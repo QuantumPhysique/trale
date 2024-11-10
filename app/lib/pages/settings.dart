@@ -4,9 +4,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
-
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
@@ -43,7 +43,7 @@ class ExportListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.export_icon),
+        icon: PPIcon(PhosphorIconsDuotone.upload, context),
         onPressed: () => backupDialog(context),
       ),
     );
@@ -75,7 +75,7 @@ class ImportListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.import_icon),
+        icon: PPIcon(PhosphorIconsDuotone.download, context),
         onPressed: () async {
           final bool accepted = await showDialog<bool>(
             context: context,
@@ -104,30 +104,10 @@ class ImportListTile extends StatelessWidget {
                       child: Text(AppLocalizations.of(context)!.abort)
                   ),
                 ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
+                FilledButton.icon(
+                  onPressed: () => Navigator.pop(context, true),
+                  label: Text(AppLocalizations.of(context)!.yes),
+                  icon: PPIcon(PhosphorIconsRegular.download, context),
                 ),
               ],
             ),
@@ -205,7 +185,7 @@ class ResetListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
-        icon: const Icon(CustomIcons.delete),
+        icon: PPIcon(PhosphorIconsDuotone.trash, context),
         onPressed: () async {
           final bool accepted = await showDialog<bool>(
             context: context,
@@ -234,30 +214,10 @@ class ResetListTile extends StatelessWidget {
                       child: Text(AppLocalizations.of(context)!.abort)
                   ),
                 ),
-                TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.primary,
-                      ),
-                      foregroundColor: WidgetStateProperty.all<Color>(
-                        Theme.of(context).colorScheme.onPrimary,
-                      ),
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const Icon(CustomIcons.done),
-                            SizedBox(width: TraleTheme.of(context)!.padding),
-                            Text(AppLocalizations.of(context)!.yes),
-                          ],
-                        )
-                    )
+                FilledButton.icon(
+                  onPressed: () => Navigator.pop(context, true),
+                  label: Text(AppLocalizations.of(context)!.yes),
+                  icon: PPIcon(PhosphorIconsRegular.trash, context),
                 ),
               ],
             ),
@@ -437,6 +397,67 @@ class BackupIntervalListTile extends StatelessWidget {
 }
 
 
+/// ListTile for changing units settings
+class LastBackupListTile extends StatelessWidget {
+  /// constructor
+  const LastBackupListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final DateTime? nextBackupDate =
+        Provider.of<TraleNotifier>(context).nextBackupDate;
+    final DateTime? latestBackupDate =
+        Provider.of<TraleNotifier>(context).latestBackupDate;
+
+    String date2string(DateTime? date)
+      => date == null
+        ? AppLocalizations.of(context)!.never
+        : Provider.of<TraleNotifier>(
+            context, listen: false
+          ).dateFormat(context).format(date);
+
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
+      ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                AppLocalizations.of(context)!.lastBackup,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              Text(
+                date2string(latestBackupDate),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                AppLocalizations.of(context)!.nextBackup,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              Text(
+                date2string(nextBackupDate),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 /// ListTile for changing dark mode settings
 class DarkModeListTile extends StatelessWidget {
@@ -465,7 +486,12 @@ class DarkModeListTile extends StatelessWidget {
             ButtonSegment<ThemeMode>(
               value: mode,
               tooltip: mode.nameLong(context),
-              icon: Icon(mode.icon),
+              icon: PPIcon(
+                Provider.of<TraleNotifier>(context).themeMode == mode
+                  ? mode.activeIcon
+                  : mode.icon,
+                context,
+              ),
             )
         ],
         onSelectionChanged: (Set<ThemeMode> newMode) async {
@@ -473,27 +499,6 @@ class DarkModeListTile extends StatelessWidget {
               context, listen: false
           ).themeMode = newMode.first;
         },
-        // isSelected: List<bool>.generate(
-        //   orderedThemeModes.length,
-        //       (int index) => index == orderedThemeModes.indexOf(
-        //       Provider.of<TraleNotifier>(context).themeMode
-        //   ),
-        // ),
-        // onPressed: (int index) {
-        //   Provider.of<TraleNotifier>(
-        //     context, listen: false,
-        //   ).themeMode = orderedThemeModes[index];
-        // },
-        // children: <Widget>[
-        //   const Icon(CustomIcons.lightmode),
-        //   Padding(
-        //     padding: EdgeInsets.symmetric(
-        //       horizontal: TraleTheme.of(context)!.padding,
-        //     ),
-        //     child: const Icon(CustomIcons.automode),
-        //   ),
-        //   const Icon(CustomIcons.darkmode),
-        // ],
       ),
     );
   }
@@ -704,7 +709,21 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
+          Divider(
+            height: 2 * TraleTheme.of(context)!.padding,
+          ),
+          Padding(
+            padding: padding,
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.backup.inCaps,
+              style: Theme.of(context).textTheme.headlineMedium,
+              maxLines: 1,
+            ),
+          ),
+          const ExportListTile(),
+          const ImportListTile(),
           const BackupIntervalListTile(),
+          const LastBackupListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),
@@ -716,8 +735,6 @@ class _Settings extends State<Settings> {
               maxLines: 1,
             ),
           ),
-          const ExportListTile(),
-          const ImportListTile(),
           const ResetListTile(),
           SizedBox(height: TraleTheme.of(context)!.padding),
         ],
@@ -735,7 +752,7 @@ class _Settings extends State<Settings> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(CustomIcons.back),
+          icon: const Icon(PhosphorIconsDuotone.arrowLeft),
         ),
       );
     }

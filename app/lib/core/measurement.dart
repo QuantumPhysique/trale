@@ -60,13 +60,23 @@ class Measurement {
       ).unit.measurementToString(this, showUnit: showUnit);
 
   /// convert date to String
+  String dayToString(BuildContext context) => Provider.of<TraleNotifier>(
+      context, listen: false
+    ).dayFormat(context).format(date);
+
+  /// convert date to String
   String dateToString(BuildContext context) => Provider.of<TraleNotifier>(
       context, listen: false
-    ).dateFormat(context).format(date);
+  ).dateFormat(context).format(date);
+
+  /// convert date to String
+  String timeToString(BuildContext context) =>
+    TimeOfDay.fromDateTime(date).format(context);
 
   /// date followed by weight
   String measureToString(BuildContext context, {int ws=10})
-    => dateToString(context) + weightToString(context).padLeft(ws);
+    => '${dayToString(context)} ${timeToString(context)} '
+      '${weightToString(context).padLeft(ws)}';
 
   /// return day in milliseconds since epoch neglecting the hours, minutes
   int get dayInMs => DateTime(

@@ -183,7 +183,7 @@ class RulerPickerState extends State<RulerPicker> {
                           clipBehavior: Clip.none,
                           children: <Widget>[
                             Container(
-                              width: index % widget.ticksPerStep == 0 ? 1 : 0.7,
+                              width: index % widget.ticksPerStep == 0 ? 2 : 1,
                               height: index % widget.ticksPerStep == 0
                                 ? heightLargeTick
                                 : index % 5 == 0

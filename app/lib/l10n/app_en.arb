@@ -4,6 +4,20 @@
   "@achievements": {
     "description": "achievements"
   },
+  "days": "days",
+  "@days": {},
+  "weeks": "weeks",
+  "@weeks": {},
+  "week": "week",
+  "@week": {},
+  "months": "months",
+  "@months": {},
+  "month": "month",
+  "@month": {},
+  "years": "years",
+  "@years": {},
+  "year": "year",
+  "@year": {},
   "never": "never",
   "@never": {
     "description": "Frequency of backup interval"
@@ -28,7 +42,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "back up now",
+  "backupReminderButton": "back up",
   "@backupReminderButton": {
     "description": "Back up now"
   },
@@ -36,9 +50,17 @@
   "@backupSuccess": {
     "description": "Back successfully exported"
   },
-  "backupInterval": "Backups",
+  "backupInterval": "Interval",
   "@backupInterval": {
     "description": "Frequency of backup interval"
+  },
+  "lastBackup": "last backup",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "next backup",
+  "@nextBackup": {
+    "description": "Time of last backup"
   },
   "stats": "Statistics",
   "@stats": {
@@ -375,5 +397,53 @@
   "target_weight_warning": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "max": "max",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "change": "change",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "totalChange": "total change",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "mean": "mean",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "measurement frequency",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReached": "you reached your target weight!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "targetWeightReachedIn": "left to reach target weight",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "longest streak",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "current streak",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "timeSinceFirstMeasurement": "time since first measurement",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
   }
 }

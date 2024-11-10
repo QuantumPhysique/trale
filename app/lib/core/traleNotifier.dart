@@ -73,22 +73,54 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// get latest backup date
-  DateTime? get latestBackupDate {
-    if (prefs.defaultLatestBackupDate.sameDay(prefs.latestBackupDate)) {
-      return null;
-    }
-    return prefs.latestBackupDate;
-  }
+  DateTime? get latestBackupDate => prefs.latestBackupDate;
 
   /// set latest backup date
   set latestBackupDate(DateTime? newDate) {
     if (latestBackupDate != newDate) {
-      if (newDate == null) {
-        prefs.latestBackupDate = prefs.defaultLatestBackupDate;
-      } else {
-        prefs.latestBackupDate = newDate;
-      }
+      prefs.latestBackupDate = newDate;
+      notifyListeners();
     }
+  }
+
+  /// get latest backup date
+  DateTime? get nextBackupDate {
+    if (backupInterval == BackupInterval.never) {
+      return null;
+    }
+    if (latestBackupDate == null) {
+      return DateTime.now();
+    }
+    final DateTime nextBackup = latestBackupDate!.add(
+        Duration(days: backupInterval.inDays)
+    );
+    return nextBackup.isBefore(DateTime.now())
+        ? DateTime.now()
+        : nextBackup;
+  }
+
+  /// get latest backup reminder date
+  DateTime? get latestBackupReminderDate =>
+    prefs.latestBackupReminderDate;
+
+  /// set latest backup reminder date
+  set latestBackupReminderDate(DateTime? newDate) {
+    if (latestBackupReminderDate != newDate) {
+      prefs.latestBackupReminderDate = newDate;
+      notifyListeners();
+    }
+  }
+
+  /// get latest backup date
+  bool get showBackupReminder {
+    return backupInterval != BackupInterval.never &&
+      nextBackupDate!.difference(DateTime.now()).inDays == 0 &&
+      (
+        latestBackupReminderDate == null ||
+        latestBackupReminderDate!.difference(DateTime.now()).inDays < 0
+      ) &&
+      MeasurementDatabase().measurements.isNotEmpty
+    ;
   }
 
   /// getter
@@ -106,15 +138,31 @@ class TraleNotifier with ChangeNotifier {
     final Locale activeLocale = Localizations.localeOf(context);
     if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
       final Map<String, String> dateTimeLocaleMap =
-        dateTimePatternMap()[activeLocale.languageCode]!;
+      dateTimePatternMap()[activeLocale.languageCode]!;
       if (dateTimeLocaleMap.containsKey('yMd')) {
         return DateFormat(
-          dateTimeLocaleMap['yMd']!
-            .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
+            dateTimeLocaleMap['yMd']!
+                .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
         );
       }
     }
     return DateFormat('dd/MM/yyyy');
+  }
+
+  /// getter
+  DateFormat dayFormat(BuildContext context) {
+    final Locale activeLocale = Localizations.localeOf(context);
+    if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
+      final Map<String, String> dateTimeLocaleMap =
+      dateTimePatternMap()[activeLocale.languageCode]!;
+      if (dateTimeLocaleMap.containsKey('Md')) {
+        return DateFormat(
+            dateTimeLocaleMap['Md']!
+                .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
+        );
+      }
+    }
+    return DateFormat('dd/MM');
   }
 
   /// getter
@@ -127,7 +175,7 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
-/// getter
+  /// getter
   String get userName => prefs.userName;
   /// setter
   set userName(String newName) {
@@ -182,8 +230,8 @@ class TraleNotifier with ChangeNotifier {
   ColorScheme? _systemDarkDynamic;
 
   Color get systemSeedColor => systemColorsAvailable
-    ? _systemLightDynamic!.primary
-    : Colors.black;
+      ? _systemLightDynamic!.primary
+      : Colors.black;
 
   /// set system color accent
   void setColorScheme(ColorScheme? systemLight, ColorScheme? systemDark) {
@@ -193,7 +241,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// If system accent color is available (Android OS 12+)
   bool get systemColorsAvailable => _systemDarkDynamic != null &&
-    _systemLightDynamic != null;
+      _systemLightDynamic != null;
 
   /// get locale
   Locale? get locale => language.compareTo(Language.system())
