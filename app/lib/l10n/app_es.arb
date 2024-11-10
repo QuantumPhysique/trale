@@ -363,7 +363,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "Realizar copia de seguridad ahora",
+  "backupReminderButton": "Copia de seguridad ahora",
   "@backupReminderButton": {
     "description": "Back up now"
   },
@@ -371,7 +371,7 @@
   "@backupSuccess": {
     "description": "Back successfully exported"
   },
-  "backupInterval": "Copias de seguridad",
+  "backupInterval": "Frecuencia",
   "@backupInterval": {
     "description": "Frequency of backup interval"
   },
@@ -388,5 +388,57 @@
   "year": "año",
   "@year": {},
   "months": "meses",
-  "@months": {}
+  "@months": {},
+  "lastBackup": "última copia de seguridad",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "Próxima copia de seguridad",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "totalChange": "cambio total",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "mean": "media aritmética",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "Frecuencia de medición",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReached": "¡Has alcanzado tu peso objetivo!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "currentStreak": "racha actual",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "timeSinceFirstMeasurement": "tiempo transcurrido desde la primera medición",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "max": "máx.",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "min.",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "change": "cambiar",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "targetWeightReachedIn": "Queda por alcanzar el peso objetivo",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "racha máxima",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  }
 }
