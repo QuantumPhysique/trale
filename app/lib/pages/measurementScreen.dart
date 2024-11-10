@@ -31,58 +31,15 @@ class _MeasurementScreen extends State<MeasurementScreen> {
 
     Widget measurementScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
-      final List<int> years = <int>[
-        for (
-        int year= measurements.first.measurement.date.year;
-        year >= measurements.last.measurement.date.year;
-        year--
-        )
-          year
-      ];
-
-      final Map<int, List<SortedMeasurement>> measurementsPerYear =
-      <int, List<SortedMeasurement>>{
-        for (final int year in years)
-          year: <SortedMeasurement>[
-            for (final SortedMeasurement m in measurements)
-              if (m.measurement.date.year == year)
-                m
-          ]
-      };
       return Scrollbar(
         radius: const Radius.circular(4),
         thickness: 8,
         interactive: true,
-        child: CustomScrollView(
-          controller: scrollController,
-          cacheExtent: 2 * MediaQuery.of(context).size.height,
-          slivers: <Widget>[
-            ...<Widget>[
-            for (final int year in years)
-              ...<Widget>[
-                SliverToBoxAdapter(
-                  child: Center(
-                      child: Text(
-                        '$year',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      )
-                  ),
-                ),
-                WeightList(
-                  measurements: measurementsPerYear[year]!,
-                  durationInMilliseconds: animationDurationInMilliseconds,
-                  delayInMilliseconds: secondDelayInMilliseconds,
-                  scrollController: scrollController,
-                  tabController: widget.tabController,
-                ),
-              ],
-            ],
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: TraleTheme.of(context)!.padding,
-              ),
-            ),
-          ],
+        child: TotalWeightList(
+          durationInMilliseconds: animationDurationInMilliseconds,
+          delayInMilliseconds: secondDelayInMilliseconds,
+          scrollController: scrollController,
+          tabController: widget.tabController,
         ),
       );
     }
