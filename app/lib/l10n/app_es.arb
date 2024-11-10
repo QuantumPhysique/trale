@@ -374,5 +374,19 @@
   "backupInterval": "Copias de seguridad",
   "@backupInterval": {
     "description": "Frequency of backup interval"
-  }
+  },
+  "days": "días",
+  "@days": {},
+  "weeks": "semanas",
+  "@weeks": {},
+  "week": "semana",
+  "@week": {},
+  "month": "mes",
+  "@month": {},
+  "years": "años",
+  "@years": {},
+  "year": "año",
+  "@year": {},
+  "months": "meses",
+  "@months": {}
 }
