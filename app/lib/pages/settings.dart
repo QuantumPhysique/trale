@@ -422,7 +422,7 @@ class LastBackupListTile extends StatelessWidget {
         vertical: TraleTheme.of(context)!.padding,
       ),
       child: Column(
-        children: [
+        children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

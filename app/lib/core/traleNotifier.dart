@@ -136,11 +136,11 @@ class TraleNotifier with ChangeNotifier {
     final Locale activeLocale = Localizations.localeOf(context);
     if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
       final Map<String, String> dateTimeLocaleMap =
-        dateTimePatternMap()[activeLocale.languageCode]!;
+      dateTimePatternMap()[activeLocale.languageCode]!;
       if (dateTimeLocaleMap.containsKey('yMd')) {
         return DateFormat(
-          dateTimeLocaleMap['yMd']!
-            .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
+            dateTimeLocaleMap['yMd']!
+                .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
         );
       }
     }
@@ -157,7 +157,7 @@ class TraleNotifier with ChangeNotifier {
       notifyListeners();
     }
   }
-/// getter
+  /// getter
   String get userName => prefs.userName;
   /// setter
   set userName(String newName) {
@@ -212,8 +212,8 @@ class TraleNotifier with ChangeNotifier {
   ColorScheme? _systemDarkDynamic;
 
   Color get systemSeedColor => systemColorsAvailable
-    ? _systemLightDynamic!.primary
-    : Colors.black;
+      ? _systemLightDynamic!.primary
+      : Colors.black;
 
   /// set system color accent
   void setColorScheme(ColorScheme? systemLight, ColorScheme? systemDark) {
@@ -223,7 +223,7 @@ class TraleNotifier with ChangeNotifier {
 
   /// If system accent color is available (Android OS 12+)
   bool get systemColorsAvailable => _systemDarkDynamic != null &&
-    _systemLightDynamic != null;
+      _systemLightDynamic != null;
 
   /// get locale
   Locale? get locale => language.compareTo(Language.system())
