@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
@@ -85,7 +86,7 @@ class _WeightListTileState extends State<WeightListTile>
           height: height,
           child: AutoSizeText(
             widget.measurement.measurement.measureToString(
-              context, ws: 12,
+              context, ws: 11,
             ),
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontFamily: 'CourierPrime',

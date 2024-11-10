@@ -148,6 +148,22 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// getter
+  DateFormat dayFormat(BuildContext context) {
+    final Locale activeLocale = Localizations.localeOf(context);
+    if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
+      final Map<String, String> dateTimeLocaleMap =
+      dateTimePatternMap()[activeLocale.languageCode]!;
+      if (dateTimeLocaleMap.containsKey('Md')) {
+        return DateFormat(
+            dateTimeLocaleMap['Md']!
+                .replaceFirst('d', 'dd').replaceFirst('M', 'MM')
+        );
+      }
+    }
+    return DateFormat('dd/MM');
+  }
+
+  /// getter
   TraleUnit get unit => prefs.unit;
 
   /// setter
