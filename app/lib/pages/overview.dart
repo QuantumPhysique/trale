@@ -68,22 +68,6 @@ class _OverviewScreen extends State<OverviewScreen> {
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
-    final Widget dummyChart = emptyChart(
-      context,
-      <InlineSpan>[
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro1,
-        ),
-        WidgetSpan(
-          child: PPIcon(PhosphorIconsDuotone.plusCircle, context),
-          alignment: PlaceholderAlignment.middle,
-        ),
-        TextSpan(
-          text: AppLocalizations.of(context)!.intro2,
-        ),
-      ],
-    );
-
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
       return Column(

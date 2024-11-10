@@ -21,6 +21,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
+    final List<SortedMeasurement> measurements = database.sortedMeasurements;
 
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
@@ -28,29 +29,26 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
     final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
 
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
-
-    final List<int> years = <int>[
-      for (
+    Widget measurementScreen(BuildContext context,
+        AsyncSnapshot<List<Measurement>> snapshot) {
+      final List<int> years = <int>[
+        for (
         int year= measurements.first.measurement.date.year;
         year >= measurements.last.measurement.date.year;
         year--
-      )
-        year
-    ];
+        )
+          year
+      ];
 
-    final Map<int, List<SortedMeasurement>> measurementsPerYear = <int, List<SortedMeasurement>>{
-      for (final int year in years)
-        year: <SortedMeasurement>[
-          for (final SortedMeasurement m in measurements)
-            if (m.measurement.date.year == year)
-              m
-        ]
-    };
-
-    Widget measurementScreen(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
-
+      final Map<int, List<SortedMeasurement>> measurementsPerYear =
+      <int, List<SortedMeasurement>>{
+        for (final int year in years)
+          year: <SortedMeasurement>[
+            for (final SortedMeasurement m in measurements)
+              if (m.measurement.date.year == year)
+                m
+          ]
+      };
       return Scrollbar(
         radius: const Radius.circular(4),
         thickness: 8,
@@ -91,11 +89,9 @@ class _MeasurementScreen extends State<MeasurementScreen> {
 
     Widget measurementScreenWrapper(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
-      final MeasurementDatabase database = MeasurementDatabase();
-      final List<SortedMeasurement> measurements = database.sortedMeasurements;
       return measurements.isNotEmpty
-          ? measurementScreen(context, snapshot)
-          : defaultEmptyChart(context: context);
+        ? measurementScreen(context, snapshot)
+        : defaultEmptyChart(context: context);
     }
 
     return StreamBuilder<List<Measurement>>(
