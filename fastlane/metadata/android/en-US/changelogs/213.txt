@@ -1,0 +1,7 @@
+- Extensively revised UI with lots of statistics to keep you engaged in achieving your dream weight 🎉
+- Changed font and icons to improve overall accessibility
+- Thx to the community, Spanish and French translation were improved
+- Add backup reminder, see settings for more options
+- Minor clean up of deprecated flutter code
+- Upgraded deps
+- Fixed a bug that caused a small icon to be displayed in the F-Droid store (German).

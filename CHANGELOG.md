@@ -14,13 +14,18 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+
+
+## [0.8.0] - 2024-11-10
 ### Added Features and Improvements 🙌:
 - Extensively revised UI with lots of statistics to keep you engaged in achieving your dream weight 🎉
 
 ### Other changes:
 - Changed font and icons to improve overall accessibility
+- Thx to the community, Spanish and French translation were improved
 - Add backup reminder, see settings for more options
 - Minor clean up of deprecated flutter code
+- Upgraded deps
 
 ### Bugfix 🐛:
 - Fixed a bug that caused a small icon to be displayed in the F-Droid store (German).
@@ -216,7 +221,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.7.2...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.8.0...main
+[0.8.0]: https://github.com/quantumphysique/trale/compare/v0.7.2...v0.8.0
 [0.7.2]: https://github.com/quantumphysique/trale/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/quantumphysique/trale/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/quantumphysique/trale/compare/v0.6.2...v0.7.0

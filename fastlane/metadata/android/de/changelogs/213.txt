@@ -1,0 +1,7 @@
+- Umfassend überarbeitete Benutzeroberfläche mit vielen Statistiken, die Sie beim Erreichen Ihres Traumgewichts unterstützen 🎉
+- Geänderte Schriftart und Icons zur Verbesserung der allgemeinen Zugänglichkeit
+- Dank der Community wurden die spanische und französische Übersetzung verbessert
+- Backup-Erinnerung hinzugefügt, siehe Einstellungen für weitere Optionen
+- Kleinere Bereinigung von veraltetem Flutter-Code
+- Aktualisierte Deps
+- Fehler behoben, der dazu führte, dass im F-Droid Store ein kleines Icon angezeigt wurde
