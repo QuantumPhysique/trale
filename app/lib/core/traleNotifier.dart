@@ -73,10 +73,10 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// get latest backup date
-  DateTime get latestBackupDate => prefs.latestBackupDate;
+  DateTime? get latestBackupDate => prefs.latestBackupDate;
 
   /// set latest backup date
-  set latestBackupDate(DateTime newDate) {
+  set latestBackupDate(DateTime? newDate) {
     if (latestBackupDate != newDate) {
       prefs.latestBackupDate = newDate;
       notifyListeners();
@@ -84,9 +84,42 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// get latest backup date
-  DateTime get nextBackupDate => prefs.latestBackupDate.add(
-    Duration(days: backupInterval.inDays)
-  );
+  DateTime? get nextBackupDate {
+    if (backupInterval == BackupInterval.never) {
+      return null;
+    }
+    if (latestBackupDate == null) {
+      return DateTime.now();
+    }
+    final DateTime nextBackup = latestBackupDate!.add(
+        Duration(days: backupInterval.inDays)
+    );
+    return nextBackup.isBefore(DateTime.now())
+        ? DateTime.now()
+        : nextBackup;
+  }
+
+  /// get latest backup reminder date
+  DateTime? get latestBackupReminderDate =>
+    prefs.latestBackupReminderDate;
+
+  /// set latest backup reminder date
+  set latestBackupReminderDate(DateTime? newDate) {
+    if (latestBackupReminderDate != newDate) {
+      prefs.latestBackupReminderDate = newDate;
+      notifyListeners();
+    }
+  }
+
+  /// get latest backup date
+  bool get showBackupReminder {
+    return backupInterval != BackupInterval.never &&
+      nextBackupDate!.difference(DateTime.now()).inDays == 0 &&
+      (
+        latestBackupReminderDate == null ||
+        latestBackupReminderDate!.difference(DateTime.now()).inDays < 0
+      );
+  }
 
   /// getter
   Language get language => prefs.language;

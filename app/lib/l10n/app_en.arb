@@ -42,7 +42,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "back up now",
+  "backupReminderButton": "back up",
   "@backupReminderButton": {
     "description": "Back up now"
   },

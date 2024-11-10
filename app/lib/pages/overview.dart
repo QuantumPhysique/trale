@@ -38,16 +38,13 @@ class _OverviewScreen extends State<OverviewScreen> {
         final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
           context, listen: false,
         );
-        if (
-          traleNotifier.backupInterval != BackupInterval.never &&
-          traleNotifier.latestBackupDate.difference(
-            DateTime.now()
-          ).inDays > traleNotifier.backupInterval.inDays
-        ) {
+        if (traleNotifier.showBackupReminder) {
           final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
           sm.showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context)!.backupReminder),
+              content: Text(
+                AppLocalizations.of(context)!.backupReminder,
+              ),
               behavior: SnackBarBehavior.fixed,
               duration: TraleTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
@@ -56,6 +53,7 @@ class _OverviewScreen extends State<OverviewScreen> {
               ),
             ),
           );
+          traleNotifier.latestBackupReminderDate = DateTime.now();
         }
         setState(() {});
       }

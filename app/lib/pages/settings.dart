@@ -404,6 +404,18 @@ class LastBackupListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime? nextBackupDate =
+        Provider.of<TraleNotifier>(context).nextBackupDate;
+    final DateTime? latestBackupDate =
+        Provider.of<TraleNotifier>(context).latestBackupDate;
+
+    String date2string(DateTime? date)
+      => date == null
+        ? AppLocalizations.of(context)!.never
+        : Provider.of<TraleNotifier>(
+            context, listen: false
+          ).dateFormat(context).format(date);
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
@@ -419,13 +431,8 @@ class LastBackupListTile extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 1,
               ),
-
               Text(
-                Provider.of<TraleNotifier>(
-                    context, listen: false
-                ).dateFormat(context).format(
-                    Provider.of<TraleNotifier>(context).latestBackupDate
-                ),
+                date2string(latestBackupDate),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
@@ -439,13 +446,8 @@ class LastBackupListTile extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 1,
               ),
-
               Text(
-                Provider.of<TraleNotifier>(
-                    context, listen: false
-                ).dateFormat(context).format(
-                    Provider.of<TraleNotifier>(context).nextBackupDate
-                ),
+                date2string(nextBackupDate),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
