@@ -15,9 +15,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
-- Changed font and icons to improve overall accessibility
+- Extensively revised UI with lots of statistics to keep you engaged in achieving your dream weight 🎉
 
 ### Other changes:
+- Changed font and icons to improve overall accessibility
 - Add backup reminder, see settings for more options
 - Minor clean up of deprecated flutter code
 
