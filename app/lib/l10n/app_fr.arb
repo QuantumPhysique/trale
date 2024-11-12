@@ -363,7 +363,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "sauvegarder maintenant",
+  "backupReminderButton": "sauvegarder",
   "@backupReminderButton": {
     "description": "Back up now"
   },
@@ -371,8 +371,38 @@
   "@backupSuccess": {
     "description": "Back successfully exported"
   },
-  "backupInterval": "Sauvegardes",
+  "backupInterval": "Fréquence",
   "@backupInterval": {
     "description": "Frequency of backup interval"
+  },
+  "week": "semaine",
+  "@week": {},
+  "months": "mois",
+  "@months": {},
+  "month": "mois",
+  "@month": {},
+  "years": "années",
+  "@years": {},
+  "nextBackup": "prochaine sauvegarde",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "max": "max",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "days": "jours",
+  "@days": {},
+  "weeks": "semaines",
+  "@weeks": {},
+  "year": "année",
+  "@year": {},
+  "lastBackup": "dernière sauvegarde",
+  "@lastBackup": {
+    "description": "Time of last backup"
   }
 }
