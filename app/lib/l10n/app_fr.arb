@@ -404,5 +404,41 @@
   "lastBackup": "dernière sauvegarde",
   "@lastBackup": {
     "description": "Time of last backup"
+  },
+  "change": "évolution",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "mean": "moyenne",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "fréquence de mesure",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReachedIn": "restant(e)s pour atteindre le poids cible",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "plus longue série",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "série actuelle",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "totalChange": "évolution totale",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "targetWeightReached": "vous avez atteint votre poids cible !",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "timeSinceFirstMeasurement": "temps depuis la première mesure",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
   }
 }
