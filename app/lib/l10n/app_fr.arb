@@ -97,7 +97,7 @@
   "@importingAbort": {
     "description": "Import aborted."
   },
-  "importDialog": "Ajouter toutes les mesures dans la base de données actuelle. Cette opération est irréversible !",
+  "importDialog": "Ajouter toutes les mesures dans la base de données actuelle. Cette opération est irréversible!",
   "@importDialog": {
     "description": "Include all measurements to the current database. This can not be undone!"
   },
@@ -217,7 +217,7 @@
   "@intro3": {
     "description": "Text shown on statsOverview in case of no measurements"
   },
-  "onBoarding1": "Cette application épurée conçue en design Material-You vous aide à atteindre votre poids de rêve ! Que vous souhaitiez prendre du poids, en perdre, ou simplement conserver votre poids actuel : des prévisions de poids fiables et des statistiques élaborées vous aident à tenir vos objectifs.\n\n Rejoignez dès aujourd'hui aujourd'hui notre communauté afin de vous tracer vous-même.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "Cette application épurée conçue en design Material-You vous aide à atteindre votre poids de rêve! Que vous souhaitiez prendre du poids, en perdre, ou simplement conserver votre poids actuel: des prévisions de poids fiables et des statistiques élaborées vous aident à tenir vos objectifs.\n\nRejoignez dès aujourd'hui aujourd'hui notre communauté afin de vous tracer vous-même.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
@@ -253,7 +253,7 @@
   "@theme": {
     "description": "Theme menu item."
   },
-  "factoryResetDialog": "Réinitialiser complètement l'application ? Cela va supprimer tous vos réglages ainsi que toutes les mesures que vous auriez pu ajouter. Cette opération est irréversible.",
+  "factoryResetDialog": "Réinitialiser complètement l'application? Cela va supprimer tous vos réglages ainsi que toutes les mesures que vous auriez pu ajouter. Cette opération est irréversible.",
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
