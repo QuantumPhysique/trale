@@ -169,7 +169,7 @@
   "@welcome": {
     "description": "welcome"
   },
-  "onBoarding2": "Choisissez l'un des six thèmes pour personnaliser l'application. Lequel reflète le mieux votre état d'esprit ?",
+  "onBoarding2": "Choisissez l'un des six thèmes pour personnaliser l'application. Lequel reflète le mieux votre état d'esprit?",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
   },
@@ -197,7 +197,7 @@
   "@targetWeightMotivation": {
     "description": "Explanation to clarify the importance of a target weight."
   },
-  "addUserName": "Comment devons-nous vous appeler ?",
+  "addUserName": "Comment devons-nous vous appeler?",
   "@addUserName": {
     "description": "How shall we call you?"
   },
@@ -213,7 +213,7 @@
   "@intro2": {
     "description": "End of 'press + to get started'"
   },
-  "intro3": "C'est une belle journée pour ajouter votre première mesure de poids !",
+  "intro3": "C'est une belle journée pour ajouter votre première mesure de poids!",
   "@intro3": {
     "description": "Text shown on statsOverview in case of no measurements"
   },
@@ -221,15 +221,15 @@
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
-  "faq_q1": "Il manque lafonctionnalité X. Quand avez-vous prévu de l'implémenter ?",
+  "faq_q1": "Il manque lafonctionnalité X. Quand avez-vous prévu de l'implémenter?",
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "faq_a2": "Bien sûr ! Appuyez simplement sur l'icône ci-dessous.",
+  "faq_a2": "Bien sûr! Appuyez simplement sur l'icône ci-dessous.",
   "@faq_a2": {
     "description": "Yes for sure! Simple press the icon below."
   },
-  "faq_q3": "Que représente l'icône de l'application ?",
+  "faq_q3": "Que représente l'icône de l'application?",
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
@@ -319,7 +319,7 @@
   "@faqtext": {
     "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
   },
-  "faq_q2": "Puis-je voir à nouveau l'écran de bienvenue/présentation ?",
+  "faq_q2": "Puis-je voir à nouveau l'écran de bienvenue/présentation?",
   "@faq_q2": {
     "description": "Can I see once again the intro/onboarding screen?"
   },
