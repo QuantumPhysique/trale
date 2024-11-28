@@ -67,7 +67,7 @@ class Preferences {
   final TraleUnit defaultUnit = TraleUnit.kg;
 
   /// default first day
-  final TraleFirstDay defaultFirstDay = TraleFirstDay.sunday;
+  final TraleFirstDay defaultFirstDay = TraleFirstDay.Default;
 
   /// default date format
   final TraleDatePrintFormat defaultDatePrintFormat =
@@ -278,6 +278,7 @@ class Preferences {
     if (override || !prefs.containsKey('latestBackupDate')) {
       latestBackupDate = defaultLatestBackupDate;
     }
+
     if (override || !prefs.containsKey('latestBackupReminderDate')) {
       latestBackupReminderDate = defaultLatestBackupReminderDate;
     }

@@ -13,22 +13,25 @@ enum TraleDatePrintFormat {
 
   /// MM/dd/yyyy format (e.g., 10/26/2024)
   MMddyyyy,
+
+  ddMMyyyyDot,
 }
 
 /// Extension to add functionality to TraleDatePrintFormat
 extension TraleDateFormatExtension on TraleDatePrintFormat {
   /// Mapping of date formats to their patterns
-  static const _patternMapping = <TraleDatePrintFormat, String>{
+  static const _patternMapping = <TraleDatePrintFormat, String?>{
     TraleDatePrintFormat.systemDefault:
-        'MM/dd/yyyy', // Default format if no locale specified
+        null, // Default format if no locale specified
     TraleDatePrintFormat.yyyyMMdd: 'yyyy/MM/dd',
     TraleDatePrintFormat.ddMMyyyy: 'dd/MM/yyyy',
     TraleDatePrintFormat.MMddyyyy: 'MM/dd/yyyy',
+    TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM.yyyy',
   };
 
   /// Get the pattern associated with each format option, using a custom format if provided
-  String getPattern([String? customPattern]) {
-    return _patternMapping[this]!;
+  String? getPattern([String? customPattern]) {
+    return _patternMapping[this];
   }
 
   /// Format a DateTime object according to the selected format
