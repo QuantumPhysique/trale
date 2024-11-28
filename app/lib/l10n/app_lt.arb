@@ -5,6 +5,10 @@
   },
   "unit": "Matavimo vienetai",
   "@unit": {},
+  "firstDay": "Pirma diena",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "weight": "Svoris",
   "@weight": {
     "description": "weight"

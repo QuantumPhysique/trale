@@ -1,6 +1,10 @@
 {
   "unit": "Birimler",
   "@unit": {},
+  "firstDay": "Ilk gün",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "systemmode": "Sistem",
   "@systemmode": {
     "description": "System mode menu item."

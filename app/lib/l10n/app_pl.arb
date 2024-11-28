@@ -17,6 +17,10 @@
   },
   "unit": "Jednostki",
   "@unit": {},
+  "firstDay": "Pierwszy dzień",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "date": "Data",
   "@date": {
     "description": "Date"

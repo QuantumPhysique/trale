@@ -76,6 +76,10 @@
   "@date": {
     "description": "Date"
   },
+  "firstDay": "First day",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "weight": "Weight",
   "@weight": {
     "description": "weight"

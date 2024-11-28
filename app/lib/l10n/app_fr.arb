@@ -1,6 +1,10 @@
 {
   "unit": "Unités",
   "@unit": {},
+  "firstDay": "Premier jour",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
   "trale": "trale",
   "@trale": {
     "description": "Name of app: trale"
