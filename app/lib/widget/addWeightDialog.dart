@@ -78,7 +78,6 @@ Future<bool> showAddWeightDialog({
                           calendarType: CalendarDatePicker2Type.single,
                           firstDate: DateTime.fromMillisecondsSinceEpoch(0),
                           lastDate: DateTime.now(),
-                          firstDayOfWeek: notifier.firstDay.asDateTimeWeekday,
                         ),
                         dialogSize: Size(
                             MediaQuery.of(context).size.width * 0.75,

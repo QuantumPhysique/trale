@@ -4,7 +4,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
@@ -447,57 +446,48 @@ class FirstDayListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context).toString();
-    final traleNotifier = Provider.of<TraleNotifier>(context);
-    return FutureBuilder<void>(
-      future: TraleFirstDayExtension.loadLocalizedNames(locale),
-      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        return ListTile(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 2 * TraleTheme.of(context)!.padding,
-            vertical: 0.5 * TraleTheme.of(context)!.padding,
-          ),
-          title: AutoSizeText(
-            AppLocalizations.of(context)!.firstDay,
-            style: Theme.of(context).textTheme.bodyLarge,
-            maxLines: 1,
-          ),
-          trailing: DropdownMenu<TraleFirstDay>(
-            initialSelection: traleNotifier.firstDay,
-            label: AutoSizeText(
-              AppLocalizations.of(context)!.firstDay,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            dropdownMenuEntries: <DropdownMenuEntry<TraleFirstDay>>[
-              for (final TraleFirstDay firstDay in TraleFirstDay.values)
-                DropdownMenuEntry<TraleFirstDay>(
-                  value: firstDay,
-                  label:
-                      TraleFirstDayExtension.getLocalizedName(firstDay, locale),
-                )
-            ],
-            onSelected: (TraleFirstDay? newFirstDay) async {
-              if (newFirstDay != null) {
-                traleNotifier.firstDay = newFirstDay;
-              }
-            },
-          ),
-        );
-      },
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.firstDay,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<TraleFirstDay>(
+        initialSelection: Provider.of<TraleNotifier>(context).firstDay,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.firstDay,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleFirstDay>>[
+          for (final TraleFirstDay firstDay in TraleFirstDay.values)
+            DropdownMenuEntry<TraleFirstDay>(
+              value: firstDay,
+              label: firstDay.name,
+            )
+        ],
+        onSelected: (TraleFirstDay? newFirstDay) async {
+          if (newFirstDay != null) {
+            Provider.of<TraleNotifier>(context, listen: false).firstDay =
+                newFirstDay;
+          }
+        },
+      ),
     );
   }
 }
 
+/// ListTile for changing units settings
 class DatePrintListTile extends StatelessWidget {
   /// constructor
   const DatePrintListTile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Fetch the current date print format from the provider
-    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
-
     return ListTile(
       contentPadding: EdgeInsets.symmetric(
         horizontal: 2 * TraleTheme.of(context)!.padding,
@@ -520,12 +510,13 @@ class DatePrintListTile extends StatelessWidget {
               in TraleDatePrintFormat.values)
             DropdownMenuEntry<TraleDatePrintFormat>(
               value: datePrintFormat,
-              label: datePrintFormat.getPattern() ?? 'Default',
+              label: datePrintFormat.name,
             )
         ],
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
           if (newDatePrintFormat != null) {
-            traleNotifier.datePrintFormat = newDatePrintFormat;
+            Provider.of<TraleNotifier>(context, listen: false).datePrintFormat =
+                newDatePrintFormat;
           }
         },
       ),
@@ -793,8 +784,6 @@ class _Settings extends State<Settings> {
           const LanguageListTile(),
           const UnitsListTile(),
           const InterpolationListTile(),
-          const FirstDayListTile(),
-          const DatePrintListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),
@@ -810,6 +799,8 @@ class _Settings extends State<Settings> {
           const ImportListTile(),
           const BackupIntervalListTile(),
           const LastBackupListTile(),
+          const FirstDayListTile(),
+          const DatePrintListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),

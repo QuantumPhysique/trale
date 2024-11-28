@@ -10,6 +10,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/pages/splash.dart';
 
+
 const String measurementBoxName = 'measurements';
 
 Future<void> main() async {
@@ -31,6 +32,7 @@ Future<void> main() async {
   );
 }
 
+
 /// MaterialApp with AdonisTheme
 class TraleApp extends MaterialApp {
   /// Constructor
@@ -42,13 +44,15 @@ class TraleApp extends MaterialApp {
     required this.dark,
     required this.amoled,
   }) : super(
-          theme: light.themeData,
-          darkTheme: traleNotifier.isAmoled ? amoled.themeData : dark.themeData,
-          themeMode: traleNotifier.themeMode,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: traleNotifier.locale,
-        );
+    theme: light.themeData,
+    darkTheme: traleNotifier.isAmoled
+        ? amoled.themeData
+        : dark.themeData,
+    themeMode: traleNotifier.themeMode,
+    localizationsDelegates: AppLocalizations.localizationsDelegates,
+    supportedLocales: AppLocalizations.supportedLocales,
+    locale: traleNotifier.locale,
+  );
 
   /// themeNotifier for interactive change of theme
   final TraleNotifier traleNotifier;
@@ -57,6 +61,7 @@ class TraleApp extends MaterialApp {
   final TraleTheme amoled;
 }
 
+
 class TraleMainApp extends StatelessWidget {
   const TraleMainApp({super.key});
 
@@ -64,24 +69,24 @@ class TraleMainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
-
     /// shared preferences instance
     final Preferences prefs = Preferences();
 
     return DynamicColorBuilder(
         builder: (ColorScheme? systemLight, ColorScheme? systemDark) {
-      traleNotifier.setColorScheme(systemLight, systemDark);
-      return TraleApp(
-        traleNotifier: traleNotifier,
-        routes: <String, Widget Function(BuildContext)>{
-          '/': (BuildContext context) {
-            return const Splash();
-          }
-        },
-        light: traleNotifier.theme.light(context),
-        dark: traleNotifier.theme.dark(context),
-        amoled: traleNotifier.theme.amoled(context),
-      );
-    });
+          traleNotifier.setColorScheme(systemLight, systemDark);
+          return TraleApp(
+            traleNotifier: traleNotifier,
+            routes: <String, Widget Function(BuildContext)>{
+              '/': (BuildContext context) {
+                return const Splash();
+              }
+            },
+            light: traleNotifier.theme.light(context),
+            dark: traleNotifier.theme.dark(context),
+            amoled: traleNotifier.theme.amoled(context),
+          );
+      }
+    );
   }
 }
