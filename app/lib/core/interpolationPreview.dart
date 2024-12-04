@@ -24,8 +24,7 @@ List<Measurement> _ms = <Measurement>[
 class PreviewDatabase extends MeasurementDatabaseBaseclass {
   PreviewDatabase();
 
-  @override
-  List<Measurement> get measurements => _ms;
+  List<Measurement>? _measurements = _ms;
 }
 
 

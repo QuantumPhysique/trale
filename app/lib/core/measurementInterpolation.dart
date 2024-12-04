@@ -42,12 +42,8 @@ class MeasurementInterpolationBaseclass {
 
   /// initialize database
   void init() {
-    //final stopwatch = Stopwatch()..start();
     times;
-    //print('  times: ${stopwatch.elapsed}');
-    //stopwatch..reset()..start();
     weights;
-    //print('  weights: ${stopwatch.elapsed}');
 
     weightsGaussianExtrapol;
     weightsDisplay;
@@ -171,7 +167,7 @@ class MeasurementInterpolationBaseclass {
     final List<int> idxMs = <int>[];
 
     int idx = 0;
-    for (final Measurement m in db.measurements) {
+    for (final Measurement m in db.measurements.reversed) {
       while (
       ! m.date.sameDay(dateTimes[idx])
       ) {
