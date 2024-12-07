@@ -12,5 +12,9 @@
   "about": "Sobre",
   "@about": {
     "description": "Name of about menu section"
+  },
+  "firstDay": "Primeiro dia",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

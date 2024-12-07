@@ -445,5 +445,9 @@
   "timeSinceFirstMeasurement": "time since first measurement",
   "@timeSinceFirstMeasurement": {
     "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "firstDay": "First day",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

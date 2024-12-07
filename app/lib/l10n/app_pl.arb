@@ -334,5 +334,9 @@
   "onBoarding2": "Wybierz jeden z sześciu motywów, aby spersonalizować swoją aplikację. Który najbardziej odpowiada Twoim uczuciom?",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
+  },
+  "firstDay": "Pierwszy dzień",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

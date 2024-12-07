@@ -322,5 +322,9 @@
   "faq_a1": "Tato aplikace je vyvíjena v našem volném čase a snažíme se ji nechat jednoduchou. Věříme, že přidáním velkého množství funkcí bude aplikace méně použitelná. Pokud si myslíte, že chybí klíčová funkce, otevřete problém nebo merge request.",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "firstDay": "První den",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

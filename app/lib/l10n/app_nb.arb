@@ -334,5 +334,9 @@
   "backup": "Sikkerhetskopi",
   "@backup": {
     "description": "backup"
+  },
+  "firstDay": "Første dagen",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

@@ -338,5 +338,9 @@
         "example": "MIT"
       }
     }
+  },
+  "firstDay": "Ilk gün",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }
