@@ -374,5 +374,9 @@
   "backupInterval": "Copias de seguridad",
   "@backupInterval": {
     "description": "Frequency of backup interval"
+  },
+  "firstDay": "Primer dia",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

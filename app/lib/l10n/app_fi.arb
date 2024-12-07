@@ -338,5 +338,9 @@
   "target_weight_warning": "Anoreksia on vakava sairaus, josta on tulossa yhä enemmän koko yhteiskunnan ongelma, osittain sosiaalisen median monien negatiivisten esimerkkien vuoksi. Osana panostamme sen ennaltaehkäisyyn, alle 50 kg / 110 lb / 7,9 st tavoitepaino ei ole mahdollinen.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "firstDay": "Ensimmäinen päivä",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

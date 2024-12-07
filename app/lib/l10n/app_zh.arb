@@ -338,5 +338,9 @@
   "faq_a3": "一只坐着嚎叫的狼，它的尾巴被字母 \"t \"和字母 \"r \"遮住了一部分。",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "firstDay": "第一天",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }
