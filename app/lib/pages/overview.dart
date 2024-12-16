@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/interpolationPreview.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/widget/animate_in_effect.dart';
@@ -63,23 +61,7 @@ class _OverviewScreen extends State<OverviewScreen> {
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
-    for (final m in database.measurements) {
-      print(m.date);
-    }
-    for (final m in database.sortedMeasurements) {
-      print(m.measurement.date);
-    }
-    final PreviewDatabase pdb = PreviewDatabase();
-    print('PreviewDatabase');
-    for (final m in pdb.measurements) {
-      print(m.date);
-    }
-    final PreviewInterpolation pip = PreviewInterpolation();
-    print('PreviewInterpolation');
-    print(pip.N);
-    for (final m in pip.isMeasurement) {
-      print(m);
-    }
+    final MeasurementInterpolation ip = MeasurementInterpolation();
 
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
@@ -113,6 +95,7 @@ class _OverviewScreen extends State<OverviewScreen> {
                 ),
                 child: CustomLineChart(
                   loadedFirst: loadedFirst,
+                  ip: ip,
                   key: ValueKey<List<Measurement>>(
                       snapshot.data ?? <Measurement>[]),
                 )
