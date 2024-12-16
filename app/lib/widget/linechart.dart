@@ -18,10 +18,14 @@ import 'package:trale/core/zoomLevel.dart';
 
 class CustomLineChart extends StatefulWidget {
   const CustomLineChart({
-    required this.loadedFirst, super.key
+    required this.loadedFirst,
+    required this.ip,
+    super.key,
   });
 
   final bool loadedFirst;
+  final MeasurementInterpolationBaseclass ip;
+
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
 }
@@ -39,7 +43,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    final MeasurementInterpolation ip = MeasurementInterpolation();
+    final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
     final Vector msTimes = ip.times_measured;
@@ -237,7 +241,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                   label: HorizontalLineLabel(
                     show: true,
                     alignment:
-                      ip.db.sortedMeasurements.first.measurement.weight > targetWeight
+                      ip.db.measurements.first.weight > targetWeight
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.only(bottom: 3),
