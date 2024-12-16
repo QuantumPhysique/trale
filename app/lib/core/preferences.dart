@@ -285,7 +285,7 @@ class Preferences {
       firstDay = defaultFirstDay;
     }
     if (override || !prefs.containsKey('dateFormat')) {
-      datePrintFormat = datePrintFormat;
+      datePrintFormat = defaultDatePrintFormat;
     }
   }
 
