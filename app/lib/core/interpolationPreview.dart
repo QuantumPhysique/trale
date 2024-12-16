@@ -25,6 +25,13 @@ class PreviewDatabase extends MeasurementDatabaseBaseclass {
   PreviewDatabase();
 
   List<Measurement>? _measurements = _ms;
+
+  /// get sorted measurements
+  List<Measurement> get measurements => _measurements == null
+      ? <Measurement>[]
+      : _measurements!..sort(
+          (Measurement a, Measurement b) => b.compareTo(a)
+  );
 }
 
 
