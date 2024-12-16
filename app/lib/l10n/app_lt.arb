@@ -338,5 +338,9 @@
   "target_weight_warning": "Anoreksija yra rimta liga, kuri vis dažniau tampa visos visuomenės problema, iš dalies dėl daugybės neigiamų pavyzdžių socialinėje žiniasklaidoje. Prisidėdami prie prevencijos, apribojome galimybę siekti mažesnio nei 50 kg / 110 svarų / 7,9 st. svorio.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "firstDay": "Pirma diena",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }
