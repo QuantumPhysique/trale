@@ -20,10 +20,12 @@ class CustomLineChart extends StatefulWidget {
   const CustomLineChart({
     required this.loadedFirst,
     required this.ip,
+    this.interactive = true,
     super.key,
   });
 
   final bool loadedFirst;
+  final bool interactive;
   final MeasurementInterpolationBaseclass ip;
 
   @override
@@ -315,51 +317,59 @@ class _CustomLineChartState extends State<CustomLineChart> {
       padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
       child: GestureDetector(
         onDoubleTap: () {
-          notifier.nextZoomLevel();
-          setState(() {
-            maxX = notifier.zoomLevel.maxX;
-            minX = notifier.zoomLevel.minX;
-          });
+          if (widget.interactive) {
+            notifier.nextZoomLevel();
+            setState(() {
+              maxX = notifier.zoomLevel.maxX;
+              minX = notifier.zoomLevel.minX;
+            });
+          }
         },
         onScaleUpdate: (ScaleUpdateDetails details) {
-          setState(() {
-            final double scale = (1 - details.horizontalScale) / 50;
-            if (scale.isNegative) {
-              if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
-                minX -= (maxX - minX) * scale;
-                maxX += (maxX - minX) * scale;
-              }
-            } else {
-              if (maxX - minX < 1000 * 3600 * 24 * 7 *  12) {
-                if (minX - (maxX - minX) * scale > msTimes.first) {
+          if (widget.interactive) {
+            setState(() {
+              final double scale = (1 - details.horizontalScale) / 50;
+              if (scale.isNegative) {
+                if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
                   minX -= (maxX - minX) * scale;
-                }
-                if (maxX + (maxX - minX) * scale
-                    < DateTime.now().millisecondsSinceEpoch.toDouble()) {
                   maxX += (maxX - minX) * scale;
                 }
+              } else {
+                if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
+                  if (minX - (maxX - minX) * scale > msTimes.first) {
+                    minX -= (maxX - minX) * scale;
+                  }
+                  if (
+                    maxX + (maxX - minX) * scale
+                    < DateTime.now().millisecondsSinceEpoch.toDouble()
+                  ) {
+                    maxX += (maxX - minX) * scale;
+                  }
+                }
               }
-            }
-          });
+            });
+          }
         },
         onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
-          setState(() {
-            final double primDelta =
-                (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
+          if (widget.interactive) {
+            setState(() {
+              final double primDelta =
+                  (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
 
-            final double allowedMaxX =
-              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
-                ? interpolTimes.last
-                : DateTime.now().millisecondsSinceEpoch.toDouble();
-            final double allowedMinX = interpolTimes.first;
-            if (
-              maxX - primDelta <= allowedMaxX &&
-              minX - primDelta >= allowedMinX
-            ) {
-              maxX -= primDelta;
-              minX -= primDelta;
-            }
-          });
+              final double allowedMaxX =
+                interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+                  ? interpolTimes.last
+                  : DateTime.now().millisecondsSinceEpoch.toDouble();
+              final double allowedMinX = interpolTimes.first;
+              if (
+                maxX - primDelta <= allowedMaxX &&
+                minX - primDelta >= allowedMinX
+              ) {
+                maxX -= primDelta;
+                minX -= primDelta;
+              }
+            });
+          }
         },
         child: lineChart(minX, maxX, minY, maxY)
       )
