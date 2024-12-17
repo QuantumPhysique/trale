@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
+import 'package:trale/core/interpolationPreview.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -19,6 +20,7 @@ import 'package:trale/core/units.dart';
 import 'package:trale/widget/backupDialog.dart';
 import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
+import 'package:trale/widget/linechart.dart';
 
 /// ListTile for changing Amoled settings
 class ExportListTile extends StatelessWidget {
@@ -504,46 +506,72 @@ class DarkModeListTile extends StatelessWidget {
   }
 }
 
-
 /// ListTile for changing interpolation settings
-class InterpolationListTile extends StatelessWidget {
+class InterpolationSetting extends StatelessWidget {
   /// constructor
-  const InterpolationListTile({super.key});
+  const InterpolationSetting({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-        vertical: 0.5 * TraleTheme.of(context)!.padding,
+    final Widget sliderTile = Container(
+      padding: EdgeInsets.fromLTRB(
+        2 * TraleTheme.of(context)!.padding,
+        0.5 * TraleTheme.of(context)!.padding,
+        TraleTheme.of(context)!.padding,
+        0.5 * TraleTheme.of(context)!.padding,
       ),
-      title: AutoSizeText(
-        AppLocalizations.of(context)!.interpolation,
-        style: Theme.of(context).textTheme.bodyLarge,
-        maxLines: 1,
-      ),
-      trailing: SegmentedButton<InterpolStrength>(
-        selected: <InterpolStrength>{
-          Provider.of<TraleNotifier>(context).interpolStrength
-        },
-        showSelectedIcon: false,
-        segments: <ButtonSegment<InterpolStrength>>[
-          for (final InterpolStrength strength in InterpolStrength.values)
-            ButtonSegment<InterpolStrength>(
-              value: strength,
-              tooltip: strength.nameLong(context),
-              icon: Icon(strength.icon),
-            )
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AutoSizeText(
+            AppLocalizations.of(context)!.interpolation,
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
+          ),
+          Slider(
+            value: Provider.of<TraleNotifier>(context)
+                .interpolStrength.idx.toDouble(),
+            divisions: InterpolStrength.values.length - 1,
+            min: 0.0,
+            max: InterpolStrength.values.length.toDouble() - 1,
+            onChanged: (double newStrength) async {
+              Provider.of<TraleNotifier>(
+                  context, listen: false
+              ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
+            },
+          ),
         ],
-        onSelectionChanged: (Set<InterpolStrength> newStrength) async {
-          Provider.of<TraleNotifier>(
-              context, listen: false
-          ).interpolStrength = newStrength.first;
-        },
       ),
+    );
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: TraleTheme.of(context)!.padding,
+            vertical: 0.5 * TraleTheme.of(context)!.padding,
+          ),
+          height: 0.5 * MediaQuery.of(context).size.width,
+          child: Card(
+            shape: TraleTheme.of(context)!.borderShape,
+            margin: EdgeInsets.symmetric(
+              horizontal: TraleTheme.of(context)!.padding,
+            ),
+            child: CustomLineChart(
+              loadedFirst: false,
+              ip: PreviewInterpolation(),
+            ),
+          ),
+        ),
+        sliderTile,
+      ],
     );
   }
 }
+
 /// ListTile for changing interpolation settings
 class ThemeSelection extends StatelessWidget {
   /// constructor
@@ -701,6 +729,18 @@ class _Settings extends State<Settings> {
           Padding(
             padding: padding,
             child: AutoSizeText(
+              AppLocalizations.of(context)!.interpolation.inCaps,
+              style: Theme.of(context).textTheme.headlineMedium,
+              maxLines: 1,
+            ),
+          ),
+          const InterpolationSetting(),
+          Divider(
+            height: 2 * TraleTheme.of(context)!.padding,
+          ),
+          Padding(
+            padding: padding,
+            child: AutoSizeText(
               AppLocalizations.of(context)!.userSettings.inCaps,
               style: Theme.of(context).textTheme.headlineMedium,
               maxLines: 1,
@@ -708,7 +748,6 @@ class _Settings extends State<Settings> {
           ),
           const LanguageListTile(),
           const UnitsListTile(),
-          const InterpolationListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),

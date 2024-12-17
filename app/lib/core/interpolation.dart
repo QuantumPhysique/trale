@@ -49,6 +49,15 @@ extension InterpolStrengthExtension on InterpolStrength {
     InterpolStrength.medium: CustomIcons.interpol_medium,
     InterpolStrength.strong: CustomIcons.interpol_strong,
   }[this]!;
+
+  int get idx {
+    for (int i=0; i<InterpolStrength.values.length; i++) {
+      if (InterpolStrength.values[i] == this) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
 
 /// convert string to interpolation strength
