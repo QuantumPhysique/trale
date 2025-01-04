@@ -20,12 +20,12 @@ class CustomLineChart extends StatefulWidget {
   const CustomLineChart({
     required this.loadedFirst,
     required this.ip,
-    this.interactive = true,
+    this.isPreview = false,
     super.key,
   });
 
   final bool loadedFirst;
-  final bool interactive;
+  final bool isPreview;
   final MeasurementInterpolationBaseclass ip;
 
   @override
@@ -39,8 +39,12 @@ class _CustomLineChartState extends State<CustomLineChart> {
   void initState() {
     super.initState();
     final TraleNotifier notifier = TraleNotifier();
-    minX = notifier.zoomLevel.minX;
-    maxX = notifier.zoomLevel.maxX;
+    minX = widget.isPreview
+      ? widget.ip.timesDisplay.first
+      : notifier.zoomLevel.minX;
+    maxX = widget.isPreview
+      ? widget.ip.timesDisplay.last
+      : notifier.zoomLevel.maxX;
   }
 
   @override
@@ -234,7 +238,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           extraLinesData: ExtraLinesData(
           extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
-              if (targetWeight != null)
+              if (targetWeight != null && !widget.isPreview)
                 HorizontalLine(
                   y: targetWeight / unitScaling,
                   color: Theme.of(context).colorScheme.tertiary,
@@ -249,7 +253,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
                     padding: const EdgeInsets.only(bottom: 3),
                     style: Theme.of(context).textTheme.bodySmall!.apply(
                         color: Theme.of(context).colorScheme.onSurface,
-                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+                        backgroundColor:
+                          Theme.of(context).colorScheme.surfaceContainerLow,
                       ),
                     labelResolver: (HorizontalLine line) =>
                       AppLocalizations.of(context)!.targetWeightShort,
@@ -317,7 +322,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
       child: GestureDetector(
         onDoubleTap: () {
-          if (widget.interactive) {
+          if (!widget.isPreview) {
             notifier.nextZoomLevel();
             setState(() {
               maxX = notifier.zoomLevel.maxX;
@@ -326,7 +331,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           }
         },
         onScaleUpdate: (ScaleUpdateDetails details) {
-          if (widget.interactive) {
+          if (!widget.isPreview) {
             setState(() {
               final double scale = (1 - details.horizontalScale) / 50;
               if (scale.isNegative) {
@@ -351,7 +356,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           }
         },
         onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
-          if (widget.interactive) {
+          if (!widget.isPreview) {
             setState(() {
               final double primDelta =
                   (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;

@@ -563,6 +563,7 @@ class InterpolationSetting extends StatelessWidget {
             child: CustomLineChart(
               loadedFirst: false,
               ip: PreviewInterpolation(),
+              isPreview: true,
             ),
           ),
         ),
