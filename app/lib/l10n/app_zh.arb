@@ -115,7 +115,7 @@
   "@intro3": {
     "description": "Text shown on statsOverview in case of no measurements"
   },
-  "faqtext": "在这里，您可以找到一些最常见问题的答案。如果您有任何其他问题，请随时在 github 存储库中提交讨论。",
+  "faqtext": "在这里，您可以找到一些最常见问题的答案。如果您有任何其他问题，请随时在 Github 仓库中提交讨论。",
   "@faqtext": {
     "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
   },
@@ -211,7 +211,7 @@
   "@amoledSubtitle": {
     "description": "Change background color to true black for dark mode."
   },
-  "factoryReset": "恢复出厂设置",
+  "factoryReset": "重置应用",
   "@factoryReset": {
     "description": "Factory reset app."
   },
@@ -338,6 +338,108 @@
   "faq_a3": "一只坐着嚎叫的狼，它的尾巴被字母 \"t \"和字母 \"r \"遮住了一部分。",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "days": "天",
+  "@days": {},
+  "weeks": "周",
+  "@weeks": {},
+  "week": "周",
+  "@week": {},
+  "month": "月",
+  "@month": {},
+  "years": "年",
+  "@years": {},
+  "year": "年",
+  "@year": {},
+  "monthly": "每月",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "每季度",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "请定期备份",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupReminderButton": "备份",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "备份已成功导出",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "months": "个月",
+  "@months": {},
+  "backupInterval": "间隔",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "nextBackup": "下次备份",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "lastBackup": "最近备份",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "max": "最大",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "最小",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "change": "变化",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "totalChange": "总变化",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "mean": "均值",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "测量频率",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReached": "您达到了目标体重！",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "maxStreak": "最长连续记录",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "当前连续记录",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "timeSinceFirstMeasurement": "自首次测量已过",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "targetWeightReachedIn": "距离目标体重",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "never": "从未",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "每周",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "每两周",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
   },
   "firstDay": "第一天",
   "@firstDay": {

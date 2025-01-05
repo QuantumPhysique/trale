@@ -217,11 +217,11 @@
   "@intro3": {
     "description": "Text shown on statsOverview in case of no measurements"
   },
-  "onBoarding1": "Cette application épurée conçue en design Material-You vous aide à atteindre votre poids de rêve ! Que vous souhaitiez prendre du poids, en perdre, ou simplement conserver votre poids actuel : des prévisions de poids fiables et des statistiques élaborées vous aident à tenir vos objectifs.\n\n Rejoignez dès aujourd'hui aujourd'hui notre communauté afin de vous tracer vous-même.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "Cette application épurée conçue en design Material-You vous aide à atteindre votre poids de rêve ! Que vous souhaitiez prendre du poids, en perdre, ou simplement conserver votre poids actuel : des prévisions de poids fiables et des statistiques élaborées vous aident à tenir vos objectifs.\n\nRejoignez dès aujourd'hui aujourd'hui notre communauté afin de vous tracer vous-même.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
-  "faq_q1": "Il manque lafonctionnalité X. Quand avez-vous prévu de l'implémenter ?",
+  "faq_q1": "Il manque la fonctionnalité X. Quand avez-vous prévu de l'implémenter ?",
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
@@ -363,7 +363,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "sauvegarder maintenant",
+  "backupReminderButton": "sauvegarder",
   "@backupReminderButton": {
     "description": "Back up now"
   },
@@ -371,9 +371,75 @@
   "@backupSuccess": {
     "description": "Back successfully exported"
   },
-  "backupInterval": "Sauvegardes",
+  "backupInterval": "Fréquence",
   "@backupInterval": {
     "description": "Frequency of backup interval"
+  },
+  "week": "semaine",
+  "@week": {},
+  "months": "mois",
+  "@months": {},
+  "month": "mois",
+  "@month": {},
+  "years": "années",
+  "@years": {},
+  "nextBackup": "prochaine sauvegarde",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "max": "max",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "days": "jours",
+  "@days": {},
+  "weeks": "semaines",
+  "@weeks": {},
+  "year": "année",
+  "@year": {},
+  "lastBackup": "dernière sauvegarde",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "change": "évolution",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "mean": "moyenne",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "fréquence de mesure",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReachedIn": "restant(e)s pour atteindre le poids cible",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "plus longue série",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "série actuelle",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "totalChange": "évolution totale",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "targetWeightReached": "vous avez atteint votre poids cible !",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "timeSinceFirstMeasurement": "temps depuis la première mesure",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
   },
   "firstDay": "Premier jour",
   "@firstDay": {
