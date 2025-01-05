@@ -280,5 +280,9 @@
   "target_weight_warning": "L'anoressia è una malattia grave che sta diventando sempre più un problema per la società nel suo complesso, in parte a causa dei molti esempi negativi sui social media. Per contribuire alla prevenzione, non è possibile impostare un peso come obiettivo al di sotto dei 50 kg.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "firstDay": "Primo giorno",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

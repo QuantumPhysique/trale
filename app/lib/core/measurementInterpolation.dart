@@ -8,20 +8,13 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 
 
-/// class providing an API to handle interpolation of measurements
-class MeasurementInterpolation {
-  /// singleton constructor
-  factory MeasurementInterpolation() => _instance;
+/// Base class for measurement interpolation
+class MeasurementInterpolationBaseclass {
+  MeasurementInterpolationBaseclass() {
+    init();
+  }
 
-  /// single instance creation
-  MeasurementInterpolation._internal();
-
-  /// singleton instance
-  static final MeasurementInterpolation _instance =
-    MeasurementInterpolation._internal();
-
-  /// get measurements
-  MeasurementDatabase get db => MeasurementDatabase();
+  MeasurementDatabaseBaseclass get db => MeasurementDatabaseBaseclass();
 
   /// get interpolation strength values
   InterpolStrength get interpolStrength => Preferences().interpolStrength;
@@ -49,12 +42,8 @@ class MeasurementInterpolation {
 
   /// initialize database
   void init() {
-    //final stopwatch = Stopwatch()..start();
     times;
-    //print('  times: ${stopwatch.elapsed}');
-    //stopwatch..reset()..start();
     weights;
-    //print('  weights: ${stopwatch.elapsed}');
 
     weightsGaussianExtrapol;
     weightsDisplay;
@@ -80,16 +69,16 @@ class MeasurementInterpolation {
     }
 
     final int timeSpawn = db.lastDate.difference(
-      db.firstDate
+        db.firstDate
     ).inDays + 1 + 2 * _offsetInDays;
 
     return List<DateTime>.generate(
-      timeSpawn,
-        (int idx) => DateTime(
+        timeSpawn,
+            (int idx) => DateTime(
           db.firstDate.year,
           db.firstDate.month,
           db.firstDate.day + idx - _offsetInDays,
-      )
+        )
     );
 
   }
@@ -118,18 +107,18 @@ class MeasurementInterpolation {
     }
     // set isExtrapolated
     _isExtrapolated = Vector.fromList(
-      List.generate(
-        dts.length,
-        (int idx) =>
+        List.generate(
+          dts.length,
+              (int idx) =>
           (
-            (idx < _offsetInDays) ||
-            (idx + 1 > dts.length - _offsetInDays)
+              (idx < _offsetInDays) ||
+                  (idx + 1 > dts.length - _offsetInDays)
           ) ? 1 : 0,
-      )
+        )
     );
     return Vector.fromList(
       dts.map(
-        (DateTime dt) => dt.millisecondsSinceEpoch
+              (DateTime dt) => dt.millisecondsSinceEpoch
       ).toList(),
       dtype: dtype,
     );
@@ -138,7 +127,7 @@ class MeasurementInterpolation {
   List<int>? _timesIdx;
   /// get vector containing the times given in [ms since epoch]
   List<int> get timesIdx => _timesIdx ??= List<int>.generate(
-    N, (int idx) => idx
+      N, (int idx) => idx
   );
 
   Vector? _times_measured;
@@ -147,8 +136,8 @@ class MeasurementInterpolation {
   /// create vector of all measurements time stamps
   Vector _createTimesMeasured() {
     return Vector.fromList(<int>[
-      for (final SortedMeasurement ms in db.sortedMeasurements.reversed)
-        ms.measurement.dateInMs
+      for (final Measurement ms in db.measurements.reversed)
+        ms.dateInMs
     ], dtype: dtype);
   }
 
@@ -158,8 +147,8 @@ class MeasurementInterpolation {
   /// create vector of all measurements weights
   Vector _createWeightsMeasured() {
     return Vector.fromList(<double>[
-      for (final SortedMeasurement ms in db.sortedMeasurements.reversed)
-        ms.measurement.weight
+      for (final Measurement ms in db.measurements.reversed)
+        ms.weight
     ], dtype: dtype);
   }
 
@@ -178,13 +167,13 @@ class MeasurementInterpolation {
     final List<int> idxMs = <int>[];
 
     int idx = 0;
-    for (final SortedMeasurement m in db.sortedMeasurements.reversed) {
+    for (final Measurement m in db.measurements.reversed) {
       while (
-        ! m.measurement.date.sameDay(dateTimes[idx])
+      ! m.date.sameDay(dateTimes[idx])
       ) {
         idx += 1;
       }
-      ms[idx] += m.measurement.weight;
+      ms[idx] += m.weight;
       counts[idx] += 1;
       if (counts[idx] == 1) {
         idxMs.add(idx);
@@ -199,7 +188,7 @@ class MeasurementInterpolation {
     _idxsMeasurements = idxMs;
 
     return Vector.fromList(ms, dtype: dtype) / Vector.fromList(
-      counts
+        counts
     ).mapToVector((double val) => val == 0 ? 1 : val);
   }
 
@@ -223,14 +212,14 @@ class MeasurementInterpolation {
 
   /// get vector containing 1 if values withing measurement range else 0
   Vector get isNotExtrapolated => _isNotExtrapolated ??=
-    isExtrapolated.mapToVector((double val) => val == 0 ? 1 : 0);
+      isExtrapolated.mapToVector((double val) => val == 0 ? 1 : 0);
 
   Vector? _sigma;
 
   /// get vector containing sigma depending if measurement or not [ms]
   Vector get sigma => _sigma ??= (
-    isMeasurement * interpolStrength.strengthMeasurement +
-    isNoMeasurement * interpolStrength.strengthInterpol
+      isMeasurement * interpolStrength.strengthMeasurement +
+          isNoMeasurement * interpolStrength.strengthInterpol
   ) * _dayInMs;
 
   /// estimate weights of gaussian at time t with std sigma
@@ -239,10 +228,10 @@ class MeasurementInterpolation {
     final Vector gaussianWeights = (
         (times - t).pow(2) / (sigma.pow(2) * -2)
     ).exp() * norm * (
-      isMeasurement * interpolStrength.weight + isNoMeasurement
+        isMeasurement * interpolStrength.weight + isNoMeasurement
     );
     final Vector mask = ms.mapToVector(
-      (double val) => val > 0 ? 1 : 0
+            (double val) => val > 0 ? 1 : 0
     );
 
     return (gaussianWeights * mask) / (gaussianWeights * mask).sum();
@@ -250,28 +239,28 @@ class MeasurementInterpolation {
 
   /// take mean of Vector ws weighted with Gaussian N(t, sigma)
   double gaussianMean(double t, Vector ms) =>
-    gaussianWeights(t, ms).dot(ms);
+      gaussianWeights(t, ms).dot(ms);
 
   Vector? _weightsSmoothed;
   /// get vector containing the Gaussian smoothed measurements
   Vector get weightsSmoothed => _weightsSmoothed ??=
-    _gaussianInterpolation(
-      _linearExtrapolation(
-        _linearInterpolation(weights)
-      )
-    ) * isMeasurement;  // set all non Measurements to zero.
+      _gaussianInterpolation(
+          _linearExtrapolation(
+              _linearInterpolation(weights)
+          )
+      ) * isMeasurement;  // set all non Measurements to zero.
 
   Vector? _weightsLinExtrapol;
   /// get vector containing the weights with linear interpolated missing values
   Vector get weightsLinExtrapol => _weightsLinExtrapol ??=
-    _linearExtrapolation(
-    _linearInterpolation(weightsSmoothed)
-    );
+      _linearExtrapolation(
+          _linearInterpolation(weightsSmoothed)
+      );
 
   Vector? _weightsGaussianExtrapol;
   /// get vector containing the weights with linear interpolated missing values
   Vector get weightsGaussianExtrapol => _weightsGaussianExtrapol ??=
-    _gaussianInterpolation(weightsLinExtrapol);
+      _gaussianInterpolation(weightsLinExtrapol);
 
   Vector? _weightsDisplay;
   /// get vector containing the weights to display
@@ -284,8 +273,8 @@ class MeasurementInterpolation {
 
     if (interpolStrength == InterpolStrength.none) {
       final Vector weightsLinear = _linearInterpolation(weights).subvector(
-          _offsetInDays,
-          N - _offsetInDays,
+        _offsetInDays,
+        N - _offsetInDays,
       );
 
       final Vector weightsExtrapol = Vector.fromList(<double>[
@@ -294,7 +283,7 @@ class MeasurementInterpolation {
       ]) + weightsLinear.last;
 
       return Vector.fromList(
-        weightsLinear.toList()..addAll(weightsExtrapol)
+          weightsLinear.toList()..addAll(weightsExtrapol)
       );
     }
     return weightsGaussianExtrapol.subvector(
@@ -306,14 +295,14 @@ class MeasurementInterpolation {
   Vector? _timesDisplay;
   /// get vector containing the weights to display
   Vector get timesDisplay => _timesDisplay ??=
-    N == 0
+  N == 0
       ? times
       : times.subvector(
-        (interpolStrength == InterpolStrength.none)
-          ? _offsetInDays
-          : _offsetInDays - _offsetInDaysShown,
-          N - _offsetInDays + _offsetInDaysShown,
-      ) + _dailyOffsetInHours / 24 * _dayInMs;
+    (interpolStrength == InterpolStrength.none)
+        ? _offsetInDays
+        : _offsetInDays - _offsetInDaysShown,
+    N - _offsetInDays + _offsetInDaysShown,
+  ) + _dailyOffsetInHours / 24 * _dayInMs;
 
   /// add linear interpolation to measurements
   Vector _linearExtrapolation(Vector weights) {
@@ -361,8 +350,8 @@ class MeasurementInterpolation {
     return Vector.fromList(<double>[
       for (final double t in ts)
         meanChange * t + intercept < 0
-          ? 0
-          : meanChange * t + intercept
+            ? 0
+            : meanChange * t + intercept
     ], dtype: dtype);
   }
 
@@ -398,26 +387,26 @@ class MeasurementInterpolation {
 
   /// estimate slope between two measurements in [kg/steps]
   double _slope(int idxFrom, int idxTo, Vector weights) =>
-    weights.isNotEmpty
-    ? (weights[idxTo] - weights[idxFrom]) / (idxTo - idxFrom)
-    : 0;
+      weights.isNotEmpty
+          ? (weights[idxTo] - weights[idxFrom]) / (idxTo - idxFrom)
+          : 0;
 
   /// smooth weights with Gaussian kernel
   Vector _gaussianInterpolation(Vector weights) => Vector.fromList(
-      <double>[
-        for (final int idx in timesIdx)
-          (weights[idx] != 0)
+    <double>[
+      for (final int idx in timesIdx)
+        (weights[idx] != 0)
             ? gaussianMean(times[idx], weights)
             : 0
-      ], dtype: dtype,
-    );
+    ], dtype: dtype,
+  );
 
   /// get time span between first and last measurement
   Duration get measurementDuration => times_measured.isNotEmpty
-    ? Duration(
-        milliseconds: (times_measured.last - times_measured.first).round(),
-      )
-    : Duration.zero;
+      ? Duration(
+    milliseconds: (times_measured.last - times_measured.first).round(),
+  )
+      : Duration.zero;
 
   /// final slope of extrapolation
   double get finalSlope => _slope(
@@ -437,4 +426,22 @@ class MeasurementInterpolation {
 
   /// 24h given in [ms]
   static const int _dayInMs = 24 * 3600 * 1000;
+}
+
+
+/// class providing an API to handle interpolation of measurements
+class MeasurementInterpolation extends MeasurementInterpolationBaseclass{
+  /// singleton constructor
+  factory MeasurementInterpolation() => _instance;
+
+  /// single instance creation
+  MeasurementInterpolation._internal();
+
+  /// singleton instance
+  static final MeasurementInterpolation _instance =
+    MeasurementInterpolation._internal();
+
+  /// get measurements
+  @override
+  MeasurementDatabase get db => MeasurementDatabase();
 }

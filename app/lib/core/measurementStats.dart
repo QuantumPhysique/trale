@@ -63,7 +63,10 @@ class MeasurementStats {
   int get nMeasurements => ip.NMeasurements;
 
   /// get current streak
-  Duration get currentStreak => Duration(days: streakList.last.round());
+  Duration get currentStreak =>
+    db.lastDate.sameDay(DateTime.now())
+      ? Duration(days: streakList.last.round())
+      : Duration.zero;
 
   /// get max streak
   Duration get maxStreak => Duration(days: streakList.max().round());
@@ -73,18 +76,13 @@ class MeasurementStats {
   Vector get streakList => _streakList ??= _estimateStreakList();
   Vector _estimateStreakList() {
     int streak = 0;
-    final List<int> streakList = <int>[0];
-    for (int i = 0; i < ip.isMeasurement.length; i++) {
-      if (DateTime.fromMillisecondsSinceEpoch(ip.times[i].toInt()).day
-          <= DateTime.now().day + 1) {
-        final bool isMS = ip.isMeasurement[i].round() == 1;
+    final List<int> streakList = <int>[0]; // catch for no measurements
+    for (final double isMS in ip.isMeasurement) {
+      if (isMS.round() == 1) {
         streak++;
-        if (!isMS) {
-          if ((streakList.last > 0) | (streak >= 2)) {
-            streakList.add(streak - 1);
-          }
-          streak = 0;
-        }
+      } else if (streak > 0) {
+        streakList.add(streak);
+        streak = 0;
       }
     }
     return Vector.fromList(streakList);

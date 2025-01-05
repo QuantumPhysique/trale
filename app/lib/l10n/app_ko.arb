@@ -128,5 +128,9 @@
   "delete": "삭제",
   "@delete": {
     "description": "delete"
+  },
+  "firstDay": "첫날",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

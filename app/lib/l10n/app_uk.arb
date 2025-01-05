@@ -8,5 +8,9 @@
     "description": "achievements"
   },
   "unit": "Одиниці",
-  "@unit": {}
+  "@unit": {},
+  "firstDay": "Перший день",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  }
 }

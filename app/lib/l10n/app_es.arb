@@ -440,5 +440,9 @@
   "maxStreak": "racha máxima",
   "@maxStreak": {
     "description": "The longest streak of measurements"
+  },
+  "firstDay": "Primer dia",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }

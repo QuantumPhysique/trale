@@ -440,5 +440,9 @@
   "biweekly": "每两周",
   "@biweekly": {
     "description": "Frequency of backup interval"
+  },
+  "firstDay": "第一天",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }
