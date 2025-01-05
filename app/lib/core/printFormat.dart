@@ -20,7 +20,7 @@ enum TraleDatePrintFormat {
 /// Extension to add functionality to TraleDatePrintFormat
 extension TraleDateFormatExtension on TraleDatePrintFormat {
   /// Mapping of date formats to their patterns
-  static const _patternMapping = <TraleDatePrintFormat, String?>{
+  static const Map<TraleDatePrintFormat, String?> _patternMapping = <TraleDatePrintFormat, String?>{
     TraleDatePrintFormat.systemDefault: null,
     TraleDatePrintFormat.yyyyMMdd: 'yyyy/MM/dd',
     TraleDatePrintFormat.ddMMyyyy: 'dd/MM/yyyy',
@@ -29,7 +29,7 @@ extension TraleDateFormatExtension on TraleDatePrintFormat {
   };
 
   /// Mapping of date formats to their patterns
-  static const _patternMappingShort = <TraleDatePrintFormat, String?>{
+  static const Map<TraleDatePrintFormat, String?> _patternMappingShort = <TraleDatePrintFormat, String?>{
     TraleDatePrintFormat.systemDefault: null,
     TraleDatePrintFormat.yyyyMMdd: 'MM/dd',
     TraleDatePrintFormat.ddMMyyyy: 'dd/MM',

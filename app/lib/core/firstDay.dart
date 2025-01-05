@@ -1,3 +1,4 @@
+import 'package:intl/date_symbols.dart';
 import 'package:intl/intl.dart';
 
 /// Enum representing the first day of the week
@@ -21,10 +22,10 @@ enum TraleFirstDay {
 extension TraleFirstDayExtension on TraleFirstDay {
   // Caching the localized names
   static final Map<String, Map<TraleFirstDay, String>> _localizedNamesCache =
-      {};
+      <String, Map<TraleFirstDay, String>>{};
 
   /// Mapping of TraleFirstDay values to DateTime weekday values (Monday = 1, Sunday = 7)
-  static const Map<TraleFirstDay, int?> _weekdayMapping = {
+  static const Map<TraleFirstDay, int?> _weekdayMapping = <TraleFirstDay, int?>{
     TraleFirstDay.Default: null, // No specific weekday for Default
     TraleFirstDay.sunday: DateTime.sunday,
     TraleFirstDay.monday: DateTime.monday,
@@ -41,10 +42,10 @@ extension TraleFirstDayExtension on TraleFirstDay {
   static Future<void> loadLocalizedNames(String locale) async {
     if (_localizedNamesCache.containsKey(locale)) return;
 
-    final dateSymbols = await DateFormat('EEEE', locale).dateSymbols;
-    final standaloneWeekdays = dateSymbols.STANDALONEWEEKDAYS;
+    final DateSymbols dateSymbols = DateFormat('EEEE', locale).dateSymbols;
+    final List<String> standaloneWeekdays = dateSymbols.STANDALONEWEEKDAYS;
 
-    _localizedNamesCache[locale] = {
+    _localizedNamesCache[locale] = <TraleFirstDay, String>{
       TraleFirstDay.sunday: standaloneWeekdays[0],
       TraleFirstDay.monday: standaloneWeekdays[1],
       TraleFirstDay.tuesday: standaloneWeekdays[2],
@@ -61,8 +62,8 @@ extension TraleFirstDayExtension on TraleFirstDay {
   static TraleFirstDay fromDateTimeWeekday(int weekday) =>
       _weekdayMapping.entries
           .firstWhere(
-            (entry) => entry.value == weekday,
-            orElse: () => MapEntry(TraleFirstDay.sunday, DateTime.sunday),
+            (MapEntry<TraleFirstDay, int?> entry) => entry.value == weekday,
+            orElse: () => const MapEntry(TraleFirstDay.sunday, DateTime.sunday),
           )
           .key;
 }

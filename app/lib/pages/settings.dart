@@ -500,7 +500,7 @@ class InterpolationSetting extends StatelessWidget {
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: <Widget>[
           AutoSizeText(
             AppLocalizations.of(context)!.strength.inCaps,
             style: Theme.of(context).textTheme.bodyLarge,
@@ -526,7 +526,7 @@ class InterpolationSetting extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
+      children: <Widget>[
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding,
@@ -690,8 +690,8 @@ class FirstDayListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = Localizations.localeOf(context).toString();
-    final traleNotifier = Provider.of<TraleNotifier>(context);
+    final String locale = Localizations.localeOf(context).toString();
+    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
     return FutureBuilder<void>(
       future: TraleFirstDayExtension.loadLocalizedNames(locale),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
