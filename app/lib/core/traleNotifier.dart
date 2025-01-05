@@ -138,30 +138,38 @@ class TraleNotifier with ChangeNotifier {
 
   /// getter
   DateFormat dateFormat(BuildContext context) {
-    final Locale activeLocale = Localizations.localeOf(context);
-    if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
-      final Map<String, String> dateTimeLocaleMap =
-          dateTimePatternMap()[activeLocale.languageCode]!;
-      if (dateTimeLocaleMap.containsKey('yMd')) {
-        return DateFormat(dateTimeLocaleMap['yMd']!
-            .replaceFirst('d', 'dd')
-            .replaceFirst('M', 'MM'));
+    if (datePrintFormat == TraleDatePrintFormat.systemDefault) {
+      final Locale activeLocale = Localizations.localeOf(context);
+      if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
+        final Map<String, String> dateTimeLocaleMap =
+        dateTimePatternMap()[activeLocale.languageCode]!;
+        if (dateTimeLocaleMap.containsKey('yMd')) {
+          return DateFormat(dateTimeLocaleMap['yMd']!
+              .replaceFirst('d', 'dd')
+              .replaceFirst('M', 'MM'));
+        }
       }
+    } else {
+      return datePrintFormat.dateFormat;
     }
     return DateFormat('dd/MM/yyyy');
   }
 
   /// getter
   DateFormat dayFormat(BuildContext context) {
-    final Locale activeLocale = Localizations.localeOf(context);
-    if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
-      final Map<String, String> dateTimeLocaleMap =
-          dateTimePatternMap()[activeLocale.languageCode]!;
-      if (dateTimeLocaleMap.containsKey('Md')) {
-        return DateFormat(dateTimeLocaleMap['Md']!
-            .replaceFirst('d', 'dd')
-            .replaceFirst('M', 'MM'));
+    if (datePrintFormat == TraleDatePrintFormat.systemDefault) {
+      final Locale activeLocale = Localizations.localeOf(context);
+      if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
+        final Map<String, String> dateTimeLocaleMap =
+            dateTimePatternMap()[activeLocale.languageCode]!;
+        if (dateTimeLocaleMap.containsKey('Md')) {
+          return DateFormat(dateTimeLocaleMap['Md']!
+              .replaceFirst('d', 'dd')
+              .replaceFirst('M', 'MM'));
+        }
       }
+    } else {
+      return datePrintFormat.dayFormat;
     }
     return DateFormat('dd/MM');
   }

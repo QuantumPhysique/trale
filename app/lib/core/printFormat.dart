@@ -28,26 +28,26 @@ extension TraleDateFormatExtension on TraleDatePrintFormat {
     TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM.yyyy',
   };
 
+  /// Mapping of date formats to their patterns
+  static const _patternMappingShort = <TraleDatePrintFormat, String?>{
+    TraleDatePrintFormat.systemDefault: null,
+    TraleDatePrintFormat.yyyyMMdd: 'MM/dd',
+    TraleDatePrintFormat.ddMMyyyy: 'dd/MM',
+    TraleDatePrintFormat.MMddyyyy: 'MM/dd',
+    TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM',
+  };
+
   /// Get the pattern associated with each format option, using a custom format if provided
-  String? getPattern([String? customPattern]) {
-    return _patternMapping[this];
-  }
+  String? get pattern => _patternMapping[this];
+
+  /// Get the pattern associated with each format option, using a custom format if provided
+  String? get patternShort => _patternMappingShort[this];
 
   /// Format a DateTime object according to the selected format
-  String formatDate(DateTime date, {String? customPattern}) {
-    final pattern = getPattern(customPattern);
-    return DateFormat(pattern).format(date);
-  }
+  DateFormat get dateFormat => DateFormat(pattern);
 
-  /// Parse a date string into DateTime based on the selected format
-  DateTime? parseDate(String dateString, {String? customPattern}) {
-    try {
-      final pattern = getPattern(customPattern);
-      return DateFormat(pattern).parse(dateString);
-    } catch (e) {
-      return null;
-    }
-  }
+  /// Format a DateTime object according to the selected format without year
+  DateFormat get dayFormat => DateFormat(patternShort);
 
   /// Get the string name for each date format
   String get name => toString().split('.').last;

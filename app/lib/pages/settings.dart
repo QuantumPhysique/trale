@@ -763,7 +763,7 @@ class DatePrintListTile extends StatelessWidget {
               in TraleDatePrintFormat.values)
             DropdownMenuEntry<TraleDatePrintFormat>(
               value: datePrintFormat,
-              label: datePrintFormat.getPattern() ?? 'Default',
+              label: datePrintFormat.pattern ?? 'Default',
             )
         ],
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
