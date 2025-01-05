@@ -14,6 +14,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in Estonian and Slovenian 🎉
+- Allow setting the first day of the week, thx to @olker159
+- Using the latest flutter 3.27 with upgraded deps
+
+### Other changes:
+- Improved and restructered settings page
+
+### Bugfix 🐛:
+- Fixed the estimation of the current/max streak, see #183
 
 
 ## [0.8.1] - 2024-11-14
