@@ -110,9 +110,9 @@ Future<bool> showAddWeightDialog({
                 return;
               }
               currentDate = DateTime(
-                date.year,
-                date.month,
-                date.day,
+                currentDate.year,
+                currentDate.month,
+                currentDate.day,
                 time.hour,
                 time.minute,
               );

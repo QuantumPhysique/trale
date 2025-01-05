@@ -833,7 +833,6 @@ class _Settings extends State<Settings> {
           ),
           const LanguageListTile(),
           const UnitsListTile(),
-          const InterpolationListTile(),
           const FirstDayListTile(),
           const DatePrintListTile(),
           Divider(
