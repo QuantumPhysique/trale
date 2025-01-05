@@ -18,10 +18,16 @@ import 'package:trale/core/zoomLevel.dart';
 
 class CustomLineChart extends StatefulWidget {
   const CustomLineChart({
-    required this.loadedFirst, super.key
+    required this.loadedFirst,
+    required this.ip,
+    this.isPreview = false,
+    super.key,
   });
 
   final bool loadedFirst;
+  final bool isPreview;
+  final MeasurementInterpolationBaseclass ip;
+
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
 }
@@ -33,13 +39,17 @@ class _CustomLineChartState extends State<CustomLineChart> {
   void initState() {
     super.initState();
     final TraleNotifier notifier = TraleNotifier();
-    minX = notifier.zoomLevel.minX;
-    maxX = notifier.zoomLevel.maxX;
+    minX = widget.isPreview
+      ? widget.ip.timesDisplay.first
+      : notifier.zoomLevel.minX;
+    maxX = widget.isPreview
+      ? widget.ip.timesDisplay.last
+      : notifier.zoomLevel.maxX;
   }
 
   @override
   Widget build(BuildContext context) {
-    final MeasurementInterpolation ip = MeasurementInterpolation();
+    final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
     final Vector msTimes = ip.times_measured;
@@ -228,7 +238,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           extraLinesData: ExtraLinesData(
           extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
-              if (targetWeight != null)
+              if (targetWeight != null && !widget.isPreview)
                 HorizontalLine(
                   y: targetWeight / unitScaling,
                   color: Theme.of(context).colorScheme.tertiary,
@@ -237,13 +247,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
                   label: HorizontalLineLabel(
                     show: true,
                     alignment:
-                      ip.db.sortedMeasurements.first.measurement.weight > targetWeight
+                      ip.db.measurements.first.weight > targetWeight
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.only(bottom: 3),
                     style: Theme.of(context).textTheme.bodySmall!.apply(
                         color: Theme.of(context).colorScheme.onSurface,
-                        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+                        backgroundColor:
+                          Theme.of(context).colorScheme.surfaceContainerLow,
                       ),
                     labelResolver: (HorizontalLine line) =>
                       AppLocalizations.of(context)!.targetWeightShort,
@@ -311,51 +322,59 @@ class _CustomLineChartState extends State<CustomLineChart> {
       padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
       child: GestureDetector(
         onDoubleTap: () {
-          notifier.nextZoomLevel();
-          setState(() {
-            maxX = notifier.zoomLevel.maxX;
-            minX = notifier.zoomLevel.minX;
-          });
+          if (!widget.isPreview) {
+            notifier.nextZoomLevel();
+            setState(() {
+              maxX = notifier.zoomLevel.maxX;
+              minX = notifier.zoomLevel.minX;
+            });
+          }
         },
         onScaleUpdate: (ScaleUpdateDetails details) {
-          setState(() {
-            final double scale = (1 - details.horizontalScale) / 50;
-            if (scale.isNegative) {
-              if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
-                minX -= (maxX - minX) * scale;
-                maxX += (maxX - minX) * scale;
-              }
-            } else {
-              if (maxX - minX < 1000 * 3600 * 24 * 7 *  12) {
-                if (minX - (maxX - minX) * scale > msTimes.first) {
+          if (!widget.isPreview) {
+            setState(() {
+              final double scale = (1 - details.horizontalScale) / 50;
+              if (scale.isNegative) {
+                if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
                   minX -= (maxX - minX) * scale;
-                }
-                if (maxX + (maxX - minX) * scale
-                    < DateTime.now().millisecondsSinceEpoch.toDouble()) {
                   maxX += (maxX - minX) * scale;
                 }
+              } else {
+                if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
+                  if (minX - (maxX - minX) * scale > msTimes.first) {
+                    minX -= (maxX - minX) * scale;
+                  }
+                  if (
+                    maxX + (maxX - minX) * scale
+                    < DateTime.now().millisecondsSinceEpoch.toDouble()
+                  ) {
+                    maxX += (maxX - minX) * scale;
+                  }
+                }
               }
-            }
-          });
+            });
+          }
         },
         onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
-          setState(() {
-            final double primDelta =
-                (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
+          if (!widget.isPreview) {
+            setState(() {
+              final double primDelta =
+                  (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
 
-            final double allowedMaxX =
-              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
-                ? interpolTimes.last
-                : DateTime.now().millisecondsSinceEpoch.toDouble();
-            final double allowedMinX = interpolTimes.first;
-            if (
-              maxX - primDelta <= allowedMaxX &&
-              minX - primDelta >= allowedMinX
-            ) {
-              maxX -= primDelta;
-              minX -= primDelta;
-            }
-          });
+              final double allowedMaxX =
+                interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+                  ? interpolTimes.last
+                  : DateTime.now().millisecondsSinceEpoch.toDouble();
+              final double allowedMinX = interpolTimes.first;
+              if (
+                maxX - primDelta <= allowedMaxX &&
+                minX - primDelta >= allowedMinX
+              ) {
+                maxX -= primDelta;
+                minX -= primDelta;
+              }
+            });
+          }
         },
         child: lineChart(minX, maxX, minY, maxY)
       )

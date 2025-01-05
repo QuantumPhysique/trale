@@ -282,6 +282,10 @@
   "@interpolation": {
     "description": "interpolation"
   },
+  "strength": "strength",
+  "@strength": {
+    "description": "interpolation strength"
+  },
   "none": "None",
   "@none": {
     "description": "no interpolation"
