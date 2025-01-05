@@ -525,7 +525,7 @@ class InterpolationSetting extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AutoSizeText(
-            AppLocalizations.of(context)!.interpolation,
+            AppLocalizations.of(context)!.strength.inCaps,
             style: Theme.of(context).textTheme.bodyLarge,
             maxLines: 1,
           ),
@@ -535,6 +535,7 @@ class InterpolationSetting extends StatelessWidget {
             divisions: InterpolStrength.values.length - 1,
             min: 0.0,
             max: InterpolStrength.values.length.toDouble() - 1,
+            label: Provider.of<TraleNotifier>(context).interpolStrength.name,
             onChanged: (double newStrength) async {
               Provider.of<TraleNotifier>(
                   context, listen: false
