@@ -440,5 +440,13 @@
   "measurementFrequency": "kaalumise sagedus",
   "@measurementFrequency": {
     "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "strength": "tugevus",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "firstDay": "Nädala algus",
+  "@firstDay": {
+    "description": "First displayed day of the week"
   }
 }
