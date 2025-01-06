@@ -30,7 +30,7 @@ dependencies:
   auto_size_text: ^3.0.0
   dynamic_color: ^1.7.0
   file_picker: ^8.1.4
-  fl_chart: ^0.69.2
+  fl_chart: ^0.70.0
   flutter_svg: ^2.0.15
   font_awesome_flutter: ^10.8.0
   hive: ^2.2.3
