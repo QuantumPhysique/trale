@@ -6,9 +6,6 @@ enum TraleFirstDay {
   /// Default: locale-based
   Default,
 
-  /// Sunday as the first day of the week
-  sunday,
-
   /// Monday as the first day of the week
   monday,
 
@@ -17,6 +14,9 @@ enum TraleFirstDay {
 
   /// Saturday as the first day of the week
   saturday,
+
+  /// Sunday as the first day of the week
+  sunday,
 }
 
 extension TraleFirstDayExtension on TraleFirstDay {
