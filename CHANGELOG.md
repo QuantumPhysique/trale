@@ -12,8 +12,20 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Bugfix 🐛:)
 [//]: # (### Other changes:)
 
-
 ## [Unreleased]
+
+
+## [0.9.0] - 2025-01-08
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in Estonian and Slovenian 🎉
+- Allow setting the first day of the week, thx to @olker159
+- Using the latest flutter 3.27 with upgraded deps
+
+### Other changes:
+- Improved and restructured settings page
+
+### Bugfix 🐛:
+- Fixed the estimation of the current/max streak, see #183
 
 
 ## [0.8.1] - 2024-11-14
@@ -86,7 +98,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other changes:
 - Disabling interpolation, will now use sigma=2days for extrapolation prediction
-- Removed v0.6.0 due to critical bug when user targe weight was set.
+- Removed v0.6.0 due to critical bug when user target weight was set.
 
 
 ## [0.5.0] - 2024-01-25
@@ -100,7 +112,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Accelerated import
 
 ### Bugfix 🐛:
-- Fix bug, that allowed target weights below 50kg
+- Fix bug, that allowed target weights below 50 kg
 
 
 ## [0.4.6] - 2024-01-08
@@ -178,7 +190,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.3.0] - 2023-09-05
 ### Added Features and Improvements 🙌:
 - Add support for themed app icon (android 13)
-- Using latest flutter 3.13 version with improved Material You theme
+- Using the latest flutter 3.13 version with improved Material You theme
 - Update measurement list
 - Add import and export feature
 
@@ -188,7 +200,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.2.2] - 2022-10-18
 ### Added Features and Improvements 🙌:
-- All new measurment screen including now achievemts
+- All new measurement screen including now achievements
 
 ### Bugfix 🐛:
 - Show current slope on start screen widget instead of 30 days average
@@ -219,14 +231,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Many new themes, improved zoom levels, many fixed bugs and so much more.
 
 ### Other changes:
-- Added fastelone to publish app
+- Added fastlane to publish app
 
 
 ## [0.1.0] - 2022-03-01
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.8.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.9.0...main
+[0.9.0]: https://github.com/quantumphysique/trale/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/quantumphysique/trale/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/quantumphysique/trale/compare/v0.7.2...v0.8.0
 [0.7.2]: https://github.com/quantumphysique/trale/compare/v0.7.1...v0.7.2

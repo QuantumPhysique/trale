@@ -1,12 +1,12 @@
 import 'dart:async';
 
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/firstDay.dart';
-
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -14,7 +14,6 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/weightPicker.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 ///
 Future<bool> showAddWeightDialog({
@@ -71,27 +70,47 @@ Future<bool> showAddWeightDialog({
             ),
             onTap: () async {
               final TimeOfDay currentTime = TimeOfDay.fromDateTime(currentDate);
-              final List<DateTime?> selectedDates =
-                  await showCalendarDatePicker2Dialog(
-                        context: context,
-                        config: CalendarDatePicker2WithActionButtonsConfig(
-                          calendarType: CalendarDatePicker2Type.single,
-                          firstDate: DateTime.fromMillisecondsSinceEpoch(0),
-                          lastDate: DateTime.now(),
-                          firstDayOfWeek: notifier.firstDay.asDateTimeWeekday,
-                        ),
-                        dialogSize: Size(
-                            MediaQuery.of(context).size.width * 0.75,
-                            MediaQuery.of(context).size.height * 0.45),
-                        value: [currentDate],
-                      ) ??
-                      [];
+              DateTime? selectedDate;
+              if (notifier.firstDay == TraleFirstDay.Default) {
+                selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: currentDate,
+                  firstDate: DateTime.fromMillisecondsSinceEpoch(0),
+                  lastDate: DateTime.now(),
+                );
+              } else {
+                final List<DateTime?> selectedDates =
+                    await showCalendarDatePicker2Dialog(
+                      context: context,
+                      config: CalendarDatePicker2WithActionButtonsConfig(
+                        calendarType: CalendarDatePicker2Type.single,
+                        firstDate: DateTime.fromMillisecondsSinceEpoch(0),
+                        lastDate: DateTime.now(),
+                        firstDayOfWeek: notifier.firstDay.asDateTimeWeekday,
+                      ),
+                      dialogSize: Size(
+                        MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.85,
+                        MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.6,
+                      ),
+                      // see https://github.com/flutter/flutter/blob/2d17299f20f3eb164ef21bc80b8079ba293e5985/packages/flutter/lib/src/material/date_picker_theme.dart#L1117C59-L1117C98
+                      borderRadius: const BorderRadius.all(
+                          Radius.circular(28.0)),
+                      value: <DateTime?>[currentDate],
+                    ) ??
+                        <DateTime?>[];
+                selectedDate = selectedDates.firstOrNull;
+              }
 
-              if (selectedDates.isEmpty || selectedDates.first == null) {
+              if (selectedDate == null) {
                 return;
               }
 
-              final DateTime selectedDate = selectedDates.first!;
 
               currentDate = DateTime(
                 selectedDate.year,

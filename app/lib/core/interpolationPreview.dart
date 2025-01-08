@@ -3,7 +3,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 
 
-Map<int, double> _ms_map = {
+Map<int, double> _ms_map = <int, double>{
   0: 78.1,
   1: 78.4,
   2: 78.3,
@@ -29,12 +29,11 @@ List<Measurement> _ms = <Measurement>[
 class PreviewDatabase extends MeasurementDatabaseBaseclass {
   PreviewDatabase();
 
-  List<Measurement>? _measurements = _ms;
+  final List<Measurement> _measurements = _ms;
 
   /// get sorted measurements
-  List<Measurement> get measurements => _measurements == null
-      ? <Measurement>[]
-      : _measurements!..sort(
+  @override
+  List<Measurement> get measurements => _measurements ?? <Measurement>[]..sort(
           (Measurement a, Measurement b) => b.compareTo(a)
   );
 }
