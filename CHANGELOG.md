@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Target SDK35 and use gradle 8.10
 
 
 ## [0.9.0] - 2025-01-08
