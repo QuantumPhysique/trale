@@ -3,7 +3,7 @@
   "@stats": {
     "description": "Header for statistics section"
   },
-  "unit": "单位",
+  "unit": "数据单位",
   "@unit": {},
   "date": "日期",
   "@date": {
@@ -49,7 +49,7 @@
   "@lightmode": {
     "description": "Light mode menu item."
   },
-  "export": "导出全部测量值",
+  "export": "备份用户数据",
   "@export": {
     "description": "Export all measurements"
   },
@@ -99,11 +99,11 @@
   "@addWeight": {
     "description": "Enter your weight"
   },
-  "interpolation": "插值",
+  "interpolation": "插值(体重推算)",
   "@interpolation": {
     "description": "interpolation"
   },
-  "onBoarding2": "从六个主题中选择一个，个性化您的应用程序。哪个颜色最能表达您的感受？",
+  "onBoarding2": "从六个主题中选择一个，个性化您的应用程序。哪一个最能表达您的感受？",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
   },
@@ -139,15 +139,15 @@
   "@none": {
     "description": "no interpolation"
   },
-  "exportSubtitle": "这将向所有应用披露全部测量数据",
+  "exportSubtitle": "导出所有测量数据。",
   "@exportSubtitle": {
     "description": "This exposes all measurements to all apps."
   },
-  "exportDialog": "该操作将导出所有测量数据至外置存储空间，需要写入权限",
+  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要存储权限。",
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
-  "factoryResetDialog": "要将应用重置吗？这将清除所有的设定，以及已添加的测量数据。注意，该操作无法撤销！",
+  "factoryResetDialog": "要将应用重置吗？这将删除所有设置，以及所有测量数据。注意，该操作无法撤销！",
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
@@ -159,7 +159,7 @@
   "@tpl": {
     "description": "third-party licences"
   },
-  "onBoarding1": "这款简约 \"Material-You \"设计应用程序将助力您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与灵活的统计数据有助您循序渐进。\n\n 现在就加入我们的社区，追踪自己的体重。\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "这款简约 、基于\"Material-You \"设计的应用程序将助力您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与多样的统计数据有助您循序渐进。\n\n 现在就加入我们的社区，追踪自己的体重。\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
@@ -195,19 +195,19 @@
   "@strong": {
     "description": "strong interpolation"
   },
-  "abort": "中止",
+  "abort": "取消",
   "@abort": {
     "description": "Abort (action)."
   },
-  "import": "导入备份",
+  "import": "恢复用户数据",
   "@import": {
     "description": "Import backup."
   },
-  "importSubtitle": "从 .txt 备份文件中导入测量数据",
+  "importSubtitle": "从 .txt 备份文件中导入测量数据。",
   "@importSubtitle": {
     "description": "Import measurements from txt backup file."
   },
-  "amoledSubtitle": "暗色主题使用纯黑色背景",
+  "amoledSubtitle": "暗色主题使用纯黑色背景。",
   "@amoledSubtitle": {
     "description": "Change background color to true black for dark mode."
   },
@@ -223,11 +223,11 @@
   "@delete": {
     "description": "delete"
   },
-  "importingAbort": "导入中止",
+  "importingAbort": "已取消导入",
   "@importingAbort": {
     "description": "Import aborted."
   },
-  "importDialog": "导入所有测量值至当前数据库。此操作无法撤销！",
+  "importDialog": "导入所有测量数据。此操作无法撤销！",
   "@importDialog": {
     "description": "Include all measurements to the current database. This can not be undone!"
   },
@@ -235,7 +235,7 @@
   "@open": {
     "description": "Open (file)."
   },
-  "amoled": "纯黑",
+  "amoled": "纯黑模式",
   "@amoled": {
     "description": "AMOLED"
   },
@@ -243,7 +243,7 @@
   "@reset": {
     "description": "Factory reset app."
   },
-  "trale": "trale",
+  "trale": "Trale",
   "@trale": {
     "description": "Name of app: trale"
   },
@@ -267,7 +267,7 @@
   "@loading": {
     "description": "loading"
   },
-  "yes": "是",
+  "yes": "确定",
   "@yes": {
     "description": "yes"
   },
@@ -351,15 +351,15 @@
   "@years": {},
   "year": "年",
   "@year": {},
-  "monthly": "每月",
+  "monthly": "每月备份",
   "@monthly": {
     "description": "Frequency of backup interval"
   },
-  "quarterly": "每季度",
+  "quarterly": "每季度备份",
   "@quarterly": {
     "description": "Frequency of backup interval"
   },
-  "backupReminder": "请定期备份",
+  "backupReminder": "请记得定期备份你的数据",
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
@@ -373,15 +373,15 @@
   },
   "months": "个月",
   "@months": {},
-  "backupInterval": "间隔",
+  "backupInterval": "自动备份",
   "@backupInterval": {
     "description": "Frequency of backup interval"
   },
-  "nextBackup": "下次备份",
+  "nextBackup": "下次备份时间",
   "@nextBackup": {
     "description": "Time of last backup"
   },
-  "lastBackup": "最近备份",
+  "lastBackup": "上次备份时间",
   "@lastBackup": {
     "description": "Time of last backup"
   },
@@ -429,20 +429,24 @@
   "@targetWeightReachedIn": {
     "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
   },
-  "never": "从未",
+  "never": "不自动备份",
   "@never": {
     "description": "Frequency of backup interval"
   },
-  "weekly": "每周",
+  "weekly": "每周备份",
   "@weekly": {
     "description": "Frequency of backup interval"
   },
-  "biweekly": "每两周",
+  "biweekly": "每两周备份",
   "@biweekly": {
     "description": "Frequency of backup interval"
   },
-  "firstDay": "第一天",
+  "firstDay": "一周的第一天",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "strength": "插值强度",
+  "@strength": {
+    "description": "interpolation strength"
   }
 }
