@@ -26,10 +26,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
+      sha256: "6199c74e3db4fbfbd04f66d739e72fe11c8a8957d5f219f1f4482dbde6420b5a"
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.1"
+    version: "4.0.2"
   args:
     dependency: transitive
     description:
@@ -154,10 +154,10 @@ packages:
     dependency: transitive
     description:
       name: cli_util
-      sha256: "66f86e916d285c1a93d3b79587d94bd71984a66aac4ff74e524cfa7877f1395c"
+      sha256: ff6785f7e9e3c38ac98b2fb035701789de90154024a75b6cb926445e83197d1c
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.5"
+    version: "0.4.2"
   clock:
     dependency: transitive
     description:
@@ -342,12 +342,11 @@ packages:
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: e045d40c73847285c0e3efdd2a3e2f276529ca75
-      url: "https://github.com/nvi9/flutter_launcher_icons.git"
-    source: git
-    version: "0.11.0"
+      name: flutter_launcher_icons
+      sha256: bfa04787c85d80ecb3f8777bde5fc10c3de809240c48fa061a2c2bf15ea5211c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.14.3"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -471,10 +470,10 @@ packages:
     dependency: transitive
     description:
       name: image
-      sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
+      sha256: "8346ad4b5173924b5ddddab782fc7d8a6300178c8b1dc427775405a01701c4a6"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.0"
+    version: "4.5.2"
   intl:
     dependency: "direct main"
     description:
@@ -739,6 +738,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
+  posix:
+    dependency: transitive
+    description:
+      name: posix
+      sha256: a0117dc2167805aa9125b82eee515cc891819bac2f538c83646d355b16f58b9a
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.1"
   provider:
     dependency: "direct main"
     description:
