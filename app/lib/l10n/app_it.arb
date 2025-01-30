@@ -13,7 +13,7 @@
   "@userSettings": {
     "description": "Settings to customize user experience"
   },
-  "about": "Riguardo",
+  "about": "Maggiori informazioni",
   "@about": {
     "description": "Name of about menu section"
   },
@@ -137,11 +137,11 @@
   "@startApp": {
     "description": "Press to start the app."
   },
-  "targetWeight": "Peso Target",
+  "targetWeight": "Obiettivo peso",
   "@targetWeight": {
     "description": "Your target weight."
   },
-  "targetWeightShort": "Target",
+  "targetWeightShort": "Obiettivo",
   "@targetWeightShort": {
     "description": "Short label to show for indicating target weight in line chart."
   },
@@ -149,7 +149,7 @@
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "faq_q2": "Posso rivedere la schermata iniziale?",
+  "faq_q2": "Posso rivedere la schermata di benvenuto?",
   "@faq_q2": {
     "description": "Can I see once again the intro/onboarding screen?"
   },
@@ -157,11 +157,11 @@
   "@faq_a2": {
     "description": "Yes for sure! Simple press the icon below."
   },
-  "faq_a2_widget": "Torna alla schermata iniziale",
+  "faq_a2_widget": "Torna alla schermata di benvenuto",
   "@faq_a2_widget": {
     "description": "Return to onboarding screen"
   },
-  "achievements": "Obbiettivi",
+  "achievements": "Obiettivi",
   "@achievements": {
     "description": "achievements"
   },
@@ -233,7 +233,7 @@
   "@addWeight": {
     "description": "Enter your weight"
   },
-  "onBoarding1": "Questa app in Material You ti aiuta a raggiungere il tuo peso ideale! Che tu voglia ingrassare, dimagrire o mantenere il peso forma: previsioni affidabili e statistiche complete ti aiuteranno a monitorare i tuoi progressi.\n\nUnisciti alla nostra community per tenere traccia dei tuoi obiettivi.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "Questa app in Material You ti aiuta a raggiungere il tuo peso ideale! Che tu voglia ingrassare, dimagrire o mantenere il peso forma, fornisce previsioni affidabili e statistiche complete ti aiuteranno a monitorare i tuoi progressi.\n\nUnisciti alla nostra community per tenere traccia dei tuoi obiettivi.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
@@ -245,7 +245,7 @@
   "@onBoarding2Title": {
     "description": "Title of 2nd onBoarding screen."
   },
-  "targetWeightMotivation": "Stabilire un peso target è molto importante ed è un passo nella giusta direzione. Avere un traguardo da raggiungere ti motiva a fare di più.",
+  "targetWeightMotivation": "Stabilire un obiettivo di peso è molto importante ed è un passo nella giusta direzione. Avere un traguardo da raggiungere ti motiva a fare di più.",
   "@targetWeightMotivation": {
     "description": "Explanation to clarify the importance of a target weight."
   },
@@ -253,7 +253,7 @@
   "@addUserName": {
     "description": "How shall we call you?"
   },
-  "addTargetWeight": "Aggiungi peso target",
+  "addTargetWeight": "Aggiungi obiettivo di peso",
   "@addTargetWeight": {
     "description": "Press to add a target weight."
   },
@@ -273,7 +273,7 @@
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
-  "faq_q3": "Qual è l'icona dell'app?",
+  "faq_q3": "Cosa rappresenta l'icona dell'app?",
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
@@ -284,5 +284,161 @@
   "firstDay": "Primo giorno",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "week": "settimana",
+  "@week": {},
+  "years": "anni",
+  "@years": {},
+  "year": "anno",
+  "@year": {},
+  "never": "mai",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "settimanale",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "quindicinale",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "mensile",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "trimestrale",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "Si consiglia di fare il backup con regolarità",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupSuccess": "Backup esportato con successo",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "backupInterval": "Intervallo",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "lastBackup": "Ultimo backup",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "Prossimo backup",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "openIssue": "Segnala problema",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "strong": "Forte",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "none": "Nessuna",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "medium": "Media",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strength": "Forza",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "backupReminderButton": "Esegui backup",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "month": "mese",
+  "@month": {},
+  "weeks": "settimane",
+  "@weeks": {},
+  "totalChange": "variazione totale",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "change": "variazione",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "intro1": "Premi",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "days": "giorni",
+  "@days": {},
+  "months": "mesi",
+  "@months": {},
+  "faq_a3": "Un lupo che ulula seduto, con la coda nascosta in parte dalle lettere \"t\" e \"r\".",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "undertpl": "© {years} di {author} con licenza {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "interpolation": "interpolazione",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "soft": "Leggera",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "mean": "media",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "frequenza di misurazione",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "max": "max",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "targetWeightReached": "Hai raggiunto l'obiettivo di peso!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "targetWeightReachedIn": "mancanti per raggiungere l'obiettivo peso",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "serie più lunga",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "serie attuale",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "timeSinceFirstMeasurement": "tempo dalla prima misurazione",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
   }
 }

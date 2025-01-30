@@ -3,7 +3,7 @@
   "@stats": {
     "description": "Header for statistics section"
   },
-  "unit": "单位",
+  "unit": "数据单位",
   "@unit": {},
   "date": "日期",
   "@date": {
@@ -49,7 +49,7 @@
   "@lightmode": {
     "description": "Light mode menu item."
   },
-  "export": "导出全部测量值",
+  "export": "备份用户数据",
   "@export": {
     "description": "Export all measurements"
   },
@@ -57,7 +57,7 @@
   "@defaultLang": {
     "description": "System default language."
   },
-  "achievements": "成就",
+  "achievements": "统计数据",
   "@achievements": {
     "description": "achievements"
   },
@@ -73,11 +73,11 @@
   "@licence": {
     "description": "licence"
   },
-  "sourcecode": "源码",
+  "sourcecode": "源代码",
   "@sourcecode": {
     "description": "source code"
   },
-  "undertpl": "© {years} 年由 {author} 根据 {licence} 许可",
+  "undertpl": "© {years} 年由 {author} 基于 {licence}协议 许可",
   "@undertpl": {
     "description": "String to show third-party license.",
     "placeholders": {
@@ -99,15 +99,15 @@
   "@addWeight": {
     "description": "Enter your weight"
   },
-  "interpolation": "插值",
+  "interpolation": "插值(体重推算)",
   "@interpolation": {
     "description": "interpolation"
   },
-  "onBoarding2": "从六个主题中选择一个，个性化您的应用程序。哪个颜色最能表达您的感受？",
+  "onBoarding2": "从六个主题中挑选一个，个性化您的应用程序。哪一个最能表达您的感受？",
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
   },
-  "onBoarding3": "感谢您试用我们的应用程序。🙂\n\n 如果您喜欢我们的应用程序，我们将非常高兴收到您的反馈，欢迎在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽恼人的、涉及隐私的广告。",
+  "onBoarding3": "感谢您试用我们的应用程序🙂\n\n 如果您喜欢这个应用，我们将非常期待收到您的反馈。欢迎您在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽烦人的、涉及隐私的广告。",
   "@onBoarding3": {
     "description": "Text of 3rd onBoarding screen."
   },
@@ -115,15 +115,15 @@
   "@intro3": {
     "description": "Text shown on statsOverview in case of no measurements"
   },
-  "faqtext": "在这里，您可以找到一些最常见问题的答案。如果您有任何其他问题，请随时在 Github 仓库中提交讨论。",
+  "faqtext": "在这里，您可以找到一些常见问题的答案。如果您有任何其他问题，请随时在 Github 中提交讨论。",
   "@faqtext": {
     "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
   },
-  "faq_q1": "软件缺少某特征/功能。它何时能被实现？",
+  "faq_q1": "软件缺少某项功能，它何时能被实现？",
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "openIssue": "提出讨论",
+  "openIssue": "提出问题",
   "@openIssue": {
     "description": "open issue"
   },
@@ -131,7 +131,7 @@
   "@medium": {
     "description": "medium interpolation"
   },
-  "intro2": "开始",
+  "intro2": "开始记录",
   "@intro2": {
     "description": "End of 'press + to get started'"
   },
@@ -139,15 +139,15 @@
   "@none": {
     "description": "no interpolation"
   },
-  "exportSubtitle": "这将向所有应用披露全部测量数据",
+  "exportSubtitle": "导出所有测量数据。",
   "@exportSubtitle": {
     "description": "This exposes all measurements to all apps."
   },
-  "exportDialog": "该操作将导出所有测量数据至外置存储空间，需要写入权限",
+  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要存储权限。",
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
-  "factoryResetDialog": "要将应用重置吗？这将清除所有的设定，以及已添加的测量数据。注意，该操作无法撤销！",
+  "factoryResetDialog": "要将应用重置吗？这将删除所有设置，以及所有测量数据。注意，该操作无法撤销。",
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
@@ -159,7 +159,7 @@
   "@tpl": {
     "description": "third-party licences"
   },
-  "onBoarding1": "这款简约 \"Material-You \"设计应用程序将助力您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与灵活的统计数据有助您循序渐进。\n\n 现在就加入我们的社区，追踪自己的体重。\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "onBoarding1": "这款简约 、基于 Material-You 设计的应用程序将帮助您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与多样的统计分析有助于您持续掌握体重状况\n\n 现在就加入我们的社区，监测自己的体重变化\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
   "@onBoarding1": {
     "description": "Text of 1st onBoarding screen."
   },
@@ -171,11 +171,11 @@
   "@targetWeightShort": {
     "description": "Short label to show for indicating target weight in line chart."
   },
-  "faq_a1": "我们利用业余时间维护该应用程序，并努力使其保持流畅和简洁。我们认为，添加过多的功能会降低应用程序的可用性。如果您认为我们缺少某个关键功能，请随时提出问题或合并请求。",
+  "faq_a1": "我们利用业余时间维护这个应用程序，并努力使其保持流畅和简洁。我们认为添加过多的功能会降低它的易用性。如果您认为我们缺少某个关键功能，请随时提出问题或合并请求。",
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
-  "target_weight_warning": "厌食症是一种恶疾，正日益成为整个社会的问题，部分原因是社交媒体上出现了过多负面事例。作为我们对预防厌食症的努力之一，应用不允许目标体重低于 50 kg/110 lb/7.9 st。",
+  "target_weight_warning": "厌食症是一种严重疾病，已逐渐成为社会面临的问题，部分原因是社交媒体上出现了过多负面事例。作为我们对预防厌食症的努力之一，我们不允许设置低于 50kg 目标体重。",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
   },
@@ -195,19 +195,19 @@
   "@strong": {
     "description": "strong interpolation"
   },
-  "abort": "中止",
+  "abort": "取消",
   "@abort": {
     "description": "Abort (action)."
   },
-  "import": "导入备份",
+  "import": "恢复用户数据",
   "@import": {
     "description": "Import backup."
   },
-  "importSubtitle": "从 .txt 备份文件中导入测量数据",
+  "importSubtitle": "从 .txt 备份文件中导入测量数据。",
   "@importSubtitle": {
     "description": "Import measurements from txt backup file."
   },
-  "amoledSubtitle": "暗色主题使用纯黑色背景",
+  "amoledSubtitle": "暗色主题使用纯黑色背景。",
   "@amoledSubtitle": {
     "description": "Change background color to true black for dark mode."
   },
@@ -215,7 +215,7 @@
   "@factoryReset": {
     "description": "Factory reset app."
   },
-  "factoryResetSubtitle": "重置所有选项并清除全部测量数据",
+  "factoryResetSubtitle": "重置所有选项并清除全部测量数据。",
   "@factoryResetSubtitle": {
     "description": "Reset all settings and delete all measurements."
   },
@@ -223,11 +223,11 @@
   "@delete": {
     "description": "delete"
   },
-  "importingAbort": "导入中止",
+  "importingAbort": "已取消导入。",
   "@importingAbort": {
     "description": "Import aborted."
   },
-  "importDialog": "导入所有测量值至当前数据库。此操作无法撤销！",
+  "importDialog": "导入所有测量数据。此操作无法撤销！",
   "@importDialog": {
     "description": "Include all measurements to the current database. This can not be undone!"
   },
@@ -235,7 +235,7 @@
   "@open": {
     "description": "Open (file)."
   },
-  "amoled": "纯黑",
+  "amoled": "纯黑模式",
   "@amoled": {
     "description": "AMOLED"
   },
@@ -243,7 +243,7 @@
   "@reset": {
     "description": "Factory reset app."
   },
-  "trale": "trale",
+  "trale": "Trale",
   "@trale": {
     "description": "Name of app: trale"
   },
@@ -263,15 +263,15 @@
   "@backup": {
     "description": "backup"
   },
-  "loading": "加载中...",
+  "loading": "加载中",
   "@loading": {
     "description": "loading"
   },
-  "yes": "是",
+  "yes": "确定",
   "@yes": {
     "description": "yes"
   },
-  "ok": "好",
+  "ok": "确定",
   "@ok": {
     "description": "ok"
   },
@@ -279,11 +279,11 @@
   "@time": {
     "description": "time"
   },
-  "assets": "资产",
+  "assets": "资产项",
   "@assets": {
     "description": "assets"
   },
-  "packages": "库",
+  "packages": "代码库",
   "@packages": {
     "description": "packages"
   },
@@ -311,7 +311,7 @@
   "@addTargetWeight": {
     "description": "Press to add a target weight."
   },
-  "intro1": "按下",
+  "intro1": "点击",
   "@intro1": {
     "description": "Start of 'press + to get started'"
   },
@@ -351,15 +351,15 @@
   "@years": {},
   "year": "年",
   "@year": {},
-  "monthly": "每月",
+  "monthly": "每月备份",
   "@monthly": {
     "description": "Frequency of backup interval"
   },
-  "quarterly": "每季度",
+  "quarterly": "每季度备份",
   "@quarterly": {
     "description": "Frequency of backup interval"
   },
-  "backupReminder": "请定期备份",
+  "backupReminder": "请记得定期备份你的数据",
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
@@ -373,15 +373,15 @@
   },
   "months": "个月",
   "@months": {},
-  "backupInterval": "间隔",
+  "backupInterval": "自动备份",
   "@backupInterval": {
     "description": "Frequency of backup interval"
   },
-  "nextBackup": "下次备份",
+  "nextBackup": "下次备份时间",
   "@nextBackup": {
     "description": "Time of last backup"
   },
-  "lastBackup": "最近备份",
+  "lastBackup": "上次备份时间",
   "@lastBackup": {
     "description": "Time of last backup"
   },
@@ -429,20 +429,24 @@
   "@targetWeightReachedIn": {
     "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
   },
-  "never": "从未",
+  "never": "不自动备份",
   "@never": {
     "description": "Frequency of backup interval"
   },
-  "weekly": "每周",
+  "weekly": "每周备份",
   "@weekly": {
     "description": "Frequency of backup interval"
   },
-  "biweekly": "每两周",
+  "biweekly": "每两周备份",
   "@biweekly": {
     "description": "Frequency of backup interval"
   },
-  "firstDay": "第一天",
+  "firstDay": "一周的第一天",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "strength": "插值强度",
+  "@strength": {
+    "description": "interpolation strength"
   }
 }
