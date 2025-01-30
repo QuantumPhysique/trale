@@ -179,38 +179,35 @@ class _TotalWeightList extends State<TotalWeightList>{
         ]
     };
 
-    return Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-      child: CustomScrollView(
-        controller: widget.scrollController,
-        cacheExtent: 2 * MediaQuery.of(context).size.height,
-        slivers: <Widget>[
-          ...<Widget>[
-            for (final int year in years)
-              ...<Widget>[
-                SliverToBoxAdapter(
-                  child: getYearWidget(
-                    year: '$year',
-                    context: context,
-                    delayInMilliseconds: widget.delayInMilliseconds,
-                  ),
-                ),
-                WeightList(
-                  measurements: measurementsPerYear[year]!,
-                  durationInMilliseconds: widget.durationInMilliseconds,
+    return CustomScrollView(
+      controller: widget.scrollController,
+      cacheExtent: 2 * MediaQuery.of(context).size.height,
+      slivers: <Widget>[
+        ...<Widget>[
+          for (final int year in years)
+            ...<Widget>[
+              SliverToBoxAdapter(
+                child: getYearWidget(
+                  year: '$year',
+                  context: context,
                   delayInMilliseconds: widget.delayInMilliseconds,
-                  scrollController: widget.scrollController,
-                  tabController: widget.tabController,
                 ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 2 * TraleTheme.of(context)!.padding,
-                  ),
+              ),
+              WeightList(
+                measurements: measurementsPerYear[year]!,
+                durationInMilliseconds: widget.durationInMilliseconds,
+                delayInMilliseconds: widget.delayInMilliseconds,
+                scrollController: widget.scrollController,
+                tabController: widget.tabController,
+              ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 2 * TraleTheme.of(context)!.padding,
                 ),
-              ],
-          ],
+              ),
+            ],
         ],
-      ),
+      ],
     );
   }
 }
@@ -221,11 +218,13 @@ Widget getYearWidget({required BuildContext context,
   required String year,
   int? delayInMilliseconds}) {
   return Padding(
-    padding: EdgeInsets.only(bottom: TraleTheme.of(context)!.padding),
+    padding: EdgeInsets.only(
+      bottom: TraleTheme.of(context)!.padding,
+      left: TraleTheme.of(context)!.padding,
+      right: TraleTheme.of(context)!.padding,
+    ),
     child: StatCard(
-      backgroundColor: Theme.of(context).brightness == Brightness.light
-          ? Theme.of(context).primaryColor
-          : Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       delayInMilliseconds: delayInMilliseconds,
       childWidget: Center(
         child: Padding(
@@ -233,11 +232,9 @@ Widget getYearWidget({required BuildContext context,
           child: AutoSizeText(
             year,
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Theme.of(context).colorScheme.onPrimary
-                  : Theme.of(context).colorScheme.onPrimaryContainer,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
               fontWeight: FontWeight.w700,
-              fontSize: 200,
+              fontSize: Theme.of(context)!.textTheme.displayLarge!.fontSize,
             ),
             maxLines: 1,
           ),

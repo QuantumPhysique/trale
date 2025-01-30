@@ -82,7 +82,7 @@ class _WeightListTileState extends State<WeightListTile>
           duration: Duration(milliseconds: widget.durationInMilliseconds),
           alignment: Alignment.center,
           //color: Theme.of(context).colorScheme.background,
-          width: MediaQuery.of(context).size.width - 2 * TraleTheme.of(context)!.padding,
+          width: MediaQuery.of(context).size.width,
           height: height,
           child: AutoSizeText(
             widget.measurement.measurement.measureToString(
