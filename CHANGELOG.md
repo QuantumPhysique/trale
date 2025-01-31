@@ -1,4 +1,4 @@
-# Changelog
+q# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+
+## [0.9.1] - 2025-01-31
 ### Other changes:
 - Target SDK35 and use gradle 8.10
 - Design improvements
@@ -245,7 +248,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.9.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.9.1...main
+[0.9.1]: https://github.com/quantumphysique/trale/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/quantumphysique/trale/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/quantumphysique/trale/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/quantumphysique/trale/compare/v0.7.2...v0.8.0
