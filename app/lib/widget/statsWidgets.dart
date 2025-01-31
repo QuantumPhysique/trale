@@ -338,6 +338,7 @@ Widget getMeanWidget({required BuildContext context,
       Provider.of<TraleNotifier>(context, listen: false).unit.name;
   return StatCard(
     nx: 2,
+    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
     childWidget: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -349,7 +350,7 @@ Widget getMeanWidget({required BuildContext context,
             child: AutoSizeText(
               doubleToString(context, stats.meanWeight),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onTertiaryContainer,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.w900,
                 fontSize: 200,
               ),
@@ -364,7 +365,7 @@ Widget getMeanWidget({required BuildContext context,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.mean} ($unit)',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onTertiaryContainer,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
                 height: 1.0,
               ),
               maxLines: 2,

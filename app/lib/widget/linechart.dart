@@ -279,7 +279,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
               ),
               aboveBarData: BarAreaData(
                 show: targetWeight != null,
-                color: Theme.of(context).colorScheme.tertiaryContainer,
+                color: Theme.of(context).colorScheme.tertiaryContainer.withAlpha(
+                    widget.isPreview ? 0 : 255
+                ),
                 cutOffY: targetWeight ?? 0,
                 applyCutOffY: true,
               ),

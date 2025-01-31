@@ -32,7 +32,7 @@ class _StatCardState extends State<StatCard> {
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
 
     final Color backgroundcolor = widget.backgroundColor
-        ?? Theme.of(context).colorScheme.secondaryContainer;
+        ?? Theme.of(context).colorScheme.surfaceContainer;
     final double xWidth = (MediaQuery.sizeOf(context).width
         - 3 * TraleTheme.of(context)!.padding) / 2;
     final double yWidth = (xWidth - TraleTheme.of(context)!.padding) / 2;
@@ -96,7 +96,7 @@ class _OneThirdStatCardState extends State<OneThirdStatCard> {
       shape: TraleTheme.of(context)!.borderShape,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
-      color: Theme.of(context).colorScheme.secondaryContainer,
+      color: Theme.of(context).colorScheme.surfaceContainer,
       child: SizedBox(
         height: height,
         width: width,
@@ -145,7 +145,7 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
             AutoSizeText(
               widget.firstRow,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               maxLines: 2,
               textAlign: TextAlign.center,
@@ -153,7 +153,7 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
             AutoSizeText(
               widget.secondRow,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.w700
               ),
               maxLines: 1,

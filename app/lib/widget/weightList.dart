@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/statsCards.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/weightListTile.dart';
@@ -185,11 +187,10 @@ class _TotalWeightList extends State<TotalWeightList>{
           for (final int year in years)
             ...<Widget>[
               SliverToBoxAdapter(
-                child: Center(
-                    child: Text(
-                      '$year',
-                      style: Theme.of(context).textTheme.displayMedium,
-                    )
+                child: getYearWidget(
+                  year: '$year',
+                  context: context,
+                  delayInMilliseconds: widget.delayInMilliseconds,
                 ),
               ),
               WeightList(
@@ -199,14 +200,46 @@ class _TotalWeightList extends State<TotalWeightList>{
                 scrollController: widget.scrollController,
                 tabController: widget.tabController,
               ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 2 * TraleTheme.of(context)!.padding,
+                ),
+              ),
             ],
         ],
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: TraleTheme.of(context)!.padding,
-          ),
-        ),
       ],
     );
   }
+}
+
+
+/// define StatCard for change per week, month, and year
+Widget getYearWidget({required BuildContext context,
+  required String year,
+  int? delayInMilliseconds}) {
+  return Padding(
+    padding: EdgeInsets.only(
+      bottom: TraleTheme.of(context)!.padding,
+      left: TraleTheme.of(context)!.padding,
+      right: TraleTheme.of(context)!.padding,
+    ),
+    child: StatCard(
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      delayInMilliseconds: delayInMilliseconds,
+      childWidget: Center(
+        child: Padding(
+          padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
+          child: AutoSizeText(
+            year,
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              fontWeight: FontWeight.w700,
+              fontSize: Theme.of(context)!.textTheme.displayLarge!.fontSize,
+            ),
+            maxLines: 1,
+          ),
+        ),
+      ),
+    ),
+  );
 }
