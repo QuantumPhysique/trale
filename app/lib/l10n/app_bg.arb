@@ -2,5 +2,443 @@
   "achievements": "Постижения",
   "@achievements": {
     "description": "achievements"
+  },
+  "monthly": "месечно",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "exportDialog": "Ще изнесе измерванията във външното хранилище. Необходими са права за писане.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "factoryReset": "Заводски настройки",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "packages": "пакети",
+  "@packages": {
+    "description": "packages"
+  },
+  "targetWeightMotivation": "Определянето на желаното тегло е важно и е стъпка в правилната посока. Наличието на цел ви мотивира да направите повече за постигането ѝ.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "lightmode": "Светла",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "backupReminder": "Редовно правете резервно копие",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "weeks": "седмици",
+  "@weeks": {},
+  "week": "седмица",
+  "@week": {},
+  "days": "дена",
+  "@days": {},
+  "months": "месеца",
+  "@months": {},
+  "month": "месец",
+  "@month": {},
+  "years": "години",
+  "@years": {},
+  "year": "година",
+  "@year": {},
+  "never": "никога",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "седмично",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "два пъти в седмицата",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "тримесечие",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminderButton": "резервно копие",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Резервното копие е готово",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "backupInterval": "интервал",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "lastBackup": "последно резервно копие",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "следващо резервно копие",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "unit": "Мерни единици",
+  "@unit": {},
+  "date": "Дата",
+  "@date": {
+    "description": "Date"
+  },
+  "weight": "Тегло",
+  "@weight": {
+    "description": "weight"
+  },
+  "user": "Потребителски профил",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "Потребителски настройки",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "settings": "Настройки",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "faq": "Въпроси и отговори",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "Относно",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "defaultLang": "Спрямо системата",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "language": "Език",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "darkmode": "Тъмна",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "systemmode": "Системна",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Изнасяне на измерванията",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportSubtitle": "Измерванията ще са достъпни от всички приложения.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "open": "Отваряне",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Отказ",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Внасяне на резервно копие",
+  "@import": {
+    "description": "Import backup."
+  },
+  "amoled": "Черно",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "amoledSubtitle": "Променя фона на тъмната тема на чисто черен.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Нулиране на приложението",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "delete": "Премахване",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "Внасянето е прекъснато.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "home": "Начало",
+  "@home": {
+    "description": "home screen"
+  },
+  "yes": "Да",
+  "@yes": {
+    "description": "yes"
+  },
+  "ok": "Добре",
+  "@ok": {
+    "description": "ok"
+  },
+  "save": "Запазване",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Променяне",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "Резервно копие",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Час",
+  "@time": {
+    "description": "time"
+  },
+  "assets": "ресурси",
+  "@assets": {
+    "description": "assets"
+  },
+  "loading": "Зареждане",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Измервания",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Издание",
+  "@version": {
+    "description": "version"
+  },
+  "tpl": "Лицензи на трети страни",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "sourcecode": "Изходен код",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "undertpl": "© {years} от {author} под лиценза {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "addWeight": "Въведете теглото си",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "Интерполиране",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "strength": "Сила",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "none": "Без",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "soft": "Лека",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "strong": "Силно",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "welcome": "Добре дошли",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding2Title": "Стил",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Поверителност",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "skip": "Пропускане",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "targetWeight": "Желано тегло",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightShort": "Цел",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "openIssue": "Зсдаване на въпрос",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "factoryResetDialog": "Нулиране на приложението? Ще бъдат премахнати всички настройки и измервания. Действието не може да бъде отменено.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "importDialog": "Внасянето добавя към текущите измервания. Действието не може да бъде отменено.",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "addUserName": "Как да ви наричаме?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "addTargetWeight": "Задайте желано тегло",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro3": "Днес е прекрасрн ден да направите първото измерване!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faqtext": "Тук ще намерите отговори на някои от най-често задаваните въпроси. Ако имате други въпроси, не се колебайте да го зададете в хранилището в Гитхъб.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_q1": "Възможността/функцията X липсва. Кога ще бъде добавена?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_a1": "Приложението се поддържа в свободното ни време като се стараем то да бъде елегантно и лесно. Вярваме, че добавянето на твърде много възможности прави приложението по-малко използваемо. Ако все пак смятате, че липсва ключова възможност, не се колебайте да направите предложение или заявка за сливане.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q2": "Мога ли да видя още веднъж въвеждащия екран?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Да, разбира се! Просто докоснете пиктограната по-долу.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Към въвеждащия екран",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "Какво изобразява пиктограмата на приложението?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "faq_a3": "Седнал виещ вълк, чиято опашка е частично скрита от буквите „t“ и „r“.",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "max": "макс",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "мин",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "change": "промяна",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "totalChange": "обща промяна",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "mean": "средно",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "честота на измерване",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReached": "Достигнахте желаното тегло!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "targetWeightReachedIn": "до достигане на желаното тегло",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "най-много поредни",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "поредни в момента",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "timeSinceFirstMeasurement": "време от последното измерване",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "firstDay": "Първи ден",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
+  "importSubtitle": "Внасяне на измервания от текстово резервно копие.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "medium": "Средно",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "startApp": "Начало",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "factoryResetSubtitle": "Нулира настройките и премахва измерванията.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "stats": "Статистика",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "dangerzone": "Опасна зона",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "licence": "Лиценз",
+  "@licence": {
+    "description": "licence"
+  },
+  "intro1": "Докоснете",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "target_weight_warning": "Анорексията е сериозно заболяване, което се превръща в проблем за обществото, отчасти поради множеството отрицателни примери в социалните медии. Като част от нашия принос към предотвратяването, в приложението не е възможно да изберете желано тегло под 50 кг.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "intro2": ", за да започнете",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "onBoarding2": "Изберете една от шестте теми, за да пригодите приложението. Коя от тях изразява най-добре чувствата ви?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
   }
 }
