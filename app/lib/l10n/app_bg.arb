@@ -1,1 +1,6 @@
-{}
+{
+  "achievements": "Постижения",
+  "@achievements": {
+    "description": "achievements"
+  }
+}
