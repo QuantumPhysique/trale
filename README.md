@@ -73,5 +73,13 @@ As part of our contribution to prevention, no target weight below 50 kg / 110 lb
 This app is still in <b>beta</b> stage and may contain bugs.
 If you encounter a bug or if you are missing a feature, please <a href="https://github.com/QuantumPhysique/trale/issues">open a new issue</a>.
 
+## Contributors
+
+<a href="https://github.com/QuantumPhysique/trale/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=QuantumPhysique/trale" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).
+
 ## License
 The project is licensed [GNU AGPLv3+](https://github.com/QuantumPhysique/trale/blob/main/LICENSE).
