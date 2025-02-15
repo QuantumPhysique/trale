@@ -90,6 +90,9 @@ class Preferences {
   final DateTime defaultLatestBackupReminderDate =
       DateTime.fromMillisecondsSinceEpoch(0);
 
+  /// default loose mode
+  final bool defaultLooseWeight = true;
+
   /// getter and setter for all preferences
   /// set user name
   set userName(String name) => prefs.setString('userName', name);
@@ -237,6 +240,12 @@ class Preferences {
         format.name,
       );
 
+  /// Get loose mode
+  bool get looseWeight => prefs.getBool('looseWeight')!;
+
+  /// Set loose mode
+  set looseWeight(bool loose) => prefs.setBool('looseWeight', loose);
+
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
     if (override || !prefs.containsKey('nightMode')) {
@@ -286,6 +295,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('dateFormat')) {
       datePrintFormat = defaultDatePrintFormat;
+    }
+    if (override || !prefs.containsKey('looseWeight')) {
+      looseWeight = defaultLooseWeight;
     }
   }
 

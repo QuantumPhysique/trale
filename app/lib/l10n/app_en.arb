@@ -4,6 +4,18 @@
   "@achievements": {
     "description": "achievements"
   },
+  "experimentalFeatures": "experimental features",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeight": "Loose weight",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "looseWeightSubtitle": "Switching between loosing or gaining weight.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
   "days": "days",
   "@days": {},
   "weeks": "weeks",

@@ -16,6 +16,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - Hello World! Thx to the community, the app is now available in Bulgarian 🎉
 - Using the latest flutter 3.29 with upgraded deps
+- Added experimental mode to gain weight
 
 
 ## [0.9.1] - 2025-01-31
