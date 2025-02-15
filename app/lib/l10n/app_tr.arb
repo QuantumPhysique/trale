@@ -342,5 +342,107 @@
   "firstDay": "Ilk gün",
   "@firstDay": {
     "description": "First displayed day of the week"
-  }
+  },
+  "days": "gün",
+  "@days": {},
+  "months": "ay",
+  "@months": {},
+  "month": "ay",
+  "@month": {},
+  "year": "yıl",
+  "@year": {},
+  "never": "hiç",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "iki haftada bir",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "her hafta",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "her ay",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "üç ayda bir",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "lastBackup": "son yedekleme",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "sonraki yedekleme",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "max": "maks",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "totalChange": "toplam değişim",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "change": "değişim",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "timeSinceFirstMeasurement": "ilk ölçümden bu yana geçen süre",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "years": "yıl",
+  "@years": {},
+  "backupInterval": "Aralık",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminderButton": "yedekle",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupReminder": "Lütfen düzenli olarak yedekleyin",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupSuccess": "Yedekleme başarıyla dışa aktarıldı",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "measurementFrequency": "ölçüm sıklığı",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReached": "hedef kilonuza ulaştınız!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "maxStreak": "en uzun seri",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "mevcut seri",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "targetWeightReachedIn": "hedef kiloya ulaşmak için kalan gün sayısı",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "weeks": "hafta",
+  "@weeks": {},
+  "mean": "ortalama",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "week": "hafta",
+  "@week": {}
 }
