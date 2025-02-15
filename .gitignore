@@ -66,6 +66,7 @@ app/linked_*.ds
 app/unlinked.ds
 app/unlinked_spec.ds
 app/.fvm/
+app/lib/l10n-gen
 
 # Android related
 /android//gradle-wrapper.jar
