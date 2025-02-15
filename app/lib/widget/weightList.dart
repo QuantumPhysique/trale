@@ -234,7 +234,7 @@ Widget getYearWidget({required BuildContext context,
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
               color: Theme.of(context).colorScheme.onPrimaryContainer,
               fontWeight: FontWeight.w700,
-              fontSize: Theme.of(context)!.textTheme.displayLarge!.fontSize,
+              fontSize: Theme.of(context).textTheme.displayLarge!.fontSize,
             ),
             maxLines: 1,
           ),

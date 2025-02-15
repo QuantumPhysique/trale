@@ -126,13 +126,17 @@ class MeasurementStats {
   double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
 
   /// get time of reaching target weight in kg
-  Duration? timeOfTargetWeight(double? targetWeight) {
+  Duration? timeOfTargetWeight(double? targetWeight, bool loose) {
     if ((targetWeight == null) || (db.nMeasurements < 2)){
       return null;
     }
 
     // Check if target weight is already completed
-    if (targetWeight > ip.weightsDisplay[ip.idxLastDisplay]){
+    if (
+      loose
+        ? targetWeight > ip.weightsDisplay[ip.idxLastDisplay]
+        : targetWeight <= ip.weightsDisplay[ip.idxLastDisplay]
+    ){
       return const Duration(days: -1);
     }
 

@@ -36,7 +36,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     final double? userTargetWeight = notifier.userTargetWeight;
     final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-        userTargetWeight
+        userTargetWeight, notifier.looseWeight,
     );
     final int nMeasured = ip.measurementDuration.inDays;
     Card userTargetWeightCard(double utw) => Card(
@@ -158,8 +158,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
 
   final double? userTargetWeight =
       Provider.of<TraleNotifier>(context).userTargetWeight;
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
   final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-      userTargetWeight
+    userTargetWeight, notifier.looseWeight,
   );
 
   final List<String> textLabels=
