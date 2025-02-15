@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/statsCards.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
 

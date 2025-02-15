@@ -3,11 +3,11 @@ import 'dart:ui';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/main.dart';
 
 
@@ -175,6 +175,13 @@ class TraleTheme {
       ),
     );
 
+    const SliderThemeData sliderTheme = SliderThemeData(
+      year2023: false,
+    );
+
+    const ProgressIndicatorThemeData progressIndicatorTheme =
+      ProgressIndicatorThemeData(year2023: false);
+
     /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
     final ThemeData theme = ThemeData.from(
       textTheme: txtTheme,
@@ -182,6 +189,8 @@ class TraleTheme {
       useMaterial3: true,
     ).copyWith(
       listTileTheme: listTileThemeData,
+      sliderTheme: sliderTheme,
+      progressIndicatorTheme: progressIndicatorTheme,
     );
 
     /// Return the themeData which MaterialApp can now use

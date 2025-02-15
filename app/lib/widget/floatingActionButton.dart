@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// m3 floating action button
 class FAB extends StatefulWidget {

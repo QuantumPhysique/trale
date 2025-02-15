@@ -263,6 +263,17 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  bool get looseWeight => prefs.looseWeight;
+
+  /// setter
+  set looseWeight(bool loose) {
+    if (loose != looseWeight) {
+      prefs.looseWeight = loose;
+      notifyListeners();
+    }
+  }
+
   ColorScheme? _systemLightDynamic;
   ColorScheme? _systemDarkDynamic;
 

@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
@@ -19,6 +18,7 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/backupDialog.dart';
 import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
@@ -776,6 +776,35 @@ class DatePrintListTile extends StatelessWidget {
   }
 }
 
+/// ListTile for changing LooseWeight mode
+class LooseWeightListTile extends StatelessWidget {
+  /// constructor
+  const LooseWeightListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SwitchListTile(
+      dense: true,
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.looseWeight,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+      ),
+      subtitle: AutoSizeText(
+        AppLocalizations.of(context)!.looseWeightSubtitle,
+        style: Theme.of(context).textTheme.labelSmall,
+      ),
+      value: Provider.of<TraleNotifier>(context).looseWeight,
+      onChanged: (bool loose) async {
+        Provider.of<TraleNotifier>(context, listen: false).looseWeight = loose;
+      },
+    );
+  }
+}
+
 /// about screen widget class
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -850,6 +879,19 @@ class _Settings extends State<Settings> {
           const ImportListTile(),
           const BackupIntervalListTile(),
           const LastBackupListTile(),
+          Divider(
+            height: 2 * TraleTheme.of(context)!.padding,
+          ),
+          Padding(
+            padding: padding,
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.experimentalFeatures.inCaps,
+              style: Theme.of(context).textTheme.headlineMedium,
+              maxLines: 1,
+            ),
+          ),
+          const LooseWeightListTile(),
+          SizedBox(height: TraleTheme.of(context)!.padding),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),

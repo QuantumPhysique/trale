@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
@@ -14,6 +13,7 @@ import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
 
@@ -36,7 +36,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     final double? userTargetWeight = notifier.userTargetWeight;
     final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-        userTargetWeight
+        userTargetWeight, notifier.looseWeight,
     );
     final int nMeasured = ip.measurementDuration.inDays;
     Card userTargetWeightCard(double utw) => Card(
@@ -158,8 +158,9 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
 
   final double? userTargetWeight =
       Provider.of<TraleNotifier>(context).userTargetWeight;
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
   final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-      userTargetWeight
+    userTargetWeight, notifier.looseWeight,
   );
 
   final List<String> textLabels=
