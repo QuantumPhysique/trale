@@ -3,11 +3,11 @@ import 'dart:ui';
 
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/main.dart';
 
 

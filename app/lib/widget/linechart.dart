@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +13,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 
 
 class CustomLineChart extends StatefulWidget {
