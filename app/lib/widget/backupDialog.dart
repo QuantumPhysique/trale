@@ -63,12 +63,13 @@ Future<void> backupDialog(BuildContext context) async {
     final String path = '${localPath.path}/$filename';
     final File file = File(path);
     final MeasurementDatabase db = MeasurementDatabase();
-    file.writeAsString(db.exportString, mode: FileMode.write);
+    await file.writeAsString(db.exportString, mode: FileMode.write);
     final ShareResult sharingResult = await Share.shareXFiles(
       <XFile>[XFile(path)],
       text: 'trale backup',
       subject: 'trale backup',
     );
+
     if (sharingResult.status == ShareResultStatus.success) {
       sm.showSnackBar(
         SnackBar(
