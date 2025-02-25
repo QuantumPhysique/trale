@@ -1,0 +1,4 @@
+- Hallo Welt! Dank der Community ist die App jetzt auch auf Bulgarisch und Niederländisch verfügbar
+- Update auf neustes Flutter 3.29 und Abhängigkeiten
+- Experimenteller Modus hinzugefügt um Gewicht zuzunehmen
+- Fehlerbehebung beim Exportieren der Messwerte

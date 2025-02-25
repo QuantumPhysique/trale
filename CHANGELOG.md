@@ -14,6 +14,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.9.3] - 2025-02-25
+### Added Features and Improvements 🙌:
+- Hello World! Thx to the community, the app is now available in Dutch 🎉
+
+### Bugfix 🐛:
+- Fixes a bug that caused the shared file to always be empty.
+
 
 ## [0.9.2] - 2025-02-15
 ### Added Features and Improvements 🙌:
@@ -255,7 +262,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.9.2...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.9.3...main
+[0.9.3]: https://github.com/quantumphysique/trale/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/quantumphysique/trale/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/quantumphysique/trale/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/quantumphysique/trale/compare/v0.8.1...v0.9.0

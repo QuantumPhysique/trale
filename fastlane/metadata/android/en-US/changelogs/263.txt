@@ -1,0 +1,4 @@
+- Hello World! Thx to the community, the app is now available in Bulgarian and Durch
+- Using the latest flutter 3.29 with upgraded deps
+- Added experimental mode to gain weight
+- Fixes a bug that caused the shared file to always be empty.
