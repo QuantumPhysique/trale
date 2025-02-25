@@ -273,7 +273,7 @@
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
-  "faq_a3": "Siedzącego wilka i literę 'r', jego ogon jest w części przykryty przez literę 't'.",
+  "faq_a3": "Siedzącego, wyjącego wilka, częściowo zasłoniętego przez litery 't' oraz 'r'.",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   },
@@ -338,5 +338,127 @@
   "firstDay": "Pierwszy dzień",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "never": "nigdy",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "target_weight_warning": "Anoreksja jest poważną chorobą, która coraz bardziej staje się problemem całego społeczeństwa, m.in. przez wiele szkodliwych przykładów pojawiających się w mediach społecznościowych. W ramach naszego wkładu w jej zapobieganie, niemożliwe jest ustawienie wagi docelowej poniżej 50kg / 110 lb / 7.9 st.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "nextBackup": "następna kopia zapasowa",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "maxStreak": "najdłuższa seria",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "obecna seria",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "year": "rok",
+  "@year": {},
+  "weekly": "co tydzień",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "co dwa tygodnie",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "co kwartał",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "co miesiąc",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "Pamiętaj o regularnym wykonywaniu kopii zapasowej",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "experimentalFeatures": "funkcje eksperymentalne",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeight": "Utrata wagi",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "looseWeightSubtitle": "Przełączanie między trybem utraty a przybierania wagi.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "days": "dni",
+  "@days": {},
+  "week": "tydzień",
+  "@week": {},
+  "months": "miesięcy",
+  "@months": {},
+  "month": "miesiąc",
+  "@month": {},
+  "years": "lat(a)",
+  "@years": {},
+  "weeks": "tygodni(e)",
+  "@weeks": {},
+  "backupReminderButton": "wykonaj kopię zapasową",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Eksport zakończony sukcesem",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "backupInterval": "Częstotliwość",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "lastBackup": "ostatnia kopia zapasowa",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "strength": "intensywność",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "max": "maks,",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "min.",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "change": "zmiana",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "totalChange": "całkowita zmiana",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "mean": "średnia",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "częstotliwość pomiarów",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReached": "docelowa waga osiągnięta!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "targetWeightReachedIn": "pozostało do osiągnięcia wagi docelowej",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "timeSinceFirstMeasurement": "czas od pierwszego pomiaru",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
   }
 }

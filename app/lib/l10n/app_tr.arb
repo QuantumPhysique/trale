@@ -444,5 +444,13 @@
     "description": "The mathematical quantity (arithmetic mean)"
   },
   "week": "hafta",
-  "@week": {}
+  "@week": {},
+  "experimentalFeatures": "deneysel özelli̇kler",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeightSubtitle": "Kilo vermek veya almak arasında geçiş yapar.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  }
 }

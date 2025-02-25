@@ -448,5 +448,17 @@
   "onBoarding3": "Благодарне сюе ви, че изпробвате приложението. 🙂\n\nАко то ви допада, ще се радваме да оставите своите отзиви, принос в Гитхъб или кафе. В замяна на това ще ви спестим досадните и нарушаващи поверителността реклами.",
   "@onBoarding3": {
     "description": "Text of 3rd onBoarding screen."
+  },
+  "looseWeight": "Отслабване",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "experimentalFeatures": "експетиментални възможности",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeightSubtitle": "Превключва между отслабване и напълняване.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
   }
 }

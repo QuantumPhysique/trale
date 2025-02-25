@@ -49,7 +49,7 @@
   "@lightmode": {
     "description": "Light mode menu item."
   },
-  "export": "备份用户数据",
+  "export": "备份数据",
   "@export": {
     "description": "Export all measurements"
   },
@@ -199,7 +199,7 @@
   "@abort": {
     "description": "Abort (action)."
   },
-  "import": "恢复用户数据",
+  "import": "恢复数据",
   "@import": {
     "description": "Import backup."
   },
@@ -448,5 +448,17 @@
   "strength": "插值强度",
   "@strength": {
     "description": "interpolation strength"
+  },
+  "experimentalFeatures": "实验功能",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeightSubtitle": "在减肥模式和增重模式之间切换。",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "looseWeight": "减肥模式",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
   }
 }
