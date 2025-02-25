@@ -25,6 +25,12 @@ class MeasurementStats {
   /// re initialize database
   void reinit() {
     _streakList = null;
+    _frequencyLastWeek = null;
+    _frequencyLastMonth = null;
+    _frequencyLastYear = null;
+    _deltaWeightLastWeek = null;
+    _deltaWeightLastMonth = null;
+    _deltaWeightLastYear = null;
     // recalculate all vectors
     init();
   }
@@ -107,23 +113,32 @@ class MeasurementStats {
         return numberOfMeasurements / nDays;
     }
   }
+  double? _frequencyLastWeek;
   /// get frequency of taking measurements (last week)
-  double? get frequencyLastWeek => _getFrequency(7);
+  double? get frequencyLastWeek => _frequencyLastWeek ??= _getFrequency(7);
+
+  double? _frequencyLastMonth;
   /// get frequency of taking measurements (last month)
-  double? get frequencyLastMonth => _getFrequency(30);
+  double? get frequencyLastMonth => _frequencyLastMonth ??= _getFrequency(30);
+
+  double? _frequencyLastYear;
   /// get frequency of taking measurements (last year)
-  double? get frequencyLastYear => _getFrequency(365);
+  double? get frequencyLastYear => _frequencyLastYear ??= _getFrequency(365);
+
   /// get frequency of taking measurements (in total)
   double? get frequencyInTotal => nMeasurements / (deltaTime.inDays + 1);
 
+  double? _deltaWeightLastYear;
   /// get weight change [kg] within last month from last measurement
-  double? get deltaWeightLastYear => deltaWeightLastNDays(365);
+  double? get deltaWeightLastYear => _deltaWeightLastYear ??= deltaWeightLastNDays(365);
 
+  double? _deltaWeightLastMonth;
   /// get weight change [kg] within last month from last measurement
-  double? get deltaWeightLastMonth => deltaWeightLastNDays(30);
+  double? get deltaWeightLastMonth => _deltaWeightLastMonth ??= deltaWeightLastNDays(30);
 
+  double? _deltaWeightLastWeek;
   /// get weight change [kg] within last week from last measurement
-  double? get deltaWeightLastWeek => deltaWeightLastNDays(7);
+  double? get deltaWeightLastWeek => _deltaWeightLastWeek ??= deltaWeightLastNDays(7);
 
   /// get time of reaching target weight in kg
   Duration? timeOfTargetWeight(double? targetWeight, bool loose) {
