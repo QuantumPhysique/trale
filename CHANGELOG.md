@@ -14,7 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Bugfix 🐛:
-- Make label more gain weight mode more clear
+- Make label of gain weight mode more clear
+- Fix label for Dutch language
 
 
 ## [0.9.3] - 2025-02-25

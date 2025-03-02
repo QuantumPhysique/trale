@@ -40,6 +40,7 @@ class Language {
     'ko': '조선말',
     'lt': 'Lietuvių',
     'nb': 'Bokmål',
+    'nl': 'Nederlands',
     'pl': 'Język polski',
     'pt': 'Português',
     'sl': 'Slovenščina',
