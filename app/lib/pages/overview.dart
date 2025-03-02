@@ -47,7 +47,7 @@ class _OverviewScreen extends State<OverviewScreen> {
               duration: TraleTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
                 label: AppLocalizations.of(context)!.backupReminderButton,
-                onPressed: () => backupDialog(context),
+                onPressed: () => exportBackup(context),
               ),
             ),
           );

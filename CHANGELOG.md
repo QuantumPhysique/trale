@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Allow saving backup to file
 
 ## [0.9.3] - 2025-02-25
 ### Added Features and Improvements 🙌:
