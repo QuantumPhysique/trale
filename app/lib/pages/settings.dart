@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/backupDialog.dart';
+import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/linechart.dart';
@@ -31,7 +30,6 @@ class ExportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
     return ListTile(
       dense: true,
       title: AutoSizeText(
@@ -70,8 +68,6 @@ class ImportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
-    final MeasurementDatabase db = MeasurementDatabase();
     return ListTile(
       dense: true,
       title: AutoSizeText(
@@ -88,81 +84,7 @@ class ImportListTile extends StatelessWidget {
       ),
       trailing: IconButton(
         icon: PPIcon(PhosphorIconsDuotone.download, context),
-        onPressed: () async {
-          final bool accepted = await showDialog<bool>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: Text(
-                    AppLocalizations.of(context)!.import,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  content: Text(
-                    AppLocalizations.of(context)!.importDialog,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      style: ButtonStyle(
-                        foregroundColor: WidgetStateProperty.all<Color>(
-                          Theme.of(context).colorScheme.onSurface,
-                        ),
-                      ),
-                      onPressed: () => Navigator.pop(context, false),
-                      child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: TraleTheme.of(context)!.padding / 2,
-                            horizontal: TraleTheme.of(context)!.padding,
-                          ),
-                          child: Text(AppLocalizations.of(context)!.abort)),
-                    ),
-                    FilledButton.icon(
-                      onPressed: () => Navigator.pop(context, true),
-                      label: Text(AppLocalizations.of(context)!.yes),
-                      icon: PPIcon(PhosphorIconsRegular.download, context),
-                    ),
-                  ],
-                ),
-              ) ??
-              false;
-          if (accepted) {
-            final FilePickerResult? pickerResult =
-                await FilePicker.platform.pickFiles(
-              type: FileType.custom,
-              allowedExtensions: <String>['txt'],
-            );
-            if (pickerResult != null &&
-                pickerResult.files.single.path != null) {
-              final File file = File(pickerResult.files.single.path!);
-              final List<Measurement> newMeasurements = <Measurement>[];
-              for (final String line in file.readAsLinesSync()) {
-                // parse comments
-                if (!line.startsWith('#')) {
-                  newMeasurements
-                      .add(Measurement.fromString(exportString: line));
-                }
-              }
-
-              final int measurementCounts =
-                  db.insertMeasurementList(newMeasurements);
-              sm.showSnackBar(
-                SnackBar(
-                  content: Text('$measurementCounts measurements added'),
-                  behavior: SnackBarBehavior.floating,
-                  duration: TraleTheme.of(context)!.snackbarDuration,
-                ),
-              );
-            } else {
-              sm.showSnackBar(
-                SnackBar(
-                  content: Text(
-                    AppLocalizations.of(context)!.importingAbort,
-                  ),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            }
-          }
-        },
+        onPressed: () => importBackup(context),
       ),
     );
   }
