@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Bugfix 🐛:
+- Make label more gain weight mode more clear
+
 
 ## [0.9.3] - 2025-02-25
 ### Added Features and Improvements 🙌:
