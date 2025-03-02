@@ -46,9 +46,18 @@ class ExportListTile extends StatelessWidget {
         AppLocalizations.of(context)!.exportSubtitle,
         style: Theme.of(context).textTheme.labelSmall,
       ),
-      trailing: IconButton(
-        icon: PPIcon(PhosphorIconsDuotone.upload, context),
-        onPressed: () => backupDialog(context),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          IconButton(
+            icon: PPIcon(PhosphorIconsDuotone.shareNetwork, context),
+            onPressed: () => exportBackup(context, share: true),
+          ),
+          IconButton(
+            icon: PPIcon(PhosphorIconsDuotone.upload, context),
+            onPressed: () => exportBackup(context),
+          ),
+        ],
       ),
     );
   }

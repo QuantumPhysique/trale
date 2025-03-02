@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Allow saving backup to file
+
 ### Bugfix 🐛:
 - Make label of gain weight mode more clear
 - Fix label for Dutch language
