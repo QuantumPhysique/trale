@@ -795,7 +795,9 @@ class LooseWeightListTile extends StatelessWidget {
     return SwitchListTile(
       dense: true,
       title: AutoSizeText(
-        AppLocalizations.of(context)!.looseWeight,
+        Provider.of<TraleNotifier>(context).looseWeight
+          ? AppLocalizations.of(context)!.looseWeight
+          : AppLocalizations.of(context)!.gainWeight,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
