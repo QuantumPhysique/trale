@@ -460,5 +460,9 @@
   "looseWeightSubtitle": "Vaheta vaadet kaalukaotuse ja lisamise vahel.",
   "@looseWeightSubtitle": {
     "description": "Switching between loosing or gaining weight."
+  },
+  "gainWeight": "Lisa kaalu",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
   }
 }
