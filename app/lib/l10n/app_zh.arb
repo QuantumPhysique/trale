@@ -460,5 +460,9 @@
   "looseWeight": "减肥模式",
   "@looseWeight": {
     "description": "Loose weight switch label."
+  },
+  "gainWeight": "增重模式",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
   }
 }
