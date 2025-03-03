@@ -1,1 +1,170 @@
-{}
+{
+  "achievements": "Thành tựu",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "import": "Nhập bản sao lưu",
+  "@import": {
+    "description": "Import backup."
+  },
+  "looseWeight": "Giảm cân",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "gainWeight": "Tăng cân",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
+  },
+  "looseWeightSubtitle": "Chuyển đổi giữa việc giảm hoặc tăng cân.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "days": "ngày",
+  "@days": {},
+  "weeks": "tuần",
+  "@weeks": {},
+  "week": "tuần",
+  "@week": {},
+  "months": "tháng",
+  "@months": {},
+  "month": "tháng",
+  "@month": {},
+  "years": "năm",
+  "@years": {},
+  "year": "năm",
+  "@year": {},
+  "never": "không bao giờ",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "hàng tuần",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "hai tuần một lần",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "hằng quý",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "hằng tháng",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminderButton": "sao lưu",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Đã xuất bản sao lưu thành công",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "lastBackup": "sao lưu cuối",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "sao lưu kế tiếp",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "stats": "Thống kê",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Đơn vị",
+  "@unit": {},
+  "user": "Hồ sơ người dùng",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "Thiết đặt người dùng",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Khu vực nguy hiểm",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Thiết đặt",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "language": "Ngôn ngữ",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "darkmode": "Tối",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "systemmode": "Hệ thống",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Xuất tất cả các phép đo",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "open": "Mở",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "importSubtitle": "Nhập số đo từ tệp sao lưu .txt.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoled": "Đen",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "amoledSubtitle": "Đổi màu nền thành màu đen tuyền cho chế độ tối.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Đặt lại ứng dụng",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryReset": "Khôi phục thiết đặt gốc",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "defaultLang": "Mặc định hệ thống",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "weight": "Cân nặng",
+  "@weight": {
+    "description": "weight"
+  },
+  "theme": "Chủ đề",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "backupReminder": "Vui lòng sao lưu thường xuyên",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "abort": "Hủy bỏ",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "experimentalFeatures": "tính năng thử nghiệm",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "backupInterval": "Khoảng cách",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "exportSubtitle": "Thao tác này sẽ hiển thị tất cả các phép đo cho tất cả ứng dụng.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "lightmode": "Sáng",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  }
+}
