@@ -1,1 +1,460 @@
-{}
+{
+  "backupInterval": "Частота создания резервных копий",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "factoryResetSubtitle": "Сбросить все настройки и измерения.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "version": "Версия",
+  "@version": {
+    "description": "version"
+  },
+  "dangerzone": "Опасная зона",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "packages": "Пакеты",
+  "@packages": {
+    "description": "packages"
+  },
+  "looseWeight": "Показывать потерю веса",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "days": "Дни",
+  "@days": {},
+  "week": "Неделя",
+  "@week": {},
+  "months": "Месяцы",
+  "@months": {},
+  "month": "Месяц",
+  "@month": {},
+  "year": "Год",
+  "@year": {},
+  "never": "Никогда",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "Раз в две недели",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "Ежемесячно",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "Ежеквартально",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminderButton": "Сделать резервную копию сейчас",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Резервная копия успешно экспортирована",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "lastBackup": "Последняя резервная копия",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "Время следующей резервной копии",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "stats": "Статистика",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Единицы",
+  "@unit": {},
+  "weight": "Вес",
+  "@weight": {
+    "description": "weight"
+  },
+  "userSettings": "Настройки пользователя",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "settings": "Настройки",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "faq": "ЧаВО",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "about": "О программе",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "language": "Язык",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "darkmode": "Тёмная",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "lightmode": "Светлая",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "defaultLang": "Системный",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "systemmode": "Системная",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Экспортировать все измерения",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportDialog": "Эта функция экспортирует все измерения во внешнюю память (за приложением). Необходимы права на доступ к памяти.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "open": "Открыть файл",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "abort": "Отмена",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "import": "Импортировать резервную копию",
+  "@import": {
+    "description": "Import backup."
+  },
+  "amoled": "Абсолютно чёрный",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "amoledSubtitle": "Изменить цвет фона на глубокий чёрный.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Заводской сброс приложения",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "delete": "Удалить",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "Импорт данных отменён.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "home": "Домашний экран",
+  "@home": {
+    "description": "home screen"
+  },
+  "yes": "Да",
+  "@yes": {
+    "description": "yes"
+  },
+  "ok": "ОК",
+  "@ok": {
+    "description": "ok"
+  },
+  "save": "Сохранить",
+  "@save": {
+    "description": "save"
+  },
+  "backup": "Резервная копия",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Время",
+  "@time": {
+    "description": "time"
+  },
+  "assets": "Ресурсы",
+  "@assets": {
+    "description": "assets"
+  },
+  "measurements": "Измерения",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "sourcecode": "Исходный код",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "openIssue": "Открыть запрос на GitHub",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "addWeight": "Введите свой вес",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "interpolation": "Интерполяция",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "none": "Нету",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "medium": "Средняя",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "strong": "Сильная",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "welcome": "Добро пожаловать",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "targetWeight": "Целевой вес",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "addTargetWeight": "Добавить целевой вес",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro1": "Нажмите",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "faq_q1": "Этой возможности пока что нет. Когда её наконец уже доделают?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_q2": "Могу ли я ещё раз увидеть вступительный экран?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Конечно же! Просто нажмите иконку ниже.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Вернуться на главный экран",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "Что показывает иконка приложения?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "edit": "Редактировать",
+  "@edit": {
+    "description": "edit"
+  },
+  "skip": "Пропустить",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "soft": "Мягкая",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "licence": "Лицензия",
+  "@licence": {
+    "description": "licence"
+  },
+  "strength": "Сила интерполяции",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "max": "Макс",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "Мин",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "change": "Разница",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "mean": "Среднее значение",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "achievements": "Достижения",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "gainWeight": "Показывать набор веса",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
+  },
+  "weeks": "Недели",
+  "@weeks": {},
+  "years": "Годы",
+  "@years": {},
+  "looseWeightSubtitle": "Переключиться между показом потери или набора веса",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "tpl": "Лицензии 3 сторон",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "importDialog": "Включить все измерения в текущую базу данных. Эта операция не отменяема!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "weekly": "Еженедельно",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "trale": "Трал",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "backupReminder": "Пожалуйста, делайте резервные копии часто",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "date": "Дата",
+  "@date": {
+    "description": "Date"
+  },
+  "user": "Профиль пользователя",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "theme": "Тема",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "importSubtitle": "Импортировать измерения из .txt .",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "loading": "Загрузка",
+  "@loading": {
+    "description": "loading"
+  },
+  "onBoarding2": "Выберите одну из шести тем для персонализации приложения. Какая бы вам подошла?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding3": "Спасибо за то, что попробовали наше приложение. 🙂\n\nЕсли вам оно понравилось, мы были бы очень рады вашему отзыву или же помощи проекту на Github. Взамен мы предостерегаем вас от назойливых реклам.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "targetWeightMotivation": "Ставить цель для веса - очень важный этап для правильного пути. Если у вас есть цель, у вас есть больше мотивации для ее достижения.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "targetWeightShort": "Цель",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "addUserName": "Как мы должны Вас называть?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "intro2": "чтобы начать",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro3": "Сегодня очень хороший день чтобы начать ваше первое измерение веса!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faqtext": "Здесь вы найдете ответы на самые часто задаваемые вопросы. Если у вас есть другие вопросы, не стесняйтесь спрашивать их на нашем Github.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "targetWeightReached": "Поздравляем, вы достигли своего целевого веса!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "faq_a3": "На иконке изображён воющий волк, его хвост частично перекрывает букву 't' и 'r'.",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "measurementFrequency": "Частота измерения",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "maxStreak": "длиннейшая серия",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "firstDay": "Первый день",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
+  "factoryReset": "Заводской сброс приложения.",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "onBoarding2Title": "Стиль",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "factoryResetDialog": "Сбросить все настройки до заводских? Это сбросит все измерения в том числе. Эта операция неизбежна.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "onBoarding3Title": "Приватность",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "startApp": "Начать",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "totalChange": "Целевая разница",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "timeSinceFirstMeasurement": "время с первого измерения",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "targetWeightReachedIn": "осталось до достижения цели",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "experimentalFeatures": "Экспериментальные возможности",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "undertpl": "© {years} сделано {author} под лицензией {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "onBoarding1": "Это просто приложение в стиле Material You поможет вам достичь веса, о котором вы мечтали! Если Вы бы хотели сбросить вес, набрать его, или же просто держать планку, это приложение для вас! Достоверное предсказание веса и точная статистика поможет вам держать строй.\n\nПрисоединяйтесь к нашему сообществу и совершенствуйте себя.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "faq_a1": "Это приложение создаётся в наше свободное время и мы пытаемся сохранять приложение стильным и простым. Мы верим, что добавлять больше функций ≠ больше удобства. Если Вам кажется, что мы что-то упустили, можете написать нам в Github.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "target_weight_warning": "Анорексия - очень серьезное заболевание, которое из-за негативного влияния социальных сетей (и общества в целом) становится все более распространенной проблемой. И как наш вклад в уменьшение её влияния, в приложении невозможно будет установить вес меньше 50 кг.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  }
+}
