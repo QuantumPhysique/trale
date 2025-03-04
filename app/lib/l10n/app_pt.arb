@@ -16,5 +16,155 @@
   "firstDay": "Primeiro dia",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "user": "Perfil do usuário",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "date": "Data",
+  "@date": {
+    "description": "Date"
+  },
+  "weight": "Peso",
+  "@weight": {
+    "description": "weight"
+  },
+  "language": "Idioma",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "abort": "Cancelar",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "open": "Abrir",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "exportDialog": "Isso exportará todas as medições para o armazenamento externo. São necessárias permissões de escrita.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "weeks": "semanas",
+  "@weeks": {},
+  "days": "dias",
+  "@days": {},
+  "week": "semana",
+  "@week": {},
+  "defaultLang": "Padrão do sistema",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "backupInterval": "Intervalo",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "experimentalFeatures": "recursos experimentais",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "year": "ano",
+  "@year": {},
+  "faq": "Perguntas frequentes",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "never": "nunca",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "semanal",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "quinzenal",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "looseWeight": "Perder peso",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "looseWeightSubtitle": "Alternar entre perder ou ganhar peso.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "months": "meses",
+  "@months": {},
+  "month": "mês",
+  "@month": {},
+  "years": "anos",
+  "@years": {},
+  "monthly": "mensal",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "trimestral",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "Faça backup regularmente",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupReminderButton": "Fazer backup",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Backup exportado com sucesso",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "lastBackup": "Último backup",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "Próximo backup",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "userSettings": "Configurações do usuário",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Zona de Perigo",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Configurações",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "theme": "Tema",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "darkmode": "Escuro",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "lightmode": "Claro",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "systemmode": "Sistema",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Exportar todas as medições",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "exportSubtitle": "Expõe todas as medições para todos os aplicativos.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "import": "Importar backup",
+  "@import": {
+    "description": "Import backup."
   }
 }

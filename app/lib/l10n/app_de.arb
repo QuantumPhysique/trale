@@ -165,5 +165,127 @@
   "target_weight_warning": "Magersucht ist eine ernstzunehmende Erkrankung, die nicht zuletzt durch die vielen Negativbeispiele in den sozialen Medien zunehmend zu einem gesamtgesellschaftlichen Problem wird. Als Beitrag zur Prävention ist kein Zielgewicht unter 50 kg / 110 lb / 7.9 st möglich.",
   "@target_weight_warning": {},
   "firstDay": "Erste tag",
-  "@firstDay": {}
+  "@firstDay": {},
+  "gainWeight": "Gewicht zunehmen",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
+  },
+  "looseWeightSubtitle": "Wechsle zwischen Gewicht verlieren oder Gewicht zunehmen.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "backupInterval": "Intervall",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "days": "Tage",
+  "@days": {},
+  "weeks": "Wochen",
+  "@weeks": {},
+  "week": "Woche",
+  "@week": {},
+  "months": "Monate",
+  "@months": {},
+  "change": "ändern",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "totalChange": "Gesamtveränderung",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "mean": "Durchschnitt",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "measurementFrequency": "Durchschnittlicher Messintervall",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "month": "Monat",
+  "@month": {},
+  "years": "Jahre",
+  "@years": {},
+  "year": "Jahr",
+  "@year": {},
+  "never": "Nie",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "wöchentlich",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "zweiwöchentlich",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "monatlich",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "quartalsweise",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminder": "Bitte regelmässig sichern",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "backupReminderButton": "Sichern",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Sicherung erfolgreich exportiert",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "lastBackup": "letzte Sicherung",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "nächste Sicherung",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "strength": "Stärke",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "min": "min",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "targetWeightReached": "Du erreichst dein angestrbtes Ziel!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "targetWeightReachedIn": "übrig um das Zielgewicht zu erreichen",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "längste Serie",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "aktuelle Serie",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "timeSinceFirstMeasurement": "Zeit seit der ersten Messung",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "experimentalFeatures": "Experimentelles Feature",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeight": "Verliere Gewicht",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "max": "max.",
+  "@max": {
+    "description": "Shorthand for maximum."
+  }
 }

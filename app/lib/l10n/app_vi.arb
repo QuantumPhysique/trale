@@ -1,0 +1,468 @@
+{
+  "achievements": "Thành tựu",
+  "@achievements": {
+    "description": "achievements"
+  },
+  "import": "Nhập bản sao lưu",
+  "@import": {
+    "description": "Import backup."
+  },
+  "looseWeight": "Giảm cân",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
+  },
+  "gainWeight": "Tăng cân",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
+  },
+  "looseWeightSubtitle": "Chuyển đổi giữa việc giảm hoặc tăng cân.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "days": "ngày",
+  "@days": {},
+  "weeks": "tuần",
+  "@weeks": {},
+  "week": "tuần",
+  "@week": {},
+  "months": "tháng",
+  "@months": {},
+  "month": "tháng",
+  "@month": {},
+  "years": "năm",
+  "@years": {},
+  "year": "năm",
+  "@year": {},
+  "never": "không bao giờ",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "weekly": "hàng tuần",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  },
+  "biweekly": "hai tuần một lần",
+  "@biweekly": {
+    "description": "Frequency of backup interval"
+  },
+  "quarterly": "hằng quý",
+  "@quarterly": {
+    "description": "Frequency of backup interval"
+  },
+  "monthly": "hằng tháng",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "backupReminderButton": "sao lưu",
+  "@backupReminderButton": {
+    "description": "Back up now"
+  },
+  "backupSuccess": "Đã xuất bản sao lưu thành công",
+  "@backupSuccess": {
+    "description": "Back successfully exported"
+  },
+  "lastBackup": "sao lưu cuối",
+  "@lastBackup": {
+    "description": "Time of last backup"
+  },
+  "nextBackup": "sao lưu kế tiếp",
+  "@nextBackup": {
+    "description": "Time of last backup"
+  },
+  "stats": "Thống kê",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "unit": "Đơn vị",
+  "@unit": {},
+  "user": "Hồ sơ người dùng",
+  "@user": {
+    "description": "Name of user menu"
+  },
+  "userSettings": "Thiết đặt người dùng",
+  "@userSettings": {
+    "description": "Settings to customize user experience"
+  },
+  "dangerzone": "Khu vực nguy hiểm",
+  "@dangerzone": {
+    "description": "Settings which cannot be undone."
+  },
+  "settings": "Thiết đặt",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "language": "Ngôn ngữ",
+  "@language": {
+    "description": "Language menu item."
+  },
+  "darkmode": "Tối",
+  "@darkmode": {
+    "description": "Dark mode menu item."
+  },
+  "systemmode": "Hệ thống",
+  "@systemmode": {
+    "description": "System mode menu item."
+  },
+  "export": "Xuất tất cả các phép đo",
+  "@export": {
+    "description": "Export all measurements"
+  },
+  "open": "Mở",
+  "@open": {
+    "description": "Open (file)."
+  },
+  "importSubtitle": "Nhập số đo từ tệp sao lưu .txt.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "amoled": "Đen",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "amoledSubtitle": "Đổi màu nền thành màu đen tuyền cho chế độ tối.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "reset": "Đặt lại ứng dụng",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "factoryReset": "Khôi phục thiết đặt gốc",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "defaultLang": "Mặc định hệ thống",
+  "@defaultLang": {
+    "description": "System default language."
+  },
+  "weight": "Cân nặng",
+  "@weight": {
+    "description": "weight"
+  },
+  "theme": "Chủ đề",
+  "@theme": {
+    "description": "Theme menu item."
+  },
+  "backupReminder": "Vui lòng sao lưu thường xuyên",
+  "@backupReminder": {
+    "description": "Please remember to back up your data regularly."
+  },
+  "abort": "Hủy bỏ",
+  "@abort": {
+    "description": "Abort (action)."
+  },
+  "experimentalFeatures": "tính năng thử nghiệm",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "backupInterval": "Khoảng cách",
+  "@backupInterval": {
+    "description": "Frequency of backup interval"
+  },
+  "exportSubtitle": "Thao tác này sẽ hiển thị tất cả các phép đo cho tất cả ứng dụng.",
+  "@exportSubtitle": {
+    "description": "This exposes all measurements to all apps."
+  },
+  "lightmode": "Sáng",
+  "@lightmode": {
+    "description": "Light mode menu item."
+  },
+  "faq_a1": "Ứng dụng được bảo trì trong thời gian rảnh rỗi của chúng tôi và chúng tôi cố gắng giữ cho ứng dụng gọn gàng và đơn giản. Chúng tôi tin rằng việc thêm quá nhiều tính năng sẽ khiến ứng dụng kém hữu ích hơn. Nếu bạn tin rằng chúng tôi đang thiếu một tính năng chính, hãy thoải mái mở một vấn đề hoặc yêu cầu hợp nhất.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q1": "Tính năng/chức năng X bị thiếu. Khi nào thì tính năng này sẽ được triển khai?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "change": "thay đổi",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "factoryResetDialog": "Đặt lại ứng dụng về mặc định? Thao tác này sẽ xóa tất cả các thiết đặt và phép đo đã thêm. Không thể hoàn tác thao tác này.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "targetWeightShort": "Mục tiêu",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "faqtext": "Tại đây bạn sẽ tìm thấy câu trả lời cho một số câu hỏi thường gặp nhất. Nếu bạn có bất kỳ câu hỏi nào khác, hãy thoải mái mở một vấn đề trên kho lưu trữ github.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "targetWeightMotivation": "Đặt mục tiêu cân nặng là rất quan trọng và là bước đi đúng hướng. Có mục tiêu trong đầu sẽ thúc đẩy bạn làm nhiều hơn để đạt được mục tiêu đó.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "addWeight": "Nhập cân nặng của bạn",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "onBoarding1": "Ứng dụng Material-You-design đơn giản này giúp bạn đạt được cân nặng mơ ước! Cho dù bạn muốn tăng cân, giảm cân hay chỉ đơn giản là duy trì cân nặng: Dự đoán cân nặng đáng tin cậy và số liệu thống kê đa dạng giúp bạn đi đúng hướng.\n\nTham gia cộng đồng của chúng tôi ngay hôm nay để theo dõi chính mình.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "targetWeight": "Cân nặng mục tiêu",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "target_weight_warning": "Chán ăn là một căn bệnh nghiêm trọng đang ngày càng trở thành vấn đề của toàn xã hội, một phần là do nhiều ví dụ tiêu cực trên mạng xã hội. Là một phần trong đóng góp của chúng tôi cho công tác phòng ngừa, không có mục tiêu cân nặng nào dưới 50 kg / 110 lb / 7,9 st là có thể.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+  },
+  "onBoarding3": "Cảm ơn bạn đã dùng thử ứng dụng của chúng tôi. 🙂\n\nNếu bạn thích ứng dụng, chúng tôi sẽ rất vui khi nhận được phản hồi, đóng góp trên Github hoặc một tách cà phê của bạn. Đổi lại, chúng tôi sẽ không làm phiền bạn bằng những quảng cáo gây ảnh hưởng đến quyền riêng tư.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "intro3": "Hôm nay là ngày tốt để bắt đầu lần đo đầu tiên của bạn!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "strong": "Mạnh",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "date": "Ngày tháng",
+  "@date": {
+    "description": "Date"
+  },
+  "about": "Giới thiệu",
+  "@about": {
+    "description": "Name of about menu section"
+  },
+  "faq": "Hỏi đáp",
+  "@faq": {
+    "description": "Frequently ask questions"
+  },
+  "exportDialog": "Thao tác này sẽ xuất tất cả các phép đo sang bộ nhớ ngoài. Cần có quyền ghi.",
+  "@exportDialog": {
+    "description": "This will export all measurements to the external storage. Writing permissions are needed."
+  },
+  "factoryResetSubtitle": "Đặt lại tất cả thiết đặt và xóa tất cả các phép đo.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "delete": "Xóa bỏ",
+  "@delete": {
+    "description": "delete"
+  },
+  "importingAbort": "Đã hủy bỏ việc nhập.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "importDialog": "Bao gồm tất cả các phép đo vào cơ sở dữ liệu hiện tại. Không thể hoàn tác thao tác này!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "home": "Trang chủ",
+  "@home": {
+    "description": "home screen"
+  },
+  "save": "Lưu",
+  "@save": {
+    "description": "save"
+  },
+  "edit": "Chỉnh sửa",
+  "@edit": {
+    "description": "edit"
+  },
+  "backup": "Sao lưu",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Thời gian",
+  "@time": {
+    "description": "time"
+  },
+  "yes": "Ừ",
+  "@yes": {
+    "description": "yes"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "assets": "tài sản",
+  "@assets": {
+    "description": "assets"
+  },
+  "loading": "Đang tải",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Đo lường",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Phiên bản",
+  "@version": {
+    "description": "version"
+  },
+  "tpl": "Giấy phép của bên thứ ba",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "licence": "Giấy phép",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "Mã nguồn",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "openIssue": "Mở vấn đề",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "packages": "các gói",
+  "@packages": {
+    "description": "packages"
+  },
+  "undertpl": "© {years} của {author} theo giấy phép {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "welcome": "Chào mừng",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "interpolation": "nội suy",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "strength": "sức mạnh",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "none": "Không có",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "medium": "Trung bình",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "soft": "Nhẹ nhàng",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "onBoarding2": "Chọn một trong sáu chủ đề để cá nhân hóa ứng dụng của bạn. Chủ đề nào thể hiện cảm xúc của bạn tốt nhất?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding2Title": "Phong cách",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "onBoarding3Title": "Riêng tư",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "skip": "Nhảy",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "startApp": "Bắt đầu",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "addTargetWeight": "Thêm cân nặng mục tiêu",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "addUserName": "Chúng tôi sẽ gọi bạn thế nào?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "intro1": "Nhấn",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "intro2": "để bắt đầu",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "faq_q2": "Tôi có thể xem lại màn hình giới thiệu/hướng dẫn không?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "faq_a2": "Có chắc chắn rồi! Chỉ cần nhấn vào biểu tượng bên dưới.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a2_widget": "Quay lại màn hình hướng dẫn",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_q3": "Biểu tượng ứng dụng đang hiển thị gì?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "faq_a3": "Một con sói đang hú, đuôi bị che một phần bởi chữ 't' và chữ 'r'.",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "totalChange": "tổng số thay đổi",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "max": "tối đa",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "tối thiểu",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "mean": "trung bình",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "targetWeightReached": "bạn đã đạt được cân nặng mục tiêu!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "targetWeightReachedIn": "còn lại để đạt được mục tiêu cân nặng",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "measurementFrequency": "tần số đo lường",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "maxStreak": "chuỗi dài nhất",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "currentStreak": "chuỗi hiện tại",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "firstDay": "Ngày đầu tiên",
+  "@firstDay": {
+    "description": "First displayed day of the week"
+  },
+  "timeSinceFirstMeasurement": "thời gian kể từ lần đo đầu tiên",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  }
+}
