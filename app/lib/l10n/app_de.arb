@@ -232,7 +232,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "Sicherung",
+  "backupReminderButton": "Sichern",
   "@backupReminderButton": {
     "description": "Back up now"
   },
