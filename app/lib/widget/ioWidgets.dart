@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/interpolationPreview.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
@@ -79,18 +79,81 @@ List<Measurement> parseMeasurementsTxt(List<String?> lines) {
   return newMeasurements;
 }
 
+/// parse csv format
+List<Measurement> parseMeasurementsCSV(
+    List<String?> lines,
+    int dateIdx,
+    int weightIdx,
+    {
+      String separator=',',
+      bool hasHeader=true,
+      String dateFormat='yyyy-MM-dd HH:mm',
+    }
+) {
+  final List<Measurement> newMeasurements = <Measurement>[];
+  if (hasHeader) {
+    lines.removeAt(0);
+  }
+  final DateFormat format = DateFormat(dateFormat);
+  for (final String? line in lines) {
+    if (line == null) {
+      continue;
+    }
+    final List<String> strings = line.split(separator);
+    if (strings.length < dateIdx || strings.length < weightIdx) {
+      print('error with parsing measurement (csv format)!');
+      continue;
+    }
+    // remove all quotes from date String
+    final String dateString = strings[dateIdx].replaceAll('"', '');
+    // catch date parsing error
+    try {
+      final DateTime date = format.parse(dateString);
+      final double weight = double.parse(strings[weightIdx]);
+      newMeasurements.add(
+        Measurement(
+          weight: weight,
+          date: date,
+          isMeasured: true,
+        ),
+      );
+    } catch (e) {
+      print('error with parsing date: $dateString');
+      continue;
+    }
+  }
+
+  return newMeasurements;
+}
+
+/// get indices of date and weight column
+List<int>? openScaleIndices(List<String?> lines, {String separator=','}) {
+  if (lines.isEmpty || lines[0] == null) {
+    return null;
+  }
+  final List<String> names = lines[0]!.split(separator);
+  // return idx of value "weight" in names
+  final int weightIdx = names
+    .indexWhere((String name) => name.contains('weight'));
+  final int dateIdx = names
+    .indexWhere((String name) => name.contains('dateTime'));
+  if (weightIdx == -1 || dateIdx == -1) {
+    return null;
+  }
+  return <int>[dateIdx, weightIdx];
+}
 
 /// Import backup
 Future<bool> importBackup(BuildContext context) async {
   final FilePickerResult? pickerResult =
   await FilePicker.platform.pickFiles(
     type: FileType.custom,
-    allowedExtensions: <String>['txt'],
+    allowedExtensions: <String>['txt', 'csv'],
   );
   final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
   final MeasurementDatabase db = MeasurementDatabase();
 
-  final pickedSuccess =
+  final bool pickedSuccess =
     pickerResult != null && pickerResult.files.single.path != null;
   bool accepted = false;
 
@@ -105,6 +168,19 @@ Future<bool> importBackup(BuildContext context) async {
       newMeasurements.addAll(
         parseMeasurementsTxt(lines)
       );
+    } else if (ext == 'csv') {
+      // check if openScale format
+      final List<int>? indices = openScaleIndices(lines);
+      if (indices != null) {
+        newMeasurements.addAll(
+          parseMeasurementsCSV(lines, indices[0], indices[1])
+        );
+      } else {
+        // try Withings format
+        newMeasurements.addAll(
+            parseMeasurementsCSV(lines, 0, 1)
+        );
+      }
     }
 
     // show loaded measurments
@@ -119,7 +195,7 @@ Future<bool> importBackup(BuildContext context) async {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget> [
-            Container(
+            SizedBox(
               width: double.maxFinite,
               height: MediaQuery.of(context).size.height / 4,
               child: Scrollbar(
@@ -127,15 +203,18 @@ Future<bool> importBackup(BuildContext context) async {
                   shrinkWrap: true,
                   itemCount: newMeasurements.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: TraleTheme.of(context)!.padding,
-                      ),
-                      child: Text(
-                        newMeasurements[index].measureToString(context, ws: 2),
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                          fontFamily: 'CourierPrime',
+                    return Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 2,
+                          horizontal: TraleTheme.of(context)!.padding,
+                        ),
+                        child: AutoSizeText(
+                          newMeasurements[index].measureToString(context, ws: 8),
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            fontFamily: 'CourierPrime',
+                          ),
+                          maxLines: 1,
                         ),
                       ),
                     );

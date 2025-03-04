@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -10,17 +8,15 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolationPreview.dart';
 import 'package:trale/core/language.dart';
-import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
+import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/linechart.dart';
 
 /// ListTile for changing Amoled settings
