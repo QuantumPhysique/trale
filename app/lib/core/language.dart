@@ -43,9 +43,11 @@ class Language {
     'nl': 'Nederlands',
     'pl': 'Język polski',
     'pt': 'Português',
+    'ru': 'Русский',
     'sl': 'Slovenščina',
     'tr': 'Türkçe',
     'uk': 'Українська мова',
+    'vi': 'Tiếng Việt',
     'zh': '汉语',
   }[language] ?? 'error';
 

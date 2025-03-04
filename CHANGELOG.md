@@ -14,8 +14,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
-- Reworked import dialog
-- Allow saving backup to file
+- Hello World! Thx to the community, the app is now available in Russian and Vietnamese 🎉
+- Reworked import/export: Allowing now to save to files and import from openScale and Withings
+
+### Other changes:
+- Minor speed improvements
 
 ### Bugfix 🐛:
 - Make label of gain weight mode more clear
