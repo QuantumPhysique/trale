@@ -14,6 +14,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
+- Reworked import dialog
 - Allow saving backup to file
 
 ### Bugfix 🐛:
