@@ -256,7 +256,7 @@ Future<bool> importBackup(BuildContext context) async {
       ),
     ) ?? false;
 
-    if (!accepted) {
+    if (accepted) {
       final int measurementCounts = db.insertMeasurementList(newMeasurements);
       sm.showSnackBar(
         SnackBar(

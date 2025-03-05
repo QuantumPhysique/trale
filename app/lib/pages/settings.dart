@@ -726,9 +726,9 @@ class LooseWeightListTile extends StatelessWidget {
         AppLocalizations.of(context)!.looseWeightSubtitle,
         style: Theme.of(context).textTheme.labelSmall,
       ),
-      value: Provider.of<TraleNotifier>(context).looseWeight,
+      value: !Provider.of<TraleNotifier>(context).looseWeight,
       onChanged: (bool loose) async {
-        Provider.of<TraleNotifier>(context, listen: false).looseWeight = loose;
+        Provider.of<TraleNotifier>(context, listen: false).looseWeight = !loose;
       },
     );
   }
