@@ -294,6 +294,10 @@
   "@addWeight": {
     "description": "Enter your weight"
   },
+  "addHeight": "Enter your height",
+  "@addHeight": {
+    "description": "Enter your height"
+  },
   "interpolation": "interpolation",
   "@interpolation": {
     "description": "interpolation"
