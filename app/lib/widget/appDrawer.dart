@@ -14,27 +14,7 @@ import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settings.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/iconHero.dart';
-import 'package:trale/widget/routeTransition.dart';
 
-// class SidebarDestination extends NavigationDrawerDestination {
-//   const SidebarDestination({
-//     super.key,
-//     required super.icon,
-//     required super.label,
-//     super.selectedIcon,
-//     required this.onTap,
-//   });
-//
-//   final void Function() onTap;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onPanDown: (_) => onTap(),
-//       child: super.build(context),
-//     );
-//   }
-// }
 
 /// Drawer for home screen
 NavigationDrawer appDrawer (
@@ -102,24 +82,6 @@ NavigationDrawer appDrawer (
         },
       ),
       const Divider(),
-      // SizedBox(height: TraleTheme.of(context)!.padding),
-      // NavigationDrawerDestination(
-      //   icon: const Icon(CustomIcons.home),
-      //   label: Text(AppLocalizations.of(context)!.home),
-      // ),
-      // SidebarDestination(
-      //   onTap: () {
-      //     Navigator.of(context).pop();
-      //     Navigator.of(context).push<dynamic>(
-      //         SlideRoute(
-      //           page: Settings(),
-      //           direction: TransitionDirection.left,
-      //         )
-      //     );
-      //   },
-      //   icon: const Icon(CustomIcons.settings),
-      //   label: Text(AppLocalizations.of(context)!.settings),
-      // ),
       ListTile(
         dense: true,
         leading: PPIcon(PhosphorIconsDuotone.sliders, context),
@@ -133,10 +95,9 @@ NavigationDrawer appDrawer (
         onTap: () {
           Navigator.of(context).pop();
           Navigator.of(context).push<dynamic>(
-              SlideRoute(
-                page: const Settings(),
-                direction: TransitionDirection.left,
-              )
+            MaterialPageRoute<Widget>(
+              builder: (BuildContext context) => const Settings(),
+            )
           );
         },
       ),
@@ -153,10 +114,9 @@ NavigationDrawer appDrawer (
         onTap: () {
           Navigator.of(context).pop();
           Navigator.of(context).push<dynamic>(
-              SlideRoute(
-                page: const FAQ(),
-                direction: TransitionDirection.left,
-              )
+            MaterialPageRoute<Widget>(
+              builder: (BuildContext context) => const FAQ(),
+            ),
           );
         },
       ),
@@ -173,10 +133,9 @@ NavigationDrawer appDrawer (
         onTap: () {
           Navigator.of(context).pop();
           Navigator.of(context).push<dynamic>(
-              SlideRoute(
-                page: const About(),
-                direction: TransitionDirection.left,
-              )
+            MaterialPageRoute<Widget>(
+              builder: (BuildContext context) => const About(),
+            ),
           );
         },
       ),

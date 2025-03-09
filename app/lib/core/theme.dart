@@ -191,6 +191,12 @@ class TraleTheme {
       listTileTheme: listTileThemeData,
       sliderTheme: sliderTheme,
       progressIndicatorTheme: progressIndicatorTheme,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: <TargetPlatform, PageTransitionsBuilder>{
+          // Set the predictive back transitions for Android.
+          TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+        },
+      ),
     );
 
     /// Return the themeData which MaterialApp can now use
