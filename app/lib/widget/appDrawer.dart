@@ -81,6 +81,28 @@ NavigationDrawer appDrawer (
           notifier.notify;
         },
       ),
+      ListTile(
+        dense: true,
+        leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
+        title: AutoSizeText(
+          notifier.userHeight != null
+              ? '${notifier.userHeight} cm'
+              : AppLocalizations.of(context)!.addHeight,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          maxLines: 1,
+        ),
+        onTap: () async {
+          Navigator.of(context).pop();
+          await showTargetWeightDialog(
+            context: context,
+            weight: notifier.userTargetWeight
+                ?? Preferences().defaultUserWeight,
+          );
+          notifier.notify;
+        },
+      ),
       const Divider(),
       ListTile(
         dense: true,
