@@ -17,7 +17,7 @@ Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/de.quantumphysique.trale)
 [<img alt="Get it on Accrescent" src="https://accrescent.app/badges/get-it-on.png" height="80">](https://accrescent.app/app/de.quantumphysique.trale)
-[<img alt="Get it on openapk.net" src="https://www.openapk.net/images/openapk-badge.png" height="80">](https://www.openapk.net/trale/de.quantumphysique.trale)
+[<img alt="Get it on openapk.net" src="https://www.openapk.net/images/openapk-badge.png" height="80">](https://www.openapk.net/trale/de.quantumphysique.trale/)
 [<img alt="Get it on androidfreeware.net" src="https://www.androidfreeware.net/images/androidfreeware-badge.png" height="80">](https://www.androidfreeware.net/get-trale-apk.html)
 [<img alt="Get it on obtainium" src="https://github.com/user-attachments/assets/713d71c5-3dec-4ec4-a3f2-8d28d025a9c6" height="80">](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://app/%7B%22id%22%3A%22de.quantumphysique.trale%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FQuantumPhysique%2Ftrale%22%2C%22author%22%3A%22QuantumPhysique%22%2C%22name%22%3A%22trale%22%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%7D%22%7D)
 
