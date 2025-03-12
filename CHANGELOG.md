@@ -16,6 +16,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - Use predictive back gesture
 
+### Bugfix 🐛:
+- Fix system color scheme for monochrome colors, #236
 
 ## [0.10.1] - 2025-03-03
 ### Bugfix 🐛:

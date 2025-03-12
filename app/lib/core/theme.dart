@@ -19,7 +19,7 @@ Color getFontColor(Color color, {bool inverse = true}) {
 /// check if color is closer to black or white
 bool isDarkColor(Color color) {
   final double luminance =
-      0.2126 * color.red + 0.7152 * color.green + 0.0722 * color.blue;
+      0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
   return luminance < 140;
 }
 
@@ -153,12 +153,22 @@ class TraleTheme {
     )
     : bgShade3;
 
+  /// color threshold for grey
+  final double colorThreshold = 15 / 255;
+
+  /// get if seed color is shade of grey
+  bool get isGrey => (seedColor.r - seedColor.g).abs() < colorThreshold
+      && (seedColor.g - seedColor.b).abs() < colorThreshold;
+
   /// get corresponding ThemeData
   ThemeData get themeData {
     // Color txtColor = txtTheme.bodyText1.color;
     ColorScheme colorScheme = ColorScheme.fromSeed(
       seedColor: seedColor,
       brightness: brightness,
+      dynamicSchemeVariant: isGrey
+        ? DynamicSchemeVariant.fidelity
+        : DynamicSchemeVariant.tonalSpot,
     ).harmonized();
     if (isAmoled) {
       colorScheme = colorScheme.copyWith(surface: Colors.black).harmonized();
