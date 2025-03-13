@@ -316,7 +316,18 @@ Future<bool> showTargetWeightDialog({
               actions: actions(context, () {
                 // In order to make our contribution to prevention, no target
                 // weight below 50 kg / 110 lb / 7.9 st is possible.
-                if (currentSliderValue * notifier.unit.scaling < 50) {
+
+                double minWeight;
+                if (notifier.userHeight != null) {
+                  // /100 is to convert userHeight from cm to m
+                  // Here, the minWeight corresponds to BMI=18.5
+                  minWeight = 18.5 *
+                      (notifier.userHeight! / 100) *
+                      (notifier.userHeight! / 100);
+                } else {
+                  minWeight = 50;
+                }
+                if (currentSliderValue * notifier.unit.scaling < minWeight) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
