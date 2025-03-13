@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -104,24 +105,31 @@ NavigationDrawer appDrawer (
       ListTile(
         dense: true,
         leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
-        title: AutoSizeText(
-          notifier.userHeight != null
-              ? '${notifier.userHeight} cm'
-              : AppLocalizations.of(context)!.addHeight,
-          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          maxLines: 1,
+        title: TextFormField(
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(
+                  RegExp(r'^[1-9][0-9]*'))],
+            decoration: InputDecoration.collapsed(
+              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              hintText: AppLocalizations.of(context)!.addHeight,
+            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            initialValue: notifier.userHeight != null
+                ? '${notifier.userHeight!.toInt()} cm'
+                : null,
+            onChanged: (String value) {
+              final double? newHeight = double.tryParse(value);
+              if (newHeight != null) {
+                notifier.userHeight = newHeight;
+              }
+            }
         ),
-        onTap: () async {
-          Navigator.of(context).pop();
-          await showTargetWeightDialog(
-            context: context,
-            weight: notifier.userTargetWeight
-                ?? Preferences().defaultUserWeight,
-          );
-          notifier.notify;
-        },
+        onTap: () {},
       ),
       const Divider(),
       // SizedBox(height: TraleTheme.of(context)!.padding),
