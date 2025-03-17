@@ -107,7 +107,7 @@ NavigationDrawer appDrawer (
               if (newHeight != null) {
                 notifier.userHeight = newHeight;
               }
-            }
+            },
         ),
         onTap: () {},
       ),
