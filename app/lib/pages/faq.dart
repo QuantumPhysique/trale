@@ -129,6 +129,10 @@ class _FAQ extends State<FAQ> {
         answerWidget: const OnBoardingListTile(),
       ),
       FAQEntry(
+        question: AppLocalizations.of(context)!.faq_q4,
+        answer: AppLocalizations.of(context)!.faq_a4,
+      ),
+      FAQEntry(
         question: AppLocalizations.of(context)!.faq_q3,
         answer: AppLocalizations.of(context)!.faq_a3,
       ),
