@@ -15,6 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
 - Use predictive back gesture
+- Incorporate user height to calculate BMI-based minimum target weight, replacing the predefined value.
 
 ### Bugfix 🐛:
 - Fix system color scheme for monochrome colors, #236
