@@ -100,13 +100,13 @@ class Preferences {
   /// get user name
   String get userName => prefs.getString('userName')!;
 
-  /// set user height
+  /// set user height in cm
   set userHeight(double? height) => prefs.setDouble(
         'userHeight',
         height ?? -1,
       );
 
-  /// get user height
+  /// get user height in cm
   double? get userHeight => prefs.getDouble('userHeight')! > 0
       ? prefs.getDouble('userHeight')!
       : null;
