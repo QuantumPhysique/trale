@@ -287,7 +287,7 @@ class Preferences {
       userTargetWeight = defaultUserTargetWeight;
     }
     if (override || !prefs.containsKey('userTargetWeightDate')) {
-      userTargetWeightDate = defaultUserTargetWeightDate;
+      userTargetWeightDate = DateTime.fromMillisecondsSinceEpoch(defaultUserTargetWeightDate);
     }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
