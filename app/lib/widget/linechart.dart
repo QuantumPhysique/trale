@@ -273,7 +273,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
-                color: Theme.of(context).colorScheme.primaryContainer.withAlpha(155),
+                color: Theme.of(context).colorScheme.primaryContainer
+                  .withAlpha(155),
                 // cutOffY: targetWeight ?? 0,
                 // applyCutOffY: targetWeight != null,
               ),

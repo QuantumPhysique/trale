@@ -5,6 +5,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/contrast.dart';
 
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
@@ -62,6 +63,7 @@ class TraleTheme {
     required this.seedColor,
     required this.brightness,
     this.isAmoled=false,
+    this.contrast=0.0,
   });
 
   /// copyWith constructor
@@ -69,11 +71,13 @@ class TraleTheme {
     Brightness? brightness,
     Color? seedColor,
     bool? isAmoled,
+    double? contrast,
   }) {
     return TraleTheme(
       brightness: brightness ?? this.brightness,
       seedColor: seedColor ?? this.seedColor,
       isAmoled: isAmoled ?? this.isAmoled,
+      contrast: contrast ?? this.contrast,
     );
   }
 
@@ -100,6 +104,8 @@ class TraleTheme {
   final double padding = 16;
   /// if true make background true black
   late bool isAmoled;
+  /// contrast level
+  late double contrast;
   /// Get border radius
   double get borderRadius => 16;
 
@@ -166,6 +172,7 @@ class TraleTheme {
     ColorScheme colorScheme = ColorScheme.fromSeed(
       seedColor: seedColor,
       brightness: brightness,
+      contrastLevel: contrast,
       dynamicSchemeVariant: isGrey
         ? DynamicSchemeVariant.fidelity
         : DynamicSchemeVariant.tonalSpot,
@@ -257,14 +264,22 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
     TraleCustomTheme.plum: const Color(0xff8e4585),
   }[this]!;
 
+  /// get contrast level
+  double contrast(BuildContext context) =>
+    Provider.of<TraleNotifier>(context, listen: false).contrastLevel.contrast;
+
   /// get corresponding light theme
   TraleTheme light(BuildContext context) => TraleTheme(
-    seedColor: seedColor(context), brightness: Brightness.light,
+    seedColor: seedColor(context),
+    brightness: Brightness.light,
+    contrast: contrast(context),
   );
 
   /// get corresponding light theme
   TraleTheme dark(BuildContext context) => TraleTheme(
-    seedColor: seedColor(context), brightness: Brightness.dark,
+    seedColor: seedColor(context),
+    brightness: Brightness.dark,
+    contrast: contrast(context),
   );
 
   /// get amoled dark theme

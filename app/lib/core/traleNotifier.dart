@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
 import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/contrast.dart';
 import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
@@ -30,6 +31,17 @@ class TraleNotifier with ChangeNotifier {
   set themeMode(ThemeMode mode) {
     if (mode != themeMode) {
       prefs.nightMode = mode.toCustomString();
+      notifyListeners();
+    }
+  }
+
+  /// get contrast level
+  ContrastLevel get contrastLevel => prefs.contrastLevel;
+
+  /// set contrast level
+  set contrastLevel(ContrastLevel level) {
+    if (level != contrastLevel) {
+      prefs.contrastLevel = level;
       notifyListeners();
     }
   }
