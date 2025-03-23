@@ -90,7 +90,7 @@ class _IconHeroStatScreenState extends State<IconHeroStatScreen> {
         SvgAssetLoader(
           assetName,
           colorMapper: TraleIconColorMapper(
-            bgColor: ctheme.onSecondaryContainer,
+            bgColor: ctheme.onSurface,
             wolfColor: ctheme.primary,
             titleColor: ctheme.onSurface,
             sloganColor: ctheme.primary,
