@@ -481,5 +481,9 @@
   "firstDay": "First day",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "highContrast": "High contrast",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
   }
 }

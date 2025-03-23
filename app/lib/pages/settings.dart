@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/contrast.dart';
 import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/interpolation.dart';
@@ -409,6 +410,50 @@ class DarkModeListTile extends StatelessWidget {
     );
   }
 }
+
+
+/// ListTile for changing interpolation settings
+class ContrastLevelSetting extends StatelessWidget {
+  /// constructor
+  const ContrastLevelSetting({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(
+        2 * TraleTheme.of(context)!.padding,
+        0.5 * TraleTheme.of(context)!.padding,
+        TraleTheme.of(context)!.padding,
+        0.5 * TraleTheme.of(context)!.padding,
+      ),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          AutoSizeText(
+            AppLocalizations.of(context)!.highContrast.inCaps,
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
+          ),
+          Slider(
+            value: Provider.of<TraleNotifier>(context)
+                .contrastLevel.idx.toDouble(),
+            divisions: ContrastLevel.values.length - 1,
+            min: 0.0,
+            max: ContrastLevel.values.length.toDouble() - 1,
+            label: Provider.of<TraleNotifier>(context).contrastLevel.nameLong,
+            onChanged: (double newContrastLevel) async {
+              Provider.of<TraleNotifier>(
+                  context, listen: false
+              ).contrastLevel = ContrastLevel.values[newContrastLevel.toInt()];
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 
 /// ListTile for changing interpolation settings
 class InterpolationSetting extends StatelessWidget {
@@ -820,6 +865,7 @@ class _Settings extends State<Settings> {
             ),
           ),
           const LooseWeightListTile(),
+          const ContrastLevelSetting(),
           SizedBox(height: TraleTheme.of(context)!.padding),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
