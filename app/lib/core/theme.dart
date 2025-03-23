@@ -371,3 +371,16 @@ class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
     );
   }
 }
+
+/// extension of theme
+extension ColorTextThemeExtension on TextStyle {
+  TextStyle onSecondaryContainer(BuildContext context) => copyWith(
+    color: Theme.of(context).colorScheme.onSecondaryContainer,
+  );
+  TextStyle onSurface(BuildContext context) => copyWith(
+    color: Theme.of(context).colorScheme.onSurface,
+  );
+  TextStyle onSurfaceVariant(BuildContext context) => copyWith(
+    color: Theme.of(context).colorScheme.onSurfaceVariant,
+  );
+}
