@@ -46,7 +46,7 @@ dependencies:
   shared_preferences: ^2.5.2
   share_plus: ^10.1.4
   url_launcher: ^6.3.1
-  calendar_date_picker2: ^1.1.9
+  calendar_date_picker2: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
