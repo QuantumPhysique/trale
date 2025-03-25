@@ -123,7 +123,7 @@
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "openIssue": "提出问题(提交 issue)",
+  "openIssue": "提出问题（提交 issue）",
   "@openIssue": {
     "description": "open issue"
   },
@@ -143,11 +143,11 @@
   "@exportSubtitle": {
     "description": "This exposes all measurements to all apps."
   },
-  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要存储权限。",
+  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要您授予存储权限。",
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
-  "factoryResetDialog": "要将应用重置吗？这将删除所有设置，以及所有测量数据。注意，该操作无法撤销。",
+  "factoryResetDialog": "您确定要将应用重置吗？这将重置所有选项以及所有测量数据。注意：该操作无法撤销。",
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
@@ -227,7 +227,7 @@
   "@importingAbort": {
     "description": "Import aborted."
   },
-  "importDialog": "导入所有测量数据。此操作无法撤销！",
+  "importDialog": "导入所有测量数据。注意：此操作无法撤销！",
   "@importDialog": {
     "description": "Include all measurements to the current database. This can not be undone!"
   },
