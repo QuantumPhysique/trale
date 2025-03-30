@@ -198,7 +198,7 @@
   "@mean": {
     "description": "The mathematical quantity (arithmetic mean)"
   },
-  "measurementFrequency": "Durchschnittlicher Messintervall",
+  "measurementFrequency": "Durchschnittliches Messintervall",
   "@measurementFrequency": {
     "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
   },
