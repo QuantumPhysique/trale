@@ -166,6 +166,11 @@ class MeasurementStats {
         (targetWeight - ip.weightsDisplay[ip.idxLastDisplay]) / slope
     ).round();
 
+    // if remaining time is rounded to 0, return -1
+    if (remainingTime == 0) {
+      return const Duration(days: -1);
+    }
+
     return Duration(days: remainingTime);
   }
 

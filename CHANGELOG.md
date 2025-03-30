@@ -22,6 +22,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix system color scheme for monochrome colors, #236
 - Fix using wrong font color in some places
 - Fix target label overlapping with line
+- Fix returning achieving goal in 0 days
 
 
 ## [0.10.1] - 2025-03-03
