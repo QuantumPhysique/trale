@@ -250,14 +250,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       ip.db.measurements.first.weight > targetWeight
                         ? Alignment.bottomRight
                         : Alignment.topRight,
-                    padding: const EdgeInsets.only(bottom: 3),
+                    padding: const EdgeInsets.symmetric(vertical: 1),
                     style: Theme.of(context).textTheme.bodySmall!.apply(
                         color: Theme.of(context).colorScheme.onSurface,
                         backgroundColor:
                           Theme.of(context).colorScheme.surfaceContainerLow,
-                      ),
+                    ),
                     labelResolver: (HorizontalLine line) =>
-                      AppLocalizations.of(context)!.targetWeightShort,
+                      ' ${AppLocalizations.of(context)!.targetWeightShort}',
                   ),
                 ),
             ],
