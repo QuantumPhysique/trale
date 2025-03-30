@@ -256,7 +256,7 @@
   "@min": {
     "description": "Shorthand for minimum."
   },
-  "targetWeightReached": "Du erreichst dein angestrbtes Ziel!",
+  "targetWeightReached": "Du hast dein Zielgewicht erreicht!",
   "@targetWeightReached": {
     "description": "Message shown when the user reached their target weight."
   },
