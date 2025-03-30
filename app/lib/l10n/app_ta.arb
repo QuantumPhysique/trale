@@ -319,7 +319,7 @@
   "@openIssue": {
     "description": "open issue"
   },
-  "undertpl": "{{ஆண்டுகள் {{{உரிமம் {உரிமம் {years} உரிமத்தின் கீழ்",
+  "undertpl": "© {licence} உரிமத்தின் கீழ் {author} ஆல் {years}",
   "@undertpl": {
     "description": "String to show third-party license.",
     "placeholders": {

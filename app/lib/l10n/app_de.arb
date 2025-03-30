@@ -186,7 +186,7 @@
   "@week": {},
   "months": "Monate",
   "@months": {},
-  "change": "ändern",
+  "change": "Änderung",
   "@change": {
     "description": "A short word describing a difference in numbers, i.e. the change of the weight"
   },
