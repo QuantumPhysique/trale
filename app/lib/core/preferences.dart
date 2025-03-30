@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/contrast.dart';
 import 'package:trale/core/firstDay.dart';
-
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/printFormat.dart';
@@ -62,6 +62,9 @@ class Preferences {
 
   /// default for theme
   final String defaultTheme = TraleCustomTheme.water.name;
+
+  /// default for contrast level
+  final ContrastLevel defaultContrastLevel = ContrastLevel.normal;
 
   /// default unit
   final TraleUnit defaultUnit = TraleUnit.kg;
@@ -154,6 +157,16 @@ class Preferences {
 
   /// set theme mode
   set theme(String theme) => prefs.setString('theme', theme);
+
+  /// get contrast level
+  ContrastLevel get contrastLevel => prefs.getString('contrastLevel')!
+    .toContrastLevel()!;
+
+  /// set contrast level
+  set contrastLevel(ContrastLevel level) => prefs.setString(
+      'contrastLevel',
+      level.name,
+    );
 
   /// get unit mode
   TraleUnit get unit => prefs.getString('unit')!.toTraleUnit()!;
@@ -259,6 +272,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('theme')) {
       theme = defaultTheme;
+    }
+    if (override || !prefs.containsKey('contrastLevel')) {
+      contrastLevel = defaultContrastLevel;
     }
     if (override || !prefs.containsKey('unit')) {
       unit = defaultUnit;
