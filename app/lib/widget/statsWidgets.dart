@@ -70,7 +70,6 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     Card userWeightLostCard() {
       final double deltaWeight = ip.finalSlope * 30;
-      const String label = 'month';
 
       return Card(
         shape: TraleTheme.of(context)!.borderShape,
@@ -85,7 +84,8 @@ class _StatsWidgetsState extends State<StatsWidgets> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AutoSizeText(
-                '${AppLocalizations.of(context)!.change} / $label',
+              '${AppLocalizations.of(context)!.change} / '
+                  '${AppLocalizations.of(context)!.month}',
                 style: Theme.of(context).textTheme.bodySmall!
                   .onSecondaryContainer(context),
               ),
@@ -243,7 +243,7 @@ StatCard getFrequencyInTotal({required BuildContext context,
               child: Align(
                 alignment: Alignment.center,
                 child: AutoSizeText(
-                  stats.frequencyInTotal!.toStringAsFixed(2),
+                  (7 * stats.frequencyInTotal!).toStringAsFixed(2),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
@@ -260,7 +260,8 @@ StatCard getFrequencyInTotal({required BuildContext context,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: AutoSizeText(
-                  '${AppLocalizations.of(context)!.measurementFrequency}\n(/ day)',
+                '${AppLocalizations.of(context)!.measurementFrequency}\n'
+                      '(/ ${AppLocalizations.of(context)!.week})',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary

@@ -1,0 +1,5 @@
+- ஹலோ வேர்ல்ட்! Thx to the community, the app is now available in Tamil 🎉
+- The app uses now the predictive back gesture
+- Incorporate user height to calculate BMI-based minimum target weight, replacing the predefined value.
+- Added experimental high contrast mode
+- Update translations, minor improvements and some bug fixes
