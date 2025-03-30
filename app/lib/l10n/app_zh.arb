@@ -77,7 +77,7 @@
   "@sourcecode": {
     "description": "source code"
   },
-  "undertpl": "© {years} 年由 {author} 基于 {licence} 协议许可",
+  "undertpl": "© {years} 由 {author} 根据 {licence} 许可协议保留所有权利",
   "@undertpl": {
     "description": "String to show third-party license.",
     "placeholders": {
@@ -99,7 +99,7 @@
   "@addWeight": {
     "description": "Enter your weight"
   },
-  "interpolation": "插值(体重推算)",
+  "interpolation": "插值(体重预测算法)",
   "@interpolation": {
     "description": "interpolation"
   },
@@ -107,7 +107,7 @@
   "@onBoarding2": {
     "description": "Text of 2nd onBoarding screen."
   },
-  "onBoarding3": "感谢您试用我们的应用程序🙂\n\n 如果您喜欢这个应用，我们将非常期待收到您的反馈。欢迎您在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽烦人的、涉及隐私的广告。",
+  "onBoarding3": "感谢您使用我们的应用程序🙂\n\n 如果您喜欢这个应用，我们将非常期待收到您的反馈。欢迎您在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽烦人的、涉及隐私的广告。",
   "@onBoarding3": {
     "description": "Text of 3rd onBoarding screen."
   },
@@ -123,7 +123,7 @@
   "@faq_q1": {
     "description": "The feature/function X is missing. When will it be implemented?"
   },
-  "openIssue": "提出问题(提交 issue)",
+  "openIssue": "提出问题（提交 issue）",
   "@openIssue": {
     "description": "open issue"
   },
@@ -143,11 +143,11 @@
   "@exportSubtitle": {
     "description": "This exposes all measurements to all apps."
   },
-  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要存储权限。",
+  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要您授予存储权限。",
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
-  "factoryResetDialog": "要将应用重置吗？这将删除所有设置，以及所有测量数据。注意，该操作无法撤销。",
+  "factoryResetDialog": "您确定要将应用重置吗？这将重置所有选项以及所有测量数据。注意：该操作无法撤销。",
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
@@ -175,7 +175,7 @@
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
-  "target_weight_warning": "厌食症是一种严重疾病，已逐渐成为社会面临的问题，部分原因是社交媒体上出现了过多负面事例。作为我们对预防厌食症的努力之一，我们不允许设置低于 50kg 目标体重。",
+  "target_weight_warning": "厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重以及身体质量指数（BMI）低于18.5。",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
   },
@@ -183,7 +183,7 @@
   "@welcome": {
     "description": "welcome"
   },
-  "onBoarding2Title": "风格",
+  "onBoarding2Title": "主题风格",
   "@onBoarding2Title": {
     "description": "Title of 2nd onBoarding screen."
   },
@@ -227,7 +227,7 @@
   "@importingAbort": {
     "description": "Import aborted."
   },
-  "importDialog": "导入所有测量数据。此操作无法撤销！",
+  "importDialog": "导入所有测量数据。注意：此操作无法撤销！",
   "@importDialog": {
     "description": "Include all measurements to the current database. This can not be undone!"
   },
@@ -464,5 +464,17 @@
   "gainWeight": "增重模式",
   "@gainWeight": {
     "description": "Gain weight switch label."
+  },
+  "faq_q4": "我可以输入低于50公斤/110磅/7.9英石的目标体重吗？",
+  "@faq_q4": {
+    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+  },
+  "addHeight": "输入您的身高",
+  "@addHeight": {
+    "description": "Enter your height"
+  },
+  "faq_a4": "是的，但需要提供您的身高。\n\n厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重。通过输入身高，我们将根据身体质量指数（BMI）18.5为您计算最低目标体重。",
+  "@faq_a4": {
+    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
   }
 }
