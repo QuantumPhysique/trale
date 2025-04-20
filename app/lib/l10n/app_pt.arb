@@ -45,7 +45,7 @@
   "@open": {
     "description": "Open (file)."
   },
-  "exportDialog": "Isso exportará todas as medições para o armazenamento externo. São necessárias permissões de escrita.",
+  "exportDialog": "Isto exportará todas as medições para o armazenamento externo. São necessárias permissões de escrita.",
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
