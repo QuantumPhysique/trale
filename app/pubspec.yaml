@@ -32,7 +32,7 @@ dependencies:
   file_picker: ^10.1.2
   file_saver: ^0.2.14
   fl_chart: ^0.71.0
-  flutter_svg: ^2.0.17
+  flutter_svg: ^2.1.0
   font_awesome_flutter: ^10.8.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
