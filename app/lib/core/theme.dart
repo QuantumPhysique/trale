@@ -128,7 +128,9 @@ class TraleTheme {
 
   /// get elevated shade of clr
   Color colorOfElevation(double elevation, Color clr) => Color.alphaBlend(
-    getFontColor(clr).withOpacity(overlayOpacity(elevation)), clr,
+    getFontColor(clr).withValues(
+        alpha: overlayOpacity(elevation)
+    ), clr,
   );
   /// 24 elevation shade of bg
   Color get bgShade1 => bgElevated(24);
