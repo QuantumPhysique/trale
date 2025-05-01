@@ -198,6 +198,10 @@ class TraleTheme {
       year2023: false,
     );
 
+    const CardThemeData cardTheme = CardThemeData(
+      shadowColor: Colors.transparent,
+    );
+
     const ProgressIndicatorThemeData progressIndicatorTheme =
       ProgressIndicatorThemeData(year2023: false);
 
@@ -209,6 +213,7 @@ class TraleTheme {
     ).copyWith(
       listTileTheme: listTileThemeData,
       sliderTheme: sliderTheme,
+      cardTheme: cardTheme,
       progressIndicatorTheme: progressIndicatorTheme,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: <TargetPlatform, PageTransitionsBuilder>{
