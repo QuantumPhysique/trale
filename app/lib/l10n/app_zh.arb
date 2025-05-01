@@ -57,7 +57,7 @@
   "@defaultLang": {
     "description": "System default language."
   },
-  "achievements": "统计数据",
+  "achievements": "统计分析",
   "@achievements": {
     "description": "achievements"
   },
@@ -147,7 +147,7 @@
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
-  "factoryResetDialog": "您确定要将应用重置吗？这将重置所有选项以及所有测量数据。注意：该操作无法撤销。",
+  "factoryResetDialog": "您确定要将应用重置吗？这将重置所有选项以及清除所有测量数据。注意：该操作无法撤销。",
   "@factoryResetDialog": {
     "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
   },
@@ -385,11 +385,11 @@
   "@lastBackup": {
     "description": "Time of last backup"
   },
-  "max": "最大",
+  "max": "最大值",
   "@max": {
     "description": "Shorthand for maximum."
   },
-  "min": "最小",
+  "min": "最小值",
   "@min": {
     "description": "Shorthand for minimum."
   },
