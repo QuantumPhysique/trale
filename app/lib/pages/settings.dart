@@ -900,17 +900,12 @@ class _Settings extends State<Settings> {
       );
     }
 
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: SafeArea(
-        child: Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool _) {
-              return <Widget>[appBar()];
-            },
-            body: settingsList(),
-          ),
-        ),
+    return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool _) {
+          return <Widget>[appBar()];
+        },
+        body: settingsList(),
       ),
     );
   }
