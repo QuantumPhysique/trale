@@ -536,123 +536,113 @@ class ThemeSelection extends StatelessWidget {
         (traleNotifier.themeMode == ThemeMode.system &&
             Theme.of(context).brightness == Brightness.dark);
 
-    return ListView.builder(
-        physics: const ClampingScrollPhysics(),
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: TraleCustomTheme.values.length,
-        itemBuilder: (BuildContext context, int index) {
+    Widget themePreview(BuildContext context, TraleCustomTheme ctheme) {
+      return Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius:
+            TraleTheme.of(context)!.borderShape.borderRadius,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            color: (
+                isDark
+                  ? traleNotifier.isAmoled
+                    ? ctheme.dark(context).amoled
+                    : ctheme.dark(context)
+                  : ctheme.light(context)
+            ).themeData.colorScheme.surface,
+          ),
+          //width: 0.3 * MediaQuery.of(context).size.width,
+          margin: EdgeInsets.all(0.5 * TraleTheme.of(context)!.padding),
+          child: Container(
+            margin: EdgeInsets.all(
+                0.04 * MediaQuery.of(context).size.width),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AutoSizeText(
+                  ctheme.name,
+                  style: (
+                      isDark ? ctheme.dark(context): ctheme.light(context)
+                  ).themeData.textTheme.labelSmall,
+                  maxLines: 1,
+                ),
+                Divider(
+                  height: 5,
+                  color: (
+                      isDark ? ctheme.dark(context) : ctheme.light(context)
+                  ).themeData.colorScheme.onSurface,
+                ),
+                AutoSizeText(
+                  'wwwwwwwwww',
+                  style: (
+                      isDark ? ctheme.dark(context): ctheme.light(context)
+                  ).themeData.textTheme.labelSmall,
+                  maxLines: 2,
+                ),
+                const Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: TraleTheme.of(context)!
+                        .borderShape
+                        .borderRadius,
+                    color: (
+                        isDark ? ctheme.dark(context): ctheme.light(context)
+                    ).themeData.colorScheme.primary,
+                  ),
+                  height: 0.05 * MediaQuery.of(context).size.width,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    return CarouselView.weighted(
+      scrollDirection: Axis.horizontal,
+      flexWeights: const <int>[1, 3, 3, 3, 1],
+      padding: EdgeInsets.zero,
+      itemSnapping: true,
+      backgroundColor: Colors.transparent,
+      onTap: (int index) {
+        final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
+        traleNotifier.theme = TraleCustomTheme.values[index];
+      },
+      children: List<Widget>.generate(
+        TraleCustomTheme.values.length,
+        (int index) {
           final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
           if (!traleNotifier.systemColorsAvailable &&
               ctheme == TraleCustomTheme.system) {
             return const SizedBox.shrink();
           }
-          return GestureDetector(
-            onTap: () {
-              traleNotifier.theme = TraleCustomTheme.values[index];
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          TraleTheme.of(context)!.borderShape.borderRadius,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      color: (isDark
-                              ? traleNotifier.isAmoled
-                                  ? ctheme.dark(context).amoled
-                                  : ctheme.dark(context)
-                              : ctheme.light(context))
-                          .themeData
-                          .colorScheme
-                          .surface,
-                    ),
-                    width: 0.2 * MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                    child: Container(
-                      margin: EdgeInsets.all(
-                          0.04 * MediaQuery.of(context).size.width),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          AutoSizeText(
-                            ctheme.name,
-                            style: isDark
-                                ? ctheme
-                                    .dark(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall
-                                : ctheme
-                                    .light(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall,
-                            maxLines: 1,
-                          ),
-                          Divider(
-                            height: 5,
-                            color: (isDark
-                                    ? ctheme.dark(context)
-                                    : ctheme.light(context))
-                                .themeData
-                                .colorScheme
-                                .onSurface,
-                          ),
-                          AutoSizeText(
-                            'wwwwwwwwww',
-                            style: isDark
-                                ? ctheme
-                                    .dark(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall
-                                : ctheme
-                                    .light(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall,
-                            maxLines: 2,
-                          ),
-                          const Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: TraleTheme.of(context)!
-                                  .borderShape
-                                  .borderRadius,
-                              color: (isDark
-                                      ? ctheme.dark(context)
-                                      : ctheme.light(context))
-                                  .themeData
-                                  .colorScheme
-                                  .primary,
-                            ),
-                            height: 0.05 * MediaQuery.of(context).size.width,
-                          ),
-                        ],
-                      ),
-                    ),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              themePreview(context, ctheme),
+              SizedBox(
+                height: 40,
+                child: FittedBox(
+                  child: Radio<TraleCustomTheme>(
+                    value: TraleCustomTheme.values[index],
+                    groupValue: traleNotifier.theme,
+                    onChanged: (TraleCustomTheme? theme) {
+                      if (theme != null) {
+                        traleNotifier.theme = theme;
+                      }
+                    },
                   ),
                 ),
-                Radio<TraleCustomTheme>(
-                  value: TraleCustomTheme.values[index],
-                  groupValue: traleNotifier.theme,
-                  onChanged: (TraleCustomTheme? theme) {
-                    if (theme != null) {
-                      traleNotifier.theme = theme;
-                    }
-                  },
-                ),
-              ],
-            ),
+              ),
+            ],
           );
-        });
+        },
+      ),
+    );
   }
 }
 
