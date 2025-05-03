@@ -52,11 +52,10 @@ class _MeasurementScreen extends State<MeasurementScreen> {
     }
 
     return StreamBuilder<List<Measurement>>(
-        stream: database.streamController.stream,
-        builder: (
-            BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-            ) => measurementScreenWrapper(context, snapshot)
+      stream: database.streamController.stream,
+      builder: (
+        BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
+      ) => measurementScreenWrapper(context, snapshot),
     );
-
   }
 }

@@ -15,6 +15,7 @@ class CustomSliverAppBar extends StatefulWidget {
     this.actions,
     this.backgroundColor,
     this.expandedHeight,
+    this.collapsedHeight,
     this.flexibleSpace,
   });
 
@@ -40,6 +41,8 @@ class CustomSliverAppBar extends StatefulWidget {
   final Color? backgroundColor;
   /// expanded height
   final double? expandedHeight;
+  /// collapsed height
+  final double? collapsedHeight;
   /// flexible space
   final Widget? flexibleSpace;
 
@@ -63,6 +66,7 @@ class _CustomSliverAppBarState extends State<CustomSliverAppBar> {
           backgroundColor: widget.backgroundColor,
           automaticallyImplyLeading: widget.automaticallyImplyLeading,
           expandedHeight: widget.expandedHeight,
+          collapsedHeight: widget.collapsedHeight,
           flexibleSpace: widget.flexibleSpace,
           snap: widget.snap,
           floating: widget.floating,
