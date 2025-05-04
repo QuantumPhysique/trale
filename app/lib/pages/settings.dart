@@ -526,7 +526,8 @@ class InterpolationSetting extends StatelessWidget {
 /// ListTile for changing interpolation settings
 class ThemeSelection extends StatelessWidget {
   /// constructor
-  const ThemeSelection({super.key});
+  final CarouselController controller;
+  const ThemeSelection({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -601,24 +602,26 @@ class ThemeSelection extends StatelessWidget {
       );
     }
 
+    final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+    if (!traleNotifier.systemColorsAvailable) {
+      cthemes.remove(TraleCustomTheme.system);
+    }
+
     return CarouselView.weighted(
+      controller: controller,
       scrollDirection: Axis.horizontal,
       flexWeights: const <int>[1, 3, 3, 3, 1],
       padding: EdgeInsets.zero,
       itemSnapping: true,
       backgroundColor: Colors.transparent,
       onTap: (int index) {
-        final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
-        traleNotifier.theme = TraleCustomTheme.values[index];
+        final TraleCustomTheme ctheme = cthemes[index];
+        traleNotifier.theme = ctheme;
       },
       children: List<Widget>.generate(
-        TraleCustomTheme.values.length,
+        cthemes.length,
         (int index) {
-          final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
-          if (!traleNotifier.systemColorsAvailable &&
-              ctheme == TraleCustomTheme.system) {
-            return const SizedBox.shrink();
-          }
+          final TraleCustomTheme ctheme = cthemes[index];
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -628,13 +631,9 @@ class ThemeSelection extends StatelessWidget {
                 height: 40,
                 child: FittedBox(
                   child: Radio<TraleCustomTheme>(
-                    value: TraleCustomTheme.values[index],
+                    value: cthemes[index],
                     groupValue: traleNotifier.theme,
-                    onChanged: (TraleCustomTheme? theme) {
-                      if (theme != null) {
-                        traleNotifier.theme = theme;
-                      }
-                    },
+                    onChanged: (TraleCustomTheme? theme) {},
                   ),
                 ),
               ),
@@ -778,8 +777,40 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
+  late final CarouselController _carouselController;
+  bool loadedFirst = true;
+
+  @override
+  void initState() {
+    super.initState();
+    //_carouselController = CarouselController(initialItem: 0);
+  }
+
+  @override
+  void dispose() {
+    _carouselController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (loadedFirst) {
+      loadedFirst = false;
+      final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+      if (!Provider.of<TraleNotifier>(context).systemColorsAvailable) {
+        cthemes.remove(TraleCustomTheme.system);
+      }
+      final int idx = cthemes.indexWhere(
+        (TraleCustomTheme theme) =>
+            theme == Provider.of<TraleNotifier>(context).theme,
+      );
+
+      // last two cannot be selected, so cap idx
+      _carouselController = CarouselController(
+        initialItem: idx < cthemes.length - 3 ? idx : cthemes.length - 3,
+      );
+    }
+
     final EdgeInsets padding = EdgeInsets.symmetric(
       horizontal: TraleTheme.of(context)!.padding,
     );
@@ -797,7 +828,7 @@ class _Settings extends State<Settings> {
           ColoredContainer(
             height: 0.7 * MediaQuery.of(context).size.width,
             width: MediaQuery.of(context).size.width,
-            child: const ThemeSelection(),
+            child: ThemeSelection(controller: _carouselController),
           ),
           const DarkModeListTile(),
           const AmoledListTile(),
