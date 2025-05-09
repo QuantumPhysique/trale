@@ -524,13 +524,43 @@ class InterpolationSetting extends StatelessWidget {
 }
 
 /// ListTile for changing interpolation settings
-class ThemeSelection extends StatelessWidget {
+class ThemeSelection extends StatefulWidget {
   /// constructor
-  final CarouselController controller;
-  const ThemeSelection({super.key, required this.controller});
+  const ThemeSelection({super.key});
+
+  @override
+  State<ThemeSelection> createState() => _ThemeSelectionState();
+}
+
+class _ThemeSelectionState extends State<ThemeSelection> {
+  late final CarouselController _carouselController;
+  bool loadedFirst = true;
+
+  @override
+  void dispose() {
+    _carouselController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (loadedFirst) {
+      loadedFirst = false;
+      final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+      if (!Provider.of<TraleNotifier>(context).systemColorsAvailable) {
+        cthemes.remove(TraleCustomTheme.system);
+      }
+      final int idx = cthemes.indexWhere(
+            (TraleCustomTheme theme) =>
+        theme == Provider.of<TraleNotifier>(context).theme,
+      );
+
+      // last two cannot be selected, so cap idx
+      _carouselController = CarouselController(
+        initialItem: idx < cthemes.length - 3 ? idx : cthemes.length - 3,
+      );
+    }
+
     /// Used to adjust themeMode to dark or light
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
     final bool isDark = traleNotifier.themeMode == ThemeMode.dark ||
@@ -608,7 +638,7 @@ class ThemeSelection extends StatelessWidget {
     }
 
     return CarouselView.weighted(
-      controller: controller,
+      controller: _carouselController,
       scrollDirection: Axis.horizontal,
       flexWeights: const <int>[1, 3, 3, 3, 1],
       padding: EdgeInsets.zero,
@@ -777,40 +807,8 @@ class Settings extends StatefulWidget {
 }
 
 class _Settings extends State<Settings> {
-  late final CarouselController _carouselController;
-  bool loadedFirst = true;
-
-  @override
-  void initState() {
-    super.initState();
-    //_carouselController = CarouselController(initialItem: 0);
-  }
-
-  @override
-  void dispose() {
-    _carouselController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (loadedFirst) {
-      loadedFirst = false;
-      final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
-      if (!Provider.of<TraleNotifier>(context).systemColorsAvailable) {
-        cthemes.remove(TraleCustomTheme.system);
-      }
-      final int idx = cthemes.indexWhere(
-        (TraleCustomTheme theme) =>
-            theme == Provider.of<TraleNotifier>(context).theme,
-      );
-
-      // last two cannot be selected, so cap idx
-      _carouselController = CarouselController(
-        initialItem: idx < cthemes.length - 3 ? idx : cthemes.length - 3,
-      );
-    }
-
     final EdgeInsets padding = EdgeInsets.symmetric(
       horizontal: TraleTheme.of(context)!.padding,
     );
@@ -828,7 +826,7 @@ class _Settings extends State<Settings> {
           ColoredContainer(
             height: 0.7 * MediaQuery.of(context).size.width,
             width: MediaQuery.of(context).size.width,
-            child: ThemeSelection(controller: _carouselController),
+            child: const ThemeSelection(),
           ),
           const DarkModeListTile(),
           const AmoledListTile(),

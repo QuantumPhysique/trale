@@ -91,7 +91,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         image: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 0.5 * MediaQuery.of(context).size.width,
-          child: ThemeSelection(controller: CarouselController()),
+          child: const ThemeSelection(),
         ),
         decoration: pageDecoration.copyWith(
           imagePadding: EdgeInsets.symmetric(
