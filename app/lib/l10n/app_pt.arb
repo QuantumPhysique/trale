@@ -45,7 +45,7 @@
   "@open": {
     "description": "Open (file)."
   },
-  "exportDialog": "Isso exportará todas as medições para o armazenamento externo. São necessárias permissões de escrita.",
+  "exportDialog": "Isto exportará todas as medições para o armazenamento externo. São necessárias permissões de escrita.",
   "@exportDialog": {
     "description": "This will export all measurements to the external storage. Writing permissions are needed."
   },
@@ -131,7 +131,7 @@
   "@userSettings": {
     "description": "Settings to customize user experience"
   },
-  "dangerzone": "Zona de Perigo",
+  "dangerzone": "Zona de perigo",
   "@dangerzone": {
     "description": "Settings which cannot be undone."
   },
@@ -166,5 +166,319 @@
   "import": "Importar backup",
   "@import": {
     "description": "Import backup."
+  },
+  "amoled": "Preto",
+  "@amoled": {
+    "description": "AMOLED"
+  },
+  "amoledSubtitle": "Altere a cor de fundo para preto verdadeiro no modo escuro.",
+  "@amoledSubtitle": {
+    "description": "Change background color to true black for dark mode."
+  },
+  "delete": "Apagar",
+  "@delete": {
+    "description": "delete"
+  },
+  "factoryResetDialog": "Redefinir o aplicativo para os padrões? Isso excluirá todas as configurações e medições adicionadas. Essa ação não pode ser desfeita.",
+  "@factoryResetDialog": {
+    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "ok"
+  },
+  "save": "Guardar",
+  "@save": {
+    "description": "save"
+  },
+  "tpl": "Licenças de terceiros",
+  "@tpl": {
+    "description": "third-party licences"
+  },
+  "licence": "Licença",
+  "@licence": {
+    "description": "licence"
+  },
+  "sourcecode": "Código fonte",
+  "@sourcecode": {
+    "description": "source code"
+  },
+  "faq_q2": "Posso ver novamente a tela de introdução/integração?",
+  "@faq_q2": {
+    "description": "Can I see once again the intro/onboarding screen?"
+  },
+  "addHeight": "Digite sua altura",
+  "@addHeight": {
+    "description": "Enter your height"
+  },
+  "faq_q4": "Posso inserir uma meta de peso abaixo de 50 kg / 110 lb / 7,9 st?",
+  "@faq_q4": {
+    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+  },
+  "addWeight": "Insira seu peso",
+  "@addWeight": {
+    "description": "Enter your weight"
+  },
+  "undertpl": "© {years} por {author} sob licença {licence}",
+  "@undertpl": {
+    "description": "String to show third-party license.",
+    "placeholders": {
+      "years": {
+        "type": "String",
+        "example": "2019"
+      },
+      "author": {
+        "type": "String",
+        "example": "Linux foundation"
+      },
+      "licence": {
+        "type": "String",
+        "example": "MIT"
+      }
+    }
+  },
+  "soft": "Suave",
+  "@soft": {
+    "description": "soft interpolation"
+  },
+  "medium": "Média",
+  "@medium": {
+    "description": "medium interpolation"
+  },
+  "interpolation": "Interpolação",
+  "@interpolation": {
+    "description": "interpolation"
+  },
+  "none": "Nenhuma",
+  "@none": {
+    "description": "no interpolation"
+  },
+  "gainWeight": "Ganhar peso",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
+  },
+  "factoryResetSubtitle": "Redefina todas as configurações e exclua todas as medições.",
+  "@factoryResetSubtitle": {
+    "description": "Reset all settings and delete all measurements."
+  },
+  "importingAbort": "Importação abortada.",
+  "@importingAbort": {
+    "description": "Import aborted."
+  },
+  "backup": "Cópia de segurança",
+  "@backup": {
+    "description": "backup"
+  },
+  "time": "Hora",
+  "@time": {
+    "description": "time"
+  },
+  "importDialog": "Incluir todas as medições no banco de dados atual. Isso não pode ser desfeito!",
+  "@importDialog": {
+    "description": "Include all measurements to the current database. This can not be undone!"
+  },
+  "home": "Início",
+  "@home": {
+    "description": "home screen"
+  },
+  "edit": "Editar",
+  "@edit": {
+    "description": "edit"
+  },
+  "assets": "Recursos",
+  "@assets": {
+    "description": "assets"
+  },
+  "packages": "Pacotes",
+  "@packages": {
+    "description": "packages"
+  },
+  "loading": "Carregando",
+  "@loading": {
+    "description": "loading"
+  },
+  "measurements": "Medições",
+  "@measurements": {
+    "description": "measurements"
+  },
+  "version": "Versão",
+  "@version": {
+    "description": "version"
+  },
+  "openIssue": "Criar issue",
+  "@openIssue": {
+    "description": "open issue"
+  },
+  "strength": "força",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "strong": "Forte",
+  "@strong": {
+    "description": "strong interpolation"
+  },
+  "welcome": "Bem-vindo",
+  "@welcome": {
+    "description": "welcome"
+  },
+  "onBoarding2": "Escolha um entre seis temas para personalizar seu aplicativo. Qual deles expressa melhor seus sentimentos?",
+  "@onBoarding2": {
+    "description": "Text of 2nd onBoarding screen."
+  },
+  "onBoarding2Title": "Estilo",
+  "@onBoarding2Title": {
+    "description": "Title of 2nd onBoarding screen."
+  },
+  "startApp": "Começar",
+  "@startApp": {
+    "description": "Press to start the app."
+  },
+  "targetWeight": "Peso alvo",
+  "@targetWeight": {
+    "description": "Your target weight."
+  },
+  "targetWeightMotivation": "Definir uma meta de peso é muito importante e um passo na direção certa. Ter uma meta em mente motiva você a se esforçar mais para alcançá-la.",
+  "@targetWeightMotivation": {
+    "description": "Explanation to clarify the importance of a target weight."
+  },
+  "targetWeightShort": "Meta",
+  "@targetWeightShort": {
+    "description": "Short label to show for indicating target weight in line chart."
+  },
+  "addUserName": "Como devemos chamá-lo?",
+  "@addUserName": {
+    "description": "How shall we call you?"
+  },
+  "intro2": "para começar",
+  "@intro2": {
+    "description": "End of 'press + to get started'"
+  },
+  "intro3": "Hoje é um bom dia para começar com sua primeira medição!",
+  "@intro3": {
+    "description": "Text shown on statsOverview in case of no measurements"
+  },
+  "faq_q1": "O recurso/função X está ausente. Quando será implementado?",
+  "@faq_q1": {
+    "description": "The feature/function X is missing. When will it be implemented?"
+  },
+  "faq_a2": "Sim, com certeza! Basta clicar no ícone abaixo.",
+  "@faq_a2": {
+    "description": "Yes for sure! Simple press the icon below."
+  },
+  "faq_a1": "O aplicativo é mantido em nosso tempo livre e tentamos mantê-lo elegante e simples. Acreditamos que adicionar muitos recursos torna o aplicativo menos utilizável. Se você acha que estamos esquecendo de algum recurso importante, sinta-se à vontade para abrir um problema ou uma solicitação de mesclagem.",
+  "@faq_a1": {
+    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+  },
+  "faq_q3": "O que o ícone do aplicativo está mostrando?",
+  "@faq_q3": {
+    "description": "What is the app icon showing?"
+  },
+  "faq_a2_widget": "Voltar para a tela de introdução",
+  "@faq_a2_widget": {
+    "description": "Return to onboarding screen"
+  },
+  "faq_a3": "Um lobo uivando sentado, com o rabo parcialmente escondido pela letra 't' e pela letra 'r'.",
+  "@faq_a3": {
+    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+  },
+  "totalChange": "mudança total",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "timeSinceFirstMeasurement": "tempo desde a primeira medição",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "targetWeightReached": "você atingiu sua meta de peso!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "maxStreak": "maior sequência",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "targetWeightReachedIn": "restante para atingir a meta de peso",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "change": "mudar",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "target_weight_warning": "A anorexia é uma doença grave que vem se tornando um problema cada vez maior para a sociedade como um todo, em parte devido aos muitos exemplos negativos nas redes sociais. Para apoiar os esforços de prevenção, não permitimos pesos-alvo abaixo de 50 kg / 110 lb / 7,9 st e IMC abaixo de 18,5.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
+  },
+  "onBoarding1": "Este aplicativo simplista, desenvolvido com Material-You ajuda você a atingir o peso dos seus sonhos! Seja para ganhar peso, perder peso ou simplesmente manter o seu peso: previsões de peso confiáveis e estatísticas versáteis ajudam você a se manter no caminho certo.\n\nJunte-se à nossa comunidade hoje mesmo para se monitorar.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+  "@onBoarding1": {
+    "description": "Text of 1st onBoarding screen."
+  },
+  "onBoarding3": "Obrigado por experimentar nosso aplicativo. 🙂\n\n Se você gostar do aplicativo, ficaremos muito felizes com seu feedback, uma contribuição no GitHub ou um café. Em troca, poupamos você de anúncios irritantes e prejudiciais à privacidade.",
+  "@onBoarding3": {
+    "description": "Text of 3rd onBoarding screen."
+  },
+  "measurementFrequency": "frequência de medição",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "currentStreak": "sequência atual",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "faqtext": "Aqui você encontra respostas para algumas das perguntas mais frequentes. Se tiver outras dúvidas, sinta-se à vontade para abrir uma issue no repositório do GitHub.",
+  "@faqtext": {
+    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+  },
+  "faq_a4": "Sim, informando sua altura.\n\nA anorexia é uma doença grave que vem se tornando um problema cada vez maior para a sociedade como um todo, em parte devido aos muitos exemplos negativos nas redes sociais. Para apoiar os esforços de prevenção, não permitimos pesos-alvo abaixo de 50 kg / 110 lb / 7,9 st. Ao informar sua altura, podemos calcular um peso-alvo mínimo correspondente a um IMC de 18,5.",
+  "@faq_a4": {
+    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+  },
+  "mean": "média",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "highContrast": "Alto contraste",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
+  },
+  "yes": "Sim",
+  "@yes": {
+    "description": "yes"
+  },
+  "skip": "Pular",
+  "@skip": {
+    "description": "Skip onboarding screen."
+  },
+  "onBoarding3Title": "Privacidade",
+  "@onBoarding3Title": {
+    "description": "Title of 3rd onBoarding screen."
+  },
+  "addTargetWeight": "Adicionar meta de peso",
+  "@addTargetWeight": {
+    "description": "Press to add a target weight."
+  },
+  "intro1": "Pressionar",
+  "@intro1": {
+    "description": "Start of 'press + to get started'"
+  },
+  "min": "min.",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "factoryReset": "Redefinição de fábrica",
+  "@factoryReset": {
+    "description": "Factory reset app."
+  },
+  "importSubtitle": "Importar medições do arquivo de backup .txt.",
+  "@importSubtitle": {
+    "description": "Import measurements from txt backup file."
+  },
+  "reset": "Redefinir aplicação",
+  "@reset": {
+    "description": "Factory reset app."
+  },
+  "max": "máx.",
+  "@max": {
+    "description": "Shorthand for maximum."
   }
 }

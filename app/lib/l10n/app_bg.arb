@@ -476,5 +476,9 @@
   "faq_a4": "Да, след предоставяне на височината ви.\n\nАнорексията е сериозно заболяване, което се превръща в проблем за обществото, отчасти поради множеството отрицателни примери в социалните медии. За да подкрепим усилията за предотвратяване ѝ, в приложението не е възможно да изберете желано тегло под 50 кг и индекс на телесна маса под 18.5.",
   "@faq_a4": {
     "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+  },
+  "highContrast": "Висок контраст",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
   }
 }

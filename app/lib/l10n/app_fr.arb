@@ -444,5 +444,41 @@
   "firstDay": "Premier jour",
   "@firstDay": {
     "description": "First displayed day of the week"
+  },
+  "addHeight": "Entrez votre taille",
+  "@addHeight": {
+    "description": "Enter your height"
+  },
+  "faq_q4": "Puis-je renseigner un poids inférieur à 50kg / 110 lb / 7,9 st ?",
+  "@faq_q4": {
+    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+  },
+  "gainWeight": "gagner du poids",
+  "@gainWeight": {
+    "description": "Gain weight switch label."
+  },
+  "strength": "force",
+  "@strength": {
+    "description": "interpolation strength"
+  },
+  "highContrast": "Contraste élevé",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
+  },
+  "looseWeightSubtitle": "changer entre perdre du poids ou gagner du poids.",
+  "@looseWeightSubtitle": {
+    "description": "Switching between loosing or gaining weight."
+  },
+  "faq_a4": "Oui, en renseignant votre taille.\n\nL'anorexie est une maladie grave qui est en train de devenir un problème d'ensemble pour la société, en partie à cause des mauvais exemples sur les réseaux sociaux. C'est pourquoi, à des fins de prévention, nous n'autorisons pas de poids cible inférieur à 50 kg / 110 lb / 7,9 st. Renseigner votre taille nous permets de calculer un poids cible minimal correspondant à un IMC de 18,5.",
+  "@faq_a4": {
+    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+  },
+  "experimentalFeatures": "fonctionnalités expérimentales",
+  "@experimentalFeatures": {
+    "description": "Label for experimental features section"
+  },
+  "looseWeight": "perdre du poids",
+  "@looseWeight": {
+    "description": "Loose weight switch label."
   }
 }

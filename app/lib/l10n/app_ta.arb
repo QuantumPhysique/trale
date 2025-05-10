@@ -135,7 +135,7 @@
   "@backupReminder": {
     "description": "Please remember to back up your data regularly."
   },
-  "backupReminderButton": "காப்புப்பிரதி",
+  "backupReminderButton": "காப்புப் பிரதி",
   "@backupReminderButton": {
     "description": "Back up now"
   },
@@ -433,7 +433,7 @@
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
-  "target_weight_warning": "அனோரெக்சியா என்பது ஒரு கடுமையான நோயாகும், இது ஒட்டுமொத்தமாக சமூகத்திற்கு ஒரு பிரச்சினையாக மாறி வருகிறது, ஓரளவு சமூக ஊடகங்களில் பல எதிர்மறையான எடுத்துக்காட்டுகள் காரணமாக. தடுப்புக்கான எங்கள் பங்களிப்பின் ஒரு பகுதியாக, 50 கிலோ / 110 எல்பி / 7.9 எச்.டி.க்கு குறைவான இலக்கு எடை எதுவும் சாத்தியமில்லை.",
+  "target_weight_warning": "அனோரெக்ஸியா என்பது ஒரு தீவிர நோயாகும், இது ஒட்டுமொத்த சமூகத்திற்கும் அதிகரித்து வரும் ஒரு பிரச்சனையாக மாறி வருகிறது, இதற்குச் சமூக ஊடகங்களில் உள்ள பல எதிர்மறை உதாரணங்கள் ஓரளவு காரணமாகும். தடுப்பு முயற்சிகளை ஆதரிக்க, 50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப்களுக்குக் குறைவான இலக்கு எடைகள் மற்றும் 18.5 க்குக் குறைவான பிஎம்ஐ ஆகியவற்றை நாங்கள் அனுமதிப்பதில்லை.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
   },
@@ -464,5 +464,21 @@
   "targetWeightReached": "உங்கள் இலக்கு எடையை அடைந்தீர்கள்!",
   "@targetWeightReached": {
     "description": "Message shown when the user reached their target weight."
+  },
+  "addHeight": "உங்கள் உயரத்தை உள்ளிடவும்",
+  "@addHeight": {
+    "description": "Enter your height"
+  },
+  "faq_q4": "50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப் எடைக்குக் குறைவான இலக்கு எடையை நான் உள்ளிடலாமா?",
+  "@faq_q4": {
+    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+  },
+  "faq_a4": "ஆம், உங்கள் உயரத்தை வழங்குவதன் மூலம்.\n\nஅனோரெக்ஸியா என்பது ஒரு தீவிர நோயாகும், இது ஒட்டுமொத்த சமூகத்திற்கும் ஒரு பிரச்சனையாக மாறி வருகிறது, இதற்குச் சமூக ஊடகங்களில் உள்ள பல எதிர்மறை உதாரணங்கள் ஒரு காரணம். தடுப்பு முயற்சிகளை ஆதரிக்க, 50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப்களுக்குக் குறைவான இலக்கு எடைகளை நாங்கள் அனுமதிப்பதில்லை. உங்கள் உயரத்தை உள்ளிடுவது 18.5 பிஎம்ஐக்கு ஒத்த குறைந்தபட்ச இலக்கு எடையைக் கணக்கிட அனுமதிக்கிறது.",
+  "@faq_a4": {
+    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+  },
+  "highContrast": "அதிக மாறுபாடு",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
   }
 }
