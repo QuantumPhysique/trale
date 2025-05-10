@@ -44,6 +44,7 @@ class Language {
     'pl': 'Język polski',
     'pt': 'Português',
     'ru': 'Русский',
+    'sk': 'Slovenčina',
     'sl': 'Slovenščina',
     'ta': 'தமிழ்',
     'tr': 'Türkçe',
