@@ -17,6 +17,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Thx to the community, many translations have been improved 🎉
 - Improved material you design
 
+### Other changes:
+- Using the latest flutter 3.29.3 with upgraded deps
+
 
 ## [0.11.0] - 2025-03-30
 ### Added Features and Improvements 🙌:
