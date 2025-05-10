@@ -366,17 +366,12 @@ class _About extends State<About> {
       );
     }
 
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: SafeArea(
-        child: Scaffold(
-            body:  NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool _) {
-                return <Widget>[appBar()];
-              },
-              body: aboutList(),
-            ),
-        ),
+    return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool _) {
+          return <Widget>[appBar()];
+        },
+        body: aboutList(),
       ),
     );
   }

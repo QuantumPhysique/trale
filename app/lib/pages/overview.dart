@@ -121,10 +121,10 @@ class _OverviewScreen extends State<OverviewScreen> {
       stream: database.streamController.stream,
       builder: (
           BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-          ) => SafeArea(
+      ) => SafeArea(
         key: key,
-        child: overviewScreenWrapper(context, snapshot)
-        )
+        child: overviewScreenWrapper(context, snapshot),
+      )
     );
   }
 }

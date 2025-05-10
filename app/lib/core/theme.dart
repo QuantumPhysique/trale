@@ -128,7 +128,9 @@ class TraleTheme {
 
   /// get elevated shade of clr
   Color colorOfElevation(double elevation, Color clr) => Color.alphaBlend(
-    getFontColor(clr).withOpacity(overlayOpacity(elevation)), clr,
+    getFontColor(clr).withValues(
+        alpha: overlayOpacity(elevation)
+    ), clr,
   );
   /// 24 elevation shade of bg
   Color get bgShade1 => bgElevated(24);
@@ -196,6 +198,10 @@ class TraleTheme {
       year2023: false,
     );
 
+    const CardThemeData cardTheme = CardThemeData(
+      shadowColor: Colors.transparent,
+    );
+
     const ProgressIndicatorThemeData progressIndicatorTheme =
       ProgressIndicatorThemeData(year2023: false);
 
@@ -207,6 +213,7 @@ class TraleTheme {
     ).copyWith(
       listTileTheme: listTileThemeData,
       sliderTheme: sliderTheme,
+      cardTheme: cardTheme,
       progressIndicatorTheme: progressIndicatorTheme,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: <TargetPlatform, PageTransitionsBuilder>{

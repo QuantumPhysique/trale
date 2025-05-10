@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Improved material you design
 
 
 ## [0.11.0] - 2025-03-30

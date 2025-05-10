@@ -180,7 +180,7 @@ class _TotalWeightList extends State<TotalWeightList>{
     };
 
     return CustomScrollView(
-      controller: widget.scrollController,
+      physics: const NeverScrollableScrollPhysics(),
       cacheExtent: 2 * MediaQuery.of(context).size.height,
       slivers: <Widget>[
         ...<Widget>[
@@ -202,7 +202,7 @@ class _TotalWeightList extends State<TotalWeightList>{
               ),
               SliverToBoxAdapter(
                 child: SizedBox(
-                  height: 2 * TraleTheme.of(context)!.padding,
+                  height: TraleTheme.of(context)!.padding,
                 ),
               ),
             ],
@@ -218,11 +218,7 @@ Widget getYearWidget({required BuildContext context,
   required String year,
   int? delayInMilliseconds}) {
   return Padding(
-    padding: EdgeInsets.only(
-      bottom: TraleTheme.of(context)!.padding,
-      left: TraleTheme.of(context)!.padding,
-      right: TraleTheme.of(context)!.padding,
-    ),
+    padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
     child: StatCard(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       delayInMilliseconds: delayInMilliseconds,

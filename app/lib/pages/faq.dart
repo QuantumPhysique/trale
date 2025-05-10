@@ -188,17 +188,12 @@ class _FAQ extends State<FAQ> {
       );
     }
 
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: SafeArea(
-        child: Scaffold(
-            body:  NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool _) {
-                return <Widget>[appBar()];
-              },
-              body: faqList(),
-            ),
-        ),
+    return Scaffold(
+      body:  NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool _) {
+          return <Widget>[appBar()];
+        },
+        body: faqList(),
       ),
     );
   }

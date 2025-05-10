@@ -524,135 +524,154 @@ class InterpolationSetting extends StatelessWidget {
 }
 
 /// ListTile for changing interpolation settings
-class ThemeSelection extends StatelessWidget {
+class ThemeSelection extends StatefulWidget {
   /// constructor
   const ThemeSelection({super.key});
 
   @override
+  State<ThemeSelection> createState() => _ThemeSelectionState();
+}
+
+class _ThemeSelectionState extends State<ThemeSelection> {
+  late final CarouselController _carouselController;
+  bool loadedFirst = true;
+
+  @override
+  void dispose() {
+    _carouselController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (loadedFirst) {
+      loadedFirst = false;
+      final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+      if (!Provider.of<TraleNotifier>(context).systemColorsAvailable) {
+        cthemes.remove(TraleCustomTheme.system);
+      }
+      final int idx = cthemes.indexWhere(
+            (TraleCustomTheme theme) =>
+        theme == Provider.of<TraleNotifier>(context).theme,
+      );
+
+      // last two cannot be selected, so cap idx
+      _carouselController = CarouselController(
+        initialItem: idx < cthemes.length - 3 ? idx : cthemes.length - 3,
+      );
+    }
+
     /// Used to adjust themeMode to dark or light
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
     final bool isDark = traleNotifier.themeMode == ThemeMode.dark ||
         (traleNotifier.themeMode == ThemeMode.system &&
             Theme.of(context).brightness == Brightness.dark);
 
-    return ListView.builder(
-        physics: const ClampingScrollPhysics(),
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: TraleCustomTheme.values.length,
-        itemBuilder: (BuildContext context, int index) {
-          final TraleCustomTheme ctheme = TraleCustomTheme.values[index];
-          if (!traleNotifier.systemColorsAvailable &&
-              ctheme == TraleCustomTheme.system) {
-            return const SizedBox.shrink();
-          }
-          return GestureDetector(
-            onTap: () {
-              traleNotifier.theme = TraleCustomTheme.values[index];
-            },
+    Widget themePreview(BuildContext context, TraleCustomTheme ctheme) {
+      return Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius:
+            TraleTheme.of(context)!.borderShape.borderRadius,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            color: (
+                isDark
+                  ? traleNotifier.isAmoled
+                    ? ctheme.dark(context).amoled
+                    : ctheme.dark(context)
+                  : ctheme.light(context)
+            ).themeData.colorScheme.surface,
+          ),
+          //width: 0.3 * MediaQuery.of(context).size.width,
+          margin: EdgeInsets.all(0.5 * TraleTheme.of(context)!.padding),
+          child: Container(
+            margin: EdgeInsets.all(
+                0.04 * MediaQuery.of(context).size.width),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          TraleTheme.of(context)!.borderShape.borderRadius,
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                      color: (isDark
-                              ? traleNotifier.isAmoled
-                                  ? ctheme.dark(context).amoled
-                                  : ctheme.dark(context)
-                              : ctheme.light(context))
-                          .themeData
-                          .colorScheme
-                          .surface,
-                    ),
-                    width: 0.2 * MediaQuery.of(context).size.width,
-                    margin: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                    child: Container(
-                      margin: EdgeInsets.all(
-                          0.04 * MediaQuery.of(context).size.width),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          AutoSizeText(
-                            ctheme.name,
-                            style: isDark
-                                ? ctheme
-                                    .dark(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall
-                                : ctheme
-                                    .light(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall,
-                            maxLines: 1,
-                          ),
-                          Divider(
-                            height: 5,
-                            color: (isDark
-                                    ? ctheme.dark(context)
-                                    : ctheme.light(context))
-                                .themeData
-                                .colorScheme
-                                .onSurface,
-                          ),
-                          AutoSizeText(
-                            'wwwwwwwwww',
-                            style: isDark
-                                ? ctheme
-                                    .dark(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall
-                                : ctheme
-                                    .light(context)
-                                    .themeData
-                                    .textTheme
-                                    .labelSmall,
-                            maxLines: 2,
-                          ),
-                          const Spacer(),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: TraleTheme.of(context)!
-                                  .borderShape
-                                  .borderRadius,
-                              color: (isDark
-                                      ? ctheme.dark(context)
-                                      : ctheme.light(context))
-                                  .themeData
-                                  .colorScheme
-                                  .primary,
-                            ),
-                            height: 0.05 * MediaQuery.of(context).size.width,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                AutoSizeText(
+                  ctheme.name,
+                  style: (
+                      isDark ? ctheme.dark(context): ctheme.light(context)
+                  ).themeData.textTheme.labelSmall,
+                  maxLines: 1,
                 ),
-                Radio<TraleCustomTheme>(
-                  value: TraleCustomTheme.values[index],
-                  groupValue: traleNotifier.theme,
-                  onChanged: (TraleCustomTheme? theme) {
-                    if (theme != null) {
-                      traleNotifier.theme = theme;
-                    }
-                  },
+                Divider(
+                  height: 5,
+                  color: (
+                      isDark ? ctheme.dark(context) : ctheme.light(context)
+                  ).themeData.colorScheme.onSurface,
+                ),
+                AutoSizeText(
+                  'wwwwwwwwww',
+                  style: (
+                      isDark ? ctheme.dark(context): ctheme.light(context)
+                  ).themeData.textTheme.labelSmall,
+                  maxLines: 2,
+                ),
+                const Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: TraleTheme.of(context)!
+                        .borderShape
+                        .borderRadius,
+                    color: (
+                        isDark ? ctheme.dark(context): ctheme.light(context)
+                    ).themeData.colorScheme.primary,
+                  ),
+                  height: 0.05 * MediaQuery.of(context).size.width,
                 ),
               ],
             ),
+          ),
+        ),
+      );
+    }
+
+    final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+    if (!traleNotifier.systemColorsAvailable) {
+      cthemes.remove(TraleCustomTheme.system);
+    }
+
+    return CarouselView.weighted(
+      controller: _carouselController,
+      scrollDirection: Axis.horizontal,
+      flexWeights: const <int>[1, 3, 3, 3, 1],
+      padding: EdgeInsets.zero,
+      itemSnapping: true,
+      backgroundColor: Colors.transparent,
+      onTap: (int index) {
+        final TraleCustomTheme ctheme = cthemes[index];
+        traleNotifier.theme = ctheme;
+      },
+      children: List<Widget>.generate(
+        cthemes.length,
+        (int index) {
+          final TraleCustomTheme ctheme = cthemes[index];
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              themePreview(context, ctheme),
+              SizedBox(
+                height: 40,
+                child: FittedBox(
+                  child: Radio<TraleCustomTheme>(
+                    value: cthemes[index],
+                    groupValue: traleNotifier.theme,
+                    onChanged: (TraleCustomTheme? theme) {},
+                  ),
+                ),
+              ),
+            ],
           );
-        });
+        },
+      ),
+    );
   }
 }
 
@@ -900,17 +919,12 @@ class _Settings extends State<Settings> {
       );
     }
 
-    return Container(
-      color: Theme.of(context).colorScheme.surface,
-      child: SafeArea(
-        child: Scaffold(
-          body: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool _) {
-              return <Widget>[appBar()];
-            },
-            body: settingsList(),
-          ),
-        ),
+    return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool _) {
+          return <Widget>[appBar()];
+        },
+        body: settingsList(),
       ),
     );
   }
