@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+
+## [0.11.1] - 2025-05-10
 ### Added Features and Improvements 🙌:
 - Thx to the community, many translations have been improved 🎉
 - Improved material you design
@@ -305,7 +308,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.11.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.11.1...main
+[0.11.1]: https://github.com/quantumphysique/trale/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/quantumphysique/trale/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/quantumphysique/trale/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/quantumphysique/trale/compare/v0.9.3...v0.10.0

@@ -1,0 +1,3 @@
+- Dank der Community wurden viele Übersetzungen verbessert 🎉
+- Verbessertes Material You Design
+- Aktualisierung von Flutter und einigen Abhängigkeiten
