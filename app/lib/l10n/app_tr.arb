@@ -281,7 +281,7 @@
   "@faq_a1": {
     "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
   },
-  "target_weight_warning": "Anoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önlemeye yönelik katkımızın bir parçası olarak, 50 kg'nin altında hedef ağırlık mümkün değildir.",
+  "target_weight_warning": "Anoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önleme çabalarını desteklemek için, 50 kg / 110 lb / 7,9 st altındaki hedef ağırlıklara ve 18,5'in altındaki BMI'lere izin vermiyoruz.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
   },
@@ -464,5 +464,21 @@
   "looseWeight": "Kilo ver",
   "@looseWeight": {
     "description": "Loose weight switch label."
+  },
+  "addHeight": "Boyunuzu girin",
+  "@addHeight": {
+    "description": "Enter your height"
+  },
+  "faq_q4": "50kg / 110 lb / 7.9 st altında bir hedef ağırlık girebilir miyim?",
+  "@faq_q4": {
+    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+  },
+  "faq_a4": "Evet, boyunuzu belirterek.\n\nAnoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önleme çabalarını desteklemek için, 50 kg / 110 lb / 7,9 st altındaki hedef ağırlıklara izin vermiyoruz. Boyunuzu girmeniz, 18,5 BMI'ye karşılık gelen minimum hedef ağırlığı hesaplamamıza olanak tanır.",
+  "@faq_a4": {
+    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+  },
+  "highContrast": "Yüksek kontrast",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
   }
 }
