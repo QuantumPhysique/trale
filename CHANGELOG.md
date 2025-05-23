@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Improve change icon on measurement screen, #263
 
 
 ## [0.11.1] - 2025-05-10
