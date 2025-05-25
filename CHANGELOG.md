@@ -13,12 +13,36 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Improve change icon on measurement screen, #263
+
+
+## [0.11.1] - 2025-05-10
 ### Added Features and Improvements 🙌:
+- Thx to the community, many translations have been improved 🎉
+- Improved material you design
+
+### Other changes:
+- Using the latest flutter 3.29.3 with upgraded deps
+
+
+## [0.11.0] - 2025-03-30
+### Added Features and Improvements 🙌:
+- ஹலோ வேர்ல்ட்! Thx to the community, the app is now available in Tamil 🎉
 - Use predictive back gesture
 - Incorporate user height to calculate BMI-based minimum target weight, replacing the predefined value.
+- Added experimental high contrast mode
+
+### Other changes:
+- Update translations
+- Minor improvements
 
 ### Bugfix 🐛:
 - Fix system color scheme for monochrome colors, #236
+- Fix using wrong font color in some places
+- Fix target label overlapping with line
+- Fix returning achieving goal in 0 days
+
 
 ## [0.10.1] - 2025-03-03
 ### Bugfix 🐛:
@@ -286,7 +310,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.10.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.11.1...main
+[0.11.1]: https://github.com/quantumphysique/trale/compare/v0.11.0...v0.11.1
+[0.11.0]: https://github.com/quantumphysique/trale/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/quantumphysique/trale/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/quantumphysique/trale/compare/v0.9.3...v0.10.0
 [0.9.3]: https://github.com/quantumphysique/trale/compare/v0.9.2...v0.9.3

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/measurementStats.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/statsWidgetsList.dart';
 
@@ -21,14 +20,12 @@ class _StatsScreen extends State<StatsScreen> {
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
-    final MeasurementStats stats = MeasurementStats();
-
 
     Widget statsScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
 
       return CustomScrollView(
-        controller: scrollController,
+        physics: const NeverScrollableScrollPhysics(),
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: const <Widget>[
           SliverToBoxAdapter(
@@ -47,12 +44,11 @@ class _StatsScreen extends State<StatsScreen> {
           : defaultEmptyChart(context:context);
     }
 
-
     return StreamBuilder<List<Measurement>>(
-        stream: database.streamController.stream,
-        builder: (
-            BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-            ) => statsScreenWrapper(context, snapshot)
+      stream: database.streamController.stream,
+      builder: (
+        BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
+      ) => statsScreenWrapper(context, snapshot),
     );
 
   }

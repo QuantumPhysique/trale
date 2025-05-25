@@ -327,7 +327,7 @@ Future<bool> showTargetWeightDialog({
                 } else {
                   minWeight = 50;
                 }
-                if (currentSliderValue * notifier.unit.scaling > minWeight) {
+                if (currentSliderValue * notifier.unit.scaling < minWeight) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

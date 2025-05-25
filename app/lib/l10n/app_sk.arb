@@ -1,0 +1,48 @@
+{
+  "month": "mesiac",
+  "@month": {},
+  "weeks": "týždne",
+  "@weeks": {},
+  "year": "rok",
+  "@year": {},
+  "trale": "trale",
+  "@trale": {
+    "description": "Name of app: trale"
+  },
+  "stats": "štatistiky",
+  "@stats": {
+    "description": "Header for statistics section"
+  },
+  "years": "roky",
+  "@years": {},
+  "never": "nikdy",
+  "@never": {
+    "description": "Frequency of backup interval"
+  },
+  "settings": "Nastavenia",
+  "@settings": {
+    "description": "Name of settings menu"
+  },
+  "monthly": "mesačne",
+  "@monthly": {
+    "description": "Frequency of backup interval"
+  },
+  "days": "dni",
+  "@days": {},
+  "week": "týžden",
+  "@week": {},
+  "months": "mesiace",
+  "@months": {},
+  "date": "dátum",
+  "@date": {
+    "description": "Date"
+  },
+  "weight": "Váha",
+  "@weight": {
+    "description": "weight"
+  },
+  "weekly": "týždenne",
+  "@weekly": {
+    "description": "Frequency of backup interval"
+  }
+}

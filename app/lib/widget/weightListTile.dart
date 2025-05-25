@@ -227,7 +227,7 @@ class _WeightListTileState extends State<WeightListTile>
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding),
                         actionButton(
-                          PhosphorIconsRegular.lockSimpleOpen,
+                          PhosphorIconsRegular.pencilSimple,
                           TraleTheme.of(context)!.themeData.colorScheme
                               .onSecondaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme

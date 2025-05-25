@@ -43,3 +43,9 @@ dart run dart_code_metrics:metrics check-unused-files lib
 dart run dart_code_metrics:metrics check-unused-l10n lib
 dart run dart_code_metrics:metrics check-unused-code lib
 ```
+
+### Generate APKS
+```bash
+traleVersion="0.11.1"
+bundletool build-apks --bundle trale-${traleVersion}.aab --output trale-${traleVersion}.apks --ks ~/path/to/key.jks --ks-key-alias=key
+```

@@ -1,0 +1,5 @@
+- ஹலோ வேர்ல்ட்! Dank der Community ist die App jetzt auch in Tamil verfügbar 🎉.
+- Die App verwendet jetzt die predictive Backgesture
+- Die Körpergröße des Benutzers wird in die Berechnung des BMI-basierten Mindestzielgewichts einbezogen und ersetzt damit den vordefinierten Wert.
+- Experimenteller Kontrastmodus hinzugefügt
+- Aktualisierung der Übersetzungen, kleinere Verbesserungen und einige Fehlerkorrekturen

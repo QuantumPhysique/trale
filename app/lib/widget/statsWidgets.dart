@@ -53,17 +53,15 @@ class _StatsWidgetsState extends State<StatsWidgets> {
           children: <Widget>[
             AutoSizeText(
               '${notifier.unit.weightToString(utw)} in',
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
+              style: Theme.of(context).textTheme.bodySmall!
+                .onSecondaryContainer(context),
             ),
             AutoSizeText(
               timeOfTargetWeight == null
                 ? '--'
                 : timeOfTargetWeight.durationToString(context),
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge!
+                .onSecondaryContainer(context),
             ),
           ],
         ),
@@ -72,7 +70,6 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     Card userWeightLostCard() {
       final double deltaWeight = ip.finalSlope * 30;
-      const String label = 'month';
 
       return Card(
         shape: TraleTheme.of(context)!.borderShape,
@@ -87,32 +84,34 @@ class _StatsWidgetsState extends State<StatsWidgets> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AutoSizeText(
-                '${AppLocalizations.of(context)!.change} / $label',
-                style: Theme.of(context).textTheme.bodySmall,
+              '${AppLocalizations.of(context)!.change} / '
+                  '${AppLocalizations.of(context)!.month}',
+                style: Theme.of(context).textTheme.bodySmall!
+                  .onSecondaryContainer(context),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   AutoSizeText(
                     notifier.unit.weightToString(deltaWeight),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge!
+                      .onSecondaryContainer(context),
                   ),
                   const SizedBox(width: 5),
                   SizedBox(
                     height: sizeOfText(
                       text: '0',
                       context: context,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: Theme.of(context).
-                          colorScheme.onSecondaryContainer,
-                      ),
+                      style: Theme.of(context).textTheme.bodyLarge!
+                        .onSecondaryContainer(context),
                     ).height,
                     child: Transform.rotate(
                       // a change of 1kg / 30d corresponds to 45°
                       angle: -1 * atan(deltaWeight),
-                      child: const Icon( PhosphorIconsRegular.arrowRight),
+                      child: Icon(
+                          PhosphorIconsRegular.arrowRight,
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
                     ),
                   ),
                 ],
@@ -244,7 +243,7 @@ StatCard getFrequencyInTotal({required BuildContext context,
               child: Align(
                 alignment: Alignment.center,
                 child: AutoSizeText(
-                  stats.frequencyInTotal!.toStringAsFixed(2),
+                  (7 * stats.frequencyInTotal!).toStringAsFixed(2),
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
@@ -261,7 +260,8 @@ StatCard getFrequencyInTotal({required BuildContext context,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: AutoSizeText(
-                  '${AppLocalizations.of(context)!.measurementFrequency}\n(/ day)',
+                '${AppLocalizations.of(context)!.measurementFrequency}\n'
+                      '(/ ${AppLocalizations.of(context)!.week})',
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
@@ -301,7 +301,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
               child: AutoSizeText(
                 doubleToString(context, stats.deltaWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
                   fontWeight: FontWeight.w900,
                   fontSize: 200,
                 ),
@@ -316,7 +316,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
               child: AutoSizeText(
                 '${AppLocalizations.of(context)!.totalChange}\n($unit)',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
                   height: 1.0,
                 ),
                 maxLines: 2,
@@ -398,10 +398,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.change} ($unit)',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                fontWeight: FontWeight.w900,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge!.onSurface(context)
+                .copyWith(fontWeight: FontWeight.w900),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -414,10 +412,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.week}\n'
                 '${doubleToString(context, stats.deltaWeightLastWeek)}',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                height: 1.0,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
+                .copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -430,10 +426,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.month}\n'
                 '${doubleToString(context, stats.deltaWeightLastMonth)}',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                height: 1.0,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
+                .copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -446,10 +440,8 @@ StatCard getChangeRatesWidget({required BuildContext context,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.year}\n'
                 '${doubleToString(context, stats.deltaWeightLastYear)}',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
-                height: 1.0,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
+                .copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -480,9 +472,8 @@ Widget getMinWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 '${AppLocalizations.of(context)!.min} ($unit)',
-                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                   color: Theme.of(context).colorScheme.onSecondaryContainer,
-                 ),
+                 style: Theme.of(context).textTheme.bodyLarge!
+                   .onSurface(context),
                  maxLines: 1,
               ),
             ),
@@ -493,11 +484,11 @@ Widget getMinWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 doubleToString(context, stats.minWeight),
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 200,
-                  height: 0.70,
+                style: Theme.of(context).textTheme.bodyMedium!
+                  .onSurface(context).copyWith(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 200,
+                    height: 0.70,
                 ),
                 maxLines: 1,
               ),
@@ -528,8 +519,8 @@ Widget getMaxWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 doubleToString(context, stats.maxWeight),
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                style: Theme.of(context).textTheme.bodyMedium!
+                  .onSurface(context).copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 200,
                   height: 0.70,
@@ -544,9 +535,8 @@ Widget getMaxWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 '${AppLocalizations.of(context)!.max} ($unit)',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onSecondaryContainer,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge!
+                  .onSurface(context),
                 maxLines: 1,
               ),
             ),

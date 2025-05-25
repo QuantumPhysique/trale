@@ -186,7 +186,7 @@
   "@week": {},
   "months": "Monate",
   "@months": {},
-  "change": "ändern",
+  "change": "Änderung",
   "@change": {
     "description": "A short word describing a difference in numbers, i.e. the change of the weight"
   },
@@ -198,7 +198,7 @@
   "@mean": {
     "description": "The mathematical quantity (arithmetic mean)"
   },
-  "measurementFrequency": "Durchschnittlicher Messintervall",
+  "measurementFrequency": "Durchschnittliches Messintervall",
   "@measurementFrequency": {
     "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
   },
@@ -256,7 +256,7 @@
   "@min": {
     "description": "Shorthand for minimum."
   },
-  "targetWeightReached": "Du erreichst dein angestrbtes Ziel!",
+  "targetWeightReached": "Du hast dein Zielgewicht erreicht!",
   "@targetWeightReached": {
     "description": "Message shown when the user reached their target weight."
   },
