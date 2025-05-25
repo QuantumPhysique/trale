@@ -15,6 +15,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
 - Using the latest flutter 3.32 with upgraded deps
+- 
+### Other changes:
+- Improve change icon on measurement screen, #263
 
 
 ## [0.11.1] - 2025-05-10
