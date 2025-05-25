@@ -219,6 +219,20 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  DateTime? get userTargetWeightDate =>
+      prefs.userTargetWeightDate != null
+      ?  DateTime.fromMillisecondsSinceEpoch(prefs.userTargetWeightDate!)
+      :  null;
+
+  /// setter
+  set userTargetWeightDate(DateTime? newDate) {
+    if (newDate != null && userTargetWeightDate != newDate) {
+      prefs.userTargetWeightDate = newDate.millisecondsSinceEpoch;
+      notifyListeners();
+    }
+  }
+
   /// get user height in [m]
   double? get userHeight => prefs.userHeight;
 

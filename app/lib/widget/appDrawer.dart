@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/firstDay.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
@@ -80,6 +82,66 @@ NavigationDrawer appDrawer (
                 ?? Preferences().defaultUserWeight,
           );
           notifier.notify;
+        },
+      ),
+      ListTile(
+        dense: true,
+        leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
+        title: AutoSizeText(
+          notifier.userTargetWeightDate != null
+              ? '${notifier.userTargetWeightDate}'
+              : AppLocalizations.of(context)!.addTargetWeightDate,
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          maxLines: 1,
+        ),
+        onTap: () async {
+          print(notifier.userTargetWeightDate);
+          Navigator.of(context).pop();
+          DateTime? selectedDate;
+          if (notifier.firstDay == TraleFirstDay.Default) {
+            selectedDate = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now().add(const Duration(days: 28)),
+              firstDate: DateTime.now(),
+              lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
+            );
+          } else {
+            final List<DateTime?> selectedDates =
+                await showCalendarDatePicker2Dialog(
+                  context: context,
+                  config: CalendarDatePicker2WithActionButtonsConfig(
+                    calendarType: CalendarDatePicker2Type.single,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime.now().add(
+                      const Duration(days: 365 * 10)),
+                    firstDayOfWeek: notifier.firstDay.asDateTimeWeekday,
+                  ),
+                  dialogSize: Size(
+                    MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.85,
+                    MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.6,
+                  ),
+                  // see https://github.com/flutter/flutter/blob/2d17299f20f3eb164ef21bc80b8079ba293e5985/packages/flutter/lib/src/material/date_picker_theme.dart#L1117C59-L1117C98
+                  borderRadius: const BorderRadius.all(
+                      Radius.circular(28.0)),
+                  value: <DateTime?>[DateTime.now().add(
+                    const Duration(days: 28))],
+                ) ??
+                    <DateTime?>[];
+            selectedDate = selectedDates.firstOrNull;
+          }
+
+          if (selectedDate == null) {
+            return;
+          }
+          notifier.userTargetWeightDate =selectedDate;
         },
       ),
       ListTile(

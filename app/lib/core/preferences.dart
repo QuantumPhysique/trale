@@ -42,7 +42,10 @@ class Preferences {
   /// default for userTargetWeight in kg
   final double defaultUserTargetWeight = -1;
 
-  /// default for userTargetWeight in kg
+  /// default for when to reach userTargetWeight in millisecondsSinceEpoch
+  final int defaultUserTargetWeightDate = 0;
+
+  /// default for userTargetHeight in kg
   final double defaultUserWeight = 70;
 
   /// default for userHeight in m
@@ -123,6 +126,17 @@ class Preferences {
   /// get user target weight
   double? get userTargetWeight => prefs.getDouble('userTargetWeight')! > 0
       ? prefs.getDouble('userTargetWeight')!
+      : null;
+
+  /// set date for when to reaching the user target weight
+  set userTargetWeightDate(int? date) => prefs.setInt(
+    'userTargetWeightDate',
+    date ?? 0,
+  );
+
+  /// get user target weight date
+  int? get userTargetWeightDate => prefs.getInt('userTargetWeightDate')! > 0
+      ? prefs.getInt('userTargetWeightDate')!
       : null;
 
   /// set if onboarding screen is shown
@@ -287,6 +301,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('userTargetWeight')) {
       userTargetWeight = defaultUserTargetWeight;
+    }
+    if (override || !prefs.containsKey('userTargetWeightDate')) {
+      userTargetWeightDate = defaultUserTargetWeightDate;
     }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
