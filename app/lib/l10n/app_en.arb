@@ -374,6 +374,10 @@
   "@addTargetWeight": {
     "description": "Press to add a target weight."
   },
+  "addTargetWeightDate": "Target date",
+  "@addTargetWeightDate": {
+    "description": "Label for the date when the user wants to reach their target weight."
+  },
   "intro1": "Press",
   "@intro1": {
     "description": "Start of 'press + to get started'"

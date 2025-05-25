@@ -12,6 +12,8 @@
   "@addWeight": {},
   "addTargetWeight": "Zielgewicht hinzufügen",
   "@addTargetWeight": {},
+  "addTargetWeightDate": "Zieldatum",
+  "@addTargetWeightDate": {},
   "addUserName": "Wie sollen wir dich nennen?",
   "@addUserName": {},
   "amoled": "Schwarz",
