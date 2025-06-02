@@ -153,7 +153,7 @@
   "@faq_q3": {
     "description": "What is the app icon showing?"
   },
-  "faq_a3": "Vlk který sedí na písmenu \"r\" a jeho ocas je částečně skrytý písmenem \"t\".",
+  "faq_a3": "Sedící vyjící vlk, jehož ocas je částečně zakryt písmenem „t“ a písmeno „r“.",
   "@faq_a3": {
     "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
   },
@@ -247,7 +247,7 @@
   "@openIssue": {
     "description": "open issue"
   },
-  "addWeight": "Zadejte svou váhu",
+  "addWeight": "Zadejte svou hmotnost",
   "@addWeight": {
     "description": "Enter your weight"
   },
@@ -279,7 +279,7 @@
   "@skip": {
     "description": "Skip onboarding screen."
   },
-  "targetWeightMotivation": "Stanovení cílové váhy je velmi důležité a je to krok správným směrem. Mít na mysli cíl Vás motivuje k tomu, abyste pro jeho dosažení udělali více.",
+  "targetWeightMotivation": "Stanovení cílové hmotnosti je velmi důležité a je to krok správným směrem. Mít na mysli cíl Vás motivuje k tomu, abyste pro jeho dosažení udělali více.",
   "@targetWeightMotivation": {
     "description": "Explanation to clarify the importance of a target weight."
   },
@@ -287,7 +287,7 @@
   "@addUserName": {
     "description": "How shall we call you?"
   },
-  "addTargetWeight": "Přidat cílovou váhu",
+  "addTargetWeight": "Přidat cílovou hmotnost",
   "@addTargetWeight": {
     "description": "Press to add a target weight."
   },
@@ -315,7 +315,7 @@
   "@startApp": {
     "description": "Press to start the app."
   },
-  "targetWeight": "Cílová váha",
+  "targetWeight": "Cílová hmotnost",
   "@targetWeight": {
     "description": "Your target weight."
   },
@@ -420,5 +420,65 @@
   "monthly": "měsíčně",
   "@monthly": {
     "description": "Frequency of backup interval"
+  },
+  "faq_q4": "Mohu zadat cílovou hmotnost nižší než 50 kg / 110 lb / 7.9 st?",
+  "@faq_q4": {
+    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+  },
+  "timeSinceFirstMeasurement": "doba od prvního měření",
+  "@timeSinceFirstMeasurement": {
+    "description": "A brief sentence describing the duration from the first measurement to the present"
+  },
+  "currentStreak": "aktuální série",
+  "@currentStreak": {
+    "description": "The current streak of measurements"
+  },
+  "max": "max.",
+  "@max": {
+    "description": "Shorthand for maximum."
+  },
+  "min": "min.",
+  "@min": {
+    "description": "Shorthand for minimum."
+  },
+  "mean": "průměr",
+  "@mean": {
+    "description": "The mathematical quantity (arithmetic mean)"
+  },
+  "change": "změna",
+  "@change": {
+    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+  },
+  "measurementFrequency": "frekvence měření",
+  "@measurementFrequency": {
+    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+  },
+  "targetWeightReachedIn": "zbývá dosáhnout cílové hmotnosti",
+  "@targetWeightReachedIn": {
+    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+  },
+  "maxStreak": "nejdelší série",
+  "@maxStreak": {
+    "description": "The longest streak of measurements"
+  },
+  "highContrast": "Vysoký kontrast",
+  "@highContrast": {
+    "description": "High contrast mode label (accessibility setting)."
+  },
+  "totalChange": "celková změna",
+  "@totalChange": {
+    "description": "The quantity describing the overall change of body weight"
+  },
+  "targetWeightReached": "dosáhli jste své cílové hmotnosti!",
+  "@targetWeightReached": {
+    "description": "Message shown when the user reached their target weight."
+  },
+  "faq_a4": "Ano, uvedením své výšky.\n\nAnorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost nižší než 50 kg / 110 lb / 7,9 st. Zadání vaší výšky nám umožní vypočítat minimální cílovou hmotnost odpovídající BMI 18,5.",
+  "@faq_a4": {
+    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+  },
+  "target_weight_warning": "Anorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost pod 50 kg / 110 lb / 7,9 st a BMI pod 18,5.",
+  "@target_weight_warning": {
+    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
   }
 }
