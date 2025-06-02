@@ -8,9 +8,9 @@
   "@experimentalFeatures": {
     "description": "Label for experimental features section"
   },
-  "looseWeight": "Loose weight",
+  "looseWeight": "Lose weight",
   "@looseWeight": {
-    "description": "Loose weight switch label."
+    "description": "Lose weight switch label (label name loose is a typo!)."
   },
   "gainWeight": "Gain weight",
   "@gainWeight": {
