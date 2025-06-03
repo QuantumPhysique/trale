@@ -461,7 +461,7 @@
   "@looseWeightSubtitle": {
     "description": "Switching between loosing or gaining weight."
   },
-  "gainWeight": "Напълняеане",
+  "gainWeight": "Напълняване",
   "@gainWeight": {
     "description": "Gain weight switch label."
   },
