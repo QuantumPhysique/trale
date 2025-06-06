@@ -28,7 +28,7 @@ class Language {
   String languageLong(BuildContext context) => <String, String>{
     systemDefault: AppLocalizations.of(context)!.defaultLang,
     'bg': 'български език',
-    'cs': 'Český Jazyk',
+    'cs': 'Čeština',
     'de': 'Deutsch',
     'en': 'English',
     'es': 'Español',
