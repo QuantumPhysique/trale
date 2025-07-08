@@ -86,28 +86,32 @@ NavigationDrawer appDrawer (
         dense: true,
         leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
         title: TextFormField(
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(
-                  RegExp(r'^[1-9][0-9]*'))],
-            decoration: InputDecoration.collapsed(
-              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              hintText: AppLocalizations.of(context)!.addHeight,
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(
+        RegExp(r'^[1-9][0-9]*'),
+            )
+          ],
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+        color: Theme.of(context).colorScheme.onSurface,
             ),
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            initialValue: notifier.userHeight != null
-                ? '${notifier.userHeight!.toInt()} cm'
-                : null,
-            onChanged: (String value) {
-              final double? newHeight = double.tryParse(value);
-              if (newHeight != null) {
-                notifier.userHeight = newHeight;
-              }
-            },
+            hintText: AppLocalizations.of(context)!.addHeight,
+            suffixText: 'cm',
+          ),
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          initialValue: notifier.userHeight != null
+        ? '${notifier.userHeight!.toInt()}'
+        : null,
+          onChanged: (String value) {
+            final double? newHeight = double.tryParse(value);
+            if (newHeight != null) {
+        notifier.userHeight = newHeight;
+            }
+          },
         ),
         onTap: () {},
       ),
