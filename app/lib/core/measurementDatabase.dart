@@ -187,6 +187,10 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   void init() {
     measurements;
     sortedMeasurements;
+
+    // update interpolation
+    MeasurementInterpolation().init();
+    MeasurementStats().init();
   }
 
   @override
