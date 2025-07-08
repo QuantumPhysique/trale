@@ -27,11 +27,11 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  auto_size_text: ^3.0.0
   dynamic_color: ^1.7.0
   file_picker: ^10.2.0
   file_saver: ^0.3.0
   fl_chart: ^1.0.0
+  flutter_auto_size_text: ^4.1.0
   flutter_svg: ^2.2.0
   font_awesome_flutter: ^10.8.0
   hive: ^2.2.3
