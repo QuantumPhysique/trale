@@ -362,7 +362,7 @@ Widget getMeanWidget({required BuildContext context,
         Expanded(
           flex: 1,
           child: Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.mean} ($unit)',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -374,6 +374,53 @@ Widget getMeanWidget({required BuildContext context,
             ),
           ),
         )
+      ]
+    ),
+  );
+}
+
+
+
+/// define StatCard for number of days until target weight is reached
+Widget getBMIWidget({
+    required BuildContext context,
+    required MeasurementStats stats,
+    int? delayInMilliseconds
+  }) {
+  return StatCard(
+    nx: 2,
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.bmi,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                height: 1.0,
+              ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              doubleToString(context, stats.currentBMI(context)),
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                fontWeight: FontWeight.w900,
+                fontSize: 200,
+              ),
+              maxLines: 1,
+            ),
+          ),
+        ),
       ]
     ),
   );

@@ -485,5 +485,7 @@
   "highContrast": "High contrast",
   "@highContrast": {
     "description": "High contrast mode label (accessibility setting)."
-  }
+  },
+  "bmi": "BMI",
+  "@bmi": {}
 }
