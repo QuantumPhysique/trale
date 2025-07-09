@@ -60,7 +60,7 @@ jobs:
           flutter build appbundle --release
           flutter build apk --split-per-abi --release
       - name: 🤖🚀 Upload to GitHub release
-        uses: AButler/upload-release-assets@v2.0
+        uses: AButler/upload-release-assets@v3.0
         with:
           files: 'app/build/app/outputs/flutter-apk/*;app/build/app/outputs/bundle/release/*'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
