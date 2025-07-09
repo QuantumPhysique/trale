@@ -219,10 +219,10 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
-  /// get user height in [m]
+  /// get user height in [cm]
   double? get userHeight => prefs.userHeight;
 
-  /// set user height in [m]
+  /// set user height in [cm]
   set userHeight(double? newHeight) {
     if (userHeight != newHeight) {
       prefs.userHeight = newHeight;

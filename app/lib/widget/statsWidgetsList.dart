@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/statsCards.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
@@ -26,6 +28,9 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
       return TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds
           * (1 + i / 3).round();
     }
+
+    final TraleNotifier notifier =
+        Provider.of<TraleNotifier>(context, listen: false);
 
     final Widget minMaxWidget = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,11 +137,16 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
         col234,
         minMaxWidget,
         getMeanWidget(
-            context: context,
-            stats: stats,
-            delayInMilliseconds: getDelayInMilliseconds(8)
+          context: context,
+          stats: stats,
+          delayInMilliseconds: getDelayInMilliseconds(8)
         ),
         streakAndFrequencyWidget,
+        if (notifier.userHeight != null)
+          getBMIWidget(
+            context: context,
+            stats: stats,
+            delayInMilliseconds: getDelayInMilliseconds(12)),
         SizedBox(height: TraleTheme.of(context)!.padding)
       ].addGap(
         padding: TraleTheme.of(context)!.padding,
