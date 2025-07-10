@@ -480,5 +480,7 @@
   "highContrast": "Väga kontrastne",
   "@highContrast": {
     "description": "High contrast mode label (accessibility setting)."
-  }
+  },
+  "bmi": "KMI/BMI",
+  "@bmi": {}
 }
