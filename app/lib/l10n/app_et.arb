@@ -159,7 +159,7 @@
   "@licence": {
     "description": "licence"
   },
-  "openIssue": "Ava veateade",
+  "openIssue": "Alusta veateate koostamist",
   "@openIssue": {
     "description": "open issue"
   },
@@ -480,5 +480,7 @@
   "highContrast": "Väga kontrastne",
   "@highContrast": {
     "description": "High contrast mode label (accessibility setting)."
-  }
+  },
+  "bmi": "KMI/BMI",
+  "@bmi": {}
 }
