@@ -480,5 +480,7 @@
   "highContrast": "Висок контраст",
   "@highContrast": {
     "description": "High contrast mode label (accessibility setting)."
-  }
+  },
+  "bmi": "ИТМ",
+  "@bmi": {}
 }
