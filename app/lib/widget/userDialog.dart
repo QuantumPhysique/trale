@@ -1,0 +1,162 @@
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+
+import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:trale/core/icons.dart';
+import 'package:trale/core/preferences.dart';
+import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/units.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/widget/addWeightDialog.dart';
+
+
+///
+Future<bool> showUserDialog({
+  required BuildContext context,
+}) async {
+  final TraleNotifier notifier =
+      Provider.of<TraleNotifier>(context, listen: false);
+
+
+  final Widget content = StatefulBuilder(
+    builder: (BuildContext context, StateSetter setState) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            dense: true,
+            leading: PPIcon( PhosphorIconsDuotone.user, context),
+            title: TextFormField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration.collapsed(
+                  hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  hintText: AppLocalizations.of(context)!.addUserName,
+                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                initialValue: notifier.userName,
+                onChanged: (String value) {
+                  notifier.userName = value;
+                }
+            ),
+            onTap: () {},
+          ),
+          ListTile(
+            dense: true,
+            leading: PPIcon(PhosphorIconsDuotone.target, context),
+            title: AutoSizeText(
+              notifier.userTargetWeight != null
+                  ? notifier.unit.weightToString(notifier.userTargetWeight!)
+                  : AppLocalizations.of(context)!.addTargetWeight,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              maxLines: 1,
+            ),
+            onTap: () async {
+              Navigator.of(context).pop();
+              await showTargetWeightDialog(
+                context: context,
+                weight: notifier.userTargetWeight
+                    ?? Preferences().defaultUserWeight,
+              );
+              notifier.notify;
+            },
+          ),
+          ListTile(
+            dense: true,
+            leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
+            title: TextFormField(
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(
+            RegExp(r'^[1-9][0-9]*'),
+                )
+              ],
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+                ),
+                hintText: AppLocalizations.of(context)!.addHeight,
+                suffixText: 'cm',
+              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              initialValue: notifier.userHeight != null
+            ? '${notifier.userHeight!.toInt()}'
+            : null,
+              onChanged: (String value) {
+                final double? newHeight = double.tryParse(value);
+                if (newHeight != null) {
+            notifier.userHeight = newHeight;
+                }
+              },
+            ),
+            onTap: () {},
+          ),
+        ],
+      );
+    },
+  );
+
+  final bool accepted = await showDialog<bool>(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: TraleTheme.of(context)!.borderShape,
+              backgroundColor: ElevationOverlay.colorWithOverlay(
+                Theme.of(context).colorScheme.surface,
+                Theme.of(context).colorScheme.primary,
+                3.0,
+              ),
+              elevation: 0,
+              contentPadding: EdgeInsets.only(
+                top: TraleTheme.of(context)!.padding,
+              ),
+              title: Center(
+                child: Text(
+                  AppLocalizations.of(context)!.targetWeight,
+                  style: Theme.of(context).textTheme.headlineSmall!.apply(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                  maxLines: 1,
+                ),
+              ),
+              content: content,
+              actions: actions(context, () {
+                Navigator.pop(context, true);
+              }),
+            );
+          }) ??
+      false;
+  return accepted;
+}
+
+///
+List<Widget> actions(BuildContext context, Function onPress,
+    {bool enabled = true}) {
+  return <Widget>[
+    TextButton(
+      onPressed: () => Navigator.pop(context, false),
+      child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: TraleTheme.of(context)!.padding / 2,
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
+          child: Text(AppLocalizations.of(context)!.abort,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ))),
+    ),
+  ];
+}

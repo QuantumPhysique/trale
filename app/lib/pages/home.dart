@@ -13,6 +13,7 @@ import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
+import 'package:trale/widget/userDialog.dart';
 
 
 /// home scaffold
@@ -152,7 +153,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
                 IconButton(
                   icon: PPIcon(PhosphorIconsDuotone.userCircle, context),
                   onPressed: () {
-                    // Add your onPressed logic here
+                    showUserDialog(context: context);
                   },
                 ),
               ],
