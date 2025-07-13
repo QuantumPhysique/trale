@@ -145,9 +145,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           return <Widget>[
             CustomSliverAppBar(
               leading: IconButton(
-                icon: const Icon(PhosphorIconsRegular.list),
+                icon: PPIcon(PhosphorIconsDuotone.gear, context),
                 onPressed: () => key.currentState!.openDrawer(),
               ),
+              actions: <Widget>[
+                IconButton(
+                  icon: PPIcon(PhosphorIconsDuotone.userCircle, context),
+                  onPressed: () {
+                    // Add your onPressed logic here
+                  },
+                ),
+              ],
             ),
           ];
         },
