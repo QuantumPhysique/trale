@@ -16,9 +16,9 @@
   "@gainWeight": {
     "description": "Gain weight switch label."
   },
-  "looseWeightSubtitle": "Switching between loosing or gaining weight.",
+  "looseWeightSubtitle": "Switching between losing or gaining weight.",
   "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
+    "description": "Switching between losing or gaining weight."
   },
   "days": "days",
   "@days": {},
