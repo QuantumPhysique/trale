@@ -480,5 +480,7 @@
   "target_weight_warning": "Anorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost pod 50 kg / 110 lb / 7,9 st a BMI pod 18,5.",
   "@target_weight_warning": {
     "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
-  }
+  },
+  "bmi": "BMI",
+  "@bmi": {}
 }
