@@ -27,10 +27,10 @@ class MeasurementInterpolationBaseclass {
   final Map<String, dynamic> _cache = {};
 
   MeasurementInterpolationBaseclass() {
-    _initPrefs();
+    initPrefs();
   }
 
-  Future<void> _initPrefs() async {
+  Future<void> initPrefs() async {
     _prefs = await SharedPreferences.getInstance();
     _loadAllCachedKeys();
     init();
@@ -76,14 +76,13 @@ class MeasurementInterpolationBaseclass {
 
   void reinit() {
     _cache.clear();
-    for (final key in [
+    <String>[
       'dateTimes',
       'times',
       'timesIdx',
       'times_measured',
       'weights_measured',
       'weights',
-      'isNoMeasurement',
       'isNotExtrapolated',
       'sigma',
       'weightsSmoothed',
@@ -91,9 +90,7 @@ class MeasurementInterpolationBaseclass {
       'weightsGaussianExtrapol',
       'weightsDisplay',
       'timesDisplay',
-    ]) {
-      _prefs.remove(key);
-    }
+    ].forEach((String key) => _prefs.remove(key));
     init();
   }
 
@@ -104,7 +101,6 @@ class MeasurementInterpolationBaseclass {
     times_measured;
     weights_measured;
     weights;
-    isNoMeasurement;
     isNotExtrapolated;
     sigma;
     weightsSmoothed;
@@ -156,13 +152,11 @@ class MeasurementInterpolationBaseclass {
   Vector get weights => _cached('weights', _createWeights);
 
   /// get vector containing 0 if measurement else 1
-  Vector get isNoMeasurement =>
-      _cached('isNoMeasurement', () => (isMeasurement - 1).abs());
+  Vector get isNoMeasurement => (isMeasurement - 1).abs();
 
   /// get vector containing 1 if values withing measurement range else 0
   Vector get isNotExtrapolated =>
-      _cached('isNotExtrapolated',
-              () => isExtrapolated.mapToVector((v) => v == 0 ? 1 : 0));
+    isExtrapolated.mapToVector((v) => v == 0 ? 1 : 0);
 
   /// get vector containing sigma depending if measurement or not [ms]
   Vector get sigma => _cached('sigma', () => (

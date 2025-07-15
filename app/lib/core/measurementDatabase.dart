@@ -167,7 +167,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   }
 
   /// re initialize database
-  void reinit() {
+  void reinit() async {
     _measurements = null;
     _sortedMeasurements = null;
 
@@ -175,6 +175,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     init();
 
     // update interpolation
+    await MeasurementInterpolation().initPrefs();
     MeasurementInterpolation().reinit();
     MeasurementStats().reinit();
 
@@ -184,13 +185,14 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   }
 
   /// initialize database
-  void init() {
+  void init() async {
     measurements;
     sortedMeasurements;
 
     // update interpolation
+    await MeasurementInterpolation().initPrefs();
     MeasurementInterpolation().init();
-    MeasurementStats().init();
+    MeasurementStats().reinit();
   }
 
   @override
