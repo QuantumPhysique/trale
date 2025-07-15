@@ -361,7 +361,7 @@
   "@gainWeight": {
     "description": "Gain weight switch label."
   },
-  "looseWeightSubtitle": "Přepínání mezi hubnutím a přibýváním na váze.",
+  "looseWeightSubtitle": "Přepínání mezi hubnutím a přibíráním na váze.",
   "@looseWeightSubtitle": {
     "description": "Switching between loosing or gaining weight."
   },
