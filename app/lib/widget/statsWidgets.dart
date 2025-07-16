@@ -299,7 +299,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.deltaWeight),
+                weightToString(context, stats.deltaWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   fontWeight: FontWeight.w900,
@@ -349,7 +349,7 @@ Widget getMeanWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.center,
             child: AutoSizeText(
-              doubleToString(context, stats.meanWeight),
+              weightToString(context, stats.meanWeight),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.w900,
@@ -412,7 +412,7 @@ Widget getBMIWidget({
           child: Align(
             alignment: Alignment.center,
             child: AutoSizeText(
-              doubleToString(context, stats.currentBMI(context)),
+              doubleToString(stats.currentBMI(context)),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 fontWeight: FontWeight.w900,
                 fontSize: 200,
@@ -458,7 +458,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.week}\n'
-                '${doubleToString(context, stats.deltaWeightLastWeek)}',
+                '${weightToString(context, stats.deltaWeightLastWeek)}',
               style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
                 .copyWith(height: 1.0),
               maxLines: 2,
@@ -472,7 +472,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.month}\n'
-                '${doubleToString(context, stats.deltaWeightLastMonth)}',
+                '${weightToString(context, stats.deltaWeightLastMonth)}',
               style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
                 .copyWith(height: 1.0),
               maxLines: 2,
@@ -486,7 +486,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.year}\n'
-                '${doubleToString(context, stats.deltaWeightLastYear)}',
+                '${weightToString(context, stats.deltaWeightLastYear)}',
               style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
                 .copyWith(height: 1.0),
               maxLines: 2,
@@ -530,7 +530,7 @@ Widget getMinWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.minWeight),
+                weightToString(context, stats.minWeight),
                 style: Theme.of(context).textTheme.bodyMedium!
                   .onSurface(context).copyWith(
                     fontWeight: FontWeight.w700,
@@ -565,7 +565,7 @@ Widget getMaxWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.maxWeight),
+                weightToString(context, stats.maxWeight),
                 style: Theme.of(context).textTheme.bodyMedium!
                   .onSurface(context).copyWith(
                   fontWeight: FontWeight.w700,
@@ -617,9 +617,16 @@ Widget getIconWidget({required BuildContext context,
 }
 
 
-String doubleToString(BuildContext context, double? d){
+String weightToString(BuildContext context, double? d){
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
       d, showUnit: false);
+}
+
+String doubleToString(double? d){
+  print(d);
+  return d == null
+      ? '--'
+      : d.toStringAsFixed(1);
 }
