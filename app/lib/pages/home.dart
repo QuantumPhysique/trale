@@ -13,6 +13,7 @@ import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
+import 'package:trale/widget/userDialog.dart';
 
 
 /// home scaffold
@@ -145,9 +146,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           return <Widget>[
             CustomSliverAppBar(
               leading: IconButton(
-                icon: const Icon(PhosphorIconsRegular.list),
+                icon: PPIcon(PhosphorIconsDuotone.gear, context),
                 onPressed: () => key.currentState!.openDrawer(),
               ),
+              actions: <Widget>[
+                IconButton(
+                  icon: PPIcon(PhosphorIconsDuotone.userCircle, context),
+                  onPressed: () {
+                    showUserDialog(context: context);
+                  },
+                ),
+              ],
             ),
           ];
         },
