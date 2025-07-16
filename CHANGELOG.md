@@ -13,9 +13,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+
+## [0.11.2] - 2025-07-15
 ### Added Features and Improvements 🙌:
+- Thx to the community, many translations have been improved 🎉
 - Using the latest flutter 3.32 with upgraded deps
-- Add a BMI widget #239
+- Add a BMI widget, #239
 
 ### Other changes:
 - Improve change icon on measurement screen, #263
@@ -318,7 +322,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.11.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.11.2...main
+[0.11.2]: https://github.com/quantumphysique/trale/compare/v0.11.1...v0.11.2
 [0.11.1]: https://github.com/quantumphysique/trale/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/quantumphysique/trale/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/quantumphysique/trale/compare/v0.10.0...v0.10.1

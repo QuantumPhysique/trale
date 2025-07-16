@@ -45,7 +45,7 @@ Future<bool> exportBackup(BuildContext context, {bool share=false}) async {
     final String? path = await FileSaver.instance.saveAs(
         name: filename,
         file: file,
-        ext: fileext,
+        fileExtension: fileext,
         mimeType: MimeType.text,
     );
     success = path != null;

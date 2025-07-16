@@ -461,7 +461,7 @@
   "@looseWeightSubtitle": {
     "description": "Switching between loosing or gaining weight."
   },
-  "gainWeight": "Напълняеане",
+  "gainWeight": "Напълняване",
   "@gainWeight": {
     "description": "Gain weight switch label."
   },
@@ -480,5 +480,7 @@
   "highContrast": "Висок контраст",
   "@highContrast": {
     "description": "High contrast mode label (accessibility setting)."
-  }
+  },
+  "bmi": "ИТМ",
+  "@bmi": {}
 }

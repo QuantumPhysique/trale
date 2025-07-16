@@ -1,0 +1,10 @@
+Neue Funktionen und Verbesserungen 🙌:
+- Dank der Community wurden viele Übersetzungen verbessert 🎉.
+- Verwendet die neueste Flutter 3.32 mit aktualisierten Deps
+- BMI-Widget hinzugefügt
+
+Andere Änderungen:
+- Verbessertes Änderungssymbol auf dem Messwertbildschirm
+- Hinweis hinzugefügt, dass die Größe des Benutzers in Zentimetern angegeben wird
+
+Und mehrere kleinere Fehlerbehebungen 🐛.
