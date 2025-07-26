@@ -276,7 +276,7 @@
   "@timeSinceFirstMeasurement": {
     "description": "A brief sentence describing the duration from the first measurement to the present"
   },
-  "experimentalFeatures": "Experimentelles Feature",
+  "experimentalFeatures": "Experimentelle Funktion",
   "@experimentalFeatures": {
     "description": "Label for experimental features section"
   },
