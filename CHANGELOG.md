@@ -13,6 +13,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Upgrade deps
+- Upgrade building devs (Kotlin, Gradle, Anroid Application)
+
+### Bugfix 🐛:
+- Fix `java heap space` error by increasing jvm memory
 
 
 ## [0.11.2] - 2025-07-15
