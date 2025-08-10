@@ -15,7 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 ### Other changes:
 - Upgrade deps
-- Upgrade building devs (Kotlin, Gradle, Anroid Application)
+- Upgrade building devs (Kotlin, Gradle, Anroid Application, and NDK)
 
 ### Bugfix 🐛:
 - Fix `java heap space` error by increasing jvm memory
