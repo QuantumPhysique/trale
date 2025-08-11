@@ -52,6 +52,10 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
+      - name: Check dependencies
+        run: |
+          cd app
+          dart run dependency_validator
       - name: 🤖📦 Create Android release
         run: |
           cd app
