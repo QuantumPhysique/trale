@@ -201,6 +201,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  dependency_validator:
+    dependency: "direct dev"
+    description:
+      name: dependency_validator
+      sha256: "3a243f5b9def5f902887a66fbea7e72e612eee956af6c8c34d382fe6d5484145"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.2"
   dio:
     dependency: transitive
     description:
@@ -405,14 +413,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  font_awesome_flutter:
-    dependency: "direct main"
-    description:
-      name: font_awesome_flutter
-      sha256: d3a89184101baec7f4600d58840a764d2ef760fe1c5a20ef9e6b0e9b24a07a3a
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.8.0"
   frontend_server_client:
     dependency: transitive
     description:

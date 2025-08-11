@@ -1,5 +1,5 @@
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
