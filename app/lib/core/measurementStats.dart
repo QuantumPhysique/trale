@@ -62,7 +62,7 @@ class MeasurementStats {
 
   /// get current BMI
   double? currentBMI(BuildContext context){
-    TraleNotifier notifier =
+    final TraleNotifier notifier =
         Provider.of<TraleNotifier>(context, listen: false);
     if (notifier.userHeight == null) {
       return null;

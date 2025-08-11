@@ -52,6 +52,10 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
+      - name: Lint dart code
+        run: |
+          cd app
+          dart analyze --no-fatal-warnings lib/
       - name: Check dependencies
         run: |
           cd app
