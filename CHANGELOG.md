@@ -21,11 +21,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Trale offers now 7 color scheme variants. Check out the settings page 🎉
 
 ### Other changes:
-- Upgrade deps
-- Upgrade building devs (Kotlin, Gradle, Android Application, and NDK)
+- Upgrade dependencies
+- Upgrade building envs (Kotlin, Gradle, Android Application, and NDK)
 
 ### Bugfix 🐛:
-- Fix `java heap space` error by increasing jvm memory
+- Fix `java heap space` error (CI) by increasing jvm memory
 - Fix BMI widget for st and lbs, #301
 
 
