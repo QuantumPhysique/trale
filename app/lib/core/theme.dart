@@ -62,6 +62,7 @@ class TraleTheme {
   TraleTheme({
     required this.seedColor,
     required this.brightness,
+    required this.schemeVariant,
     this.isAmoled=false,
     this.contrast=0.0,
   });
@@ -72,12 +73,14 @@ class TraleTheme {
     Color? seedColor,
     bool? isAmoled,
     double? contrast,
+    DynamicSchemeVariant? schemeVariant,
   }) {
     return TraleTheme(
       brightness: brightness ?? this.brightness,
       seedColor: seedColor ?? this.seedColor,
       isAmoled: isAmoled ?? this.isAmoled,
       contrast: contrast ?? this.contrast,
+      schemeVariant: schemeVariant ?? this.schemeVariant,
     );
   }
 
@@ -96,6 +99,8 @@ class TraleTheme {
   late Color seedColor;
   /// if dark mode on
   late Brightness brightness;
+  /// scheme variant
+  late DynamicSchemeVariant schemeVariant;
   /// Border shape
   final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
@@ -177,8 +182,8 @@ class TraleTheme {
       brightness: brightness,
       contrastLevel: contrast,
       dynamicSchemeVariant: isGrey
-        ? DynamicSchemeVariant.fidelity
-        : DynamicSchemeVariant.tonalSpot,
+        ? DynamicSchemeVariant.monochrome
+        : schemeVariant,
     ).harmonized();
     if (isAmoled) {
       colorScheme = colorScheme.copyWith(surface: Colors.black).harmonized();
@@ -285,10 +290,17 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   double contrast(BuildContext context) =>
     Provider.of<TraleNotifier>(context, listen: false).contrastLevel.contrast;
 
+  DynamicSchemeVariant schemeVariant(BuildContext context) =>
+      Provider
+          .of<TraleNotifier>(context, listen: false)
+          .schemeVariant
+          .schemeVariant;
+
   /// get corresponding light theme
   TraleTheme light(BuildContext context) => TraleTheme(
     seedColor: seedColor(context),
     brightness: Brightness.light,
+    schemeVariant: schemeVariant(context),
     contrast: contrast(context),
   );
 
@@ -296,6 +308,7 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   TraleTheme dark(BuildContext context) => TraleTheme(
     seedColor: seedColor(context),
     brightness: Brightness.dark,
+    schemeVariant: schemeVariant(context),
     contrast: contrast(context),
   );
 
@@ -415,4 +428,53 @@ extension ColorTextThemeExtension on TextStyle {
   TextStyle onSurfaceVariant(BuildContext context) => copyWith(
     color: Theme.of(context).colorScheme.onSurfaceVariant,
   );
+}
+
+/// enum of all DynamicSchemeVariants
+enum TraleSchemeVariant {
+  /// material
+  material,
+  /// material2 colors
+  material2,
+  /// neutral colors
+  neutral,
+  /// vibrant colors
+  vibrant,
+  /// expressive colors
+  expressive,
+  /// monochrome
+  monochrome,
+  /// content similar to fidelity but matches seed color
+  seed,
+}
+
+/// extend adonisThemes with adding AdonisTheme attributes
+extension TraleSchemeVariantExtension on TraleSchemeVariant {
+  /// get seed color of theme
+  DynamicSchemeVariant get schemeVariant =>
+    <TraleSchemeVariant, DynamicSchemeVariant>{
+    TraleSchemeVariant.material: DynamicSchemeVariant.tonalSpot,
+    TraleSchemeVariant.material2: DynamicSchemeVariant.fidelity,
+    TraleSchemeVariant.neutral: DynamicSchemeVariant.neutral,
+    TraleSchemeVariant.vibrant: DynamicSchemeVariant.vibrant,
+    TraleSchemeVariant.expressive: DynamicSchemeVariant.expressive,
+    TraleSchemeVariant.monochrome: DynamicSchemeVariant.monochrome,
+    TraleSchemeVariant.seed: DynamicSchemeVariant.content,
+  }[this]!;
+
+  /// get string expression
+  String get name => toString().split('.').last;
+}
+
+/// convert string to type
+extension TraleSchemeVariantParsing on String {
+  /// convert string to trale scheme variant
+  TraleSchemeVariant? toTraleSchemeVariant() {
+    for (final TraleSchemeVariant variant in TraleSchemeVariant.values) {
+      if (this == variant.name) {
+        return variant;
+      }
+    }
+    return null;
+  }
 }
