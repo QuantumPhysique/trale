@@ -450,6 +450,10 @@
   "@totalChange": {
     "description": "The quantity describing the overall change of body weight"
   },
+  "schemeVariant": "scheme variant",
+  "@schemeVariant": {
+    "description": "(Color) scheme variant label."
+  },
   "mean": "mean",
   "@mean": {
     "description": "The mathematical quantity (arithmetic mean)"
