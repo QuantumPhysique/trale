@@ -162,11 +162,12 @@ class TraleTheme {
     : bgShade3;
 
   /// color threshold for grey
-  final double colorThreshold = 15 / 255;
+  final double colorThreshold = 25 / 255;
 
   /// get if seed color is shade of grey
   bool get isGrey => (seedColor.r - seedColor.g).abs() < colorThreshold
-      && (seedColor.g - seedColor.b).abs() < colorThreshold;
+      && (seedColor.g - seedColor.b).abs() < colorThreshold
+      && (seedColor.r - seedColor.b).abs() < colorThreshold;
 
   /// get corresponding ThemeData
   ThemeData get themeData {
@@ -234,7 +235,7 @@ class TraleTheme {
 }
 
 
-/// defining all workout difficulties
+/// defining all themes
 enum TraleCustomTheme {
   /// system theme A12+
   system,
