@@ -13,6 +13,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- 3 brand new color themes
+- Trale offers now 7 color scheme variants. Check out the settings page 🎉
+
 ### Other changes:
 - Upgrade deps
 - Upgrade building devs (Kotlin, Gradle, Android Application, and NDK)

@@ -63,6 +63,9 @@ class Preferences {
   /// default for theme
   final String defaultTheme = TraleCustomTheme.water.name;
 
+  /// default scheme variant
+  final String defaultSchemeVariant = TraleSchemeVariant.material.name;
+
   /// default for contrast level
   final ContrastLevel defaultContrastLevel = ContrastLevel.normal;
 
@@ -157,6 +160,13 @@ class Preferences {
 
   /// set theme mode
   set theme(String theme) => prefs.setString('theme', theme);
+
+  /// get scheme variant
+  String get schemeVariant => prefs.getString('schemeVariant')!;
+
+  /// set scheme variant
+  set schemeVariant(String variant) =>
+      prefs.setString('schemeVariant', variant);
 
   /// get contrast level
   ContrastLevel get contrastLevel => prefs.getString('contrastLevel')!
@@ -272,6 +282,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('theme')) {
       theme = defaultTheme;
+    }
+    if (override || !prefs.containsKey('schemeVariant')) {
+      schemeVariant = defaultSchemeVariant;
     }
     if (override || !prefs.containsKey('contrastLevel')) {
       contrastLevel = defaultContrastLevel;
