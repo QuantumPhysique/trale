@@ -253,6 +253,12 @@ enum TraleCustomTheme {
   forest,
   /// plum theme
   plum,
+  /// teal theme
+  teal,
+  /// coffee theme
+  coffee,
+  /// amber theme
+  amber,
 }
 
 /// extend adonisThemes with adding AdonisTheme attributes
@@ -270,6 +276,9 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
     TraleCustomTheme.forest: const Color(0xFF006e11),
     TraleCustomTheme.berry: const Color(0xff8b4463),
     TraleCustomTheme.plum: const Color(0xff8e4585),
+    TraleCustomTheme.teal: const Color(0xff008080),
+    TraleCustomTheme.coffee: const Color(0xff6F4E37),
+    TraleCustomTheme.amber: const Color(0xffFFBF00),
   }[this]!;
 
   /// get contrast level
