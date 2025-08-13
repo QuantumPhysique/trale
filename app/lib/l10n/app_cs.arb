@@ -1,486 +1,490 @@
 {
-  "stats": "Statistiky",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "unit": "Jednotky",
-  "@unit": {},
-  "user": "Uživatelský profil",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "userSettings": "Uživatelská nastavení",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "dangerzone": "Nebezpečná zóna",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "faq": "Často kladené otázky",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "O aplikaci",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "language": "Jazyk",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "theme": "Motiv",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "darkmode": "Tmavý",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "systemmode": "Systém",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "export": "Exportovat všechna měření",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "exportSubtitle": "Tím se všechna měření zpřístupní všem aplikacím.",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "open": "Otevřít",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "abort": "Zrušit",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "import": "Importovat zálohu",
-  "@import": {
-    "description": "Import backup."
-  },
-  "amoled": "Černý",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "reset": "Obnovit aplikaci",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "factoryReset": "Obnovení továrního nastavení",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "Obnovení všech nastavení a odstranění všech měření.",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "achievements": "Úspěchy",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "trale": "trale",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "date": "Datum",
-  "@date": {
-    "description": "Date"
-  },
-  "weight": "Váha",
-  "@weight": {
-    "description": "weight"
-  },
-  "settings": "Nastavení",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "defaultLang": "Výchozí nastavení systému",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "lightmode": "Světlý",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "exportDialog": "Tím se všechna měření vyexportují do externího úložiště. Vyžaduje oprávnění k zápisu.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "importSubtitle": "Import měření ze souboru zálohy .txt.",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoledSubtitle": "Změna barvy pozadí na skutečnou černou pro tmavý režim.",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "delete": "Smazat",
-  "@delete": {
-    "description": "delete"
-  },
-  "home": "Domů",
-  "@home": {
-    "description": "home screen"
-  },
-  "intro2": "abyste mohli začít",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "intro3": "Dnešní den je vhodný pro zahájení Vašeho prvního měření!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faq_q1": "Chybí vlastnost/funkce X. Kdy bude implementována?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_q2": "Mohu znovu vidět úvodní/vstupní obrazovku?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a2": "Samozřejmě! Stačí stisknout ikonu níže.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "Návrat na vstupní obrazovku",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "Co zobrazuje ikona aplikace?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "faq_a3": "Sedící vyjící vlk, jehož ocas je částečně zakryt písmenem „t“ a písmeno „r“.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "factoryResetDialog": "Obnovení výchozího nastavení aplikace? Tím se odstraní všechna nastavení a přidaná měření. Tato akce je nevratná.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "importingAbort": "Import přerušen.",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "importDialog": "Zahrnout všechna měření do aktuální databáze. Tato akce je nevratná!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "yes": "Ano",
-  "@yes": {
-    "description": "yes"
-  },
-  "save": "Uložit",
-  "@save": {
-    "description": "save"
-  },
-  "backup": "Zálohovat",
-  "@backup": {
-    "description": "backup"
-  },
-  "ok": "OK",
-  "@ok": {
-    "description": "ok"
-  },
-  "edit": "Upravit",
-  "@edit": {
-    "description": "edit"
-  },
-  "time": "Čas",
-  "@time": {
-    "description": "time"
-  },
-  "assets": "zdroje",
-  "@assets": {
-    "description": "assets"
-  },
-  "packages": "balíčky",
-  "@packages": {
-    "description": "packages"
-  },
-  "sourcecode": "Zdrojový kód",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "undertpl": "© {years}, {author} pod licencí {licence}",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
+    "stats": "Statistiky",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "unit": "Jednotky",
+    "@unit": {},
+    "user": "Uživatelský profil",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "Uživatelská nastavení",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "Nebezpečná zóna",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "faq": "Často kladené otázky",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "O aplikaci",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "language": "Jazyk",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "Motiv",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "darkmode": "Tmavý",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "systemmode": "Systém",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Exportovat všechna měření",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Tím se všechna měření zpřístupní všem aplikacím.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "open": "Otevřít",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "Zrušit",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Importovat zálohu",
+    "@import": {
+        "description": "Import backup."
+    },
+    "amoled": "Černý",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "reset": "Obnovit aplikaci",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "Obnovení továrního nastavení",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Obnovení všech nastavení a odstranění všech měření.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "achievements": "Úspěchy",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "date": "Datum",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "Váha",
+    "@weight": {
+        "description": "weight"
+    },
+    "settings": "Nastavení",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "defaultLang": "Výchozí nastavení systému",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "lightmode": "Světlý",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "exportDialog": "Tím se všechna měření vyexportují do externího úložiště. Vyžaduje oprávnění k zápisu.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "importSubtitle": "Import měření ze souboru zálohy .txt.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoledSubtitle": "Změna barvy pozadí na skutečnou černou pro tmavý režim.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "delete": "Smazat",
+    "@delete": {
+        "description": "delete"
+    },
+    "home": "Domů",
+    "@home": {
+        "description": "home screen"
+    },
+    "intro2": "abyste mohli začít",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "Dnešní den je vhodný pro zahájení Vašeho prvního měření!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faq_q1": "Chybí vlastnost/funkce X. Kdy bude implementována?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_q2": "Mohu znovu vidět úvodní/vstupní obrazovku?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "Samozřejmě! Stačí stisknout ikonu níže.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Návrat na vstupní obrazovku",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "Co zobrazuje ikona aplikace?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "Sedící vyjící vlk, jehož ocas je částečně zakryt písmenem „t“ a písmeno „r“.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "factoryResetDialog": "Obnovení výchozího nastavení aplikace? Tím se odstraní všechna nastavení a přidaná měření. Tato akce je nevratná.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "importingAbort": "Import přerušen.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importDialog": "Zahrnout všechna měření do aktuální databáze. Tato akce je nevratná!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "yes": "Ano",
+    "@yes": {
+        "description": "yes"
+    },
+    "save": "Uložit",
+    "@save": {
+        "description": "save"
+    },
+    "backup": "Zálohovat",
+    "@backup": {
+        "description": "backup"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "ok"
+    },
+    "edit": "Upravit",
+    "@edit": {
+        "description": "edit"
+    },
+    "time": "Čas",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "zdroje",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "balíčky",
+    "@packages": {
+        "description": "packages"
+    },
+    "sourcecode": "Zdrojový kód",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "undertpl": "© {years}, {author} pod licencí {licence}",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "none": "Žádná",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "welcome": "Vítejte",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "loading": "Načítání",
+    "@loading": {
+        "description": "loading"
+    },
+    "version": "Verze",
+    "@version": {
+        "description": "version"
+    },
+    "licence": "Licence",
+    "@licence": {
+        "description": "licence"
+    },
+    "openIssue": "Otevřít problém",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "addWeight": "Zadejte svou hmotnost",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "interpolation": "interpolace",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "measurements": "Měření",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "tpl": "Licence třetích stran",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "onBoarding1": "Tato jednoduchá aplikace s Material-You designem Vám pomůže dosáhnout Vaší vysněné váhy!ť už chcete přibrat, zhubnout nebo si jen udržet váhu: Spolehlivé predikce hmotnosti a všestranné statistiky Vám pomohou udržet se na správné cestě.\n\n Připojte se k naší komunitě ještě dnes a začněte se sledovat. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "Vyberte si jeden ze šesti motivů a přizpůsobte si aplikaci. Který z nich nejlépe vyjadřuje vaše pocity?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "Děkujeme za vyzkoušení naší aplikace. 🙂\n\nPokud se Vám aplikace líbí, budeme rádi za vaši zpětnou vazbu, příspěvek na Githubu nebo kávu. Na oplátku vás ušetříme otravných reklam narušujících Vaše soukromí.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "skip": "Přeskočit",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "targetWeightMotivation": "Stanovení cílové hmotnosti je velmi důležité a je to krok správným směrem. Mít na mysli cíl Vás motivuje k tomu, abyste pro jeho dosažení udělali více.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "addUserName": "Jak Vám máme říkat?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Přidat cílovou hmotnost",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "onBoarding2Title": "Styl",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "targetWeightShort": "Cíl",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "intro1": "Stiskněte",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "onBoarding3Title": "Soukromí",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "faqtext": "Zde najdete odpovědi na některé z nejčastějších otázek. Pokud máte další otázky, neváhejte otevřít problém na githubu.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "startApp": "Začít",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Cílová hmotnost",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "faq_a1": "Aplikaci spravujeme ve svém volném čase a snažíme se, aby byla elegantní a jednoduchá. Jsme přesvědčeni, že přidávání příliš mnoha funkcí zhoršuje použitelnost aplikace. Pokud se domníváte, že nám chybí nějaká klíčová funkce, neváhejte otevřít problém nebo merge request.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "firstDay": "První den",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "addHeight": "Zadejte svou výšku",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "soft": "Měkká",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "month": "měsíc",
+    "@month": {},
+    "months": "měsíců",
+    "@months": {},
+    "years": "let",
+    "@years": {},
+    "year": "rok",
+    "@year": {},
+    "biweekly": "jednou za dva týdny",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "days": "dnů",
+    "@days": {},
+    "week": "týden",
+    "@week": {},
+    "weeks": "týdnů",
+    "@weeks": {},
+    "weekly": "týdně",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "gainWeight": "Přibírání na váze",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "looseWeightSubtitle": "Přepínání mezi hubnutím a přibíráním na váze.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between loosing or gaining weight."
+    },
+    "quarterly": "čtvrtletně",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "poslední záloha",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "příští záloha",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "medium": "Střední",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strength": "síla",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "strong": "Silná",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "backupReminderButton": "zálohovat",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupInterval": "Interval",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "experimentalFeatures": "experimentální funkce",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "never": "nikdy",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "Prosím, pravidelně zálohujte",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupSuccess": "Záloha úspěšně exportována",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "looseWeight": "Hubnutí",
+    "@looseWeight": {
+        "description": "Loose weight switch label."
+    },
+    "monthly": "měsíčně",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "faq_q4": "Mohu zadat cílovou hmotnost nižší než 50 kg / 110 lb / 7.9 st?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "timeSinceFirstMeasurement": "doba od prvního měření",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "currentStreak": "aktuální série",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "max": "max.",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "min.",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "mean": "průměr",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "change": "změna",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "measurementFrequency": "frekvence měření",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReachedIn": "zbývá dosáhnout cílové hmotnosti",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "nejdelší série",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "highContrast": "Vysoký kontrast",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "totalChange": "celková změna",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "targetWeightReached": "dosáhli jste své cílové hmotnosti!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "faq_a4": "Ano, uvedením své výšky.\n\nAnorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost nižší než 50 kg / 110 lb / 7,9 st. Zadání vaší výšky nám umožní vypočítat minimální cílovou hmotnost odpovídající BMI 18,5.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "target_weight_warning": "Anorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost pod 50 kg / 110 lb / 7,9 st a BMI pod 18,5.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
+    },
+    "bmi": "BMI",
+    "@bmi": {},
+    "schemeVariant": "varianta režimu",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
     }
-  },
-  "none": "Žádná",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "welcome": "Vítejte",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "loading": "Načítání",
-  "@loading": {
-    "description": "loading"
-  },
-  "version": "Verze",
-  "@version": {
-    "description": "version"
-  },
-  "licence": "Licence",
-  "@licence": {
-    "description": "licence"
-  },
-  "openIssue": "Otevřít problém",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "addWeight": "Zadejte svou hmotnost",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "interpolation": "interpolace",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "measurements": "Měření",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "tpl": "Licence třetích stran",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "onBoarding1": "Tato jednoduchá aplikace s Material-You designem Vám pomůže dosáhnout Vaší vysněné váhy!ť už chcete přibrat, zhubnout nebo si jen udržet váhu: Spolehlivé predikce hmotnosti a všestranné statistiky Vám pomohou udržet se na správné cestě.\n\n Připojte se k naší komunitě ještě dnes a začněte se sledovat. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "onBoarding2": "Vyberte si jeden ze šesti motivů a přizpůsobte si aplikaci. Který z nich nejlépe vyjadřuje vaše pocity?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding3": "Děkujeme za vyzkoušení naší aplikace. 🙂\n\nPokud se Vám aplikace líbí, budeme rádi za vaši zpětnou vazbu, příspěvek na Githubu nebo kávu. Na oplátku vás ušetříme otravných reklam narušujících Vaše soukromí.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "skip": "Přeskočit",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "targetWeightMotivation": "Stanovení cílové hmotnosti je velmi důležité a je to krok správným směrem. Mít na mysli cíl Vás motivuje k tomu, abyste pro jeho dosažení udělali více.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "addUserName": "Jak Vám máme říkat?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "Přidat cílovou hmotnost",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "onBoarding2Title": "Styl",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "targetWeightShort": "Cíl",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "intro1": "Stiskněte",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "onBoarding3Title": "Soukromí",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "faqtext": "Zde najdete odpovědi na některé z nejčastějších otázek. Pokud máte další otázky, neváhejte otevřít problém na githubu.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "startApp": "Začít",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "Cílová hmotnost",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "faq_a1": "Aplikaci spravujeme ve svém volném čase a snažíme se, aby byla elegantní a jednoduchá. Jsme přesvědčeni, že přidávání příliš mnoha funkcí zhoršuje použitelnost aplikace. Pokud se domníváte, že nám chybí nějaká klíčová funkce, neváhejte otevřít problém nebo merge request.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "firstDay": "První den",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  },
-  "addHeight": "Zadejte svou výšku",
-  "@addHeight": {
-    "description": "Enter your height"
-  },
-  "soft": "Měkká",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "month": "měsíc",
-  "@month": {},
-  "months": "měsíců",
-  "@months": {},
-  "years": "let",
-  "@years": {},
-  "year": "rok",
-  "@year": {},
-  "biweekly": "jednou za dva týdny",
-  "@biweekly": {
-    "description": "Frequency of backup interval"
-  },
-  "days": "dnů",
-  "@days": {},
-  "week": "týden",
-  "@week": {},
-  "weeks": "týdnů",
-  "@weeks": {},
-  "weekly": "týdně",
-  "@weekly": {
-    "description": "Frequency of backup interval"
-  },
-  "gainWeight": "Přibírání na váze",
-  "@gainWeight": {
-    "description": "Gain weight switch label."
-  },
-  "looseWeightSubtitle": "Přepínání mezi hubnutím a přibýváním na váze.",
-  "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
-  },
-  "quarterly": "čtvrtletně",
-  "@quarterly": {
-    "description": "Frequency of backup interval"
-  },
-  "lastBackup": "poslední záloha",
-  "@lastBackup": {
-    "description": "Time of last backup"
-  },
-  "nextBackup": "příští záloha",
-  "@nextBackup": {
-    "description": "Time of last backup"
-  },
-  "medium": "Střední",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "strength": "síla",
-  "@strength": {
-    "description": "interpolation strength"
-  },
-  "strong": "Silná",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "backupReminderButton": "zálohovat",
-  "@backupReminderButton": {
-    "description": "Back up now"
-  },
-  "backupInterval": "Interval",
-  "@backupInterval": {
-    "description": "Frequency of backup interval"
-  },
-  "experimentalFeatures": "experimentální funkce",
-  "@experimentalFeatures": {
-    "description": "Label for experimental features section"
-  },
-  "never": "nikdy",
-  "@never": {
-    "description": "Frequency of backup interval"
-  },
-  "backupReminder": "Prosím, pravidelně zálohujte",
-  "@backupReminder": {
-    "description": "Please remember to back up your data regularly."
-  },
-  "backupSuccess": "Záloha úspěšně exportována",
-  "@backupSuccess": {
-    "description": "Back successfully exported"
-  },
-  "looseWeight": "Hubnutí",
-  "@looseWeight": {
-    "description": "Loose weight switch label."
-  },
-  "monthly": "měsíčně",
-  "@monthly": {
-    "description": "Frequency of backup interval"
-  },
-  "faq_q4": "Mohu zadat cílovou hmotnost nižší než 50 kg / 110 lb / 7.9 st?",
-  "@faq_q4": {
-    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
-  },
-  "timeSinceFirstMeasurement": "doba od prvního měření",
-  "@timeSinceFirstMeasurement": {
-    "description": "A brief sentence describing the duration from the first measurement to the present"
-  },
-  "currentStreak": "aktuální série",
-  "@currentStreak": {
-    "description": "The current streak of measurements"
-  },
-  "max": "max.",
-  "@max": {
-    "description": "Shorthand for maximum."
-  },
-  "min": "min.",
-  "@min": {
-    "description": "Shorthand for minimum."
-  },
-  "mean": "průměr",
-  "@mean": {
-    "description": "The mathematical quantity (arithmetic mean)"
-  },
-  "change": "změna",
-  "@change": {
-    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
-  },
-  "measurementFrequency": "frekvence měření",
-  "@measurementFrequency": {
-    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-  },
-  "targetWeightReachedIn": "zbývá dosáhnout cílové hmotnosti",
-  "@targetWeightReachedIn": {
-    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
-  },
-  "maxStreak": "nejdelší série",
-  "@maxStreak": {
-    "description": "The longest streak of measurements"
-  },
-  "highContrast": "Vysoký kontrast",
-  "@highContrast": {
-    "description": "High contrast mode label (accessibility setting)."
-  },
-  "totalChange": "celková změna",
-  "@totalChange": {
-    "description": "The quantity describing the overall change of body weight"
-  },
-  "targetWeightReached": "dosáhli jste své cílové hmotnosti!",
-  "@targetWeightReached": {
-    "description": "Message shown when the user reached their target weight."
-  },
-  "faq_a4": "Ano, uvedením své výšky.\n\nAnorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost nižší než 50 kg / 110 lb / 7,9 st. Zadání vaší výšky nám umožní vypočítat minimální cílovou hmotnost odpovídající BMI 18,5.",
-  "@faq_a4": {
-    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
-  },
-  "target_weight_warning": "Anorexie je závažné onemocnění, které se stává stále větším celospolečenským problémem, mimo jiné i kvůli mnoha negativním příkladům na sociálních sítích. Abychom podpořili úsilí o prevenci, nepovolujeme cílovou hmotnost pod 50 kg / 110 lb / 7,9 st a BMI pod 18,5.",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
-  },
-  "bmi": "BMI",
-  "@bmi": {}
 }
