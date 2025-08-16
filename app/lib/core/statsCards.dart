@@ -1,6 +1,5 @@
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 

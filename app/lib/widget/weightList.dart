@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/statsCards.dart';

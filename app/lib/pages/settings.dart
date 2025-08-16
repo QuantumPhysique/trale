@@ -1,5 +1,5 @@
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/backupInterval.dart';
@@ -182,6 +182,48 @@ class AmoledListTile extends StatelessWidget {
       onChanged: (bool isAmoled) async {
         Provider.of<TraleNotifier>(context, listen: false).isAmoled = isAmoled;
       },
+    );
+  }
+}
+
+class SchemeVariantListTile extends StatelessWidget {
+  /// constructor
+  const SchemeVariantListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.schemeVariant,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<TraleSchemeVariant>(
+        initialSelection: Provider.of<TraleNotifier>(context).schemeVariant,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.schemeVariant,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleSchemeVariant>>[
+          for (final TraleSchemeVariant variant in TraleSchemeVariant.values)
+            DropdownMenuEntry<TraleSchemeVariant>(
+              value: variant,
+              label: variant.name,
+            )
+        ],
+        onSelected: (TraleSchemeVariant? newVariant) async {
+          if (newVariant != null) {
+            Provider
+              .of<TraleNotifier>(context, listen: false)
+              .schemeVariant = newVariant;
+          }
+        },
+      ),
     );
   }
 }
@@ -829,6 +871,7 @@ class _Settings extends State<Settings> {
             child: const ThemeSelection(),
           ),
           const DarkModeListTile(),
+          const SchemeVariantListTile(),
           const AmoledListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
