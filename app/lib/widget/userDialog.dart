@@ -163,17 +163,13 @@ Future<bool> showUserDialog({
 List<Widget> actions(BuildContext context, Function onPress,
     {bool enabled = true}) {
   return <Widget>[
-    TextButton(
-      onPressed: () => Navigator.pop(context, false),
-      child: Container(
-          padding: EdgeInsets.symmetric(
-            vertical: TraleTheme.of(context)!.padding / 2,
-            horizontal: TraleTheme.of(context)!.padding,
-          ),
-          child: Text(AppLocalizations.of(context)!.abort,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ))),
+    FilledButton.icon(
+      onPressed: enabled ? () => onPress() : null,
+      icon: PPIcon(PhosphorIconsRegular.arrowCircleLeft, context),
+      label: Text(AppLocalizations.of(context)!.save,
+          style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimary,
+              )),
     ),
   ];
 }
