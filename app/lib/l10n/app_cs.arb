@@ -161,7 +161,7 @@
     "@factoryResetDialog": {
         "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
     },
-    "importingAbort": "Import přerušen.",
+    "importingAbort": "Import zrušen.",
     "@importingAbort": {
         "description": "Import aborted."
     },
