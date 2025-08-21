@@ -1,486 +1,486 @@
 {
-  "stats": "统计",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "unit": "数据单位",
-  "@unit": {},
-  "date": "日期",
-  "@date": {
-    "description": "Date"
-  },
-  "user": "用户资料",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "userSettings": "用户设置",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "dangerzone": "风险选项",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "settings": "设置",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "faq": "常见问题",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "关于",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "language": "语言",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "theme": "主题",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "darkmode": "暗色模式",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "lightmode": "亮色模式",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "export": "备份数据",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "defaultLang": "系统默认",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "achievements": "统计分析",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "weight": "重量",
-  "@weight": {
-    "description": "weight"
-  },
-  "systemmode": "跟随系统",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "licence": "许可证",
-  "@licence": {
-    "description": "licence"
-  },
-  "sourcecode": "源代码",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "undertpl": "© {years} 由 {author} 根据 {licence} 许可协议保留所有权利",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
-    }
-  },
-  "addWeight": "输入您的体重",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "interpolation": "插值(体重预测算法)",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "onBoarding2": "从六个主题中挑选一个，个性化您的应用程序。哪一个最能表达您的感受？",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding3": "感谢您使用我们的应用程序🙂\n\n 如果您喜欢这个应用，我们将非常期待收到您的反馈。欢迎您在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽烦人的、涉及隐私的广告。",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "intro3": "今天是个好日子，开始您的第一次测量吧！",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faqtext": "在这里，您可以找到一些常见问题的答案。如果您有任何其他问题，请随时在 Github 中提交 issue 并参与讨论。",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "faq_q1": "软件缺少某项功能，它什么时候能被实现？",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "openIssue": "提出问题（提交 issue）",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "medium": "中",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "intro2": "开始记录",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "none": "无",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "exportSubtitle": "导出所有测量数据。",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要您授予存储权限。",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "factoryResetDialog": "您确定要将应用重置吗？这将重置所有选项以及清除所有测量数据。注意：该操作无法撤销。",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "measurements": "测量数据",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "tpl": "第三方许可证",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "onBoarding1": "这款简约 、基于 Material-You 设计的应用程序将帮助您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与多样的统计分析有助于您持续掌握体重状况\n\n 现在就加入我们的社区，监测自己的体重变化\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "onBoarding3Title": "隐私",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "targetWeightShort": "目标",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "faq_a1": "我们利用业余时间维护这个应用程序，并努力使其保持流畅和简洁。我们认为添加过多的功能会降低它的易用性。如果您认为我们缺少某个关键功能，请随时提出问题或合并请求。",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "target_weight_warning": "厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重以及身体质量指数（BMI）低于18.5。",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
-  },
-  "welcome": "欢迎",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "onBoarding2Title": "主题风格",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "soft": "弱",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "strong": "强",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "abort": "取消",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "import": "恢复数据",
-  "@import": {
-    "description": "Import backup."
-  },
-  "importSubtitle": "从 .txt 备份文件中导入测量数据。",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoledSubtitle": "暗色主题使用纯黑色背景。",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "factoryReset": "重置应用",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "重置所有选项并清除全部测量数据。",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "delete": "删除",
-  "@delete": {
-    "description": "delete"
-  },
-  "importingAbort": "已取消导入。",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "importDialog": "导入所有测量数据。注意：此操作无法撤销！",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "open": "打开",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "amoled": "纯黑模式",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "reset": "重置应用",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "trale": "Trale",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "home": "主页",
-  "@home": {
-    "description": "home screen"
-  },
-  "save": "保存",
-  "@save": {
-    "description": "save"
-  },
-  "edit": "编辑",
-  "@edit": {
-    "description": "edit"
-  },
-  "backup": "备份",
-  "@backup": {
-    "description": "backup"
-  },
-  "loading": "加载中",
-  "@loading": {
-    "description": "loading"
-  },
-  "yes": "确定",
-  "@yes": {
-    "description": "yes"
-  },
-  "ok": "确定",
-  "@ok": {
-    "description": "ok"
-  },
-  "time": "时间",
-  "@time": {
-    "description": "time"
-  },
-  "assets": "资产项",
-  "@assets": {
-    "description": "assets"
-  },
-  "packages": "代码库",
-  "@packages": {
-    "description": "packages"
-  },
-  "skip": "跳过",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "startApp": "开始",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "目标体重",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "targetWeightMotivation": "设定目标体重非常重要，是朝着正确方向迈出的一步。有了目标，就会激励自己为实现目标做出更多努力。",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "addUserName": "我们该如何称呼您？",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "填写目标体重",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "intro1": "点击",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "version": "版本号",
-  "@version": {
-    "description": "version"
-  },
-  "faq_q2": "我能再看一遍应用介绍/起始页吗？",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a2": "当然可以！只需点击下面这个按钮。",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "返回起始页",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "应用程序图标显示的是什么？",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "faq_a3": "一只坐着嚎叫的狼，它的尾巴被字母 \"t \"和字母 \"r \"遮住了一部分。",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "days": "天",
-  "@days": {},
-  "weeks": "周",
-  "@weeks": {},
-  "week": "周",
-  "@week": {},
-  "month": "月",
-  "@month": {},
-  "years": "年",
-  "@years": {},
-  "year": "年",
-  "@year": {},
-  "monthly": "每月备份",
-  "@monthly": {
-    "description": "Frequency of backup interval"
-  },
-  "quarterly": "每季度备份",
-  "@quarterly": {
-    "description": "Frequency of backup interval"
-  },
-  "backupReminder": "请记得定期备份你的数据",
-  "@backupReminder": {
-    "description": "Please remember to back up your data regularly."
-  },
-  "backupReminderButton": "备份",
-  "@backupReminderButton": {
-    "description": "Back up now"
-  },
-  "backupSuccess": "备份已成功导出",
-  "@backupSuccess": {
-    "description": "Back successfully exported"
-  },
-  "months": "个月",
-  "@months": {},
-  "backupInterval": "自动备份",
-  "@backupInterval": {
-    "description": "Frequency of backup interval"
-  },
-  "nextBackup": "下次备份时间",
-  "@nextBackup": {
-    "description": "Time of last backup"
-  },
-  "lastBackup": "上次备份时间",
-  "@lastBackup": {
-    "description": "Time of last backup"
-  },
-  "max": "最大值",
-  "@max": {
-    "description": "Shorthand for maximum."
-  },
-  "min": "最小值",
-  "@min": {
-    "description": "Shorthand for minimum."
-  },
-  "change": "变化",
-  "@change": {
-    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
-  },
-  "totalChange": "总变化",
-  "@totalChange": {
-    "description": "The quantity describing the overall change of body weight"
-  },
-  "mean": "平均值",
-  "@mean": {
-    "description": "The mathematical quantity (arithmetic mean)"
-  },
-  "measurementFrequency": "测量频率",
-  "@measurementFrequency": {
-    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-  },
-  "targetWeightReached": "您达到了目标体重！",
-  "@targetWeightReached": {
-    "description": "Message shown when the user reached their target weight."
-  },
-  "maxStreak": "最长连续记录",
-  "@maxStreak": {
-    "description": "The longest streak of measurements"
-  },
-  "currentStreak": "当前连续记录",
-  "@currentStreak": {
-    "description": "The current streak of measurements"
-  },
-  "timeSinceFirstMeasurement": "自首次测量已过",
-  "@timeSinceFirstMeasurement": {
-    "description": "A brief sentence describing the duration from the first measurement to the present"
-  },
-  "targetWeightReachedIn": "距离目标体重",
-  "@targetWeightReachedIn": {
-    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
-  },
-  "never": "不自动备份",
-  "@never": {
-    "description": "Frequency of backup interval"
-  },
-  "weekly": "每周备份",
-  "@weekly": {
-    "description": "Frequency of backup interval"
-  },
-  "biweekly": "每两周备份",
-  "@biweekly": {
-    "description": "Frequency of backup interval"
-  },
-  "firstDay": "一周的第一天",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  },
-  "strength": "插值强度",
-  "@strength": {
-    "description": "interpolation strength"
-  },
-  "experimentalFeatures": "实验功能",
-  "@experimentalFeatures": {
-    "description": "Label for experimental features section"
-  },
-  "looseWeightSubtitle": "在减肥模式和增重模式之间切换。",
-  "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
-  },
-  "looseWeight": "减肥模式",
-  "@looseWeight": {
-    "description": "Loose weight switch label."
-  },
-  "gainWeight": "增重模式",
-  "@gainWeight": {
-    "description": "Gain weight switch label."
-  },
-  "faq_q4": "我可以输入低于50公斤/110磅/7.9英石的目标体重吗？",
-  "@faq_q4": {
-    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
-  },
-  "addHeight": "输入您的身高(cm)",
-  "@addHeight": {
-    "description": "Enter your height"
-  },
-  "faq_a4": "是的，但需要提供您的身高。\n\n厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重。通过输入身高，我们将根据身体质量指数（BMI）18.5为您计算最低目标体重。",
-  "@faq_a4": {
-    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
-  },
-  "highContrast": "高对比度模式",
-  "@highContrast": {
-    "description": "High contrast mode label (accessibility setting)."
-  },
-  "bmi": "BMI",
-  "@bmi": {}
+    "stats": "统计",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "unit": "数据单位",
+    "@unit": {},
+    "date": "日期",
+    "@date": {
+        "description": "Date"
+    },
+    "user": "用户资料",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "用户设置",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "风险选项",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "设置",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "常见问题",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "关于",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "language": "语言",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "主题",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "darkmode": "暗色模式",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "亮色模式",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "export": "备份数据",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "defaultLang": "系统默认",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "achievements": "统计分析",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "weight": "重量",
+    "@weight": {
+        "description": "weight"
+    },
+    "systemmode": "跟随系统",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "licence": "许可证",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "源代码",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "undertpl": "© {years} 由 {author} 根据 {licence} 许可协议保留所有权利",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "输入您的体重",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "interpolation": "插值(体重预测算法)",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "onBoarding2": "从六个主题中挑选一个，个性化您的应用程序。哪一个最能表达您的感受？",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "感谢您使用我们的应用程序🙂\n\n 如果您喜欢这个应用，我们将非常期待收到您的反馈。欢迎您在 Github 上做出贡献或请我们喝杯咖啡。作为回报，我们将为您屏蔽烦人的、涉及隐私的广告。",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "intro3": "今天是个好日子，开始您的第一次测量吧！",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "在这里，您可以找到一些常见问题的答案。如果您有任何其他问题，请随时在 Github 中提交 issue 并参与讨论。",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "软件缺少某项功能，它什么时候能被实现？",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "openIssue": "提出问题（提交 issue）",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "medium": "中",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "intro2": "开始记录",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "none": "无",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "exportSubtitle": "导出所有测量数据。",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要您授予存储权限。",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "factoryResetDialog": "您确定要将应用重置吗？这将重置所有选项以及清除所有测量数据。注意：该操作无法撤销。",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "measurements": "测量数据",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "tpl": "第三方许可证",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "onBoarding1": "这款简约 、基于 Material-You 设计的应用程序将帮助您达到理想体重！无论您是想增重、减肥还是仅仅想保持体重： 可靠的体重预测与多样的统计分析有助于您持续掌握体重状况\n\n 现在就加入我们的社区，监测自己的体重变化\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding3Title": "隐私",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "targetWeightShort": "目标",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "faq_a1": "我们利用业余时间维护这个应用程序，并努力使其保持流畅和简洁。我们认为添加过多的功能会降低它的易用性。如果您认为我们缺少某个关键功能，请随时提出问题或合并请求。",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "target_weight_warning": "厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重以及身体质量指数（BMI）低于18.5。",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "welcome": "欢迎",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding2Title": "主题风格",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "soft": "弱",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "strong": "强",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "abort": "取消",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "恢复数据",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "从 .txt 备份文件中导入测量数据。",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoledSubtitle": "暗色主题使用纯黑色背景。",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "factoryReset": "重置应用",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "重置所有选项并清除全部测量数据。",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "delete": "删除",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "已取消导入。",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importDialog": "导入所有测量数据。注意：此操作无法撤销！",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "open": "打开",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "amoled": "纯黑模式",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "reset": "重置应用",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "trale": "Trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "home": "主页",
+    "@home": {
+        "description": "home screen"
+    },
+    "save": "保存",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "编辑",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "备份",
+    "@backup": {
+        "description": "backup"
+    },
+    "loading": "加载中",
+    "@loading": {
+        "description": "loading"
+    },
+    "yes": "确定",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "确定",
+    "@ok": {
+        "description": "ok"
+    },
+    "time": "时间",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "资产项",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "代码库",
+    "@packages": {
+        "description": "packages"
+    },
+    "skip": "跳过",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "开始",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "目标体重",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "设定目标体重非常重要，是朝着正确方向迈出的一步。有了目标，就会激励自己为实现目标做出更多努力。",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "addUserName": "我们该如何称呼您？",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "填写目标体重",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro1": "点击",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "version": "版本号",
+    "@version": {
+        "description": "version"
+    },
+    "faq_q2": "我能再看一遍应用介绍/起始页吗？",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "当然可以！只需点击下面这个按钮。",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "返回起始页",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "应用程序图标显示的是什么？",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "一只坐着嚎叫的狼，它的尾巴被字母 \"t \"和字母 \"r \"遮住了一部分。",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "days": "天",
+    "@days": {},
+    "weeks": "周",
+    "@weeks": {},
+    "week": "周",
+    "@week": {},
+    "month": "月",
+    "@month": {},
+    "years": "年",
+    "@years": {},
+    "year": "年",
+    "@year": {},
+    "monthly": "每月备份",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "每季度备份",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "请记得定期备份你的数据",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "备份",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "备份已成功导出",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "months": "个月",
+    "@months": {},
+    "backupInterval": "自动备份",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "nextBackup": "下次备份时间",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "lastBackup": "上次备份时间",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "max": "最大值",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "最小值",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "变化",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "总变化",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "mean": "平均值",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "measurementFrequency": "测量频率",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "您达到了目标体重！",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "maxStreak": "最长连续记录",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "当前连续记录",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "自首次测量已过",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "targetWeightReachedIn": "距离目标体重",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "never": "不自动备份",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "每周备份",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "每两周备份",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "firstDay": "一周的第一天",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "strength": "插值强度",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "experimentalFeatures": "实验功能",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeightSubtitle": "在减肥模式和增重模式之间切换。",
+    "@looseWeightSubtitle": {
+        "description": "Switching between loosing or gaining weight."
+    },
+    "looseWeight": "减肥模式",
+    "@looseWeight": {
+        "description": "Loose weight switch label."
+    },
+    "gainWeight": "增重模式",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "faq_q4": "我可以输入低于50公斤/110磅/7.9英石的目标体重吗？",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "addHeight": "输入您的身高(cm)",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "faq_a4": "是的，但需要提供您的身高。\n\n厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重。通过输入身高，我们将根据身体质量指数（BMI）18.5为您计算最低目标体重。",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "highContrast": "高对比度模式",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "BMI",
+    "@bmi": {}
 }
