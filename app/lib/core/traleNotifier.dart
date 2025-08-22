@@ -70,6 +70,19 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  TraleSchemeVariant get schemeVariant =>
+      prefs.schemeVariant.toTraleSchemeVariant() ??
+          prefs.defaultSchemeVariant.toTraleSchemeVariant()!;
+
+  /// setter
+  set schemeVariant(TraleSchemeVariant newVariant) {
+    if (newVariant != schemeVariant) {
+      prefs.schemeVariant = newVariant.name;
+      notifyListeners();
+    }
+  }
+
   /// get zoom level
   ZoomLevel get zoomLevel => prefs.zoomLevel;
 
