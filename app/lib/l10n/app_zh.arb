@@ -482,5 +482,9 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "BMI",
-    "@bmi": {}
+    "@bmi": {},
+    "schemeVariant": "其他的颜色方案",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    }
 }
