@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Target Android 16 (SDK 36)
+- Using the latest flutter 3.35 with upgraded deps
 
 
 ## [0.12.1] - 2025-08-13
