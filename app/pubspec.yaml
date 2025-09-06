@@ -18,8 +18,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.12.1+33
 
 environment:
-  sdk: ">=3.8.0 <4.0.0"
-  flutter: ">=3.32.8"
+  sdk: ">=3.9.0 <4.0.0"
+  flutter: ">=3.35.3"
 
 dependencies:
   flutter:
@@ -27,23 +27,23 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  dynamic_color: ^1.7.0
-  file_picker: ^10.2.4
+  dynamic_color: ^1.8.1
+  file_picker: ^10.3.2
   file_saver: ^0.3.1
-  fl_chart: ^1.0.0
+  fl_chart: ^1.1.0
   flutter_auto_size_text: ^4.1.0
-  flutter_svg: ^2.2.0
-  hive_ce: ^2.11.3
-  hive_ce_flutter: ^2.3.1
-  intl: ^0.19.0
-  introduction_screen: ^3.1.17
+  flutter_svg: ^2.2.1
+  hive_ce: ^2.11.4
+  hive_ce_flutter: ^2.3.2
+  intl: ^0.20.2
+  introduction_screen: ^4.0.0
   ml_linalg: ^13.12.6
-  package_info_plus: ^8.3.0
+  package_info_plus: ^8.3.1
   path_provider: ^2.1.5
   phosphor_flutter: ^2.1.0
-  provider: ^6.1.5
+  provider: ^6.1.5+1
   shared_preferences: ^2.5.3
-  share_plus: ^11.0.0
+  share_plus: ^11.1.0
   url_launcher: ^6.3.2
   calendar_date_picker2: ^2.0.1
 
@@ -51,18 +51,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   # cupertino_icons: ^1.0.4
 
-dependency_overrides:
-  intl: ^0.20.2
+#dependency_overrides:
+#  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^2.4.15
+  build_runner: ^2.7.1
   dependency_validator: ^5.0.2
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
-  hive_ce_generator: ^1.9.2
+  hive_ce_generator: ^1.9.3
   translations_cleaner: ^0.0.5
 
 # define app icons
