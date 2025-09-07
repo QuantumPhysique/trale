@@ -1,464 +1,464 @@
 {
-  "achievements": "Prestaties",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "experimentalFeatures": "Experimentele functies",
-  "@experimentalFeatures": {
-    "description": "Label for experimental features section"
-  },
-  "looseWeight": "Afvallen",
-  "@looseWeight": {
-    "description": "Loose weight switch label."
-  },
-  "looseWeightSubtitle": "Schakelen tussen afvallen of aankomen.",
-  "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
-  },
-  "days": "Dagen",
-  "@days": {},
-  "weeks": "Weken",
-  "@weeks": {},
-  "week": "Week",
-  "@week": {},
-  "months": "Maanden",
-  "@months": {},
-  "month": "Maand",
-  "@month": {},
-  "years": "Jaren",
-  "@years": {},
-  "year": "Jaar",
-  "@year": {},
-  "never": "Nooit",
-  "@never": {
-    "description": "Frequency of backup interval"
-  },
-  "weekly": "Wekelijks",
-  "@weekly": {
-    "description": "Frequency of backup interval"
-  },
-  "biweekly": "Twee-wekelijks",
-  "@biweekly": {
-    "description": "Frequency of backup interval"
-  },
-  "monthly": "Maandelijks",
-  "@monthly": {
-    "description": "Frequency of backup interval"
-  },
-  "quarterly": "Kwartaalijks",
-  "@quarterly": {
-    "description": "Frequency of backup interval"
-  },
-  "backupReminder": "Maak regelmatig een back-up",
-  "@backupReminder": {
-    "description": "Please remember to back up your data regularly."
-  },
-  "backupReminderButton": "back-up",
-  "@backupReminderButton": {
-    "description": "Back up now"
-  },
-  "backupSuccess": "Back-up is succesvol geëxporteerd",
-  "@backupSuccess": {
-    "description": "Back successfully exported"
-  },
-  "backupInterval": "Interval",
-  "@backupInterval": {
-    "description": "Frequency of backup interval"
-  },
-  "lastBackup": "Laatste back-up",
-  "@lastBackup": {
-    "description": "Time of last backup"
-  },
-  "nextBackup": "Volgende Back-up",
-  "@nextBackup": {
-    "description": "Time of last backup"
-  },
-  "stats": "Statistieken",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "trale": "trale",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "unit": "Eenheden",
-  "@unit": {},
-  "date": "Datum",
-  "@date": {
-    "description": "Date"
-  },
-  "weight": "Gewicht",
-  "@weight": {
-    "description": "weight"
-  },
-  "user": "Profiel",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "userSettings": "Gebruiker Instellingen",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "dangerzone": "Gevarenzone",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "settings": "Instellingen",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "faq": "Veelgestelde vragen",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "Informatie",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "defaultLang": "Systeemstandaard",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "darkmode": "Donker",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "lightmode": "Licht",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "export": "Exporteer alle metingen",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "exportSubtitle": "Hierdoor worden alle metingen zichtbaar voor alle apps",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "exportDialog": "Alle metingen zullen worden geëxporteerd naar het extern geheugen. Hiervoor zijn schrijfrechten nodig.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "abort": "Annuleren",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "import": "Back-up importeren",
-  "@import": {
-    "description": "Import backup."
-  },
-  "importSubtitle": "Metingen uit .txt Back-up bestand importeren",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoled": "Zwart",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "amoledSubtitle": "Achtergrond zwart voor donkere modus",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "reset": "Reset applicatie",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "factoryReset": "Fabrieksinstellingen herstellen",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "Alle instellingen resetten en alle metingen verwijderen",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "delete": "Verwijderen",
-  "@delete": {
-    "description": "delete"
-  },
-  "importingAbort": "Importeren is geannuleerd",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "importDialog": "Alle metingen aan huidige database toevoegen. Dit kan niet ongedaan worden gemaakt!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "home": "Startscherm",
-  "@home": {
-    "description": "home screen"
-  },
-  "yes": "Ja",
-  "@yes": {
-    "description": "yes"
-  },
-  "ok": "Oké",
-  "@ok": {
-    "description": "ok"
-  },
-  "save": "Opslaan",
-  "@save": {
-    "description": "save"
-  },
-  "edit": "Aanpassen",
-  "@edit": {
-    "description": "edit"
-  },
-  "backup": "Back-up",
-  "@backup": {
-    "description": "backup"
-  },
-  "time": "Tijd",
-  "@time": {
-    "description": "time"
-  },
-  "packages": "Pakketten",
-  "@packages": {
-    "description": "packages"
-  },
-  "loading": "Bezig met laden",
-  "@loading": {
-    "description": "loading"
-  },
-  "measurements": "Metingen",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "tpl": "Licenties van derden",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "licence": "Licentie",
-  "@licence": {
-    "description": "licence"
-  },
-  "sourcecode": "Broncode",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "addWeight": "Voer je gewicht in",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "interpolation": "Tendens",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "strength": "Sterkte",
-  "@strength": {
-    "description": "interpolation strength"
-  },
-  "none": "Geen",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "strong": "Sterk",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "soft": "Weinig",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "welcome": "Welkom",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "onBoarding2": "Kies uit zes thema's om de app te personaliseren. Welke geeft het beste uitdrukking aan jouw gevoelens?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding3": "Bedankt voor je vertrouwen in onze app. 🙂\n\nAls je de app graag gebruikt, zijn we erg blij met je feedback, een bijdrage op Github of een kopje koffie. In ruil daarvoor besparen wij u vervelende en privacy schendende advertenties.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "onBoarding2Title": "Stijl",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "onBoarding3Title": "Privacy",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "skip": "Overslaan",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "startApp": "Start",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "Doelgewicht",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "targetWeightMotivation": "Het stellen van een streefgewicht is erg belangrijk en een stap in de goede richting. Het stellen van een doel helpt je om het doel daadwerkelijk te bereiken.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "targetWeightShort": "Doel",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "addUserName": "Hoe kunnen we je noemen?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "Doelgewicht toevoegen",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "intro1": "Druk hier",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "intro2": "om te starten",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "intro3": "Vandaag is een mooie dag om je eerste meting in te voeren!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faqtext": "Hier vind je antwoorden op de meest gestelde vragen. Voel je vrij om zelf andere vragen te stellen op Github.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "faq_q1": "Functie X ontbreekt. Wanneer wordt deze toegevoegd aan de app?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_q2": "Kan ik het intro scherm opnieuw bekijken?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a2": "Jazeker! Druk maar op de knop hieronder.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "Intro opnieuw bekijken",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "Wat betekend de app icoon?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "faq_a3": "Een zittende huilende wolf met zijn staart gedeeltelijk verborgen door de letter 't' en de letter 'r'.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "target_weight_warning": "Anorexia is een ernstige ziekte die, mede door de vele negatieve voorbeelden op sociale media, steeds meer een probleem wordt voor de samenleving als geheel. Als onderdeel van onze bijdrage aan preventie is een streefgewicht lager dan 50 Kg / 110 lb / 7,9 st niet mogelijk.",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
-  },
-  "max": "Max",
-  "@max": {
-    "description": "Shorthand for maximum."
-  },
-  "min": "Min",
-  "@min": {
-    "description": "Shorthand for minimum."
-  },
-  "change": "Verschil",
-  "@change": {
-    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
-  },
-  "totalChange": "Totaal verschil",
-  "@totalChange": {
-    "description": "The quantity describing the overall change of body weight"
-  },
-  "mean": "Gemiddeld",
-  "@mean": {
-    "description": "The mathematical quantity (arithmetic mean)"
-  },
-  "measurementFrequency": "Meetfrequentie",
-  "@measurementFrequency": {
-    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-  },
-  "targetWeightReached": "Je hebt je streefgewicht behaald!",
-  "@targetWeightReached": {
-    "description": "Message shown when the user reached their target weight."
-  },
-  "targetWeightReachedIn": "over om je streefgewicht te halen",
-  "@targetWeightReachedIn": {
-    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
-  },
-  "maxStreak": "Langste reeks",
-  "@maxStreak": {
-    "description": "The longest streak of measurements"
-  },
-  "currentStreak": "Huidige reeks",
-  "@currentStreak": {
-    "description": "The current streak of measurements"
-  },
-  "firstDay": "Eerste dag van de week",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  },
-  "onBoarding1": "Deze eenvoudige applicatie helpt je om je droomgewicht te bereiken! Of je nu wilt aankomen, afvallen of gewoon op gewicht wilt blijven: betrouwbare gewichtsvoorspellingen en veelzijdige statistieken helpen je op koers te blijven en je doel te behalen!\n\nSluit je vandaag nog aan bij onze community en start met het bijhouden van je gewicht.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "language": "Taal",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "undertpl": "© {years} door {author} onder {licence} licentie",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
+    "achievements": "Prestaties",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "Experimentele functies",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "Afvallen",
+    "@looseWeight": {
+        "description": "Loose weight switch label."
+    },
+    "looseWeightSubtitle": "Schakelen tussen afvallen of aankomen.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between loosing or gaining weight."
+    },
+    "days": "Dagen",
+    "@days": {},
+    "weeks": "Weken",
+    "@weeks": {},
+    "week": "Week",
+    "@week": {},
+    "months": "Maanden",
+    "@months": {},
+    "month": "Maand",
+    "@month": {},
+    "years": "Jaren",
+    "@years": {},
+    "year": "Jaar",
+    "@year": {},
+    "never": "Nooit",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "Wekelijks",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "Twee-wekelijks",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "Maandelijks",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "Kwartaalijks",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "Maak regelmatig een back-up",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "back-up",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "Back-up is succesvol geëxporteerd",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "Interval",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "Laatste back-up",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "Volgende Back-up",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "stats": "Statistieken",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "Eenheden",
+    "@unit": {},
+    "date": "Datum",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "Gewicht",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "Profiel",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "Gebruiker Instellingen",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "Gevarenzone",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "Instellingen",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "Veelgestelde vragen",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "Informatie",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "Systeemstandaard",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "darkmode": "Donker",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "Licht",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "export": "Exporteer alle metingen",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Hierdoor worden alle metingen zichtbaar voor alle apps",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "Alle metingen zullen worden geëxporteerd naar het extern geheugen. Hiervoor zijn schrijfrechten nodig.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "abort": "Annuleren",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Back-up importeren",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "Metingen uit .txt Back-up bestand importeren",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoled": "Zwart",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "Achtergrond zwart voor donkere modus",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "reset": "Reset applicatie",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "Fabrieksinstellingen herstellen",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Alle instellingen resetten en alle metingen verwijderen",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "delete": "Verwijderen",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "Importeren is geannuleerd",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importDialog": "Alle metingen aan huidige database toevoegen. Dit kan niet ongedaan worden gemaakt!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "Startscherm",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "Ja",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "Oké",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "Opslaan",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "Aanpassen",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "Back-up",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "Tijd",
+    "@time": {
+        "description": "time"
+    },
+    "packages": "Pakketten",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "Bezig met laden",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Metingen",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "tpl": "Licenties van derden",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "Licentie",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "Broncode",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "addWeight": "Voer je gewicht in",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "interpolation": "Tendens",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "strength": "Sterkte",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "Geen",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "strong": "Sterk",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "soft": "Weinig",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "welcome": "Welkom",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding2": "Kies uit zes thema's om de app te personaliseren. Welke geeft het beste uitdrukking aan jouw gevoelens?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "Bedankt voor je vertrouwen in onze app. 🙂\n\nAls je de app graag gebruikt, zijn we erg blij met je feedback, een bijdrage op Github of een kopje koffie. In ruil daarvoor besparen wij u vervelende en privacy schendende advertenties.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "Stijl",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Privacy",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "Overslaan",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "Start",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Doelgewicht",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "Het stellen van een streefgewicht is erg belangrijk en een stap in de goede richting. Het stellen van een doel helpt je om het doel daadwerkelijk te bereiken.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "Doel",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "Hoe kunnen we je noemen?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Doelgewicht toevoegen",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro1": "Druk hier",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "om te starten",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "Vandaag is een mooie dag om je eerste meting in te voeren!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "Hier vind je antwoorden op de meest gestelde vragen. Voel je vrij om zelf andere vragen te stellen op Github.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "Functie X ontbreekt. Wanneer wordt deze toegevoegd aan de app?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_q2": "Kan ik het intro scherm opnieuw bekijken?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "Jazeker! Druk maar op de knop hieronder.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Intro opnieuw bekijken",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "Wat betekend de app icoon?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "Een zittende huilende wolf met zijn staart gedeeltelijk verborgen door de letter 't' en de letter 'r'.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "target_weight_warning": "Anorexia is een ernstige ziekte die, mede door de vele negatieve voorbeelden op sociale media, steeds meer een probleem wordt voor de samenleving als geheel. Als onderdeel van onze bijdrage aan preventie is een streefgewicht lager dan 50 Kg / 110 lb / 7,9 st niet mogelijk.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "max": "Max",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "Min",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "Verschil",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "Totaal verschil",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "mean": "Gemiddeld",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "measurementFrequency": "Meetfrequentie",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "Je hebt je streefgewicht behaald!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "over om je streefgewicht te halen",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "Langste reeks",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "Huidige reeks",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "firstDay": "Eerste dag van de week",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "onBoarding1": "Deze eenvoudige applicatie helpt je om je droomgewicht te bereiken! Of je nu wilt aankomen, afvallen of gewoon op gewicht wilt blijven: betrouwbare gewichtsvoorspellingen en veelzijdige statistieken helpen je op koers te blijven en je doel te behalen!\n\nSluit je vandaag nog aan bij onze community en start met het bijhouden van je gewicht.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "language": "Taal",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "undertpl": "© {years} door {author} onder {licence} licentie",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "theme": "Thema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "timeSinceFirstMeasurement": "Tijd sinds eerste meting",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "systemmode": "Systeem",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "factoryResetDialog": "Weet je zeker dat je de standaardinstellingen wilt instellen? Hierdoor zullen alle instellingen en metingen verloren gaan en dit kan niet ongedaan gemaakt worden.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "version": "Versie",
+    "@version": {
+        "description": "version"
+    },
+    "open": "Openen",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "assets": "Middelen",
+    "@assets": {
+        "description": "assets"
+    },
+    "faq_a1": "Deze app wordt in onze vrije tijd onderhouden en wij proberen de app strak en simpel te houden. Wij zijn van mening dat het toevoegen van teveel functies de app minder bruikbaar maakt. Als u denkt dat we een belangrijke functie missen, kunt u gerust een aanvraag of een samenvoegverzoek openen.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "openIssue": "Probleem melden",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "medium": "Gemiddeld",
+    "@medium": {
+        "description": "medium interpolation"
     }
-  },
-  "theme": "Thema",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "timeSinceFirstMeasurement": "Tijd sinds eerste meting",
-  "@timeSinceFirstMeasurement": {
-    "description": "A brief sentence describing the duration from the first measurement to the present"
-  },
-  "systemmode": "Systeem",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "factoryResetDialog": "Weet je zeker dat je de standaardinstellingen wilt instellen? Hierdoor zullen alle instellingen en metingen verloren gaan en dit kan niet ongedaan gemaakt worden.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "version": "Versie",
-  "@version": {
-    "description": "version"
-  },
-  "open": "Openen",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "assets": "Middelen",
-  "@assets": {
-    "description": "assets"
-  },
-  "faq_a1": "Deze app wordt in onze vrije tijd onderhouden en wij proberen de app strak en simpel te houden. Wij zijn van mening dat het toevoegen van teveel functies de app minder bruikbaar maakt. Als u denkt dat we een belangrijke functie missen, kunt u gerust een aanvraag of een samenvoegverzoek openen.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "openIssue": "Probleem melden",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "medium": "Gemiddeld",
-  "@medium": {
-    "description": "medium interpolation"
-  }
 }

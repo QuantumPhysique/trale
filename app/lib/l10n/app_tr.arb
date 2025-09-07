@@ -1,484 +1,484 @@
 {
-  "unit": "Birimler",
-  "@unit": {},
-  "systemmode": "Sistem",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "darkmode": "Koyu",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "lightmode": "Açık",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "abort": "İptal et",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "open": "Aç",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "import": "Yedeklemeyi içe aktar",
-  "@import": {
-    "description": "Import backup."
-  },
-  "amoled": "Siyah",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "reset": "Uygulamayı sıfırla",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "factoryReset": "Fabrika ayarlarına dön",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetDialog": "Uygulama sıfırlansın mı? Bu tüm ayarları ve eklenen ölçümleri silecektir. Bu geri alınamaz.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "home": "Ana Sayfa",
-  "@home": {
-    "description": "home screen"
-  },
-  "yes": "Evet",
-  "@yes": {
-    "description": "yes"
-  },
-  "ok": "Tamam",
-  "@ok": {
-    "description": "ok"
-  },
-  "save": "Kaydet",
-  "@save": {
-    "description": "save"
-  },
-  "time": "Saat",
-  "@time": {
-    "description": "time"
-  },
-  "assets": "değerler",
-  "@assets": {
-    "description": "assets"
-  },
-  "version": "Sürüm",
-  "@version": {
-    "description": "version"
-  },
-  "tpl": "Üçüncü taraf lisansları",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "licence": "Lisans",
-  "@licence": {
-    "description": "licence"
-  },
-  "openIssue": "Sorun bildir",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "packages": "paketler",
-  "@packages": {
-    "description": "packages"
-  },
-  "addWeight": "Kilonuzu girin",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "strong": "Güçlü",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "welcome": "Hoş geldiniz",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "onBoarding2": "Uygulamanızı kişiselleştirmek için altı temadan birini seçin. Duygularınızı en iyi hangisi ifade ediyor?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding2Title": "Stil",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "onBoarding3Title": "Gizlilik",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "targetWeight": "Hedef kilo",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "targetWeightShort": "Hedef",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "addUserName": "Size nasıl hitap edelim?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "Hedef kilo ekleyin",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "faq_q1": "X özelliği/işlevi eksik. Ne zaman gerçekleştirilecek?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_q2": "Giriş ekranını bir kez daha görebilir miyim?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a2": "Elbette! Aşağıdaki ikona basmanız yeterli.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_q3": "Uygulama simgesi neyi gösteriyor?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "faq_a3": "Uluyan bir kurt oturuyor, kuyruğu kısmen 't' harfi ve 'r' harfi tarafından gizlenmiş.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "achievements": "Başarılar",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "stats": "İstatistikler",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "dangerzone": "Tehlikeli bölge",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "about": "Hakkında",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "defaultLang": "Sistem varsayılanı",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "language": "Dil",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "date": "Tarih",
-  "@date": {
-    "description": "Date"
-  },
-  "userSettings": "Kullanıcı ayarları",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "faq": "SSS",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "theme": "Tema",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "export": "Tüm ölçümleri dışa aktar",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "weight": "Ağırlık",
-  "@weight": {
-    "description": "weight"
-  },
-  "user": "Kullanıcı profili",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "settings": "Ayarlar",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "exportSubtitle": "Bu işlem tüm ölçümleri tüm uygulamalara açık hale getirir.",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "exportDialog": "Böylece tüm ölçümler harici depolamaya aktarılır. Yazma izinleri gereklidir.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "importSubtitle": "Ölçümleri .txt yedek dosyasından içe aktarır.",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoledSubtitle": "Koyu mod için arka plan rengini gerçek siyah olarak değiştirin.",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "factoryResetSubtitle": "Tüm ayarları sıfırlar ve tüm ölçümleri siler.",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "delete": "Sil",
-  "@delete": {
-    "description": "delete"
-  },
-  "edit": "Düzenle",
-  "@edit": {
-    "description": "edit"
-  },
-  "onBoarding3": "Uygulamamızı denediğiniz için teşekkür ederiz 🙂\n\n Uygulamayı beğendiyseniz, geri bildiriminizden, GitHub üzerinden katkıda bulunmanızdan veya bir kahve ısmarlamanızdan çok mutlu oluruz. Karşılığında, sizi rahatsız edici ve gizlilik açısından kritik reklamlardan koruruz.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "importingAbort": "İçe aktarma iptal edildi.",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "loading": "Yükleniyor",
-  "@loading": {
-    "description": "loading"
-  },
-  "measurements": "Ölçümler",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "sourcecode": "Kaynak kodu",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "onBoarding1": "Material-You tasarımlı bu sade uygulama hayalinizdeki kiloya ulaşmanıza yardımcı oluyor! İster kilo almak, ister kilo vermek ya da sadece kilonuzu korumak isteyin: Güvenilir kilo tahminleri ve çok yönlü istatistikler doğru çizgide kalmanıza yardımcı olur. \n\n Kendinizi gözlemlemek için bugün topluluğumuza katılın. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "skip": "Atla",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "startApp": "Başlat",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "importDialog": "Tüm ölçümler geçerli veritabanına eklenecek. Bu geri alınamaz!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "intro3": "Bugün ilk ölçümünüzle başlamak için iyi bir gün!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "targetWeightMotivation": "Bir hedef kilo belirlemek çok önemlidir ve doğru yönde atılmış bir adımdır. Aklınızda bir hedef olması, ona ulaşmak için daha fazlasını yapmanız konusunda sizi motive eder.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "faqtext": "Burada en sık sorulan bazı soruların yanıtlarını bulabilirsiniz. Başka sorularınız varsa, GitHub üzerinden bir sorun bildirmekten çekinmeyin.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "faq_a1": "Uygulamanın sürekliliğini boş zamanlarımızda sağlıyor, uygulamayı şık ve basit tutmaya çalışıyoruz. Çok sayıda özellik eklemenin uygulamayı daha az kullanışlı hale getirdiğine inanıyoruz. Önemli bir özelliği kaçırdığımızı düşünüyorsanız, bir sorun bildirin veya birleştirme isteği açmaktan çekinmeyin.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "target_weight_warning": "Anoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önleme çabalarını desteklemek için, 50 kg / 110 lb / 7,9 st altındaki hedef ağırlıklara ve 18,5'in altındaki BMI'lere izin vermiyoruz.",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
-  },
-  "trale": "trale",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "backup": "Yedekleme",
-  "@backup": {
-    "description": "backup"
-  },
-  "none": "Yok",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "soft": "Hafif",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "intro1": "Başlamak için",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "faq_a2_widget": "Giriş ekranına geri dön",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "interpolation": "ara değer hesabı",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "intro2": "tuşuna basın",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "medium": "Orta",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "undertpl": "© {years} {author} tarafından {licence} lisansı altında",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
+    "unit": "Birimler",
+    "@unit": {},
+    "systemmode": "Sistem",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "darkmode": "Koyu",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "Açık",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "abort": "İptal et",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "open": "Aç",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "import": "Yedeklemeyi içe aktar",
+    "@import": {
+        "description": "Import backup."
+    },
+    "amoled": "Siyah",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "reset": "Uygulamayı sıfırla",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "Fabrika ayarlarına dön",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetDialog": "Uygulama sıfırlansın mı? Bu tüm ayarları ve eklenen ölçümleri silecektir. Bu geri alınamaz.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "home": "Ana Sayfa",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "Evet",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "Tamam",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "Kaydet",
+    "@save": {
+        "description": "save"
+    },
+    "time": "Saat",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "değerler",
+    "@assets": {
+        "description": "assets"
+    },
+    "version": "Sürüm",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "Üçüncü taraf lisansları",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "Lisans",
+    "@licence": {
+        "description": "licence"
+    },
+    "openIssue": "Sorun bildir",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "packages": "paketler",
+    "@packages": {
+        "description": "packages"
+    },
+    "addWeight": "Kilonuzu girin",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "strong": "Güçlü",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "Hoş geldiniz",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding2": "Uygulamanızı kişiselleştirmek için altı temadan birini seçin. Duygularınızı en iyi hangisi ifade ediyor?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding2Title": "Stil",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Gizlilik",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "targetWeight": "Hedef kilo",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightShort": "Hedef",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "Size nasıl hitap edelim?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Hedef kilo ekleyin",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "faq_q1": "X özelliği/işlevi eksik. Ne zaman gerçekleştirilecek?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_q2": "Giriş ekranını bir kez daha görebilir miyim?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "Elbette! Aşağıdaki ikona basmanız yeterli.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_q3": "Uygulama simgesi neyi gösteriyor?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "Uluyan bir kurt oturuyor, kuyruğu kısmen 't' harfi ve 'r' harfi tarafından gizlenmiş.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "achievements": "Başarılar",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "stats": "İstatistikler",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "dangerzone": "Tehlikeli bölge",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "about": "Hakkında",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "Sistem varsayılanı",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Dil",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "date": "Tarih",
+    "@date": {
+        "description": "Date"
+    },
+    "userSettings": "Kullanıcı ayarları",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "faq": "SSS",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "export": "Tüm ölçümleri dışa aktar",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "weight": "Ağırlık",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "Kullanıcı profili",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "settings": "Ayarlar",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "exportSubtitle": "Bu işlem tüm ölçümleri tüm uygulamalara açık hale getirir.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "Böylece tüm ölçümler harici depolamaya aktarılır. Yazma izinleri gereklidir.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "importSubtitle": "Ölçümleri .txt yedek dosyasından içe aktarır.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoledSubtitle": "Koyu mod için arka plan rengini gerçek siyah olarak değiştirin.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "factoryResetSubtitle": "Tüm ayarları sıfırlar ve tüm ölçümleri siler.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "delete": "Sil",
+    "@delete": {
+        "description": "delete"
+    },
+    "edit": "Düzenle",
+    "@edit": {
+        "description": "edit"
+    },
+    "onBoarding3": "Uygulamamızı denediğiniz için teşekkür ederiz 🙂\n\n Uygulamayı beğendiyseniz, geri bildiriminizden, GitHub üzerinden katkıda bulunmanızdan veya bir kahve ısmarlamanızdan çok mutlu oluruz. Karşılığında, sizi rahatsız edici ve gizlilik açısından kritik reklamlardan koruruz.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "importingAbort": "İçe aktarma iptal edildi.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "loading": "Yükleniyor",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Ölçümler",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "sourcecode": "Kaynak kodu",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "onBoarding1": "Material-You tasarımlı bu sade uygulama hayalinizdeki kiloya ulaşmanıza yardımcı oluyor! İster kilo almak, ister kilo vermek ya da sadece kilonuzu korumak isteyin: Güvenilir kilo tahminleri ve çok yönlü istatistikler doğru çizgide kalmanıza yardımcı olur. \n\n Kendinizi gözlemlemek için bugün topluluğumuza katılın. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "skip": "Atla",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "Başlat",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "importDialog": "Tüm ölçümler geçerli veritabanına eklenecek. Bu geri alınamaz!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "intro3": "Bugün ilk ölçümünüzle başlamak için iyi bir gün!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "targetWeightMotivation": "Bir hedef kilo belirlemek çok önemlidir ve doğru yönde atılmış bir adımdır. Aklınızda bir hedef olması, ona ulaşmak için daha fazlasını yapmanız konusunda sizi motive eder.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "faqtext": "Burada en sık sorulan bazı soruların yanıtlarını bulabilirsiniz. Başka sorularınız varsa, GitHub üzerinden bir sorun bildirmekten çekinmeyin.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_a1": "Uygulamanın sürekliliğini boş zamanlarımızda sağlıyor, uygulamayı şık ve basit tutmaya çalışıyoruz. Çok sayıda özellik eklemenin uygulamayı daha az kullanışlı hale getirdiğine inanıyoruz. Önemli bir özelliği kaçırdığımızı düşünüyorsanız, bir sorun bildirin veya birleştirme isteği açmaktan çekinmeyin.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "target_weight_warning": "Anoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önleme çabalarını desteklemek için, 50 kg / 110 lb / 7,9 st altındaki hedef ağırlıklara ve 18,5'in altındaki BMI'lere izin vermiyoruz.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "backup": "Yedekleme",
+    "@backup": {
+        "description": "backup"
+    },
+    "none": "Yok",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "Hafif",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "intro1": "Başlamak için",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "faq_a2_widget": "Giriş ekranına geri dön",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "interpolation": "ara değer hesabı",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "intro2": "tuşuna basın",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "medium": "Orta",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "undertpl": "© {years} {author} tarafından {licence} lisansı altında",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "firstDay": "Ilk gün",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "days": "gün",
+    "@days": {},
+    "months": "ay",
+    "@months": {},
+    "month": "ay",
+    "@month": {},
+    "year": "yıl",
+    "@year": {},
+    "never": "hiç",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "iki haftada bir",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "her hafta",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "her ay",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "üç ayda bir",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "son yedekleme",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "sonraki yedekleme",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "max": "maks",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "totalChange": "toplam değişim",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "change": "değişim",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "timeSinceFirstMeasurement": "ilk ölçümden bu yana geçen süre",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "years": "yıl",
+    "@years": {},
+    "backupInterval": "Aralık",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminderButton": "yedekle",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupReminder": "Lütfen düzenli olarak yedekleyin",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupSuccess": "Yedekleme başarıyla dışa aktarıldı",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "min": "min",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "measurementFrequency": "ölçüm sıklığı",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "hedef kilonuza ulaştınız!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "maxStreak": "en uzun seri",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "mevcut seri",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "targetWeightReachedIn": "hedef kiloya ulaşmak için kalan gün sayısı",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "weeks": "hafta",
+    "@weeks": {},
+    "mean": "ortalama",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "week": "hafta",
+    "@week": {},
+    "experimentalFeatures": "deneysel özelli̇kler",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeightSubtitle": "Kilo vermek veya almak arasında geçiş yapar.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between loosing or gaining weight."
+    },
+    "gainWeight": "Kilo al",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "strength": "eğilim",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "looseWeight": "Kilo ver",
+    "@looseWeight": {
+        "description": "Loose weight switch label."
+    },
+    "addHeight": "Boyunuzu girin",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "faq_q4": "50kg / 110 lb / 7.9 st altında bir hedef ağırlık girebilir miyim?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "Evet, boyunuzu belirterek.\n\nAnoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önleme çabalarını desteklemek için, 50 kg / 110 lb / 7,9 st altındaki hedef ağırlıklara izin vermiyoruz. Boyunuzu girmeniz, 18,5 BMI'ye karşılık gelen minimum hedef ağırlığı hesaplamamıza olanak tanır.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "highContrast": "Yüksek kontrast",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
     }
-  },
-  "firstDay": "Ilk gün",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  },
-  "days": "gün",
-  "@days": {},
-  "months": "ay",
-  "@months": {},
-  "month": "ay",
-  "@month": {},
-  "year": "yıl",
-  "@year": {},
-  "never": "hiç",
-  "@never": {
-    "description": "Frequency of backup interval"
-  },
-  "biweekly": "iki haftada bir",
-  "@biweekly": {
-    "description": "Frequency of backup interval"
-  },
-  "weekly": "her hafta",
-  "@weekly": {
-    "description": "Frequency of backup interval"
-  },
-  "monthly": "her ay",
-  "@monthly": {
-    "description": "Frequency of backup interval"
-  },
-  "quarterly": "üç ayda bir",
-  "@quarterly": {
-    "description": "Frequency of backup interval"
-  },
-  "lastBackup": "son yedekleme",
-  "@lastBackup": {
-    "description": "Time of last backup"
-  },
-  "nextBackup": "sonraki yedekleme",
-  "@nextBackup": {
-    "description": "Time of last backup"
-  },
-  "max": "maks",
-  "@max": {
-    "description": "Shorthand for maximum."
-  },
-  "totalChange": "toplam değişim",
-  "@totalChange": {
-    "description": "The quantity describing the overall change of body weight"
-  },
-  "change": "değişim",
-  "@change": {
-    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
-  },
-  "timeSinceFirstMeasurement": "ilk ölçümden bu yana geçen süre",
-  "@timeSinceFirstMeasurement": {
-    "description": "A brief sentence describing the duration from the first measurement to the present"
-  },
-  "years": "yıl",
-  "@years": {},
-  "backupInterval": "Aralık",
-  "@backupInterval": {
-    "description": "Frequency of backup interval"
-  },
-  "backupReminderButton": "yedekle",
-  "@backupReminderButton": {
-    "description": "Back up now"
-  },
-  "backupReminder": "Lütfen düzenli olarak yedekleyin",
-  "@backupReminder": {
-    "description": "Please remember to back up your data regularly."
-  },
-  "backupSuccess": "Yedekleme başarıyla dışa aktarıldı",
-  "@backupSuccess": {
-    "description": "Back successfully exported"
-  },
-  "min": "min",
-  "@min": {
-    "description": "Shorthand for minimum."
-  },
-  "measurementFrequency": "ölçüm sıklığı",
-  "@measurementFrequency": {
-    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-  },
-  "targetWeightReached": "hedef kilonuza ulaştınız!",
-  "@targetWeightReached": {
-    "description": "Message shown when the user reached their target weight."
-  },
-  "maxStreak": "en uzun seri",
-  "@maxStreak": {
-    "description": "The longest streak of measurements"
-  },
-  "currentStreak": "mevcut seri",
-  "@currentStreak": {
-    "description": "The current streak of measurements"
-  },
-  "targetWeightReachedIn": "hedef kiloya ulaşmak için kalan gün sayısı",
-  "@targetWeightReachedIn": {
-    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
-  },
-  "weeks": "hafta",
-  "@weeks": {},
-  "mean": "ortalama",
-  "@mean": {
-    "description": "The mathematical quantity (arithmetic mean)"
-  },
-  "week": "hafta",
-  "@week": {},
-  "experimentalFeatures": "deneysel özelli̇kler",
-  "@experimentalFeatures": {
-    "description": "Label for experimental features section"
-  },
-  "looseWeightSubtitle": "Kilo vermek veya almak arasında geçiş yapar.",
-  "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
-  },
-  "gainWeight": "Kilo al",
-  "@gainWeight": {
-    "description": "Gain weight switch label."
-  },
-  "strength": "eğilim",
-  "@strength": {
-    "description": "interpolation strength"
-  },
-  "looseWeight": "Kilo ver",
-  "@looseWeight": {
-    "description": "Loose weight switch label."
-  },
-  "addHeight": "Boyunuzu girin",
-  "@addHeight": {
-    "description": "Enter your height"
-  },
-  "faq_q4": "50kg / 110 lb / 7.9 st altında bir hedef ağırlık girebilir miyim?",
-  "@faq_q4": {
-    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
-  },
-  "faq_a4": "Evet, boyunuzu belirterek.\n\nAnoreksiya, kısmen sosyal medyadaki birçok olumsuz örnek nedeniyle, toplumun geneli için giderek bir sorun haline gelen ciddi bir hastalıktır. Önleme çabalarını desteklemek için, 50 kg / 110 lb / 7,9 st altındaki hedef ağırlıklara izin vermiyoruz. Boyunuzu girmeniz, 18,5 BMI'ye karşılık gelen minimum hedef ağırlığı hesaplamamıza olanak tanır.",
-  "@faq_a4": {
-    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
-  },
-  "highContrast": "Yüksek kontrast",
-  "@highContrast": {
-    "description": "High contrast mode label (accessibility setting)."
-  }
 }
