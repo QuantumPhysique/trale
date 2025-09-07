@@ -20,6 +20,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Target Android 16 (SDK 36)
 - Using the latest flutter 3.35 with upgraded deps
 
+### Bugfix 🐛:
+- Fix typo in about screen, #328
+
 
 ## [0.12.1] - 2025-08-13
 ### Bugfix 🐛:
