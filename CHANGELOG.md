@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Added iso8601 date format, #325
+
 ### Other changes:
 - Target Android 16 (SDK 36)
 - Using the latest flutter 3.35 with upgraded deps
