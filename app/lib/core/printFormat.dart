@@ -14,7 +14,11 @@ enum TraleDatePrintFormat {
   /// MM/dd/yyyy format (e.g., 10/26/2024)
   MMddyyyy,
 
+  /// dd.MM.yyyy format (e.g., 26.10.2024)
   ddMMyyyyDot,
+
+  /// iso8601 format (e.g., 2024-10-26)
+  iso8601,
 }
 
 /// Extension to add functionality to TraleDatePrintFormat
@@ -26,6 +30,7 @@ extension TraleDateFormatExtension on TraleDatePrintFormat {
     TraleDatePrintFormat.ddMMyyyy: 'dd/MM/yyyy',
     TraleDatePrintFormat.MMddyyyy: 'MM/dd/yyyy',
     TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM.yyyy',
+    TraleDatePrintFormat.iso8601: 'yyyy-MM-dd',
   };
 
   /// Mapping of date formats to their patterns
@@ -35,6 +40,7 @@ extension TraleDateFormatExtension on TraleDatePrintFormat {
     TraleDatePrintFormat.ddMMyyyy: 'dd/MM',
     TraleDatePrintFormat.MMddyyyy: 'MM/dd',
     TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM',
+    TraleDatePrintFormat.iso8601: 'MM-dd',
   };
 
   /// Get the pattern associated with each format option, using a custom format if provided
