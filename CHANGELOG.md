@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+
+## [0.13.0] - 2025-09-07
 ### Added Features and Improvements 🙌:
 - Added zoom buttons, identical to double-tap
 - Added iso8601 date format, #325
@@ -20,6 +23,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Other changes:
 - Target Android 16 (SDK 36)
 - Using the latest flutter 3.35 with upgraded deps
+- Improved translation
 
 ### Bugfix 🐛:
 - Fix typo in about screen, #328
@@ -351,8 +355,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.12.1...main
-[0.12.1]: https://github.com/quantumphysique/trale/compare/v0.12.1...v0.12.1
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.0...main
+[0.13.0]: https://github.com/quantumphysique/trale/compare/v0.12.1...v0.13.0
+[0.12.1]: https://github.com/quantumphysique/trale/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/quantumphysique/trale/compare/v0.11.2...v0.12.0
 [0.11.2]: https://github.com/quantumphysique/trale/compare/v0.11.1...v0.11.2
 [0.11.1]: https://github.com/quantumphysique/trale/compare/v0.11.0...v0.11.1
