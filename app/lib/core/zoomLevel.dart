@@ -39,6 +39,23 @@ extension ZoomLevelExtension on ZoomLevel {
     return nextLevel;
   }
 
+  /// zoom out
+  ZoomLevel get zoomOut {
+    /// if already at all return all
+    if (this == ZoomLevel.all) {
+      return ZoomLevel.all;
+    }
+    return ZoomLevel.values[index + 1];
+  }
+  /// zoom in
+  ZoomLevel get zoomIn {
+    /// if already at all return all
+    if (this == ZoomLevel.two) {
+      return ZoomLevel.two;
+    }
+    return ZoomLevel.values[index - 1];
+  }
+
   /// get maxX value in [ms]
   double get maxX => _times.last;
 

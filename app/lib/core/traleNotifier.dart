@@ -95,6 +95,24 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// zoomOut
+  void zoomOut() {
+    final ZoomLevel newLevel = prefs.zoomLevel.zoomOut;
+    if (newLevel != prefs.zoomLevel) {
+      prefs.zoomLevel = newLevel;
+      notifyListeners();
+    }
+  }
+
+  /// zoomIn
+  void zoomIn() {
+    final ZoomLevel newLevel = prefs.zoomLevel.zoomIn;
+    if (newLevel != prefs.zoomLevel) {
+      prefs.zoomLevel = newLevel;
+      notifyListeners();
+    }
+  }
+
   /// get backup frequency
   BackupInterval get backupInterval => prefs.backupInterval;
 

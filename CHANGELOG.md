@@ -14,6 +14,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 ### Added Features and Improvements 🙌:
+- Added zoom buttons, identical to double-tap
 - Added iso8601 date format, #325
 
 ### Other changes:
