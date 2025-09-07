@@ -296,7 +296,7 @@ class _About extends State<About> {
               maxLines: 1,
             ),
             trailing: AutoSizeText(
-              'GNU APGLv3+',
+              'GNU AGPLv3+',
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
