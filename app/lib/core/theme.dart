@@ -107,6 +107,8 @@ class TraleTheme {
   );
   /// Padding value
   final double padding = 16;
+  /// Space value between two elements
+  final double space = 2;
   /// if true make background true black
   late bool isAmoled;
   /// contrast level
