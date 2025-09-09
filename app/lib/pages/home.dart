@@ -8,6 +8,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
+import 'package:trale/pages/settingsOverview.dart';
 import 'package:trale/pages/statScreen.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/appDrawer.dart';
@@ -147,7 +148,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
             CustomSliverAppBar(
               leading: IconButton(
                 icon: PPIcon(PhosphorIconsDuotone.gear, context),
-                onPressed: () => key.currentState!.openDrawer(),
+                //onPressed: () => key.currentState!.openDrawer(),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push<dynamic>(
+                    MaterialPageRoute<Widget>(
+                      builder: (BuildContext context) => const SettingsDraftPage(),
+                    ),
+                  );
+                },
               ),
               actions: <Widget>[
                 IconButton(
