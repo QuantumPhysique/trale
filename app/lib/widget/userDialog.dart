@@ -60,7 +60,7 @@ Future<bool> showUserDialog({
               leading: _buildLeading(
                 context,
                 PhosphorIconsDuotone.target,
-                'target',
+                AppLocalizations.of(context)!.target,
               ),
               title: AutoSizeText(
                 notifier.userTargetWeight != null
@@ -87,7 +87,7 @@ Future<bool> showUserDialog({
               leading: _buildLeading(
                 context,
                 PhosphorIconsDuotone.arrowsVertical,
-                'height',
+                AppLocalizations.of(context)!.height,
               ),
               title: TextFormField(
                 keyboardType: TextInputType.number,
@@ -142,7 +142,7 @@ Future<bool> showUserDialog({
               ),
               title: Center(
                 child: Text(
-                  AppLocalizations.of(context)!.targetWeight,
+                  AppLocalizations.of(context)!.userDialogTitle,
                   style: Theme.of(context).textTheme.headlineSmall!.apply(
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
@@ -165,8 +165,8 @@ List<Widget> actions(BuildContext context, Function onPress,
   return <Widget>[
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
-      icon: PPIcon(PhosphorIconsRegular.arrowCircleLeft, context),
-      label: Text(AppLocalizations.of(context)!.save,
+      icon: PPIcon(PhosphorIconsRegular.arrowLeft, context),
+      label: Text(AppLocalizations.of(context)!.back,
           style: Theme.of(context).textTheme.labelLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onPrimary,
               )),

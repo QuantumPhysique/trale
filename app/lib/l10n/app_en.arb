@@ -298,6 +298,12 @@
   "@addHeight": {
     "description": "Enter your height"
   },
+  "height": "height",
+  "@hight": {},
+  "target": "target",
+  "@target": {
+    "description": "Short label for target weight."
+  },
   "interpolation": "interpolation",
   "@interpolation": {
     "description": "interpolation"
@@ -491,5 +497,11 @@
     "description": "High contrast mode label (accessibility setting)."
   },
   "bmi": "BMI",
-  "@bmi": {}
+  "@bmi": {},
+  "back": "back",
+  "@back": {},
+  "userDialogTitle": "User settings",
+  "@userDialogTitle": {
+    "description": "User settings"
+  }
 }
