@@ -9,6 +9,13 @@ rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
     project.evaluationDependsOn(':app')
+
+    // Disable all tasks whose name contains "ArtProfile", see #341
+    tasks.configureEach {
+        if (name.contains("ArtProfile")) {
+            enabled = false
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
