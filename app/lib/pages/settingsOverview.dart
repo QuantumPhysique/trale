@@ -121,9 +121,8 @@ class _SettingsSection extends StatelessWidget {
       result.add(items[i]);
       if (i != items.length - 1) {
         result.add(
-          Container(
+          SizedBox(
             height: TraleTheme.of(context)!.space,
-            color: Theme.of(context).colorScheme.surface,
           ),
         );
       }
@@ -150,7 +149,9 @@ class _SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final Widget content = ListTile(
       // Remove inner padding so content spans full width
-      contentPadding: EdgeInsets.zero,
+      contentPadding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding
+      ),
       leading: PPIcon(icon, context),
       title: AutoSizeText(
         title,
@@ -163,7 +164,12 @@ class _SettingsTile extends StatelessWidget {
         maxLines: 1,
       ),
       trailing: trailing,
-      onTap: null, // non-functional draft
+      onTap: () {}, // non-functional draft
+      shape: TraleTheme.of(context)!.borderShape.copyWith(
+        borderRadius: BorderRadius.circular(
+          TraleTheme.of(context)!.padding / 4,
+        ),
+      ),
     );
 
     return Card(
@@ -175,12 +181,7 @@ class _SettingsTile extends StatelessWidget {
           TraleTheme.of(context)!.padding / 4,
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding
-        ),
-        child: content,
-      ),
+      child: content,
     );
   }
 }
