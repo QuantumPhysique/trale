@@ -249,8 +249,8 @@ class _About extends State<About> {
             padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
             child: const Text(
               'A simple weight log with short-term extrapolation.\n\n'
-              'Your privacy is respected.'
-              'No revenue sources in the app, nor error logs sent.'
+              'Your privacy is respected. '
+              'No revenue sources in the app, nor error logs sent. '
               'Please open an issue if you have problems.\n\n'
               'Made by two devs with little spare time.\n'
               'Consider contributing or donating.',
