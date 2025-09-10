@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is inspired by [Keep aChangelog](https://keepachangelog.com/en/1.0.0/), and
+The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and
 [Element](https://github.com/vector-im/element-android) and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -13,6 +13,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+
+## [0.13.1] - 2025-09-10
+### Bugfix 🐛:
+- Fix Fdroid build, #342
 
 
 ## [0.13.0] - 2025-09-07
@@ -355,7 +360,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.1...main
+[0.13.1]: https://github.com/quantumphysique/trale/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/quantumphysique/trale/compare/v0.12.1...v0.13.0
 [0.12.1]: https://github.com/quantumphysique/trale/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/quantumphysique/trale/compare/v0.11.2...v0.12.0
