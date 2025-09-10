@@ -1,484 +1,484 @@
 {
-  "unit": "அலகுகள்",
-  "@unit": {},
-  "date": "திகதி",
-  "@date": {
-    "description": "Date"
-  },
-  "settings": "அமைப்புகள்",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "darkmode": "இருண்ட",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "open": "திற",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "amoled": "கருப்பு",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "factoryReset": "தொழிற்சாலை மீட்டமைப்பு",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "loading": "ஏற்றுகிறது",
-  "@loading": {
-    "description": "loading"
-  },
-  "soft": "மென்மையான",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "medium": "சராசரி",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "strong": "வலுவான",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "intro1": "அழுத்தவும்",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "intro2": "தொடங்க",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "intro3": "உங்கள் முதல் அளவீட்டுடன் தொடங்க இன்று ஒரு நல்ல நாள்!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faq_a3": "ஒரு அலறல் ஓநாய் உட்கார்ந்து, அதன் வால் ஓரளவு 'டி' என்ற எழுத்துக்களால் மறைக்கப்பட்டுள்ளது, மற்றும் 'ஆர்' என்ற எழுத்து.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "targetWeightReachedIn": "இலக்கு எடையை அடைய இடது",
-  "@targetWeightReachedIn": {
-    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
-  },
-  "maxStreak": "மிக நீளமான ச்ட்ரீக்",
-  "@maxStreak": {
-    "description": "The longest streak of measurements"
-  },
-  "currentStreak": "தற்போதைய ச்ட்ரீக்",
-  "@currentStreak": {
-    "description": "The current streak of measurements"
-  },
-  "timeSinceFirstMeasurement": "முதல் அளவீட்டிலிருந்து நேரம்",
-  "@timeSinceFirstMeasurement": {
-    "description": "A brief sentence describing the duration from the first measurement to the present"
-  },
-  "firstDay": "முதல் நாள்",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  },
-  "achievements": "சாதனைகள்",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "experimentalFeatures": "சோதனை நற்பொருத்தங்கள்",
-  "@experimentalFeatures": {
-    "description": "Label for experimental features section"
-  },
-  "looseWeight": "எடை குறைக்க",
-  "@looseWeight": {
-    "description": "Loose weight switch label."
-  },
-  "gainWeight": "எடை அதிகரிக்கும்",
-  "@gainWeight": {
-    "description": "Gain weight switch label."
-  },
-  "looseWeightSubtitle": "எடை குறைப்பதற்கோ அல்லது எடை அதிகரிப்பதற்கோ இடையில் மாறுதல்.",
-  "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
-  },
-  "days": "நாட்கள்",
-  "@days": {},
-  "weeks": "வாரங்கள்",
-  "@weeks": {},
-  "week": "வாரம்",
-  "@week": {},
-  "months": "மாதங்கள்",
-  "@months": {},
-  "month": "மாதம்",
-  "@month": {},
-  "years": "ஆண்டுகள்",
-  "@years": {},
-  "year": "ஆண்டு",
-  "@year": {},
-  "never": "ஒருபோதும்",
-  "@never": {
-    "description": "Frequency of backup interval"
-  },
-  "weekly": "வாராந்திர",
-  "@weekly": {
-    "description": "Frequency of backup interval"
-  },
-  "biweekly": "இரு வாரங்கள்",
-  "@biweekly": {
-    "description": "Frequency of backup interval"
-  },
-  "monthly": "மாதாந்திர",
-  "@monthly": {
-    "description": "Frequency of backup interval"
-  },
-  "quarterly": "காலாண்டு",
-  "@quarterly": {
-    "description": "Frequency of backup interval"
-  },
-  "backupReminder": "தயவுசெய்து தவறாமல் காப்புப் பிரதி எடுக்கவும்",
-  "@backupReminder": {
-    "description": "Please remember to back up your data regularly."
-  },
-  "backupReminderButton": "காப்புப் பிரதி",
-  "@backupReminderButton": {
-    "description": "Back up now"
-  },
-  "backupSuccess": "காப்புப்பிரதி வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது",
-  "@backupSuccess": {
-    "description": "Back successfully exported"
-  },
-  "backupInterval": "இடைவேளை",
-  "@backupInterval": {
-    "description": "Frequency of backup interval"
-  },
-  "lastBackup": "கடைசி காப்புப்பிரதி",
-  "@lastBackup": {
-    "description": "Time of last backup"
-  },
-  "nextBackup": "அடுத்த காப்புப்பிரதி",
-  "@nextBackup": {
-    "description": "Time of last backup"
-  },
-  "stats": "புள்ளிவிவரங்கள்",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "trale": "பாதை",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "weight": "எடை",
-  "@weight": {
-    "description": "weight"
-  },
-  "user": "பயனர் சுயவிவரம்",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "userSettings": "பயனர் அமைப்புகள்",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "dangerzone": "இடர் மண்டலம்",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "faq": "கேள்விகள்",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "பற்றி",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "defaultLang": "கணினி இயல்புநிலை",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "language": "மொழி",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "theme": "கருப்பொருள்",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "lightmode": "ஒளி",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "systemmode": "மண்டலம்",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "export": "அனைத்து அளவீடுகளையும் ஏற்றுமதி செய்யுங்கள்",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "exportSubtitle": "இது அனைத்து அளவீடுகளையும் அனைத்து பயன்பாடுகளுக்கும் அம்பலப்படுத்துகிறது.",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "exportDialog": "இது அனைத்து அளவீடுகளையும் வெளிப்புற சேமிப்பகத்திற்கு ஏற்றுமதி செய்யும். எழுதும் அனுமதிகள் தேவை.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "abort": "கருக்கலைப்பு",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "import": "காப்புப்பிரதி இறக்குமதி செய்யுங்கள்",
-  "@import": {
-    "description": "Import backup."
-  },
-  "importSubtitle": ".Txt காப்பு கோப்பிலிருந்து அளவீடுகளை இறக்குமதி செய்யுங்கள்.",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoledSubtitle": "இருண்ட பயன்முறைக்கு பின்னணி நிறத்தை உண்மையான கருப்பு என மாற்றவும்.",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "reset": "பயன்பாட்டை மீட்டமை",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "எல்லா அமைப்புகளையும் மீட்டமைத்து அனைத்து அளவீடுகளையும் நீக்கவும்.",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "factoryResetDialog": "பயன்பாட்டை இயல்புநிலைக்கு மீட்டமைக்கவா? இது அனைத்து அமைப்புகளையும் நீக்குகிறது, மேலும் கூடுதல் அளவீடுகள். இதை செயல்தவிர்க்க முடியாது.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "delete": "நீக்கு",
-  "@delete": {
-    "description": "delete"
-  },
-  "importingAbort": "இறக்குமதி கைவிடப்பட்டது.",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "importDialog": "தற்போதைய தரவுத்தளத்தில் அனைத்து அளவீடுகளையும் சேர்க்கவும். இதை செயல்தவிர்க்க முடியாது!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "home": "வீடு",
-  "@home": {
-    "description": "home screen"
-  },
-  "yes": "ஆம்",
-  "@yes": {
-    "description": "yes"
-  },
-  "ok": "சரி",
-  "@ok": {
-    "description": "ok"
-  },
-  "save": "சேமி",
-  "@save": {
-    "description": "save"
-  },
-  "edit": "தொகு",
-  "@edit": {
-    "description": "edit"
-  },
-  "backup": "காப்புப்பிரதி",
-  "@backup": {
-    "description": "backup"
-  },
-  "time": "நேரம்",
-  "@time": {
-    "description": "time"
-  },
-  "assets": "சொத்துக்கள்",
-  "@assets": {
-    "description": "assets"
-  },
-  "packages": "தொகுப்பு",
-  "@packages": {
-    "description": "packages"
-  },
-  "measurements": "அளவீடுகள்",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "version": "பதிப்பு",
-  "@version": {
-    "description": "version"
-  },
-  "tpl": "மூன்றாம் தரப்பு உரிமங்கள்",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "licence": "உரிமம்",
-  "@licence": {
-    "description": "licence"
-  },
-  "sourcecode": "மூலக் குறியீடு",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "openIssue": "திறந்த சிக்கல்",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "undertpl": "© {licence} உரிமத்தின் கீழ் {author} ஆல் {years}",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
+    "unit": "அலகுகள்",
+    "@unit": {},
+    "date": "திகதி",
+    "@date": {
+        "description": "Date"
+    },
+    "settings": "அமைப்புகள்",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "darkmode": "இருண்ட",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "open": "திற",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "amoled": "கருப்பு",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "factoryReset": "தொழிற்சாலை மீட்டமைப்பு",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "loading": "ஏற்றுகிறது",
+    "@loading": {
+        "description": "loading"
+    },
+    "soft": "மென்மையான",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "சராசரி",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "வலுவான",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "intro1": "அழுத்தவும்",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "தொடங்க",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "உங்கள் முதல் அளவீட்டுடன் தொடங்க இன்று ஒரு நல்ல நாள்!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faq_a3": "ஒரு அலறல் ஓநாய் உட்கார்ந்து, அதன் வால் ஓரளவு 'டி' என்ற எழுத்துக்களால் மறைக்கப்பட்டுள்ளது, மற்றும் 'ஆர்' என்ற எழுத்து.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "targetWeightReachedIn": "இலக்கு எடையை அடைய இடது",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "மிக நீளமான ச்ட்ரீக்",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "தற்போதைய ச்ட்ரீக்",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "முதல் அளவீட்டிலிருந்து நேரம்",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "firstDay": "முதல் நாள்",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "achievements": "சாதனைகள்",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "சோதனை நற்பொருத்தங்கள்",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "எடை குறைக்க",
+    "@looseWeight": {
+        "description": "Loose weight switch label."
+    },
+    "gainWeight": "எடை அதிகரிக்கும்",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "looseWeightSubtitle": "எடை குறைப்பதற்கோ அல்லது எடை அதிகரிப்பதற்கோ இடையில் மாறுதல்.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between loosing or gaining weight."
+    },
+    "days": "நாட்கள்",
+    "@days": {},
+    "weeks": "வாரங்கள்",
+    "@weeks": {},
+    "week": "வாரம்",
+    "@week": {},
+    "months": "மாதங்கள்",
+    "@months": {},
+    "month": "மாதம்",
+    "@month": {},
+    "years": "ஆண்டுகள்",
+    "@years": {},
+    "year": "ஆண்டு",
+    "@year": {},
+    "never": "ஒருபோதும்",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "வாராந்திர",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "இரு வாரங்கள்",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "மாதாந்திர",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "காலாண்டு",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "தயவுசெய்து தவறாமல் காப்புப் பிரதி எடுக்கவும்",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "காப்புப் பிரதி",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "காப்புப்பிரதி வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "இடைவேளை",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "கடைசி காப்புப்பிரதி",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "அடுத்த காப்புப்பிரதி",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "stats": "புள்ளிவிவரங்கள்",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "trale": "பாதை",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "weight": "எடை",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "பயனர் சுயவிவரம்",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "பயனர் அமைப்புகள்",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "இடர் மண்டலம்",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "faq": "கேள்விகள்",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "பற்றி",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "கணினி இயல்புநிலை",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "மொழி",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "கருப்பொருள்",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "lightmode": "ஒளி",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "மண்டலம்",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "அனைத்து அளவீடுகளையும் ஏற்றுமதி செய்யுங்கள்",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "இது அனைத்து அளவீடுகளையும் அனைத்து பயன்பாடுகளுக்கும் அம்பலப்படுத்துகிறது.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "இது அனைத்து அளவீடுகளையும் வெளிப்புற சேமிப்பகத்திற்கு ஏற்றுமதி செய்யும். எழுதும் அனுமதிகள் தேவை.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "abort": "கருக்கலைப்பு",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "காப்புப்பிரதி இறக்குமதி செய்யுங்கள்",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": ".Txt காப்பு கோப்பிலிருந்து அளவீடுகளை இறக்குமதி செய்யுங்கள்.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoledSubtitle": "இருண்ட பயன்முறைக்கு பின்னணி நிறத்தை உண்மையான கருப்பு என மாற்றவும்.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "reset": "பயன்பாட்டை மீட்டமை",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "எல்லா அமைப்புகளையும் மீட்டமைத்து அனைத்து அளவீடுகளையும் நீக்கவும்.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "பயன்பாட்டை இயல்புநிலைக்கு மீட்டமைக்கவா? இது அனைத்து அமைப்புகளையும் நீக்குகிறது, மேலும் கூடுதல் அளவீடுகள். இதை செயல்தவிர்க்க முடியாது.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "நீக்கு",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "இறக்குமதி கைவிடப்பட்டது.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importDialog": "தற்போதைய தரவுத்தளத்தில் அனைத்து அளவீடுகளையும் சேர்க்கவும். இதை செயல்தவிர்க்க முடியாது!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "வீடு",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "ஆம்",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "சரி",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "சேமி",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "தொகு",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "காப்புப்பிரதி",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "நேரம்",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "சொத்துக்கள்",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "தொகுப்பு",
+    "@packages": {
+        "description": "packages"
+    },
+    "measurements": "அளவீடுகள்",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "பதிப்பு",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "மூன்றாம் தரப்பு உரிமங்கள்",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "உரிமம்",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "மூலக் குறியீடு",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "openIssue": "திறந்த சிக்கல்",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "undertpl": "© {licence} உரிமத்தின் கீழ் {author} ஆல் {years}",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "உங்கள் எடையை உள்ளிடவும்",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "interpolation": "இடைக்கணிப்பு",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "strength": "வலிமை",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "எதுவுமில்லை",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "welcome": "வரவேற்கிறோம்",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "இந்த எளிமையான பொருள்-நீங்கள்-வடிவமைப்பு பயன்பாடு உங்கள் கனவு எடையை அடைய உதவுகிறது! நீங்கள் உடல் எடையை அதிகரிக்க விரும்புகிறீர்களோ, எடை குறைக்க அல்லது உங்கள் எடையை பராமரிக்க விரும்புகிறீர்களோ: நம்பகமான எடை கணிப்புகள் மற்றும் பல்துறை புள்ளிவிவரங்கள் பாதையில் இருக்க உதவுகின்றன.\n\n உங்களை நீங்களே கண்டுபிடிக்க இன்று எங்கள் சமூகத்தில் சேருங்கள்.\n 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "உங்கள் பயன்பாட்டைத் தனிப்பயனாக்க ஆறு கருப்பொருள்களில் ஒன்றைத் தேர்வுசெய்க. உங்கள் உணர்வுகளை எது சிறந்தது?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "எங்கள் பயன்பாட்டை முயற்சித்ததற்கு நன்றி. .\n\n நீங்கள் பயன்பாட்டை விரும்பினால், உங்கள் கருத்து, அறிவிலிமையம் மீதான பங்களிப்பு அல்லது ஒரு காபி குறித்து நாங்கள் மிகவும் மகிழ்ச்சியடைவோம். பதிலுக்கு, எரிச்சலூட்டும் மற்றும் தனியுரிமை-விமர்சன விளம்பரங்களை நாங்கள் உங்களுக்கு விட்டுவிடுகிறோம்.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "சூல் தண்டு",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "தனியுரிமை",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "தவிர்",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "தொடங்கு",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "இலக்கு எடை",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "இலக்கு எடையை அமைப்பது மிகவும் முக்கியமானது மற்றும் சரியான திசையில் ஒரு படி. மனதில் ஒரு குறிக்கோளைக் கொண்டிருப்பது அதை அடைய மேலும் செய்ய உங்களைத் தூண்டுகிறது.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "இலக்கு",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "நாங்கள் உங்களை எப்படி அழைப்போம்?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "இலக்கு எடை சேர்க்கவும்",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "faqtext": "அடிக்கடி நிகழும் சில கேள்விகளுக்கான பதில்களை இங்கே காணலாம். உங்களிடம் வேறு ஏதேனும் கேள்விகள் இருந்தால், அறிவிலிமையம் களஞ்சியத்தில் ஒரு சிக்கலைத் திறக்க தயங்க.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "அம்சம்/செயல்பாடு ஃச் இல்லை. இது எப்போது செயல்படுத்தப்படும்?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_a1": "பயன்பாடு எங்கள் இலவச நேரத்தில் பராமரிக்கப்படுகிறது, மேலும் பயன்பாட்டை நேர்த்தியாகவும் எளிமையாகவும் வைத்திருக்க முயற்சிக்கிறோம். பயன்பாட்டை குறைவாகப் பயன்படுத்தக்கூடியதாக மாற்றும் பல அம்சங்களைச் சேர்ப்பது என்று நாங்கள் நம்புகிறோம். ஒரு முக்கிய அம்சத்தை நாங்கள் காணவில்லை என்று நீங்கள் நம்பினால், ஒரு சிக்கலையோ அல்லது ஒன்றிணைக்கும் கோரிக்கையையோ திறக்க தயங்க.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_q2": "அறிமுகம்/ஆன் போர்டிங் திரையை மீண்டும் பார்க்க முடியுமா?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "ஆம் நிச்சயமாக! கீழே உள்ள ஐகானை அழுத்தவும்.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "ஆன் போர்டிங் திரைக்குத் திரும்புக",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "பயன்பாட்டு படவுரு என்ன காட்டுகிறது?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "target_weight_warning": "அனோரெக்ஸியா என்பது ஒரு தீவிர நோயாகும், இது ஒட்டுமொத்த சமூகத்திற்கும் அதிகரித்து வரும் ஒரு பிரச்சனையாக மாறி வருகிறது, இதற்குச் சமூக ஊடகங்களில் உள்ள பல எதிர்மறை உதாரணங்கள் ஓரளவு காரணமாகும். தடுப்பு முயற்சிகளை ஆதரிக்க, 50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப்களுக்குக் குறைவான இலக்கு எடைகள் மற்றும் 18.5 க்குக் குறைவான பிஎம்ஐ ஆகியவற்றை நாங்கள் அனுமதிப்பதில்லை.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "max": "அதிகபட்சம்",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "மணித்துளி",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "மாற்றம்",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "மொத்த மாற்றம்",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "mean": "இடை, சராசரி",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "measurementFrequency": "அளவீட்டு அதிர்வெண்",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "உங்கள் இலக்கு எடையை அடைந்தீர்கள்!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "addHeight": "உங்கள் உயரத்தை உள்ளிடவும்",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "faq_q4": "50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப் எடைக்குக் குறைவான இலக்கு எடையை நான் உள்ளிடலாமா?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "ஆம், உங்கள் உயரத்தை வழங்குவதன் மூலம்.\n\nஅனோரெக்ஸியா என்பது ஒரு தீவிர நோயாகும், இது ஒட்டுமொத்த சமூகத்திற்கும் ஒரு பிரச்சனையாக மாறி வருகிறது, இதற்குச் சமூக ஊடகங்களில் உள்ள பல எதிர்மறை உதாரணங்கள் ஒரு காரணம். தடுப்பு முயற்சிகளை ஆதரிக்க, 50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப்களுக்குக் குறைவான இலக்கு எடைகளை நாங்கள் அனுமதிப்பதில்லை. உங்கள் உயரத்தை உள்ளிடுவது 18.5 பிஎம்ஐக்கு ஒத்த குறைந்தபட்ச இலக்கு எடையைக் கணக்கிட அனுமதிக்கிறது.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "highContrast": "அதிக மாறுபாடு",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
     }
-  },
-  "addWeight": "உங்கள் எடையை உள்ளிடவும்",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "interpolation": "இடைக்கணிப்பு",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "strength": "வலிமை",
-  "@strength": {
-    "description": "interpolation strength"
-  },
-  "none": "எதுவுமில்லை",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "welcome": "வரவேற்கிறோம்",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "onBoarding1": "இந்த எளிமையான பொருள்-நீங்கள்-வடிவமைப்பு பயன்பாடு உங்கள் கனவு எடையை அடைய உதவுகிறது! நீங்கள் உடல் எடையை அதிகரிக்க விரும்புகிறீர்களோ, எடை குறைக்க அல்லது உங்கள் எடையை பராமரிக்க விரும்புகிறீர்களோ: நம்பகமான எடை கணிப்புகள் மற்றும் பல்துறை புள்ளிவிவரங்கள் பாதையில் இருக்க உதவுகின்றன.\n\n உங்களை நீங்களே கண்டுபிடிக்க இன்று எங்கள் சமூகத்தில் சேருங்கள்.\n 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "onBoarding2": "உங்கள் பயன்பாட்டைத் தனிப்பயனாக்க ஆறு கருப்பொருள்களில் ஒன்றைத் தேர்வுசெய்க. உங்கள் உணர்வுகளை எது சிறந்தது?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding3": "எங்கள் பயன்பாட்டை முயற்சித்ததற்கு நன்றி. .\n\n நீங்கள் பயன்பாட்டை விரும்பினால், உங்கள் கருத்து, அறிவிலிமையம் மீதான பங்களிப்பு அல்லது ஒரு காபி குறித்து நாங்கள் மிகவும் மகிழ்ச்சியடைவோம். பதிலுக்கு, எரிச்சலூட்டும் மற்றும் தனியுரிமை-விமர்சன விளம்பரங்களை நாங்கள் உங்களுக்கு விட்டுவிடுகிறோம்.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "onBoarding2Title": "சூல் தண்டு",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "onBoarding3Title": "தனியுரிமை",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "skip": "தவிர்",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "startApp": "தொடங்கு",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "இலக்கு எடை",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "targetWeightMotivation": "இலக்கு எடையை அமைப்பது மிகவும் முக்கியமானது மற்றும் சரியான திசையில் ஒரு படி. மனதில் ஒரு குறிக்கோளைக் கொண்டிருப்பது அதை அடைய மேலும் செய்ய உங்களைத் தூண்டுகிறது.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "targetWeightShort": "இலக்கு",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "addUserName": "நாங்கள் உங்களை எப்படி அழைப்போம்?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "இலக்கு எடை சேர்க்கவும்",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "faqtext": "அடிக்கடி நிகழும் சில கேள்விகளுக்கான பதில்களை இங்கே காணலாம். உங்களிடம் வேறு ஏதேனும் கேள்விகள் இருந்தால், அறிவிலிமையம் களஞ்சியத்தில் ஒரு சிக்கலைத் திறக்க தயங்க.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "faq_q1": "அம்சம்/செயல்பாடு ஃச் இல்லை. இது எப்போது செயல்படுத்தப்படும்?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_a1": "பயன்பாடு எங்கள் இலவச நேரத்தில் பராமரிக்கப்படுகிறது, மேலும் பயன்பாட்டை நேர்த்தியாகவும் எளிமையாகவும் வைத்திருக்க முயற்சிக்கிறோம். பயன்பாட்டை குறைவாகப் பயன்படுத்தக்கூடியதாக மாற்றும் பல அம்சங்களைச் சேர்ப்பது என்று நாங்கள் நம்புகிறோம். ஒரு முக்கிய அம்சத்தை நாங்கள் காணவில்லை என்று நீங்கள் நம்பினால், ஒரு சிக்கலையோ அல்லது ஒன்றிணைக்கும் கோரிக்கையையோ திறக்க தயங்க.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "faq_q2": "அறிமுகம்/ஆன் போர்டிங் திரையை மீண்டும் பார்க்க முடியுமா?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a2": "ஆம் நிச்சயமாக! கீழே உள்ள ஐகானை அழுத்தவும்.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "ஆன் போர்டிங் திரைக்குத் திரும்புக",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "பயன்பாட்டு படவுரு என்ன காட்டுகிறது?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "target_weight_warning": "அனோரெக்ஸியா என்பது ஒரு தீவிர நோயாகும், இது ஒட்டுமொத்த சமூகத்திற்கும் அதிகரித்து வரும் ஒரு பிரச்சனையாக மாறி வருகிறது, இதற்குச் சமூக ஊடகங்களில் உள்ள பல எதிர்மறை உதாரணங்கள் ஓரளவு காரணமாகும். தடுப்பு முயற்சிகளை ஆதரிக்க, 50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப்களுக்குக் குறைவான இலக்கு எடைகள் மற்றும் 18.5 க்குக் குறைவான பிஎம்ஐ ஆகியவற்றை நாங்கள் அனுமதிப்பதில்லை.",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
-  },
-  "max": "அதிகபட்சம்",
-  "@max": {
-    "description": "Shorthand for maximum."
-  },
-  "min": "மணித்துளி",
-  "@min": {
-    "description": "Shorthand for minimum."
-  },
-  "change": "மாற்றம்",
-  "@change": {
-    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
-  },
-  "totalChange": "மொத்த மாற்றம்",
-  "@totalChange": {
-    "description": "The quantity describing the overall change of body weight"
-  },
-  "mean": "இடை, சராசரி",
-  "@mean": {
-    "description": "The mathematical quantity (arithmetic mean)"
-  },
-  "measurementFrequency": "அளவீட்டு அதிர்வெண்",
-  "@measurementFrequency": {
-    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-  },
-  "targetWeightReached": "உங்கள் இலக்கு எடையை அடைந்தீர்கள்!",
-  "@targetWeightReached": {
-    "description": "Message shown when the user reached their target weight."
-  },
-  "addHeight": "உங்கள் உயரத்தை உள்ளிடவும்",
-  "@addHeight": {
-    "description": "Enter your height"
-  },
-  "faq_q4": "50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப் எடைக்குக் குறைவான இலக்கு எடையை நான் உள்ளிடலாமா?",
-  "@faq_q4": {
-    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
-  },
-  "faq_a4": "ஆம், உங்கள் உயரத்தை வழங்குவதன் மூலம்.\n\nஅனோரெக்ஸியா என்பது ஒரு தீவிர நோயாகும், இது ஒட்டுமொத்த சமூகத்திற்கும் ஒரு பிரச்சனையாக மாறி வருகிறது, இதற்குச் சமூக ஊடகங்களில் உள்ள பல எதிர்மறை உதாரணங்கள் ஒரு காரணம். தடுப்பு முயற்சிகளை ஆதரிக்க, 50 கிலோ / 110 பவுண்டு / 7.9 ஸ்டம்ப்களுக்குக் குறைவான இலக்கு எடைகளை நாங்கள் அனுமதிப்பதில்லை. உங்கள் உயரத்தை உள்ளிடுவது 18.5 பிஎம்ஐக்கு ஒத்த குறைந்தபட்ச இலக்கு எடையைக் கணக்கிட அனுமதிக்கிறது.",
-  "@faq_a4": {
-    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
-  },
-  "highContrast": "அதிக மாறுபாடு",
-  "@highContrast": {
-    "description": "High contrast mode label (accessibility setting)."
-  }
 }

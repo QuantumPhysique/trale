@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/zoomLevel.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/emptyChart.dart';
@@ -68,6 +71,8 @@ class _OverviewScreen extends State<OverviewScreen> {
     final int firstDelayInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
+
     Widget overviewScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
       return Column(
@@ -85,21 +90,61 @@ class _OverviewScreen extends State<OverviewScreen> {
           FadeInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
             delayInMilliseconds: firstDelayInMilliseconds,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height / 3,
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                shape: TraleTheme.of(context)!.borderShape,
-                margin: EdgeInsets.symmetric(
-                  horizontal: TraleTheme.of(context)!.padding,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 3,
+                  width: MediaQuery.of(context).size.width,
+                  child: Card(
+                    shape: TraleTheme.of(context)!.borderShape,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: TraleTheme.of(context)!.padding,
+                    ),
+                    child: CustomLineChart(
+                      loadedFirst: loadedFirst,
+                      ip: ip,
+                      key: ValueKey<List<Measurement>>(
+                          snapshot.data ?? <Measurement>[]),
+                    )
+                  ),
                 ),
-                child: CustomLineChart(
-                  loadedFirst: loadedFirst,
-                  ip: ip,
-                  key: ValueKey<List<Measurement>>(
-                      snapshot.data ?? <Measurement>[]),
+                SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Card(
+                      shape: TraleTheme.of(context)!.borderShape,
+                      margin: EdgeInsets.only(
+                        right: 0.5 * TraleTheme.of(context)!.padding,
+                      ),
+                      child: IconButton(
+                        onPressed: notifier.zoomLevel == ZoomLevel.all
+                          ? null
+                          : () {notifier.zoomOut();},
+                        icon: PPIcon(
+                          PhosphorIconsDuotone.magnifyingGlassMinus,
+                          context,
+                        ),
+                      ),
+                    ),
+                    Card(
+                      shape: TraleTheme.of(context)!.borderShape,
+                      margin: EdgeInsets.only(
+                        right: TraleTheme.of(context)!.padding,
+                      ),
+                      child: IconButton(
+                        onPressed: notifier.zoomLevel == ZoomLevel.two
+                            ? null
+                            : () {notifier.zoomIn();},
+                        icon: PPIcon(
+                          PhosphorIconsDuotone.magnifyingGlassPlus,
+                          context,
+                        ),
+                      ),
+                    ),
+                  ],
                 )
-              ),
+              ],
             ),
           ),
           const SizedBox(height: 80.0),
