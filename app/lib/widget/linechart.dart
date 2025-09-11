@@ -390,10 +390,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
             padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
             child: GestureDetector(
               onDoubleTap: doubleTap,
-              onScaleUpdate: scaleUpdate,
+              //onScaleUpdate: scaleUpdate,
               onHorizontalDragUpdate: dragUpdate,
               child: lineChart(minX, maxX, minY, maxY)
-            )
+            ),
           ),
         ),
         if (!widget.isPreview)
