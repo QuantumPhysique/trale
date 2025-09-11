@@ -8,6 +8,8 @@ enum ZoomLevel {
   two,
   six,
   year,
+  twoYear,
+  fourYear,
   all,
 }
 
@@ -18,6 +20,8 @@ extension ZoomLevelExtension on ZoomLevel {
       ZoomLevel.two: 2,
       ZoomLevel.six: 6,
       ZoomLevel.year: 12,
+      ZoomLevel.twoYear: 24,
+      ZoomLevel.fourYear: 48,
       ZoomLevel.all: -1,
     }[this]! * 30 * 24 * 3600 * 1000;
 
