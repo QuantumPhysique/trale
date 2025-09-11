@@ -547,16 +547,10 @@ class InterpolationSetting extends StatelessWidget {
             vertical: 0.5 * TraleTheme.of(context)!.padding,
           ),
           height: 0.5 * MediaQuery.of(context).size.width,
-          child: Card(
-            shape: TraleTheme.of(context)!.borderShape,
-            margin: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: CustomLineChart(
-              loadedFirst: false,
-              ip: PreviewInterpolation(),
-              isPreview: true,
-            ),
+          child: CustomLineChart(
+            loadedFirst: false,
+            ip: PreviewInterpolation(),
+            isPreview: true,
           ),
         ),
         sliderTile,
