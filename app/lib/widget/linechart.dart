@@ -22,12 +22,15 @@ class CustomLineChart extends StatefulWidget {
     required this.loadedFirst,
     required this.ip,
     this.isPreview = false,
+    this.relativeHeight = 0.33,
     super.key,
   });
 
   final bool loadedFirst;
   final bool isPreview;
   final MeasurementInterpolationBaseclass ip;
+
+  final double relativeHeight;
 
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
@@ -385,7 +388,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             horizontal: TraleTheme.of(context)!.padding,
           ),
           child: Container(
-            height: MediaQuery.of(context).size.height / 3,
+            height: MediaQuery.of(context).size.height  * widget.relativeHeight,
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
             child: GestureDetector(
