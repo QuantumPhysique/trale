@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Other changes:
+- Added larger zoom levels for longtime users
+
 ### Bugfix 🐛:
 - Fix several bugs of zoom buttons, #334 and #333
 
