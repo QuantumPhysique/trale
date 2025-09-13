@@ -13,6 +13,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Bugfix 🐛:
+- Fix several bugs of zoom buttons, #334 and #333
 
 
 ## [0.13.1] - 2025-09-10
