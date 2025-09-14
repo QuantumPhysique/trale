@@ -18,6 +18,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Bugfix 🐛:
 - Fix several bugs of zoom buttons, #334 and #333
+- Fix bug that scrollbar is not dragable
 
 
 ## [0.13.1] - 2025-09-10

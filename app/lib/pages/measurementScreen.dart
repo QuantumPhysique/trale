@@ -35,6 +35,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         radius: const Radius.circular(4),
         thickness: 8,
         interactive: true,
+        controller: scrollController,
         child: TotalWeightList(
           durationInMilliseconds: animationDurationInMilliseconds,
           delayInMilliseconds: secondDelayInMilliseconds,
