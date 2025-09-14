@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/home.dart';
+import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
-import 'package:trale/widget/customSliverAppBar.dart';
-class SettingsDraftPage extends StatelessWidget {
-  const SettingsDraftPage({super.key});
+class SettingsOverviewPage extends StatelessWidget {
+  const SettingsOverviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +35,16 @@ class SettingsDraftPage extends StatelessWidget {
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
       _SettingsSection(
-        children: const <Widget>[
+        children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.globe,
             title: 'Language',
             subtitle: 'English (United States)',
+            pageRoute: MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => const LanguageSettingsPage(),
+            ),
           ),
-          _SettingsTile(
+          const _SettingsTile(
             icon: PhosphorIconsDuotone.ruler,
             title: 'Units',
             subtitle: 'weight in kg and height in cm',
@@ -139,12 +141,14 @@ class _SettingsTile extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.trailing,
+    this.pageRoute,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
   final Widget? trailing;
+  final PageRoute<dynamic>? pageRoute;
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +167,11 @@ class _SettingsTile extends StatelessWidget {
         maxLines: 1,
       ),
       trailing: trailing,
-      onTap: null, // non-functional draft
+      onTap: () {
+        if (pageRoute != null) {
+          Navigator.of(context).push<dynamic>(pageRoute!);
+        }
+      },
     );
 
     return Card(

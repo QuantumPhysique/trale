@@ -153,7 +153,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
                   Navigator.of(context).pop();
                   Navigator.of(context).push<dynamic>(
                     MaterialPageRoute<Widget>(
-                      builder: (BuildContext context) => const SettingsDraftPage(),
+                      builder: (BuildContext context) => const SettingsOverviewPage(),
                     ),
                   );
                 },
