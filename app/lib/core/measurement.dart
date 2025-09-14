@@ -71,7 +71,9 @@ class Measurement {
 
   /// convert date to String
   String timeToString(BuildContext context) =>
-    TimeOfDay.fromDateTime(date).format(context);
+    TimeOfDay.fromDateTime(date).format(context).padLeft(
+      MediaQuery.of(context).alwaysUse24HourFormat ? 5 : 8
+    );
 
   /// date followed by weight
   String measureToString(BuildContext context, {int ws=10})
