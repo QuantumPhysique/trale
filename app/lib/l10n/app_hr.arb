@@ -1,346 +1,346 @@
 {
-  "achievements": "Postignuća",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "stats": "Statistike",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "trale": "trale",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "unit": "Jedinice",
-  "@unit": {},
-  "date": "Datum",
-  "@date": {
-    "description": "Date"
-  },
-  "userSettings": "Korisničke postavke",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "theme": "Tema",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "darkmode": "Tamno",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "lightmode": "Svijetlo",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "systemmode": "Uređaj",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "export": "Izvoz svih mjerenja",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "exportSubtitle": "Time se sva mjerenja izlažu svim aplikacijama.",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "exportDialog": "Ovo će izvesti sva mjerenja u vanjsku pohranu. Potrebna su dopuštenja za pisanje.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "abort": "Prekinuti",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "import": "Uvoz sigurnosne kopije",
-  "@import": {
-    "description": "Import backup."
-  },
-  "amoled": "Crno",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "amoledSubtitle": "Promijeniti boju pozadine u pravu crnu za tamnu temu.",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "factoryReset": "Vrati na tvorničke postavke",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "Resetiraj sve postavke i izbriši sva mjerenja.",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "factoryResetDialog": "Resetirati aplikaciju na zadane postavke? Ovo će izbrisati sve postavke i dodana mjerenja. To se ne može poništiti.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "delete": "Izbrisati",
-  "@delete": {
-    "description": "delete"
-  },
-  "importingAbort": "Uvoz je prekinut.",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "importDialog": "Uključiti sva mjerenja u trenutnu bazu podataka. Ova radnja se ne može poništiti!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "home": "Glavni zaslon",
-  "@home": {
-    "description": "home screen"
-  },
-  "ok": "OK",
-  "@ok": {
-    "description": "ok"
-  },
-  "save": "Spremi",
-  "@save": {
-    "description": "save"
-  },
-  "edit": "Uredi",
-  "@edit": {
-    "description": "edit"
-  },
-  "backup": "Sigurnosna kopija",
-  "@backup": {
-    "description": "backup"
-  },
-  "time": "Vrijeme",
-  "@time": {
-    "description": "time"
-  },
-  "assets": "resursi",
-  "@assets": {
-    "description": "assets"
-  },
-  "packages": "paketi",
-  "@packages": {
-    "description": "packages"
-  },
-  "loading": "Učitavanje",
-  "@loading": {
-    "description": "loading"
-  },
-  "measurements": "Mjerenja",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "version": "Verzija",
-  "@version": {
-    "description": "version"
-  },
-  "tpl": "Licence trećih strana",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "licence": "LIcenca",
-  "@licence": {
-    "description": "licence"
-  },
-  "sourcecode": "Izvorni kod",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "openIssue": "Otvoreno izdanje",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "undertpl": "© {years} {author} pod {licence} licence",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
+    "achievements": "Postignuća",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "stats": "Statistike",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "Jedinice",
+    "@unit": {},
+    "date": "Datum",
+    "@date": {
+        "description": "Date"
+    },
+    "userSettings": "Korisničke postavke",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "darkmode": "Tamno",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "Svijetlo",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "Uređaj",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Izvoz svih mjerenja",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Time se sva mjerenja izlažu svim aplikacijama.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "Ovo će izvesti sva mjerenja u vanjsku pohranu. Potrebna su dopuštenja za pisanje.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "abort": "Prekinuti",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Uvoz sigurnosne kopije",
+    "@import": {
+        "description": "Import backup."
+    },
+    "amoled": "Crno",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "Promijeniti boju pozadine u pravu crnu za tamnu temu.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "factoryReset": "Vrati na tvorničke postavke",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Resetiraj sve postavke i izbriši sva mjerenja.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "Resetirati aplikaciju na zadane postavke? Ovo će izbrisati sve postavke i dodana mjerenja. To se ne može poništiti.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "Izbrisati",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "Uvoz je prekinut.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importDialog": "Uključiti sva mjerenja u trenutnu bazu podataka. Ova radnja se ne može poništiti!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "Glavni zaslon",
+    "@home": {
+        "description": "home screen"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "Spremi",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "Uredi",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "Sigurnosna kopija",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "Vrijeme",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "resursi",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "paketi",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "Učitavanje",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Mjerenja",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "Verzija",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "Licence trećih strana",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "LIcenca",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "Izvorni kod",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "openIssue": "Otvoreno izdanje",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "undertpl": "© {years} {author} pod {licence} licence",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "Unesite svoju težinu",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "none": "Nijedna",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "medium": "Srednja",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "onBoarding3": "Hvala vam što ste isprobali našu aplikaciju. 🙂 \n\nAko vam se sviđa aplikacija, bili bih vrlo sretni zbog vaših povratnih informacija, doprinosa na Githubu ili vaše kave. Zauzvrat vas pošteđujemo dosadnih oglasa koji potkopaju vašu privatnost.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "Stil",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Privatnost",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "startApp": "Pokreni",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Ciljna težina",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightShort": "Cilj",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "Kako ćemo vas zvati?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Dodajte ciljnu težinu",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro1": "Pritisnite",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "da biste započeli",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "faq_a2": "Naravno! Samo pritisnite ikonu ispod.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Povratak na uvodni zaslon",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "Što prikazuje ikona aplikacije?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "weight": "Težina",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "Korisnički profil",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "settings": "Postavke",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "dangerzone": "Opasna zona",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "faq": "Često postavljana pitanja",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "O",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "Zadana postavka sustava",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Jezik",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "open": "Otvoriti",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "importSubtitle": "Uvoz mjerenja iz .txt sigurnosne kopije.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "reset": "Resetiraj aplikaciju",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "yes": "Da",
+    "@yes": {
+        "description": "yes"
+    },
+    "interpolation": "Interpolacija",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "soft": "Lagana",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "strong": "Jaka",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "Dobrodošli",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "targetWeightMotivation": "Postavljanje ciljne težine je vrlo važno i korak u pravom smjeru. Imati cilj na umu motivira vas da učinite više kako biste ga postigli.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "onBoarding1": "Ova jednostavna aplikacija s Material-You-designom pomaže vam da postignete težinu svojih snova! Bilo da se želite udebljati, smršavjeti ili jednostavno održavati svoju težinu: Pouzdana predviđanja težine i svestrana statistika pomažu vam da ostanete na pravom putu. \n\nPridružite se našoj zajednici već danas kako biste se pratili. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "Odaberite jednu od šest tema da biste personalizirali svoju aplikaciju. Koji najbolje izražava vaše osjećaje?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "skip": "Preskoči",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "intro3": "Danas je dobar dan za početak prvog mjerenja!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faq_q1": "Značajka/funkcija X nedostaje. Kada će se provesti?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_a1": "Aplikaciju održavamo u slobodno vrijeme i trudimo se da aplikacija bude elegantna i jednostavna. Vjerujemo da dodavanje previše funkcija čini aplikaciju manje upotrebljivom. Ako smatrate da nam nedostaje ključna značajka, slobodno otvorite problem ili merge request na githubu.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_q2": "Mogu li još jednom vidjeti uvodni zaslon?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faqtext": "Ovdje ćete pronaći odgovore na neka od najčešćih pitanja. Ako imate još pitanja, slobodno otvorite problem na github spremištu.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_a3": "Vuk koji zavija sjedi, rep mu je djelomično skriven slovom 't' i slovom 'r'.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "target_weight_warning": "Anoreksija je ozbiljna bolest koja sve više postaje problem za društvo u cjelini, dijelom i zbog brojnih negativnih primjera na društvenim mrežama. Kao dio našeg doprinosa prevenciji, nije moguća ciljna težina ispod 50 kg / 110 lb / 7,9 st.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "firstDay": "Prvi dan",
+    "@firstDay": {
+        "description": "First displayed day of the week"
     }
-  },
-  "addWeight": "Unesite svoju težinu",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "none": "Nijedna",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "medium": "Srednja",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "onBoarding3": "Hvala vam što ste isprobali našu aplikaciju. 🙂 \n\nAko vam se sviđa aplikacija, bili bih vrlo sretni zbog vaših povratnih informacija, doprinosa na Githubu ili vaše kave. Zauzvrat vas pošteđujemo dosadnih oglasa koji potkopaju vašu privatnost.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "onBoarding2Title": "Stil",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "onBoarding3Title": "Privatnost",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "startApp": "Pokreni",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "Ciljna težina",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "targetWeightShort": "Cilj",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "addUserName": "Kako ćemo vas zvati?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "Dodajte ciljnu težinu",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "intro1": "Pritisnite",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "intro2": "da biste započeli",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "faq_a2": "Naravno! Samo pritisnite ikonu ispod.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "Povratak na uvodni zaslon",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "Što prikazuje ikona aplikacije?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "weight": "Težina",
-  "@weight": {
-    "description": "weight"
-  },
-  "user": "Korisnički profil",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "settings": "Postavke",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "dangerzone": "Opasna zona",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "faq": "Često postavljana pitanja",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "O",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "defaultLang": "Zadana postavka sustava",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "language": "Jezik",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "open": "Otvoriti",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "importSubtitle": "Uvoz mjerenja iz .txt sigurnosne kopije.",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "reset": "Resetiraj aplikaciju",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "yes": "Da",
-  "@yes": {
-    "description": "yes"
-  },
-  "interpolation": "Interpolacija",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "soft": "Lagana",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "strong": "Jaka",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "welcome": "Dobrodošli",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "targetWeightMotivation": "Postavljanje ciljne težine je vrlo važno i korak u pravom smjeru. Imati cilj na umu motivira vas da učinite više kako biste ga postigli.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "onBoarding1": "Ova jednostavna aplikacija s Material-You-designom pomaže vam da postignete težinu svojih snova! Bilo da se želite udebljati, smršavjeti ili jednostavno održavati svoju težinu: Pouzdana predviđanja težine i svestrana statistika pomažu vam da ostanete na pravom putu. \n\nPridružite se našoj zajednici već danas kako biste se pratili. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "onBoarding2": "Odaberite jednu od šest tema da biste personalizirali svoju aplikaciju. Koji najbolje izražava vaše osjećaje?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "skip": "Preskoči",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "intro3": "Danas je dobar dan za početak prvog mjerenja!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faq_q1": "Značajka/funkcija X nedostaje. Kada će se provesti?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_a1": "Aplikaciju održavamo u slobodno vrijeme i trudimo se da aplikacija bude elegantna i jednostavna. Vjerujemo da dodavanje previše funkcija čini aplikaciju manje upotrebljivom. Ako smatrate da nam nedostaje ključna značajka, slobodno otvorite problem ili merge request na githubu.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "faq_q2": "Mogu li još jednom vidjeti uvodni zaslon?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faqtext": "Ovdje ćete pronaći odgovore na neka od najčešćih pitanja. Ako imate još pitanja, slobodno otvorite problem na github spremištu.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "faq_a3": "Vuk koji zavija sjedi, rep mu je djelomično skriven slovom 't' i slovom 'r'.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "target_weight_warning": "Anoreksija je ozbiljna bolest koja sve više postaje problem za društvo u cjelini, dijelom i zbog brojnih negativnih primjera na društvenim mrežama. Kao dio našeg doprinosa prevenciji, nije moguća ciljna težina ispod 50 kg / 110 lb / 7,9 st.",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
-  },
-  "firstDay": "Prvi dan",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  }
 }

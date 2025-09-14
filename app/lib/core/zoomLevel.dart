@@ -8,6 +8,8 @@ enum ZoomLevel {
   two,
   six,
   year,
+  twoYear,
+  fourYear,
   all,
 }
 
@@ -18,6 +20,8 @@ extension ZoomLevelExtension on ZoomLevel {
       ZoomLevel.two: 2,
       ZoomLevel.six: 6,
       ZoomLevel.year: 12,
+      ZoomLevel.twoYear: 24,
+      ZoomLevel.fourYear: 48,
       ZoomLevel.all: -1,
     }[this]! * 30 * 24 * 3600 * 1000;
 
@@ -26,15 +30,42 @@ extension ZoomLevelExtension on ZoomLevel {
 
   /// get next zoom level
   ZoomLevel get next {
-    final ZoomLevel nextLevel = ZoomLevel.values[
-      (index + 1) % ZoomLevel.values.length
-    ];
+    if (this == ZoomLevel.all) {
+      return ZoomLevel.two;
+    }
+    return zoomOut;
+  }
+
+  /// zoom out
+  ZoomLevel get zoomOut {
+    /// if already at all return all
+    if (this == ZoomLevel.all) {
+      return ZoomLevel.all;
+    }
+    final ZoomLevel nextLevel = ZoomLevel.values[index + 1];
 
     /// if range of measurements to short show all available
     if (
       (_times.last - _times.first).abs() < nextLevel._rangeInMilliseconds
     ) {
-      return ZoomLevel.all;
+      return nextLevel.zoomOut;
+    }
+    return nextLevel;
+  }
+
+  /// zoom in
+  ZoomLevel get zoomIn {
+    /// if already at all return all
+    if (this == ZoomLevel.two) {
+      return ZoomLevel.two;
+    }
+    final ZoomLevel nextLevel = ZoomLevel.values[index - 1];
+
+    /// if range of measurements to short show all available
+    if (
+      (_times.last - _times.first).abs() < nextLevel._rangeInMilliseconds
+    ) {
+      return nextLevel.zoomIn;
     }
     return nextLevel;
   }
