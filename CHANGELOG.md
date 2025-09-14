@@ -15,6 +15,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
+## [0.13.2] - 2025-09-14
+### Other changes:
+- Added larger zoom levels for longtime users
+
+### Bugfix 🐛:
+- Fix several bugs of zoom buttons, #334 and #333
+- Fix bug that scrollbar is not dragable
+- Fix misaligned measurements when using am/pm format
+
+
 ## [0.13.1] - 2025-09-10
 ### Bugfix 🐛:
 - Fix Fdroid build, #342
@@ -360,7 +370,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.2...main
+[0.13.2]: https://github.com/quantumphysique/trale/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/quantumphysique/trale/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/quantumphysique/trale/compare/v0.12.1...v0.13.0
 [0.12.1]: https://github.com/quantumphysique/trale/compare/v0.12.0...v0.12.1

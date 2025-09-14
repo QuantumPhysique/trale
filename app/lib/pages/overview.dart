@@ -90,61 +90,11 @@ class _OverviewScreen extends State<OverviewScreen> {
           FadeInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
             delayInMilliseconds: firstDelayInMilliseconds,
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 3,
-                  width: MediaQuery.of(context).size.width,
-                  child: Card(
-                    shape: TraleTheme.of(context)!.borderShape,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: TraleTheme.of(context)!.padding,
-                    ),
-                    child: CustomLineChart(
-                      loadedFirst: loadedFirst,
-                      ip: ip,
-                      key: ValueKey<List<Measurement>>(
-                          snapshot.data ?? <Measurement>[]),
-                    )
-                  ),
-                ),
-                SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Card(
-                      shape: TraleTheme.of(context)!.borderShape,
-                      margin: EdgeInsets.only(
-                        right: 0.5 * TraleTheme.of(context)!.padding,
-                      ),
-                      child: IconButton(
-                        onPressed: notifier.zoomLevel == ZoomLevel.all
-                          ? null
-                          : () {notifier.zoomOut();},
-                        icon: PPIcon(
-                          PhosphorIconsDuotone.magnifyingGlassMinus,
-                          context,
-                        ),
-                      ),
-                    ),
-                    Card(
-                      shape: TraleTheme.of(context)!.borderShape,
-                      margin: EdgeInsets.only(
-                        right: TraleTheme.of(context)!.padding,
-                      ),
-                      child: IconButton(
-                        onPressed: notifier.zoomLevel == ZoomLevel.two
-                            ? null
-                            : () {notifier.zoomIn();},
-                        icon: PPIcon(
-                          PhosphorIconsDuotone.magnifyingGlassPlus,
-                          context,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
+            child: CustomLineChart(
+              loadedFirst: loadedFirst,
+              ip: ip,
+              key: ValueKey<List<Measurement>>(
+                  snapshot.data ?? <Measurement>[]),
             ),
           ),
           const SizedBox(height: 80.0),

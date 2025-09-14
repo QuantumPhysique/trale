@@ -179,7 +179,7 @@ class _TotalWeightList extends State<TotalWeightList>{
     };
 
     return CustomScrollView(
-      physics: const NeverScrollableScrollPhysics(),
+      controller: widget.scrollController,
       cacheExtent: 2 * MediaQuery.of(context).size.height,
       slivers: <Widget>[
         ...<Widget>[
