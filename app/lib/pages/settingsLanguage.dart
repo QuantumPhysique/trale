@@ -56,7 +56,6 @@ class LanguageSettingsPage extends StatelessWidget {
       body: SliverAppBarSnap(
         title: AppLocalizations.of(context)!.settings,
         sliverlist: sliverlist,
-        returnPage: const SettingsOverviewPage(),
       ),
     );
   }

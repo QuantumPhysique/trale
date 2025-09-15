@@ -150,7 +150,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
                 icon: PPIcon(PhosphorIconsDuotone.gear, context),
                 //onPressed: () => key.currentState!.openDrawer(),
                 onPressed: () {
-                  Navigator.of(context).pop();
                   Navigator.of(context).push<dynamic>(
                     MaterialPageRoute<Widget>(
                       builder: (BuildContext context) => const SettingsOverviewPage(),

@@ -14,12 +14,10 @@ class SliverAppBarSnap extends StatefulWidget {
     super.key,
     required this.title,
     required this.sliverlist,
-    required this.returnPage,
   });
 
   final String title;
   final List<Widget> sliverlist;
-  final Widget returnPage;
 
   @override
   _SliverAppBarSnapState createState() => _SliverAppBarSnapState();
@@ -52,11 +50,6 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
               leading: IconButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).push<dynamic>(
-                      MaterialPageRoute<Widget>(
-                        builder: (BuildContext context) => widget.returnPage,
-                      ),
-                    );
                   },
                   icon: const Icon(PhosphorIconsDuotone.arrowLeft),
                 ),
