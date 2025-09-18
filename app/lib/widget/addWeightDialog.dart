@@ -14,6 +14,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/weightPicker.dart';
+import 'package:trale/widget/weightPicker2.dart';
 
 ///
 Future<bool> showAddWeightDialog({
@@ -40,6 +41,15 @@ Future<bool> showAddWeightDialog({
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           RulerPicker(
+            onValueChange: (num newValue) {
+              currentSliderValue = newValue.toDouble();
+              setState(() {});
+            },
+            width: MediaQuery.of(context).size.width - 80, // padding of dialog
+            value: currentSliderValue,
+            ticksPerStep: notifier.unit.ticksPerStep,
+          ),
+          NewRulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
               setState(() {});
