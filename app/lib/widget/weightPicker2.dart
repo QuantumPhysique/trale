@@ -201,62 +201,122 @@ class NewRulerPickerState extends State<NewRulerPicker> {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               onPointerUp: (PointerUpEvent event) {},
-              child: ListView.builder(
-                controller: scrollController,
-                scrollDirection: Axis.horizontal,
-                physics: SnapScrollPhysics(
-                  itemExtent: tickWidth, //widget.width,
-                  parent: const ClampingScrollPhysics(),
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    padding: EdgeInsets.only(
-                        left: index == 0
-                            ? widget.width / 2
-                            : 0
-                    ),
-                    child: SizedBox(
-                      width: tickWidth,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: <Widget>[
-                          Container(
-                            width: index % widget.ticksPerStep == 0 ? 2 : 1,
-                            height: index % widget.ticksPerStep == 0
-                              ? heightLargeTick
-                              : index % 5 == 0
-                                ? 0.5 * (heightLargeTick + heightSmallTick)
-                                : heightSmallTick,
-                            color: Theme.of(context).
-                              colorScheme.onPrimaryContainer,
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            width: tickWidth * widget.ticksPerStep,
-                            left: - tickWidth * widget.ticksPerStep / 2,
-                            child: index % widget.ticksPerStep == 0
-                                ? Container(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    (
-                                        index / widget.ticksPerStep
-                                    ).toStringAsFixed(0),
-                                    style: Theme.of(
-                                        context
-                                    ).textTheme.bodyLarge!.apply(
-                                      color: Theme.of(context).
-                                        colorScheme.onPrimaryContainer,
-                                    )
-                                  ),
-                                )
-                                : Container(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: AnimatedBuilder(
+                 animation: scrollController!,
+                 builder: (context, _) {
+                   final ctrl = scrollController;
+                   final bool attached = ctrl?.hasClients == true;
+
+                   // Use 0.0 until the controller is attached to the ListView.
+                   final double offset = attached ? ctrl!.offset : 0.0;
+                   //final double offset = scrollController?.offset ?? 0.0;
+
+                   final double viewportStart = offset;
+                   final double viewportEnd = offset + widget.width;
+                   final double leading = widget.width / 2; // first item's left inset
+                   const double edgeFraction = 0.10;        // 10% on each side
+                   final double edgeWidth = widget.width * edgeFraction;
+                   final double leftEdgeEnd = viewportStart + edgeWidth;
+                   final double rightEdgeStart = viewportEnd - edgeWidth;
+
+                   // Scale values
+                   const double minScale = 0.50; // scale at the very edge
+                   double edgeEase(double t) {
+                     // Quadratic in for smoother falloff toward the edge
+                     t = t.clamp(0.0, 1.0);
+                     return t * t;
+                   }
+
+                   // dart
+                   return ListView.builder(
+                     controller: scrollController,
+                     scrollDirection: Axis.horizontal,
+                     physics: SnapScrollPhysics(
+                       itemExtent: tickWidth,
+                       parent: const ClampingScrollPhysics(),
+                     ),
+                     itemBuilder: (BuildContext context, int index) {
+                       // Visual center in content coordinates
+                       final double leading = widget.width / 2;
+                       final double itemCenter = leading + index * tickWidth + tickWidth / 2;
+
+                       // Edge bands and easing are computed above in your builder:
+                       // leftEdgeEnd, rightEdgeStart, edgeWidth, edgeEase(t)
+
+                       // Scale at edges: shrink height, widen width
+                       const double minScaleY = 0.70;  // min height scale at edge
+                       const double maxScaleX = 2.50;  // max width scale at edge (tweak 1.2–1.6)
+
+                       double scaleY = 1.0;
+                       double scaleX = 1.0;
+
+                       if (itemCenter <= leftEdgeEnd) {
+                         final double t = (leftEdgeEnd - itemCenter) / edgeWidth;
+                         final double e = edgeEase(t);
+                         scaleY = 1.0 - (1.0 - minScaleY) * e;      // shorter near edge
+                         scaleX = 1.0 + (maxScaleX - 1.0) * e;      // wider near edge
+                       } else if (itemCenter >= rightEdgeStart) {
+                         final double t = (itemCenter - rightEdgeStart) / edgeWidth;
+                         final double e = edgeEase(t);
+                         scaleY = 1.0 - (1.0 - minScaleY) * e;
+                         scaleX = 1.0 + (maxScaleX - 1.0) * e;
+                       }
+
+                       return Container(
+                         padding: EdgeInsets.only(left: index == 0 ? leading : 0),
+                         child: Transform(
+                           alignment: Alignment.topCenter,
+                           // Non‑uniform scaling: X gets wider, Y gets shorter at edges
+                           transform: Matrix4.diagonal3Values(scaleX, scaleY, 1.0),
+                           child: SizedBox(
+                             width: tickWidth,
+                             child: Stack(
+                               clipBehavior: Clip.none,
+                               children: <Widget>[
+                                 Container(
+                                   width: index % widget.ticksPerStep == 0 ? 2 : 1,
+                                   height: index % widget.ticksPerStep == 0
+                                       ? heightLargeTick
+                                       : index % 5 == 0
+                                           ? 0.5 * (heightLargeTick + heightSmallTick)
+                                           : heightSmallTick,
+                                   color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                 ),
+                                 Positioned(
+                                   bottom: 0,
+                                   width: tickWidth * widget.ticksPerStep,
+                                   left: -tickWidth * widget.ticksPerStep / 2,
+                                   child: index % widget.ticksPerStep == 0
+                                       ? Container(
+                                           alignment: Alignment.center,
+                                           child: Text(
+                                             (index / widget.ticksPerStep).toStringAsFixed(0),
+                                             style: Theme.of(context).textTheme.bodyLarge!.apply(
+                                                   color: Theme.of(context)
+                                                       .colorScheme
+                                                       .onPrimaryContainer,
+                                                 ),
+                                           ),
+                                         )
+                                       : const SizedBox.shrink(),
+                                 ),
+                               ],
+                             ),
+                           ),
+                         ),
+                       );
+                     },
+                   );
+
+                   // 2) Dispose order (prevent callbacks after super.dispose)
+                   @override
+                   void dispose() {
+                     scrollController?.dispose();
+                     super.dispose();
+                   }
+
+                 },
+               )
             ),
             widget.marker ?? mark(context),
           ],
@@ -291,8 +351,8 @@ class NewRulerPickerState extends State<NewRulerPicker> {
 
   @override
   void dispose() {
-    super.dispose();
     scrollController!.dispose();
+    super.dispose();
   }
 
   @override
