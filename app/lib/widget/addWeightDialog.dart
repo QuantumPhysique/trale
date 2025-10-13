@@ -14,7 +14,6 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/weightPicker.dart';
-import 'package:trale/widget/weightPicker2.dart';
 
 ///
 Future<bool> showAddWeightDialog({
@@ -40,35 +39,6 @@ Future<bool> showAddWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          RulerPicker(
-            onValueChange: (num newValue) {
-              currentSliderValue = newValue.toDouble();
-              setState(() {});
-            },
-            width: MediaQuery.of(context).size.width - 80, // padding of dialog
-            value: currentSliderValue,
-            ticksPerStep: notifier.unit.ticksPerStep,
-          ),
-          NewRulerPicker(
-            onValueChange: (num newValue) {
-              currentSliderValue = newValue.toDouble();
-              setState(() {});
-            },
-            width: MediaQuery.of(context).size.width - 80, // padding of dialog
-            value: currentSliderValue,
-            ticksPerStep: notifier.unit.ticksPerStep,
-          ),
-          ListTile(
-            title: Text(
-              AppLocalizations.of(context)!.weight,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            trailing: Text(
-              '${sliderLabel.toStringAsFixed(notifier.unit.precision)} '
-              '${notifier.unit.name}',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
           ListTile(
             title: Text(
               AppLocalizations.of(context)!.date,
@@ -176,6 +146,15 @@ Future<bool> showAddWeightDialog({
               setState(() {});
             },
           ),
+          RulerPicker(
+            onValueChange: (num newValue) {
+              currentSliderValue = newValue.toDouble();
+              setState(() {});
+            },
+            width: MediaQuery.of(context).size.width - 80, // padding of dialog
+            value: currentSliderValue,
+            ticksPerStep: notifier.unit.ticksPerStep,
+          ),
         ],
       );
     },
@@ -277,21 +256,6 @@ Future<bool> showTargetWeightDialog({
             width: MediaQuery.of(context).size.width - 80, // padding of dialog
             value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
-          ),
-          ListTile(
-            title: Text(
-              AppLocalizations.of(context)!.weight,
-              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-            trailing: Text(
-              '${sliderLabel.toStringAsFixed(notifier.unit.precision)} '
-              '${notifier.unit.name}',
-              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
           ),
         ],
       );
