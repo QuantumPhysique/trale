@@ -280,7 +280,7 @@
     "@experimentalFeatures": {
         "description": "Label for experimental features section"
     },
-    "looseWeight": "Verliere Gewicht",
+    "looseWeight": "Gewicht verlieren",
     "@looseWeight": {
         "description": "Loose weight switch label."
     },
