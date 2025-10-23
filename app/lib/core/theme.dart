@@ -105,6 +105,9 @@ class TraleTheme {
   final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
   );
+  final RoundedRectangleBorder innerBorderShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(4),
+  );
   /// Padding value
   final double padding = 16;
   /// Space value between two elements
