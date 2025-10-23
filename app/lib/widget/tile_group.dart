@@ -17,7 +17,6 @@ class WidgetGroup extends StatelessWidget {
       child: Card(
         color: Colors.transparent,
         shape: TraleTheme.of(context)!.borderShape,
-        margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: children.addGap(
