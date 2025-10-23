@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/core/gap.dart';
 import 'package:trale/core/theme.dart';
 
 
@@ -11,7 +12,7 @@ class WidgetGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding
+        horizontal: TraleTheme.of(context)!.padding,
       ),
       child: Card(
         color: Colors.transparent,
@@ -19,25 +20,14 @@ class WidgetGroup extends StatelessWidget {
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
         child: Column(
-          children: _withDividers(context, children),
+          children: children.addGap(
+            padding: TraleTheme.of(context)!.space,
+            direction: Axis.vertical,
+            offset: 1,
+          )
         ),
       ),
     );
-  }
-
-  List<Widget> _withDividers(BuildContext context, List<Widget> items) {
-    final List<Widget> result = <Widget>[];
-    for (int i = 0; i < items.length; i++) {
-      result.add(items[i]);
-      if (i != items.length - 1) {
-        result.add(
-          SizedBox(
-            height: TraleTheme.of(context)!.space,
-          ),
-        );
-      }
-    }
-    return result;
   }
 }
 

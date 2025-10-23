@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/widget/tile_group.dart';
 
 class MultiItemSnapScrollPhysics extends ScrollPhysics {
   const MultiItemSnapScrollPhysics({
@@ -189,12 +190,12 @@ class RulerPickerState extends State<RulerPicker> {
     Widget triangle() {
       return SizedBox(
         width: widthLargeTick,
-        height: 0, //2 * widthLargeTick - padding,
+        height: 0,// - padding,
         child: CustomPaint(
           painter: _Painter(
-            lineColor: colorScheme.tertiary,
+            lineColor: colorScheme.secondary,
             width: widthLargeTick,
-            height: padding + widthLargeTick / 4,
+            height: 2 * widthLargeTick,
           ),
         ),
       );
@@ -202,21 +203,21 @@ class RulerPickerState extends State<RulerPicker> {
 
     return SizedBox(
       width: widthLargeTick,
-      height: heightLargeTick + widthLargeTick / 4,
+      height: heightLargeTick,
       child: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
           Transform.translate(
-            offset: Offset(0, -padding - widthLargeTick / 4),
+            offset: Offset(0, 0),
             child: triangle(),
           ),
           Transform.translate(
-            offset: Offset(0,- widthLargeTick / 4),
+            offset: Offset(0, 0),
             child: Container(
               width: barWidth,
-              height: heightLargeTick + widthLargeTick / 4,
+              height: heightLargeTick,
               decoration: BoxDecoration(
-                color: colorScheme.tertiary,
+                color: colorScheme.secondary,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
@@ -244,8 +245,9 @@ class RulerPickerState extends State<RulerPicker> {
       '${newValue.toStringAsFixed(notifier.unit.precision)} '
       '${notifier.unit.name}',
       style: Theme.of(context).textTheme.headlineMedium?.apply(
-        color: colorScheme.onTertiaryContainer,
+        color: colorScheme.onSecondary,
         fontFamily: 'CourierPrime',
+        fontWeightDelta: 2,
       ),
     );
 
@@ -253,26 +255,26 @@ class RulerPickerState extends State<RulerPicker> {
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: padding),
-      child: Column(
+      child: WidgetGroup(
         children: <Widget>[
-          Container(
-            width: widget.width,
-            alignment: Alignment.topCenter,
+          GroupedWidget(
+            color: colorScheme.secondary,
             //color: colorScheme.primaryContainer,
             child: Container(
+              width: widget.width,
+              alignment: Alignment.bottomCenter,
               padding: EdgeInsets.fromLTRB(
                 padding,
                 0.5 * padding,
                 padding,
-                0.25 * padding,
+                0 * padding,
               ),
               decoration: BoxDecoration(
-                color: colorScheme.primaryContainer,
                 // only draw the top border
-                border: Border(
-                  bottom: BorderSide(color: colorScheme.tertiary, width: barWidth),
-                  //  bottom: BorderSide(color: colorScheme.tertiary, width: barWidth),
-                ),
+                // border: Border(
+                //   bottom: BorderSide(color: colorScheme.tertiary, width: barWidth),
+                //   //  bottom: BorderSide(color: colorScheme.tertiary, width: barWidth),
+                // ),
                 // optional: round only the top corners
                 borderRadius: BorderRadius.vertical(
                   //top: Radius.circular(TraleTheme.of(context)!.borderRadius),
@@ -282,123 +284,125 @@ class RulerPickerState extends State<RulerPicker> {
               child: valueLabel,
             ),
           ),
-          Container(
-            width: widget.width,
-            height: widget.height + 1.5 * padding,
-            padding: EdgeInsets.only(bottom: 0.5 * padding, top: padding),
-            color: colorScheme.primaryContainer,
-            child: Listener(
-              onPointerDown: (_) => FocusScope.of(context).requestFocus(FocusNode()),
-              child: AnimatedBuilder(
-                animation: _scrollController,
-                builder: (BuildContext context, _) {
-                  final double offset = _scrollController.hasClients ? _scrollController.offset : 0.0;
-                  final double page = offset / tickWidth;
-
-                  // Visible items count in viewport (approx).
-                  final double pagesVisible = (widget.width / tickWidth).clamp(1.0, double.infinity);
-
-                  // Start fading at the third-last visible tick towards each edge
-                  final double edgeStart = (1.0 - 4.0 / pagesVisible).clamp(0.0, 1.0);
-
-                  // Inside build(), before scaleForIndex:
-                  final double zeroAtInsetPx = 0.5 * tickWidth; // reach 0 scale this many px before the edge
-                  final double halfViewportPx = widget.width / 2.0;
-                  final double zeroAtRel = ((halfViewportPx - zeroAtInsetPx) / halfViewportPx).clamp(0.0, 1.0);
-
-                  // Keep pagesVisible and edgeStart as you already compute them.
-                  // Then update scaleForIndex:
-                  double scaleForIndex(int index) {
-                    final double rel = ((index - page) / (pagesVisible / 2.0)).abs();
-                    final double denom = max(1e-6, zeroAtRel - edgeStart); // avoid div-by-zero
-                    final double t = ((rel - edgeStart) / denom).clamp(0.0, 1.0);
-                    return 1.0 - t;
-                  }
-
-                  // Report snapped value when the nearest index changes.
-                  final int nearestIndex = page.round();
-                  if (nearestIndex != _lastReportedIndex) {
-                    _lastReportedIndex = nearestIndex;
-                    final double newValue = nearestIndex / widget.ticksPerStep;
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      if (!mounted) {
-                        return;
-                      }
-                      widget.onValueChange(newValue);
-                    });
-                  }
-
-                  return Stack(
-                    alignment: Alignment.topCenter,
-                    children: <Widget>[
-                      ListView.builder(
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: leadTrailPad),
-                        physics: MultiItemSnapScrollPhysics(
-                          snapSize: tickWidth,
-                          parent: const ClampingScrollPhysics(),
-                        ),
-                        itemExtent: tickWidth,
-                        itemBuilder: (BuildContext context, int index) {
-                          final bool isMajor = index % widget.ticksPerStep == 0;
-                          final bool isMedium = index % 5 == 0;
-                          final double scalex = scaleForIndex(index);
-                          const double scaley = 1.0;
-
-                          final double tickHeight = isMajor
-                              ? heightLargeTick
-                              : isMedium
-                                  ? 0.5 * (heightLargeTick + heightSmallTick)
-                                  : heightSmallTick;
-
-                          return Stack(
-                            clipBehavior: Clip.none,
-                            alignment: Alignment.topCenter,
-                            children: <Widget>[
-                              Transform(
-                                alignment: Alignment.topCenter,
-                                transform: Matrix4.diagonal3Values(scalex, scaley, 1.0),
-                                child: Container(
-                                  width: isMajor ? barWidth : barWidth / 2,
-                                  height: tickHeight,
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.onPrimaryContainer,
-                                    borderRadius: BorderRadius.circular(10),
+          GroupedWidget(
+            color: colorScheme.secondaryContainer,
+            child: Container(
+              width: widget.width,
+              height: widget.height + 1.5 * padding,
+              padding: EdgeInsets.only(bottom: 0.5 * padding, top: padding),
+              child: Listener(
+                onPointerDown: (_) => FocusScope.of(context).requestFocus(FocusNode()),
+                child: AnimatedBuilder(
+                  animation: _scrollController,
+                  builder: (BuildContext context, _) {
+                    final double offset = _scrollController.hasClients ? _scrollController.offset : 0.0;
+                    final double page = offset / tickWidth;
+            
+                    // Visible items count in viewport (approx).
+                    final double pagesVisible = (widget.width / tickWidth).clamp(1.0, double.infinity);
+            
+                    // Start fading at the third-last visible tick towards each edge
+                    final double edgeStart = (1.0 - 4.0 / pagesVisible).clamp(0.0, 1.0);
+            
+                    // Inside build(), before scaleForIndex:
+                    final double zeroAtInsetPx = 0.5 * tickWidth; // reach 0 scale this many px before the edge
+                    final double halfViewportPx = widget.width / 2.0;
+                    final double zeroAtRel = ((halfViewportPx - zeroAtInsetPx) / halfViewportPx).clamp(0.0, 1.0);
+            
+                    // Keep pagesVisible and edgeStart as you already compute them.
+                    // Then update scaleForIndex:
+                    double scaleForIndex(int index) {
+                      final double rel = ((index - page) / (pagesVisible / 2.0)).abs();
+                      final double denom = max(1e-6, zeroAtRel - edgeStart); // avoid div-by-zero
+                      final double t = ((rel - edgeStart) / denom).clamp(0.0, 1.0);
+                      return 1.0 - t;
+                    }
+            
+                    // Report snapped value when the nearest index changes.
+                    final int nearestIndex = page.round();
+                    if (nearestIndex != _lastReportedIndex) {
+                      _lastReportedIndex = nearestIndex;
+                      final double newValue = nearestIndex / widget.ticksPerStep;
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (!mounted) {
+                          return;
+                        }
+                        widget.onValueChange(newValue);
+                      });
+                    }
+            
+                    return Stack(
+                      alignment: Alignment.topCenter,
+                      children: <Widget>[
+                        ListView.builder(
+                          controller: _scrollController,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.symmetric(horizontal: leadTrailPad),
+                          physics: MultiItemSnapScrollPhysics(
+                            snapSize: tickWidth,
+                            parent: const ClampingScrollPhysics(),
+                          ),
+                          itemExtent: tickWidth,
+                          itemBuilder: (BuildContext context, int index) {
+                            final bool isMajor = index % widget.ticksPerStep == 0;
+                            final bool isMedium = index % 5 == 0;
+                            final double scalex = scaleForIndex(index);
+                            final double scaley = pow(scalex, 0.2) as double;
+            
+                            final double tickHeight = isMajor
+                                ? heightLargeTick
+                                : isMedium
+                                    ? 0.5 * (heightLargeTick + heightSmallTick)
+                                    : heightSmallTick;
+            
+                            return Stack(
+                              clipBehavior: Clip.none,
+                              alignment: Alignment.topCenter,
+                              children: <Widget>[
+                                Transform(
+                                  alignment: Alignment.topCenter,
+                                  transform: Matrix4.diagonal3Values(scalex, scaley, 1.0),
+                                  child: Container(
+                                    width: isMajor ? barWidth : barWidth / 2,
+                                    height: tickHeight,
+                                    decoration: BoxDecoration(
+                                      color: colorScheme.onSecondaryContainer,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              if (isMajor)
-                                Positioned(
-                                  bottom: 0,
-                                  width: tickWidth * widget.ticksPerStep,
-                                  left: -0.5 * tickWidth * (widget.ticksPerStep - 0.75),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Transform(
-                                      alignment: Alignment.topCenter,
-                                      transform: Matrix4.diagonal3Values(scalex, scalex, 1.0),
-                                      child: Text(
-                                        (index / widget.ticksPerStep).toStringAsFixed(0),
-                                        style: Theme.of(context).textTheme.bodyLarge!.apply(
-                                          color: colorScheme.onPrimaryContainer,
-                                          fontFamily: 'CourierPrime',
+                                if (isMajor)
+                                  Positioned(
+                                    bottom: 0,
+                                    width: tickWidth * widget.ticksPerStep,
+                                    left: -0.5 * tickWidth * (widget.ticksPerStep - 0.75),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Transform(
+                                        alignment: Alignment.topCenter,
+                                        transform: Matrix4.diagonal3Values(scalex, scalex, 1.0),
+                                        child: Text(
+                                          (index / widget.ticksPerStep).toStringAsFixed(0),
+                                          style: Theme.of(context).textTheme.bodyLarge!.apply(
+                                            color: colorScheme.onSecondaryContainer,
+                                            fontFamily: 'CourierPrime',
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                            ],
-                          );
-                        },
-                      ),
-                      Positioned(
-                        top: 0,
-                        child: marker,
-                      ),
-                    ],
-                  );
-                },
+                              ],
+                            );
+                          },
+                        ),
+                        Positioned(
+                          top: 0,
+                          child: marker,
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ),
