@@ -19,6 +19,7 @@ class WidgetGroup extends StatelessWidget {
         shape: TraleTheme.of(context)!.borderShape,
         clipBehavior: Clip.antiAlias,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: children.addGap(
             padding: TraleTheme.of(context)!.space,
             direction: Axis.vertical,
