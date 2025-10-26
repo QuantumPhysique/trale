@@ -4,18 +4,18 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/pages/home.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
+import 'package:trale/widget/tile_group.dart';
 class SettingsOverviewPage extends StatelessWidget {
   const SettingsOverviewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    List<Widget> sliverlist = <Widget>[
-      _SettingsSection(
-        children: const <Widget>[
+    final List<Widget> sliverlist = <Widget>[
+      WidgetGroup(
+        children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.faders,
             title: 'Personalization',
@@ -34,7 +34,7 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
-      _SettingsSection(
+      WidgetGroup(
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.globe,
@@ -52,8 +52,8 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
-      _SettingsSection(
-        children: const <Widget>[
+      WidgetGroup(
+        children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.database,
             title: 'Import and export',
@@ -62,7 +62,7 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
-      _SettingsSection(
+      WidgetGroup(
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.question,
@@ -77,13 +77,13 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
-      _SettingsSection(
+      WidgetGroup(
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.warning,
             title: AppLocalizations.of(context)!.dangerzone,
             subtitle: 'Delete all data and reset the app',
-            trailing: _ExperimentalBadge(),
+            trailing: const _ExperimentalBadge(),
           ),
         ],
       ),
@@ -99,39 +99,6 @@ class SettingsOverviewPage extends StatelessWidget {
 }
 
 /// A rounded section that groups a list of tiles and draws dividers between theme.
-class _SettingsSection extends StatelessWidget {
-  const _SettingsSection({required this.children});
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).colorScheme.surface,
-      shape: TraleTheme.of(context)!.borderShape,
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        children: _withDividers(context, children),
-      ),
-    );
-  }
-
-  List<Widget> _withDividers(BuildContext context, List<Widget> items) {
-    final List<Widget> result = <Widget>[];
-    for (int i = 0; i < items.length; i++) {
-      result.add(items[i]);
-      if (i != items.length - 1) {
-        result.add(
-          SizedBox(
-            height: TraleTheme.of(context)!.space,
-          ),
-        );
-      }
-    }
-    return result;
-  }
-}
-
 /// Rounded tile with icon, title, subtitle and optional trailing widget.
 class _SettingsTile extends StatelessWidget {
   const _SettingsTile({
@@ -150,7 +117,8 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget content = ListTile(
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainer,
       // Remove inner padding so content spans full width
       contentPadding: EdgeInsets.symmetric(
           horizontal: TraleTheme.of(context)!.padding
@@ -172,23 +140,6 @@ class _SettingsTile extends StatelessWidget {
           Navigator.of(context).push<dynamic>(pageRoute!);
         }
       },
-      shape: TraleTheme.of(context)!.borderShape.copyWith(
-        borderRadius: BorderRadius.circular(
-          TraleTheme.of(context)!.padding / 4,
-        ),
-      ),
-    );
-
-    return Card(
-      // Remove default Card margin so tile fills parent width/height
-      margin: EdgeInsets.zero,
-      color: Theme.of(context).colorScheme.surfaceContainer,
-      shape: TraleTheme.of(context)!.borderShape.copyWith(
-        borderRadius: BorderRadius.circular(
-          TraleTheme.of(context)!.padding / 4,
-        ),
-      ),
-      child: content,
     );
   }
 }
