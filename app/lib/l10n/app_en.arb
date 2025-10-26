@@ -378,6 +378,10 @@
     "@addUserName": {
         "description": "How shall we call you?"
     },
+    "name": "name",
+    "@name": {
+        "description": "Name"
+    },
     "addTargetWeight": "Add target weight",
     "@addTargetWeight": {
         "description": "Press to add a target weight."
