@@ -15,6 +15,7 @@ class WidgetGroup extends StatelessWidget {
         horizontal: TraleTheme.of(context)!.padding,
       ),
       child: Card(
+        margin: EdgeInsets.zero,
         color: Colors.transparent,
         shape: TraleTheme.of(context)!.borderShape,
         clipBehavior: Clip.antiAlias,
