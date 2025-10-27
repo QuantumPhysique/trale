@@ -138,7 +138,9 @@ Future<bool> showUserDialog({
     builder: (BuildContext context) {
       return AlertDialog(
         titlePadding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        contentPadding: EdgeInsets.zero,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
         actionsPadding: EdgeInsets.symmetric(
           horizontal: TraleTheme.of(context)!.padding,
           /// todo: why -4? Find reason and fix properly

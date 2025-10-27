@@ -10,23 +10,18 @@ class WidgetGroup extends StatelessWidget {
   final List<Widget> children;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-      ),
-      child: Card(
-        margin: EdgeInsets.zero,
-        color: Colors.transparent,
-        shape: TraleTheme.of(context)!.borderShape,
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: children.addGap(
-            padding: TraleTheme.of(context)!.space,
-            direction: Axis.vertical,
-            offset: 1,
-          )
-        ),
+    return Card(
+      margin: EdgeInsets.zero,
+      color: Colors.transparent,
+      shape: TraleTheme.of(context)!.borderShape,
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: children.addGap(
+          padding: TraleTheme.of(context)!.space,
+          direction: Axis.vertical,
+          offset: 1,
+        )
       ),
     );
   }
@@ -34,7 +29,7 @@ class WidgetGroup extends StatelessWidget {
 
 /// Rounded tile with icon, title, subtitle and optional trailing widget.
 class GroupedWidget extends StatelessWidget {
-  const GroupedWidget({super.key, 
+  const GroupedWidget({super.key,
     required this.child,
     this.color,
   });
