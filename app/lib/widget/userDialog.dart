@@ -137,8 +137,12 @@ Future<bool> showUserDialog({
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        contentPadding: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding,
+        titlePadding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+        contentPadding: EdgeInsets.zero,
+        actionsPadding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+          /// todo: why -4? Find reason and fix properly
+          vertical: TraleTheme.of(context)!.padding - 4,
         ),
         title: Center(
           child: Text(
@@ -168,10 +172,7 @@ List<Widget> actions(BuildContext context, Function onPress,
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
       icon: PPIcon(PhosphorIconsRegular.arrowLeft, context),
-      label: Text(AppLocalizations.of(context)!.back,
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              )),
+      label: Text(AppLocalizations.of(context)!.back),
     ),
   ];
 }
