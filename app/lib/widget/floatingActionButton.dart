@@ -23,10 +23,10 @@ class FAB extends StatefulWidget {
 }
 
 class _FABState extends State<FAB> {
+
   @override
   Widget build(BuildContext context) {
-    const double topInset = 12;
-    const double buttonHeight = 80 - 2 * topInset;
+    const double buttonHeight = 96;  /// The new m3e size for a large FAB
     return AnimatedContainer(
         alignment: Alignment.center,
         height: widget.show ? buttonHeight : 0,
@@ -37,7 +37,7 @@ class _FABState extends State<FAB> {
         duration: TraleTheme.of(context)!.transitionDuration.normal,
         child: FittedBox(
           fit: BoxFit.contain,
-          child: FloatingActionButton(
+          child: FloatingActionButton.large(
             elevation: 0,
             onPressed: widget.onPressed,
             tooltip: AppLocalizations.of(context)!.addWeight,
