@@ -239,10 +239,10 @@ class RulerPickerState extends State<RulerPicker> {
     final Text valueLabel = Text(
       '${weight.toStringAsFixed(notifier.unit.precision)} '
           '${notifier.unit.name}',
-      style: Theme.of(context).textTheme.headlineMedium?.apply(
+      style: Theme.of(context).textTheme.headlineLarge?.apply(
         color: color,
         fontFamily: 'CourierPrime',
-        fontWeightDelta: 2,
+        fontWeightDelta: -2,
       ),
     );
 
@@ -251,9 +251,9 @@ class RulerPickerState extends State<RulerPicker> {
       alignment: Alignment.bottomCenter,
       padding: EdgeInsets.fromLTRB(
         padding,
-        0.5 * padding,
+        0.75 * padding,
         padding,
-        0,
+        0.25 * padding,
       ),
       child: valueLabel,
     );
@@ -267,7 +267,6 @@ class RulerPickerState extends State<RulerPicker> {
 
   @override
   Widget build(BuildContext context) {
-    final double padding = TraleTheme.of(context)!.padding;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     final double offset = _scrollController.hasClients ? _scrollController.offset : 0.0;
@@ -276,35 +275,32 @@ class RulerPickerState extends State<RulerPicker> {
 
     final double newValue = nearestIndex / widget.ticksPerStep;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: padding),
-      child: WidgetGroup(
-        children: <Widget>[
-          GroupedWidget(
-            color: colorScheme.secondary,
-            child: _weightLabelWidget(
-              context, newValue, colorScheme.onSecondary,
+    return WidgetGroup(
+      children: <Widget>[
+        GroupedWidget(
+          color: colorScheme.secondary,
+          child: _weightLabelWidget(
+            context, newValue, colorScheme.onSecondary,
+          ),
+        ),
+        GroupedWidget(
+          color: colorScheme.secondaryContainer,
+          child: SizedBox(
+            height: widget.height,
+            width: MediaQuery.of(context).size.width,
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) =>
+              _WeightSlider(
+                constraints: constraints,
+                scrollController: _scrollController,
+                ticksPerStep: widget.ticksPerStep,
+                onValueChange: _updateWeightValue,
+                tickWidth: tickWidth,
+              )
             ),
-          ),
-          GroupedWidget(
-            color: colorScheme.secondaryContainer,
-            child: SizedBox(
-              height: widget.height,
-              width: MediaQuery.of(context).size.width,
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) =>
-                _WeightSlider(
-                  constraints: constraints,
-                  scrollController: _scrollController,
-                  ticksPerStep: widget.ticksPerStep,
-                  onValueChange: _updateWeightValue,
-                  tickWidth: tickWidth,
-                )
-              ),
-            )
-          ),
-        ],
-      ),
+          )
+        ),
+      ],
     );
   }
 }
@@ -343,9 +339,6 @@ class _WeightSliderState extends State<_WeightSlider> {
     final double tickWidth = widget.tickWidth;
 
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
-
     final double leadTrailPad = ((width - tickWidth) / 2.0).clamp(0.0, double.infinity);
 
     final double offset = scrollController.hasClients ? scrollController.offset : 0.0;

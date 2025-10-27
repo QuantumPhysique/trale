@@ -32,13 +32,9 @@ Future<bool> showAddWeightDialog({
   final DateTime initialDate = date;
   DateTime currentDate = initialDate;
   final MeasurementDatabase database = MeasurementDatabase();
-  final double padding = TraleTheme.of(context)!.padding;
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final double sliderLabel =
-          (currentSliderValue * notifier.unit.ticksPerStep).roundToDouble() /
-              notifier.unit.ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -144,6 +140,7 @@ Future<bool> showAddWeightDialog({
               ),
             ]
           ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -163,9 +160,16 @@ Future<bool> showAddWeightDialog({
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        contentPadding: EdgeInsets.only(
-          top: TraleTheme.of(context)!.padding,
+        titlePadding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
         ),
+        actionsPadding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+          /// todo: why -4? Find reason and fix properly
+          vertical: TraleTheme.of(context)!.padding - 4,
+        ),
+        actionsAlignment: MainAxisAlignment.spaceBetween,
         title: Center(
           child: Text(
             AppLocalizations.of(context)!.addWeight,
@@ -315,12 +319,16 @@ Future<bool> showTargetWeightDialog({
 }
 
 ///
-List<Widget> actions(BuildContext context, Function onPress,
-    {bool enabled = true}) {
+List<Widget> actions(BuildContext context, Function onPress, {bool enabled = true}) {
   return <Widget>[
-    TextButton(
+    FilledButton.icon(
       onPressed: () => Navigator.pop(context, false),
-      child: Text(
+      style: FilledButton.styleFrom(
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+      ),
+      icon: PPIcon(PhosphorIconsRegular.x, context),
+      label: Text(
         AppLocalizations.of(context)!.abort,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
           color: Theme.of(context).colorScheme.onSurface,
