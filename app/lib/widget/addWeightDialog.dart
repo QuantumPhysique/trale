@@ -14,6 +14,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/widget/dialog.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:trale/widget/weight_picker.dart';
 
@@ -159,26 +160,8 @@ Future<bool> showAddWeightDialog({
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        titlePadding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
-        actionsPadding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-          /// todo: why -4? Find reason and fix properly
-          vertical: TraleTheme.of(context)!.padding - 4,
-        ),
-        actionsAlignment: MainAxisAlignment.spaceBetween,
-        title: Center(
-          child: Text(
-            AppLocalizations.of(context)!.addWeight,
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            maxLines: 1,
-          ),
-        ),
+      return DialogM3E(
+        title: AppLocalizations.of(context)!.addWeight,
         content: content,
         actions: actions(
           context, () {
@@ -249,6 +232,7 @@ Future<bool> showTargetWeightDialog({
               ),
             ],
           ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -267,19 +251,8 @@ Future<bool> showTargetWeightDialog({
           barrierDismissible: false,
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              contentPadding: EdgeInsets.only(
-                top: TraleTheme.of(context)!.padding,
-              ),
-              title: Center(
-                child: Text(
-                  AppLocalizations.of(context)!.targetWeight,
-                  style: Theme.of(context).textTheme.headlineSmall!.apply(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                  maxLines: 1,
-                ),
-              ),
+            return DialogM3E(
+              title: AppLocalizations.of(context)!.targetWeight,
               content: content,
               actions: actions(context, () {
                 // In order to make our contribution to prevention, no target
