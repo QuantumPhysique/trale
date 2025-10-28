@@ -8,7 +8,12 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/pages/home.dart';
+import 'package:trale/pages/onBoarding.dart';
+import 'package:trale/pages/splash.dart';
+import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
+import 'package:trale/widget/tile_group.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 
@@ -29,26 +34,30 @@ class OnBoardingListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      dense: true,
-      title: AutoSizeText(
-        AppLocalizations.of(context)!.faq_a2_widget,
-        style: Theme.of(context).textTheme.bodyLarge,
-        maxLines: 1,
+    return GestureDetector(
+      child: GroupedListTile(
+        title: Text(
+            AppLocalizations.of(context)!.faq_a2_widget,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+        ),
+        leading: PPIcon(PhosphorIconsDuotone.signOut, context),
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-      ),
-      trailing: IconButton(
-        icon: PPIcon(PhosphorIconsDuotone.signOut, context),
-        onPressed: () {
+      onTap: () {
           Provider.of<TraleNotifier>(
               context, listen: false
           ).showOnBoarding = true;
-          // leave settings
-          Navigator.of(context).pop();
-        },
-      ),
+          // leave settings; pop twice to get back to home
+          Navigator.of(context).popUntil(
+            (Route<dynamic> route) => route.isFirst,
+          );
+          Navigator.of(context).push(
+            MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => const OnBoardingPage()
+            )
+          );
+      },
     );
   }
 }
@@ -64,32 +73,31 @@ class FAQEntry {
   });
 
   /// get list representation of tpl
-  Widget toWidget(BuildContext context) => Column(
+  Widget toWidget(BuildContext context) => WidgetGroup(
     children: <Widget>[
-      Container(
-        padding: EdgeInsets.fromLTRB(
-          TraleTheme.of(context)!.padding,
-          TraleTheme.of(context)!.padding,
-          TraleTheme.of(context)!.padding,
-          0,
+      GroupedListTile(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        leading: PPIcon(
+              PhosphorIconsDuotone.question,
+              context,
         ),
-        width: MediaQuery.of(context).size.width,
-        child: Text(
-          'Q: $question',
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-            fontWeight: FontWeight.bold,
+        title: Text(question,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
           ),
-          textAlign: TextAlign.justify,
         ),
       ),
-      Container(
-        padding: EdgeInsets.all(
-          TraleTheme.of(context)!.padding,
+      GroupedListTile(
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        leading: PPIcon(
+              PhosphorIconsDuotone.chatCircleDots,
+              context,
         ),
-        width: MediaQuery.of(context).size.width,
-        child: Text(
-          'A: $answer',
-          style: Theme.of(context).textTheme.bodyLarge,
+        title: Text(
+          answer,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           textAlign: TextAlign.justify,
         ),
       ),
@@ -138,62 +146,48 @@ class _FAQ extends State<FAQ> {
       ),
     ];
 
-    Widget faqList() {
-      return ListView(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-            child: Text(
-              AppLocalizations.of(context)!.faqtext,
-              textAlign: TextAlign.justify,
+    List<Widget> faqList() {
+      return <Widget>[
+        WidgetGroup(
+          children: <Widget>[
+            GroupedListTile(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              leading: PPIcon( PhosphorIconsDuotone.githubLogo, context),
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.openIssue.allInCaps,
+                maxLines: 1,
+              ),
+              onTap: () => _launchURL(
+                  'https://github.com/quantumphysique/trale/'
+              ),
             ),
-          ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.openIssue.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
+            GroupedWidget(
+              child: Padding(
+                padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                child: Text(
+                  AppLocalizations.of(context)!.faqtext,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
             ),
-            trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
-            onTap: () => _launchURL(
-                'https://github.com/quantumphysique/trale/'
-            ),
-          ),
-          Divider(height: 2 * TraleTheme.of(context)!.padding),
-          ...<Widget>[
-            for (final FAQEntry faq in faqEntries)
-              faq.toWidget(context),
-          ].addDivider(
-            padding: 2 * TraleTheme.of(context)!.padding,
-          ),
-        ],
-      );
-    }
-
-    Widget appBar() {
-      return CustomSliverAppBar(
-        title: AutoSizeText(
-          AppLocalizations.of(context)!.faq.allInCaps,
-          style: Theme.of(context).textTheme.headlineMedium,
-          maxLines: 1,
+          ],
         ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(PhosphorIconsRegular.arrowLeft),
+        SizedBox(height: TraleTheme.of(context)!.padding),
+        ...<Widget>[
+          for (final FAQEntry faq in faqEntries)
+            faq.toWidget(context),
+        ]
+        .addGap(
+          padding: TraleTheme.of(context)!.padding,
+          direction: Axis.vertical,
         ),
-      );
+      ];
     }
 
     return Scaffold(
-      body:  NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool _) {
-          return <Widget>[appBar()];
-        },
-        body: faqList(),
+      body: SliverAppBarSnap(
+        title: AppLocalizations.of(context)!.faq.allInCaps,
+        sliverlist: faqList(),
       ),
     );
   }
