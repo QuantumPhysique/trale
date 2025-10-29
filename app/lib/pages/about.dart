@@ -9,6 +9,7 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
+import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/tile_group.dart';
 
 
@@ -248,17 +249,30 @@ class _About extends State<About> {
         padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-            child: const Text(
-              'A simple weight log with short-term extrapolation.\n\n'
-              'Your privacy is respected. '
-              'No revenue sources in the app, nor error logs sent. '
-              'Please open an issue if you have problems.\n\n'
-              'Made by two devs with little spare time.\n'
-              'Consider contributing or donating.',
-              textAlign: TextAlign.justify,
+            padding: EdgeInsets.fromLTRB(
+              TraleTheme.of(context)!.padding,
+              TraleTheme.of(context)!.padding,
+              TraleTheme.of(context)!.padding,
+              2 * TraleTheme.of(context)!.padding,
             ),
+            child: const IconHero()
           ),
+          WidgetGroup(
+            children: <Widget>[
+              GroupedText(
+                text: const Text(
+                  'A simple weight log with short-term extrapolation.\n\n'
+                  'Your privacy is respected. '
+                  'No revenue sources in the app, nor error logs sent. '
+                  'Please open an issue if you have problems.\n\n'
+                  'Made by two devs with little spare time.\n'
+                  'Consider contributing or donating.',
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
           WidgetGroup(
             children: <Widget>[
               GroupedListTile(
@@ -317,6 +331,7 @@ class _About extends State<About> {
             ),
             child: AutoSizeText(
               AppLocalizations.of(context)!.tpl.allInCaps,
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium,
               maxLines: 1,
             ),
