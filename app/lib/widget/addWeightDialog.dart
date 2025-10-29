@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/firstDay.dart';
-import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -42,7 +41,7 @@ Future<bool> showAddWeightDialog({
           WidgetGroup(
             children: <Widget>[
               GroupedListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
                 leading: PPIcon(PhosphorIconsDuotone.calendar, context),
                 title: Text(AppLocalizations.of(context)!.date),
                 trailing: Text(
@@ -113,7 +112,7 @@ Future<bool> showAddWeightDialog({
             },
               ),
               GroupedListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
                 title: Text(AppLocalizations.of(context)!.time),
                 leading: PPIcon(PhosphorIconsDuotone.clock, context),
                 trailing: Text(
@@ -218,7 +217,7 @@ Future<bool> showTargetWeightDialog({
           WidgetGroup(
             children: <Widget>[
               GroupedWidget(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
                 child: Padding(
                   padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
                   child: Text(
@@ -297,7 +296,7 @@ List<Widget> actions(BuildContext context, Function onPress, {bool enabled = tru
     FilledButton.icon(
       onPressed: () => Navigator.pop(context, false),
       style: FilledButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
         foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
       icon: PPIcon(PhosphorIconsRegular.x, context),
@@ -311,7 +310,7 @@ List<Widget> actions(BuildContext context, Function onPress, {bool enabled = tru
     ),
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
-      icon: PPIcon(PhosphorIconsRegular.floppyDiskBack, context),
+      icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
       label: Text(
         AppLocalizations.of(context)!.save,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
@@ -320,9 +319,5 @@ List<Widget> actions(BuildContext context, Function onPress, {bool enabled = tru
         textAlign: TextAlign.end,
       ),
     ),
-  ].addGap(
-    padding: TraleTheme.of(context)!.padding,
-    direction: Axis.horizontal,
-    offset: 1,
-  );
+  ];
 }
