@@ -28,7 +28,7 @@ Future<bool> showUserDialog({
       return WidgetGroup(
         children: <Widget>[
           GroupedListTile(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: Theme.of(context).colorScheme.surfaceContainerLow,
             dense: false,
             leading: PPIcon(
               PhosphorIconsDuotone.user,
@@ -56,7 +56,7 @@ Future<bool> showUserDialog({
             onTap: () {},
           ),
           GroupedListTile(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: Theme.of(context).colorScheme.surfaceContainerLow,
             dense: false,
             leading: PPIcon(
               PhosphorIconsDuotone.target,
@@ -91,7 +91,7 @@ Future<bool> showUserDialog({
             ),
           ),
           GroupedListTile(
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: Theme.of(context).colorScheme.surfaceContainerLow,
             dense: false,
             leading: PPIcon(
               PhosphorIconsDuotone.arrowsVertical,
