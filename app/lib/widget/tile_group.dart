@@ -107,3 +107,25 @@ class GroupedListTile extends ListTile {
     );
   }
 }
+
+class GroupedText extends StatelessWidget {
+  const GroupedText({super.key, required this.text, this.color});
+
+  /// Background color of the grouped text widget
+  final Color? color;
+  /// Text to display
+  final Text text;
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupedWidget(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: 0.5 * TraleTheme.of(context)!.padding,
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
+        child: text
+      ),
+    );
+  }
+}
