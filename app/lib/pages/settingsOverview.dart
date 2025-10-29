@@ -4,6 +4,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
@@ -77,6 +78,9 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.info,
             title: AppLocalizations.of(context)!.about,
             subtitle: 'Learn more about the app',
+            pageRoute: MaterialPageRoute<dynamic>(
+              builder: (BuildContext context) => const About(),
+            )
           ),
         ],
       ),

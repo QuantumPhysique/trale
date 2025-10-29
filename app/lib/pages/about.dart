@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:trale/widget/tile_group.dart';
 
 
 /// get version number
@@ -37,7 +39,7 @@ class ThirdPartyLicence {
   });
 
   /// get list representation of tpl
-  ListTile toListTile(BuildContext context) => ListTile(
+  ListTile toListTile(BuildContext context) => GroupedListTile(
     dense: true,
     title: AutoSizeText(
       name.inCaps,
@@ -257,52 +259,56 @@ class _About extends State<About> {
               textAlign: TextAlign.justify,
             ),
           ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.version.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            trailing: FutureBuilder<String>(
-              future: _getVersionNumber(),
-              builder: (
-                BuildContext context, AsyncSnapshot<String> snapshot
-                ) => Text(
-                  snapshot.hasData
-                    ? snapshot.data!
-                    : '${AppLocalizations.of(context)!.loading} ...',
+          WidgetGroup(
+            children: <Widget>[
+              GroupedListTile(
+                dense: true,
+                title: AutoSizeText(
+                  AppLocalizations.of(context)!.version.allInCaps,
                   style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                trailing: FutureBuilder<String>(
+                  future: _getVersionNumber(),
+                  builder: (
+                    BuildContext context, AsyncSnapshot<String> snapshot
+                    ) => Text(
+                      snapshot.hasData
+                        ? snapshot.data!
+                        : '${AppLocalizations.of(context)!.loading} ...',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
               ),
-            ),
-          ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.sourcecode.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
-            onTap: () => _launchURL(
-                'https://github.com/quantumphysique/trale'
-            ),
-          ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.licence.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            trailing: AutoSizeText(
-              'GNU AGPLv3+',
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            onTap: () => _launchURL(
-              'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
-            ),
+              GroupedListTile(
+                dense: true,
+                title: AutoSizeText(
+                  AppLocalizations.of(context)!.sourcecode.allInCaps,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
+                onTap: () => _launchURL(
+                    'https://github.com/quantumphysique/trale'
+                ),
+              ),
+              GroupedListTile(
+                dense: true,
+                title: AutoSizeText(
+                  AppLocalizations.of(context)!.licence.allInCaps,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                trailing: AutoSizeText(
+                  'GNU AGPLv3+',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                onTap: () => _launchURL(
+                  'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
+                ),
+              ),
+            ],
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),
           Container(
@@ -311,41 +317,40 @@ class _About extends State<About> {
             ),
             child: AutoSizeText(
               AppLocalizations.of(context)!.tpl.allInCaps,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.headlineMedium,
               maxLines: 1,
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              0,
-            ),
+            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
             child: AutoSizeText(
               AppLocalizations.of(context)!.assets.allInCaps,
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
               maxLines: 1,
             ),
           ),
-          for (final ThirdPartyLicence tpl in tplsAssets)
-            tpl.toListTile(context),
+          WidgetGroup(
+            children: <Widget>[
+              for (final ThirdPartyLicence tpl in tplsAssets)
+                tpl.toListTile(context),
+            ]
+          ),
           Padding(
-            padding: EdgeInsets.fromLTRB(
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              0,
-            ),
+            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
             child: AutoSizeText(
               AppLocalizations.of(context)!.packages.allInCaps,
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
               maxLines: 1,
             ),
           ),
-          for (final ThirdPartyLicence tpl in tpls)
-            tpl.toListTile(context),
+          WidgetGroup(
+            children: <Widget>[
+              for (final ThirdPartyLicence tpl in tpls)
+                tpl.toListTile(context),
+            ]
+          ),
         ],
       );
     }
