@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'package:trale/core/icons.dart';
@@ -244,154 +245,133 @@ class About extends StatefulWidget {
 class _About extends State<About> {
   @override
   Widget build(BuildContext context) {
-    Widget aboutList() {
-      return ListView(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              2 * TraleTheme.of(context)!.padding,
-            ),
-            child: const IconHero()
+    List<Widget> aboutList() {
+      return <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            TraleTheme.of(context)!.padding,
+            TraleTheme.of(context)!.padding,
+            TraleTheme.of(context)!.padding,
+            2 * TraleTheme.of(context)!.padding,
           ),
-          WidgetGroup(
-            children: <Widget>[
-              GroupedText(
-                text: const Text(
-                  'A simple weight log with short-term extrapolation.\n\n'
-                  'Your privacy is respected. '
-                  'No revenue sources in the app, nor error logs sent. '
-                  'Please open an issue if you have problems.\n\n'
-                  'Made by two devs with little spare time.\n'
-                  'Consider contributing or donating.',
-                  textAlign: TextAlign.justify,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: TraleTheme.of(context)!.padding),
-          WidgetGroup(
-            children: <Widget>[
-              GroupedListTile(
-                dense: true,
-                title: AutoSizeText(
-                  AppLocalizations.of(context)!.version.allInCaps,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  maxLines: 1,
-                ),
-                trailing: FutureBuilder<String>(
-                  future: _getVersionNumber(),
-                  builder: (
-                    BuildContext context, AsyncSnapshot<String> snapshot
-                    ) => Text(
-                      snapshot.hasData
-                        ? snapshot.data!
-                        : '${AppLocalizations.of(context)!.loading} ...',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
-              ),
-              GroupedListTile(
-                dense: true,
-                title: AutoSizeText(
-                  AppLocalizations.of(context)!.sourcecode.allInCaps,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  maxLines: 1,
-                ),
-                trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
-                onTap: () => _launchURL(
-                    'https://github.com/quantumphysique/trale'
-                ),
-              ),
-              GroupedListTile(
-                dense: true,
-                title: AutoSizeText(
-                  AppLocalizations.of(context)!.licence.allInCaps,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  maxLines: 1,
-                ),
-                trailing: AutoSizeText(
-                  'GNU AGPLv3+',
-                  style: Theme.of(context).textTheme.bodyLarge,
-                  maxLines: 1,
-                ),
-                onTap: () => _launchURL(
-                  'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 2 * TraleTheme.of(context)!.padding),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.tpl.allInCaps,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineMedium,
-              maxLines: 1,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.assets.allInCaps,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge,
-              maxLines: 1,
-            ),
-          ),
-          WidgetGroup(
-            children: <Widget>[
-              for (final ThirdPartyLicence tpl in tplsAssets)
-                tpl.toListTile(context),
-            ]
-          ),
-          Padding(
-            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.packages.allInCaps,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge,
-              maxLines: 1,
-            ),
-          ),
-          WidgetGroup(
-            children: <Widget>[
-              for (final ThirdPartyLicence tpl in tpls)
-                tpl.toListTile(context),
-            ]
-          ),
-        ],
-      );
-    }
-
-    Widget appBar() {
-      return CustomSliverAppBar(
-        title: AutoSizeText(
-          AppLocalizations.of(context)!.about.allInCaps,
-          style: Theme.of(context).textTheme.headlineMedium,
-          maxLines: 1,
+          child: const IconHero()
         ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(PhosphorIconsRegular.arrowLeft),
+        WidgetGroup(
+          children: <Widget>[
+            GroupedText(
+              text: const Text(
+                'A simple weight log with short-term extrapolation.\n\n'
+                'Your privacy is respected. '
+                'No revenue sources in the app, nor error logs sent. '
+                'Please open an issue if you have problems.\n\n'
+                'Made by two devs with little spare time.\n'
+                'Consider contributing or donating.',
+                textAlign: TextAlign.justify,
+              ),
+            ),
+          ],
         ),
-      );
+        SizedBox(height: TraleTheme.of(context)!.padding),
+        WidgetGroup(
+          children: <Widget>[
+            GroupedListTile(
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.version.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: FutureBuilder<String>(
+                future: _getVersionNumber(),
+                builder: (
+                  BuildContext context, AsyncSnapshot<String> snapshot
+                  ) => Text(
+                    snapshot.hasData
+                      ? snapshot.data!
+                      : '${AppLocalizations.of(context)!.loading} ...',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+            ),
+            GroupedListTile(
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.sourcecode.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
+              onTap: () => _launchURL(
+                  'https://github.com/quantumphysique/trale'
+              ),
+            ),
+            GroupedListTile(
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.licence.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: AutoSizeText(
+                'GNU AGPLv3+',
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              onTap: () => _launchURL(
+                'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
+              ),
+            ),
+          ],
+        ),
+        Divider(height: 2 * TraleTheme.of(context)!.padding),
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
+          child: AutoSizeText(
+            AppLocalizations.of(context)!.tpl.allInCaps,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+            maxLines: 1,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+          child: AutoSizeText(
+            AppLocalizations.of(context)!.assets.allInCaps,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge,
+            maxLines: 1,
+          ),
+        ),
+        WidgetGroup(
+          children: <Widget>[
+            for (final ThirdPartyLicence tpl in tplsAssets)
+              tpl.toListTile(context),
+          ]
+        ),
+        Padding(
+          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+          child: AutoSizeText(
+            AppLocalizations.of(context)!.packages.allInCaps,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleLarge,
+            maxLines: 1,
+          ),
+        ),
+        WidgetGroup(
+          children: <Widget>[
+            for (final ThirdPartyLicence tpl in tpls)
+              tpl.toListTile(context),
+          ]
+        ),
+      ];
     }
 
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool _) {
-          return <Widget>[appBar()];
-        },
-        body: aboutList(),
+      body: SliverAppBarSnap(
+        title: AppLocalizations.of(context)!.faq.allInCaps,
+        sliverlist: aboutList(),
       ),
     );
   }
