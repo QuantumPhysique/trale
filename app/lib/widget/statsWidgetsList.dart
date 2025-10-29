@@ -24,10 +24,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
   Widget build(BuildContext context) {
     final MeasurementStats stats = MeasurementStats();
 
-    int getDelayInMilliseconds(int i){
-      return TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds
-          * (1 + i / 3).round();
-    }
+    final int delayInMilliseconds = TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
     final TraleNotifier notifier =
         Provider.of<TraleNotifier>(context, listen: false);
@@ -38,17 +35,16 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
         getMinWidget(
           context: context,
           stats: stats,
-          delayInMilliseconds: getDelayInMilliseconds(5)
         ),
         getIconWidget(
           context: context,
           stats: stats,
-          delayInMilliseconds: getDelayInMilliseconds(6),
+          delayInMilliseconds: (delayInMilliseconds / 2).toInt(),
         ),
         getMaxWidget(
           context: context,
           stats: stats,
-          delayInMilliseconds: getDelayInMilliseconds(7)
+          delayInMilliseconds: delayInMilliseconds
         ),
       ].addGap(
         padding: TraleTheme.of(context)!.padding,
@@ -65,22 +61,21 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             DefaultStatCard(
               firstRow: AppLocalizations.of(context)!.currentStreak,
               secondRow: stats.currentStreak.durationToString(context),
-              delayInMilliseconds: getDelayInMilliseconds(9),
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             DefaultStatCard(
               firstRow: AppLocalizations.of(context)!.maxStreak,
               secondRow: stats.maxStreak.durationToString(context),
-              delayInMilliseconds: getDelayInMilliseconds(10),
             ),
           ],
         ),
         Column(
           children: <Widget>[
             getFrequencyInTotal(
-                context: context,
-                stats: stats,
-                delayInMilliseconds: getDelayInMilliseconds(11)),
+              context: context,
+              stats: stats,
+              delayInMilliseconds: delayInMilliseconds,
+            )
           ],
         ),
       ].addGap(
@@ -98,12 +93,11 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             getReachingTargetWeightWidget(
               context: context,
               stats: stats,
-              delayInMilliseconds: getDelayInMilliseconds(2)),
+            ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             DefaultStatCard(
               firstRow: AppLocalizations.of(context)!.timeSinceFirstMeasurement,
               secondRow: stats.deltaTime.durationToString(context),
-              delayInMilliseconds: getDelayInMilliseconds(4),
             ),
           ],
         ),
@@ -112,13 +106,13 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             DefaultStatCard(
               firstRow: '# ${AppLocalizations.of(context)!.measurements.toLowerCase()}',
               secondRow: '${stats.nMeasurements}',
-              delayInMilliseconds: getDelayInMilliseconds(1),
+              delayInMilliseconds: delayInMilliseconds,
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             getTotalChangeWidget(
               context: context,
               stats: stats,
-              delayInMilliseconds: getDelayInMilliseconds(3)),
+              delayInMilliseconds: delayInMilliseconds),
           ],
         ),
       ].addGap(
@@ -132,21 +126,20 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
       children: <Widget>[
         getChangeRatesWidget(
           context: context,
-          stats:stats,
-          delayInMilliseconds: getDelayInMilliseconds(0)),
+          stats: stats,
+        ),
         col234,
         minMaxWidget,
         getMeanWidget(
           context: context,
           stats: stats,
-          delayInMilliseconds: getDelayInMilliseconds(8)
         ),
         streakAndFrequencyWidget,
         if (notifier.userHeight != null)
           getBMIWidget(
             context: context,
             stats: stats,
-            delayInMilliseconds: getDelayInMilliseconds(12)),
+          ),
         SizedBox(height: TraleTheme.of(context)!.padding)
       ].addGap(
         padding: TraleTheme.of(context)!.padding,

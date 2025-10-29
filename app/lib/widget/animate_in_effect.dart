@@ -29,6 +29,7 @@ class _AnimateInEffectState extends State<AnimateInEffect>
   @override
   void initState() {
     super.initState();
+
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: widget.durationInMilliseconds),
@@ -43,11 +44,11 @@ class _AnimateInEffectState extends State<AnimateInEffect>
     final Curve intervalCurve = Interval(
       widget.intervalStart,
       1,
-      curve: Curves.easeOut,
+      curve: Curves.easeInOutCubic,
     );
 
     offsetAnimation = Tween<Offset>(
-      begin: const Offset(0, 30),
+      begin: const Offset(96, 0),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(
@@ -56,12 +57,6 @@ class _AnimateInEffectState extends State<AnimateInEffect>
       ),
     );
 
-    fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: intervalCurve,
-      ),
-    );
   }
 
   @override
@@ -73,16 +68,14 @@ class _AnimateInEffectState extends State<AnimateInEffect>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return AnimatedBuilder(
       animation: animationController,
       builder: (BuildContext context, Widget? child) => Transform.translate(
         offset: offsetAnimation.value,
         child: child,
       ),
-      child: FadeTransition(
-        opacity: fadeAnimation,
-        child: widget.child,
-      ),
+      child: widget.child,
     );
   }
 

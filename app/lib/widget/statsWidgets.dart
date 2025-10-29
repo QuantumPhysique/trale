@@ -128,7 +128,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         crossFadeState: widget.visible
             ? CrossFadeState.showFirst
             : CrossFadeState.showSecond,
-        duration: TraleTheme.of(context)!.transitionDuration.fast,
+        duration: TraleTheme.of(context)!.transitionDuration.normal,
         secondChild: const SizedBox.shrink(),
         firstChild: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -603,7 +603,7 @@ Widget getIconWidget({required BuildContext context,
       (MediaQuery.sizeOf(context).width
        - 5 * TraleTheme.of(context)!.padding) / 4;
   final int animationDurationInMilliseconds =
-      TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
+      TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
   return AnimateInEffect(
     delayInMilliseconds: delayInMilliseconds ?? 0,

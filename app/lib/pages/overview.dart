@@ -80,16 +80,14 @@ class _OverviewScreen extends State<OverviewScreen> {
         children: <Widget>[
           AnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: firstDelayInMilliseconds,
             child: StatsWidgets(
               visible: true,
               key: ValueKey<List<Measurement>>(snapshot.data
                                                ?? <Measurement>[]),
             ),
           ),
-          FadeInEffect(
+          AnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: firstDelayInMilliseconds,
             child: CustomLineChart(
               loadedFirst: loadedFirst,
               ip: ip,
