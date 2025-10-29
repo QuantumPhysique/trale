@@ -250,7 +250,7 @@ class _About extends State<About> {
         Padding(
           padding: EdgeInsets.fromLTRB(
             TraleTheme.of(context)!.padding,
-            TraleTheme.of(context)!.padding,
+            0,
             TraleTheme.of(context)!.padding,
             2 * TraleTheme.of(context)!.padding,
           ),
