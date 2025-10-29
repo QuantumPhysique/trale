@@ -10,6 +10,20 @@ class WidgetGroup extends StatelessWidget {
   final List<Widget> children;
   @override
   Widget build(BuildContext context) {
+    // TODO(gwosd): using gap extension leads to adding an additional gap on
+    // each rebuilding. How to resolve? -> deep copy
+    final Widget gap = SizedBox(
+      height: TraleTheme.of(context)!.space,
+      width: 0,
+    );
+    final List<Widget> paddedChildren = <Widget>[];
+    for (int i = children.length - 1; i >= 0; i--) {
+      paddedChildren.add(children[i]);
+      if (i != 0) {
+        paddedChildren.add(gap);
+      }
+    }
+
     return Card(
       margin: EdgeInsets.zero,
       color: Colors.transparent,
@@ -17,11 +31,7 @@ class WidgetGroup extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: children.addGap(
-          padding: TraleTheme.of(context)!.space,
-          direction: Axis.vertical,
-          offset: 1,
-        )
+        children: paddedChildren,
       ),
     );
   }
