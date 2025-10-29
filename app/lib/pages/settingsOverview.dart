@@ -42,9 +42,13 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.globe,
             title: 'Language',
             subtitle: 'English (United States)',
-            pageRoute: MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => const LanguageSettingsPage(),
-            ),
+            onTap: () {
+              Navigator.of(context).push<dynamic>(
+                MaterialPageRoute<Widget>(
+                  builder: (BuildContext context) => const LanguageSettingsPage(),
+                ),
+              );
+            },
           ),
           const _SettingsTile(
             icon: PhosphorIconsDuotone.ruler,
@@ -70,17 +74,25 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.question,
             title: AppLocalizations.of(context)!.faq,
             subtitle: 'Learn more about the app',
-            pageRoute: MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => const FAQ(),
-            )
+            onTap: () {
+              Navigator.of(context).push<dynamic>(
+                MaterialPageRoute<Widget>(
+                  builder: (BuildContext context) => const FAQ(),
+                ),
+              );
+            },
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.info,
             title: AppLocalizations.of(context)!.about,
             subtitle: 'Learn more about the app',
-            pageRoute: MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => const About(),
-            )
+            onTap: () {
+              Navigator.of(context).push<dynamic>(
+                MaterialPageRoute<Widget>(
+                  builder: (BuildContext context) => const About(),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -114,17 +126,20 @@ class _SettingsTile extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.trailing,
-    this.pageRoute,
+    this.onTap,
   });
 
   final IconData icon;
   final String title;
   final String subtitle;
   final Widget? trailing;
-  final PageRoute<dynamic>? pageRoute;
+  final VoidCallback? onTap;
+
+
 
   @override
   Widget build(BuildContext context) {
+
     return GroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainer,
       // Remove inner padding so content spans full width
@@ -144,8 +159,8 @@ class _SettingsTile extends StatelessWidget {
       ),
       trailing: trailing,
       onTap: () {
-        if (pageRoute != null) {
-          Navigator.of(context).push<dynamic>(pageRoute!);
+        if (onTap != null) {
+          onTap!();
         }
       },
     );
