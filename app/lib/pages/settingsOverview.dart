@@ -141,7 +141,7 @@ class _SettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GroupedListTile(
-      color: Theme.of(context).colorScheme.surfaceContainer,
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
       // Remove inner padding so content spans full width
       contentPadding: EdgeInsets.symmetric(
           horizontal: TraleTheme.of(context)!.padding

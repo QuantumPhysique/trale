@@ -37,36 +37,40 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
         _snapAppbar();
         return false;
       },
-      child: CustomScrollView(
-        // physics: const AlwaysScrollableScrollPhysics(),
-        controller: _controller,
-        slivers: <Widget>[
-          SliverSafeArea(
-            top: false,
-            sliver: SliverAppBar.large(
-              pinned: true,
-              stretch: true,
-              title: Text(widget.title.allInCaps),
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(PhosphorIconsDuotone.arrowLeft),
-                ),
-              expandedHeight: maxHeight - MediaQuery.of(context).padding.top,
+      child: Container(
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        child: CustomScrollView(
+          // physics: const AlwaysScrollableScrollPhysics(),
+          controller: _controller,
+          slivers: <Widget>[
+            SliverSafeArea(
+              top: false,
+              sliver: SliverAppBar.large(
+                pinned: true,
+                stretch: true,
+                title: Text(widget.title.allInCaps),
+                backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                leading: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(PhosphorIconsDuotone.arrowLeft),
+                  ),
+                expandedHeight: maxHeight - MediaQuery.of(context).padding.top,
+              ),
             ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-            sliver: SliverList.list(
-              children: widget.sliverlist,
+            SliverPadding(
+              padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+              sliver: SliverList.list(
+                children: widget.sliverlist,
+              ),
             ),
-          ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: SizedBox(height: MediaQuery.of(context).padding.top),
-          ),
-        ],
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: SizedBox(height: MediaQuery.of(context).padding.top),
+            ),
+          ],
+        ),
       ),
     );
   }
