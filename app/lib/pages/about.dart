@@ -43,6 +43,7 @@ class ThirdPartyLicence {
   /// get list representation of tpl
   ListTile toListTile(BuildContext context) => GroupedListTile(
     dense: true,
+    color: Theme.of(context).colorScheme.surfaceContainerLowest,
     title: AutoSizeText(
       name.inCaps,
       style: Theme.of(context).textTheme.bodyLarge
@@ -256,17 +257,16 @@ class _About extends State<About> {
           ),
           child: const IconHero()
         ),
-        WidgetGroup(
+        const WidgetGroup(
           children: <Widget>[
             GroupedText(
-              text: const Text(
+              text: Text(
                 'A simple weight log with short-term extrapolation.\n\n'
                 'Your privacy is respected. '
                 'No revenue sources in the app, nor error logs sent. '
                 'Please open an issue if you have problems.\n\n'
                 'Made by two devs with little spare time.\n'
                 'Consider contributing or donating.',
-                textAlign: TextAlign.justify,
               ),
             ),
           ],
@@ -275,6 +275,7 @@ class _About extends State<About> {
         WidgetGroup(
           children: <Widget>[
             GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
                 AppLocalizations.of(context)!.version.allInCaps,
@@ -294,6 +295,7 @@ class _About extends State<About> {
               ),
             ),
             GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
                 AppLocalizations.of(context)!.sourcecode.allInCaps,
@@ -306,6 +308,7 @@ class _About extends State<About> {
               ),
             ),
             GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
                 AppLocalizations.of(context)!.licence.allInCaps,
@@ -323,10 +326,9 @@ class _About extends State<About> {
             ),
           ],
         ),
-        Divider(height: 2 * TraleTheme.of(context)!.padding),
         Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
+          padding: EdgeInsets.only(
+            top: 2 * TraleTheme.of(context)!.padding,
           ),
           child: AutoSizeText(
             AppLocalizations.of(context)!.tpl.allInCaps,
@@ -335,31 +337,15 @@ class _About extends State<About> {
             maxLines: 1,
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-          child: AutoSizeText(
-            AppLocalizations.of(context)!.assets.allInCaps,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
-            maxLines: 1,
-          ),
-        ),
         WidgetGroup(
+          title: AppLocalizations.of(context)!.assets.allInCaps,
           children: <Widget>[
             for (final ThirdPartyLicence tpl in tplsAssets)
               tpl.toListTile(context),
           ]
         ),
-        Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-          child: AutoSizeText(
-            AppLocalizations.of(context)!.packages.allInCaps,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleLarge,
-            maxLines: 1,
-          ),
-        ),
         WidgetGroup(
+          title: AppLocalizations.of(context)!.packages.allInCaps,
           children: <Widget>[
             for (final ThirdPartyLicence tpl in tpls)
               tpl.toListTile(context),
