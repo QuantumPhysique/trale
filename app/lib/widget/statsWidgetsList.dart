@@ -107,6 +107,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
               firstRow: '# ${AppLocalizations.of(context)!.measurements.toLowerCase()}',
               secondRow: '${stats.nMeasurements}',
               delayInMilliseconds: delayInMilliseconds,
+              pillShape: true,
             ),
             SizedBox(height: TraleTheme.of(context)!.padding),
             getTotalChangeWidget(

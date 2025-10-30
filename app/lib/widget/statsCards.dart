@@ -11,6 +11,7 @@ class StatCard extends StatefulWidget {
     this.delayInMilliseconds = 0,
     this.nx = 1,
     this.ny = 1,
+    this.pillShape = false,
     super.key});
 
   final Widget childWidget;
@@ -18,6 +19,7 @@ class StatCard extends StatefulWidget {
   final int ny;
   final Color? backgroundColor;
   final int? delayInMilliseconds;
+  final bool pillShape;
 
   @override
   _StatCardState createState() => _StatCardState();
@@ -45,8 +47,16 @@ class _StatCardState extends State<StatCard> {
         : xWidth * widget.nx
           + (widget.nx - 1) * TraleTheme.of(context)!.padding;
 
+    final ShapeBorder shape = widget.pillShape
+        ? RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              MediaQuery.sizeOf(context).height,
+            ),
+          )
+        : TraleTheme.of(context)!.borderShape;
+
     final Card card = Card(
-      shape: TraleTheme.of(context)!.borderShape,
+      shape: shape,
       color: backgroundcolor,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
@@ -69,10 +79,12 @@ class OneThirdStatCard extends StatefulWidget {
   const OneThirdStatCard({
     required this.childWidget,
     this.delayInMilliseconds = 0,
+    this.pillShape = false,
     super.key});
 
   final Widget childWidget;
   final int? delayInMilliseconds;
+  final bool pillShape;
 
   @override
   _OneThirdStatCardState createState() => _OneThirdStatCardState();
@@ -91,8 +103,12 @@ class _OneThirdStatCardState extends State<OneThirdStatCard> {
     final double width = (MediaQuery.sizeOf(context).width
         - 4 * TraleTheme.of(context)!.padding - height) / 2;
 
+    final ShapeBorder shape = widget.pillShape
+        ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(999))
+        : TraleTheme.of(context)!.borderShape;
+
     final Card card = Card(
-      shape: TraleTheme.of(context)!.borderShape,
+      shape: shape,
       margin: EdgeInsets.zero,
       clipBehavior: Clip.hardEdge,
       color: Theme.of(context).colorScheme.surfaceContainer,
@@ -116,11 +132,13 @@ class DefaultStatCard extends StatefulWidget {
     required this.firstRow,
     required this.secondRow,
     this.delayInMilliseconds = 0,
+    this.pillShape = false,
     super.key});
 
   final String firstRow;
   final String secondRow;
   final int? delayInMilliseconds;
+  final bool pillShape;
 
   @override
   _DefaultStatCardState createState() => _DefaultStatCardState();
@@ -133,7 +151,9 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
 
-    final StatCard card = StatCard(childWidget:
+    final StatCard card = StatCard(
+      pillShape: widget.pillShape,
+      childWidget:
       Padding(
         padding: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding / 2),

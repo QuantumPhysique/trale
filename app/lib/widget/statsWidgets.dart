@@ -341,6 +341,7 @@ Widget getMeanWidget({required BuildContext context,
     nx: 2,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
+    pillShape: true,
     childWidget: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
