@@ -19,7 +19,7 @@ class SettingsOverviewPage extends StatelessWidget {
 
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
-        leadingIcon: PhosphorIconsDuotone.coffee,
+        leadingIcon: PhosphorIconsFill.coffee,
         // trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
         title: 'Donation',
         subtitle: 'Support the development of trale',
@@ -28,8 +28,8 @@ class SettingsOverviewPage extends StatelessWidget {
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
       // TODO(braniii): Add your sinuswave as divider?
-      SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
+        title: 'Customization',
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.faders,
@@ -54,8 +54,8 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
         ],
       ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
+        title: 'Internationalization',
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.globe,
@@ -75,18 +75,24 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
         ],
       ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
+        title: 'Data settings',
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.database,
             title: 'Import and export',
             subtitle: 'Save and load your data',
           ),
+          _SettingsTile(
+            icon: PhosphorIconsDuotone.warning,
+            title: AppLocalizations.of(context)!.dangerzone,
+            subtitle: 'Delete all data and reset the app',
+            trailing: const _ExperimentalBadge(),
+          ),
         ],
       ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
+        title: 'About the app',
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.question,
@@ -107,17 +113,6 @@ class SettingsOverviewPage extends StatelessWidget {
                 builder: (BuildContext context) => const About(),
               ),
             ),
-          ),
-        ],
-      ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
-      WidgetGroup(
-        children: <Widget>[
-          _SettingsTile(
-            icon: PhosphorIconsDuotone.warning,
-            title: AppLocalizations.of(context)!.dangerzone,
-            subtitle: 'Delete all data and reset the app',
-            trailing: const _ExperimentalBadge(),
           ),
         ],
       ),
