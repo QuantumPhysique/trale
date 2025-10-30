@@ -19,7 +19,7 @@ class SettingsOverviewPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsDuotone.coffee,
-        trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
+        // trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
         title: 'Donation',
         subtitle: 'Support the development of trale',
         url: 'https://github.com/quantumphysique/trale/',

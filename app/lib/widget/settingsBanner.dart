@@ -29,8 +29,8 @@ class SettingsBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final double padding = TraleTheme.of(context)!.padding;
     final ThemeData theme = Theme.of(context);
-    final Color resolvedBackgroundColor = backgroundColor ?? Theme.of(context).colorScheme.primaryContainer;
-    final Color resolvedFontColor = fontColor ?? Theme.of(context).colorScheme.onPrimaryContainer;
+    final Color resolvedBackgroundColor = backgroundColor ?? Theme.of(context).colorScheme.tertiaryContainer;
+    final Color resolvedFontColor = fontColor ?? Theme.of(context).colorScheme.onTertiaryContainer;
     final Color resolvedTrailingColor = trailingColor ?? Theme.of(context).colorScheme.surfaceContainerLowest;
     final bool hasTrailingIcon = trailingIcon != null;
 
