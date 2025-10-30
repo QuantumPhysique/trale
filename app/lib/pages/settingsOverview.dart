@@ -10,7 +10,9 @@ import 'package:trale/pages/settingsInterpolation.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
+import 'package:trale/widget/sinewave.dart';
 import 'package:trale/widget/tile_group.dart';
+
 class SettingsOverviewPage extends StatelessWidget {
   const SettingsOverviewPage({super.key});
 
@@ -26,8 +28,7 @@ class SettingsOverviewPage extends StatelessWidget {
         url: 'https://github.com/quantumphysique/trale/',
         // TODO(gwosd): Update URL to donation page
       ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
-      // TODO(braniii): Add your sinuswave as divider?
+      const SineWave(),
       WidgetGroup(
         title: 'Customization',
         children: <Widget>[

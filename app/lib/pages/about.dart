@@ -12,6 +12,7 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/tile_group.dart';
+import 'package:trale/widget/sinewave.dart';
 
 
 /// get version number
@@ -326,16 +327,11 @@ class _About extends State<About> {
             ),
           ],
         ),
-        Container(
-          padding: EdgeInsets.only(
-            top: 2 * TraleTheme.of(context)!.padding,
-          ),
-          child: AutoSizeText(
-            AppLocalizations.of(context)!.tpl.allInCaps,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium,
-            maxLines: 1,
-          ),
+        const SineWave(),
+        Text(
+          AppLocalizations.of(context)!.tpl.allInCaps,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
         WidgetGroup(
           title: AppLocalizations.of(context)!.assets.allInCaps,
