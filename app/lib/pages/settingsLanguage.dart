@@ -23,9 +23,7 @@ class LanguageSettingsPage extends StatelessWidget {
         trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
         title: AppLocalizations.of(context)!.language,
         subtitle: 'Help translate the app',
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        trailingColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-        fontColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        url: 'https://hosted.weblate.org/engage/trale/',
       ),
       SizedBox(height: 2 * TraleTheme.of(context)!.padding),
       // RadioGroup wrapping the language tiles (replaces per-tile groupValue)

@@ -8,6 +8,7 @@ import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
+import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/tile_group.dart';
 class SettingsOverviewPage extends StatelessWidget {
   const SettingsOverviewPage({super.key});
@@ -16,6 +17,17 @@ class SettingsOverviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<Widget> sliverlist = <Widget>[
+      SettingsBanner(
+        leadingIcon: PhosphorIconsDuotone.coffee,
+        trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
+        title: 'Donation',
+        subtitle: 'Support the development of trale',
+        url: 'https://github.com/quantumphysique/trale/',
+        // TODO(gwosd): Update URL to donation page
+      ),
+      SizedBox(height: TraleTheme.of(context)!.padding),
+      // TODO(braniii): Add your sinuswave as divider?
+      SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
         children: <Widget>[
           _SettingsTile(
