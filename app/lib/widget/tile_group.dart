@@ -21,38 +21,43 @@ class WidgetGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        if (title != null)
-          Padding(
-            padding: EdgeInsets.only(
-              top: 1.5 * TraleTheme.of(context)!.padding,
-              bottom: 0.5 * TraleTheme.of(context)!.padding,
-              left: 0.5 * TraleTheme.of(context)!.padding,
-            ),
-            child: Text(
-              title!,
-              style: titleStyle
-                ?? Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 0.5 * TraleTheme.of(context)!.padding,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          if (title != null)
+            Padding(
+              padding: EdgeInsets.only(
+                top: 0.5 * TraleTheme.of(context)!.padding,
+                bottom: 0.5 * TraleTheme.of(context)!.padding,
+                left: 0.5 * TraleTheme.of(context)!.padding,
+              ),
+              child: Text(
+                title!,
+                style: titleStyle
+                  ?? Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
+          Card(
+            margin: EdgeInsets.zero,
+            color: Colors.transparent,
+            shape: TraleTheme.of(context)!.borderShape,
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: children.addGap(
+                padding:  TraleTheme.of(context)!.space,
+                direction: Axis.vertical),
+            ),
           ),
-        Card(
-          margin: EdgeInsets.zero,
-          color: Colors.transparent,
-          shape: TraleTheme.of(context)!.borderShape,
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: children.addGap(
-              padding:  TraleTheme.of(context)!.space,
-              direction: Axis.vertical),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
