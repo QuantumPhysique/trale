@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementStats.dart';
-import 'package:trale/core/statsCards.dart';
+import 'package:trale/widget/statsCards.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
