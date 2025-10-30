@@ -335,7 +335,7 @@ class _WeightSliderState extends State<_WeightSlider> {
     final double height = widget.constraints.maxHeight - 1.5 * padding;
     final ScrollController scrollController = widget.scrollController;
     final double heightLargeTick = height - 2 * padding;
-    final double heightSmallTick = height - 4 * padding;
+    final double heightSmallTick = height - 3.5 * padding;
     final double tickWidth = widget.tickWidth;
 
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -451,7 +451,7 @@ class _WeightSliderState extends State<_WeightSlider> {
                                 transform: Matrix4.diagonal3Values(scalex, scalex, 1.0),
                                 child: Text(
                                   (index / widget.ticksPerStep).toStringAsFixed(0),
-                                  style: Theme.of(context).textTheme.bodyLarge!.apply(
+                                  style: Theme.of(context).textTheme.titleLarge!.apply(
                                     color: colorScheme.onSecondaryContainer,
                                     fontFamily: 'CourierPrime',
                                   ),
