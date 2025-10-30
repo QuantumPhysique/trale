@@ -6,6 +6,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
+import 'package:trale/pages/settingsInterpolation.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
@@ -44,6 +45,12 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.lineSegments,
             title: 'Interpolation',
             subtitle: 'Choose a interpolation strength',
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context)
+                  => const InterpolationSettingsPage(),
+              ),
+            ),
           ),
         ],
       ),
@@ -54,13 +61,12 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.globe,
             title: 'Language',
             subtitle: 'English (United States)',
-            onTap: () {
-              Navigator.of(context).push<dynamic>(
-                MaterialPageRoute<Widget>(
-                  builder: (BuildContext context) => const LanguageSettingsPage(),
-                ),
-              );
-            },
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context)
+                  => const LanguageSettingsPage(),
+              ),
+            ),
           ),
           const _SettingsTile(
             icon: PhosphorIconsDuotone.ruler,
@@ -86,25 +92,21 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.question,
             title: AppLocalizations.of(context)!.faq,
             subtitle: 'Learn more about the app',
-            onTap: () {
-              Navigator.of(context).push<dynamic>(
-                MaterialPageRoute<Widget>(
-                  builder: (BuildContext context) => const FAQ(),
-                ),
-              );
-            },
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context) => const FAQ(),
+              ),
+            ),
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.info,
             title: AppLocalizations.of(context)!.about,
             subtitle: 'Learn more about the app',
-            onTap: () {
-              Navigator.of(context).push<dynamic>(
-                MaterialPageRoute<Widget>(
-                  builder: (BuildContext context) => const About(),
-                ),
-              );
-            },
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context) => const About(),
+              ),
+            ),
           ),
         ],
       ),

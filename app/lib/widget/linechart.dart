@@ -23,6 +23,16 @@ class CustomLineChart extends StatefulWidget {
     required this.ip,
     this.isPreview = false,
     this.relativeHeight = 0.33,
+    this.axisLabelColor,
+    this.interpolationLineColor,
+    this.interpolationBelowAreaColor,
+    this.interpolationAboveAreaColor,
+    this.measurementLineColor,
+    this.measurementDotStrokeColor,
+    this.targetWeightLineColor,
+    this.targetWeightLabelTextColor,
+    this.targetWeightLabelBackgroundColor,
+    this.backgroundColor,
     super.key,
   });
 
@@ -31,6 +41,16 @@ class CustomLineChart extends StatefulWidget {
   final MeasurementInterpolationBaseclass ip;
 
   final double relativeHeight;
+  final Color? axisLabelColor;
+  final Color? interpolationLineColor;
+  final Color? interpolationBelowAreaColor;
+  final Color? interpolationAboveAreaColor;
+  final Color? measurementLineColor;
+  final Color? measurementDotStrokeColor;
+  final Color? targetWeightLineColor;
+  final Color? targetWeightLabelTextColor;
+  final Color? targetWeightLabelBackgroundColor;
+  final Color? backgroundColor;
 
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
@@ -53,6 +73,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
@@ -78,9 +100,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
         : ip.weightsDisplay;
 
     final TextStyle labelTextStyle =
-      Theme.of(context).textTheme.bodySmall!.apply(
+      theme.textTheme.bodySmall!.apply(
         fontFamily: 'CourierPrime',
-        color: Theme.of(context).colorScheme.onSurface,
+        color: widget.axisLabelColor ?? colorScheme.onSurface,
       );
     final Size textSize = sizeOfText(
       text: '1234',
@@ -98,6 +120,28 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     final TraleNotifier notifier = TraleNotifier();
     final double? targetWeight = notifier.userTargetWeight;
+
+    final Color interpolationLineColor =
+        widget.interpolationLineColor ?? Colors.transparent;
+    final Color interpolationBelowAreaColor =
+        widget.interpolationBelowAreaColor ??
+            colorScheme.primaryContainer.withAlpha(155);
+    final Color interpolationAboveAreaColor =
+        widget.interpolationAboveAreaColor ??
+            colorScheme.tertiaryContainer.withAlpha(
+              widget.isPreview ? 0 : 255,
+            );
+    final Color measurementLineColor =
+        widget.measurementLineColor ?? colorScheme.primary;
+    final Color measurementDotStrokeColor =
+        widget.measurementDotStrokeColor ?? colorScheme.onSurface;
+    final Color targetWeightLineColor =
+        widget.targetWeightLineColor ?? colorScheme.tertiary;
+    final Color targetWeightLabelTextColor =
+        widget.targetWeightLabelTextColor ?? colorScheme.onSurface;
+    final Color targetWeightLabelBackgroundColor =
+        widget.targetWeightLabelBackgroundColor ??
+            colorScheme.surfaceContainerLow;
 
     final List<FlSpot> measurements =
       vectorsToFlSpot(msTimes, ms);
@@ -245,7 +289,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
               if (targetWeight != null && !widget.isPreview)
                 HorizontalLine(
                   y: targetWeight / unitScaling,
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: targetWeightLineColor,
                   strokeWidth: 2,
                   dashArray: <int>[8, 6],
                   label: HorizontalLineLabel(
@@ -255,10 +299,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.symmetric(vertical: 1),
-                    style: Theme.of(context).textTheme.bodySmall!.apply(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        backgroundColor:
-                          Theme.of(context).colorScheme.surfaceContainerLow,
+                    style: theme.textTheme.bodySmall!.apply(
+                        color: targetWeightLabelTextColor,
+                        backgroundColor: targetWeightLabelBackgroundColor,
                     ),
                     labelResolver: (HorizontalLine line) =>
                       ' ${AppLocalizations.of(context)!.targetWeightShort}',
@@ -270,23 +313,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurementsInterpol,
               isCurved: true,
-              color: Colors.transparent,
+              color: interpolationLineColor,
               //color: Theme.of(context).colorScheme.primaryContainer,
               barWidth: 3,
               isStrokeCapRound: true,
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
-                color: Theme.of(context).colorScheme.primaryContainer
-                  .withAlpha(155),
+                color: interpolationBelowAreaColor,
                 // cutOffY: targetWeight ?? 0,
                 // applyCutOffY: targetWeight != null,
               ),
               aboveBarData: BarAreaData(
                 show: targetWeight != null,
-                color: Theme.of(context).colorScheme.tertiaryContainer.withAlpha(
-                    widget.isPreview ? 0 : 255
-                ),
+                color: interpolationAboveAreaColor,
                 cutOffY: targetWeight ?? 0,
                 applyCutOffY: true,
               ),
@@ -294,7 +334,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurements,
               isCurved: false,
-              color: Theme.of(context).colorScheme.primary,
+              color: measurementLineColor,
               barWidth: 0,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -310,8 +350,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
                       1,
                     ),
-                  color: barData.color ?? Colors.black,
-                  strokeColor: Theme.of(context).colorScheme.onSurface,
+                  color: measurementLineColor,
+                  strokeColor: measurementDotStrokeColor,
                   strokeWidth: 0.2,
                 )
               ),
@@ -383,6 +423,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Column(
       children: <Widget>[
         Card(
+          color: widget.backgroundColor,
           shape: TraleTheme.of(context)!.borderShape,
           margin: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding,
