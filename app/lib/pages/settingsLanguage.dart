@@ -19,7 +19,7 @@ class LanguageSettingsPage extends StatelessWidget {
     // Build list of sliver children: translate pill + radio list + bottom spacer
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
-        leadingIcon: PhosphorIconsDuotone.translate,
+        leadingIcon: PhosphorIconsBold.translate,
         trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
         title: AppLocalizations.of(context)!.language,
         subtitle: 'Help translate the app',

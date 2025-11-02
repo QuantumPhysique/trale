@@ -21,7 +21,7 @@ class SettingsOverviewPage extends StatelessWidget {
 
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
-        leadingIcon: PhosphorIconsFill.coffee,
+        leadingIcon: PhosphorIconsBold.handHeart,
         // trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
         title: 'Donation',
         subtitle: 'Support the development of trale',

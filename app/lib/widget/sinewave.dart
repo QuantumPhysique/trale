@@ -11,8 +11,19 @@ class SineWave extends StatefulWidget {
     this.amplitude = 4,  // 3 is pb default
     this.wavelength = 40,
     this.speed = 10,
-    this.strokeWidth = 2,  // 4 is pb default
-    this.sampleStep = 2, // larger = cheaper sampling
+    this.strokeWidth = 4,
+    this.sampleStep = 1,
+    this.color,
+  });
+
+  // constructor with material.io footer defaults
+  const SineWave .thin({
+    super.key,
+    this.amplitude = 4,
+    this.wavelength = 30,
+    this.speed = 10,
+    this.strokeWidth = 1,
+    this.sampleStep = 1,
     this.color,
   });
 
