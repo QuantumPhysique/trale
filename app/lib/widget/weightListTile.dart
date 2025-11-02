@@ -216,7 +216,7 @@ class _WeightListTileState extends State<WeightListTile>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         actionButton(
-                          PhosphorIconsRegular.trash,
+                          PhosphorIconsFill.trash,
                           TraleTheme.of(context)!.themeData.colorScheme
                             .onTertiaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme
@@ -225,7 +225,7 @@ class _WeightListTileState extends State<WeightListTile>
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding),
                         actionButton(
-                          PhosphorIconsRegular.pencilSimple,
+                          PhosphorIconsFill.pencilSimple,
                           TraleTheme.of(context)!.themeData.colorScheme
                               .onSecondaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme

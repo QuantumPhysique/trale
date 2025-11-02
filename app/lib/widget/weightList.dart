@@ -220,19 +220,16 @@ Widget getYearWidget({required BuildContext context,
   return Padding(
     padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
     child: StatCard(
+      pillShape: true,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       delayInMilliseconds: delayInMilliseconds,
       childWidget: Center(
-        child: Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-          child: AutoSizeText(
-            year,
-            style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-              fontSize: Theme.of(context).textTheme.displayLarge!.fontSize,
-            ),
-            maxLines: 1,
+        child: Text(
+          year,
+          style: Theme.of(context).textTheme.emphasized.displayLarge!.apply(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     ),
