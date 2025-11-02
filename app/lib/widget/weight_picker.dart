@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/font.dart';
 
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -239,9 +240,8 @@ class RulerPickerState extends State<RulerPicker> {
     final Text valueLabel = Text(
       '${weight.toStringAsFixed(notifier.unit.precision)} '
           '${notifier.unit.name}',
-      style: Theme.of(context).textTheme.headlineLarge?.apply(
+      style: Theme.of(context).textTheme.monospace.headlineLarge?.apply(
         color: color,
-        fontFamily: 'CourierPrime',
         fontWeightDelta: -2,
       ),
     );
@@ -451,9 +451,8 @@ class _WeightSliderState extends State<_WeightSlider> {
                                 transform: Matrix4.diagonal3Values(scalex, scalex, 1.0),
                                 child: Text(
                                   (index / widget.ticksPerStep).toStringAsFixed(0),
-                                  style: Theme.of(context).textTheme.titleLarge!.apply(
+                                  style: Theme.of(context).textTheme.monospace.titleLarge!.apply(
                                     color: colorScheme.onSecondaryContainer,
-                                    fontFamily: 'CourierPrime',
                                   ),
                                 ),
                               ),

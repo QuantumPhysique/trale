@@ -7,6 +7,7 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/textSize.dart';
@@ -100,8 +101,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         : ip.weightsDisplay;
 
     final TextStyle labelTextStyle =
-      theme.textTheme.bodySmall!.apply(
-        fontFamily: 'CourierPrime',
+      theme.textTheme.monospace.bodySmall!.apply(
         color: widget.axisLabelColor ?? colorScheme.onSurface,
       );
     final Size textSize = sizeOfText(
