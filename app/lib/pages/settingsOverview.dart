@@ -22,10 +22,9 @@ class SettingsOverviewPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.handHeart,
-        // trailingIcon: PhosphorIconsDuotone.arrowSquareOut,
         title: 'Donation',
         subtitle: 'Support the development of trale',
-        url: 'https://github.com/quantumphysique/trale/',
+        url: 'https://ko-fi.com/quantumphysique',
         // TODO(gwosd): Update URL to donation page
       ),
       const SineWave(),
