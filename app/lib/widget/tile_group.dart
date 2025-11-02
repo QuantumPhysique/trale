@@ -8,8 +8,19 @@ import 'package:trale/core/theme.dart';
 /// theme.
 class WidgetGroup extends StatelessWidget {
   const WidgetGroup({
-    super.key, required this.children, this.title, this.titleStyle,
-  });
+    super.key,
+    required this.children,
+    this.title,
+    this.titleStyle,
+  }) : itemBuilder = null, itemCount = null;
+
+  const WidgetGroup.builder({
+    super.key,
+    required this.itemBuilder,
+    required this.itemCount,
+    this.title,
+    this.titleStyle,
+  }) : children = const <Widget>[];
 
   /// List of GroupedWidgets to display in the group
   final List<Widget> children;
@@ -20,12 +31,25 @@ class WidgetGroup extends StatelessWidget {
   /// TextStyle for the title
   final TextStyle? titleStyle;
 
+  /// Number of tiems for the builder
+  final int? itemCount;
+
+  /// Builder for GroupedWidgets
+  final IndexedWidgetBuilder? itemBuilder;
+
   @override
   Widget build(BuildContext context) {
+    final double padding = TraleTheme.of(context)!.padding;
+    final double gap = TraleTheme.of(context)!.space;
+
+    final List<Widget> effectiveChildren = children.isNotEmpty
+      ? children
+      : List<Widget>.generate(
+        itemCount ?? 0, (int i) => itemBuilder!(context, i)
+      );
+
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 0.5 * TraleTheme.of(context)!.padding,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 0.5 * padding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,9 +57,9 @@ class WidgetGroup extends StatelessWidget {
           if (title != null)
             Padding(
               padding: EdgeInsets.only(
-                top: 0.5 * TraleTheme.of(context)!.padding,
-                bottom: 0.5 * TraleTheme.of(context)!.padding,
-                left: 0.5 * TraleTheme.of(context)!.padding,
+                top: 0.5 * padding,
+                bottom: 0.5 * padding,
+                left: 0.5 * padding,
               ),
               child: Text(
                 title!,
@@ -52,8 +76,8 @@ class WidgetGroup extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: children.addGap(
-                padding:  TraleTheme.of(context)!.space,
+              children: effectiveChildren.addGap(
+                padding:  gap,
                 direction: Axis.vertical),
             ),
           ),
