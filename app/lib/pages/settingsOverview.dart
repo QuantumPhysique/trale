@@ -8,6 +8,7 @@ import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settingsInterpolation.dart';
 import 'package:trale/pages/settingsLanguage.dart';
+import 'package:trale/pages/settingsTheme.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/sinewave.dart';
@@ -40,6 +41,12 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.palette,
             title: 'Theme',
             subtitle: 'Set the color scheme',
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context)
+                => const ThemeSettingsPage(),
+              ),
+            ),
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.lineSegments,
