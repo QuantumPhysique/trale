@@ -41,7 +41,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
     );
     final int nMeasured = ip.measurementDuration.inDays;
     Card userTargetWeightCard(double utw) => Card(
-      shape: TraleTheme.of(context)!.borderShape,
+      shape: const StadiumBorder(),
       color: Theme.of(context).colorScheme.secondaryContainer,
       margin: EdgeInsets.symmetric(
         vertical: TraleTheme.of(context)!.padding,
@@ -73,7 +73,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
       final double deltaWeight = ip.finalSlope * 30;
 
       return Card(
-        shape: TraleTheme.of(context)!.borderShape,
+        shape: const StadiumBorder(),
         margin: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding,
         ),

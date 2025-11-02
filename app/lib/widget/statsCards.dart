@@ -49,11 +49,7 @@ class _StatCardState extends State<StatCard> {
           + (widget.nx - 1) * TraleTheme.of(context)!.padding;
 
     final ShapeBorder shape = widget.pillShape
-        ? RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              MediaQuery.sizeOf(context).height,
-            ),
-          )
+        ? const StadiumBorder()
         : TraleTheme.of(context)!.borderShape;
 
     final Card card = Card(
