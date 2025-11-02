@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -34,66 +35,67 @@ class SettingsBanner extends StatelessWidget {
     final Color resolvedTrailingColor = trailingColor ?? Theme.of(context).colorScheme.surfaceContainerLowest;
     final bool hasTrailingIcon = trailingIcon != null;
 
-    return GestureDetector(
-      onTap: () => url == null ? () {} : _launchURL(url!),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: padding,
-              horizontal: 2 * padding,
-            ),
-            decoration: BoxDecoration(
-              color: resolvedBackgroundColor,
-              borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height),
-            ),
-            child: Row(
-              children: <Widget>[
-                Icon(
-                  leadingIcon,
-                  color: resolvedFontColor,
-                ),
-                SizedBox(width: padding),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: hasTrailingIcon ? 3 * padding : 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          title,
-                          style: theme.textTheme.titleLarge?.copyWith(color: resolvedFontColor),
-                        ),
-                        Text(
-                          subtitle,
-                          style: theme.textTheme.bodyMedium?.copyWith(color: resolvedFontColor),
-                        ),
-                      ],
+    return Material(
+      color: resolvedBackgroundColor,
+      shape: const StadiumBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => url == null ? () {} : _launchURL(url!),
+        child: Stack(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: padding,
+                horizontal: 2 * padding,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    leadingIcon,
+                    color: resolvedFontColor,
+                  ),
+                  SizedBox(width: padding),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: hasTrailingIcon ? 3 * padding : 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            title,
+                            style: theme.textTheme.emphasized.titleLarge?.copyWith(color: resolvedFontColor),
+                          ),
+                          Text(
+                            subtitle,
+                            style: theme.textTheme.bodyMedium?.copyWith(color: resolvedFontColor),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          if (hasTrailingIcon)
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.all(padding / 2),
-                  child: FractionallySizedBox(
-                    heightFactor: 1,
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: resolvedTrailingColor,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: PPIcon(
-                            trailingIcon!,
-                            context,
+            if (hasTrailingIcon)
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.all(padding / 2),
+                    child: FractionallySizedBox(
+                      heightFactor: 1,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: resolvedTrailingColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: PPIcon(
+                              trailingIcon!,
+                              context,
+                            ),
                           ),
                         ),
                       ),
@@ -101,8 +103,8 @@ class SettingsBanner extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
