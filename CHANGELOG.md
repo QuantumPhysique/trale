@@ -16,6 +16,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - Redesigned weight picker 🎉
 
+### Bugfix 🐛:
+- Fix bug which prevents selecting zh-Hant variant
+
 
 ## [0.13.2] - 2025-09-14
 ### Other changes:
