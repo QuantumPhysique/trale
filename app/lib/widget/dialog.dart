@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/theme.dart';
 
 /// A Material 3–styled wrapper around [AlertDialog] used across Trale.
@@ -43,9 +44,9 @@ class DialogM3E extends StatelessWidget {
       title: Center(
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headlineSmall!.apply(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+          style: Theme.of(context).textTheme.emphasized.headlineSmall!.apply(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           maxLines: 1,
         ),
       ),

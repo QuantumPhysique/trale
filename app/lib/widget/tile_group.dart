@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/theme.dart';
 
@@ -39,7 +40,7 @@ class WidgetGroup extends StatelessWidget {
               child: Text(
                 title!,
                 style: titleStyle
-                  ?? Theme.of(context).textTheme.titleMedium?.copyWith(
+                  ?? Theme.of(context).textTheme.emphasized.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                 ),
               ),

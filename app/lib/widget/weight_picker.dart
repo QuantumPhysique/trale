@@ -240,20 +240,17 @@ class RulerPickerState extends State<RulerPicker> {
     final Text valueLabel = Text(
       '${weight.toStringAsFixed(notifier.unit.precision)} '
           '${notifier.unit.name}',
-      style: Theme.of(context).textTheme.monospace.headlineLarge?.apply(
+      style: Theme.of(context).textTheme.emphasized.monospace.headlineLarge?.apply(
         color: color,
-        fontWeightDelta: -2,
       ),
     );
 
     final double padding = TraleTheme.of(context)!.padding;
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: EdgeInsets.fromLTRB(
-        padding,
-        0.75 * padding,
-        padding,
-        0.25 * padding,
+      padding: EdgeInsets.only(
+        top: 0.75 * padding,
+        bottom: 0.5 * padding,
       ),
       child: valueLabel,
     );

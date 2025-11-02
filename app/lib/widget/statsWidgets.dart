@@ -5,6 +5,7 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
@@ -188,7 +189,7 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 textLabels[0],
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                   color: Theme.of(context).brightness == Brightness.light
                     ? Theme.of(context).colorScheme.onPrimary
                     : Theme.of(context).colorScheme.onPrimaryContainer,
@@ -244,7 +245,7 @@ StatCard getFrequencyInTotal({required BuildContext context,
                 alignment: Alignment.center,
                 child: AutoSizeText(
                   (7 * stats.frequencyInTotal!).toStringAsFixed(2),
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
                         : Theme.of(context).colorScheme.onPrimaryContainer,
@@ -300,7 +301,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.deltaWeight),
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   fontWeight: FontWeight.w900,
                   fontSize: 200,
@@ -351,7 +352,7 @@ Widget getMeanWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               weightToString(context, stats.meanWeight),
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.w900,
                 fontSize: 200,
@@ -414,7 +415,7 @@ Widget getBMIWidget({
             alignment: Alignment.center,
             child: AutoSizeText(
               doubleToString(stats.currentBMI(context)),
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                 fontWeight: FontWeight.w900,
                 fontSize: 200,
               ),
@@ -446,7 +447,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.change} ($unit)',
-              style: Theme.of(context).textTheme.bodyLarge!.onSurface(context)
+              style: Theme.of(context).textTheme.emphasized.bodyLarge!.onSurface(context)
                 .copyWith(fontWeight: FontWeight.w900),
               maxLines: 2,
               textAlign: TextAlign.center,
@@ -532,7 +533,7 @@ Widget getMinWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.minWeight),
-                style: Theme.of(context).textTheme.bodyMedium!
+                style: Theme.of(context).textTheme.emphasized.bodyMedium!
                   .onSurface(context).copyWith(
                     fontWeight: FontWeight.w700,
                     fontSize: 200,
@@ -567,7 +568,7 @@ Widget getMaxWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.maxWeight),
-                style: Theme.of(context).textTheme.bodyMedium!
+                style: Theme.of(context).textTheme.emphasized.bodyMedium!
                   .onSurface(context).copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 200,

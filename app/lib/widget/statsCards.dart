@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 
@@ -171,9 +172,9 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
             ),
             AutoSizeText(
               widget.secondRow,
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              style: Theme.of(context).textTheme.emphasized.bodyLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onSurface,
-                  fontWeight: FontWeight.w700
+                  fontWeight: FontWeight.w700,
               ),
               maxLines: 1,
             ),

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/widget/statsCards.dart';
@@ -226,9 +227,8 @@ Widget getYearWidget({required BuildContext context,
           padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
           child: AutoSizeText(
             year,
-            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+            style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
               color: Theme.of(context).colorScheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700,
               fontSize: Theme.of(context).textTheme.displayLarge!.fontSize,
             ),
             maxLines: 1,
