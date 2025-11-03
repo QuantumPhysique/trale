@@ -5,7 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
-import 'package:ml_linalg/linalg.dart';
+import 'package:ml_linalg/linalg.dart' as ml;
 import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
@@ -16,6 +16,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/widget/tile_group.dart';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -79,22 +80,22 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
-    final Vector msTimes = ip.times_measured;
-    final Vector interpolTimes = ip.timesDisplay;
+    final ml.Vector msTimes = ip.times_measured;
+    final ml.Vector interpolTimes = ip.timesDisplay;
 
     // scale to unit
     final double unitScaling = Provider.of<TraleNotifier>(
       context, listen: false
     ).unit.scaling;
 
-    final Vector ms = widget.loadedFirst
-      ? Vector.filled(
+    final ml.Vector ms = widget.loadedFirst
+      ? ml.Vector.filled(
           ip.weights_measured.length,
           ip.weights_measured.mean(),
         )
       : ip.weights_measured;
-    final Vector interpol = widget.loadedFirst
-        ? Vector.filled(
+    final ml.Vector interpol = widget.loadedFirst
+        ? ml.Vector.filled(
           ip.weightsDisplay.length,
            ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
         )
@@ -111,7 +112,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     );
     final double margin = TraleTheme.of(context)!.padding;
 
-    List<FlSpot> vectorsToFlSpot (Vector times, Vector weights) {
+    List<FlSpot> vectorsToFlSpot (ml.Vector times, ml.Vector weights) {
       return <FlSpot>[
         for (int idx = 0; idx < times.length; idx++)
           FlSpot(times[idx], weights[idx] / unitScaling)
@@ -441,54 +442,54 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ),
         ),
         if (!widget.isPreview)
-        SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
-        if (!widget.isPreview)
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Card(
-              shape: TraleTheme.of(context)!.borderShape,
-              margin: EdgeInsets.only(
-                right: 0.5 * TraleTheme.of(context)!.padding,
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              WidgetGroup(
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  GroupedWidget(
+                    child: IconButton(
+                      onPressed: notifier.zoomLevel == ZoomLevel.all
+                        ? null
+                        : () {
+                          notifier.zoomOut();
+                          setState(() {
+                            maxX = notifier.zoomLevel.maxX;
+                            minX = notifier.zoomLevel.minX;
+                          });
+                        },
+                      icon: PPIcon(
+                        PhosphorIconsDuotone.magnifyingGlassMinus,
+                        context,
+                      ),
+                    ),
+                  ),
+                  GroupedWidget(
+                    child: IconButton(
+                      onPressed: notifier.zoomLevel == ZoomLevel.two
+                        ? null
+                        : () {
+                          notifier.zoomIn();
+                          setState(() {
+                            maxX = notifier.zoomLevel.maxX;
+                            minX = notifier.zoomLevel.minX;
+                          });
+                        },
+                      icon: PPIcon(
+                        PhosphorIconsDuotone.magnifyingGlassPlus,
+                        context,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              child: IconButton(
-                onPressed: notifier.zoomLevel == ZoomLevel.all
-                  ? null
-                  : () {
-                    notifier.zoomOut();
-                    setState(() {
-                      maxX = notifier.zoomLevel.maxX;
-                      minX = notifier.zoomLevel.minX;
-                    });
-                  },
-                icon: PPIcon(
-                  PhosphorIconsDuotone.magnifyingGlassMinus,
-                  context,
-                ),
-              ),
-            ),
-            Card(
-              shape: TraleTheme.of(context)!.borderShape,
-              margin: EdgeInsets.only(
-                right: TraleTheme.of(context)!.padding,
-              ),
-              child: IconButton(
-                onPressed: notifier.zoomLevel == ZoomLevel.two
-                  ? null
-                  : () {
-                    notifier.zoomIn();
-                    setState(() {
-                      maxX = notifier.zoomLevel.maxX;
-                      minX = notifier.zoomLevel.minX;
-                    });
-                  },
-                icon: PPIcon(
-                  PhosphorIconsDuotone.magnifyingGlassPlus,
-                  context,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         )
       ],
     );

@@ -12,6 +12,7 @@ class WidgetGroup extends StatelessWidget {
     required this.children,
     this.title,
     this.titleStyle,
+    this.direction = Axis.vertical,
   }) : itemBuilder = null, itemCount = null;
 
   const WidgetGroup.builder({
@@ -20,6 +21,7 @@ class WidgetGroup extends StatelessWidget {
     required this.itemCount,
     this.title,
     this.titleStyle,
+    this.direction = Axis.vertical,
   }) : children = const <Widget>[];
 
   /// List of GroupedWidgets to display in the group
@@ -36,6 +38,9 @@ class WidgetGroup extends StatelessWidget {
 
   /// Builder for GroupedWidgets
   final IndexedWidgetBuilder? itemBuilder;
+
+  /// Vertical or horizontal layout
+  final Axis direction;
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +79,14 @@ class WidgetGroup extends StatelessWidget {
             color: Colors.transparent,
             shape: TraleTheme.of(context)!.borderShape,
             clipBehavior: Clip.antiAlias,
-            child: Column(
+            child: Flex(
+              direction: direction,
               mainAxisSize: MainAxisSize.min,
               children: effectiveChildren.addGap(
                 padding:  gap,
-                direction: Axis.vertical),
+                direction: direction,
+                offset: 1,
+              ),
             ),
           ),
         ],
