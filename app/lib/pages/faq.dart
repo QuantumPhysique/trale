@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -13,6 +14,7 @@ import 'package:trale/pages/onBoarding.dart';
 import 'package:trale/pages/splash.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
+import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -36,13 +38,14 @@ class OnBoardingListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: GroupedListTile(
+        color: Theme.of(context).colorScheme.primaryContainer,
         title: Text(
             AppLocalizations.of(context)!.faq_a2_widget,
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
             ),
         ),
-        leading: PPIcon(PhosphorIconsDuotone.signOut, context),
+        leading: PPIcon(PhosphorIconsRegular.signOut, context),
       ),
       onTap: () {
           Provider.of<TraleNotifier>(
@@ -76,19 +79,19 @@ class FAQEntry {
   Widget toWidget(BuildContext context) => WidgetGroup(
     children: <Widget>[
       GroupedListTile(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
         leading: PPIcon(
               PhosphorIconsDuotone.question,
               context,
         ),
         title: Text(question,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          style: Theme.of(context).textTheme.emphasized.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ),
       GroupedListTile(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: Theme.of(context).colorScheme.surfaceContainerLowest,
         leading: PPIcon(
               PhosphorIconsDuotone.chatCircleDots,
               context,
@@ -148,39 +151,18 @@ class _FAQ extends State<FAQ> {
 
     List<Widget> faqList() {
       return <Widget>[
-        WidgetGroup(
-          children: <Widget>[
-            GroupedListTile(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              leading: PPIcon( PhosphorIconsDuotone.githubLogo, context),
-              title: AutoSizeText(
-                AppLocalizations.of(context)!.openIssue.allInCaps,
-                maxLines: 1,
-              ),
-              onTap: () => _launchURL(
-                  'https://github.com/quantumphysique/trale/'
-              ),
-            ),
-            GroupedWidget(
-              child: Padding(
-                padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                child: Text(
-                  AppLocalizations.of(context)!.faqtext,
-                  textAlign: TextAlign.justify,
-                ),
-              ),
-            ),
-          ],
+        SettingsBanner(
+          leadingIcon: PhosphorIconsRegular.githubLogo,
+          title: AppLocalizations.of(context)!.openIssue.allInCaps,
+          subtitle: 'Help improving the app by providing feedback',
+          url: 'https://github.com/quantumphysique/trale/',
         ),
+        SizedBox(height: 2 * TraleTheme.of(context)!.padding),
         SizedBox(height: TraleTheme.of(context)!.padding),
         ...<Widget>[
           for (final FAQEntry faq in faqEntries)
             faq.toWidget(context),
         ]
-        .addGap(
-          padding: TraleTheme.of(context)!.padding,
-          direction: Axis.vertical,
-        ),
       ];
     }
 
