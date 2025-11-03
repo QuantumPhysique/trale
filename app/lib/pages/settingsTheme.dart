@@ -69,24 +69,27 @@ class AmoledListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile(
-      dense: true,
-      title: AutoSizeText(
-        AppLocalizations.of(context)!.amoled,
-        style: Theme.of(context).textTheme.bodyLarge,
-        maxLines: 1,
+    return GroupedWidget(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
+      child: SwitchListTile(
+        dense: true,
+        title: AutoSizeText(
+          AppLocalizations.of(context)!.amoled,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 2 * TraleTheme.of(context)!.padding,
+        ),
+        subtitle: AutoSizeText(
+          AppLocalizations.of(context)!.amoledSubtitle,
+          style: Theme.of(context).textTheme.labelSmall,
+        ),
+        value: Provider.of<TraleNotifier>(context).isAmoled,
+        onChanged: (bool isAmoled) async {
+          Provider.of<TraleNotifier>(context, listen: false).isAmoled = isAmoled;
+        },
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-      ),
-      subtitle: AutoSizeText(
-        AppLocalizations.of(context)!.amoledSubtitle,
-        style: Theme.of(context).textTheme.labelSmall,
-      ),
-      value: Provider.of<TraleNotifier>(context).isAmoled,
-      onChanged: (bool isAmoled) async {
-        Provider.of<TraleNotifier>(context, listen: false).isAmoled = isAmoled;
-      },
     );
   }
 }
@@ -343,10 +346,15 @@ class ThemeSettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> sliverlist = <Widget>[
-      SizedBox(
-        height: 0.5 * MediaQuery.of(context).size.width,
-        width: MediaQuery.of(context).size.width,
-        child: const ThemeSelection(),
+      WidgetGroup(
+        children: [Container(
+          color: Theme.of(context).colorScheme.surfaceContainerLowest,
+          child: SizedBox(
+            height: 0.5 * MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width,
+            child: const ThemeSelection(),
+          ),
+        )],
       ),
       WidgetGroup(
         children: const <Widget>[
