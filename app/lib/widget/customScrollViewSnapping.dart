@@ -3,8 +3,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 
@@ -48,13 +50,22 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
               sliver: SliverAppBar.large(
                 pinned: true,
                 stretch: true,
-                title: Text(widget.title.allInCaps),
+                title: Text(
+                  widget.title.allInCaps,
+                  style: Theme.of(context).textTheme.emphasized.headlineMedium?.apply(
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
                 backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
                 leading: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: const Icon(PhosphorIconsDuotone.arrowLeft),
+                    icon: PhosphorIcon(
+                      PhosphorIconsDuotone.arrowLeft,
+                      duotoneSecondaryColor: Theme.of(context).colorScheme.surfaceContainerLowest,
+                      duotoneSecondaryOpacity: 1.0,
+                    ),
                   ),
                 expandedHeight: maxHeight - MediaQuery.of(context).padding.top,
               ),
