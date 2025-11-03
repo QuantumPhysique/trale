@@ -35,10 +35,9 @@ class LanguageSettingsPage extends StatelessWidget {
           }
         },
         child: WidgetGroup(
-          title: AppLocalizations.of(context)!.language,
           children: Language.supportedLanguages
-              .map((Language lang) => _LanguageRadioTile(language: lang))
-              .toList(),
+            .map((Language lang) => _LanguageRadioTile(language: lang))
+            .toList(),
         ),
       ),
     ];

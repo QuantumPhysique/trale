@@ -3,6 +3,8 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/contrast.dart';
+import 'package:trale/core/font.dart';
+import 'package:trale/core/gap.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolationPreview.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -25,7 +27,7 @@ class ContrastLevelSetting extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       child: Container(
         padding: EdgeInsets.fromLTRB(
-          2 * TraleTheme.of(context)!.padding,
+          TraleTheme.of(context)!.padding,
           0.5 * TraleTheme.of(context)!.padding,
           TraleTheme.of(context)!.padding,
           0.5 * TraleTheme.of(context)!.padding,
@@ -79,7 +81,7 @@ class AmoledListTile extends StatelessWidget {
           maxLines: 1,
         ),
         contentPadding: EdgeInsets.symmetric(
-          horizontal: 2 * TraleTheme.of(context)!.padding,
+          horizontal: TraleTheme.of(context)!.padding,
         ),
         subtitle: AutoSizeText(
           AppLocalizations.of(context)!.amoledSubtitle,
@@ -233,65 +235,64 @@ class _ThemeSelectionState extends State<ThemeSelection> {
             Theme.of(context).brightness == Brightness.dark);
 
     Widget themePreview(BuildContext context, TraleCustomTheme ctheme) {
-      return Expanded(
+      final TraleTheme theme = isDark ? ctheme.dark(context): ctheme.light(context);
+      return Container(
+        decoration: BoxDecoration(
+          borderRadius: TraleTheme.of(context)!.borderShape.borderRadius,
+          border: Border.all(color: Theme.of(context).colorScheme.onSurface),
+          color: (
+              isDark
+                  ? traleNotifier.isAmoled
+                  ? ctheme.dark(context).amoled
+                  : ctheme.dark(context)
+                  : ctheme.light(context)
+          ).themeData.colorScheme.surface,
+        ),
+        //width: 0.3 * MediaQuery.of(context).size.width,
+        margin: EdgeInsets.all(0.5 * TraleTheme.of(context)!.padding),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius:
-            TraleTheme.of(context)!.borderShape.borderRadius,
-            border: Border.all(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            color: (
-                isDark
-                    ? traleNotifier.isAmoled
-                    ? ctheme.dark(context).amoled
-                    : ctheme.dark(context)
-                    : ctheme.light(context)
-            ).themeData.colorScheme.surface,
-          ),
-          //width: 0.3 * MediaQuery.of(context).size.width,
-          margin: EdgeInsets.all(0.5 * TraleTheme.of(context)!.padding),
-          child: Container(
-            margin: EdgeInsets.all(
-                0.04 * MediaQuery.of(context).size.width),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                AutoSizeText(
-                  ctheme.name,
-                  style: (
-                      isDark ? ctheme.dark(context): ctheme.light(context)
-                  ).themeData.textTheme.labelSmall,
-                  maxLines: 1,
-                ),
-                Divider(
-                  height: 5,
-                  color: (
-                      isDark ? ctheme.dark(context) : ctheme.light(context)
-                  ).themeData.colorScheme.onSurface,
-                ),
-                AutoSizeText(
-                  'wwwwwwwwww',
-                  style: (
-                      isDark ? ctheme.dark(context): ctheme.light(context)
-                  ).themeData.textTheme.labelSmall,
-                  maxLines: 2,
-                ),
-                const Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: TraleTheme.of(context)!
-                        .borderShape
-                        .borderRadius,
-                    color: (
-                        isDark ? ctheme.dark(context): ctheme.light(context)
-                    ).themeData.colorScheme.primary,
+          margin: EdgeInsets.all(
+              0.025 * MediaQuery.of(context).size.width),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              AutoSizeText(
+                ctheme.name,
+                style: theme.themeData.textTheme.emphasized.labelSmall,
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+              WidgetGroup(
+                children: <Widget>[
+                  GroupedWidget(
+                    color: theme.themeData.colorScheme.primary,
+                    child: Container(height: 0.05 * MediaQuery.of(context).size.width),
                   ),
-                  height: 0.05 * MediaQuery.of(context).size.width,
-                ),
-              ],
-            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Color>[
+                      theme.themeData.colorScheme.secondary,
+                      theme.themeData.colorScheme.secondaryContainer,
+                      theme.themeData.colorScheme.tertiary,
+                      theme.themeData.colorScheme.tertiaryContainer,
+                    ].map((Color color) =>
+                      Flexible(
+                        flex: 1,
+                        child: GroupedWidget(
+                          color: color,
+                          child: Container(height: 0.05 * MediaQuery.of(context).size.width),
+                        ),
+                      ),
+                    ).toList().addGap(direction: Axis.horizontal, offset: 1, padding: theme.space),
+                  ),
+                  GroupedWidget(
+                    color: theme.themeData.colorScheme.primaryContainer,
+                    child: Container(height: 0.05 * MediaQuery.of(context).size.width),
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       );
@@ -368,7 +369,7 @@ class ThemeSettingsPage extends StatelessWidget {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.interpolation,
+        title: AppLocalizations.of(context)!.theme,
         sliverlist: sliverlist,
       ),
     );
