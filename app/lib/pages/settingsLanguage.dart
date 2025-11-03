@@ -8,6 +8,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
+import 'package:trale/widget/tile_group.dart';
 
 class LanguageSettingsPage extends StatelessWidget {
   const LanguageSettingsPage({super.key});
@@ -20,7 +21,7 @@ class LanguageSettingsPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.translate,
-        title: AppLocalizations.of(context)!.language,
+        title: 'Translate trale',
         subtitle: 'Help translate the app',
         url: 'https://hosted.weblate.org/engage/trale/',
       ),
@@ -33,7 +34,8 @@ class LanguageSettingsPage extends StatelessWidget {
             notifier.language = newLang.toLanguage();
           }
         },
-        child: Column(
+        child: WidgetGroup(
+          title: AppLocalizations.of(context)!.language,
           children: Language.supportedLanguages
               .map((Language lang) => _LanguageRadioTile(language: lang))
               .toList(),
@@ -58,22 +60,19 @@ class _LanguageRadioTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return RadioListTile<String>(
+    return GroupedRadioListTile<String>(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
       // groupValue omitted (deprecated) — RadioGroup ancestor supplies selection
       value: language.language,
       // onChanged omitted; RadioGroup handles it
       title: Text(
         language.languageLong(context),
-        style: Theme.of(context).textTheme.titleMedium,
+        style: Theme.of(context).textTheme.titleMedium?.apply(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding * 0.25,
-      ),
-      visualDensity: VisualDensity.compact,
-      dense: true,
     );
   }
 }
