@@ -310,6 +310,10 @@
     "@interpolation": {
         "description": "interpolation"
     },
+    "personalization": "personalization",
+    "@personalization": {
+        "description": "personalization"
+    },
     "strength": "strength",
     "@strength": {
         "description": "interpolation strength"
