@@ -6,7 +6,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
-import 'package:trale/pages/settingsInterpolation.dart';
+import 'package:trale/pages/settingsPersonalization.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/pages/settingsTheme.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
@@ -36,6 +36,12 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.faders,
             title: 'Personalization',
             subtitle: 'Customize your experience',
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context)
+                  => const PersonalizationSettingsPage(),
+              ),
+            ),
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.palette,
@@ -49,22 +55,6 @@ class SettingsOverviewPage extends StatelessWidget {
             ),
           ),
           _SettingsTile(
-            icon: PhosphorIconsDuotone.lineSegments,
-            title: 'Interpolation',
-            subtitle: 'Choose a interpolation strength',
-            onTap: () => Navigator.of(context).push<dynamic>(
-              MaterialPageRoute<Widget>(
-                builder: (BuildContext context)
-                  => const InterpolationSettingsPage(),
-              ),
-            ),
-          ),
-        ],
-      ),
-      WidgetGroup(
-        title: 'Internationalization',
-        children: <Widget>[
-          _SettingsTile(
             icon: PhosphorIconsDuotone.globe,
             title: 'Language',
             subtitle: 'English (United States)',
@@ -74,11 +64,6 @@ class SettingsOverviewPage extends StatelessWidget {
                   => const LanguageSettingsPage(),
               ),
             ),
-          ),
-          const _SettingsTile(
-            icon: PhosphorIconsDuotone.ruler,
-            title: 'Units',
-            subtitle: 'weight in kg and height in cm',
           ),
         ],
       ),
