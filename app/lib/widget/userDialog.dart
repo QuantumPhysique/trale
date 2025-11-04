@@ -90,6 +90,7 @@ Future<bool> showUserDialog({
               },
             ),
           ),
+          LooseWeightListTile(),
           GroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLow,
             dense: false,
@@ -161,4 +162,43 @@ List<Widget> actions(BuildContext context, Function onPress,
       label: Text(AppLocalizations.of(context)!.back),
     ),
   ];
+}
+
+
+
+class LooseWeightListTile extends StatelessWidget {
+  /// constructor
+  const LooseWeightListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupedSwitchListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      dense: true,
+      leading: PPIcon(
+        Provider.of<TraleNotifier>(context).looseWeight
+          ? PhosphorIconsDuotone.trendDown
+          : PhosphorIconsDuotone.trendUp,
+        context,
+      ),
+      title: Text(
+        Provider.of<TraleNotifier>(context).looseWeight
+          ? AppLocalizations.of(context)!.looseWeight
+          : AppLocalizations.of(context)!.gainWeight,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      subtitle: Text(
+        AppLocalizations.of(context)!.looseWeightSubtitle,
+        style: Theme.of(context).textTheme.labelSmall,
+      ),
+      value: !Provider.of<TraleNotifier>(context).looseWeight,
+      onChanged: (bool? loose) {
+        if (loose == null) {
+          return;
+        }
+        Provider.of<TraleNotifier>(context, listen: false).looseWeight = !loose;
+      },
+    );
+  }
 }
