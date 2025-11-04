@@ -68,8 +68,6 @@ class _OverviewScreen extends State<OverviewScreen> {
 
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
-    final int firstDelayInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
@@ -78,13 +76,9 @@ class _OverviewScreen extends State<OverviewScreen> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          AnimateInEffect(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            child: StatsWidgets(
-              visible: true,
-              key: ValueKey<List<Measurement>>(snapshot.data
-                                               ?? <Measurement>[]),
-            ),
+          AnimatedStatsWidgets(
+            key: ValueKey<List<Measurement>>(snapshot.data
+                                             ?? <Measurement>[]),
           ),
           AnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,

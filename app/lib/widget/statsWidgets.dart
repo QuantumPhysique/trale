@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -19,16 +20,44 @@ import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
 
 
-class StatsWidgets extends StatefulWidget {
-  const StatsWidgets({required this.visible, super.key});
-
-  final bool visible;
+class AnimatedStatsWidgets extends StatefulWidget {
+  const AnimatedStatsWidgets({super.key});
 
   @override
-  _StatsWidgetsState createState() => _StatsWidgetsState();
+  _AnimatedStatsWidgetsState createState() => _AnimatedStatsWidgetsState();
 }
 
-class _StatsWidgetsState extends State<StatsWidgets> {
+class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
+  Timer? _weightLostDelayTimer;
+  bool _showWeightLostCard = false;
+
+  void _ensureWeightLostCardVisibility(bool shouldShow) {
+    if (!shouldShow) {
+      _weightLostDelayTimer?.cancel();
+      _weightLostDelayTimer = null;
+      if (!_showWeightLostCard) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        setState(() => _showWeightLostCard = false);
+      });
+      return;
+    }
+    if (_showWeightLostCard || _weightLostDelayTimer != null) return;
+    _weightLostDelayTimer = Timer(Duration(milliseconds: (TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds / 2).toInt()), () {
+      if (!mounted) return;
+      setState(() {
+        _showWeightLostCard = true;
+        _weightLostDelayTimer = null;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _weightLostDelayTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final MeasurementInterpolation ip = MeasurementInterpolation();
@@ -40,6 +69,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         userTargetWeight, notifier.looseWeight,
     );
     final int nMeasured = ip.measurementDuration.inDays;
+    _ensureWeightLostCardVisibility(nMeasured >= 2);
     Card userTargetWeightCard(double utw) => Card(
       shape: const StadiumBorder(),
       color: Theme.of(context).colorScheme.secondaryContainer,
@@ -125,25 +155,24 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     return FractionallySizedBox(
       widthFactor: (userTargetWeight == null || nMeasured < 2) ? 0.5 : 1,
-      child: AnimatedCrossFade(
-        crossFadeState: widget.visible
-            ? CrossFadeState.showFirst
-            : CrossFadeState.showSecond,
-        duration: TraleTheme.of(context)!.transitionDuration.normal,
-        secondChild: const SizedBox.shrink(),
-        firstChild: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            if (userTargetWeight != null) Expanded(
-                child: userTargetWeightCard(userTargetWeight)
-            ),
-            if (nMeasured >= 2) Expanded(
-                child: userWeightLostCard(),
-            ),
-          ].addGap(
-            padding: TraleTheme.of(context)!.padding,
-            direction: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          if (userTargetWeight != null) Expanded(
+              child: AnimateInEffect(
+                durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
+                child: userTargetWeightCard(userTargetWeight),
+              )
           ),
+          if (nMeasured >= 2 && _showWeightLostCard) Expanded(
+              child: AnimateInEffect(
+                durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
+                child: userWeightLostCard(),
+              )
+          ),
+        ].addGap(
+          padding: TraleTheme.of(context)!.padding,
+          direction: Axis.horizontal,
         ),
       ),
     );
