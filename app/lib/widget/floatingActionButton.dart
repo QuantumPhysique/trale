@@ -30,18 +30,12 @@ class _FABState extends State<FAB> {
     return AnimatedContainer(
         alignment: Alignment.center,
         height: widget.show ? buttonHeight : 0,
-        width: widget.show ? buttonHeight : 0,
-        margin: EdgeInsets.all(
-          widget.show ? 0 : 0.5 * buttonHeight,
-        ),
+        width: buttonHeight,
         duration: TraleTheme.of(context)!.transitionDuration.normal,
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: M3EFloatingActionButton.medium(
-            elevation: 0,
-            onPressed: widget.onPressed,
-            tooltip: AppLocalizations.of(context)!.addWeight,
-          ),
+        child: M3EFloatingActionButton.medium(
+          elevation: 0,
+          onPressed: widget.onPressed,
+          tooltip: AppLocalizations.of(context)!.addWeight,
         )
     );
   }
