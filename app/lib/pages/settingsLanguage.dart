@@ -58,9 +58,16 @@ class _LanguageRadioTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final String selectedLanguage =
+        context.select<TraleNotifier, String>((notifier) => notifier.language.language);
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final bool isSelected = selectedLanguage == language.language;
     return GroupedRadioListTile<String>(
-      color: Theme.of(context).colorScheme.surfaceContainerLowest,
+      color: isSelected
+          ? colorScheme.secondaryContainer
+          : colorScheme.surfaceContainerLowest,
+      shape: isSelected
+        ? const StadiumBorder() : null,
       // groupValue omitted (deprecated) — RadioGroup ancestor supplies selection
       value: language.language,
       // onChanged omitted; RadioGroup handles it

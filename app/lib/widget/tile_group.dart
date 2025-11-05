@@ -100,17 +100,19 @@ class GroupedWidget extends StatelessWidget {
   const GroupedWidget({super.key,
     required this.child,
     this.color,
+    this.shape,
   });
 
   final Widget child;
   final Color? color;
+  final ShapeBorder? shape;
   @override
   Widget build(BuildContext context) {
     return Card(
       // Remove default Card margin so tile fills parent width/height
       margin: EdgeInsets.zero,
       color: color ?? Theme.of(context).colorScheme.surfaceContainer,
-      shape: TraleTheme.of(context)!.innerBorderShape,
+      shape: shape ?? TraleTheme.of(context)!.innerBorderShape,
       child: child,
     );
   }
@@ -167,6 +169,7 @@ class GroupedListTile extends ListTile {
     return ListTileTheme(
       shape: shape ?? fallbackShape,
       child: GroupedWidget(
+        shape: shape ?? fallbackShape,
         color: color ?? Theme.of(context).colorScheme.surfaceContainer,
         child: Builder(
           builder: (BuildContext innerContext) => super.build(innerContext),
@@ -252,6 +255,7 @@ class GroupedRadioListTile<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShapeBorder fallbackShape = TraleTheme.of(context)!.innerBorderShape;
     return GroupedWidget(
+      shape: shape ?? fallbackShape,
       color: color ?? Theme.of(context).colorScheme.surfaceContainer,
       child: RadioListTile<T>(
         value: value,
