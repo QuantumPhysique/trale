@@ -25,111 +25,9 @@ Future<bool> showUserDialog({
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext innerContext, StateSetter setState) {
-      return WidgetGroup(
-        children: <Widget>[
-          GroupedListTile(
-            color: Theme.of(context).colorScheme.surfaceContainerLow,
-            dense: false,
-            leading: PPIcon(
-              PhosphorIconsDuotone.user,
-              innerContext,
-            ),
-            title: TextFormField(
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintStyle: Theme.of(innerContext).textTheme.titleSmall!.copyWith(
-                color: Theme.of(innerContext).colorScheme.onSurface,
-              ),
-              hintText: AppLocalizations.of(innerContext)!.addUserName,
-              hintMaxLines: 2,
-              labelText: AppLocalizations.of(innerContext)!.name,
-            ),
-            style: Theme.of(innerContext).textTheme.titleSmall!.copyWith(
-              color: Theme.of(innerContext).colorScheme.onSurface,
-            ),
-            initialValue: notifier.userName,
-            onChanged: (String value) {
-              notifier.userName = value;
-            }
-            ),
-            onTap: () {},
-          ),
-          GroupedListTile(
-            color: Theme.of(context).colorScheme.surfaceContainerLow,
-            dense: false,
-            leading: PPIcon(
-              PhosphorIconsDuotone.target,
-              innerContext,
-            ),
-            title: TextFormField(
-              readOnly: true,
-              initialValue: notifier.userTargetWeight != null
-                ? notifier.unit.weightToString(notifier.userTargetWeight!)
-                : AppLocalizations.of(innerContext)!.addTargetWeight,
-              style: Theme.of(innerContext).textTheme.titleSmall!.copyWith(
-            color: Theme.of(innerContext).colorScheme.onSurface,
-              ),
-              maxLines: 1,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintStyle: Theme.of(innerContext).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(innerContext).colorScheme.onSurface,
-                ),
-                labelText: AppLocalizations.of(innerContext)!.targetWeight,
-              ),
-              onTap: () async {
-                // Navigator.of(innerContext).pop();
-                await showTargetWeightDialog(
-                  context: innerContext,
-                  weight: notifier.userTargetWeight
-                      ?? Preferences().defaultUserWeight,
-                );
-                notifier.notify;
-                setState(() {});
-              },
-            ),
-          ),
-          LooseWeightListTile(),
-          GroupedListTile(
-            color: Theme.of(context).colorScheme.surfaceContainerLow,
-            dense: false,
-            leading: PPIcon(
-              PhosphorIconsDuotone.arrowsVertical,
-              innerContext,
-            ),
-            title: TextFormField(
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(
-                    RegExp(r'^[1-9][0-9]*'),
-                )
-              ],
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintStyle: Theme.of(innerContext).textTheme.titleSmall!.copyWith(
-                    color: Theme.of(innerContext).colorScheme.onSurface,
-                ),
-                hintText: AppLocalizations.of(innerContext)!.addHeight,
-                suffixText: 'cm',
-                labelText: AppLocalizations.of(innerContext)!.height,
-              ),
-              style: Theme.of(innerContext).textTheme.titleSmall!.copyWith(
-                color: Theme.of(innerContext).colorScheme.onSurface,
-              ),
-              initialValue: notifier.userHeight != null
-                ? '${notifier.userHeight!.toInt()}'
-                : null,
-              onChanged: (String value) {
-                final double? newHeight = double.tryParse(value);
-                if (newHeight != null) {
-                    notifier.userHeight = newHeight;
-                }
-              },
-            ),
-            onTap: () {},
-          ),
-        ],
+      return UserDetailsGroup(
+        notifier: notifier,
+        onRefresh: () => setState(() {}),
       );
     },
   );
@@ -168,12 +66,16 @@ List<Widget> actions(BuildContext context, Function onPress,
 
 class LooseWeightListTile extends StatelessWidget {
   /// constructor
-  const LooseWeightListTile({super.key});
+  const LooseWeightListTile({super.key, this.color});
+
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    final Color tileColor =
+        color ?? Theme.of(context).colorScheme.surfaceContainerLow;
     return GroupedSwitchListTile(
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      color: tileColor,
       dense: true,
       leading: PPIcon(
         Provider.of<TraleNotifier>(context).looseWeight
@@ -199,6 +101,134 @@ class LooseWeightListTile extends StatelessWidget {
         }
         Provider.of<TraleNotifier>(context, listen: false).looseWeight = !loose;
       },
+    );
+  }
+}
+
+
+class UserDetailsGroup extends StatelessWidget {
+  const UserDetailsGroup({
+    super.key,
+    required this.notifier,
+    required this.onRefresh,
+    this.title,
+    this.backgroundColor,
+  });
+
+  final TraleNotifier notifier;
+  final VoidCallback onRefresh;
+  final String? title;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final Color tileColor =
+        backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerLow;
+    return WidgetGroup(
+      title: title,
+      children: <Widget>[
+        GroupedListTile(
+          color: tileColor,
+          dense: false,
+          leading: PPIcon(
+            PhosphorIconsDuotone.user,
+            context,
+          ),
+          title: TextFormField(
+            keyboardType: TextInputType.name,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              hintText: AppLocalizations.of(context)!.addUserName,
+              hintMaxLines: 2,
+              labelText: AppLocalizations.of(context)!.name,
+            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            initialValue: notifier.userName,
+            onChanged: (String value) {
+              notifier.userName = value;
+            },
+          ),
+          onTap: () {},
+        ),
+        GroupedListTile(
+          color: tileColor,
+          dense: false,
+          leading: PPIcon(
+            PhosphorIconsDuotone.target,
+            context,
+          ),
+          title: TextFormField(
+            readOnly: true,
+            initialValue: notifier.userTargetWeight != null
+                ? notifier.unit.weightToString(notifier.userTargetWeight!)
+                : AppLocalizations.of(context)!.addTargetWeight,
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            maxLines: 1,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              labelText: AppLocalizations.of(context)!.targetWeight,
+            ),
+            onTap: () async {
+              await showTargetWeightDialog(
+                context: context,
+                weight: notifier.userTargetWeight ??
+                    Preferences().defaultUserWeight,
+              );
+              notifier.notify;
+              onRefresh();
+            },
+          ),
+        ),
+        LooseWeightListTile(color: tileColor),
+        GroupedListTile(
+          color: tileColor,
+          dense: false,
+          leading: PPIcon(
+            PhosphorIconsDuotone.arrowsVertical,
+            context,
+          ),
+          title: TextFormField(
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(
+                RegExp(r'^[1-9][0-9]*'),
+              ),
+            ],
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              hintText: AppLocalizations.of(context)!.addHeight,
+              suffixText: 'cm',
+              labelText: AppLocalizations.of(context)!.height,
+            ),
+            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            initialValue: notifier.userHeight != null
+                ? '${notifier.userHeight!.toInt()}'
+                : null,
+            onChanged: (String value) {
+              final double? newHeight = double.tryParse(value);
+              if (newHeight != null) {
+                notifier.userHeight = newHeight;
+              }
+            },
+          ),
+          onTap: () {},
+        ),
+      ],
     );
   }
 }
