@@ -91,7 +91,13 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
         ),
         GroupedText(
               text: Text("Add meaningful text...")
-          )
+        ),
+        WidgetGroup(
+          title: AppLocalizations.of(context)!.dangerzone,
+          children: <Widget>[
+            const ResetListTile(),
+          ],
+        ),
       ];
 
       return Scaffold(
@@ -210,6 +216,77 @@ class ImportListTile extends StatelessWidget {
       trailing: IconButton(
         icon: PPIcon(PhosphorIconsDuotone.download, context),
         onPressed: () => importBackup(context),
+      ),
+    );
+  }
+}
+
+
+/// ListTile for changing Amoled settings
+class ResetListTile extends StatelessWidget {
+  /// constructor
+  const ResetListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.factoryReset,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: 2 * TraleTheme.of(context)!.padding,
+      ),
+      subtitle: AutoSizeText(
+        AppLocalizations.of(context)!.factoryResetSubtitle,
+        style: Theme.of(context).textTheme.labelSmall,
+      ),
+      trailing: IconButton(
+        icon: PPIcon(PhosphorIconsDuotone.trash, context),
+        onPressed: () async {
+          final bool accepted = await showDialog<bool>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text(
+                    AppLocalizations.of(context)!.factoryReset,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  content: Text(
+                    AppLocalizations.of(context)!.factoryResetDialog,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      style: ButtonStyle(
+                        foregroundColor: WidgetStateProperty.all<Color>(
+                          Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                      onPressed: () => Navigator.pop(context, false),
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: TraleTheme.of(context)!.padding / 2,
+                            horizontal: TraleTheme.of(context)!.padding,
+                          ),
+                          child: Text(AppLocalizations.of(context)!.abort)),
+                    ),
+                    FilledButton.icon(
+                      onPressed: () => Navigator.pop(context, true),
+                      label: Text(AppLocalizations.of(context)!.yes),
+                      icon: PPIcon(PhosphorIconsRegular.trash, context),
+                    ),
+                  ],
+                ),
+              ) ??
+              false;
+          if (accepted) {
+            Provider.of<TraleNotifier>(context, listen: false).factoryReset();
+            // leave settings
+            Navigator.of(context).pop();
+          }
+        },
       ),
     );
   }

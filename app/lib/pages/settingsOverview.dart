@@ -82,12 +82,6 @@ class SettingsOverviewPage extends StatelessWidget {
               ),
             ),
           ),
-          _SettingsTile(
-            icon: PhosphorIconsDuotone.warning,
-            title: AppLocalizations.of(context)!.dangerzone,
-            subtitle: 'Delete all data and reset the app',
-            trailing: const _ExperimentalBadge(),
-          ),
         ],
       ),
       WidgetGroup(
@@ -171,31 +165,6 @@ class _SettingsTile extends StatelessWidget {
           onTap!();
         }
       },
-    );
-  }
-}
-
-
-class _ExperimentalBadge extends StatelessWidget {
-  const _ExperimentalBadge();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.tertiaryContainer,
-        borderRadius: BorderRadius.circular(999),
-      ),
-      padding: EdgeInsets.all(
-        TraleTheme.of(context)!.padding,
-      ),
-      child: Text(
-        'Experimental',
-        style: Theme.of(context).textTheme.labelSmall?.copyWith(
-              color: Theme.of(context).colorScheme.onTertiaryContainer,
-              fontWeight: FontWeight.w600,
-            ),
-      ),
     );
   }
 }
