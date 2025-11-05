@@ -6,6 +6,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
+import 'package:trale/pages/settingsExport.dart';
 import 'package:trale/pages/settingsPersonalization.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/pages/settingsTheme.dart';
@@ -74,6 +75,12 @@ class SettingsOverviewPage extends StatelessWidget {
             icon: PhosphorIconsDuotone.database,
             title: 'Import and export',
             subtitle: 'Save and load your data',
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context)
+                  => const ExportSettingsPage(),
+              ),
+            ),
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.warning,
