@@ -634,7 +634,7 @@ Widget getIconWidget({required BuildContext context,
       (MediaQuery.sizeOf(context).width
        - 5 * TraleTheme.of(context)!.padding) / 4;
   final int animationDurationInMilliseconds =
-      TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
+      TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
 
   return AnimateInEffect(
     delayInMilliseconds: delayInMilliseconds ?? 0,
