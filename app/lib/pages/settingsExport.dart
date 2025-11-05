@@ -30,18 +30,68 @@ class ExportSettingsPage extends StatefulWidget {
 class _ExportSettingsPageState extends State<ExportSettingsPage> {
   @override
   Widget build(BuildContext context) {
-    final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
+      final DateTime? nextBackupDate =
+        Provider.of<TraleNotifier>(context).nextBackupDate;
+      final DateTime? latestBackupDate =
+          Provider.of<TraleNotifier>(context).latestBackupDate;
+
+      String date2string(DateTime? date) => date == null
+          ? AppLocalizations.of(context)!.never
+          : Provider.of<TraleNotifier>(context, listen: false)
+              .dateFormat(context)
+              .format(date);
 
       final List<Widget> sliverlist = <Widget>[
         WidgetGroup(
+          title: AppLocalizations.of(context)!.export,
           children:  <Widget>[
               const ExportListTile(),
-              const ImportListTile(),
               const BackupIntervalListTile(),
-              const LastBackupListTile(),
+              GroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    AutoSizeText(
+                      AppLocalizations.of(context)!.lastBackup,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      date2string(latestBackupDate),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
+              GroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    AutoSizeText(
+                      AppLocalizations.of(context)!.nextBackup,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      maxLines: 1,
+                    ),
+                    Text(
+                      date2string(nextBackupDate),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
             ],
         ),
+        WidgetGroup(
+          title: AppLocalizations.of(context)!.import,
+          children: <Widget>[
+            const ImportListTile(),
+          ],
+        ),
+        GroupedText(
+              text: Text("Add meaningful text...")
+          )
       ];
 
       return Scaffold(
@@ -61,10 +111,11 @@ class BackupIntervalListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-        vertical: 0.5 * TraleTheme.of(context)!.padding,
+        horizontal: TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.backupInterval,
@@ -96,66 +147,6 @@ class BackupIntervalListTile extends StatelessWidget {
   }
 }
 
-/// ListTile for changing units settings
-class LastBackupListTile extends StatelessWidget {
-  /// constructor
-  const LastBackupListTile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final DateTime? nextBackupDate =
-        Provider.of<TraleNotifier>(context).nextBackupDate;
-    final DateTime? latestBackupDate =
-        Provider.of<TraleNotifier>(context).latestBackupDate;
-
-    String date2string(DateTime? date) => date == null
-        ? AppLocalizations.of(context)!.never
-        : Provider.of<TraleNotifier>(context, listen: false)
-            .dateFormat(context)
-            .format(date);
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding,
-      ),
-      child: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              AutoSizeText(
-                AppLocalizations.of(context)!.lastBackup,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              Text(
-                date2string(latestBackupDate),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-          SizedBox(height: TraleTheme.of(context)!.padding),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              AutoSizeText(
-                AppLocalizations.of(context)!.nextBackup,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              Text(
-                date2string(nextBackupDate),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 
 /// ListTile for changing Amoled settings
 class ExportListTile extends StatelessWidget {
@@ -164,8 +155,8 @@ class ExportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      dense: true,
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
       title: AutoSizeText(
         AppLocalizations.of(context)!.export,
         style: Theme.of(context).textTheme.bodyLarge,
@@ -202,8 +193,8 @@ class ImportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      dense: true,
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
       title: AutoSizeText(
         AppLocalizations.of(context)!.import,
         style: Theme.of(context).textTheme.bodyLarge,

@@ -48,7 +48,7 @@ class _AnimateInEffectState extends State<AnimateInEffect>
     );
 
     offsetAnimation = Tween<Offset>(
-      begin: const Offset(96, 0),
+      begin: const Offset(40, 0),
       end: Offset.zero,
     ).animate(
       CurvedAnimation(

@@ -352,7 +352,7 @@ class _About extends State<About> {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.faq.allInCaps,
+        title: AppLocalizations.of(context)!.about.allInCaps,
         sliverlist: aboutList(),
       ),
     );
