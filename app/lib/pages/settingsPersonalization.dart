@@ -14,93 +14,108 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/tile_group.dart';
+import 'package:trale/widget/userDialog.dart';
 
-class PersonalizationSettingsPage extends StatelessWidget {
+class PersonalizationSettingsPage extends StatefulWidget {
   const PersonalizationSettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<PersonalizationSettingsPage> createState() => _PersonalizationSettingsPageState();
+}
 
-  final Widget sliderTile = Container(
-        padding: EdgeInsets.fromLTRB(
-          2 * TraleTheme.of(context)!.padding,
-          0.5 * TraleTheme.of(context)!.padding,
-          TraleTheme.of(context)!.padding,
-          0.5 * TraleTheme.of(context)!.padding,
+class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPage> {
+  @override
+  Widget build(BuildContext context) {
+    final TraleNotifier notifier =
+      Provider.of<TraleNotifier>(context, listen: false);
+
+    final Widget sliderTile = Container(
+          padding: EdgeInsets.fromLTRB(
+            2 * TraleTheme.of(context)!.padding,
+            0.5 * TraleTheme.of(context)!.padding,
+            TraleTheme.of(context)!.padding,
+            0.5 * TraleTheme.of(context)!.padding,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                AppLocalizations.of(context)!.strength.inCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              Slider(
+                value: Provider.of<TraleNotifier>(context)
+                    .interpolStrength.idx.toDouble(),
+                divisions: InterpolStrength.values.length - 1,
+                min: 0.0,
+                max: InterpolStrength.values.length.toDouble() - 1,
+                label: Provider.of<TraleNotifier>(context).interpolStrength.name,
+                onChanged: (double newStrength) async {
+                  Provider.of<TraleNotifier>(
+                      context, listen: false
+                  ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
+                },
+              ),
+            ],
+          ),
+        );
+
+      final List<Widget> sliverlist = <Widget>[
+        WidgetGroup(
+          title: AppLocalizations.of(context)!.interpolation,
+          children:  <Widget>[
+              GroupedWidget(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                child: CustomLineChart(
+                  loadedFirst: false,
+                  ip: PreviewInterpolation(),
+                  isPreview: true,
+                  relativeHeight: 0.25,
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
+                ),
+              ),
+              GroupedWidget(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                child: sliderTile,
+              ),
+            ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              AppLocalizations.of(context)!.strength.inCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            Slider(
-              value: Provider.of<TraleNotifier>(context)
-                  .interpolStrength.idx.toDouble(),
-              divisions: InterpolStrength.values.length - 1,
-              min: 0.0,
-              max: InterpolStrength.values.length.toDouble() - 1,
-              label: Provider.of<TraleNotifier>(context).interpolStrength.name,
-              onChanged: (double newStrength) async {
-                Provider.of<TraleNotifier>(
-                    context, listen: false
-                ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
-              },
-            ),
+        SizedBox(height: 2 * TraleTheme.of(context)!.padding),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
+          child: Text('Add some meaningful text explaining the interpolation settings here.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+        WidgetGroup(
+          title: "Unit",
+          children: [
+            const UnitsListTile(),
           ],
+        ),
+        WidgetGroup(
+          title: "Date Settings",
+          children: [
+            const FirstDayListTile(),
+            const DatePrintListTile(),
+          ],
+        ),
+        UserDetailsGroup(
+          title: AppLocalizations.of(context)!.user,
+          backgroundColor:
+              Theme.of(context).colorScheme.surfaceContainerLowest,
+          notifier: notifier,
+          onRefresh: () => setState(() {}),
+        )
+      ];
+
+      return Scaffold(
+        body: SliverAppBarSnap(
+          title: AppLocalizations.of(context)!.personalization,
+          sliverlist: sliverlist,
         ),
       );
-
-    final List<Widget> sliverlist = <Widget>[
-      WidgetGroup(
-        title: AppLocalizations.of(context)!.interpolation,
-        children:  <Widget>[
-            GroupedWidget(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              child: CustomLineChart(
-                loadedFirst: false,
-                ip: PreviewInterpolation(),
-                isPreview: true,
-                relativeHeight: 0.25,
-                backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-              ),
-            ),
-            GroupedWidget(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              child: sliderTile,
-            ),
-          ],
-      ),
-      SizedBox(height: 2 * TraleTheme.of(context)!.padding),
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
-        child: Text('Add some meaningful text explaining the interpolation settings here.',
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-      ),
-      WidgetGroup(
-        title: "Unit",
-        children: [
-          const UnitsListTile(),
-        ],
-      ),
-      WidgetGroup(
-        title: "Date Settings",
-        children: [
-          const FirstDayListTile(),
-          const DatePrintListTile(),
-        ],
-      )
-    ];
-
-    return Scaffold(
-      body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.personalization,
-        sliverlist: sliverlist,
-      ),
-    );
   }
 }
 
@@ -116,8 +131,8 @@ class UnitsListTile extends StatelessWidget {
     return GroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-        vertical: 0.5 * TraleTheme.of(context)!.padding,
+        horizontal: TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         AppLocalizations.of(context)!.unit,
@@ -163,8 +178,8 @@ class FirstDayListTile extends StatelessWidget {
         return GroupedListTile(
           color: Theme.of(context).colorScheme.surfaceContainerLowest,
           contentPadding: EdgeInsets.symmetric(
-            horizontal: 2 * TraleTheme.of(context)!.padding,
-            vertical: 0.5 * TraleTheme.of(context)!.padding,
+            horizontal: TraleTheme.of(context)!.padding,
+            vertical: TraleTheme.of(context)!.padding,
           ),
           title: AutoSizeText(
             AppLocalizations.of(context)!.firstDay,
@@ -211,8 +226,8 @@ class DatePrintListTile extends StatelessWidget {
     return GroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
-        vertical: 0.5 * TraleTheme.of(context)!.padding,
+        horizontal: TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         'Format',
