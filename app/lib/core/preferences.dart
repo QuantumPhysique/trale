@@ -129,7 +129,8 @@ class Preferences {
       : null;
 
   /// set if onboarding screen is shown
-  set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
+  /// set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
+  set showOnBoarding(bool show) => false;
 
   /// get if onboarding screen is shown
   bool get showOnBoarding => prefs.getBool('showOnBoarding')!;
