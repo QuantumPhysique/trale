@@ -38,7 +38,7 @@ class _MeasurementScreen extends State<MeasurementScreen> {
         controller: scrollController,
         child: TotalWeightList(
           durationInMilliseconds: animationDurationInMilliseconds,
-          delayInMilliseconds: secondDelayInMilliseconds,
+          delayInMilliseconds: (animationDurationInMilliseconds / 5).toInt(),
           scrollController: scrollController,
           tabController: widget.tabController,
         ),

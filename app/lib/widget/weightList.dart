@@ -65,14 +65,6 @@ class _WeightList extends State<WeightList>{
 
   @override
   Widget build(BuildContext context) {
-    double getIntervalStart(int i) {
-      const int maximalShownListTile = 15;
-      if (maximalShownListTile < widget.measurements.length) {
-        return <double>[i / maximalShownListTile, 1].reduce(min).toDouble();
-      } else {
-        return i / widget.measurements.length;
-      }
-    }
 
     void updateActiveListTile(int? key){
       setState(() {
@@ -83,10 +75,8 @@ class _WeightList extends State<WeightList>{
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int i) => AnimateInEffect(
-          keepAlive: widget.keepAlive,
           durationInMilliseconds: widget.durationInMilliseconds,
           delayInMilliseconds: widget.delayInMilliseconds,
-          intervalStart: getIntervalStart(i),
           child: WeightListTile(
             measurement: widget.measurements[i],
             updateActiveState: updateActiveListTile,
@@ -190,7 +180,6 @@ class _TotalWeightList extends State<TotalWeightList>{
                 child: getYearWidget(
                   year: '$year',
                   context: context,
-                  delayInMilliseconds: widget.delayInMilliseconds,
                 ),
               ),
               WeightList(
