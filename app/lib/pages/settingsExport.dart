@@ -169,7 +169,7 @@ class ExportListTile extends StatelessWidget {
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
+        horizontal: TraleTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
         AppLocalizations.of(context)!.exportSubtitle,
@@ -207,7 +207,7 @@ class ImportListTile extends StatelessWidget {
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
+        horizontal: TraleTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
         AppLocalizations.of(context)!.importSubtitle,
@@ -237,7 +237,7 @@ class ResetListTile extends StatelessWidget {
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: 2 * TraleTheme.of(context)!.padding,
+        horizontal: TraleTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
         AppLocalizations.of(context)!.factoryResetSubtitle,

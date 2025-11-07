@@ -134,11 +134,11 @@ class _FAQ extends State<FAQ> {
         question: AppLocalizations.of(context)!.faq_q1,
         answer: AppLocalizations.of(context)!.faq_a1,
       ),
-      FAQEntry(
-        question: AppLocalizations.of(context)!.faq_q2,
-        answer: AppLocalizations.of(context)!.faq_a2,
-        answerWidget: const OnBoardingListTile(),
-      ),
+      // FAQEntry(
+      //   question: AppLocalizations.of(context)!.faq_q2,
+      //   answer: AppLocalizations.of(context)!.faq_a2,
+      //   answerWidget: const OnBoardingListTile(),
+      // ),
       FAQEntry(
         question: AppLocalizations.of(context)!.faq_q4,
         answer: AppLocalizations.of(context)!.faq_a4,
@@ -152,7 +152,7 @@ class _FAQ extends State<FAQ> {
     List<Widget> faqList() {
       return <Widget>[
         SettingsBanner(
-          leadingIcon: PhosphorIconsRegular.githubLogo,
+          leadingIcon: PhosphorIconsBold.githubLogo,
           title: AppLocalizations.of(context)!.openIssue.allInCaps,
           subtitle: 'Help improving the app by providing feedback',
           url: 'https://github.com/quantumphysique/trale/',
