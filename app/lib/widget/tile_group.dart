@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trale/core/font.dart';
-import 'package:trale/core/gap.dart';
 import 'package:trale/core/theme.dart';
-
 
 /// A rounded section that groups a list of tiles and draws dividers between
 /// theme.
@@ -13,7 +11,8 @@ class WidgetGroup extends StatelessWidget {
     this.title,
     this.titleStyle,
     this.direction = Axis.vertical,
-  }) : itemBuilder = null, itemCount = null;
+  }) : itemBuilder = null,
+       itemCount = null;
 
   const WidgetGroup.builder({
     super.key,
@@ -48,10 +47,11 @@ class WidgetGroup extends StatelessWidget {
     final double gap = TraleTheme.of(context)!.space;
 
     final List<Widget> effectiveChildren = children.isNotEmpty
-      ? children
-      : List<Widget>.generate(
-        itemCount ?? 0, (int i) => itemBuilder!(context, i)
-      );
+        ? children
+        : List<Widget>.generate(
+            itemCount ?? 0,
+            (int i) => itemBuilder!(context, i),
+          );
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 0.5 * padding),
@@ -68,10 +68,13 @@ class WidgetGroup extends StatelessWidget {
               ),
               child: Text(
                 title!,
-                style: titleStyle
-                  ?? Theme.of(context).textTheme.emphasized.titleMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                ),
+                style:
+                    titleStyle ??
+                    Theme.of(
+                      context,
+                    ).textTheme.emphasized.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
               ),
             ),
           Card(
@@ -80,13 +83,10 @@ class WidgetGroup extends StatelessWidget {
             shape: TraleTheme.of(context)!.borderShape,
             clipBehavior: Clip.antiAlias,
             child: Flex(
+              spacing: gap,
               direction: direction,
               mainAxisSize: MainAxisSize.min,
-              children: effectiveChildren.addGap(
-                padding:  gap,
-                direction: direction,
-                offset: 1,
-              ),
+              children: effectiveChildren,
             ),
           ),
         ],
@@ -97,11 +97,7 @@ class WidgetGroup extends StatelessWidget {
 
 /// Rounded tile with icon, title, subtitle and optional trailing widget.
 class GroupedWidget extends StatelessWidget {
-  const GroupedWidget({super.key,
-    required this.child,
-    this.color,
-    this.shape,
-  });
+  const GroupedWidget({super.key, required this.child, this.color, this.shape});
 
   final Widget child;
   final Color? color;
@@ -299,6 +295,7 @@ class GroupedText extends StatelessWidget {
 
   /// Background color of the grouped text widget
   final Color? color;
+
   /// Text to display
   final Text text;
 
@@ -311,7 +308,7 @@ class GroupedText extends StatelessWidget {
           vertical: 0.5 * TraleTheme.of(context)!.padding,
           horizontal: TraleTheme.of(context)!.padding,
         ),
-        child: text
+        child: text,
       ),
     );
   }
@@ -387,10 +384,10 @@ class GroupedSwitchListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShapeBorder fallbackShape = TraleTheme.of(context)!.innerBorderShape;
     final EdgeInsetsGeometry? effectiveContentPadding = leading == null
-      ? contentPadding
-      : contentPadding
-          ?? ListTileTheme.of(context).contentPadding
-          ?? const EdgeInsets.symmetric(horizontal: 16.0);
+        ? contentPadding
+        : contentPadding ??
+              ListTileTheme.of(context).contentPadding ??
+              const EdgeInsets.symmetric(horizontal: 16.0);
     return GroupedWidget(
       color: color ?? Theme.of(context).colorScheme.surfaceContainer,
       child: SwitchListTile(
