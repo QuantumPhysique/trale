@@ -28,7 +28,7 @@ dependencies:
     sdk: flutter
 
   dynamic_color: ^1.8.1
-  file_picker: ^10.3.2
+  file_picker: ^10.3.3
   file_saver: ^0.3.1
   fl_chart: ^1.1.1
   flutter_auto_size_text: ^4.1.0
