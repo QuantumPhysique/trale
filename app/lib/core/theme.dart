@@ -460,11 +460,11 @@ extension ColorTextThemeExtension on TextStyle {
 
 /// enum of all DynamicSchemeVariants
 enum TraleSchemeVariant {
+  /// expressive colors
+  expressive,
+
   /// material
   material,
-
-  /// material2 colors
-  material2,
 
   /// neutral colors
   neutral,
@@ -472,14 +472,14 @@ enum TraleSchemeVariant {
   /// vibrant colors
   vibrant,
 
-  /// expressive colors
-  expressive,
-
   /// monochrome
   monochrome,
 
   /// content similar to fidelity but matches seed color
   seed,
+
+  /// material2 colors
+  material2,
 }
 
 /// extend adonisThemes with adding AdonisTheme attributes
