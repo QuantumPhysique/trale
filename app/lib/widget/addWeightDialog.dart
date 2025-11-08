@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/firstDay.dart';
+import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -13,7 +14,8 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/weightPicker.dart';
+import 'package:trale/widget/tile_group.dart';
+import 'package:trale/widget/weight_picker.dart';
 
 ///
 Future<bool> showAddWeightDialog({
@@ -30,6 +32,7 @@ Future<bool> showAddWeightDialog({
   final DateTime initialDate = date;
   DateTime currentDate = initialDate;
   final MeasurementDatabase database = MeasurementDatabase();
+  final double padding = TraleTheme.of(context)!.padding;
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
@@ -39,36 +42,17 @@ Future<bool> showAddWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          RulerPicker(
-            onValueChange: (num newValue) {
-              currentSliderValue = newValue.toDouble();
-              setState(() {});
-            },
-            width: MediaQuery.of(context).size.width - 80, // padding of dialog
-            value: currentSliderValue,
-            ticksPerStep: notifier.unit.ticksPerStep,
-          ),
-          ListTile(
-            title: Text(
-              AppLocalizations.of(context)!.weight,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            trailing: Text(
-              '${sliderLabel.toStringAsFixed(notifier.unit.precision)} '
-              '${notifier.unit.name}',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ),
-          ListTile(
-            title: Text(
-              AppLocalizations.of(context)!.date,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            trailing: Text(
-              notifier.dateFormat(context).format(currentDate),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            onTap: () async {
+          WidgetGroup(
+            children: <Widget>[
+              GroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                leading: PPIcon(PhosphorIconsDuotone.calendar, context),
+                title: Text(AppLocalizations.of(context)!.date),
+                trailing: Text(
+                  notifier.dateFormat(context).format(currentDate),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                onTap: () async {
               final TimeOfDay currentTime = TimeOfDay.fromDateTime(currentDate);
               DateTime? selectedDate;
               if (notifier.firstDay == TraleFirstDay.Default) {
@@ -89,14 +73,8 @@ Future<bool> showAddWeightDialog({
                         firstDayOfWeek: notifier.firstDay.asDateTimeWeekday,
                       ),
                       dialogSize: Size(
-                        MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.85,
-                        MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.6,
+                        MediaQuery.of(context).size.width * 0.85,
+                        MediaQuery.of(context).size.height * 0.6,
                       ),
                       // see https://github.com/flutter/flutter/blob/2d17299f20f3eb164ef21bc80b8079ba293e5985/packages/flutter/lib/src/material/date_picker_theme.dart#L1117C59-L1117C98
                       borderRadius: const BorderRadius.all(
@@ -110,7 +88,6 @@ Future<bool> showAddWeightDialog({
               if (selectedDate == null) {
                 return;
               }
-
 
               currentDate = DateTime(
                 selectedDate.year,
@@ -137,34 +114,44 @@ Future<bool> showAddWeightDialog({
               );
               setState(() {});
             },
-          ),
-          ListTile(
-            title: Text(
-              AppLocalizations.of(context)!.time,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            trailing: Text(
-              DateFormat.Hm().format(currentDate),
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-            onTap: () async {
-              final TimeOfDay? time = await showTimePicker(
-                context: context,
-                initialTime: TimeOfDay.fromDateTime(currentDate),
-              );
+              ),
+              GroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                title: Text(AppLocalizations.of(context)!.time),
+                leading: PPIcon(PhosphorIconsDuotone.clock, context),
+                trailing: Text(
+                  DateFormat.Hm().format(currentDate),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                onTap: () async {
+                  final TimeOfDay? time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(currentDate),
+                  );
 
-              if (time == null) {
-                return;
-              }
-              currentDate = DateTime(
-                currentDate.year,
-                currentDate.month,
-                currentDate.day,
-                time.hour,
-                time.minute,
-              );
+                  if (time == null) {
+                    return;
+                  }
+                  currentDate = DateTime(
+                    currentDate.year,
+                    currentDate.month,
+                    currentDate.day,
+                    time.hour,
+                    time.minute,
+                  );
+                  setState(() {});
+                },
+              ),
+            ]
+          ),
+          RulerPicker(
+            onValueChange: (num newValue) {
+              currentSliderValue = newValue.toDouble();
               setState(() {});
             },
+            height: 0.15 * MediaQuery.of(context).size.height,
+            value: currentSliderValue,
+            ticksPerStep: notifier.unit.ticksPerStep,
           ),
         ],
       );
@@ -172,57 +159,54 @@ Future<bool> showAddWeightDialog({
   );
 
   final bool accepted = await showDialog<bool>(
-          barrierDismissible: false,
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              shape: TraleTheme.of(context)!.borderShape,
-              // todo: hack to mimic m3
-              backgroundColor: ElevationOverlay.colorWithOverlay(
-                Theme.of(context).colorScheme.surface,
-                Theme.of(context).colorScheme.primary,
-                3.0,
-              ),
-              elevation: 0,
-              contentPadding: EdgeInsets.only(
-                top: TraleTheme.of(context)!.padding,
-              ),
-              title: Center(
-                child: Text(
-                  AppLocalizations.of(context)!.addWeight,
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                  maxLines: 1,
-                ),
-              ),
-              content: content,
-              actions: actions(
-                context,
-                () {
-                  final bool wasInserted = database.insertMeasurement(
-                    Measurement(
-                      weight: currentSliderValue * notifier.unit.scaling,
-                      date: currentDate,
-                    ),
-                  );
-                  if (!wasInserted &&
-                      !(editMode &&
-                          currentDate == initialDate &&
-                          currentSliderValue == initialSliderValue)) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text(
-                          'Adding measurement was skipped. Measurement exists already.'),
-                      behavior: SnackBarBehavior.floating,
-                    ));
-                  }
-                  Navigator.pop(context, wasInserted);
-                },
-                enabled: true,
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.only(
+          top: TraleTheme.of(context)!.padding,
+        ),
+        title: Center(
+          child: Text(
+            AppLocalizations.of(context)!.addWeight,
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+            maxLines: 1,
+          ),
+        ),
+        content: content,
+        actions: actions(
+          context, () {
+            final bool wasInserted = database.insertMeasurement(
+              Measurement(
+                weight: currentSliderValue * notifier.unit.scaling,
+                date: currentDate,
               ),
             );
-          }) ??
-      false;
+            if (
+              !wasInserted
+              && !(
+                editMode
+                && currentDate == initialDate
+                && currentSliderValue == initialSliderValue
+              )
+            ) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'Adding measurement was skipped. Measurement exists already.',
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                )
+              );
+            }
+            Navigator.pop(context, wasInserted);
+          },
+          enabled: true,
+        ),
+      );
+    }) ?? false;
   return accepted;
 }
 
@@ -244,44 +228,31 @@ Future<bool> showTargetWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              TraleTheme.of(context)!.padding,
-              0,
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-            ),
-            child: Text(
-              AppLocalizations.of(context)!.targetWeightMotivation,
-              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: Theme.of(context).colorScheme.onSurface,
+          WidgetGroup(
+            children: <Widget>[
+              GroupedWidget(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                child: Padding(
+                  padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                  child: Text(
+                    AppLocalizations.of(context)!.targetWeightMotivation,
+                      style: Theme.of(context).textTheme.bodyMedium!.apply(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    textAlign: TextAlign.justify,
                   ),
-              textAlign: TextAlign.justify,
-            ),
+                ),
+              ),
+            ],
           ),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
               setState(() {});
             },
-            width: MediaQuery.of(context).size.width - 80, // padding of dialog
+            height: 0.15 *  MediaQuery.of(context).size.height,
             value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
-          ),
-          ListTile(
-            title: Text(
-              AppLocalizations.of(context)!.weight,
-              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-            trailing: Text(
-              '${sliderLabel.toStringAsFixed(notifier.unit.precision)} '
-              '${notifier.unit.name}',
-              style: Theme.of(context).textTheme.bodyMedium!.apply(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
           ),
         ],
       );
@@ -293,13 +264,6 @@ Future<bool> showTargetWeightDialog({
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              shape: TraleTheme.of(context)!.borderShape,
-              backgroundColor: ElevationOverlay.colorWithOverlay(
-                Theme.of(context).colorScheme.surface,
-                Theme.of(context).colorScheme.primary,
-                3.0,
-              ),
-              elevation: 0,
               contentPadding: EdgeInsets.only(
                 top: TraleTheme.of(context)!.padding,
               ),
@@ -356,23 +320,28 @@ List<Widget> actions(BuildContext context, Function onPress,
   return <Widget>[
     TextButton(
       onPressed: () => Navigator.pop(context, false),
-      child: Container(
-          padding: EdgeInsets.symmetric(
-            vertical: TraleTheme.of(context)!.padding / 2,
-            horizontal: TraleTheme.of(context)!.padding,
-          ),
-          child: Text(AppLocalizations.of(context)!.abort,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ))),
+      child: Text(
+        AppLocalizations.of(context)!.abort,
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+        textAlign: TextAlign.end,
+      ),
     ),
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
       icon: PPIcon(PhosphorIconsRegular.floppyDiskBack, context),
-      label: Text(AppLocalizations.of(context)!.save,
-          style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimary,
-              )),
+      label: Text(
+        AppLocalizations.of(context)!.save,
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        textAlign: TextAlign.end,
+      ),
     ),
-  ];
+  ].addGap(
+    padding: TraleTheme.of(context)!.padding,
+    direction: Axis.horizontal,
+    offset: 1,
+  );
 }

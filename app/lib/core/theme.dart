@@ -105,8 +105,13 @@ class TraleTheme {
   final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
   );
+  final RoundedRectangleBorder innerBorderShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(4),
+  );
   /// Padding value
   final double padding = 16;
+  /// Space value between two elements
+  final double space = 2;
   /// if true make background true black
   late bool isAmoled;
   /// contrast level
