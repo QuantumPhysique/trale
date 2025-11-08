@@ -93,50 +93,6 @@ class AmoledListTile extends StatelessWidget {
   }
 }
 
-class SchemeVariantListTile extends StatelessWidget {
-  /// constructor
-  const SchemeVariantListTile({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GroupedListTile(
-      color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      contentPadding: EdgeInsets.fromLTRB(
-        TraleTheme.of(context)!.padding,
-        0.5 * TraleTheme.of(context)!.padding,
-        TraleTheme.of(context)!.padding,
-        0.5 * TraleTheme.of(context)!.padding,
-      ),
-      title: AutoSizeText(
-        AppLocalizations.of(context)!.schemeVariant,
-        style: Theme.of(context).textTheme.bodyLarge,
-        maxLines: 1,
-      ),
-      trailing: DropdownMenu<TraleSchemeVariant>(
-        initialSelection: Provider.of<TraleNotifier>(context).schemeVariant,
-        label: AutoSizeText(
-          AppLocalizations.of(context)!.schemeVariant,
-          style: Theme.of(context).textTheme.bodyLarge,
-          maxLines: 1,
-        ),
-        dropdownMenuEntries: <DropdownMenuEntry<TraleSchemeVariant>>[
-          for (final TraleSchemeVariant variant in TraleSchemeVariant.values)
-            DropdownMenuEntry<TraleSchemeVariant>(
-              value: variant,
-              label: variant.name,
-            ),
-        ],
-        onSelected: (TraleSchemeVariant? newVariant) async {
-          if (newVariant != null) {
-            Provider.of<TraleNotifier>(context, listen: false).schemeVariant =
-                newVariant;
-          }
-        },
-      ),
-    );
-  }
-}
-
 /// ListTile for changing dark mode settings
 class DarkModeListTile extends StatelessWidget {
   /// constructor
@@ -182,18 +138,145 @@ class DarkModeListTile extends StatelessWidget {
   }
 }
 
+/// Carousel picker for selecting a `TraleSchemeVariant` using the generic
+/// `SelectionCarousel` infrastructure.
+class SchemeVariantSelection extends StatelessWidget {
+  const SchemeVariantSelection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
+    final bool isDark =
+        notifier.themeMode == ThemeMode.dark ||
+        (notifier.themeMode == ThemeMode.system &&
+            Theme.of(context).brightness == Brightness.dark);
+    final double padding = TraleTheme.of(context)!.padding;
+    final List<TraleSchemeVariant> variants = TraleSchemeVariant.values;
+
+    Widget previewBuilder(BuildContext ctx, TraleSchemeVariant variant) {
+      // Create a temporary theme with this scheme variant applied to derive colors.
+      final TraleTheme baseTheme = isDark
+          ? notifier.theme.dark(ctx)
+          : notifier.theme.light(ctx);
+      final DynamicSchemeVariant dynVariant = variant.schemeVariant;
+      final TraleTheme themed = baseTheme.copyWith(schemeVariant: dynVariant);
+      final bool isSelected = variant == notifier.schemeVariant;
+
+      return Padding(
+        padding: EdgeInsets.all(0.5 * padding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            AutoSizeText(
+              variant.name,
+              style: baseTheme.themeData.textTheme.emphasized.labelMedium
+                  ?.apply(
+                    color: isSelected
+                        ? themed.themeData.colorScheme.onPrimaryContainer
+                        : themed.themeData.colorScheme.onSurface,
+                  ),
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 0.5 * padding),
+            BurgerTheme(theme: themed, isSelected: isSelected),
+          ],
+        ),
+      );
+    }
+
+    return SelectionCarousel<TraleSchemeVariant>(
+      items: variants,
+      isSelected: (TraleSchemeVariant v) => v == notifier.schemeVariant,
+      onSelected: (TraleSchemeVariant v) => notifier.schemeVariant = v,
+      previewBuilder: previewBuilder,
+      shapeBuilder: themeItemShapeDefault,
+    );
+  }
+}
+
 /// ListTile for changing interpolation settings
-class ThemeSelection extends StatefulWidget {
-  /// constructor
+class ThemeSelection extends StatelessWidget {
   const ThemeSelection({super.key});
 
   @override
-  State<ThemeSelection> createState() => _ThemeSelectionState();
+  Widget build(BuildContext context) {
+    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
+    final bool isDark =
+        traleNotifier.themeMode == ThemeMode.dark ||
+        (traleNotifier.themeMode == ThemeMode.system &&
+            Theme.of(context).brightness == Brightness.dark);
+    final double padding = TraleTheme.of(context)!.padding;
+
+    List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+    if (!traleNotifier.systemColorsAvailable) {
+      cthemes.remove(TraleCustomTheme.system);
+    }
+
+    Widget previewBuilder(BuildContext ctx, TraleCustomTheme ctheme) {
+      final TraleTheme theme = isDark ? ctheme.dark(ctx) : ctheme.light(ctx);
+      final bool isSelected = ctheme == traleNotifier.theme;
+      return Padding(
+        padding: EdgeInsets.all(0.5 * padding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            AutoSizeText(
+              ctheme.name,
+              style: theme.themeData.textTheme.emphasized.labelMedium?.apply(
+                color: isSelected
+                    ? theme.themeData.colorScheme.onPrimaryContainer
+                    : theme.themeData.colorScheme.onSurface,
+              ),
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 0.5 * padding),
+            BurgerTheme(theme: theme, isSelected: isSelected),
+          ],
+        ),
+      );
+    }
+
+    return SelectionCarousel<TraleCustomTheme>(
+      items: cthemes,
+      isSelected: (TraleCustomTheme t) => t == traleNotifier.theme,
+      onSelected: (TraleCustomTheme t) => traleNotifier.theme = t,
+      previewBuilder: previewBuilder,
+      shapeBuilder: themeItemShapeDefault,
+    );
+  }
 }
 
-class _ThemeSelectionState extends State<ThemeSelection> {
+class SelectionCarousel<T> extends StatefulWidget {
+  const SelectionCarousel({
+    super.key,
+    required this.items,
+    required this.isSelected,
+    required this.onSelected,
+    required this.previewBuilder,
+    this.shapeBuilder,
+  });
+
+  final List<T> items;
+  final bool Function(T item) isSelected;
+  final void Function(T item) onSelected;
+  final Widget Function(BuildContext context, T item) previewBuilder;
+  final ShapeBorder Function(
+    BuildContext context,
+    int index,
+    int length,
+    bool isSelected,
+  )?
+  shapeBuilder;
+
+  @override
+  State<SelectionCarousel<T>> createState() => _SelectionCarouselState<T>();
+}
+
+class _SelectionCarouselState<T> extends State<SelectionCarousel<T>> {
   late final CarouselController _carouselController;
-  bool loadedFirst = true;
+  bool _initialized = false;
 
   @override
   void dispose() {
@@ -203,174 +286,130 @@ class _ThemeSelectionState extends State<ThemeSelection> {
 
   @override
   Widget build(BuildContext context) {
-    if (loadedFirst) {
-      loadedFirst = false;
-      final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
-      if (!Provider.of<TraleNotifier>(context).systemColorsAvailable) {
-        cthemes.remove(TraleCustomTheme.system);
-      }
-      final int idx = cthemes.indexWhere(
-        (TraleCustomTheme theme) =>
-            theme == Provider.of<TraleNotifier>(context).theme,
-      );
-
-      // last two cannot be selected, so cap idx
-      _carouselController = CarouselController(
-        initialItem: idx < cthemes.length - 3 ? idx : cthemes.length - 3,
-      );
+    if (!_initialized) {
+      _initialized = true;
+      final int idx = widget.items.indexWhere(widget.isSelected);
+      final int clamped = idx < 0
+          ? 0
+          : (idx < widget.items.length - 3 ? idx : widget.items.length - 3);
+      _carouselController = CarouselController(initialItem: clamped);
     }
 
-    /// Used to adjust themeMode to dark or light
-    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
-    final bool isDark =
-        traleNotifier.themeMode == ThemeMode.dark ||
-        (traleNotifier.themeMode == ThemeMode.system &&
-            Theme.of(context).brightness == Brightness.dark);
     final double padding = TraleTheme.of(context)!.padding;
+    final List<T> items = widget.items;
+    // Determine currently selected item for RadioGroup.
+    final T selectedItem = items.firstWhere(
+      widget.isSelected,
+      orElse: () => items.first,
+    );
 
-    Widget themePreview(BuildContext context, TraleCustomTheme ctheme) {
-      final TraleTheme theme = isDark
-          ? ctheme.dark(context)
-          : ctheme.light(context);
-      return Padding(
-        padding: EdgeInsets.all(0.5 * padding),
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            // Use a Column where the colored block area expands to fill remaining space.
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                AutoSizeText(
-                  ctheme.name,
-                  style: theme.themeData.textTheme.emphasized.labelMedium,
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 0.5 * padding),
-                // Expanded area for colored preview blocks
-                BurgerTheme(theme: theme, ctheme: ctheme),
-              ],
-            );
-          },
+    Widget buildCarousel() {
+      return CarouselView.weighted(
+        controller: _carouselController,
+        scrollDirection: Axis.horizontal,
+        flexWeights: const <int>[1, 3, 3, 3, 1],
+        padding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.space,
         ),
+        itemSnapping: true,
+        backgroundColor: Colors.transparent,
+        onTap: (int index) => widget.onSelected(items[index]),
+        shape: TraleTheme.of(context)?.innerBorderShape,
+        children: List<Widget>.generate(items.length, (int index) {
+          final T item = items[index];
+          final bool isSelected = widget.isSelected(item);
+          final ShapeBorder? shape = widget.shapeBuilder?.call(
+            context,
+            index,
+            items.length,
+            isSelected,
+          );
+          return GroupedWidget(
+            key: ValueKey<T>(item),
+            shape: shape,
+            color: isSelected
+                ? Theme.of(context).colorScheme.primaryContainer
+                : Theme.of(context).colorScheme.surfaceContainerLowest,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 0.5 * padding),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(child: widget.previewBuilder(context, item)),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      0.5 * padding,
+                      0,
+                      0.5 * padding,
+                      0.5 * padding,
+                    ),
+                    child: SizedBox(
+                      height: 24,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: SizedBox(
+                          height: 24,
+                          child: Center(
+                            child: Radio<T>(
+                              value: item,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              visualDensity: const VisualDensity(
+                                horizontal: -4,
+                                vertical: -4,
+                              ),
+                              splashRadius: 0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }),
       );
     }
 
-    final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
-    if (!traleNotifier.systemColorsAvailable) {
-      cthemes.remove(TraleCustomTheme.system);
-    }
-
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        // Build the carousel widget once so we can wrap it conditionally.
-        final Widget carousel = CarouselView.weighted(
-          controller: _carouselController,
-          scrollDirection: Axis.horizontal,
-          flexWeights: const <int>[1, 3, 3, 3, 1],
-          padding: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.space,
-          ),
-          itemSnapping: true,
-          backgroundColor: Colors.transparent,
-          onTap: (int index) {
-            final TraleCustomTheme ctheme = cthemes[index];
-            traleNotifier.theme = ctheme;
-          },
-          shape: TraleTheme.of(context)?.innerBorderShape,
-          children: List<Widget>.generate(cthemes.length, (int index) {
-            final TraleCustomTheme ctheme = cthemes[index];
-            final bool isSelected = cthemes[index] == traleNotifier.theme;
-            final ShapeBorder itemShape = _themeItemShape(
-              context,
-              index,
-              cthemes.length,
-              isSelected,
-            );
-            return GroupedWidget(
-              shape: itemShape,
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Theme.of(context).colorScheme.surfaceContainerLowest,
-              child: LayoutBuilder(
-                builder:
-                    (BuildContext context, BoxConstraints itemConstraints) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 0.5 * padding),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            // Preview takes all remaining vertical space
-                            Expanded(child: themePreview(context, ctheme)),
-                            // Radio with controlled compact height
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                0.5 * padding,
-                                0,
-                                0.5 * padding,
-                                0.5 * padding,
-                              ),
-                              child: SizedBox(
-                                height: 24,
-                                child: FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: SizedBox(
-                                    height: 24,
-                                    child: Center(
-                                      child: Radio<TraleCustomTheme>(
-                                        value: cthemes[index],
-                                        groupValue: traleNotifier.theme,
-                                        onChanged: (TraleCustomTheme? theme) {},
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
-                                        visualDensity: const VisualDensity(
-                                          horizontal: -4,
-                                          vertical: -4,
-                                        ),
-                                        splashRadius: 0,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-              ),
-            );
-          }),
-        );
-
-        // If the parent already provides a finite height, just use it.
-        final bool hasBoundedHeight =
-            constraints.hasBoundedHeight && constraints.maxHeight.isFinite;
-        if (hasBoundedHeight) return carousel;
-
-        // Otherwise, pick a sensible height derived from width so callers
-        // don't need to bind height explicitly.
-        final double width =
-            constraints.hasBoundedWidth && constraints.maxWidth.isFinite
-            ? constraints.maxWidth
-            : MediaQuery.of(context).size.width;
-        final double estimatedHeight = _estimateCarouselHeight(context, width);
-        return SizedBox(height: estimatedHeight, child: carousel);
+    return RadioGroup<T>(
+      groupValue: selectedItem,
+      onChanged: (T? value) {
+        if (value != null && !widget.isSelected(value)) {
+          widget.onSelected(value);
+        }
       },
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final Widget carousel = buildCarousel();
+          final bool hasBoundedHeight =
+              constraints.hasBoundedHeight && constraints.maxHeight.isFinite;
+          if (hasBoundedHeight) return carousel;
+
+          final double width =
+              constraints.hasBoundedWidth && constraints.maxWidth.isFinite
+              ? constraints.maxWidth
+              : MediaQuery.of(context).size.width;
+          final double estimatedHeight = _estimateCarouselHeight(
+            context,
+            width,
+          );
+          return SizedBox(height: estimatedHeight, child: carousel);
+        },
+      ),
     );
   }
 }
 
 class BurgerTheme extends StatelessWidget {
-  const BurgerTheme({super.key, required this.theme, required this.ctheme});
+  const BurgerTheme({super.key, required this.theme, required this.isSelected});
 
-  final TraleCustomTheme ctheme;
   final TraleTheme theme;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
-    final bool isSelected = ctheme == traleNotifier.theme;
     final ColorScheme colorScheme = theme.themeData.colorScheme;
     return Expanded(
       child: Card(
@@ -380,8 +419,7 @@ class BurgerTheme extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            // When the carousel scales items down (edge slots), available width is small.
-            // In that case, reduce the middle row from 4 to 2 color blocks to keep clarity.
+            // on scaling show only 2 middle colors
             final bool compact =
                 constraints.maxWidth < (3 + 4 * 2) * theme.space;
 
@@ -447,7 +485,7 @@ class BurgerTheme extends StatelessWidget {
   }
 }
 
-extension on _ThemeSelectionState {
+extension CarouselHeightEstimate on _SelectionCarouselState<Object?> {
   /// This heuristic is (obviously) generated with copilot. Do not trust it!
   ///
   /// Heuristic height estimate for the carousel based on available width.
@@ -490,28 +528,25 @@ extension on _ThemeSelectionState {
     // Clamp to a reasonable minimum to avoid being too small on narrow screens.
     return total.clamp(140.0, double.infinity);
   }
+}
 
-  /// Returns the shape for a carousel theme item.
-  /// StadiumBorder when selected, otherwise asymmetric corner radii:
-  /// Outer edges (first left side, last right side) get 16, inner edges get 4.
-  ShapeBorder _themeItemShape(
-    BuildContext context,
-    index,
-    int length,
-    bool isSelected,
-  ) {
-    if (isSelected) {
-      return const StadiumBorder();
-    }
-    final double outerRadius = TraleTheme.of(context)!.borderRadius;
-    final double innerRadius = TraleTheme.of(context)!.innerBorderRadius;
-    return RoundedRectangleBorder(
-      borderRadius: BorderRadius.horizontal(
-        left: Radius.circular(index == 0 ? outerRadius : innerRadius),
-        right: Radius.circular(index == length - 1 ? outerRadius : innerRadius),
-      ),
-    );
-  }
+/// Default shape for carousel items: Stadium on selected, asymmetric rounded
+/// rectangle otherwise (outer edges 16, inner edges 4 based on theme).
+ShapeBorder themeItemShapeDefault(
+  BuildContext context,
+  int index,
+  int length,
+  bool isSelected,
+) {
+  if (isSelected) return const StadiumBorder();
+  final double outerRadius = TraleTheme.of(context)!.borderRadius;
+  final double innerRadius = TraleTheme.of(context)!.innerBorderRadius;
+  return RoundedRectangleBorder(
+    borderRadius: BorderRadius.horizontal(
+      left: Radius.circular(index == 0 ? outerRadius : innerRadius),
+      right: Radius.circular(index == length - 1 ? outerRadius : innerRadius),
+    ),
+  );
 }
 
 class ThemeSettingsPage extends StatelessWidget {
@@ -529,10 +564,18 @@ class ThemeSettingsPage extends StatelessWidget {
           ),
         ],
       ),
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.schemeVariant,
+        children: <Widget>[
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: const SchemeVariantSelection(),
+          ),
+        ],
+      ),
       const WidgetGroup(
         children: <Widget>[
           DarkModeListTile(),
-          SchemeVariantListTile(),
           AmoledListTile(),
           ContrastLevelSetting(),
         ],
