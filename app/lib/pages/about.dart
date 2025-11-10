@@ -1,5 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
@@ -249,8 +249,8 @@ class _About extends State<About> {
             padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
             child: const Text(
               'A simple weight log with short-term extrapolation.\n\n'
-              'Your privacy is respected.'
-              'No revenue sources in the app, nor error logs sent.'
+              'Your privacy is respected. '
+              'No revenue sources in the app, nor error logs sent. '
               'Please open an issue if you have problems.\n\n'
               'Made by two devs with little spare time.\n'
               'Consider contributing or donating.',
@@ -296,7 +296,7 @@ class _About extends State<About> {
               maxLines: 1,
             ),
             trailing: AutoSizeText(
-              'GNU APGLv3+',
+              'GNU AGPLv3+',
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),

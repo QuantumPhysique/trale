@@ -29,8 +29,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 35
-    ndkVersion "27.0.12077973"
+    compileSdkVersion 36
+    ndkVersion "28.2.13676358"
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -39,7 +39,7 @@ android {
     defaultConfig {
         applicationId "de.quantumphysique.trale"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 34
+        targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         externalNativeBuild {
@@ -102,7 +102,7 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.20"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21"
 }
 
 // Map for the version code that gives each ABI a value.

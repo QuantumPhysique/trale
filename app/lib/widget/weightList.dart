@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/statsCards.dart';
@@ -180,7 +179,7 @@ class _TotalWeightList extends State<TotalWeightList>{
     };
 
     return CustomScrollView(
-      physics: const NeverScrollableScrollPhysics(),
+      controller: widget.scrollController,
       cacheExtent: 2 * MediaQuery.of(context).size.height,
       slivers: <Widget>[
         ...<Widget>[

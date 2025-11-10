@@ -1,484 +1,490 @@
 {
-  "achievements": "Saavutused",
-  "@achievements": {
-    "description": "achievements"
-  },
-  "days": "päeva",
-  "@days": {},
-  "weeks": "nädalat",
-  "@weeks": {},
-  "months": "kuud",
-  "@months": {},
-  "month": "kuu",
-  "@month": {},
-  "years": "aastat",
-  "@years": {},
-  "year": "aasta",
-  "@year": {},
-  "backupReminderButton": "varunda nüüd",
-  "@backupReminderButton": {
-    "description": "Back up now"
-  },
-  "backupSuccess": "Varukoopia tegemine õnnestus",
-  "@backupSuccess": {
-    "description": "Back successfully exported"
-  },
-  "weekly": "kord nädalas",
-  "@weekly": {
-    "description": "Frequency of backup interval"
-  },
-  "monthly": "kord kuus",
-  "@monthly": {
-    "description": "Frequency of backup interval"
-  },
-  "quarterly": "kord kvartalis",
-  "@quarterly": {
-    "description": "Frequency of backup interval"
-  },
-  "backupInterval": "Sagedus",
-  "@backupInterval": {
-    "description": "Frequency of backup interval"
-  },
-  "lastBackup": "viimane varukoopia",
-  "@lastBackup": {
-    "description": "Time of last backup"
-  },
-  "nextBackup": "järgmine varukoopia",
-  "@nextBackup": {
-    "description": "Time of last backup"
-  },
-  "date": "Kuupäev",
-  "@date": {
-    "description": "Date"
-  },
-  "weight": "Kaal",
-  "@weight": {
-    "description": "weight"
-  },
-  "user": "Kasutajaprofiil",
-  "@user": {
-    "description": "Name of user menu"
-  },
-  "userSettings": "Kasutaja seadistused",
-  "@userSettings": {
-    "description": "Settings to customize user experience"
-  },
-  "theme": "Kujundus",
-  "@theme": {
-    "description": "Theme menu item."
-  },
-  "settings": "Seadistused",
-  "@settings": {
-    "description": "Name of settings menu"
-  },
-  "faq": "KKK",
-  "@faq": {
-    "description": "Frequently ask questions"
-  },
-  "about": "Rakenduse teave",
-  "@about": {
-    "description": "Name of about menu section"
-  },
-  "darkmode": "Tume kujundus",
-  "@darkmode": {
-    "description": "Dark mode menu item."
-  },
-  "lightmode": "Hele kujundus",
-  "@lightmode": {
-    "description": "Light mode menu item."
-  },
-  "systemmode": "Süsteemikohane",
-  "@systemmode": {
-    "description": "System mode menu item."
-  },
-  "export": "Ekspordi kõik andmed",
-  "@export": {
-    "description": "Export all measurements"
-  },
-  "exportSubtitle": "Sellega on sinu andmed näha kõikidele rakendustele.",
-  "@exportSubtitle": {
-    "description": "This exposes all measurements to all apps."
-  },
-  "open": "Ava",
-  "@open": {
-    "description": "Open (file)."
-  },
-  "abort": "Katkesta",
-  "@abort": {
-    "description": "Abort (action)."
-  },
-  "import": "Impordi varukoopia",
-  "@import": {
-    "description": "Import backup."
-  },
-  "importSubtitle": "Impordi andmed .txt-failina salvestatud varukoopiast.",
-  "@importSubtitle": {
-    "description": "Import measurements from txt backup file."
-  },
-  "amoled": "Süsimust kujundus",
-  "@amoled": {
-    "description": "AMOLED"
-  },
-  "amoledSubtitle": "Tumeda kujunduse puhul kasuta õiget süsimusta värvi.",
-  "@amoledSubtitle": {
-    "description": "Change background color to true black for dark mode."
-  },
-  "factoryReset": "Taasta rakenduse algseis",
-  "@factoryReset": {
-    "description": "Factory reset app."
-  },
-  "delete": "Kustuta",
-  "@delete": {
-    "description": "delete"
-  },
-  "home": "Avaleht",
-  "@home": {
-    "description": "home screen"
-  },
-  "backup": "Varunda",
-  "@backup": {
-    "description": "backup"
-  },
-  "time": "Aeg",
-  "@time": {
-    "description": "time"
-  },
-  "assets": "vahendid",
-  "@assets": {
-    "description": "assets"
-  },
-  "version": "Versioon",
-  "@version": {
-    "description": "version"
-  },
-  "tpl": "Kolmandate osapoolte litsentsid",
-  "@tpl": {
-    "description": "third-party licences"
-  },
-  "licence": "Litsents",
-  "@licence": {
-    "description": "licence"
-  },
-  "openIssue": "Ava veateade",
-  "@openIssue": {
-    "description": "open issue"
-  },
-  "undertpl": "© {years} {author}, avaldatud {licence} litsentsi alusel",
-  "@undertpl": {
-    "description": "String to show third-party license.",
-    "placeholders": {
-      "years": {
-        "type": "String",
-        "example": "2019"
-      },
-      "author": {
-        "type": "String",
-        "example": "Linux foundation"
-      },
-      "licence": {
-        "type": "String",
-        "example": "MIT"
-      }
+    "achievements": "Saavutused",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "days": "päeva",
+    "@days": {},
+    "weeks": "nädalat",
+    "@weeks": {},
+    "months": "kuud",
+    "@months": {},
+    "month": "kuu",
+    "@month": {},
+    "years": "aastat",
+    "@years": {},
+    "year": "aasta",
+    "@year": {},
+    "backupReminderButton": "varunda nüüd",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "Varukoopia tegemine õnnestus",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "weekly": "kord nädalas",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "kord kuus",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "kord kvartalis",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupInterval": "Sagedus",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "viimane varukoopia",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "järgmine varukoopia",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "date": "Kuupäev",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "Kaal",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "Kasutajaprofiil",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "Kasutaja seadistused",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "theme": "Kujundus",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "settings": "Seadistused",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "KKK",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "Rakenduse teave",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "darkmode": "Tume kujundus",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "Hele kujundus",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "Süsteemikohane",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Ekspordi kõik andmed",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Sellega on sinu andmed näha kõikidele rakendustele.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "open": "Ava",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "Katkesta",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Impordi varukoopia",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "Impordi andmed .txt-failina salvestatud varukoopiast.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoled": "Süsimust kujundus",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "Tumeda kujunduse puhul kasuta õiget süsimusta värvi.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "factoryReset": "Taasta rakenduse algseis",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "delete": "Kustuta",
+    "@delete": {
+        "description": "delete"
+    },
+    "home": "Avaleht",
+    "@home": {
+        "description": "home screen"
+    },
+    "backup": "Varunda",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "Aeg",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "vahendid",
+    "@assets": {
+        "description": "assets"
+    },
+    "version": "Versioon",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "Kolmandate osapoolte litsentsid",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "Litsents",
+    "@licence": {
+        "description": "licence"
+    },
+    "openIssue": "Alusta veateate koostamist",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "undertpl": "© {years} {author}, avaldatud {licence} litsentsi alusel",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "Sisesta oma kaal",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "interpolation": "interpolatsioon",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "none": "Määratlemata",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "Pehme",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "Keskmine",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "packages": "paketid",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "Laadime",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Salvestatud kaalud",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "welcome": "Tere tulemast",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding2": "Rakenduse isiklikustamiseks vali ühe kuuest valmiskujundusest. Missugune neist vastab kõige paremini sinu tunnetele ja meeleolule?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding2Title": "Välimus",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Privaatsus",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "Jäta vahele",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "Alusta",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Kaalueesmärk",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "addUserName": "Mis nime soovid kasutada?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Lisa kaalueesmärk",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro2": "alustamiseks",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "faq_q1": "Funktsionaalsus X on puudu. Millal te selle lisate?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_a2": "Jah palun! Klõpsi ikooni siin all.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Tagasi sissejuhatusse",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "Mis paistab rakenduse ikoonil?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "min": "väikseim",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "totalChange": "muutus kokku",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "mean": "keskmine",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "targetWeightReached": "sa oled saavutanud kaalueesmärgi!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "on jäänud kaalueesmärgi saavutamiseni",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "pikim andmejada",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "praegune andmejada",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "aeg esimesest mõõtmisest",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "backupReminder": "Palun tee sagedasti varukoopiaid",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "defaultLang": "Süsteemi keel",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Keel",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "exportDialog": "Järgnevaga ekspordime kõik mõõdetu seadme andmeruumi. Selleks on vajalikud kirjutusõigused.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "reset": "Lähtesta rakendus",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Sellega lähtestad kõik seadistused ja kustutad ka kõik salvestatud kaaluandmed.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "Kas sa soovid rakenduse lähtestada? Sellega kõik seadistused muutuvad algväärtusteks ja kustutad kõik salvestatud kaaluandmed. Tegevust hiljem tagasi pöörata ei saa.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "importingAbort": "Import on katkestatud.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "ok": "Sobib",
+    "@ok": {
+        "description": "ok"
+    },
+    "importDialog": "Sellega kaasad kõik kaalumõõdistused praegusesse andmebaasi. Tegevust ei saa hiljem tagasi pöörata!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "save": "Salvesta",
+    "@save": {
+        "description": "save"
+    },
+    "yes": "Jah",
+    "@yes": {
+        "description": "yes"
+    },
+    "edit": "Muuda",
+    "@edit": {
+        "description": "edit"
+    },
+    "sourcecode": "Lähtekood",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "strong": "Tugev",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "onBoarding1": "See lihtne Material-You kujunduskeelel põhinev rakendus aitab sul jõuda sellise kaaluni, nagu tahaksid! Pole vahet, kas soovid kaalu lisada, kaotada või püsida samas kaalus: usaldusväärne kaaluennustus ja mitmekülgne statistika aitavad sul püsida õigel kursil. \n\n Liitu meie kogukonnaga ja pea arvet oma kaalu üle. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding3": "Tänud, et proovid meie rakendust. 🙂\n\n Kui see rakendus sulle meeldib, siis hea meelega kuuleksime sinu arvamust, näeksime kaastööd GitHubis või naudiksime sinu ostetud kohvi. Vastutasuks jäävad meie poolt ära tüütud ja privaatsusele kahjulikud reklaamid.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "targetWeightShort": "Eesmärk",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "targetWeightMotivation": "Kaalueesmärgi lisamine on väga oluline ja on sammuke õiges suunas. Kui sul eesmärk on teada, siis on sul lihtsam astuda järgmisi samme selle saavutamiseks.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "intro1": "Vajuta",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "never": "mitte kunagi",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "stats": "Statistika",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "week": "nädal",
+    "@week": {},
+    "biweekly": "kaks korda nädalas",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "dangerzone": "Ohutsoon",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "unit": "Ühikud",
+    "@unit": {},
+    "faqtext": "Järgnevas on vastused meilt tihti küsitule. Lisaküsimuste puhul palun ava teade meie GitHubi koodivaramus.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "intro3": "Täna on hea päev kaalulogi pidamisega alustamiseks!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faq_q2": "Kuidas saan uuesti näha esimese kasutuskorra sissejuhatavat vaadet?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a1": "Me arendame ja haldame rakendust oma vabast ajast ning proovime seda hoida napi ja lihtsana. Usume, et liiga paljude võimaluste lisamine teeks rakenduse kehvemini kasutatavaks. Aga kui arvad, et midagi väga olulist on puudu, siis palun koosta vastav kirjeldus või konkreetne päring uue koodi lisamiseks.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_a3": "Seal on üks ulguv hunt, mille saba varjavad osaliselt „t“ ja „r“ tähed.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "target_weight_warning": "Anoreksia on tõsine haigus, mis on meie ühiskondades levinud ja märgatavaks probleemiks. Osaliselt on selles süüdi sotsiaalmeedia, kust võib leida palju negatiivseid näiteid. Toetamaks ennetustegevust me ei võimalda sisestada kaalueesmärki alla 50 kg (110 lb / 7.9 st) või pikkuse ja kaalu kombinatsiooni, millest johtuv kehamassiindeks on alla 18,5.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "change": "muutus",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "max": "suurim",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "measurementFrequency": "kaalumise sagedus",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "strength": "tugevus",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "firstDay": "Nädala algus",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "experimentalFeatures": "katselised funktsionaalsused",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "Kaota kaalu",
+    "@looseWeight": {
+        "description": "Loose weight switch label."
+    },
+    "looseWeightSubtitle": "Vaheta vaadet kaalukaotuse ja lisamise vahel.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between loosing or gaining weight."
+    },
+    "gainWeight": "Lisa kaalu",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "addHeight": "Sisesta oma pikkus",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "faq_q4": "Kas ma saan sisestada oma kaalueesmärgi, mis jääb alla 50 kg / 110 lb / 7.9 st?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "Jah, kui lisad oma pikkuse.\n\nAnoreksia on tõsine haigus, mis vaevab meie ühiskondi tervikuna ning on mõjutatud sotsiaalmeedias leiduvatest valedest näidetest. Toetamaks ennetustööd, ei luba me sisestada kaalueesmärke, mis jäävad alla 50 kg / 110 lb / 7.9 st. Sinu pikkuse sisestamine võimaldab arvutada väikesi kaalueesmärke, mis vastavad kehamassiindeksile 18,5.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "highContrast": "Väga kontrastne",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "KMI/BMI",
+    "@bmi": {},
+    "schemeVariant": "värvikombinatsiooni variant",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
     }
-  },
-  "addWeight": "Sisesta oma kaal",
-  "@addWeight": {
-    "description": "Enter your weight"
-  },
-  "interpolation": "interpolatsioon",
-  "@interpolation": {
-    "description": "interpolation"
-  },
-  "none": "Määratlemata",
-  "@none": {
-    "description": "no interpolation"
-  },
-  "soft": "Pehme",
-  "@soft": {
-    "description": "soft interpolation"
-  },
-  "medium": "Keskmine",
-  "@medium": {
-    "description": "medium interpolation"
-  },
-  "packages": "paketid",
-  "@packages": {
-    "description": "packages"
-  },
-  "loading": "Laadime",
-  "@loading": {
-    "description": "loading"
-  },
-  "measurements": "Salvestatud kaalud",
-  "@measurements": {
-    "description": "measurements"
-  },
-  "welcome": "Tere tulemast",
-  "@welcome": {
-    "description": "welcome"
-  },
-  "onBoarding2": "Rakenduse isiklikustamiseks vali ühe kuuest valmiskujundusest. Missugune neist vastab kõige paremini sinu tunnetele ja meeleolule?",
-  "@onBoarding2": {
-    "description": "Text of 2nd onBoarding screen."
-  },
-  "onBoarding2Title": "Välimus",
-  "@onBoarding2Title": {
-    "description": "Title of 2nd onBoarding screen."
-  },
-  "onBoarding3Title": "Privaatsus",
-  "@onBoarding3Title": {
-    "description": "Title of 3rd onBoarding screen."
-  },
-  "skip": "Jäta vahele",
-  "@skip": {
-    "description": "Skip onboarding screen."
-  },
-  "startApp": "Alusta",
-  "@startApp": {
-    "description": "Press to start the app."
-  },
-  "targetWeight": "Kaalueesmärk",
-  "@targetWeight": {
-    "description": "Your target weight."
-  },
-  "addUserName": "Mis nime soovid kasutada?",
-  "@addUserName": {
-    "description": "How shall we call you?"
-  },
-  "addTargetWeight": "Lisa kaalueesmärk",
-  "@addTargetWeight": {
-    "description": "Press to add a target weight."
-  },
-  "intro2": "alustamiseks",
-  "@intro2": {
-    "description": "End of 'press + to get started'"
-  },
-  "faq_q1": "Funktsionaalsus X on puudu. Millal te selle lisate?",
-  "@faq_q1": {
-    "description": "The feature/function X is missing. When will it be implemented?"
-  },
-  "faq_a2": "Jah palun! Klõpsi ikooni siin all.",
-  "@faq_a2": {
-    "description": "Yes for sure! Simple press the icon below."
-  },
-  "faq_a2_widget": "Tagasi sissejuhatusse",
-  "@faq_a2_widget": {
-    "description": "Return to onboarding screen"
-  },
-  "faq_q3": "Mis paistab rakenduse ikoonil?",
-  "@faq_q3": {
-    "description": "What is the app icon showing?"
-  },
-  "min": "väikseim",
-  "@min": {
-    "description": "Shorthand for minimum."
-  },
-  "totalChange": "muutus kokku",
-  "@totalChange": {
-    "description": "The quantity describing the overall change of body weight"
-  },
-  "mean": "keskmine",
-  "@mean": {
-    "description": "The mathematical quantity (arithmetic mean)"
-  },
-  "targetWeightReached": "sa oled saavutanud kaalueesmärgi!",
-  "@targetWeightReached": {
-    "description": "Message shown when the user reached their target weight."
-  },
-  "targetWeightReachedIn": "on jäänud kaalueesmärgi saavutamiseni",
-  "@targetWeightReachedIn": {
-    "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
-  },
-  "maxStreak": "pikim andmejada",
-  "@maxStreak": {
-    "description": "The longest streak of measurements"
-  },
-  "currentStreak": "praegune andmejada",
-  "@currentStreak": {
-    "description": "The current streak of measurements"
-  },
-  "timeSinceFirstMeasurement": "aeg esimesest mõõtmisest",
-  "@timeSinceFirstMeasurement": {
-    "description": "A brief sentence describing the duration from the first measurement to the present"
-  },
-  "backupReminder": "Palun tee sagedasti varukoopiaid",
-  "@backupReminder": {
-    "description": "Please remember to back up your data regularly."
-  },
-  "defaultLang": "Süsteemi keel",
-  "@defaultLang": {
-    "description": "System default language."
-  },
-  "language": "Keel",
-  "@language": {
-    "description": "Language menu item."
-  },
-  "exportDialog": "Järgnevaga ekspordime kõik mõõdetu seadme andmeruumi. Selleks on vajalikud kirjutusõigused.",
-  "@exportDialog": {
-    "description": "This will export all measurements to the external storage. Writing permissions are needed."
-  },
-  "reset": "Lähtesta rakendus",
-  "@reset": {
-    "description": "Factory reset app."
-  },
-  "factoryResetSubtitle": "Sellega lähtestad kõik seadistused ja kustutad ka kõik salvestatud kaaluandmed.",
-  "@factoryResetSubtitle": {
-    "description": "Reset all settings and delete all measurements."
-  },
-  "factoryResetDialog": "Kas sa soovid rakenduse lähtestada? Sellega kõik seadistused muutuvad algväärtusteks ja kustutad kõik salvestatud kaaluandmed. Tegevust hiljem tagasi pöörata ei saa.",
-  "@factoryResetDialog": {
-    "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
-  },
-  "importingAbort": "Import on katkestatud.",
-  "@importingAbort": {
-    "description": "Import aborted."
-  },
-  "ok": "Sobib",
-  "@ok": {
-    "description": "ok"
-  },
-  "importDialog": "Sellega kaasad kõik kaalumõõdistused praegusesse andmebaasi. Tegevust ei saa hiljem tagasi pöörata!",
-  "@importDialog": {
-    "description": "Include all measurements to the current database. This can not be undone!"
-  },
-  "save": "Salvesta",
-  "@save": {
-    "description": "save"
-  },
-  "yes": "Jah",
-  "@yes": {
-    "description": "yes"
-  },
-  "edit": "Muuda",
-  "@edit": {
-    "description": "edit"
-  },
-  "sourcecode": "Lähtekood",
-  "@sourcecode": {
-    "description": "source code"
-  },
-  "strong": "Tugev",
-  "@strong": {
-    "description": "strong interpolation"
-  },
-  "onBoarding1": "See lihtne Material-You kujunduskeelel põhinev rakendus aitab sul jõuda sellise kaaluni, nagu tahaksid! Pole vahet, kas soovid kaalu lisada, kaotada või püsida samas kaalus: usaldusväärne kaaluennustus ja mitmekülgne statistika aitavad sul püsida õigel kursil. \n\n Liitu meie kogukonnaga ja pea arvet oma kaalu üle. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
-  "@onBoarding1": {
-    "description": "Text of 1st onBoarding screen."
-  },
-  "onBoarding3": "Tänud, et proovid meie rakendust. 🙂\n\n Kui see rakendus sulle meeldib, siis hea meelega kuuleksime sinu arvamust, näeksime kaastööd GitHubis või naudiksime sinu ostetud kohvi. Vastutasuks jäävad meie poolt ära tüütud ja privaatsusele kahjulikud reklaamid.",
-  "@onBoarding3": {
-    "description": "Text of 3rd onBoarding screen."
-  },
-  "targetWeightShort": "Eesmärk",
-  "@targetWeightShort": {
-    "description": "Short label to show for indicating target weight in line chart."
-  },
-  "targetWeightMotivation": "Kaalueesmärgi lisamine on väga oluline ja on sammuke õiges suunas. Kui sul eesmärk on teada, siis on sul lihtsam astuda järgmisi samme selle saavutamiseks.",
-  "@targetWeightMotivation": {
-    "description": "Explanation to clarify the importance of a target weight."
-  },
-  "intro1": "Vajuta",
-  "@intro1": {
-    "description": "Start of 'press + to get started'"
-  },
-  "never": "mitte kunagi",
-  "@never": {
-    "description": "Frequency of backup interval"
-  },
-  "stats": "Statistika",
-  "@stats": {
-    "description": "Header for statistics section"
-  },
-  "week": "nädal",
-  "@week": {},
-  "biweekly": "kaks korda nädalas",
-  "@biweekly": {
-    "description": "Frequency of backup interval"
-  },
-  "trale": "trale",
-  "@trale": {
-    "description": "Name of app: trale"
-  },
-  "dangerzone": "Ohutsoon",
-  "@dangerzone": {
-    "description": "Settings which cannot be undone."
-  },
-  "unit": "Ühikud",
-  "@unit": {},
-  "faqtext": "Järgnevas on vastused meilt tihti küsitule. Lisaküsimuste puhul palun ava teade meie GitHubi koodivaramus.",
-  "@faqtext": {
-    "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
-  },
-  "intro3": "Täna on hea päev kaalulogi pidamisega alustamiseks!",
-  "@intro3": {
-    "description": "Text shown on statsOverview in case of no measurements"
-  },
-  "faq_q2": "Kuidas saan uuesti näha esimese kasutuskorra sissejuhatavat vaadet?",
-  "@faq_q2": {
-    "description": "Can I see once again the intro/onboarding screen?"
-  },
-  "faq_a1": "Me arendame ja haldame rakendust oma vabast ajast ning proovime seda hoida napi ja lihtsana. Usume, et liiga paljude võimaluste lisamine teeks rakenduse kehvemini kasutatavaks. Aga kui arvad, et midagi väga olulist on puudu, siis palun koosta vastav kirjeldus või konkreetne päring uue koodi lisamiseks.",
-  "@faq_a1": {
-    "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
-  },
-  "faq_a3": "Seal on üks ulguv hunt, mille saba varjavad osaliselt „t“ ja „r“ tähed.",
-  "@faq_a3": {
-    "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
-  },
-  "target_weight_warning": "Anoreksia on tõsine haigus, mis on meie ühiskondades levinud ja märgatavaks probleemiks. Osaliselt on selles süüdi sotsiaalmeedia, kust võib leida palju negatiivseid näiteid. Toetamaks ennetustegevust me ei võimalda sisestada kaalueesmärki alla 50 kg (110 lb / 7.9 st) või pikkuse ja kaalu kombinatsiooni, millest johtuv kehamassiindeks on alla 18,5.",
-  "@target_weight_warning": {
-    "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
-  },
-  "change": "muutus",
-  "@change": {
-    "description": "A short word describing a difference in numbers, i.e. the change of the weight"
-  },
-  "max": "suurim",
-  "@max": {
-    "description": "Shorthand for maximum."
-  },
-  "measurementFrequency": "kaalumise sagedus",
-  "@measurementFrequency": {
-    "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-  },
-  "strength": "tugevus",
-  "@strength": {
-    "description": "interpolation strength"
-  },
-  "firstDay": "Nädala algus",
-  "@firstDay": {
-    "description": "First displayed day of the week"
-  },
-  "experimentalFeatures": "katselised funktsionaalsused",
-  "@experimentalFeatures": {
-    "description": "Label for experimental features section"
-  },
-  "looseWeight": "Kaota kaalu",
-  "@looseWeight": {
-    "description": "Loose weight switch label."
-  },
-  "looseWeightSubtitle": "Vaheta vaadet kaalukaotuse ja lisamise vahel.",
-  "@looseWeightSubtitle": {
-    "description": "Switching between loosing or gaining weight."
-  },
-  "gainWeight": "Lisa kaalu",
-  "@gainWeight": {
-    "description": "Gain weight switch label."
-  },
-  "addHeight": "Sisesta oma pikkus",
-  "@addHeight": {
-    "description": "Enter your height"
-  },
-  "faq_q4": "Kas ma saan sisestada oma kaalueesmärgi, mis jääb alla 50 kg / 110 lb / 7.9 st?",
-  "@faq_q4": {
-    "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
-  },
-  "faq_a4": "Jah, kui lisad oma pikkuse.\n\nAnoreksia on tõsine haigus, mis vaevab meie ühiskondi tervikuna ning on mõjutatud sotsiaalmeedias leiduvatest valedest näidetest. Toetamaks ennetustööd, ei luba me sisestada kaalueesmärke, mis jäävad alla 50 kg / 110 lb / 7.9 st. Sinu pikkuse sisestamine võimaldab arvutada väikesi kaalueesmärke, mis vastavad kehamassiindeksile 18,5.",
-  "@faq_a4": {
-    "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
-  },
-  "highContrast": "Väga kontrastne",
-  "@highContrast": {
-    "description": "High contrast mode label (accessibility setting)."
-  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/traleNotifier.dart';
@@ -71,7 +72,11 @@ class Measurement {
 
   /// convert date to String
   String timeToString(BuildContext context) =>
-    TimeOfDay.fromDateTime(date).format(context);
+    TimeOfDay.fromDateTime(date).format(context).padLeft(
+      DateFormat(
+        'j', Localizations.localeOf(context).toString()
+      ).pattern!.contains('H') ? 5 : 8
+    );
 
   /// date followed by weight
   String measureToString(BuildContext context, {int ws=10})

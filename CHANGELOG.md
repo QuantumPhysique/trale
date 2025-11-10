@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is inspired by [Keep aChangelog](https://keepachangelog.com/en/1.0.0/), and
+The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and
 [Element](https://github.com/vector-im/element-android) and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -13,6 +13,70 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+### Added Features and Improvements 🙌:
+- Redesigned weight picker 🎉
+
+
+## [0.13.2] - 2025-09-14
+### Other changes:
+- Added larger zoom levels for longtime users
+
+### Bugfix 🐛:
+- Fix several bugs of zoom buttons, #334 and #333
+- Fix bug that scrollbar is not dragable
+- Fix misaligned measurements when using am/pm format
+
+
+## [0.13.1] - 2025-09-10
+### Bugfix 🐛:
+- Fix Fdroid build, #342
+
+
+## [0.13.0] - 2025-09-07
+### Added Features and Improvements 🙌:
+- Added zoom buttons, identical to double-tap
+- Added iso8601 date format, #325
+
+### Other changes:
+- Target Android 16 (SDK 36)
+- Using the latest flutter 3.35 with upgraded deps
+- Improved translation
+
+### Bugfix 🐛:
+- Fix typo in about screen, #328
+
+
+## [0.12.1] - 2025-08-13
+### Bugfix 🐛:
+- Fix Fdroid build, #312
+
+
+## [0.12.0] - 2025-08-12
+### Added Features and Improvements 🙌:
+- 3 brand new color themes
+- Trale offers now 7 color scheme variants. Check out the settings page 🎉
+
+### Other changes:
+- Upgrade dependencies
+- Upgrade building envs (Kotlin, Gradle, Android Application, and NDK)
+
+### Bugfix 🐛:
+- Fix `java heap space` error (CI) by increasing jvm memory
+- Fix BMI widget for st and lbs, #301
+
+
+## [0.11.2] - 2025-07-15
+### Added Features and Improvements 🙌:
+- Thx to the community, many translations have been improved 🎉
+- Using the latest flutter 3.32 with upgraded deps
+- Add a BMI widget, #239
+
+### Other changes:
+- Improve change icon on measurement screen, #263
+- Add a hint that the user's height is in centimeters
+
+### Bugfix 🐛:
+- Replace `auto_size_text` dependency to support latest flutter version
 
 
 ## [0.11.1] - 2025-05-10
@@ -308,7 +372,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.11.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.2...main
+[0.13.2]: https://github.com/quantumphysique/trale/compare/v0.13.1...v0.13.2
+[0.13.1]: https://github.com/quantumphysique/trale/compare/v0.13.0...v0.13.1
+[0.13.0]: https://github.com/quantumphysique/trale/compare/v0.12.1...v0.13.0
+[0.12.1]: https://github.com/quantumphysique/trale/compare/v0.12.0...v0.12.1
+[0.12.0]: https://github.com/quantumphysique/trale/compare/v0.11.2...v0.12.0
+[0.11.2]: https://github.com/quantumphysique/trale/compare/v0.11.1...v0.11.2
 [0.11.1]: https://github.com/quantumphysique/trale/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/quantumphysique/trale/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/quantumphysique/trale/compare/v0.10.0...v0.10.1

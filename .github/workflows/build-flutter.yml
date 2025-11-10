@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: ⚙️ Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: "17.x"
           cache: 'gradle'
@@ -52,6 +52,14 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
+      - name: Lint dart code
+        run: |
+          cd app
+          dart analyze --no-fatal-warnings lib/
+      - name: Check dependencies
+        run: |
+          cd app
+          dart run dependency_validator
       - name: 🤖📦 Create Android release
         run: |
           cd app
@@ -62,7 +70,7 @@ jobs:
           export ARTIFACT_NAME="${BRANCH_NAME////\_}"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
       - name: ⬆️ 📦 Upload apks
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "${{ env.ARTIFACT_NAME }}"
           path: "app/build/app/outputs/flutter-apk/*.apk"

@@ -70,12 +70,43 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  TraleSchemeVariant get schemeVariant =>
+      prefs.schemeVariant.toTraleSchemeVariant() ??
+          prefs.defaultSchemeVariant.toTraleSchemeVariant()!;
+
+  /// setter
+  set schemeVariant(TraleSchemeVariant newVariant) {
+    if (newVariant != schemeVariant) {
+      prefs.schemeVariant = newVariant.name;
+      notifyListeners();
+    }
+  }
+
   /// get zoom level
   ZoomLevel get zoomLevel => prefs.zoomLevel;
 
   /// choose next zoom level
   void nextZoomLevel() {
     final ZoomLevel newLevel = prefs.zoomLevel.next;
+    if (newLevel != prefs.zoomLevel) {
+      prefs.zoomLevel = newLevel;
+      notifyListeners();
+    }
+  }
+
+  /// zoomOut
+  void zoomOut() {
+    final ZoomLevel newLevel = prefs.zoomLevel.zoomOut;
+    if (newLevel != prefs.zoomLevel) {
+      prefs.zoomLevel = newLevel;
+      notifyListeners();
+    }
+  }
+
+  /// zoomIn
+  void zoomIn() {
+    final ZoomLevel newLevel = prefs.zoomLevel.zoomIn;
     if (newLevel != prefs.zoomLevel) {
       prefs.zoomLevel = newLevel;
       notifyListeners();
@@ -219,10 +250,10 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
-  /// get user height in [m]
+  /// get user height in [cm]
   double? get userHeight => prefs.userHeight;
 
-  /// set user height in [m]
+  /// set user height in [cm]
   set userHeight(double? newHeight) {
     if (userHeight != newHeight) {
       prefs.userHeight = newHeight;

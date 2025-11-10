@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
@@ -299,7 +299,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.deltaWeight),
+                weightToString(context, stats.deltaWeight),
                 style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   fontWeight: FontWeight.w900,
@@ -349,7 +349,7 @@ Widget getMeanWidget({required BuildContext context,
           child: Align(
             alignment: Alignment.center,
             child: AutoSizeText(
-              doubleToString(context, stats.meanWeight),
+              weightToString(context, stats.meanWeight),
               style: Theme.of(context).textTheme.displayLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.w900,
@@ -362,7 +362,7 @@ Widget getMeanWidget({required BuildContext context,
         Expanded(
           flex: 1,
           child: Align(
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.mean} ($unit)',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -374,6 +374,53 @@ Widget getMeanWidget({required BuildContext context,
             ),
           ),
         )
+      ]
+    ),
+  );
+}
+
+
+
+/// define StatCard for number of days until target weight is reached
+Widget getBMIWidget({
+    required BuildContext context,
+    required MeasurementStats stats,
+    int? delayInMilliseconds
+  }) {
+  return StatCard(
+    nx: 2,
+    delayInMilliseconds: delayInMilliseconds,
+    childWidget: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              AppLocalizations.of(context)!.bmi,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                height: 1.0,
+              ),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              doubleToString(stats.currentBMI(context)),
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                fontWeight: FontWeight.w900,
+                fontSize: 200,
+              ),
+              maxLines: 1,
+            ),
+          ),
+        ),
       ]
     ),
   );
@@ -411,7 +458,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.week}\n'
-                '${doubleToString(context, stats.deltaWeightLastWeek)}',
+                '${weightToString(context, stats.deltaWeightLastWeek)}',
               style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
                 .copyWith(height: 1.0),
               maxLines: 2,
@@ -425,7 +472,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.month}\n'
-                '${doubleToString(context, stats.deltaWeightLastMonth)}',
+                '${weightToString(context, stats.deltaWeightLastMonth)}',
               style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
                 .copyWith(height: 1.0),
               maxLines: 2,
@@ -439,7 +486,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.year}\n'
-                '${doubleToString(context, stats.deltaWeightLastYear)}',
+                '${weightToString(context, stats.deltaWeightLastYear)}',
               style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
                 .copyWith(height: 1.0),
               maxLines: 2,
@@ -483,7 +530,7 @@ Widget getMinWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.minWeight),
+                weightToString(context, stats.minWeight),
                 style: Theme.of(context).textTheme.bodyMedium!
                   .onSurface(context).copyWith(
                     fontWeight: FontWeight.w700,
@@ -518,7 +565,7 @@ Widget getMaxWidget({required BuildContext context,
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                doubleToString(context, stats.maxWeight),
+                weightToString(context, stats.maxWeight),
                 style: Theme.of(context).textTheme.bodyMedium!
                   .onSurface(context).copyWith(
                   fontWeight: FontWeight.w700,
@@ -570,9 +617,16 @@ Widget getIconWidget({required BuildContext context,
 }
 
 
-String doubleToString(BuildContext context, double? d){
+String weightToString(BuildContext context, double? d){
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
       d, showUnit: false);
+}
+
+String doubleToString(double? d){
+  print(d);
+  return d == null
+      ? '--'
+      : d.toStringAsFixed(1);
 }

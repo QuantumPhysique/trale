@@ -1,12 +1,13 @@
 import 'dart:math';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:provider/provider.dart';
-
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
@@ -21,12 +22,15 @@ class CustomLineChart extends StatefulWidget {
     required this.loadedFirst,
     required this.ip,
     this.isPreview = false,
+    this.relativeHeight = 0.33,
     super.key,
   });
 
   final bool loadedFirst;
   final bool isPreview;
   final MeasurementInterpolationBaseclass ip;
+
+  final double relativeHeight;
 
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
@@ -319,68 +323,133 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    return Container(
-      height: MediaQuery.of(context).size.height / 3,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
-      child: GestureDetector(
-        onDoubleTap: () {
-          if (!widget.isPreview) {
-            notifier.nextZoomLevel();
-            setState(() {
-              maxX = notifier.zoomLevel.maxX;
-              minX = notifier.zoomLevel.minX;
-            });
-          }
-        },
-        onScaleUpdate: (ScaleUpdateDetails details) {
-          if (!widget.isPreview) {
-            setState(() {
-              final double scale = (1 - details.horizontalScale) / 50;
-              if (scale.isNegative) {
-                if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
-                  minX -= (maxX - minX) * scale;
-                  maxX += (maxX - minX) * scale;
-                }
-              } else {
-                if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
-                  if (minX - (maxX - minX) * scale > msTimes.first) {
-                    minX -= (maxX - minX) * scale;
-                  }
-                  if (
-                    maxX + (maxX - minX) * scale
-                    < DateTime.now().millisecondsSinceEpoch.toDouble()
-                  ) {
-                    maxX += (maxX - minX) * scale;
-                  }
-                }
+    void scaleUpdate (ScaleUpdateDetails details) {
+      if (!widget.isPreview) {
+        setState(() {
+          final double scale = (1 - details.horizontalScale) / 50;
+          if (scale.isNegative) {
+            if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
+              minX -= (maxX - minX) * scale;
+              maxX += (maxX - minX) * scale;
+            }
+          } else {
+            if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
+              if (minX - (maxX - minX) * scale > msTimes.first) {
+                minX -= (maxX - minX) * scale;
               }
-            });
-          }
-        },
-        onHorizontalDragUpdate: (DragUpdateDetails dragUpdDet) {
-          if (!widget.isPreview) {
-            setState(() {
-              final double primDelta =
-                  (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
-
-              final double allowedMaxX =
-                interpolTimes.last > DateTime.now().millisecondsSinceEpoch
-                  ? interpolTimes.last
-                  : DateTime.now().millisecondsSinceEpoch.toDouble();
-              final double allowedMinX = interpolTimes.first;
               if (
-                maxX - primDelta <= allowedMaxX &&
-                minX - primDelta >= allowedMinX
+              maxX + (maxX - minX) * scale
+                  < DateTime.now().millisecondsSinceEpoch.toDouble()
               ) {
-                maxX -= primDelta;
-                minX -= primDelta;
+                maxX += (maxX - minX) * scale;
               }
-            });
+            }
           }
-        },
-        child: lineChart(minX, maxX, minY, maxY)
-      )
+        });
+      }
+    }
+
+    void dragUpdate (DragUpdateDetails dragUpdDet) {
+      if (!widget.isPreview) {
+        setState(() {
+          final double primDelta =
+              (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
+
+          final double allowedMaxX =
+          interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+              ? interpolTimes.last
+              : DateTime.now().millisecondsSinceEpoch.toDouble();
+          final double allowedMinX = interpolTimes.first;
+          if (
+          maxX - primDelta <= allowedMaxX &&
+              minX - primDelta >= allowedMinX
+          ) {
+            maxX -= primDelta;
+            minX -= primDelta;
+          }
+        });
+      }
+    }
+    void doubleTap () {
+      if (!widget.isPreview) {
+        notifier.nextZoomLevel();
+        setState(() {
+          maxX = notifier.zoomLevel.maxX;
+          minX = notifier.zoomLevel.minX;
+        });
+      }
+    }
+
+    return Column(
+      children: <Widget>[
+        Card(
+          shape: TraleTheme.of(context)!.borderShape,
+          margin: EdgeInsets.symmetric(
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
+          child: Container(
+            height: MediaQuery.of(context).size.height  * widget.relativeHeight,
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
+            child: GestureDetector(
+              onDoubleTap: doubleTap,
+              //onScaleUpdate: scaleUpdate,
+              onHorizontalDragUpdate: dragUpdate,
+              child: lineChart(minX, maxX, minY, maxY)
+            ),
+          ),
+        ),
+        if (!widget.isPreview)
+        SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
+        if (!widget.isPreview)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Card(
+              shape: TraleTheme.of(context)!.borderShape,
+              margin: EdgeInsets.only(
+                right: 0.5 * TraleTheme.of(context)!.padding,
+              ),
+              child: IconButton(
+                onPressed: notifier.zoomLevel == ZoomLevel.all
+                  ? null
+                  : () {
+                    notifier.zoomOut();
+                    setState(() {
+                      maxX = notifier.zoomLevel.maxX;
+                      minX = notifier.zoomLevel.minX;
+                    });
+                  },
+                icon: PPIcon(
+                  PhosphorIconsDuotone.magnifyingGlassMinus,
+                  context,
+                ),
+              ),
+            ),
+            Card(
+              shape: TraleTheme.of(context)!.borderShape,
+              margin: EdgeInsets.only(
+                right: TraleTheme.of(context)!.padding,
+              ),
+              child: IconButton(
+                onPressed: notifier.zoomLevel == ZoomLevel.two
+                  ? null
+                  : () {
+                    notifier.zoomIn();
+                    setState(() {
+                      maxX = notifier.zoomLevel.maxX;
+                      minX = notifier.zoomLevel.minX;
+                    });
+                  },
+                icon: PPIcon(
+                  PhosphorIconsDuotone.magnifyingGlassPlus,
+                  context,
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

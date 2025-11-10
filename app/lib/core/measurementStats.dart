@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:ml_linalg/vector.dart';
+import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/traleNotifier.dart';
 
 
 /// class providing an API to handle interpolation of measurements
@@ -56,6 +59,17 @@ class MeasurementStats {
 
   /// get min weight
   double? get meanWeight => ip.weights_measured.mean();
+
+  /// get current BMI
+  double? currentBMI(BuildContext context){
+    final TraleNotifier notifier =
+        Provider.of<TraleNotifier>(context, listen: false);
+    if (notifier.userHeight == null) {
+      return null;
+    }
+    return ip.weights_measured.last /
+        (notifier.userHeight! * notifier.userHeight! * 0.0001);
+  }
 
   /// get total change in weight
   double? get deltaWeight => maxWeight == null ?

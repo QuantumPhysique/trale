@@ -1,0 +1,10 @@
+Added Features and Improvements 🙌:
+- Added zoom buttons, similar to double tap. Checkout now your history 🎉
+- Added iso8601 date format
+
+Other changes:
+- Target Android 16 (SDK 36)
+- Using the latest flutter 3.35 with upgraded deps
+- Improved translation
+
+And several minor bug fixes 🐛
