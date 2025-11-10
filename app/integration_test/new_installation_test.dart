@@ -5,14 +5,14 @@ import 'package:integration_test/integration_test.dart';
 import 'package:trale/main.dart' as app;
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Onboarding and add measurement', (WidgetTester tester) async {
+  testWidgets('Onboarding and add measurement with screenshots', (WidgetTester tester) async {
     app.main();
     await tester.pumpAndSettle();
 
     // Go through onboarding screens
-    for (int i = 0; i < 3; i++) { // Adjust for your onboarding steps
+    for (int i = 0; i < 3; i++) {
       final Finder nextButton = find.text('Next');
       if (await tester.pumpAndSettle() > 0 && tester.any(nextButton)) {
         await tester.tap(nextButton);
@@ -25,6 +25,11 @@ void main() {
       await tester.pumpAndSettle();
     }
 
+    // Take screenshot of main page before adding a value
+    await binding.convertFlutterSurfaceToImage();
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('main_page_before_adding_value');
+
     // Add a measurement
     final Finder addButton = find.byIcon(PhosphorIconsRegular.plus);
     await tester.tap(addButton);
@@ -33,6 +38,11 @@ void main() {
     final Finder saveButton = find.byIcon(PhosphorIconsRegular.floppyDiskBack);
     await tester.tap(saveButton);
     await tester.pumpAndSettle();
+
+    // Take screenshot of main page after adding a value
+    await binding.convertFlutterSurfaceToImage();
+    await tester.pumpAndSettle();
+    await binding.takeScreenshot('main_page_after_adding_value');
 
     // go to measurement tab
     final Finder measurementTabButton = find.byIcon(PhosphorIconsDuotone.archive);

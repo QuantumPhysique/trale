@@ -60,6 +60,35 @@ jobs:
         run: |
           cd app
           dart run dependency_validator
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: AVD cache
+        uses: actions/cache@v4
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-35
+      - name: 🧪 Run integration tests with screenshots on Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          script: cd app && flutter drive --driver=test_driver/integration_test.dart --target=integration_test/new_installation_test.dart
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+      - name: ⬆️ 📸 Upload integration test screenshots
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: integration-test-screenshots
+          path: "app/screenshots/*.png"
+          retention-days: 30
+          if-no-files-found: warn
       - name: 🤖📦 Create Android release
         run: |
           cd app
