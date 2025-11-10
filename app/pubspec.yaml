@@ -34,7 +34,7 @@ dependencies:
   flutter_auto_size_text: ^4.1.0
   flutter_svg: ^2.2.2
   hive_ce: ^2.15.1
-  hive_ce_flutter: ^2.3.2
+  hive_ce_flutter: ^2.3.3
   intl: ^0.20.2
   introduction_screen: ^4.0.0
   ml_linalg: ^13.12.6
