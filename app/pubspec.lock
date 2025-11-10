@@ -213,10 +213,10 @@ packages:
     dependency: "direct dev"
     description:
       name: dependency_validator
-      sha256: "3a243f5b9def5f902887a66fbea7e72e612eee956af6c8c34d382fe6d5484145"
+      sha256: a5928c0e3773808027bdafeb13fb4be0e4fdd79819773ad3df34d0fcf42636f2
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.2"
+    version: "5.0.3"
   dio:
     dependency: transitive
     description:
