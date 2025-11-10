@@ -62,7 +62,7 @@ dev_dependencies:
   dependency_validator: ^5.0.3
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
-  hive_ce_generator: ^1.9.3
+  hive_ce_generator: ^1.10.0
   translations_cleaner: ^0.0.5
 
 # define app icons
