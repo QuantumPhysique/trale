@@ -60,6 +60,20 @@ jobs:
         run: |
           cd app
           dart run dependency_validator
+      - name: 🧪 Run integration tests with screenshots
+        run: |
+          cd app
+          flutter drive \
+            --driver=test_driver/integration_test.dart \
+            --target=integration_test/new_installation_test.dart
+      - name: ⬆️ 📸 Upload integration test screenshots
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: integration-test-screenshots
+          path: "app/screenshots/*.png"
+          retention-days: 30
+          if-no-files-found: warn
       - name: 🤖📦 Create Android release
         run: |
           cd app
