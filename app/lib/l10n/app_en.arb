@@ -298,9 +298,21 @@
     "@addHeight": {
         "description": "Enter your height"
     },
+    "height": "height",
+    "@height": {
+        "description": "height"
+    },
+    "target": "target",
+    "@target": {
+        "description": "Short label for target weight."
+    },
     "interpolation": "interpolation",
     "@interpolation": {
         "description": "interpolation"
+    },
+    "personalization": "personalization",
+    "@personalization": {
+        "description": "personalization"
     },
     "strength": "strength",
     "@strength": {
@@ -369,6 +381,10 @@
     "addUserName": "How shall we call you?",
     "@addUserName": {
         "description": "How shall we call you?"
+    },
+    "name": "name",
+    "@name": {
+        "description": "Name"
     },
     "addTargetWeight": "Add target weight",
     "@addTargetWeight": {
@@ -487,5 +503,11 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "BMI",
-    "@bmi": {}
+    "@bmi": {},
+    "back": "back",
+    "@back": {},
+    "userDialogTitle": "User settings",
+    "@userDialogTitle": {
+        "description": "User settings"
+    }
 }

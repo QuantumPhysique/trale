@@ -5,8 +5,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
-import 'package:ml_linalg/linalg.dart';
+import 'package:ml_linalg/linalg.dart' as ml;
 import 'package:provider/provider.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/textSize.dart';
@@ -15,6 +16,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/widget/tile_group.dart';
 
 
 class CustomLineChart extends StatefulWidget {
@@ -23,6 +25,16 @@ class CustomLineChart extends StatefulWidget {
     required this.ip,
     this.isPreview = false,
     this.relativeHeight = 0.33,
+    this.axisLabelColor,
+    this.interpolationLineColor,
+    this.interpolationBelowAreaColor,
+    this.interpolationAboveAreaColor,
+    this.measurementLineColor,
+    this.measurementDotStrokeColor,
+    this.targetWeightLineColor,
+    this.targetWeightLabelTextColor,
+    this.targetWeightLabelBackgroundColor,
+    this.backgroundColor,
     super.key,
   });
 
@@ -31,6 +43,16 @@ class CustomLineChart extends StatefulWidget {
   final MeasurementInterpolationBaseclass ip;
 
   final double relativeHeight;
+  final Color? axisLabelColor;
+  final Color? interpolationLineColor;
+  final Color? interpolationBelowAreaColor;
+  final Color? interpolationAboveAreaColor;
+  final Color? measurementLineColor;
+  final Color? measurementDotStrokeColor;
+  final Color? targetWeightLineColor;
+  final Color? targetWeightLabelTextColor;
+  final Color? targetWeightLabelBackgroundColor;
+  final Color? backgroundColor;
 
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
@@ -53,34 +75,35 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
-    final Vector msTimes = ip.times_measured;
-    final Vector interpolTimes = ip.timesDisplay;
+    final ml.Vector msTimes = ip.times_measured;
+    final ml.Vector interpolTimes = ip.timesDisplay;
 
     // scale to unit
     final double unitScaling = Provider.of<TraleNotifier>(
       context, listen: false
     ).unit.scaling;
 
-    final Vector ms = widget.loadedFirst
-      ? Vector.filled(
+    final ml.Vector ms = widget.loadedFirst
+      ? ml.Vector.filled(
           ip.weights_measured.length,
           ip.weights_measured.mean(),
         )
       : ip.weights_measured;
-    final Vector interpol = widget.loadedFirst
-        ? Vector.filled(
+    final ml.Vector interpol = widget.loadedFirst
+        ? ml.Vector.filled(
           ip.weightsDisplay.length,
            ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
         )
         : ip.weightsDisplay;
 
     final TextStyle labelTextStyle =
-      Theme.of(context).textTheme.bodySmall!.apply(
-        fontFamily: 'CourierPrime',
-        color: Theme.of(context).colorScheme.onSurface,
+      theme.textTheme.monospace.bodySmall!.apply(
+        color: widget.axisLabelColor ?? colorScheme.onSurface,
       );
     final Size textSize = sizeOfText(
       text: '1234',
@@ -89,7 +112,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     );
     final double margin = TraleTheme.of(context)!.padding;
 
-    List<FlSpot> vectorsToFlSpot (Vector times, Vector weights) {
+    List<FlSpot> vectorsToFlSpot (ml.Vector times, ml.Vector weights) {
       return <FlSpot>[
         for (int idx = 0; idx < times.length; idx++)
           FlSpot(times[idx], weights[idx] / unitScaling)
@@ -98,6 +121,28 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     final TraleNotifier notifier = TraleNotifier();
     final double? targetWeight = notifier.userTargetWeight;
+
+    final Color interpolationLineColor =
+        widget.interpolationLineColor ?? Colors.transparent;
+    final Color interpolationBelowAreaColor =
+        widget.interpolationBelowAreaColor ??
+            colorScheme.primaryContainer.withAlpha(155);
+    final Color interpolationAboveAreaColor =
+        widget.interpolationAboveAreaColor ??
+            colorScheme.tertiaryContainer.withAlpha(
+              widget.isPreview ? 0 : 255,
+            );
+    final Color measurementLineColor =
+        widget.measurementLineColor ?? colorScheme.primary;
+    final Color measurementDotStrokeColor =
+        widget.measurementDotStrokeColor ?? colorScheme.onSurface;
+    final Color targetWeightLineColor =
+        widget.targetWeightLineColor ?? colorScheme.tertiary;
+    final Color targetWeightLabelTextColor =
+        widget.targetWeightLabelTextColor ?? colorScheme.onSurface;
+    final Color targetWeightLabelBackgroundColor =
+        widget.targetWeightLabelBackgroundColor ??
+            colorScheme.surfaceContainerLow;
 
     final List<FlSpot> measurements =
       vectorsToFlSpot(msTimes, ms);
@@ -245,7 +290,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
               if (targetWeight != null && !widget.isPreview)
                 HorizontalLine(
                   y: targetWeight / unitScaling,
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: targetWeightLineColor,
                   strokeWidth: 2,
                   dashArray: <int>[8, 6],
                   label: HorizontalLineLabel(
@@ -255,10 +300,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.symmetric(vertical: 1),
-                    style: Theme.of(context).textTheme.bodySmall!.apply(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        backgroundColor:
-                          Theme.of(context).colorScheme.surfaceContainerLow,
+                    style: theme.textTheme.bodySmall!.apply(
+                        color: targetWeightLabelTextColor,
+                        backgroundColor: targetWeightLabelBackgroundColor,
                     ),
                     labelResolver: (HorizontalLine line) =>
                       ' ${AppLocalizations.of(context)!.targetWeightShort}',
@@ -270,23 +314,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurementsInterpol,
               isCurved: true,
-              color: Colors.transparent,
+              color: interpolationLineColor,
               //color: Theme.of(context).colorScheme.primaryContainer,
               barWidth: 3,
               isStrokeCapRound: true,
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
-                color: Theme.of(context).colorScheme.primaryContainer
-                  .withAlpha(155),
+                color: interpolationBelowAreaColor,
                 // cutOffY: targetWeight ?? 0,
                 // applyCutOffY: targetWeight != null,
               ),
               aboveBarData: BarAreaData(
                 show: targetWeight != null,
-                color: Theme.of(context).colorScheme.tertiaryContainer.withAlpha(
-                    widget.isPreview ? 0 : 255
-                ),
+                color: interpolationAboveAreaColor,
                 cutOffY: targetWeight ?? 0,
                 applyCutOffY: true,
               ),
@@ -294,7 +335,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             LineChartBarData(
               spots: measurements,
               isCurved: false,
-              color: Theme.of(context).colorScheme.primary,
+              color: measurementLineColor,
               barWidth: 0,
               isStrokeCapRound: true,
               dotData: FlDotData(
@@ -310,8 +351,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
                       1,
                     ),
-                  color: barData.color ?? Colors.black,
-                  strokeColor: Theme.of(context).colorScheme.onSurface,
+                  color: measurementLineColor,
+                  strokeColor: measurementDotStrokeColor,
                   strokeWidth: 0.2,
                 )
               ),
@@ -383,6 +424,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     return Column(
       children: <Widget>[
         Card(
+          color: widget.backgroundColor,
           shape: TraleTheme.of(context)!.borderShape,
           margin: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding,
@@ -400,54 +442,54 @@ class _CustomLineChartState extends State<CustomLineChart> {
           ),
         ),
         if (!widget.isPreview)
-        SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
-        if (!widget.isPreview)
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Card(
-              shape: TraleTheme.of(context)!.borderShape,
-              margin: EdgeInsets.only(
-                right: 0.5 * TraleTheme.of(context)!.padding,
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              WidgetGroup(
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  GroupedWidget(
+                    child: IconButton(
+                      onPressed: notifier.zoomLevel == ZoomLevel.all
+                        ? null
+                        : () {
+                          notifier.zoomOut();
+                          setState(() {
+                            maxX = notifier.zoomLevel.maxX;
+                            minX = notifier.zoomLevel.minX;
+                          });
+                        },
+                      icon: PPIcon(
+                        PhosphorIconsDuotone.magnifyingGlassMinus,
+                        context,
+                      ),
+                    ),
+                  ),
+                  GroupedWidget(
+                    child: IconButton(
+                      onPressed: notifier.zoomLevel == ZoomLevel.two
+                        ? null
+                        : () {
+                          notifier.zoomIn();
+                          setState(() {
+                            maxX = notifier.zoomLevel.maxX;
+                            minX = notifier.zoomLevel.minX;
+                          });
+                        },
+                      icon: PPIcon(
+                        PhosphorIconsDuotone.magnifyingGlassPlus,
+                        context,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              child: IconButton(
-                onPressed: notifier.zoomLevel == ZoomLevel.all
-                  ? null
-                  : () {
-                    notifier.zoomOut();
-                    setState(() {
-                      maxX = notifier.zoomLevel.maxX;
-                      minX = notifier.zoomLevel.minX;
-                    });
-                  },
-                icon: PPIcon(
-                  PhosphorIconsDuotone.magnifyingGlassMinus,
-                  context,
-                ),
-              ),
-            ),
-            Card(
-              shape: TraleTheme.of(context)!.borderShape,
-              margin: EdgeInsets.only(
-                right: TraleTheme.of(context)!.padding,
-              ),
-              child: IconButton(
-                onPressed: notifier.zoomLevel == ZoomLevel.two
-                  ? null
-                  : () {
-                    notifier.zoomIn();
-                    setState(() {
-                      maxX = notifier.zoomLevel.maxX;
-                      minX = notifier.zoomLevel.minX;
-                    });
-                  },
-                icon: PPIcon(
-                  PhosphorIconsDuotone.magnifyingGlassPlus,
-                  context,
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         )
       ],
     );

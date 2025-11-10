@@ -132,7 +132,8 @@ class Preferences {
   set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
 
   /// get if onboarding screen is shown
-  bool get showOnBoarding => prefs.getBool('showOnBoarding')!;
+  //bool get showOnBoarding => prefs.getBool('showOnBoarding')!;
+  bool get showOnBoarding => false;
 
   /// get night mode value
   String get nightMode => prefs.getString('nightMode')!;
