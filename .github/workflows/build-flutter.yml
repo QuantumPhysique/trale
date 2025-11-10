@@ -70,7 +70,7 @@ jobs:
           export ARTIFACT_NAME="${BRANCH_NAME////\_}"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
       - name: ⬆️ 📦 Upload apks
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: "${{ env.ARTIFACT_NAME }}"
           path: "app/build/app/outputs/flutter-apk/*.apk"
