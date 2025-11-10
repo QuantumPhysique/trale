@@ -78,7 +78,6 @@ jobs:
         with:
           api-level: 35
           arch: x86_64
-          profile: pixel_9_pro
           script: cd app && flutter drive --driver=test_driver/integration_test.dart --target=integration_test/new_installation_test.dart
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
