@@ -59,6 +59,14 @@ class TransitionDuration {
 }
 
 /// Theme class for Adonify app
+/// 
+/// Supports Material 3 Expressive color system with the following color roles:
+/// - Fixed colors (primaryFixed, secondaryFixed, tertiaryFixed)
+/// - Fixed dim colors (primaryFixedDim, secondaryFixedDim, tertiaryFixedDim)
+/// - On fixed colors (onPrimaryFixed, onSecondaryFixed, onTertiaryFixed)
+/// - On fixed variant colors (onPrimaryFixedVariant, onSecondaryFixedVariant, onTertiaryFixedVariant)
+/// 
+/// Reference: https://m3.material.io/styles/color/roles
 class TraleTheme {
   /// Default constructor
   TraleTheme({
@@ -188,6 +196,63 @@ class TraleTheme {
           themeData.dialogTheme.elevation! / 4,
         )
       : bgShade3;
+
+  // ============================================================================
+  // Material 3 Expressive Color System Support
+  // ============================================================================
+  // The following getters provide access to the Material 3 Expressive color roles
+  // as documented at https://m3.material.io/styles/color/roles
+  //
+  // Usage example:
+  // ```dart
+  // Container(
+  //   color: TraleTheme.of(context).primaryFixed,
+  //   child: Text(
+  //     'Fixed color text',
+  //     style: TextStyle(color: TraleTheme.of(context).onPrimaryFixed),
+  //   ),
+  // )
+  // ```
+  // ============================================================================
+  
+  /// Fixed primary color from Material 3 Expressive system
+  /// Remains consistent across light/dark themes
+  Color get primaryFixed => themeData.colorScheme.primaryFixed;
+  
+  /// Fixed secondary color from Material 3 Expressive system
+  /// Remains consistent across light/dark themes
+  Color get secondaryFixed => themeData.colorScheme.secondaryFixed;
+  
+  /// Fixed tertiary color from Material 3 Expressive system
+  /// Remains consistent across light/dark themes
+  Color get tertiaryFixed => themeData.colorScheme.tertiaryFixed;
+  
+  /// Dimmed version of primaryFixed
+  Color get primaryFixedDim => themeData.colorScheme.primaryFixedDim;
+  
+  /// Dimmed version of secondaryFixed
+  Color get secondaryFixedDim => themeData.colorScheme.secondaryFixedDim;
+  
+  /// Dimmed version of tertiaryFixed
+  Color get tertiaryFixedDim => themeData.colorScheme.tertiaryFixedDim;
+  
+  /// Text color for primaryFixed backgrounds
+  Color get onPrimaryFixed => themeData.colorScheme.onPrimaryFixed;
+  
+  /// Text color for secondaryFixed backgrounds
+  Color get onSecondaryFixed => themeData.colorScheme.onSecondaryFixed;
+  
+  /// Text color for tertiaryFixed backgrounds
+  Color get onTertiaryFixed => themeData.colorScheme.onTertiaryFixed;
+  
+  /// Alternative text color for primaryFixed (lower emphasis)
+  Color get onPrimaryFixedVariant => themeData.colorScheme.onPrimaryFixedVariant;
+  
+  /// Alternative text color for secondaryFixed (lower emphasis)
+  Color get onSecondaryFixedVariant => themeData.colorScheme.onSecondaryFixedVariant;
+  
+  /// Alternative text color for tertiaryFixed (lower emphasis)
+  Color get onTertiaryFixedVariant => themeData.colorScheme.onTertiaryFixedVariant;
 
   /// color threshold for grey
   final double colorThreshold = 25 / 255;
