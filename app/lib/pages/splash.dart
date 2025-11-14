@@ -54,7 +54,7 @@ class _SplashState extends State<Splash> {
 
     final Future<void> loadMeasurements = Future<void>(
     () {
-        MeasurementDatabase().reinit();
+        MeasurementDatabase().init();
       },
     ).then((_) => onStop());
 
