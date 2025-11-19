@@ -303,11 +303,12 @@ class GroupedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return GroupedWidget(
       color: color,
-      child: Padding(
+      child: Container(
         padding: EdgeInsets.symmetric(
           vertical: 0.5 * TraleTheme.of(context)!.padding,
           horizontal: TraleTheme.of(context)!.padding,
         ),
+        width: double.infinity,
         child: text,
       ),
     );
