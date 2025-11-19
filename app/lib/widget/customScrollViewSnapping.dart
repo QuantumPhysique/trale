@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:trale/core/font.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
-
 
 class SliverAppBarSnap extends StatefulWidget {
-
-  SliverAppBarSnap({
+  const SliverAppBarSnap({
     super.key,
     required this.title,
     required this.sliverlist,
@@ -52,40 +46,41 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
                 stretch: true,
                 title: Text(
                   widget.title.allInCaps,
-                  style: Theme.of(context).textTheme.emphasized.headlineMedium?.apply(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                  style: Theme.of(context).textTheme.emphasized.headlineMedium
+                      ?.apply(color: Theme.of(context).colorScheme.onSurface),
                 ),
                 backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
                 leading: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: PhosphorIcon(
-                      PhosphorIconsDuotone.arrowLeft,
-                      duotoneSecondaryColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-                      duotoneSecondaryOpacity: 1.0,
-                    ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: PhosphorIcon(
+                    PhosphorIconsDuotone.arrowLeft,
+                    duotoneSecondaryColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerLowest,
+                    duotoneSecondaryOpacity: 1.0,
                   ),
+                ),
                 expandedHeight: maxHeight - MediaQuery.of(context).padding.top,
               ),
             ),
             SliverPadding(
               padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-              sliver: SliverList.list(
-                children: widget.sliverlist,
-              ),
+              sliver: SliverList.list(children: widget.sliverlist),
             ),
-            SliverFillRemaining(
+            const SliverFillRemaining(
               hasScrollBody: false,
-              child: SizedBox(height: MediaQuery.of(context).padding.top),
+              child: SizedBox.shrink(),
             ),
+            // insert sliver with fixed height maxHeight-minHeight to allow
+            // full collapse
+            SliverToBoxAdapter(child: SizedBox(height: maxHeight - minHeight)),
           ],
         ),
       ),
     );
   }
-
 
   void _snapAppbar() {
     final double scrollDistance = maxHeight - minHeight;
@@ -104,4 +99,3 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
     }
   }
 }
-
