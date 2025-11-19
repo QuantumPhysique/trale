@@ -30,85 +30,91 @@ class ExportSettingsPage extends StatefulWidget {
 class _ExportSettingsPageState extends State<ExportSettingsPage> {
   @override
   Widget build(BuildContext context) {
-      final DateTime? nextBackupDate =
-        Provider.of<TraleNotifier>(context).nextBackupDate;
-      final DateTime? latestBackupDate =
-          Provider.of<TraleNotifier>(context).latestBackupDate;
+    final DateTime? nextBackupDate = Provider.of<TraleNotifier>(
+      context,
+    ).nextBackupDate;
+    final DateTime? latestBackupDate = Provider.of<TraleNotifier>(
+      context,
+    ).latestBackupDate;
 
-      String date2string(DateTime? date) => date == null
-          ? AppLocalizations.of(context)!.never
-          : Provider.of<TraleNotifier>(context, listen: false)
-              .dateFormat(context)
-              .format(date);
+    String date2string(DateTime? date) => date == null
+        ? AppLocalizations.of(context)!.never
+        : Provider.of<TraleNotifier>(
+            context,
+            listen: false,
+          ).dateFormat(context).format(date);
 
-      final List<Widget> sliverlist = <Widget>[
-        WidgetGroup(
-          title: AppLocalizations.of(context)!.export,
-          children:  <Widget>[
-              const ExportListTile(),
-              const BackupIntervalListTile(),
-              GroupedListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerLowest,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    AutoSizeText(
-                      AppLocalizations.of(context)!.lastBackup,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      maxLines: 1,
-                    ),
-                    Text(
-                      date2string(latestBackupDate),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
+    final List<Widget> sliverlist = <Widget>[
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.export,
+        children: <Widget>[
+          const ExportListTile(),
+          const BackupIntervalListTile(),
+          GroupedListTile(
+            color: Theme.of(context).colorScheme.surfaceContainerLowest,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AutoSizeText(
+                  AppLocalizations.of(context)!.lastBackup,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
                 ),
-              ),
-              GroupedListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerLowest,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    AutoSizeText(
-                      AppLocalizations.of(context)!.nextBackup,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      maxLines: 1,
-                    ),
-                    Text(
-                      date2string(nextBackupDate),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
+                Text(
+                  date2string(latestBackupDate),
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          GroupedListTile(
+            color: Theme.of(context).colorScheme.surfaceContainerLowest,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                AutoSizeText(
+                  AppLocalizations.of(context)!.nextBackup,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                Text(
+                  date2string(nextBackupDate),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.import,
+        children: <Widget>[const ImportListTile()],
+      ),
+      GroupedText(
+        text: Text(
+          "You can import data. This will not delete your current data, "
+          "but duplicate entries will be ignored."
+          ".txt and .csv files from OpenScales are supported."
+          "In .csv the columns have to be named 'weight' and 'dateTime' "
+          "otherwise the first column is parsed as date and the second as "
+          "weight.",
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
-        WidgetGroup(
-          title: AppLocalizations.of(context)!.import,
-          children: <Widget>[
-            const ImportListTile(),
-          ],
-        ),
-        GroupedText(
-              text: Text("Add meaningful text...")
-        ),
-        WidgetGroup(
-          title: AppLocalizations.of(context)!.dangerzone,
-          children: <Widget>[
-            const ResetListTile(),
-          ],
-        ),
-      ];
+      ),
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.dangerzone,
+        children: <Widget>[const ResetListTile()],
+      ),
+    ];
 
-      return Scaffold(
-        body: SliverAppBarSnap(
-          title: AppLocalizations.of(context)!.backup,
-          sliverlist: sliverlist,
-        ),
-      );
+    return Scaffold(
+      body: SliverAppBarSnap(
+        title: AppLocalizations.of(context)!.backup,
+        sliverlist: sliverlist,
+      ),
+    );
   }
 }
-
 
 /// ListTile for changing units settings
 class BackupIntervalListTile extends StatelessWidget {
@@ -140,7 +146,7 @@ class BackupIntervalListTile extends StatelessWidget {
             DropdownMenuEntry<BackupInterval>(
               value: interval,
               label: interval.name,
-            )
+            ),
         ],
         onSelected: (BackupInterval? newInterval) async {
           if (newInterval != null) {
@@ -152,7 +158,6 @@ class BackupIntervalListTile extends StatelessWidget {
     );
   }
 }
-
 
 /// ListTile for changing Amoled settings
 class ExportListTile extends StatelessWidget {
@@ -221,7 +226,6 @@ class ImportListTile extends StatelessWidget {
   }
 }
 
-
 /// ListTile for changing Amoled settings
 class ResetListTile extends StatelessWidget {
   /// constructor
@@ -246,7 +250,8 @@ class ResetListTile extends StatelessWidget {
       trailing: IconButton(
         icon: PPIcon(PhosphorIconsDuotone.trash, context),
         onPressed: () async {
-          final bool accepted = await showDialog<bool>(
+          final bool accepted =
+              await showDialog<bool>(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: Text(
@@ -266,11 +271,12 @@ class ResetListTile extends StatelessWidget {
                       ),
                       onPressed: () => Navigator.pop(context, false),
                       child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: TraleTheme.of(context)!.padding / 2,
-                            horizontal: TraleTheme.of(context)!.padding,
-                          ),
-                          child: Text(AppLocalizations.of(context)!.abort)),
+                        padding: EdgeInsets.symmetric(
+                          vertical: TraleTheme.of(context)!.padding / 2,
+                          horizontal: TraleTheme.of(context)!.padding,
+                        ),
+                        child: Text(AppLocalizations.of(context)!.abort),
+                      ),
                     ),
                     FilledButton.icon(
                       onPressed: () => Navigator.pop(context, true),
