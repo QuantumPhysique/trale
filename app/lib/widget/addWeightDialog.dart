@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/firstDay.dart';
-import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -14,6 +13,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/widget/dialog.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:trale/widget/weight_picker.dart';
 
@@ -32,20 +32,16 @@ Future<bool> showAddWeightDialog({
   final DateTime initialDate = date;
   DateTime currentDate = initialDate;
   final MeasurementDatabase database = MeasurementDatabase();
-  final double padding = TraleTheme.of(context)!.padding;
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final double sliderLabel =
-          (currentSliderValue * notifier.unit.ticksPerStep).roundToDouble() /
-              notifier.unit.ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           WidgetGroup(
             children: <Widget>[
               GroupedListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
                 leading: PPIcon(PhosphorIconsDuotone.calendar, context),
                 title: Text(AppLocalizations.of(context)!.date),
                 trailing: Text(
@@ -116,7 +112,7 @@ Future<bool> showAddWeightDialog({
             },
               ),
               GroupedListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
                 title: Text(AppLocalizations.of(context)!.time),
                 leading: PPIcon(PhosphorIconsDuotone.clock, context),
                 trailing: Text(
@@ -144,6 +140,7 @@ Future<bool> showAddWeightDialog({
               ),
             ]
           ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -162,19 +159,8 @@ Future<bool> showAddWeightDialog({
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        contentPadding: EdgeInsets.only(
-          top: TraleTheme.of(context)!.padding,
-        ),
-        title: Center(
-          child: Text(
-            AppLocalizations.of(context)!.addWeight,
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            maxLines: 1,
-          ),
-        ),
+      return DialogM3E(
+        title: AppLocalizations.of(context)!.addWeight,
         content: content,
         actions: actions(
           context, () {
@@ -231,7 +217,7 @@ Future<bool> showTargetWeightDialog({
           WidgetGroup(
             children: <Widget>[
               GroupedWidget(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
                 child: Padding(
                   padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
                   child: Text(
@@ -245,6 +231,7 @@ Future<bool> showTargetWeightDialog({
               ),
             ],
           ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -263,19 +250,8 @@ Future<bool> showTargetWeightDialog({
           barrierDismissible: false,
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              contentPadding: EdgeInsets.only(
-                top: TraleTheme.of(context)!.padding,
-              ),
-              title: Center(
-                child: Text(
-                  AppLocalizations.of(context)!.targetWeight,
-                  style: Theme.of(context).textTheme.headlineSmall!.apply(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
-                  maxLines: 1,
-                ),
-              ),
+            return DialogM3E(
+              title: AppLocalizations.of(context)!.targetWeight,
               content: content,
               actions: actions(context, () {
                 // In order to make our contribution to prevention, no target
@@ -315,12 +291,16 @@ Future<bool> showTargetWeightDialog({
 }
 
 ///
-List<Widget> actions(BuildContext context, Function onPress,
-    {bool enabled = true}) {
+List<Widget> actions(BuildContext context, Function onPress, {bool enabled = true}) {
   return <Widget>[
-    TextButton(
+    FilledButton.icon(
       onPressed: () => Navigator.pop(context, false),
-      child: Text(
+      style: FilledButton.styleFrom(
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+      ),
+      icon: PPIcon(PhosphorIconsRegular.x, context),
+      label: Text(
         AppLocalizations.of(context)!.abort,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
           color: Theme.of(context).colorScheme.onSurface,
@@ -330,7 +310,7 @@ List<Widget> actions(BuildContext context, Function onPress,
     ),
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
-      icon: PPIcon(PhosphorIconsRegular.floppyDiskBack, context),
+      icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
       label: Text(
         AppLocalizations.of(context)!.save,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
@@ -339,9 +319,5 @@ List<Widget> actions(BuildContext context, Function onPress,
         textAlign: TextAlign.end,
       ),
     ),
-  ].addGap(
-    padding: TraleTheme.of(context)!.padding,
-    direction: Axis.horizontal,
-    offset: 1,
-  );
+  ];
 }

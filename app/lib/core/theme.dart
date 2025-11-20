@@ -11,7 +11,6 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/main.dart';
 
-
 /// get color (black or white) with maximal constrast or minimal (inverse=false)
 Color getFontColor(Color color, {bool inverse = true}) {
   return isDarkColor(color) == inverse ? Colors.white : Colors.black;
@@ -26,15 +25,14 @@ bool isDarkColor(Color color) {
 
 /// return opacity corresponding to elevation
 /// https://material.io/design/color/dark-theme.html
-double overlayOpacity(double elevation)
-  => (4.5 * math.log(elevation + 1) + 2) / 100.0;
-
+double overlayOpacity(double elevation) =>
+    (4.5 * math.log(elevation + 1) + 2) / 100.0;
 
 /// overlay color with elevation
 Color colorElevated(Color color, double elevation) => Color.alphaBlend(
-  getFontColor(color).withOpacity(overlayOpacity(elevation)), color,
+  getFontColor(color).withOpacity(overlayOpacity(elevation)),
+  color,
 );
-
 
 /// Class holding three different transition durations
 class TransitionDuration {
@@ -43,15 +41,19 @@ class TransitionDuration {
 
   /// get duration of fast transition
   Duration get fast => Duration(milliseconds: _fast);
+
   /// get duration of normal transition
   Duration get normal => Duration(milliseconds: _normal);
+
   /// get duration of slow transition
   Duration get slow => Duration(milliseconds: _slow);
 
   /// length of durations in ms
   final int _fast;
+
   /// length of durations in ms
   final int _normal;
+
   /// length of durations in ms
   final int _slow;
 }
@@ -63,8 +65,8 @@ class TraleTheme {
     required this.seedColor,
     required this.brightness,
     required this.schemeVariant,
-    this.isAmoled=false,
-    this.contrast=0.0,
+    this.isAmoled = false,
+    this.contrast = 0.0,
   });
 
   /// copyWith constructor
@@ -86,21 +88,29 @@ class TraleTheme {
 
   /// Get current AdonisTheme
   static TraleTheme? of(BuildContext context) {
-    final TraleApp? result =
-    context.findAncestorWidgetOfExactType<TraleApp>();
+    final TraleApp? result = context.findAncestorWidgetOfExactType<TraleApp>();
     return Theme.of(context).brightness == Brightness.light
-      ? result?.traleNotifier.theme.light(context)
-      : (result != null && result.traleNotifier.isAmoled)
+        ? result?.traleNotifier.theme.light(context)
+        : (result != null && result.traleNotifier.isAmoled)
         ? result.traleNotifier.theme.amoled(context)
         : result?.traleNotifier.theme.dark(context);
   }
 
   /// seed color
   late Color seedColor;
+
   /// if dark mode on
   late Brightness brightness;
+
   /// scheme variant
   late DynamicSchemeVariant schemeVariant;
+
+  /// Get border radius
+  double get borderRadius => 16;
+
+  /// Get inner border radius
+  double get innerBorderRadius => 4;
+
   /// Border shape
   final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
@@ -108,20 +118,25 @@ class TraleTheme {
   final RoundedRectangleBorder innerBorderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(4),
   );
+
   /// Padding value
   final double padding = 16;
+
   /// Space value between two elements
   final double space = 2;
+
   /// if true make background true black
   late bool isAmoled;
+
   /// contrast level
   late double contrast;
-  /// Get border radius
-  double get borderRadius => 16;
 
   /// get transition durations
-  final TransitionDuration transitionDuration =
-    TransitionDuration(100, 200, 500);
+  final TransitionDuration transitionDuration = TransitionDuration(
+    100,
+    200,
+    500,
+  );
 
   /// get duration of snackbar
   final Duration snackbarDuration = const Duration(seconds: 5);
@@ -138,46 +153,50 @@ class TraleTheme {
 
   /// get elevated shade of clr
   Color colorOfElevation(double elevation, Color clr) => Color.alphaBlend(
-    getFontColor(clr).withValues(
-        alpha: overlayOpacity(elevation)
-    ), clr,
+    getFontColor(clr).withValues(alpha: overlayOpacity(elevation)),
+    clr,
   );
+
   /// 24 elevation shade of bg
   Color get bgShade1 => bgElevated(24);
+
   /// 6 elevation shade of bg
   Color get bgShade2 => bgElevated(6);
+
   /// 2 elevation shade of bg
   Color get bgShade3 => bgElevated(2);
+
   /// 2 elevation shade of bg
   Color get bgShade4 => bgElevated(1);
+
   /// get elevated shade of bg
-  Color bgElevated(double elevation) => colorOfElevation(
-      elevation, themeData.colorScheme.surface
-  );
+  Color bgElevated(double elevation) =>
+      colorOfElevation(elevation, themeData.colorScheme.surface);
 
   /// get header color of dialog
   Color? get dialogHeaderColor => isDark
-    ? colorElevated(
-      themeData.dialogTheme.backgroundColor!,
-      themeData.dialogTheme.elevation!,
-    )
-    : themeData.dialogTheme.backgroundColor;
+      ? colorElevated(
+          themeData.dialogTheme.backgroundColor!,
+          themeData.dialogTheme.elevation!,
+        )
+      : themeData.dialogTheme.backgroundColor;
 
   /// get background color of dialog
   Color get dialogColor => isDark
-    ? colorElevated(
-      themeData.dialogTheme.backgroundColor!,
-      themeData.dialogTheme.elevation! / 4,
-    )
-    : bgShade3;
+      ? colorElevated(
+          themeData.dialogTheme.backgroundColor!,
+          themeData.dialogTheme.elevation! / 4,
+        )
+      : bgShade3;
 
   /// color threshold for grey
   final double colorThreshold = 25 / 255;
 
   /// get if seed color is shade of grey
-  bool get isGrey => (seedColor.r - seedColor.g).abs() < colorThreshold
-      && (seedColor.g - seedColor.b).abs() < colorThreshold
-      && (seedColor.r - seedColor.b).abs() < colorThreshold;
+  bool get isGrey =>
+      (seedColor.r - seedColor.g).abs() < colorThreshold &&
+      (seedColor.g - seedColor.b).abs() < colorThreshold &&
+      (seedColor.r - seedColor.b).abs() < colorThreshold;
 
   /// get corresponding ThemeData
   ThemeData get themeData {
@@ -187,17 +206,20 @@ class TraleTheme {
       brightness: brightness,
       contrastLevel: contrast,
       dynamicSchemeVariant: isGrey
-        ? DynamicSchemeVariant.monochrome
-        : schemeVariant,
+          ? DynamicSchemeVariant.monochrome
+          : schemeVariant,
     ).harmonized();
     if (isAmoled) {
       colorScheme = colorScheme.copyWith(surface: Colors.black).harmonized();
     }
 
     // Create a TextTheme and ColorScheme, that we can use to generate ThemeData
-    final TextTheme txtTheme = ThemeData.from(
-      colorScheme: colorScheme,
-    ).textTheme.apply(fontFamily: 'Lexend');
+    final TextTheme txtTheme = ThemeData.from(colorScheme: colorScheme)
+        .textTheme
+        .apply(
+          fontFamily: 'RobotoFlex',
+          fontFamilyFallback: <String>['Roboto', 'Noto Sans'],
+        );
 
     final ListTileThemeData listTileThemeData = ListTileThemeData(
       shape: RoundedRectangleBorder(
@@ -205,68 +227,76 @@ class TraleTheme {
       ),
     );
 
-    const SliderThemeData sliderTheme = SliderThemeData(
-      year2023: false,
-    );
+    const SliderThemeData sliderTheme = SliderThemeData(year2023: false);
 
     const CardThemeData cardTheme = CardThemeData(
       shadowColor: Colors.transparent,
     );
 
     const ProgressIndicatorThemeData progressIndicatorTheme =
-      ProgressIndicatorThemeData(year2023: false);
+        ProgressIndicatorThemeData(year2023: false);
 
     /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
-    final ThemeData theme = ThemeData.from(
-      textTheme: txtTheme,
-      colorScheme: colorScheme,
-      useMaterial3: true,
-    ).copyWith(
-      listTileTheme: listTileThemeData,
-      sliderTheme: sliderTheme,
-      cardTheme: cardTheme,
-      progressIndicatorTheme: progressIndicatorTheme,
-      pageTransitionsTheme: const PageTransitionsTheme(
-        builders: <TargetPlatform, PageTransitionsBuilder>{
-          // Set the predictive back transitions for Android.
-          TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
-        },
-      ),
-    );
+    final ThemeData theme =
+        ThemeData.from(
+          textTheme: txtTheme,
+          colorScheme: colorScheme,
+          useMaterial3: true,
+        ).copyWith(
+          listTileTheme: listTileThemeData,
+          sliderTheme: sliderTheme,
+          cardTheme: cardTheme,
+          progressIndicatorTheme: progressIndicatorTheme,
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              // Set the predictive back transitions for Android.
+              TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+            },
+          ),
+        );
 
     /// Return the themeData which MaterialApp can now use
     return theme;
   }
 
   /// return amoled version with true black
-  TraleTheme get amoled{
+  TraleTheme get amoled {
     return copyWith(isAmoled: true);
   }
 }
-
 
 /// defining all themes
 enum TraleCustomTheme {
   /// system theme A12+
   system,
+
   /// blue theme
   water,
+
   /// berry theme
   berry,
+
   /// sand theme
   sand,
+
   /// red theme
   fire,
+
   /// blue yellow theme
   lemon,
+
   /// greenish theme
   forest,
+
   /// plum theme
   plum,
+
   /// teal theme
   teal,
+
   /// coffee theme
   coffee,
+
   /// amber theme
   amber,
 }
@@ -276,7 +306,7 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   /// get seed color of theme
   Color seedColor(BuildContext context) => <TraleCustomTheme, Color>{
     TraleCustomTheme.system:
-      Provider.of<TraleNotifier>(context, listen: false).systemColorsAvailable
+        Provider.of<TraleNotifier>(context, listen: false).systemColorsAvailable
         ? Provider.of<TraleNotifier>(context, listen: false).systemSeedColor
         : const Color(0xFF000000),
     TraleCustomTheme.fire: const Color(0xFFb52528),
@@ -293,13 +323,13 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
 
   /// get contrast level
   double contrast(BuildContext context) =>
-    Provider.of<TraleNotifier>(context, listen: false).contrastLevel.contrast;
+      Provider.of<TraleNotifier>(context, listen: false).contrastLevel.contrast;
 
   DynamicSchemeVariant schemeVariant(BuildContext context) =>
-      Provider
-          .of<TraleNotifier>(context, listen: false)
-          .schemeVariant
-          .schemeVariant;
+      Provider.of<TraleNotifier>(
+        context,
+        listen: false,
+      ).schemeVariant.schemeVariant;
 
   /// get corresponding light theme
   TraleTheme light(BuildContext context) => TraleTheme(
@@ -352,6 +382,7 @@ extension CustomThemeModeParsing on String {
     'auto': ThemeMode.system,
   }[this]!;
 }
+
 /// convert ThemeMode to String
 extension CustomThemeModeEncoding on ThemeMode {
   /// convert Thememode
@@ -362,7 +393,7 @@ extension CustomThemeModeEncoding on ThemeMode {
   }[this]!;
 
   /// get international name
-  String nameLong (BuildContext context) => <ThemeMode, String>{
+  String nameLong(BuildContext context) => <ThemeMode, String>{
     ThemeMode.dark: AppLocalizations.of(context)!.darkmode,
     ThemeMode.light: AppLocalizations.of(context)!.lightmode,
     ThemeMode.system: AppLocalizations.of(context)!.systemmode,
@@ -387,85 +418,83 @@ extension CustomThemeModeEncoding on ThemeMode {
 @immutable
 class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
   /// constructor
-  const TraleThemeExtension({
-    @required this.padding,
-  });
+  const TraleThemeExtension({@required this.padding});
 
   /// global padding parameter
   final double? padding;
 
   /// create getter for onPrimaryContainer textTheme
-  TextTheme primaryContainerTextTheme (BuildContext context) =>
-    Theme.of(context).textTheme.apply(
-      bodyColor: Theme.of(context).colorScheme.onPrimaryContainer,
-      displayColor: Theme.of(context).colorScheme.onPrimaryContainer,
-      decorationColor: Theme.of(context).colorScheme.onPrimaryContainer,
-    );
+  TextTheme primaryContainerTextTheme(BuildContext context) =>
+      Theme.of(context).textTheme.apply(
+        bodyColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        displayColor: Theme.of(context).colorScheme.onPrimaryContainer,
+        decorationColor: Theme.of(context).colorScheme.onPrimaryContainer,
+      );
 
   @override
   TraleThemeExtension copyWith({double? padding}) {
-    return TraleThemeExtension(
-      padding: padding ?? this.padding,
-    );
+    return TraleThemeExtension(padding: padding ?? this.padding);
   }
 
   @override
   TraleThemeExtension lerp(
-      ThemeExtension<TraleThemeExtension>? other, double t,
+    ThemeExtension<TraleThemeExtension>? other,
+    double t,
   ) {
     if (other is! TraleThemeExtension) {
       return this;
     }
-    return TraleThemeExtension(
-      padding: lerpDouble(padding, other.padding, t)
-    );
+    return TraleThemeExtension(padding: lerpDouble(padding, other.padding, t));
   }
 }
 
 /// extension of theme
 extension ColorTextThemeExtension on TextStyle {
-  TextStyle onSecondaryContainer(BuildContext context) => copyWith(
-    color: Theme.of(context).colorScheme.onSecondaryContainer,
-  );
-  TextStyle onSurface(BuildContext context) => copyWith(
-    color: Theme.of(context).colorScheme.onSurface,
-  );
-  TextStyle onSurfaceVariant(BuildContext context) => copyWith(
-    color: Theme.of(context).colorScheme.onSurfaceVariant,
-  );
+  TextStyle onSecondaryContainer(BuildContext context) =>
+      copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer);
+  TextStyle onSurface(BuildContext context) =>
+      copyWith(color: Theme.of(context).colorScheme.onSurface);
+  TextStyle onSurfaceVariant(BuildContext context) =>
+      copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
 }
 
 /// enum of all DynamicSchemeVariants
 enum TraleSchemeVariant {
-  /// material
-  material,
-  /// material2 colors
-  material2,
-  /// neutral colors
-  neutral,
-  /// vibrant colors
-  vibrant,
   /// expressive colors
   expressive,
+
+  /// material
+  material,
+
+  /// neutral colors
+  neutral,
+
+  /// vibrant colors
+  vibrant,
+
   /// monochrome
   monochrome,
+
   /// content similar to fidelity but matches seed color
   seed,
+
+  /// material2 colors
+  material2,
 }
 
 /// extend adonisThemes with adding AdonisTheme attributes
 extension TraleSchemeVariantExtension on TraleSchemeVariant {
   /// get seed color of theme
   DynamicSchemeVariant get schemeVariant =>
-    <TraleSchemeVariant, DynamicSchemeVariant>{
-    TraleSchemeVariant.material: DynamicSchemeVariant.tonalSpot,
-    TraleSchemeVariant.material2: DynamicSchemeVariant.fidelity,
-    TraleSchemeVariant.neutral: DynamicSchemeVariant.neutral,
-    TraleSchemeVariant.vibrant: DynamicSchemeVariant.vibrant,
-    TraleSchemeVariant.expressive: DynamicSchemeVariant.expressive,
-    TraleSchemeVariant.monochrome: DynamicSchemeVariant.monochrome,
-    TraleSchemeVariant.seed: DynamicSchemeVariant.content,
-  }[this]!;
+      <TraleSchemeVariant, DynamicSchemeVariant>{
+        TraleSchemeVariant.material: DynamicSchemeVariant.tonalSpot,
+        TraleSchemeVariant.material2: DynamicSchemeVariant.fidelity,
+        TraleSchemeVariant.neutral: DynamicSchemeVariant.neutral,
+        TraleSchemeVariant.vibrant: DynamicSchemeVariant.vibrant,
+        TraleSchemeVariant.expressive: DynamicSchemeVariant.expressive,
+        TraleSchemeVariant.monochrome: DynamicSchemeVariant.monochrome,
+        TraleSchemeVariant.seed: DynamicSchemeVariant.content,
+      }[this]!;
 
   /// get string expression
   String get name => toString().split('.').last;
