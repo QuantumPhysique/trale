@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: ⚙️ Setup Java
         uses: actions/setup-java@v5
         with:
@@ -70,7 +70,7 @@ jobs:
           export ARTIFACT_NAME="${BRANCH_NAME////\_}"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
       - name: ⬆️ 📦 Upload apks
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: "${{ env.ARTIFACT_NAME }}"
           path: "app/build/app/outputs/flutter-apk/*.apk"
