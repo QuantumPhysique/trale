@@ -6,7 +6,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
-import 'package:trale/pages/settingsExport.dart';
+import 'package:trale/pages/settings_export.dart';
 import 'package:trale/pages/settingsPersonalization.dart';
 import 'package:trale/pages/settingsLanguage.dart';
 import 'package:trale/pages/settingsTheme.dart';

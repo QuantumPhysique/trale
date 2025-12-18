@@ -2,23 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/backupInterval.dart';
-import 'package:trale/core/firstDay.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/interpolation.dart';
-import 'package:trale/core/interpolationPreview.dart';
-import 'package:trale/core/printFormat.dart';
 
-import 'package:trale/core/stringExtension.dart';
+import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/ioWidgets.dart';
-import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/tile_group.dart';
-import 'package:trale/widget/userDialog.dart';
 
 class ExportSettingsPage extends StatefulWidget {
   const ExportSettingsPage({super.key});
@@ -44,7 +36,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
             listen: false,
           ).dateFormat(context).format(date);
 
-    final List<Widget> sliverlist = <Widget>[
+    final List<Widget> sliverList = <Widget>[
       WidgetGroup(
         title: AppLocalizations.of(context)!.export,
         children: <Widget>[
@@ -88,29 +80,44 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
       ),
       WidgetGroup(
         title: AppLocalizations.of(context)!.import,
-        children: <Widget>[const ImportListTile()],
+        children: const <Widget>[ImportListTile()],
       ),
       GroupedText(
         text: Text(
-          "You can import data. This will not delete your current data, "
-          "but duplicate entries will be ignored."
-          ".txt and .csv files from OpenScales are supported."
-          "In .csv the columns have to be named 'weight' and 'dateTime' "
-          "otherwise the first column is parsed as date and the second as "
-          "weight.",
+          AppLocalizations.of(context)!.importLongDescription,
           style: Theme.of(context).textTheme.bodyMedium,
+          textAlign: TextAlign.justify,
+        ),
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
+        child: WidgetGroup(
+          children: <GroupedText>[
+            for (final String fmt in <String>[
+              '2025-12-24T16:00 67.9',
+              '2025-12-24 67.9',
+            ])
+              GroupedText(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                text: Text(
+                  fmt,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+          ],
         ),
       ),
       WidgetGroup(
         title: AppLocalizations.of(context)!.dangerzone,
-        children: <Widget>[const ResetListTile()],
+        children: const <Widget>[ResetListTile()],
       ),
     ];
 
     return Scaffold(
       body: SliverAppBarSnap(
         title: AppLocalizations.of(context)!.backup,
-        sliverlist: sliverlist,
+        sliverlist: sliverList,
       ),
     );
   }

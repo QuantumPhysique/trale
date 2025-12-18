@@ -168,9 +168,9 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "Import measurements from .txt backup file.",
+    "importSubtitle": "Import measurements from .txt backup or .csv file.",
     "@importSubtitle": {
-        "description": "Import measurements from txt backup file."
+        "description": "Import measurements from txt backup or .csv file."
     },
     "amoled": "Black",
     "@amoled": {
@@ -509,5 +509,9 @@
     "userDialogTitle": "User settings",
     "@userDialogTitle": {
         "description": "User settings"
+    },
+    "importLongDescription": "You can import data. This will not delete your existing data and any duplicate entries will be ignored. 'txt' files from trale and 'csv' files from OpenScales are supported. In 'csv' files, the columns must be named 'weight' and 'datetime'; otherwise, the first column will be parsed as a date and the second as a weight. If you are using a custom 'txt' file, it should have one of the following formats:",
+    "@importLongDescription": {
+      "description": "Explanation of which files are supported by import."
     }
 }
