@@ -10,14 +10,15 @@ extension GapListExtension on List<Widget> {
     /// offset of 1 means no gap at start and end
     int offset = 0,
   }) {
+    final List<Widget> list = <Widget>[...this];
     final Widget gap = SizedBox(
       height: direction == Axis.vertical ? padding : 0,
       width: direction == Axis.horizontal ? padding : 0,
     );
     for (int i=length - offset; i >= offset; i--) {
-      insert(i, gap);
+      list.insert(i, gap);
     }
-    return this;
+    return list;
   }
 }
 

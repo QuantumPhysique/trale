@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
@@ -210,9 +211,7 @@ Future<bool> importBackup(BuildContext context) async {
                         ),
                         child: AutoSizeText(
                           newMeasurements[index].measureToString(context, ws: 8),
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontFamily: 'CourierPrime',
-                          ),
+                          style: Theme.of(context).textTheme.monospace.bodyLarge,
                           maxLines: 1,
                         ),
                       ),

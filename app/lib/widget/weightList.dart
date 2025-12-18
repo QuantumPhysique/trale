@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/statsCards.dart';
+import 'package:trale/widget/statsCards.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/weightListTile.dart';
@@ -64,14 +65,6 @@ class _WeightList extends State<WeightList>{
 
   @override
   Widget build(BuildContext context) {
-    double getIntervalStart(int i) {
-      const int maximalShownListTile = 15;
-      if (maximalShownListTile < widget.measurements.length) {
-        return <double>[i / maximalShownListTile, 1].reduce(min).toDouble();
-      } else {
-        return i / widget.measurements.length;
-      }
-    }
 
     void updateActiveListTile(int? key){
       setState(() {
@@ -82,10 +75,8 @@ class _WeightList extends State<WeightList>{
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int i) => AnimateInEffect(
-          keepAlive: widget.keepAlive,
           durationInMilliseconds: widget.durationInMilliseconds,
           delayInMilliseconds: widget.delayInMilliseconds,
-          intervalStart: getIntervalStart(i),
           child: WeightListTile(
             measurement: widget.measurements[i],
             updateActiveState: updateActiveListTile,
@@ -189,7 +180,6 @@ class _TotalWeightList extends State<TotalWeightList>{
                 child: getYearWidget(
                   year: '$year',
                   context: context,
-                  delayInMilliseconds: widget.delayInMilliseconds,
                 ),
               ),
               WeightList(
@@ -219,20 +209,16 @@ Widget getYearWidget({required BuildContext context,
   return Padding(
     padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
     child: StatCard(
+      pillShape: true,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       delayInMilliseconds: delayInMilliseconds,
       childWidget: Center(
-        child: Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-          child: AutoSizeText(
-            year,
-            style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700,
-              fontSize: Theme.of(context).textTheme.displayLarge!.fontSize,
-            ),
-            maxLines: 1,
+        child: Text(
+          year,
+          style: Theme.of(context).textTheme.emphasized.displayLarge!.apply(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     ),
