@@ -132,6 +132,14 @@
     "@theme": {
         "description": "Theme menu item."
     },
+    "translate": "translate",
+    "@translate": {
+      "description": "translate {trale}"
+    },
+    "translateSubtitle": "Help translate the app",
+    "@translateSubtitle": {
+      "description": "translate subtitle"
+    },
     "darkmode": "Dark",
     "@darkmode": {
         "description": "Dark mode menu item."
@@ -462,9 +470,21 @@
     "@totalChange": {
         "description": "The quantity describing the overall change of body weight"
     },
-    "schemeVariant": "scheme variant",
+    "schemeVariant": "Scheme variant",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "Choose a variant to determine how the color scheme is created from the selected seed color.",
+    "@schemeVariantDescription": {
+      "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Choose a seed color to determine the color scheme.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "additional settings",
+    "@additionalSettings": {
+        "description": "additional settings"
     },
     "mean": "mean",
     "@mean": {

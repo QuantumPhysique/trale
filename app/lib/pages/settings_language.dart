@@ -21,8 +21,8 @@ class LanguageSettingsPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.translate,
-        title: 'Translate trale',
-        subtitle: 'Help translate the app',
+        title: "${AppLocalizations.of(context)!.translate} trale",
+        subtitle: AppLocalizations.of(context)!.translateSubtitle,
         url: 'https://hosted.weblate.org/engage/trale/',
       ),
       SizedBox(height: 2 * TraleTheme.of(context)!.padding),

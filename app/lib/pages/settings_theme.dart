@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/contrast.dart';
 import 'package:trale/core/font.dart';
+import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
@@ -151,7 +151,7 @@ class SchemeVariantSelection extends StatelessWidget {
         (notifier.themeMode == ThemeMode.system &&
             Theme.of(context).brightness == Brightness.dark);
     final double padding = TraleTheme.of(context)!.padding;
-    final List<TraleSchemeVariant> variants = TraleSchemeVariant.values;
+    const List<TraleSchemeVariant> variants = TraleSchemeVariant.values;
 
     Widget previewBuilder(BuildContext ctx, TraleSchemeVariant variant) {
       // Create a temporary theme with this scheme variant applied to derive colors.
@@ -208,7 +208,7 @@ class ThemeSelection extends StatelessWidget {
             Theme.of(context).brightness == Brightness.dark);
     final double padding = TraleTheme.of(context)!.padding;
 
-    List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+    final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
     if (!traleNotifier.systemColorsAvailable) {
       cthemes.remove(TraleCustomTheme.system);
     }
@@ -385,7 +385,9 @@ class _SelectionCarouselState<T> extends State<SelectionCarousel<T>> {
           final Widget carousel = buildCarousel();
           final bool hasBoundedHeight =
               constraints.hasBoundedHeight && constraints.maxHeight.isFinite;
-          if (hasBoundedHeight) return carousel;
+          if (hasBoundedHeight) {
+            return carousel;
+          }
 
           final double width =
               constraints.hasBoundedWidth && constraints.maxWidth.isFinite
@@ -538,7 +540,9 @@ ShapeBorder themeItemShapeDefault(
   int length,
   bool isSelected,
 ) {
-  if (isSelected) return const StadiumBorder();
+  if (isSelected) {
+    return const StadiumBorder();
+  }
   final double outerRadius = TraleTheme.of(context)!.borderRadius;
   final double innerRadius = TraleTheme.of(context)!.innerBorderRadius;
   return RoundedRectangleBorder(
@@ -554,27 +558,39 @@ class ThemeSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> sliverlist = <Widget>[
+    final List<Widget> sliverList = <Widget>[
       WidgetGroup(
         title: AppLocalizations.of(context)!.theme,
         children: <Widget>[
+          GroupedText(
+            text: Text(
+            AppLocalizations.of(context)!.themeDescription,
+            ),
+          ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: const ThemeSelection(),
           ),
         ],
       ),
+
       WidgetGroup(
         title: AppLocalizations.of(context)!.schemeVariant,
         children: <Widget>[
+          GroupedText(
+            text: Text(
+              AppLocalizations.of(context)!.schemeVariantDescription,
+            ),
+          ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: const SchemeVariantSelection(),
           ),
         ],
       ),
-      const WidgetGroup(
-        children: <Widget>[
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.additionalSettings,
+        children: const <Widget>[
           DarkModeListTile(),
           AmoledListTile(),
           ContrastLevelSetting(),
@@ -585,7 +601,7 @@ class ThemeSettingsPage extends StatelessWidget {
     return Scaffold(
       body: SliverAppBarSnap(
         title: AppLocalizations.of(context)!.theme,
-        sliverlist: sliverlist,
+        sliverlist: sliverList,
       ),
     );
   }
