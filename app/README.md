@@ -15,6 +15,29 @@ For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Material 3 Expressive Color System
+
+Trale now supports the Material 3 Expressive color system. The `TraleTheme` class provides access to the following color roles:
+
+### Fixed Colors
+These colors remain consistent across light and dark themes:
+- `primaryFixed`, `secondaryFixed`, `tertiaryFixed`
+- `primaryFixedDim`, `secondaryFixedDim`, `tertiaryFixedDim`
+- `onPrimaryFixed`, `onSecondaryFixed`, `onTertiaryFixed`
+- `onPrimaryFixedVariant`, `onSecondaryFixedVariant`, `onTertiaryFixedVariant`
+
+### Usage Example
+```dart
+Container(
+  color: TraleTheme.of(context)!.primaryFixed,
+  child: Text(
+    'Fixed color text',
+    style: TextStyle(color: TraleTheme.of(context)!.onPrimaryFixed),
+  ),
+)
+```
+
+For more information about Material 3 color roles, see: https://m3.material.io/styles/color/roles
 
 ## Developing
 
