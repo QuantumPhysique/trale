@@ -9,10 +9,7 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/statScreen.dart';
-import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/appDrawer.dart';
-import 'package:trale/widget/customSliverAppBar.dart';
-import 'package:trale/widget/floatingActionButton.dart';
+import 'package:trale/screens/daily_entry_screen.dart';
 
 
 /// home scaffold
@@ -83,21 +80,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
 
   /// on pressing FAB button
   Future<void> onFABpress() async {
-    final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
-    setState(() {
-      popupShown = true;
-    });
-    await showAddWeightDialog(
-      context: context,
-      weight: measurements.isNotEmpty
-          ? measurements.first.measurement.weight.toDouble()
-          : Preferences().defaultUserWeight,
-      date: DateTime.now(),
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const DailyEntryScreen(),
+      ),
     );
-    setState(() {
-      popupShown = false;
-    });
+
+    // Refresh data if entry was saved
+    if (result == true) {
+      setState(() {
+        // Trigger refresh of data
+      });
+    }
   }
   void handlePageChanged(int selectedPage) {
     setState(() {
