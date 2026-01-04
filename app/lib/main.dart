@@ -7,6 +7,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/database/database_helper.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/splash.dart';
 
