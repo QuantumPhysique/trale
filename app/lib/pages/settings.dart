@@ -14,7 +14,9 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/database/database_helper.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/models/user_profile.dart';
 import 'package:trale/widget/coloredContainer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/ioWidgets.dart';
@@ -834,6 +836,119 @@ class LooseWeightListTile extends StatelessWidget {
   }
 }
 
+/// ListTile for changing height settings
+class HeightListTile extends StatefulWidget {
+  /// constructor
+  const HeightListTile({super.key});
+
+  @override
+  State<HeightListTile> createState() => _HeightListTileState();
+}
+
+class _HeightListTileState extends State<HeightListTile> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<UserProfile?>(
+      future: DatabaseHelper.instance.getUserProfile(),
+      builder: (context, snapshot) {
+        final profile = snapshot.data;
+        final height = profile?.initialHeight;
+        final unit = profile?.preferredUnits == 'metric' ? 'cm' : 'in';
+
+        return ListTile(
+          dense: true,
+          title: AutoSizeText(
+            'Height',
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 2 * TraleTheme.of(context)!.padding,
+          ),
+          subtitle: AutoSizeText(
+            height != null ? '$height $unit' : 'Not set',
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => _showHeightUpdateDialog(),
+        );
+      },
+    );
+  }
+
+  Future<void> _showHeightUpdateDialog() async {
+    final profile = await DatabaseHelper.instance.getUserProfile();
+    final currentHeight = profile?.initialHeight?.toString() ?? '';
+    final currentUnit = profile?.preferredUnits ?? 'metric';
+
+    final controller = TextEditingController(text: currentHeight);
+    String selectedUnit = currentUnit;
+
+    await showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          title: const Text('Update Height'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SegmentedButton<String>(
+                segments: const [
+                  ButtonSegment(value: 'metric', label: Text('cm')),
+                  ButtonSegment(value: 'imperial', label: Text('in')),
+                ],
+                selected: {selectedUnit},
+                onSelectionChanged: (Set<String> newSelection) {
+                  setState(() => selectedUnit = newSelection.first);
+                },
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  suffix: Text(selectedUnit == 'metric' ? 'cm' : 'in'),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () async {
+                final newHeight = double.tryParse(controller.text);
+                if (newHeight != null) {
+                  final updatedProfile = UserProfile(
+                    initialHeight: newHeight,
+                    heightHistory: [
+                      ...?profile?.heightHistory,
+                      HeightEntry(date: DateTime.now(), height: newHeight),
+                    ],
+                    preferredUnits: selectedUnit,
+                  );
+                  await DatabaseHelper.instance.saveUserProfile(updatedProfile);
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    // Refresh the tile
+                    setState(() {});
+                  }
+                }
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    controller.dispose();
+  }
+}
+
 /// about screen widget class
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -894,6 +1009,7 @@ class _Settings extends State<Settings> {
           const UnitsListTile(),
           const FirstDayListTile(),
           const DatePrintListTile(),
+          const HeightListTile(),
           Divider(
             height: 2 * TraleTheme.of(context)!.padding,
           ),

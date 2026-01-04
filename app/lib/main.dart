@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
@@ -10,6 +11,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/database/database_helper.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/splash.dart';
+import 'package:trale/screens/onboarding_screen.dart';
 
 
 const String measurementBoxName = 'measurements';
@@ -24,6 +26,9 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<Measurement>(MeasurementAdapter());
   await Hive.openBox<Measurement>(measurementBoxName);
+
+  // Initialize database
+  await DatabaseHelper.instance.database;
 
   return runApp(
     ChangeNotifierProvider<TraleNotifier>.value(
@@ -80,14 +85,52 @@ class TraleMainApp extends StatelessWidget {
             traleNotifier: traleNotifier,
             routes: <String, Widget Function(BuildContext)>{
               '/': (BuildContext context) {
+                return const AppInitializer();
+              },
+              '/home': (BuildContext context) {
                 return const Splash();
-              }
+              },
+              '/onboarding': (BuildContext context) {
+                return const OnboardingScreen();
+              },
             },
             light: traleNotifier.theme.light(context),
             dark: traleNotifier.theme.dark(context),
             amoled: traleNotifier.theme.amoled(context),
           );
       }
+    );
+  }
+}
+
+class AppInitializer extends StatelessWidget {
+  const AppInitializer({Key? key}) : super(key: key);
+
+  Future<bool> _checkOnboardingStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('onboarding_completed') ?? false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+      future: _checkOnboardingStatus(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final isOnboardingCompleted = snapshot.data ?? false;
+
+        // Show onboarding if not completed, otherwise home screen
+        if (isOnboardingCompleted) {
+          return const Splash(); // Your existing home screen
+        } else {
+          return const OnboardingScreen();
+        }
+      },
     );
   }
 }
