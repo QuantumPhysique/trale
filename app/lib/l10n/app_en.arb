@@ -533,5 +533,57 @@
     "importLongDescription": "You can import data. This will not delete your existing data and any duplicate entries will be ignored. 'txt' files from trale and 'csv' files from OpenScales are supported. In 'csv' files, the columns must be named 'weight' and 'datetime'; otherwise, the first column will be parsed as a date and the second as a weight. If you are using a custom 'txt' file, it should have one of the following formats:",
     "@importLongDescription": {
       "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Donation",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Support the development of trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Customization",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalization",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Customize your experience",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Set the color scheme",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Set the language",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Data settings",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Import and export",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Save and load your data",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "About the app",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Find answers to common questions",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Version and license information",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
     }
 }
