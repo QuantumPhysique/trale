@@ -1,53 +1,111 @@
-<div align="center">
-    <img src="fastlane/metadata/android/en-US/images/featureGraphic.png" />
-    <a href="https://www.gnu.org/licenses/agpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="AGPLv3+ license badge" />
-    <a href="https://github.com/QuantumPhysique/trale/releases" alt="GitHub releases"><img src="https://img.shields.io/github/release/QuantumPhysique/trale.svg" alt="Release version badge" />
-    <a href="https://hosted.weblate.org/engage/trale/"><img src="https://hosted.weblate.org/widget/trale/localizations/svg-badge.svg" alt="Translation status badge" />
-</a>
-</div>
+# Trale+ 🏋️
 
-# A simple body-weight diary app respecting your privacy.
+A complete fitness journal app for tracking weight, workouts, photos, thoughts, and emotions - all while respecting your privacy.
 
-Lock in your optimal weight by losing or gaining with this simple, material design app.
+## Features ✨
 
-Join our community today 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+### Track Everything
+- **Weight & BMI**: Log your weight and height with automatic BMI calculation
+- **Progress Photos**: Up to 3 photos per day with EXIF metadata stripped for privacy
+- **Workouts**: Text-based workout logging with custom tags
+- **Thoughts**: Free-form daily journal entries
+- **Emotions**: Select up to 4 emotions from 8 core feelings
 
+### Privacy First 🔒
+- All data stays on your device (no cloud sync)
+- Photo EXIF data automatically stripped (GPS, device info removed)
+- No analytics or tracking
+- No permissions beyond camera and photos
+- Open source and verifiable
+
+### Beautiful & Modern
+- Material Design 3
+- Dark mode support
+- Smooth animations
+- Intuitive sectioned entry interface
 
 ## Installation
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/de.quantumphysique.trale)
-[<img alt="Get it on Accrescent" src="https://accrescent.app/badges/get-it-on.png" height="80">](https://accrescent.app/app/de.quantumphysique.trale)
-[<img alt="Get it on openapk.net" src="https://www.openapk.net/images/openapk-badge.png" height="80">](https://www.openapk.net/trale/de.quantumphysique.trale/)
-[<img alt="Get it on androidfreeware.net" src="https://www.androidfreeware.net/images/androidfreeware-badge.png" height="80">](https://www.androidfreeware.net/get-trale-apk.html)
-[<img alt="Get it on obtainium" src="https://github.com/user-attachments/assets/713d71c5-3dec-4ec4-a3f2-8d28d025a9c6" height="80">](http://apps.obtainium.imranr.dev/redirect.html?r=obtainium://app/%7B%22id%22%3A%22de.quantumphysique.trale%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2FQuantumPhysique%2Ftrale%22%2C%22author%22%3A%22QuantumPhysique%22%2C%22name%22%3A%22trale%22%2C%22additionalSettings%22%3A%22%7B%5C%22includePrereleases%5C%22%3Afalse%7D%22%7D)
+### F-Droid
+Coming soon!
 
-Preferably use F-Droid. \
-The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) can also be downloaded here.
-
-## Why trale 🐺?
-- Truly **gratis**: No annoying advertising, no tracker
-- Modern appearance using **Material Design 3**
-- **Customizable**: Many custom themes, **dark mode**, and several **units**
-- Track your **progress** with state-of-the-art data modeling 🧑‍💻
-- Import and export of your measurements
-- **Privacy**: No permissions and we do not collect any data
-- **<a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Copylefted libre software</a>**: Our words are not just empty promises
-
-## Upcoming features 🚀
-- [ ] Achievements and motivational messages
-- [ ] Add to Google Play store
+### Manual Installation
+1. Download the latest APK from [Releases](https://github.com/heets99/trale-plus/releases)
+2. Install on your Android device
+3. Grant camera and photos permissions when prompted
 
 ## Screenshots
-<div align="center">
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" />
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" />
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" />
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" />
-</div>
 
-## FAQ
-##### I found a bug
-Please open a new <a href="https://github.com/QuantumPhysique/trale/issues">issue</a>.
+[Add screenshots here]
+
+## Development
+
+### Requirements
+- Flutter 3.16+
+- Android SDK 21+
+
+### Setup
+```bash
+git clone https://github.com/heets99/trale-plus.git
+cd trale-plus
+git checkout plus
+flutter pub get
+flutter run
+```
+
+### Testing
+```bash
+flutter test
+```
+
+### Building
+```bash
+flutter build apk --release
+```
+
+## Privacy Policy
+
+Trale+ is designed with privacy at its core:
+
+- **Local Storage**: All data is stored locally on your device using SQLite database
+- **No Network**: App does not require or use internet connectivity
+- **EXIF Stripping**: Photos are processed to remove all metadata (GPS location, device info, timestamps)
+- **No Tracking**: No analytics, crash reporting, or telemetry
+- **Open Source**: Code is publicly auditable
+
+### Permissions Used
+
+- **Camera**: To capture progress photos
+- **Photos (Android 13+) / Storage (Android 12 and below)**: To select images from gallery
+
+## Roadmap 🚀
+
+### Future Features
+- Data visualization and charts
+- Goal setting and tracking
+- Exercise library
+- Meal logging
+- Calendar view
+- Data import functionality
+- Widget for home screen
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Credits
+
+Based on the original [trale](https://github.com/QuantumPhysique/trale) app by QuantumPhysique.
+
+Extended to include comprehensive fitness journal features while maintaining the privacy-first philosophy.
+
+## License
+
+GNU AGPLv3+
+
+## Support
+
+Found a bug or have a feature request? Please open an issue.
 
 ##### Will this app stay gratis?
 This app will always be gratis on F-Droid with all features.

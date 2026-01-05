@@ -1,5 +1,46 @@
 # Changelog
 
+All notable changes to Trale+ will be documented in this file.
+
+## [2.0.0] - 2026-01-04
+
+### Added - Fitness Journal Features
+- **Progress Photos**: Capture up to 3 photos per day with automatic EXIF stripping
+- **Workout Logging**: Text-based workout entries with customizable tags
+- **Thoughts Journal**: Free-form daily journal entries (up to 2000 characters)
+- **Emotion Tracking**: Select up to 4 emotions from 8 core feelings
+- **Height Tracking**: Initial height entry with update history
+- **BMI Calculation**: Automatic BMI calculation with color-coded categories
+- **Entry Timeline**: View all entries in reverse chronological order
+- **Entry Detail View**: Full-screen detailed view of each entry
+- **Data Export**: Backup all entries to JSON file
+- **Storage Info**: View app storage usage statistics
+- **Privacy Policy**: In-app privacy statement
+
+### Enhanced
+- **Database**: Migrated to comprehensive daily entry model
+- **Onboarding**: 3-page welcome flow with height entry
+- **Settings**: Complete settings screen with user preferences
+- **UI**: Material Design 3 throughout
+- **Privacy**: Photo EXIF metadata stripping for location/device privacy
+
+### Technical
+- Upgraded to Flutter 3.16+
+- Added photo capture service with privacy features
+- Implemented sectioned daily entry interface
+- Added comprehensive CRUD operations for all data types
+- Photo storage in app-private directory
+
+---
+
+## [1.x.x] - Previous (trale original)
+
+For older versions from the original trale app, see [trale releases](https://github.com/QuantumPhysique/trale/releases)
+
+---
+
+# Original trale Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and
