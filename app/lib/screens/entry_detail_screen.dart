@@ -274,24 +274,52 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
               const SizedBox(height: 24),
             ],
 
-            // Emotions
-            if (_entry.emotions.isNotEmpty) ...[
-              _buildSectionHeader(Icons.sentiment_satisfied, 'How I Felt'),
+            // Emotional Check-ins
+            if (_entry.emotionalCheckIns.isNotEmpty) ...[
+              _buildSectionHeader(Icons.sentiment_satisfied, 'Emotional Check-Ins'),
               const SizedBox(height: 12),
-              Card(
+              ..._entry.emotionalCheckIns.map((checkIn) => Card(
+                margin: const EdgeInsets.only(bottom: 12),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: _entry.emotions
-                        .map((emoji) => Text(
-                              emoji,
-                              style: const TextStyle(fontSize: 48),
-                            ))
-                        .toList(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.access_time,
+                            size: 16,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            DateFormat('h:mm a').format(checkIn.timestamp),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Spacer(),
+                          ...checkIn.emotions.map((emoji) => 
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Text(emoji, style: const TextStyle(fontSize: 24)),
+                            )
+                          ),
+                        ],
+                      ),
+                      if (checkIn.text.isNotEmpty) ...[
+                        const SizedBox(height: 12),
+                        Text(
+                          checkIn.text,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ],
                   ),
                 ),
-              ),
+              )),
               const SizedBox(height: 24),
             ],
 

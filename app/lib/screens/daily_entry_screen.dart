@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trale/models/daily_entry.dart';
+import 'package:trale/models/emotional_checkin.dart';
 import 'package:trale/database/database_helper.dart';
 import 'package:trale/services/photo_service.dart';
 import 'package:trale/widgets/photo_viewer.dart';
@@ -33,7 +34,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
   List<String> _photoPaths = [];
   List<String> _workoutTags = [];
-  List<String> _selectedEmotions = [];
+  List<EmotionalCheckIn> _emotionalCheckIns = [];
+  
+  // Current emotional check-in being edited (for new entry form)
+  List<String> _currentEmotions = [];
+  final TextEditingController _emotionalTextController = TextEditingController();
+  
+  // Track if entry has been saved (becomes immutable)
+  bool _isEntryImmutable = false;
 
   // Track expanded sections
   final Set<String> _expandedSections = {};
@@ -62,7 +70,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       _thoughtsController.text = entry.thoughts ?? '';
       _photoPaths = List.from(entry.photoPaths);
       _workoutTags = List.from(entry.workoutTags);
-      _selectedEmotions = List.from(entry.emotions);
+      _emotionalCheckIns = List.from(entry.emotionalCheckIns);
+      _isEntryImmutable = entry.isImmutable;
     }
 
     if (mounted) {
@@ -90,12 +99,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         thoughts: _thoughtsController.text.isEmpty
             ? null
             : _thoughtsController.text,
-        emotions: _selectedEmotions,
+        emotionalCheckIns: _emotionalCheckIns,
+        isImmutable: true, // Entry becomes immutable after first save
       );
 
       await DatabaseHelper.instance.saveDailyEntry(entry);
 
       if (mounted) {
+        setState(() => _isEntryImmutable = true);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Entry saved successfully!')),
         );
@@ -104,6 +115,86 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error saving entry: $e')),
+      );
+    } finally {
+      setState(() => _isSaving = false);
+    }
+  }
+  
+  Future<void> _saveEmotionalCheckIn() async {
+    // Validate emotional check-in
+    if (_currentEmotions.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select at least one emotion')),
+      );
+      return;
+    }
+    
+    final text = _emotionalTextController.text.trim();
+    if (text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please write about your feelings')),
+      );
+      return;
+    }
+    
+    if (text.length > EmotionalCheckIn.maxTextLength) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Text must be ${EmotionalCheckIn.maxTextLength} characters or less')),
+      );
+      return;
+    }
+
+    setState(() => _isSaving = true);
+
+    try {
+      // Create new emotional check-in
+      final checkIn = EmotionalCheckIn(
+        timestamp: DateTime.now(),
+        emotions: List.from(_currentEmotions),
+        text: text,
+      );
+
+      // Add to list
+      _emotionalCheckIns.add(checkIn);
+
+      // Save updated entry with new emotional check-in
+      final entry = DailyEntry(
+        date: _selectedDate,
+        weight: _weightController.text.isEmpty
+            ? null
+            : double.parse(_weightController.text),
+        height: _heightController.text.isEmpty
+            ? null
+            : double.parse(_heightController.text),
+        photoPaths: _photoPaths,
+        workoutText: _workoutController.text.isEmpty
+            ? null
+            : _workoutController.text,
+        workoutTags: _workoutTags,
+        thoughts: _thoughtsController.text.isEmpty
+            ? null
+            : _thoughtsController.text,
+        emotionalCheckIns: _emotionalCheckIns,
+        isImmutable: _isEntryImmutable,
+      );
+
+      await DatabaseHelper.instance.saveDailyEntry(entry);
+
+      if (mounted) {
+        // Reset the emotional check-in form
+        setState(() {
+          _currentEmotions.clear();
+          _emotionalTextController.clear();
+        });
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Emotional check-in saved!')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error saving emotional check-in: $e')),
       );
     } finally {
       setState(() => _isSaving = false);
@@ -140,6 +231,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     _heightController.dispose();
     _workoutController.dispose();
     _thoughtsController.dispose();
+    _emotionalTextController.dispose();
     super.dispose();
   }
 
@@ -618,27 +710,26 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
   Widget _buildEmotionSection() {
     final isExpanded = _expandedSections.contains('emotions');
-    final hasContent = _selectedEmotions.isNotEmpty;
+    final hasContent = _emotionalCheckIns.isNotEmpty || _currentEmotions.isNotEmpty;
+    final isToday = _selectedDate.year == DateTime.now().year &&
+                    _selectedDate.month == DateTime.now().month &&
+                    _selectedDate.day == DateTime.now().day;
 
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: const Icon(Icons.sentiment_satisfied),
-            title: const Text('How I\'m Feeling'),
+            title: const Text('Emotional Check-Ins'),
             subtitle: !isExpanded && hasContent
-                ? Wrap(
-                    spacing: 4,
-                    children: _selectedEmotions
-                        .map((e) => Text(e, style: const TextStyle(fontSize: 20)))
-                        .toList(),
-                  )
+                ? Text('${_emotionalCheckIns.length} check-in${_emotionalCheckIns.length != 1 ? 's' : ''} today')
                 : null,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('${_selectedEmotions.length}/4',
-                  style: Theme.of(context).textTheme.bodySmall),
+                if (isToday && _currentEmotions.isNotEmpty)
+                  Text('${_currentEmotions.length}/4',
+                    style: Theme.of(context).textTheme.bodySmall),
                 const SizedBox(width: 8),
                 Icon(isExpanded ? Icons.expand_less : Icons.expand_more),
               ],
@@ -651,31 +742,116 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (_selectedEmotions.isNotEmpty) ...[
-                    Text(
-                      'Selected',
-                      style: Theme.of(context).textTheme.titleSmall,
-                    ),
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      children: _selectedEmotions.map((emoji) {
-                        return Chip(
-                          label: Text(emoji, style: const TextStyle(fontSize: 24)),
-                          onDeleted: () {
-                            setState(() => _selectedEmotions.remove(emoji));
-                          },
-                        );
-                      }).toList(),
+                  // Show current emotional check-in form (only for today)
+                  if (isToday) ...[
+                    Row(
+                      children: [
+                        Icon(Icons.access_time, size: 16, 
+                          color: Theme.of(context).colorScheme.primary),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Right now - ${DateFormat('h:mm a').format(DateTime.now())}',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 16),
+                    
+                    // Current emotion selection
+                    if (_currentEmotions.isNotEmpty) ...[
+                      Text(
+                        'Selected emotions',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        children: _currentEmotions.map((emoji) {
+                          return Chip(
+                            label: Text(emoji, style: const TextStyle(fontSize: 24)),
+                            onDeleted: () {
+                              setState(() => _currentEmotions.remove(emoji));
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    
+                    Text(
+                      'How are you feeling right now?',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 12),
+                    _buildEmotionGrid(),
+                    const SizedBox(height: 16),
+                    
+                    // Text input for feelings
+                    TextField(
+                      controller: _emotionalTextController,
+                      maxLines: 4,
+                      maxLength: EmotionalCheckIn.maxTextLength,
+                      decoration: InputDecoration(
+                        labelText: 'What\'s on your mind?',
+                        hintText: 'Describe how you\'re feeling...',
+                        border: const OutlineInputBorder(),
+                        alignLabelWithHint: true,
+                        counterText: '${_emotionalTextController.text.length}/${EmotionalCheckIn.maxTextLength}',
+                      ),
+                      onChanged: (value) {
+                        // Update counter
+                        setState(() {});
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    
+                    // Save emotional check-in button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: _isSaving ? null : _saveEmotionalCheckIn,
+                        icon: const Icon(Icons.check_circle),
+                        label: const Text('Save Emotional Check-In'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(16),
+                        ),
+                      ),
+                    ),
+                    
+                    if (_emotionalCheckIns.isNotEmpty) ...[
+                      const SizedBox(height: 24),
+                      const Divider(),
+                      const SizedBox(height: 16),
+                    ],
                   ],
-                  Text(
-                    'Choose up to 4 emotions',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  const SizedBox(height: 12),
-                  _buildEmotionGrid(),
+                  
+                  // Show previous emotional check-ins
+                  if (_emotionalCheckIns.isNotEmpty) ...[
+                    Text(
+                      'Previous check-ins ${isToday ? 'today' : 'on this day'}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 12),
+                    ...List.generate(_emotionalCheckIns.length, (index) {
+                      final checkIn = _emotionalCheckIns[_emotionalCheckIns.length - 1 - index]; // Reverse order
+                      return _buildEmotionalCheckInCard(checkIn);
+                    }),
+                  ] else if (!isToday) ...[
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'No emotional check-ins recorded for this day',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -684,45 +860,81 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       ),
     );
   }
+  
+  Widget _buildEmotionalCheckInCard(EmotionalCheckIn checkIn) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.access_time,
+                  size: 14,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  DateFormat('h:mm a').format(checkIn.timestamp),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Spacer(),
+                ...checkIn.emotions.map((emoji) => 
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4),
+                    child: Text(emoji, style: const TextStyle(fontSize: 20)),
+                  )
+                ),
+              ],
+            ),
+            if (checkIn.text.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                checkIn.text,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget _buildEmotionGrid() {
-    const emotions = {
-      '😠': 'Anger',
-      '😨': 'Fear',
-      '😣': 'Pain',
-      '😔': 'Shame',
-      '😞': 'Guilt',
-      '😊': 'Joy',
-      '💪': 'Strength',
-      '❤️': 'Love',
-    };
-
     return GridView.count(
       crossAxisCount: 4,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      children: emotions.entries.map((entry) {
-        final isSelected = _selectedEmotions.contains(entry.key);
-        final canSelect = _selectedEmotions.length < 4 || isSelected;
+      children: EmotionalCheckIn.availableEmotions.entries.map((entry) {
+        final isSelected = _currentEmotions.contains(entry.key);
+        final canSelect = _currentEmotions.length < EmotionalCheckIn.maxEmotionCount || isSelected;
 
         return InkWell(
           onTap: canSelect
               ? () {
                   setState(() {
                     if (isSelected) {
-                      _selectedEmotions.remove(entry.key);
+                      _currentEmotions.remove(entry.key);
                     } else {
-                      _selectedEmotions.add(entry.key);
+                      _currentEmotions.add(entry.key);
                     }
                   });
                 }
               : () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('You can select up to 4 emotions'),
-                      duration: Duration(seconds: 1),
+                    SnackBar(
+                      content: Text('You can select up to ${EmotionalCheckIn.maxEmotionCount} emotions'),
+                      duration: const Duration(seconds: 1),
                     ),
                   );
                 },

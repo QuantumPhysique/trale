@@ -1,0 +1,14 @@
+# COPY THIS FILE TO android/key.properties AND FILL IN YOUR VALUES
+# DO NOT COMMIT THE ACTUAL key.properties FILE TO VERSION CONTROL!
+
+# Keystore password (from keytool -genkey command)
+storePassword=YOUR_KEYSTORE_PASSWORD_HERE
+
+# Key password (from keytool -genkey command)
+keyPassword=YOUR_KEY_PASSWORD_HERE
+
+# Key alias (should match what you used in keytool command)
+keyAlias=trale-plus
+
+# Path to keystore file relative to android/ directory
+storeFile=app/trale-plus-release.jks

@@ -37,11 +37,15 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.quantumphysique.trale"
-        minSdkVersion flutter.minSdkVersion
+        applicationId "com.heets.traleplus"
+        minSdkVersion 31  // Android 12+ (API 31) - ML Kit, Health Connect support
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        ndk {
+            // Target android-arm64 only for optimized performance
+            abiFilters 'arm64-v8a'
+        }
         externalNativeBuild {
             ndkBuild {
                 arguments "LOCAL_LDFLAGS += -Wl,--build-id=none"

@@ -196,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final hasWorkout = entry.workoutText?.isNotEmpty == true || 
                        entry.workoutTags.isNotEmpty;
     final hasThoughts = entry.thoughts?.isNotEmpty == true;
-    final hasEmotions = entry.emotions.isNotEmpty;
+    final hasEmotions = entry.emotionalCheckIns.isNotEmpty;
 
     // Calculate BMI if both weight and height available
     double? bmi;
@@ -391,10 +391,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Theme.of(context).colorScheme.tertiary,
                     ),
                     const SizedBox(width: 8),
-                    ...entry.emotions.map((emoji) => Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: Text(emoji, style: const TextStyle(fontSize: 20)),
-                    )),
+                    Text(
+                      '${entry.emotionalCheckIns.length} check-in${entry.emotionalCheckIns.length != 1 ? 's' : ''}',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),

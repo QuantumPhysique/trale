@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:convert';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/daily_entry.dart';
@@ -10,8 +11,10 @@ class DatabaseHelper {
 
   DatabaseHelper._init();
 
-  // Since this is a fresh SQLite implementation replacing Hive, we start at version 1.
-  static const int NEW_VERSION_NUMBER = 1; 
+  // Database version: increment when schema changes
+  // v1: Initial SQLite schema (replaced Hive)
+  // v2: Emotional check-ins (emotions -> emotional_checkins), added is_immutable
+  static const int NEW_VERSION_NUMBER = 2; 
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -40,8 +43,9 @@ class DatabaseHelper {
       workout_text TEXT,
       workout_tags TEXT,
       thoughts TEXT,
-      emotions TEXT,
-      timestamp TEXT NOT NULL
+      emotional_checkins TEXT,
+      timestamp TEXT NOT NULL,
+      is_immutable INTEGER DEFAULT 0
     )
   ''';
 
@@ -69,33 +73,38 @@ class DatabaseHelper {
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < NEW_VERSION_NUMBER) {
-      // This is where migration logic would go if we were upgrading from an older SQLite version.
-      // Since we are migrating from Hive, this might not be triggered for existing users 
-      // unless we manually handle the migration elsewhere.
+    // Migration from v1 to v2: Emotional check-ins refactor
+    if (oldVersion < 2 && newVersion >= 2) {
+      // Add new columns
+      await db.execute('ALTER TABLE daily_entries ADD COLUMN emotional_checkins TEXT');
+      await db.execute('ALTER TABLE daily_entries ADD COLUMN is_immutable INTEGER DEFAULT 0');
       
-      /* 
-      // Example migration from hypothetical previous version:
-      await db.execute(CREATE_DAILY_ENTRIES_TABLE);
-      await db.execute(CREATE_USER_PROFILE_TABLE);
-      await db.execute(CREATE_WORKOUT_TAGS_TABLE);
-      
-      final oldData = await db.query('weight_entries'); 
-      
-      for (var row in oldData) {
-        await db.insert('daily_entries', {
-          'date': row['date'],
-          'weight': row['weight'],
-          'height': null,
-          'photo_paths': '[]',
-          'workout_text': null,
-          'workout_tags': '[]',
-          'thoughts': null,
-          'emotions': '[]',
-          'timestamp': row['date'], 
-        });
+      // Migrate old emotions field to new emotional_checkins format
+      final entries = await db.query('daily_entries');
+      for (var entry in entries) {
+        final oldEmotions = entry['emotions'] as String?;
+        if (oldEmotions != null && oldEmotions.isNotEmpty && oldEmotions != '[]') {
+          // Convert old emotions array to single emotional check-in
+          final List<dynamic> emotionsList = jsonDecode(oldEmotions);
+          if (emotionsList.isNotEmpty) {
+            final timestamp = entry['timestamp'] as String;
+            final checkIn = {
+              'timestamp': timestamp,
+              'emotions': emotionsList,
+              'text': '', // Old entries didn't have text
+            };
+            await db.update(
+              'daily_entries',
+              {'emotional_checkins': jsonEncode([checkIn])},
+              where: 'date = ?',
+              whereArgs: [entry['date']],
+            );
+          }
+        }
       }
-      */
+      
+      // Note: We keep the emotions column for now to avoid data loss
+      // It can be dropped in a future version after migration is confirmed
     }
   }
 

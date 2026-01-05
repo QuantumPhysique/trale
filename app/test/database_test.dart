@@ -3,6 +3,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:trale/database/database_helper.dart';
 import 'package:trale/models/daily_entry.dart';
+import 'package:trale/models/emotional_checkin.dart';
 import 'package:trale/models/user_profile.dart';
 
 void main() {
@@ -24,6 +25,18 @@ void main() {
     });
 
     test('DailyEntry CRUD', () async {
+      final checkIn1 = EmotionalCheckIn(
+        timestamp: DateTime(2023, 1, 1, 10, 30),
+        emotions: ['😊', '💪'],
+        text: 'Feeling great after workout!',
+      );
+      
+      final checkIn2 = EmotionalCheckIn(
+        timestamp: DateTime(2023, 1, 1, 14, 15),
+        emotions: ['😨'],
+        text: 'A bit anxious about the meeting',
+      );
+      
       final entry = DailyEntry(
         date: DateTime(2023, 1, 1),
         weight: 70.0,
@@ -31,7 +44,7 @@ void main() {
         workoutText: 'Run',
         workoutTags: ['Cardio'],
         thoughts: 'Good run',
-        emotions: ['Happy'],
+        emotionalCheckIns: [checkIn1, checkIn2],
       );
 
       await DatabaseHelper.instance.saveDailyEntry(entry);
@@ -41,12 +54,16 @@ void main() {
       expect(retrieved!.weight, 70.0);
       expect(retrieved.workoutText, 'Run');
       expect(retrieved.workoutTags, contains('Cardio'));
+      expect(retrieved.emotionalCheckIns.length, 2);
+      expect(retrieved.emotionalCheckIns[0].emotions, contains('😊'));
+      expect(retrieved.emotionalCheckIns[1].text, 'A bit anxious about the meeting');
       
       // Update
       final updatedEntry = DailyEntry(
         date: DateTime(2023, 1, 1),
         weight: 69.5,
         workoutText: 'Run + Swim',
+        emotionalCheckIns: [checkIn1, checkIn2],
       );
       await DatabaseHelper.instance.saveDailyEntry(updatedEntry);
       

@@ -15,7 +15,8 @@
    
    <application
         android:enableOnBackInvokedCallback="true"
-        android:label="trale"
+        android:label="Trale+"
+        android:description="@string/app_description"
         android:usesCleartextTraffic="false"
         android:icon="@mipmap/ic_launcher">
         <activity
