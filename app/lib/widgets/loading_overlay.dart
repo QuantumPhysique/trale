@@ -5,7 +5,7 @@ class LoadingOverlay {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => PopScope(
+      builder: (BuildContext context) => PopScope(
         canPop: false,
         child: Center(
           child: Card(
@@ -13,7 +13,7 @@ class LoadingOverlay {
               padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: <Widget>[
                   const CircularProgressIndicator(),
                   const SizedBox(height: 16),
                   Text(message),

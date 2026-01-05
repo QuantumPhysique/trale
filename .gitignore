@@ -24,6 +24,7 @@ app/untraslatedMessages.txt
 app/*.ipr
 app/*.iws
 app/.idea/*
+.idea/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -45,7 +46,7 @@ app/.idea/*
 /dev/docs/flutter.docs.zip
 /dev/docs/lib/
 /dev/docs/pubspec.yaml
-/dev/integration_tests//xcuserdata/Pods
+/dev/integration_tests/xcuserdata/Pods
 /packages/flutter/coverage/
 version
 
@@ -69,7 +70,7 @@ app/.fvm/
 app/lib/l10n-gen
 
 # Android related
-/android//gradle-wrapper.jar
+/android/gradle-wrapper.jar
 /android/.gradle
 /android/captures/
 /android/gradlew
@@ -79,12 +80,26 @@ app/lib/l10n-gen
 /android/.idea/
 /android/settings_aar.gradle
 /android/app/features/main/gen/
-/android/key.properfties
+/android/key.properties
 /android/app_android.iml
 
 
 # iOS/XCode related
-/ios//*.mode1v3/*.mode2v3/*.moved-aside/*.pbxuser/*.perspectivev3/*sync//.sconsign.dblite/.tags*/.vagrant//DerivedData//Icon?/Pods//.symlinks//profile/xcuserdata
+/ios/*.mode1v3
+/ios/*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+*sync
+.sconsign.dblite
+.tags*
+.vagrant
+DerivedData
+Icon?
+Pods
+.symlinks
+profile
+xcuserdata
 /ios/.generated/
 /ios/Flutter/App.framework
 /ios/Flutter/Flutter.framework
@@ -104,7 +119,7 @@ coverage/
 
 # Submodules
 pubspec.lock
-packages//pubspec.lock
+packages/pubspec.lock
 
 # Web related
 
@@ -125,9 +140,9 @@ out/
 /android/app/release
 
 # Exceptions to the above rules.
-!/ios//default.mode1v3/default.mode2v3/default.pbxuser/default.perspectivev3
+!/ios/default.mode1v3/default.mode2v3/default.pbxuser/default.perspectivev3
 !/ios/Podfile.lock
-!/packages/flutter_tools/test/data/dart_dependencies_test//.packages
+!/packages/flutter_tools/test/data/dart_dependencies_test/.packages
 !/dev/ci/**/Gemfile.lock
 !.vscode/launch.json
 !.idea/codeStyles/

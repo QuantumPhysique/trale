@@ -2,9 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class PhotoViewer extends StatefulWidget {
-  final List<String> photoPaths;
-  final int initialIndex;
-  final Function(int)? onDelete;
 
   const PhotoViewer({
     Key? key,
@@ -12,6 +9,9 @@ class PhotoViewer extends StatefulWidget {
     this.initialIndex = 0,
     this.onDelete,
   }) : super(key: key);
+  final List<String> photoPaths;
+  final int initialIndex;
+  final Function(int)? onDelete;
 
   @override
   State<PhotoViewer> createState() => _PhotoViewerState();
@@ -37,10 +37,10 @@ class _PhotoViewerState extends State<PhotoViewer> {
   void _confirmDelete() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Delete Photo'),
         content: const Text('Are you sure you want to delete this photo?'),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
@@ -69,7 +69,7 @@ class _PhotoViewerState extends State<PhotoViewer> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: Text('${_currentIndex + 1} / ${widget.photoPaths.length}'),
-        actions: [
+        actions: <Widget>[
           if (widget.onDelete != null)
             IconButton(
               icon: const Icon(Icons.delete),
@@ -79,11 +79,11 @@ class _PhotoViewerState extends State<PhotoViewer> {
       ),
       body: PageView.builder(
         controller: _pageController,
-        onPageChanged: (index) {
+        onPageChanged: (int index) {
           setState(() => _currentIndex = index);
         },
         itemCount: widget.photoPaths.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (BuildContext context, int index) {
           return InteractiveViewer(
             minScale: 0.5,
             maxScale: 4.0,

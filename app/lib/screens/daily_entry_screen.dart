@@ -7,15 +7,15 @@ import 'package:trale/database/database_helper.dart';
 import 'package:trale/services/photo_service.dart';
 import 'package:trale/widgets/photo_viewer.dart';
 
-class DailyEntryScreen extends StatefulWidget {
-  final DateTime? initialDate;
-  final DailyEntry? existingEntry; // For editing existing entries
+class DailyEntryScreen extends StatefulWidget { // For editing existing entries
 
   const DailyEntryScreen({
     Key? key,
     this.initialDate,
     this.existingEntry,
   }) : super(key: key);
+  final DateTime? initialDate;
+  final DailyEntry? existingEntry;
 
   @override
   State<DailyEntryScreen> createState() => _DailyEntryScreenState();
@@ -32,19 +32,19 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   final TextEditingController _workoutController = TextEditingController();
   final TextEditingController _thoughtsController = TextEditingController();
 
-  List<String> _photoPaths = [];
-  List<String> _workoutTags = [];
-  List<EmotionalCheckIn> _emotionalCheckIns = [];
+  List<String> _photoPaths = <String>[];
+  List<String> _workoutTags = <String>[];
+  List<EmotionalCheckIn> _emotionalCheckIns = <EmotionalCheckIn>[];
   
   // Current emotional check-in being edited (for new entry form)
-  List<String> _currentEmotions = [];
+  final List<String> _currentEmotions = <String>[];
   final TextEditingController _emotionalTextController = TextEditingController();
   
   // Track if entry has been saved (becomes immutable)
   bool _isEntryImmutable = false;
 
   // Track expanded sections
-  final Set<String> _expandedSections = {};
+  final Set<String> _expandedSections = <String>{};
 
   // Photo service
   final PhotoService _photoService = PhotoService();
@@ -60,7 +60,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   Future<void> _loadEntryForDate() async {
     setState(() => _isLoading = true);
 
-    final entry = widget.existingEntry ??
+    final DailyEntry? entry = widget.existingEntry ??
                   await DatabaseHelper.instance.getDailyEntry(_selectedDate);
 
     if (entry != null) {
@@ -83,7 +83,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     setState(() => _isSaving = true);
 
     try {
-      final entry = DailyEntry(
+      final DailyEntry entry = DailyEntry(
         date: _selectedDate,
         weight: _weightController.text.isEmpty
             ? null
@@ -130,7 +130,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       return;
     }
     
-    final text = _emotionalTextController.text.trim();
+    final String text = _emotionalTextController.text.trim();
     if (text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please write about your feelings')),
@@ -149,7 +149,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     try {
       // Create new emotional check-in
-      final checkIn = EmotionalCheckIn(
+      final EmotionalCheckIn checkIn = EmotionalCheckIn(
         timestamp: DateTime.now(),
         emotions: List.from(_currentEmotions),
         text: text,
@@ -159,7 +159,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       _emotionalCheckIns.add(checkIn);
 
       // Save updated entry with new emotional check-in
-      final entry = DailyEntry(
+      final DailyEntry entry = DailyEntry(
         date: _selectedDate,
         weight: _weightController.text.isEmpty
             ? null
@@ -212,7 +212,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Future<void> _selectDate() async {
-    final picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: _selectedDate,
       firstDate: DateTime(2000),
@@ -246,7 +246,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daily Entry'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.calendar_today),
             onPressed: _selectDate,
@@ -255,7 +255,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         ],
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           // Date display banner
           Container(
             width: double.infinity,
@@ -273,7 +273,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(16),
-              children: [
+              children: <Widget>[
                 _buildWeightSection(),
                 const SizedBox(height: 12),
                 _buildPhotoSection(),
@@ -304,13 +304,13 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildWeightSection() {
-    final isExpanded = _expandedSections.contains('weight');
-    final hasContent = _weightController.text.isNotEmpty ||
+    final bool isExpanded = _expandedSections.contains('weight');
+    final bool hasContent = _weightController.text.isNotEmpty ||
                        _heightController.text.isNotEmpty;
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.monitor_weight),
             title: const Text('Weight & Height'),
@@ -322,11 +322,11 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 : Icons.expand_more),
             onTap: () => _toggleSection('weight'),
           ),
-          if (isExpanded) ...[
+          if (isExpanded) ...<Widget>[
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                children: [
+                children: <Widget>[
                   TextField(
                     controller: _weightController,
                     keyboardType: TextInputType.number,
@@ -362,12 +362,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildPhotoSection() {
-    final isExpanded = _expandedSections.contains('photos');
-    final photoCount = _photoPaths.length;
+    final bool isExpanded = _expandedSections.contains('photos');
+    final int photoCount = _photoPaths.length;
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.photo_camera),
             title: const Text('Photos'),
@@ -376,7 +376,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 : null,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 Text('$photoCount/3',
                   style: Theme.of(context).textTheme.bodySmall),
                 const SizedBox(width: 8),
@@ -385,17 +385,17 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             ),
             onTap: () => _toggleSection('photos'),
           ),
-          if (isExpanded) ...[
+          if (isExpanded) ...<Widget>[
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                children: [
+                children: <Widget>[
                   // Photo action buttons
                   if (_isProcessingPhoto)
                     const Padding(
                       padding: EdgeInsets.all(16),
                       child: Column(
-                        children: [
+                        children: <Widget>[
                           CircularProgressIndicator(),
                           SizedBox(height: 8),
                           Text('Processing photo...'),
@@ -404,7 +404,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     )
                   else
                     Row(
-                      children: [
+                      children: <Widget>[
                         Expanded(
                           child: OutlinedButton.icon(
                             onPressed: photoCount >= 3 ? null : _capturePhoto,
@@ -422,7 +422,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         ),
                       ],
                     ),
-                  if (photoCount > 0) ...[
+                  if (photoCount > 0) ...<Widget>[
                     const SizedBox(height: 16),
                     // Photo preview grid
                     GridView.builder(
@@ -434,11 +434,11 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         mainAxisSpacing: 8,
                       ),
                       itemCount: _photoPaths.length,
-                      itemBuilder: (context, index) {
+                      itemBuilder: (BuildContext context, int index) {
                         return _buildPhotoThumbnail(index);
                       },
                     ),
-                  ] else ...[
+                  ] else ...<Widget>[
                     const SizedBox(height: 16),
                     Text(
                       'No photos added yet',
@@ -459,13 +459,13 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       onTap: () => _openPhotoViewer(index),
       child: Stack(
         fit: StackFit.expand,
-        children: [
+        children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.file(
               File(_photoPaths[index]),
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
+              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                 return Container(
                   color: Colors.grey[300],
                   child: const Icon(Icons.error),
@@ -502,7 +502,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     setState(() => _isProcessingPhoto = true);
 
     try {
-      final photoPath = await _photoService.capturePhoto(context);
+      final String? photoPath = await _photoService.capturePhoto(context);
       
       if (photoPath != null) {
         setState(() {
@@ -524,7 +524,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     setState(() => _isProcessingPhoto = true);
 
     try {
-      final photoPath = await _photoService.selectFromGallery(context);
+      final String? photoPath = await _photoService.selectFromGallery(context);
       
       if (photoPath != null) {
         setState(() {
@@ -543,12 +543,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Future<void> _deletePhoto(int index) async {
-    final confirmed = await showDialog<bool>(
+    final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Delete Photo'),
         content: const Text('Are you sure you want to remove this photo?'),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
@@ -565,7 +565,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     );
 
     if (confirmed == true) {
-      final photoPath = _photoPaths[index];
+      final String photoPath = _photoPaths[index];
       
       // Delete from disk
       await _photoService.deletePhoto(photoPath);
@@ -587,10 +587,10 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PhotoViewer(
+        builder: (BuildContext context) => PhotoViewer(
           photoPaths: _photoPaths,
           initialIndex: index,
-          onDelete: (deleteIndex) async {
+          onDelete: (int deleteIndex) async {
             await _deletePhoto(deleteIndex);
           },
         ),
@@ -599,12 +599,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildWorkoutSection() {
-    final isExpanded = _expandedSections.contains('workout');
-    final hasContent = _workoutController.text.isNotEmpty || _workoutTags.isNotEmpty;
+    final bool isExpanded = _expandedSections.contains('workout');
+    final bool hasContent = _workoutController.text.isNotEmpty || _workoutTags.isNotEmpty;
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.fitness_center),
             title: const Text('Workout'),
@@ -614,12 +614,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             trailing: Icon(isExpanded ? Icons.expand_less : Icons.expand_more),
             onTap: () => _toggleSection('workout'),
           ),
-          if (isExpanded) ...[
+          if (isExpanded) ...<Widget>[
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   TextField(
                     controller: _workoutController,
                     maxLines: 4,
@@ -641,8 +641,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: [
-                      ..._workoutTags.map((tag) => Chip(
+                    children: <Widget>[
+                      ..._workoutTags.map((String tag) => Chip(
                         label: Text(tag),
                         onDeleted: () {
                           setState(() => _workoutTags.remove(tag));
@@ -664,12 +664,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildThoughtsSection() {
-    final isExpanded = _expandedSections.contains('thoughts');
-    final hasContent = _thoughtsController.text.isNotEmpty;
+    final bool isExpanded = _expandedSections.contains('thoughts');
+    final bool hasContent = _thoughtsController.text.isNotEmpty;
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.edit_note),
             title: const Text('Thoughts'),
@@ -687,7 +687,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 : Icons.expand_more),
             onTap: () => _toggleSection('thoughts'),
           ),
-          if (isExpanded) ...[
+          if (isExpanded) ...<Widget>[
             Padding(
               padding: const EdgeInsets.all(16),
               child: TextField(
@@ -709,15 +709,15 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildEmotionSection() {
-    final isExpanded = _expandedSections.contains('emotions');
-    final hasContent = _emotionalCheckIns.isNotEmpty || _currentEmotions.isNotEmpty;
-    final isToday = _selectedDate.year == DateTime.now().year &&
+    final bool isExpanded = _expandedSections.contains('emotions');
+    final bool hasContent = _emotionalCheckIns.isNotEmpty || _currentEmotions.isNotEmpty;
+    final bool isToday = _selectedDate.year == DateTime.now().year &&
                     _selectedDate.month == DateTime.now().month &&
                     _selectedDate.day == DateTime.now().day;
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.sentiment_satisfied),
             title: const Text('Emotional Check-Ins'),
@@ -726,7 +726,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 : null,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 if (isToday && _currentEmotions.isNotEmpty)
                   Text('${_currentEmotions.length}/4',
                     style: Theme.of(context).textTheme.bodySmall),
@@ -736,16 +736,16 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             ),
             onTap: () => _toggleSection('emotions'),
           ),
-          if (isExpanded) ...[
+          if (isExpanded) ...<Widget>[
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   // Show current emotional check-in form (only for today)
-                  if (isToday) ...[
+                  if (isToday) ...<Widget>[
                     Row(
-                      children: [
+                      children: <Widget>[
                         Icon(Icons.access_time, size: 16, 
                           color: Theme.of(context).colorScheme.primary),
                         const SizedBox(width: 8),
@@ -761,7 +761,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     const SizedBox(height: 16),
                     
                     // Current emotion selection
-                    if (_currentEmotions.isNotEmpty) ...[
+                    if (_currentEmotions.isNotEmpty) ...<Widget>[
                       Text(
                         'Selected emotions',
                         style: Theme.of(context).textTheme.bodySmall,
@@ -769,7 +769,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                       const SizedBox(height: 8),
                       Wrap(
                         spacing: 8,
-                        children: _currentEmotions.map((emoji) {
+                        children: _currentEmotions.map((String emoji) {
                           return Chip(
                             label: Text(emoji, style: const TextStyle(fontSize: 24)),
                             onDeleted: () {
@@ -801,7 +801,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         alignLabelWithHint: true,
                         counterText: '${_emotionalTextController.text.length}/${EmotionalCheckIn.maxTextLength}',
                       ),
-                      onChanged: (value) {
+                      onChanged: (String value) {
                         // Update counter
                         setState(() {});
                       },
@@ -821,7 +821,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                       ),
                     ),
                     
-                    if (_emotionalCheckIns.isNotEmpty) ...[
+                    if (_emotionalCheckIns.isNotEmpty) ...<Widget>[
                       const SizedBox(height: 24),
                       const Divider(),
                       const SizedBox(height: 16),
@@ -829,17 +829,17 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   ],
                   
                   // Show previous emotional check-ins
-                  if (_emotionalCheckIns.isNotEmpty) ...[
+                  if (_emotionalCheckIns.isNotEmpty) ...<Widget>[
                     Text(
                       'Previous check-ins ${isToday ? 'today' : 'on this day'}',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 12),
-                    ...List.generate(_emotionalCheckIns.length, (index) {
-                      final checkIn = _emotionalCheckIns[_emotionalCheckIns.length - 1 - index]; // Reverse order
+                    ...List.generate(_emotionalCheckIns.length, (int index) {
+                      final EmotionalCheckIn checkIn = _emotionalCheckIns[_emotionalCheckIns.length - 1 - index]; // Reverse order
                       return _buildEmotionalCheckInCard(checkIn);
                     }),
-                  ] else if (!isToday) ...[
+                  ] else if (!isToday) ...<Widget>[
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -865,14 +865,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 0,
-      color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+      color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 Icon(
                   Icons.access_time,
                   size: 14,
@@ -887,7 +887,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   ),
                 ),
                 const Spacer(),
-                ...checkIn.emotions.map((emoji) => 
+                ...checkIn.emotions.map((String emoji) => 
                   Padding(
                     padding: const EdgeInsets.only(left: 4),
                     child: Text(emoji, style: const TextStyle(fontSize: 20)),
@@ -895,7 +895,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 ),
               ],
             ),
-            if (checkIn.text.isNotEmpty) ...[
+            if (checkIn.text.isNotEmpty) ...<Widget>[
               const SizedBox(height: 8),
               Text(
                 checkIn.text,
@@ -915,9 +915,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       physics: const NeverScrollableScrollPhysics(),
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      children: EmotionalCheckIn.availableEmotions.entries.map((entry) {
-        final isSelected = _currentEmotions.contains(entry.key);
-        final canSelect = _currentEmotions.length < EmotionalCheckIn.maxEmotionCount || isSelected;
+      children: EmotionalCheckIn.availableEmotions.entries.map((MapEntry<String, String> entry) {
+        final bool isSelected = _currentEmotions.contains(entry.key);
+        final bool canSelect = _currentEmotions.length < EmotionalCheckIn.maxEmotionCount || isSelected;
 
         return InkWell(
           onTap: canSelect
@@ -954,7 +954,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 Text(
                   entry.key,
                   style: const TextStyle(fontSize: 32),
@@ -974,12 +974,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildBMIDisplay() {
-    final weight = double.tryParse(_weightController.text);
-    final height = double.tryParse(_heightController.text);
+    final double? weight = double.tryParse(_weightController.text);
+    final double? height = double.tryParse(_heightController.text);
 
     if (weight == null || height == null) return const SizedBox.shrink();
 
-    final bmi = weight / ((height / 100) * (height / 100));
+    final double bmi = weight / ((height / 100) * (height / 100));
     String category;
     Color color;
 
@@ -1007,7 +1007,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: <Widget>[
           Text(
             'BMI',
             style: Theme.of(context).textTheme.titleMedium,
@@ -1025,7 +1025,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   String _buildWeightSummary() {
-    final parts = <String>[];
+    final List<String> parts = <String>[];
     if (_weightController.text.isNotEmpty) {
       parts.add('${_weightController.text} kg');
     }
@@ -1048,82 +1048,118 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Future<void> _showAddTagDialog() async {
-    final controller = TextEditingController();
-
     // Load existing tags for suggestions
-    final existingTags = await DatabaseHelper.instance.getAllWorkoutTags();
+    final List<String> existingTags = await DatabaseHelper.instance.getAllWorkoutTags();
 
-    await showDialog(
+    if (!mounted) return;
+
+    final String? result = await showDialog<String>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Add Workout Tag'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                labelText: 'Tag name',
-                border: OutlineInputBorder(),
-                hintText: 'e.g., Cardio, Legs, Yoga',
-              ),
-              textCapitalization: TextCapitalization.words,
-            ),
-            if (existingTags.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Text(
-                'Suggestions',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                children: existingTags
-                    .where((tag) => !_workoutTags.contains(tag))
-                    .take(6)
-                    .map((tag) => ActionChip(
-                          label: Text(tag),
-                          onPressed: () {
-                            setState(() {
-                              if (!_workoutTags.contains(tag)) {
-                                _workoutTags.add(tag);
-                              }
-                            });
-                            Navigator.pop(context);
-                          },
-                        ))
-                    .toList(),
-              ),
-            ],
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          FilledButton(
-            onPressed: () {
-              if (controller.text.isNotEmpty &&
-                  !_workoutTags.contains(controller.text)) {
-                setState(() {
-                  _workoutTags.add(controller.text);
-                });
-                // Save tag to database for future suggestions
-                DatabaseHelper.instance.saveWorkoutTag(
-                  controller.text,
-                  '#${(controller.text.hashCode & 0xFFFFFF).toRadixString(16)}',
-                );
-              }
-              Navigator.pop(context);
-            },
-            child: const Text('Add'),
-          ),
-        ],
+      builder: (BuildContext context) => _AddTagDialog(
+        existingTags: existingTags,
+        currentTags: _workoutTags,
       ),
     );
 
-    controller.dispose();
+    // Apply state changes after dialog is closed
+    if (result != null && result.isNotEmpty && !_workoutTags.contains(result)) {
+      setState(() {
+        _workoutTags.add(result);
+      });
+      // Save tag to database for future suggestions
+      DatabaseHelper.instance.saveWorkoutTag(
+        result,
+        '#${(result.hashCode & 0xFFFFFF).toRadixString(16)}',
+      );
+    }
+  }
+}
+
+class _AddTagDialog extends StatefulWidget {
+  const _AddTagDialog({
+    required this.existingTags,
+    required this.currentTags,
+  });
+
+  final List<String> existingTags;
+  final List<String> currentTags;
+
+  @override
+  State<_AddTagDialog> createState() => _AddTagDialogState();
+}
+
+class _AddTagDialogState extends State<_AddTagDialog> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Add Workout Tag'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextField(
+            controller: _controller,
+            decoration: const InputDecoration(
+              labelText: 'Tag name',
+              border: OutlineInputBorder(),
+              hintText: 'e.g., Cardio, Legs, Yoga',
+            ),
+            textCapitalization: TextCapitalization.words,
+            autofocus: true,
+          ),
+          if (widget.existingTags.isNotEmpty) ...<Widget>[
+            const SizedBox(height: 16),
+            Text(
+              'Suggestions',
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              children: widget.existingTags
+                  .where((String tag) => !widget.currentTags.contains(tag))
+                  .take(6)
+                  .map((String tag) => ActionChip(
+                        label: Text(tag),
+                        onPressed: () {
+                          Navigator.pop(context, tag);
+                        },
+                      ))
+                  .toList(),
+            ),
+          ],
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Cancel'),
+        ),
+        FilledButton(
+          onPressed: () {
+            if (_controller.text.isNotEmpty) {
+              Navigator.pop(context, _controller.text);
+            } else {
+              Navigator.pop(context);
+            }
+          },
+          child: const Text('Add'),
+        ),
+      ],
+    );
   }
 }

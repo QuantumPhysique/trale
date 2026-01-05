@@ -105,10 +105,10 @@ class TraleMainApp extends StatelessWidget {
 }
 
 class AppInitializer extends StatelessWidget {
-  const AppInitializer({Key? key}) : super(key: key);
+  const AppInitializer({super.key});
 
   Future<bool> _checkOnboardingStatus() async {
-    final prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('onboarding_completed') ?? false;
   }
 
@@ -116,14 +116,14 @@ class AppInitializer extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
       future: _checkOnboardingStatus(),
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           );
         }
 
-        final isOnboardingCompleted = snapshot.data ?? false;
+        final bool isOnboardingCompleted = snapshot.data ?? false;
 
         // Show onboarding if not completed, otherwise home screen
         if (isOnboardingCompleted) {

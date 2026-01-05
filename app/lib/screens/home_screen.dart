@@ -9,14 +9,14 @@ import 'package:trale/screens/entry_detail_screen.dart';
 import 'package:trale/screens/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<DailyEntry> _entries = [];
+  List<DailyEntry> _entries = <DailyEntry>[];
   bool _isLoading = true;
   UserProfile? _userProfile;
 
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() => _isLoading = true);
     
     try {
-      final entries = await DatabaseHelper.instance.getAllEntries();
+      final List<DailyEntry> entries = await DatabaseHelper.instance.getAllEntries();
       setState(() {
         _entries = entries;
         _isLoading = false;
@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadUserProfile() async {
-    final profile = await DatabaseHelper.instance.getUserProfile();
+    final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
     setState(() => _userProfile = profile);
   }
 
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const DailyEntryScreen(),
+        builder: (BuildContext context) => const DailyEntryScreen(),
       ),
     );
 
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EntryDetailScreen(entry: entry),
+        builder: (BuildContext context) => EntryDetailScreen(entry: entry),
       ),
     );
 
@@ -78,14 +78,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _deleteEntry(DailyEntry entry) async {
-    final confirmed = await showDialog<bool>(
+    final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Delete Entry'),
         content: Text(
           'Are you sure you want to delete the entry for ${DateFormat('MMM d, yyyy').format(entry.date)}?'
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
@@ -118,14 +118,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trale+'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () async {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
+                  builder: (BuildContext context) => const SettingsScreen(),
                 ),
               );
               _loadUserProfile(); // Refresh profile if changed
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListView.builder(
                     padding: const EdgeInsets.all(16),
                     itemCount: _entries.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return _buildEntryCard(_entries[index]);
                     },
                   ),
@@ -161,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Icon(
               Icons.fitness_center,
               size: 100,
@@ -191,12 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildEntryCard(DailyEntry entry) {
-    final hasWeight = entry.weight != null;
-    final hasPhotos = entry.photoPaths.isNotEmpty;
-    final hasWorkout = entry.workoutText?.isNotEmpty == true || 
+    final bool hasWeight = entry.weight != null;
+    final bool hasPhotos = entry.photoPaths.isNotEmpty;
+    final bool hasWorkout = entry.workoutText?.isNotEmpty == true || 
                        entry.workoutTags.isNotEmpty;
-    final hasThoughts = entry.thoughts?.isNotEmpty == true;
-    final hasEmotions = entry.emotionalCheckIns.isNotEmpty;
+    final bool hasThoughts = entry.thoughts?.isNotEmpty == true;
+    final bool hasEmotions = entry.emotionalCheckIns.isNotEmpty;
 
     // Calculate BMI if both weight and height available
     double? bmi;
@@ -215,15 +215,15 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               // Header with date and actions
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
                           DateFormat('EEEE, MMMM d, yyyy').format(entry.date),
                           style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -240,11 +240,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   PopupMenuButton(
-                    itemBuilder: (context) => [
+                    itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
                       const PopupMenuItem(
                         value: 'edit',
                         child: Row(
-                          children: [
+                          children: <Widget>[
                             Icon(Icons.edit),
                             SizedBox(width: 12),
                             Text('Edit'),
@@ -254,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       const PopupMenuItem(
                         value: 'delete',
                         child: Row(
-                          children: [
+                          children: <Widget>[
                             Icon(Icons.delete, color: Colors.red),
                             SizedBox(width: 12),
                             Text('Delete', style: TextStyle(color: Colors.red)),
@@ -262,12 +262,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ],
-                    onSelected: (value) async {
+                    onSelected: (String value) async {
                       if (value == 'edit') {
                         final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DailyEntryScreen(
+                            builder: (BuildContext context) => DailyEntryScreen(
                               initialDate: entry.date,
                               existingEntry: entry,
                             ),
@@ -285,9 +285,9 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 16),
 
               // Weight and BMI
-              if (hasWeight) ...[
+              if (hasWeight) ...<Widget>[
                 Row(
-                  children: [
+                  children: <Widget>[
                     Icon(
                       Icons.monitor_weight,
                       size: 20,
@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       '${entry.weight} kg',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    if (bmi != null) ...[
+                    if (bmi != null) ...<Widget>[
                       const SizedBox(width: 16),
                       Container(
                         padding: const EdgeInsets.symmetric(
@@ -326,13 +326,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
 
               // Photos
-              if (hasPhotos) ...[
+              if (hasPhotos) ...<Widget>[
                 SizedBox(
                   height: 80,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: entry.photoPaths.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return Padding(
                         padding: const EdgeInsets.only(right: 8),
                         child: ClipRRect(
@@ -342,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 80,
                             height: 80,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
+                            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                               return Container(
                                 width: 80,
                                 height: 80,
@@ -360,17 +360,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
 
               // Workout tags
-              if (hasWorkout) ...[
+              if (hasWorkout) ...<Widget>[
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: [
+                  children: <Widget>[
                     Icon(
                       Icons.fitness_center,
                       size: 16,
                       color: Theme.of(context).colorScheme.secondary,
                     ),
-                    ...entry.workoutTags.map((tag) => Chip(
+                    ...entry.workoutTags.map((String tag) => Chip(
                       label: Text(tag),
                       labelStyle: const TextStyle(fontSize: 12),
                       padding: EdgeInsets.zero,
@@ -382,9 +382,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
 
               // Emotions
-              if (hasEmotions) ...[
+              if (hasEmotions) ...<Widget>[
                 Row(
-                  children: [
+                  children: <Widget>[
                     Icon(
                       Icons.sentiment_satisfied,
                       size: 20,
@@ -401,15 +401,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
 
               // Thoughts preview
-              if (hasThoughts) ...[
+              if (hasThoughts) ...<Widget>[
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
-                    children: [
+                    children: <Widget>[
                       Icon(
                         Icons.edit_note,
                         size: 20,

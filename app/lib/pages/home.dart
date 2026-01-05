@@ -86,7 +86,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const DailyEntryScreen(),
+        builder: (BuildContext context) => const DailyEntryScreen(),
       ),
     );
 

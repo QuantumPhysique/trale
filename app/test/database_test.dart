@@ -14,7 +14,7 @@ void main() {
   group('Database Tests', () {
     setUp(() async {
       // Ensure database is initialized and clear tables
-      final db = await DatabaseHelper.instance.database;
+      final Database db = await DatabaseHelper.instance.database;
       await db.delete('daily_entries');
       await db.delete('user_profile');
       await db.delete('workout_tags');
@@ -25,31 +25,31 @@ void main() {
     });
 
     test('DailyEntry CRUD', () async {
-      final checkIn1 = EmotionalCheckIn(
+      final EmotionalCheckIn checkIn1 = EmotionalCheckIn(
         timestamp: DateTime(2023, 1, 1, 10, 30),
-        emotions: ['😊', '💪'],
+        emotions: <String>['😊', '💪'],
         text: 'Feeling great after workout!',
       );
       
-      final checkIn2 = EmotionalCheckIn(
+      final EmotionalCheckIn checkIn2 = EmotionalCheckIn(
         timestamp: DateTime(2023, 1, 1, 14, 15),
-        emotions: ['😨'],
+        emotions: <String>['😨'],
         text: 'A bit anxious about the meeting',
       );
       
-      final entry = DailyEntry(
+      final DailyEntry entry = DailyEntry(
         date: DateTime(2023, 1, 1),
         weight: 70.0,
         height: 175.0,
         workoutText: 'Run',
-        workoutTags: ['Cardio'],
+        workoutTags: <String>['Cardio'],
         thoughts: 'Good run',
-        emotionalCheckIns: [checkIn1, checkIn2],
+        emotionalCheckIns: <EmotionalCheckIn>[checkIn1, checkIn2],
       );
 
       await DatabaseHelper.instance.saveDailyEntry(entry);
 
-      final retrieved = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
+      final DailyEntry? retrieved = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
       expect(retrieved, isNotNull);
       expect(retrieved!.weight, 70.0);
       expect(retrieved.workoutText, 'Run');
@@ -59,44 +59,44 @@ void main() {
       expect(retrieved.emotionalCheckIns[1].text, 'A bit anxious about the meeting');
       
       // Update
-      final updatedEntry = DailyEntry(
+      final DailyEntry updatedEntry = DailyEntry(
         date: DateTime(2023, 1, 1),
         weight: 69.5,
         workoutText: 'Run + Swim',
-        emotionalCheckIns: [checkIn1, checkIn2],
+        emotionalCheckIns: <EmotionalCheckIn>[checkIn1, checkIn2],
       );
       await DatabaseHelper.instance.saveDailyEntry(updatedEntry);
       
-      final retrievedUpdated = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
+      final DailyEntry? retrievedUpdated = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
       expect(retrievedUpdated!.weight, 69.5);
       expect(retrievedUpdated.workoutText, 'Run + Swim');
       
       // Delete
       await DatabaseHelper.instance.deleteEntry(DateTime(2023, 1, 1));
-      final deleted = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
+      final DailyEntry? deleted = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
       expect(deleted, isNull);
     });
 
     test('UserProfile CRUD', () async {
-      final profile = UserProfile(
+      final UserProfile profile = UserProfile(
         initialHeight: 180.0,
-        preferredUnits: 'imperial',
+        preferredUnits: UnitSystem.imperial,
       );
       
       await DatabaseHelper.instance.saveUserProfile(profile);
       
-      final retrieved = await DatabaseHelper.instance.getUserProfile();
+      final UserProfile? retrieved = await DatabaseHelper.instance.getUserProfile();
       expect(retrieved, isNotNull);
       expect(retrieved!.initialHeight, 180.0);
-      expect(retrieved.preferredUnits, 'imperial');
+      expect(retrieved.preferredUnits, UnitSystem.imperial);
     });
 
     test('Workout Tags', () async {
       await DatabaseHelper.instance.saveWorkoutTag('Running', '#FF0000');
       await DatabaseHelper.instance.saveWorkoutTag('Swimming', '#00FF00');
       
-      var tags = await DatabaseHelper.instance.getAllWorkoutTags();
-      expect(tags, containsAll(['Running', 'Swimming']));
+      List<String> tags = await DatabaseHelper.instance.getAllWorkoutTags();
+      expect(tags, containsAll(<dynamic>['Running', 'Swimming']));
       
       await DatabaseHelper.instance.incrementTagUseCount('Running');
       

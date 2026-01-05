@@ -2,15 +2,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trale/models/daily_entry.dart';
+import 'package:trale/models/emotional_checkin.dart';
 import 'package:trale/models/user_profile.dart';
 import 'package:trale/database/database_helper.dart';
 import 'package:trale/screens/daily_entry_screen.dart';
 import 'package:trale/widgets/photo_viewer.dart';
 
 class EntryDetailScreen extends StatefulWidget {
-  final DailyEntry entry;
 
   const EntryDetailScreen({Key? key, required this.entry}) : super(key: key);
+  final DailyEntry entry;
 
   @override
   State<EntryDetailScreen> createState() => _EntryDetailScreenState();
@@ -28,7 +29,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
   }
 
   Future<void> _loadUserProfile() async {
-    final profile = await DatabaseHelper.instance.getUserProfile();
+    final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
     setState(() => _userProfile = profile);
   }
 
@@ -36,7 +37,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DailyEntryScreen(
+        builder: (BuildContext context) => DailyEntryScreen(
           initialDate: _entry.date,
           existingEntry: _entry,
         ),
@@ -45,7 +46,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
 
     if (result == true) {
       // Reload entry
-      final updated = await DatabaseHelper.instance.getDailyEntry(_entry.date);
+      final DailyEntry? updated = await DatabaseHelper.instance.getDailyEntry(_entry.date);
       if (updated != null) {
         setState(() => _entry = updated);
       }
@@ -53,12 +54,12 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
   }
 
   Future<void> _deleteEntry() async {
-    final confirmed = await showDialog<bool>(
+    final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Delete Entry'),
         content: const Text('Are you sure you want to delete this entry?'),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
@@ -94,7 +95,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Entry Details'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: _editEntry,
@@ -109,7 +110,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             // Date header
             Container(
               width: double.infinity,
@@ -120,7 +121,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Text(
                     DateFormat('EEEE, MMMM d, yyyy').format(_entry.date),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -141,17 +142,17 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
             const SizedBox(height: 24),
 
             // Weight & Height
-            if (_entry.weight != null) ...[
+            if (_entry.weight != null) ...<Widget>[
               _buildSectionHeader(Icons.monitor_weight, 'Weight & Metrics'),
               const SizedBox(height: 12),
               Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
-                    children: [
+                    children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: <Widget>[
                           const Text('Weight'),
                           Text(
                             '${_entry.weight} kg',
@@ -159,11 +160,11 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                           ),
                         ],
                       ),
-                      if (_entry.height != null) ...[
+                      if (_entry.height != null) ...<Widget>[
                         const Divider(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: <Widget>[
                             const Text('Height'),
                             Text(
                               '${_entry.height} cm',
@@ -172,11 +173,11 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                           ],
                         ),
                       ],
-                      if (bmi != null) ...[
+                      if (bmi != null) ...<Widget>[
                         const Divider(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: <Widget>[
                             const Text('BMI'),
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -207,7 +208,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
             ],
 
             // Photos
-            if (_entry.photoPaths.isNotEmpty) ...[
+            if (_entry.photoPaths.isNotEmpty) ...<Widget>[
               _buildSectionHeader(Icons.photo_camera, 'Photos'),
               const SizedBox(height: 12),
               SizedBox(
@@ -215,7 +216,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _entry.photoPaths.length,
-                  itemBuilder: (context, index) {
+                  itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 12),
                       child: GestureDetector(
@@ -242,7 +243,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
 
             // Workout
             if (_entry.workoutText?.isNotEmpty == true || 
-                _entry.workoutTags.isNotEmpty) ...[
+                _entry.workoutTags.isNotEmpty) ...<Widget>[
               _buildSectionHeader(Icons.fitness_center, 'Workout'),
               const SizedBox(height: 12),
               Card(
@@ -250,13 +251,13 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (_entry.workoutTags.isNotEmpty) ...[
+                    children: <Widget>[
+                      if (_entry.workoutTags.isNotEmpty) ...<Widget>[
                         Wrap(
                           spacing: 8,
                           runSpacing: 8,
                           children: _entry.workoutTags
-                              .map((tag) => Chip(label: Text(tag)))
+                              .map((String tag) => Chip(label: Text(tag)))
                               .toList(),
                         ),
                         if (_entry.workoutText?.isNotEmpty == true)
@@ -275,18 +276,18 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
             ],
 
             // Emotional Check-ins
-            if (_entry.emotionalCheckIns.isNotEmpty) ...[
+            if (_entry.emotionalCheckIns.isNotEmpty) ...<Widget>[
               _buildSectionHeader(Icons.sentiment_satisfied, 'Emotional Check-Ins'),
               const SizedBox(height: 12),
-              ..._entry.emotionalCheckIns.map((checkIn) => Card(
+              ..._entry.emotionalCheckIns.map((EmotionalCheckIn checkIn) => Card(
                 margin: const EdgeInsets.only(bottom: 12),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Row(
-                        children: [
+                        children: <Widget>[
                           Icon(
                             Icons.access_time,
                             size: 16,
@@ -301,7 +302,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                             ),
                           ),
                           const Spacer(),
-                          ...checkIn.emotions.map((emoji) => 
+                          ...checkIn.emotions.map((String emoji) => 
                             Padding(
                               padding: const EdgeInsets.only(left: 4),
                               child: Text(emoji, style: const TextStyle(fontSize: 24)),
@@ -309,7 +310,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                           ),
                         ],
                       ),
-                      if (checkIn.text.isNotEmpty) ...[
+                      if (checkIn.text.isNotEmpty) ...<Widget>[
                         const SizedBox(height: 12),
                         Text(
                           checkIn.text,
@@ -324,7 +325,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
             ],
 
             // Thoughts
-            if (_entry.thoughts?.isNotEmpty == true) ...[
+            if (_entry.thoughts?.isNotEmpty == true) ...<Widget>[
               _buildSectionHeader(Icons.edit_note, 'Thoughts'),
               const SizedBox(height: 12),
               Card(
@@ -347,7 +348,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
 
   Widget _buildSectionHeader(IconData icon, String title) {
     return Row(
-      children: [
+      children: <Widget>[
         Icon(icon, color: Theme.of(context).colorScheme.primary),
         const SizedBox(width: 8),
         Text(
@@ -364,7 +365,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PhotoViewer(
+        builder: (BuildContext context) => PhotoViewer(
           photoPaths: _entry.photoPaths,
           initialIndex: index,
         ),

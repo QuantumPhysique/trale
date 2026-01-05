@@ -161,6 +161,7 @@ If you're ready to create the production release:
 ## Known Issues
 
 ### ✅ Fixed Issues
+
 - ✅ **Package name inconsistency** - Fixed mismatch between applicationId (com.heets.traleplus) and namespace/package declarations (was de.quantumphysique.trale)
   - Updated `android/app/build.gradle` namespace
   - Updated all AndroidManifest.xml files (main, debug, profile)

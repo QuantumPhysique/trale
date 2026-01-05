@@ -850,10 +850,10 @@ class _HeightListTileState extends State<HeightListTile> {
   Widget build(BuildContext context) {
     return FutureBuilder<UserProfile?>(
       future: DatabaseHelper.instance.getUserProfile(),
-      builder: (context, snapshot) {
-        final profile = snapshot.data;
-        final height = profile?.initialHeight;
-        final unit = profile?.preferredUnits == 'metric' ? 'cm' : 'in';
+      builder: (BuildContext context, AsyncSnapshot<UserProfile?> snapshot) {
+        final UserProfile? profile = snapshot.data;
+        final double? height = profile?.initialHeight;
+        final String unit = profile?.preferredUnits == UnitSystem.metric ? 'cm' : 'in';
 
         return ListTile(
           dense: true,
@@ -877,29 +877,29 @@ class _HeightListTileState extends State<HeightListTile> {
   }
 
   Future<void> _showHeightUpdateDialog() async {
-    final profile = await DatabaseHelper.instance.getUserProfile();
-    final currentHeight = profile?.initialHeight?.toString() ?? '';
-    final currentUnit = profile?.preferredUnits ?? 'metric';
+    final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
+    final String currentHeight = profile?.initialHeight?.toString() ?? '';
+    final UnitSystem currentUnit = profile?.preferredUnits ?? UnitSystem.metric;
 
-    final controller = TextEditingController(text: currentHeight);
-    String selectedUnit = currentUnit;
+    final TextEditingController controller = TextEditingController(text: currentHeight);
+    UnitSystem selectedUnit = currentUnit;
 
     await showDialog(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setState) => AlertDialog(
+      builder: (BuildContext context) => StatefulBuilder(
+        builder: (BuildContext context, setState) => AlertDialog(
           title: const Text('Update Height'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               SegmentedButton<String>(
-                segments: const [
+                segments: const <ButtonSegment<String>>[
                   ButtonSegment(value: 'metric', label: Text('cm')),
                   ButtonSegment(value: 'imperial', label: Text('in')),
                 ],
-                selected: {selectedUnit},
+                selected: <String>{selectedUnit.value},
                 onSelectionChanged: (Set<String> newSelection) {
-                  setState(() => selectedUnit = newSelection.first);
+                  setState(() => selectedUnit = UnitSystem.fromString(newSelection.first));
                 },
               ),
               const SizedBox(height: 16),
@@ -908,23 +908,23 @@ class _HeightListTileState extends State<HeightListTile> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
-                  suffix: Text(selectedUnit == 'metric' ? 'cm' : 'in'),
+                  suffix: Text(selectedUnit == UnitSystem.metric ? 'cm' : 'in'),
                 ),
               ),
             ],
           ),
-          actions: [
+          actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),
             ),
             FilledButton(
               onPressed: () async {
-                final newHeight = double.tryParse(controller.text);
+                final double? newHeight = double.tryParse(controller.text);
                 if (newHeight != null) {
-                  final updatedProfile = UserProfile(
+                  final UserProfile updatedProfile = UserProfile(
                     initialHeight: newHeight,
-                    heightHistory: [
+                    heightHistory: <HeightEntry>[
                       ...?profile?.heightHistory,
                       HeightEntry(date: DateTime.now(), height: newHeight),
                     ],

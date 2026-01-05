@@ -2,18 +2,6 @@ import 'dart:convert';
 import 'emotional_checkin.dart';
 
 class DailyEntry {
-  final DateTime date;
-  final double? weight;
-  final double? height;
-  final List<String> photoPaths;
-  final String? workoutText;
-  final List<String> workoutTags;
-  final String? thoughts;
-  final List<EmotionalCheckIn> emotionalCheckIns;
-  final DateTime timestamp;
-  
-  /// Whether this entry has been saved and is now immutable
-  final bool isImmutable;
 
   DailyEntry({
     required this.date,
@@ -27,24 +15,6 @@ class DailyEntry {
     DateTime? timestamp,
     this.isImmutable = false,
   }) : timestamp = timestamp ?? DateTime.now();
-
-  // Convert to Map for SQLite storage
-  Map<String, dynamic> toMap() {
-    return {
-      'date': date.toIso8601String().split('T')[0], // YYYY-MM-DD format
-      'weight': weight,
-      'height': height,
-      'photo_paths': jsonEncode(photoPaths),
-      'workout_text': workoutText,
-      'workout_tags': jsonEncode(workoutTags),
-      'thoughts': thoughts,
-      'emotional_checkins': jsonEncode(
-        emotionalCheckIns.map((e) => e.toJson()).toList()
-      ),
-      'timestamp': timestamp.toIso8601String(),
-      'is_immutable': isImmutable ? 1 : 0,
-    };
-  }
 
   // Convert from Map (from SQLite)
   factory DailyEntry.fromMap(Map<String, dynamic> map) {
@@ -73,5 +43,35 @@ class DailyEntry {
       timestamp: DateTime.parse(map['timestamp']),
       isImmutable: (map['is_immutable'] as int?) == 1,
     );
+  }
+  final DateTime date;
+  final double? weight;
+  final double? height;
+  final List<String> photoPaths;
+  final String? workoutText;
+  final List<String> workoutTags;
+  final String? thoughts;
+  final List<EmotionalCheckIn> emotionalCheckIns;
+  final DateTime timestamp;
+  
+  /// Whether this entry has been saved and is now immutable
+  final bool isImmutable;
+
+  // Convert to Map for SQLite storage
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'date': date.toIso8601String().split('T')[0], // YYYY-MM-DD format
+      'weight': weight,
+      'height': height,
+      'photo_paths': jsonEncode(photoPaths),
+      'workout_text': workoutText,
+      'workout_tags': jsonEncode(workoutTags),
+      'thoughts': thoughts,
+      'emotional_checkins': jsonEncode(
+        emotionalCheckIns.map((EmotionalCheckIn e) => e.toJson()).toList()
+      ),
+      'timestamp': timestamp.toIso8601String(),
+      'is_immutable': isImmutable ? 1 : 0,
+    };
   }
 }

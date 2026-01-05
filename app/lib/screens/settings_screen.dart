@@ -9,7 +9,7 @@ import 'package:trale/database/database_helper.dart';
 import 'package:intl/intl.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -26,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _loadUserProfile() async {
-    final profile = await DatabaseHelper.instance.getUserProfile();
+    final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
     setState(() {
       _userProfile = profile;
       _isLoading = false;
@@ -42,7 +42,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
-              children: [
+              children: <Widget>[
                 _buildUserSection(),
                 const Divider(),
                 _buildDataSection(),
@@ -56,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildUserSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
@@ -72,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: const Text('Height'),
           subtitle: _userProfile?.initialHeight != null
               ? Text(
-                  '${_userProfile!.initialHeight} ${_userProfile!.preferredUnits == 'metric' ? 'cm' : 'in'}')
+                  '${_userProfile!.initialHeight} ${_userProfile!.preferredUnits == UnitSystem.metric ? 'cm' : 'in'}')
               : const Text('Not set'),
           trailing: const Icon(Icons.chevron_right),
           onTap: _showHeightUpdateDialog,
@@ -81,13 +81,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           leading: const Icon(Icons.straighten),
           title: const Text('Units'),
           subtitle: Text(
-            _userProfile?.preferredUnits == 'metric' ? 'Metric (kg, cm)' : 'Imperial (lb, in)',
+            _userProfile?.preferredUnits == UnitSystem.metric ? 'Metric (kg, cm)' : 'Imperial (lb, in)',
           ),
           trailing: const Icon(Icons.chevron_right),
           onTap: _showUnitsDialog,
         ),
         if (_userProfile?.heightHistory != null && 
-            _userProfile!.heightHistory.isNotEmpty) ...[
+            _userProfile!.heightHistory.isNotEmpty) ...<Widget>[
           ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Height History'),
@@ -103,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildDataSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
@@ -143,7 +143,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildAboutSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
@@ -186,28 +186,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showHeightUpdateDialog() async {
-    final currentHeight = _userProfile?.initialHeight?.toString() ?? '';
-    final currentUnit = _userProfile?.preferredUnits ?? 'metric';
+    final String currentHeight = _userProfile?.initialHeight?.toString() ?? '';
+    final UnitSystem currentUnit = _userProfile?.preferredUnits ?? UnitSystem.metric;
     
-    final controller = TextEditingController(text: currentHeight);
-    String selectedUnit = currentUnit;
+    final TextEditingController controller = TextEditingController(text: currentHeight);
+    UnitSystem selectedUnit = currentUnit;
 
     await showDialog(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setState) => AlertDialog(
+      builder: (BuildContext context) => StatefulBuilder(
+        builder: (BuildContext context, setState) => AlertDialog(
           title: const Text('Update Height'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               SegmentedButton<String>(
-                segments: const [
+                segments: const <ButtonSegment<String>>[
                   ButtonSegment(value: 'metric', label: Text('cm')),
                   ButtonSegment(value: 'imperial', label: Text('in')),
                 ],
-                selected: {selectedUnit},
+                selected: <String>{selectedUnit.value},
                 onSelectionChanged: (Set<String> newSelection) {
-                  setState(() => selectedUnit = newSelection.first);
+                  setState(() => selectedUnit = UnitSystem.fromString(newSelection.first));
                 },
               ),
               const SizedBox(height: 16),
@@ -217,23 +217,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   labelText: 'Height',
-                  suffixText: selectedUnit == 'metric' ? 'cm' : 'in',
+                  suffixText: selectedUnit == UnitSystem.metric ? 'cm' : 'in',
                 ),
               ),
             ],
           ),
-          actions: [
+          actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Cancel'),
             ),
             FilledButton(
               onPressed: () async {
-                final newHeight = double.tryParse(controller.text);
+                final double? newHeight = double.tryParse(controller.text);
                 if (newHeight != null) {
-                  final updatedProfile = UserProfile(
+                  final UserProfile updatedProfile = UserProfile(
                     initialHeight: newHeight,
-                    heightHistory: [
+                    heightHistory: <HeightEntry>[
                       ...?_userProfile?.heightHistory,
                       HeightEntry(date: DateTime.now(), height: newHeight),
                     ],
@@ -260,24 +260,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showUnitsDialog() async {
-    final currentUnit = _userProfile?.preferredUnits ?? 'metric';
+    final UnitSystem currentUnit = _userProfile?.preferredUnits ?? UnitSystem.metric;
     
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Preferred Units'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<String>(
+          children: <Widget>[
+            RadioListTile<UnitSystem>(
               title: const Text('Metric (kg, cm)'),
-              value: 'metric',
+              value: UnitSystem.metric,
               groupValue: currentUnit,
-              onChanged: (value) async {
+              onChanged: (UnitSystem? value) async {
                 if (value != null) {
-                  final updatedProfile = UserProfile(
+                  final UserProfile updatedProfile = UserProfile(
                     initialHeight: _userProfile?.initialHeight,
-                    heightHistory: _userProfile?.heightHistory ?? [],
+                    heightHistory: _userProfile?.heightHistory ?? <HeightEntry>[],
                     preferredUnits: value,
                   );
                   await DatabaseHelper.instance.saveUserProfile(updatedProfile);
@@ -288,15 +288,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 }
               },
             ),
-            RadioListTile<String>(
+            RadioListTile<UnitSystem>(
               title: const Text('Imperial (lb, in)'),
-              value: 'imperial',
+              value: UnitSystem.imperial,
               groupValue: currentUnit,
-              onChanged: (value) async {
+              onChanged: (UnitSystem? value) async {
                 if (value != null) {
-                  final updatedProfile = UserProfile(
+                  final UserProfile updatedProfile = UserProfile(
                     initialHeight: _userProfile?.initialHeight,
-                    heightHistory: _userProfile?.heightHistory ?? [],
+                    heightHistory: _userProfile?.heightHistory ?? <HeightEntry>[],
                     preferredUnits: value,
                   );
                   await DatabaseHelper.instance.saveUserProfile(updatedProfile);
@@ -316,24 +316,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _showHeightHistory() async {
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Height History'),
         content: SizedBox(
           width: double.maxFinite,
           child: ListView.builder(
             shrinkWrap: true,
             itemCount: _userProfile?.heightHistory.length ?? 0,
-            itemBuilder: (context, index) {
-              final entry = _userProfile!.heightHistory[index];
+            itemBuilder: (BuildContext context, int index) {
+              final HeightEntry entry = _userProfile!.heightHistory[index];
               return ListTile(
                 leading: const Icon(Icons.height),
-                title: Text('${entry.height} ${_userProfile!.preferredUnits == 'metric' ? 'cm' : 'in'}'),
+                title: Text('${entry.height} ${_userProfile!.preferredUnits == UnitSystem.metric ? 'cm' : 'in'}'),
                 subtitle: Text(DateFormat('MMM d, yyyy').format(entry.date)),
               );
             },
           ),
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Close'),
@@ -349,32 +349,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const Center(
+        builder: (BuildContext context) => const Center(
           child: CircularProgressIndicator(),
         ),
       );
 
       // Get all data
-      final entries = await DatabaseHelper.instance.getAllEntries();
-      final profile = await DatabaseHelper.instance.getUserProfile();
+      final List<DailyEntry> entries = await DatabaseHelper.instance.getAllEntries();
+      final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
 
       // Create export object
-      final exportData = {
+      final Map<String, Object?> exportData = <String, Object?>{
         'version': '2.0.0',
         'exported_at': DateTime.now().toIso8601String(),
         'user_profile': profile?.toMap(),
-        'entries': entries.map((e) => e.toMap()).toList(),
+        'entries': entries.map((DailyEntry e) => e.toMap()).toList(),
         'total_entries': entries.length,
       };
 
       // Convert to JSON
-      final jsonString = const JsonEncoder.withIndent('  ').convert(exportData);
+      final String jsonString = const JsonEncoder.withIndent('  ').convert(exportData);
 
       // Save to file
-      final directory = await getApplicationDocumentsDirectory();
-      final timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
-      final fileName = 'trale_plus_backup_$timestamp.json';
-      final filePath = '${directory.path}/$fileName';
+      final Directory directory = await getApplicationDocumentsDirectory();
+      final String timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+      final String fileName = 'trale_plus_backup_$timestamp.json';
+      final String filePath = '${directory.path}/$fileName';
       
       await File(filePath).writeAsString(jsonString);
 
@@ -383,7 +383,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
       // Share file
       await Share.shareXFiles(
-        [XFile(filePath)],
+        <XFile>[XFile(filePath)],
         subject: 'Trale+ Data Backup',
         text: 'Backup of ${entries.length} entries from Trale+',
       );
@@ -404,20 +404,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _showStorageInfo() async {
-    final entries = await DatabaseHelper.instance.getAllEntries();
-    final directory = await getApplicationDocumentsDirectory();
-    final photosDir = Directory('${directory.path}/photos');
+    final List<DailyEntry> entries = await DatabaseHelper.instance.getAllEntries();
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final Directory photosDir = Directory('${directory.path}/photos');
     
     int photoCount = 0;
     int totalPhotoSize = 0;
     
     if (await photosDir.exists()) {
-      final photos = await photosDir.list().toList();
+      final List<FileSystemEntity> photos = await photosDir.list().toList();
       photoCount = photos.length;
       
-      for (final photo in photos) {
+      for (final FileSystemEntity photo in photos) {
         if (photo is File) {
-          final stat = await photo.stat();
+          final FileStat stat = await photo.stat();
           totalPhotoSize += stat.size;
         }
       }
@@ -426,12 +426,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (mounted) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
           title: const Text('Storage Info'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               _buildInfoRow('Total Entries', '${entries.length}'),
               _buildInfoRow('Photos Stored', '$photoCount'),
               _buildInfoRow('Photo Storage', '${(totalPhotoSize / 1024 / 1024).toStringAsFixed(2)} MB'),
@@ -442,7 +442,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ],
           ),
-          actions: [
+          actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Close'),
@@ -458,7 +458,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: <Widget>[
           Text(label),
           Text(
             value,
@@ -470,14 +470,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _confirmDeleteAllData() async {
-    final confirmed = await showDialog<bool>(
+    final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Delete All Data?'),
         content: const Text(
           'This will permanently delete all your entries, photos, and settings. This action cannot be undone.',
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
@@ -495,14 +495,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     if (confirmed == true) {
       // Delete all entries
-      final entries = await DatabaseHelper.instance.getAllEntries();
-      for (final entry in entries) {
+      final List<DailyEntry> entries = await DatabaseHelper.instance.getAllEntries();
+      for (final DailyEntry entry in entries) {
         await DatabaseHelper.instance.deleteEntry(entry.date);
       }
 
       // Reset user profile
       await DatabaseHelper.instance.saveUserProfile(
-        UserProfile(preferredUnits: 'metric'),
+        UserProfile(preferredUnits: UnitSystem.metric),
       );
 
       if (mounted) {
@@ -520,7 +520,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       applicationName: 'Trale+',
       applicationVersion: '2.0.0',
       applicationIcon: const Icon(Icons.fitness_center, size: 48),
-      children: [
+      children: <Widget>[
         const Text(
           'A complete fitness journal app for tracking weight, workouts, photos, thoughts, and emotions.',
         ),
@@ -537,12 +537,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void _showPrivacyPolicy() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Privacy Policy'),
         content: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Text(
                 'Your Privacy is Our Priority',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -570,7 +570,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ],
           ),
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Close'),

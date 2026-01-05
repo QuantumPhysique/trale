@@ -21,7 +21,7 @@ void main() {
 
   group('Trale+ Fitness Journal Widget Tests', () {
     testWidgets('Settings screen renders with loading indicator', (WidgetTester tester) async {
-      SharedPreferences.setMockInitialValues({});
+      SharedPreferences.setMockInitialValues(<String, Object>{});
 
       await tester.pumpWidget(
         const MaterialApp(
@@ -34,7 +34,7 @@ void main() {
     });
 
     testWidgets('Daily entry screen renders successfully', (WidgetTester tester) async {
-      SharedPreferences.setMockInitialValues({});
+      SharedPreferences.setMockInitialValues(<String, Object>{});
 
       await tester.pumpWidget(
         const MaterialApp(

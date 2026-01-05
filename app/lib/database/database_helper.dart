@@ -6,10 +6,10 @@ import '../models/daily_entry.dart';
 import '../models/user_profile.dart';
 
 class DatabaseHelper {
-  static final DatabaseHelper instance = DatabaseHelper._init();
-  static Database? _database;
 
   DatabaseHelper._init();
+  static final DatabaseHelper instance = DatabaseHelper._init();
+  static Database? _database;
 
   // Database version: increment when schema changes
   // v1: Initial SQLite schema (replaced Hive)
@@ -23,8 +23,8 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+    final String dbPath = await getDatabasesPath();
+    final String path = join(dbPath, filePath);
 
     return await openDatabase(
       path,
@@ -80,24 +80,24 @@ class DatabaseHelper {
       await db.execute('ALTER TABLE daily_entries ADD COLUMN is_immutable INTEGER DEFAULT 0');
       
       // Migrate old emotions field to new emotional_checkins format
-      final entries = await db.query('daily_entries');
-      for (var entry in entries) {
-        final oldEmotions = entry['emotions'] as String?;
+      final List<Map<String, Object?>> entries = await db.query('daily_entries');
+      for (Map<String, Object?> entry in entries) {
+        final String? oldEmotions = entry['emotions'] as String?;
         if (oldEmotions != null && oldEmotions.isNotEmpty && oldEmotions != '[]') {
           // Convert old emotions array to single emotional check-in
           final List<dynamic> emotionsList = jsonDecode(oldEmotions);
           if (emotionsList.isNotEmpty) {
-            final timestamp = entry['timestamp'] as String;
-            final checkIn = {
+            final String timestamp = entry['timestamp'] as String;
+            final Map<String, Object> checkIn = <String, Object>{
               'timestamp': timestamp,
               'emotions': emotionsList,
               'text': '', // Old entries didn't have text
             };
             await db.update(
               'daily_entries',
-              {'emotional_checkins': jsonEncode([checkIn])},
+              <String, Object?>{'emotional_checkins': jsonEncode(<Map<String, Object>>[checkIn])},
               where: 'date = ?',
-              whereArgs: [entry['date']],
+              whereArgs: <Object?>[entry['date']],
             );
           }
         }
@@ -109,7 +109,7 @@ class DatabaseHelper {
   }
 
   Future<void> close() async {
-    final db = _database;
+    final Database? db = _database;
     if (db != null) {
       await db.close();
       _database = null;
@@ -118,7 +118,7 @@ class DatabaseHelper {
 
   // Insert or update daily entry
   Future<void> saveDailyEntry(DailyEntry entry) async {
-    final db = await database;
+    final Database db = await database;
     await db.insert(
       'daily_entries',
       entry.toMap(),
@@ -128,12 +128,12 @@ class DatabaseHelper {
 
   // Get entry by date
   Future<DailyEntry?> getDailyEntry(DateTime date) async {
-    final db = await database;
-    final dateStr = date.toIso8601String().split('T')[0];
-    final results = await db.query(
+    final Database db = await database;
+    final String dateStr = date.toIso8601String().split('T')[0];
+    final List<Map<String, Object?>> results = await db.query(
       'daily_entries',
       where: 'date = ?',
-      whereArgs: [dateStr],
+      whereArgs: <Object?>[dateStr],
     );
     
     if (results.isEmpty) return null;
@@ -142,30 +142,30 @@ class DatabaseHelper {
 
   // Get all entries (ordered by date descending)
   Future<List<DailyEntry>> getAllEntries() async {
-    final db = await database;
-    final results = await db.query(
+    final Database db = await database;
+    final List<Map<String, Object?>> results = await db.query(
       'daily_entries',
       orderBy: 'date DESC',
     );
     
-    return results.map((map) => DailyEntry.fromMap(map)).toList();
+    return results.map((Map<String, Object?> map) => DailyEntry.fromMap(map)).toList();
   }
 
   // Delete entry
   Future<void> deleteEntry(DateTime date) async {
     // Get entry first to access photo paths
-    final entry = await getDailyEntry(date);
+    final DailyEntry? entry = await getDailyEntry(date);
     
     // Delete photos from disk
     if (entry != null && entry.photoPaths.isNotEmpty) {
-      for (final photoPath in entry.photoPaths) {
+      for (final String photoPath in entry.photoPaths) {
         try {
-          final file = File(photoPath);
+          final File file = File(photoPath);
           if (await file.exists()) {
             await file.delete();
             // Also delete thumbnail if exists
-            final thumbPath = photoPath.replaceAll('.jpg', '_thumb.jpg');
-            final thumbFile = File(thumbPath);
+            final String thumbPath = photoPath.replaceAll('.jpg', '_thumb.jpg');
+            final File thumbFile = File(thumbPath);
             if (await thumbFile.exists()) {
               await thumbFile.delete();
             }
@@ -177,18 +177,18 @@ class DatabaseHelper {
     }
     
     // Delete entry from database
-    final db = await database;
-    final dateStr = date.toIso8601String().split('T')[0];
+    final Database db = await database;
+    final String dateStr = date.toIso8601String().split('T')[0];
     await db.delete(
       'daily_entries',
       where: 'date = ?',
-      whereArgs: [dateStr],
+      whereArgs: <Object?>[dateStr],
     );
   }
 
   // User Profile methods
   Future<void> saveUserProfile(UserProfile profile) async {
-    final db = await database;
+    final Database db = await database;
     await db.insert(
       'user_profile',
       profile.toMap(),
@@ -197,8 +197,8 @@ class DatabaseHelper {
   }
 
   Future<UserProfile?> getUserProfile() async {
-    final db = await database;
-    final results = await db.query('user_profile', where: 'id = 1');
+    final Database db = await database;
+    final List<Map<String, Object?>> results = await db.query('user_profile', where: 'id = 1');
     
     if (results.isEmpty) return null;
     return UserProfile.fromMap(results.first);
@@ -206,30 +206,30 @@ class DatabaseHelper {
 
   // Workout tags methods
   Future<void> saveWorkoutTag(String tag, String color) async {
-    final db = await database;
+    final Database db = await database;
     await db.insert(
       'workout_tags',
-      {'tag': tag, 'color': color, 'use_count': 1},
+      <String, Object?>{'tag': tag, 'color': color, 'use_count': 1},
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 
   Future<void> incrementTagUseCount(String tag) async {
-    final db = await database;
+    final Database db = await database;
     await db.rawUpdate(
       'UPDATE workout_tags SET use_count = use_count + 1 WHERE tag = ?',
-      [tag],
+      <Object?>[tag],
     );
   }
 
   Future<List<String>> getAllWorkoutTags() async {
-    final db = await database;
-    final results = await db.query(
+    final Database db = await database;
+    final List<Map<String, Object?>> results = await db.query(
       'workout_tags',
       orderBy: 'use_count DESC',
     );
     
-    return results.map((row) => row['tag'] as String).toList();
+    return results.map((Map<String, Object?> row) => row['tag'] as String).toList();
   }
 
 

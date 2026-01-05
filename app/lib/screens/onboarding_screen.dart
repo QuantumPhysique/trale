@@ -4,7 +4,7 @@ import 'package:trale/models/user_profile.dart';
 import 'package:trale/database/database_helper.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+  const OnboardingScreen({super.key});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -16,7 +16,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   // Height entry state
   final TextEditingController _heightController = TextEditingController();
-  String _selectedUnit = 'metric'; // 'metric' or 'imperial'
+  UnitSystem _selectedUnit = UnitSystem.metric; // UnitSystem (metric or imperial)
   bool _isLoading = false;
 
   @override
@@ -37,17 +37,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final height = double.parse(_heightController.text);
+      final double height = double.parse(_heightController.text);
 
       // Save user profile
-      final profile = UserProfile(
+      final UserProfile profile = UserProfile(
         initialHeight: height,
         preferredUnits: _selectedUnit,
       );
       await DatabaseHelper.instance.saveUserProfile(profile);
 
       // Set onboarding completed flag
-      final prefs = await SharedPreferences.getInstance();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('onboarding_completed', true);
 
       // Navigate to home screen
@@ -68,14 +68,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: [
+          children: <Widget>[
             Expanded(
               child: PageView(
                 controller: _pageController,
-                onPageChanged: (index) {
+                onPageChanged: (int index) {
                   setState(() => _currentPage = index);
                 },
-                children: [
+                children: <Widget>[
                   _buildWelcomePage(),
                   _buildHeightEntryPage(),
                   _buildPrivacyPage(),
@@ -94,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Icon(
             Icons.fitness_center,
             size: 100,
@@ -119,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             spacing: 16,
             runSpacing: 16,
             alignment: WrapAlignment.center,
-            children: [
+            children: <Widget>[
               _buildFeatureChip('📊 Weight Tracking'),
               _buildFeatureChip('📸 Progress Photos'),
               _buildFeatureChip('💪 Workout Log'),
@@ -137,7 +137,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Icon(
             Icons.height,
             size: 80,
@@ -159,7 +159,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           const SizedBox(height: 32),
           // Unit toggle
           SegmentedButton<String>(
-            segments: const [
+            segments: const <ButtonSegment<String>>[
               ButtonSegment(
                 value: 'metric',
                 label: Text('Metric (cm)'),
@@ -171,9 +171,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 icon: Icon(Icons.straighten),
               ),
             ],
-            selected: {_selectedUnit},
+            selected: <String>{_selectedUnit.value},
             onSelectionChanged: (Set<String> newSelection) {
-              setState(() => _selectedUnit = newSelection.first);
+              setState(() => _selectedUnit = UnitSystem.fromString(newSelection.first));
             },
           ),
           const SizedBox(height: 24),
@@ -187,8 +187,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               style: Theme.of(context).textTheme.headlineMedium,
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                suffix: Text(_selectedUnit == 'metric' ? 'cm' : 'in'),
-                hintText: _selectedUnit == 'metric' ? '170' : '67',
+                suffix: Text(_selectedUnit == UnitSystem.metric ? 'cm' : 'in'),
+                hintText: _selectedUnit == UnitSystem.metric ? '170' : '67',
               ),
             ),
           ),
@@ -209,7 +209,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Icon(
             Icons.lock_outline,
             size: 80,
@@ -260,13 +260,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildPrivacyFeature(IconData icon, String title, String subtitle) {
     return Row(
-      children: [
+      children: <Widget>[
         Icon(icon, color: Theme.of(context).colorScheme.primary),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Text(
                 title,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -288,13 +288,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
-        children: [
+        children: <Widget>[
           // Page indicators
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               3,
-              (index) => Container(
+              (int index) => Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4),
                 width: _currentPage == index ? 24 : 8,
                 height: 8,
@@ -311,7 +311,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           // Navigation buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               if (_currentPage > 0)
                 TextButton(
                   onPressed: () {

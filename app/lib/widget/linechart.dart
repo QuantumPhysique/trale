@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
 import 'package:ml_linalg/linalg.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';

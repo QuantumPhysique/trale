@@ -3,6 +3,8 @@
 # This script validates the package name fixes and performs test builds
 
 set -e  # Exit on error
+set -o pipefail  # Exit on pipe failure
+set -u  # Exit on undefined variable
 
 echo "================================================"
 echo "Trale+ Build Verification Script"
@@ -15,8 +17,15 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# Verify app directory exists before changing into it
+appDir="$(dirname "$0")/app"
+if [ ! -d "$appDir" ]; then
+    echo -e "${RED}ERROR: App directory not found at $appDir${NC}" >&2
+    exit 1
+fi
+
 # Change to app directory
-cd "$(dirname "$0")/app"
+cd "$appDir"
 
 echo "Step 1: Verifying package name consistency..."
 echo "----------------------------------------------"
@@ -26,8 +35,10 @@ OLD_PACKAGE="de.quantumphysique.trale"
 NEW_PACKAGE="com.heets.traleplus"
 
 echo "Checking for old package name references..."
-if find android/ -type f -not -path '*/build/*' -not -path '*/.git/*' -exec grep -l "$OLD_PACKAGE" {} \; 2>/dev/null | grep .; then
-    echo -e "${RED}✗ FAILED: Found references to old package name!${NC}"
+matches=$(find android/ -type f -not -path '*/build/*' -not -path '*/.git/*' -exec grep -l "$OLD_PACKAGE" {} \; 2>/dev/null || true)
+if [ -n "$matches" ]; then
+    echo -e "${RED}✗ FAILED: Found references to old package name in the following files:${NC}"
+    echo "$matches"
     exit 1
 else
     echo -e "${GREEN}✓ PASSED: No old package name references found${NC}"

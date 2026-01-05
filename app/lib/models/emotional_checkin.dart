@@ -3,32 +3,6 @@ import 'dart:convert';
 /// Represents a single emotional check-in at a specific moment in time.
 /// Emotional check-ins are immutable and bundled within a daily entry.
 class EmotionalCheckIn {
-  /// Exact timestamp when this check-in was created
-  final DateTime timestamp;
-  
-  /// List of 1-4 emotion emojis selected from the 8 available options
-  final List<String> emotions;
-  
-  /// User's written reflection about their emotional state (max 500 characters)
-  final String text;
-
-  /// Available emotion options (8 total, select any 4)
-  static const Map<String, String> availableEmotions = {
-    '😠': 'Anger',
-    '😨': 'Fear',
-    '😣': 'Pain',
-    '😔': 'Shame',
-    '😞': 'Guilt',
-    '😊': 'Joy',
-    '💪': 'Strength',
-    '❤️': 'Love',
-  };
-
-  /// Maximum number of emotions that can be selected
-  static const int maxEmotionCount = 4;
-  
-  /// Maximum character length for the text field
-  static const int maxTextLength = 500;
 
   EmotionalCheckIn({
     required this.timestamp,
@@ -53,15 +27,6 @@ class EmotionalCheckIn {
     }
   }
 
-  /// Convert to JSON-serializable map
-  Map<String, dynamic> toJson() {
-    return {
-      'timestamp': timestamp.toIso8601String(),
-      'emotions': emotions,
-      'text': text,
-    };
-  }
-
   /// Create from JSON map
   factory EmotionalCheckIn.fromJson(Map<String, dynamic> json) {
     return EmotionalCheckIn(
@@ -69,6 +34,41 @@ class EmotionalCheckIn {
       emotions: List<String>.from(json['emotions'] as List),
       text: json['text'] as String,
     );
+  }
+  /// Exact timestamp when this check-in was created
+  final DateTime timestamp;
+  
+  /// List of 1-4 emotion emojis selected from the 8 available options
+  final List<String> emotions;
+  
+  /// User's written reflection about their emotional state (max 500 characters)
+  final String text;
+
+  /// Available emotion options (8 total, select any 4)
+  static const Map<String, String> availableEmotions = <String, String>{
+    '😠': 'Anger',
+    '😨': 'Fear',
+    '😣': 'Pain',
+    '😔': 'Shame',
+    '😞': 'Guilt',
+    '😊': 'Joy',
+    '💪': 'Strength',
+    '❤️': 'Love',
+  };
+
+  /// Maximum number of emotions that can be selected
+  static const int maxEmotionCount = 4;
+  
+  /// Maximum character length for the text field
+  static const int maxTextLength = 500;
+
+  /// Convert to JSON-serializable map
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'timestamp': timestamp.toIso8601String(),
+      'emotions': emotions,
+      'text': text,
+    };
   }
 
   /// Create a copy with optional field updates
