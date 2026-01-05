@@ -84,22 +84,23 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
         SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
-          child: Text(AppLocalizations.of(context)!.interpolationExplanation,
+          child: Text(
+            AppLocalizations.of(context)!.interpolationExplanation,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
         SizedBox(height: TraleTheme.of(context)!.padding),
         WidgetGroup(
           title: AppLocalizations.of(context)!.unitTitle,
-          children: [
-            const UnitsListTile(),
+          children: const <Widget>[
+            UnitsListTile(),
           ],
         ),
         WidgetGroup(
           title: AppLocalizations.of(context)!.dateSettings,
-          children: [
-            const FirstDayListTile(),
-            const DatePrintListTile(),
+          children: const <Widget>[
+            FirstDayListTile(),
+            DatePrintListTile(),
           ],
         ),
         UserDetailsGroup(
