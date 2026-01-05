@@ -2,12 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/widget/statsCards.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/settingsBanner.dart';
+import 'package:trale/widget/statsCards.dart';
 import 'package:trale/widget/weightListTile.dart';
 
 class WeightList extends StatefulWidget {
@@ -145,6 +150,8 @@ class _TotalWeightList extends State<TotalWeightList>{
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
+    final bool showBanner = notifier.showMeasurementHintBanner;
 
     final List<int> years = <int>[
       for (
@@ -169,6 +176,50 @@ class _TotalWeightList extends State<TotalWeightList>{
       controller: widget.scrollController,
       cacheExtent: 2 * MediaQuery.of(context).size.height,
       slivers: <Widget>[
+        if (showBanner)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                TraleTheme.of(context)!.padding,
+                TraleTheme.of(context)!.padding,
+                TraleTheme.of(context)!.padding,
+                0,
+              ),
+              child: Dismissible(
+                key: const Key('measurement_hint_banner'),
+                direction: DismissDirection.horizontal,
+                onDismissed: (DismissDirection direction) {
+                  notifier.showMeasurementHintBanner = false;
+                },
+                child: Material(
+                  elevation: 0,
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                  child: Padding(
+                    padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          PhosphorIconsBold.info,
+                          color: Theme.of(context).colorScheme.onInverseSurface,
+                          size: 20,
+                        ),
+                        SizedBox(width:  TraleTheme.of(context)!.padding),
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!.measurementHintSubtitle,
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).colorScheme.onInverseSurface,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ...<Widget>[
           for (final int year in years)
             ...<Widget>[

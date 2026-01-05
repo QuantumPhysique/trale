@@ -317,6 +317,17 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  bool get showMeasurementHintBanner => prefs.showMeasurementHintBanner;
+
+  /// setter
+  set showMeasurementHintBanner(bool show) {
+    if (show != showMeasurementHintBanner) {
+      prefs.showMeasurementHintBanner = show;
+      notifyListeners();
+    }
+  }
+
   ColorScheme? _systemLightDynamic;
   ColorScheme? _systemDarkDynamic;
 

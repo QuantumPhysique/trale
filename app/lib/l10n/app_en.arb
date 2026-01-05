@@ -629,5 +629,13 @@
     "undo": "Undo",
     "@undo": {
         "description": "Undo action label"
+    },
+    "measurementHintTitle": "Edit measurements",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Long press on a measurement to edit or delete it. Swipe this message to dismiss.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
     }
 }

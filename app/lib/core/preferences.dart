@@ -99,6 +99,9 @@ class Preferences {
   /// default loose mode
   final bool defaultLooseWeight = true;
 
+  /// default show measurement hint banner
+  final bool defaultShowMeasurementHintBanner = true;
+
   /// getter and setter for all preferences
   /// set user name
   set userName(String name) => prefs.setString('userName', name);
@@ -270,6 +273,12 @@ class Preferences {
   /// Set loose mode
   set looseWeight(bool loose) => prefs.setBool('looseWeight', loose);
 
+  /// Get show measurement hint banner
+  bool get showMeasurementHintBanner => prefs.getBool('showMeasurementHintBanner')!;
+
+  /// Set show measurement hint banner
+  set showMeasurementHintBanner(bool show) => prefs.setBool('showMeasurementHintBanner', show);
+
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
     if (override || !prefs.containsKey('nightMode')) {
@@ -328,6 +337,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('looseWeight')) {
       looseWeight = defaultLooseWeight;
+    }
+    if (override || !prefs.containsKey('showMeasurementHintBanner')) {
+      showMeasurementHintBanner = defaultShowMeasurementHintBanner;
     }
   }
 

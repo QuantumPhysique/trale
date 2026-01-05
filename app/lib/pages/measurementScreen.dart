@@ -25,10 +25,6 @@ class _MeasurementScreen extends State<MeasurementScreen> {
 
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
-    final int firstDelayInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
-    final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
-
     Widget measurementScreen(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
       return Scrollbar(
