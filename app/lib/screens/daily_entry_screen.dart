@@ -1,7 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trale/models/daily_entry.dart';
 import 'package:trale/database/database_helper.dart';
+import 'package:trale/services/photo_service.dart';
+import 'package:trale/widgets/photo_viewer.dart';
 
 class DailyEntryScreen extends StatefulWidget {
   final DateTime? initialDate;
@@ -34,6 +37,10 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
   // Track expanded sections
   final Set<String> _expandedSections = {};
+
+  // Photo service
+  final PhotoService _photoService = PhotoService();
+  bool _isProcessingPhoto = false;
 
   @override
   void initState() {
@@ -290,42 +297,40 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               child: Column(
                 children: [
                   // Photo action buttons
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: photoCount >= 3 ? null : () {
-                            // TODO: Implement camera capture in Sprint 4
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Camera feature coming in Sprint 4'),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.camera_alt),
-                          label: const Text('Camera'),
-                        ),
+                  if (_isProcessingPhoto)
+                    const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          CircularProgressIndicator(),
+                          SizedBox(height: 8),
+                          Text('Processing photo...'),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: photoCount >= 3 ? null : () {
-                            // TODO: Implement gallery picker in Sprint 4
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Gallery feature coming in Sprint 4'),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.photo_library),
-                          label: const Text('Gallery'),
+                    )
+                  else
+                    Row(
+                      children: [
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: photoCount >= 3 ? null : _capturePhoto,
+                            icon: const Icon(Icons.camera_alt),
+                            label: const Text('Camera'),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton.icon(
+                            onPressed: photoCount >= 3 ? null : _selectFromGallery,
+                            icon: const Icon(Icons.photo_library),
+                            label: const Text('Gallery'),
+                          ),
+                        ),
+                      ],
+                    ),
                   if (photoCount > 0) ...[
                     const SizedBox(height: 16),
-                    // Photo preview grid (placeholder for now)
+                    // Photo preview grid
                     GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -336,36 +341,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                       ),
                       itemCount: _photoPaths.length,
                       itemBuilder: (context, index) {
-                        return Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(Icons.image, size: 48),
-                            ),
-                            Positioned(
-                              top: 4,
-                              right: 4,
-                              child: IconButton.filled(
-                                iconSize: 20,
-                                padding: EdgeInsets.zero,
-                                constraints: const BoxConstraints(
-                                  minWidth: 32,
-                                  minHeight: 32,
-                                ),
-                                icon: const Icon(Icons.close),
-                                onPressed: () {
-                                  setState(() {
-                                    _photoPaths.removeAt(index);
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        );
+                        return _buildPhotoThumbnail(index);
                       },
                     ),
                   ] else ...[
@@ -384,10 +360,153 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     );
   }
 
+  Widget _buildPhotoThumbnail(int index) {
+    return GestureDetector(
+      onTap: () => _openPhotoViewer(index),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.file(
+              File(_photoPaths[index]),
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.error),
+                );
+              },
+            ),
+          ),
+          Positioned(
+            top: 4,
+            right: 4,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: IconButton(
+                iconSize: 20,
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(
+                  minWidth: 32,
+                  minHeight: 32,
+                ),
+                icon: const Icon(Icons.close, color: Colors.white),
+                onPressed: () => _deletePhoto(index),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _capturePhoto() async {
+    setState(() => _isProcessingPhoto = true);
+
+    try {
+      final photoPath = await _photoService.capturePhoto(context);
+      
+      if (photoPath != null) {
+        setState(() {
+          _photoPaths.add(photoPath);
+        });
+        
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Photo added (EXIF data removed)')),
+          );
+        }
+      }
+    } finally {
+      setState(() => _isProcessingPhoto = false);
+    }
+  }
+
+  Future<void> _selectFromGallery() async {
+    setState(() => _isProcessingPhoto = true);
+
+    try {
+      final photoPath = await _photoService.selectFromGallery(context);
+      
+      if (photoPath != null) {
+        setState(() {
+          _photoPaths.add(photoPath);
+        });
+        
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Photo added (EXIF data removed)')),
+          );
+        }
+      }
+    } finally {
+      setState(() => _isProcessingPhoto = false);
+    }
+  }
+
+  Future<void> _deletePhoto(int index) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Photo'),
+        content: const Text('Are you sure you want to remove this photo?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      final photoPath = _photoPaths[index];
+      
+      // Delete from disk
+      await _photoService.deletePhoto(photoPath);
+      
+      // Remove from list
+      setState(() {
+        _photoPaths.removeAt(index);
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Photo removed')),
+        );
+      }
+    }
+  }
+
+  void _openPhotoViewer(int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PhotoViewer(
+          photoPaths: _photoPaths,
+          initialIndex: index,
+          onDelete: (deleteIndex) async {
+            await _deletePhoto(deleteIndex);
+          },
+        ),
+      ),
+    );
+  }
+
   Widget _buildWorkoutSection() {
     final isExpanded = _expandedSections.contains('workout');
-    final hasContent = _workoutController.text.isNotEmpty ||
-                       _workoutTags.isNotEmpty;
+    final hasContent = _workoutController.text.isNotEmpty || _workoutTags.isNotEmpty;
 
     return Card(
       child: Column(
@@ -398,9 +517,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             subtitle: !isExpanded && hasContent
                 ? Text(_buildWorkoutSummary())
                 : null,
-            trailing: Icon(isExpanded
-                ? Icons.expand_less
-                : Icons.expand_more),
+            trailing: Icon(isExpanded ? Icons.expand_less : Icons.expand_more),
             onTap: () => _toggleSection('workout'),
           ),
           if (isExpanded) ...[

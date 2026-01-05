@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/daily_entry.dart';
@@ -144,6 +144,30 @@ class DatabaseHelper {
 
   // Delete entry
   Future<void> deleteEntry(DateTime date) async {
+    // Get entry first to access photo paths
+    final entry = await getDailyEntry(date);
+    
+    // Delete photos from disk
+    if (entry != null && entry.photoPaths.isNotEmpty) {
+      for (final photoPath in entry.photoPaths) {
+        try {
+          final file = File(photoPath);
+          if (await file.exists()) {
+            await file.delete();
+            // Also delete thumbnail if exists
+            final thumbPath = photoPath.replaceAll('.jpg', '_thumb.jpg');
+            final thumbFile = File(thumbPath);
+            if (await thumbFile.exists()) {
+              await thumbFile.delete();
+            }
+          }
+        } catch (e) {
+          print('Error deleting photo: $e');
+        }
+      }
+    }
+    
+    // Delete entry from database
     final db = await database;
     final dateStr = date.toIso8601String().split('T')[0];
     await db.delete(

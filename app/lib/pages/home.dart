@@ -10,6 +10,9 @@ import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/statScreen.dart';
 import 'package:trale/screens/daily_entry_screen.dart';
+import 'package:trale/widget/appDrawer.dart';
+import 'package:trale/widget/customSliverAppBar.dart';
+import 'package:trale/widget/floatingActionButton.dart';
 
 
 /// home scaffold

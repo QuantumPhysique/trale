@@ -242,7 +242,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           const SizedBox(height: 16),
           _buildPrivacyFeature(
-            Icons.open_source,
+            Icons.code,
             'Open source',
             'Verify everything yourself',
           ),

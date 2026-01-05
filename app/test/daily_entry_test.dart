@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trale/screens/daily_entry_screen.dart';
+import 'package:trale/database/database_helper.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
+  setUpAll(() {
+    // Initialize FFI for testing
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  });
+
   testWidgets('DailyEntryScreen can be instantiated', (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(

@@ -1,5 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.quantumphysique.trale">
+   
+   <!-- Camera permission -->
+   <uses-permission android:name="android.permission.CAMERA" />
+   
+   <!-- Photo library access (Android 13+) -->
+   <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+   
+   <!-- Fallback for older Android versions -->
+   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+   
+   <!-- Required for camera feature -->
+   <uses-feature android:name="android.hardware.camera" android:required="false" />
+   
    <application
         android:enableOnBackInvokedCallback="true"
         android:label="trale"
