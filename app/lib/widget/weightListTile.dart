@@ -6,6 +6,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 
 @immutable
@@ -33,7 +34,6 @@ class _WeightListTileState extends State<WeightListTile>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<Offset> offsetAnimation;
-  late final Animation<double> fadeAnimation;
 
   // bool reverse = false;
   final MeasurementDatabase database = MeasurementDatabase();
@@ -52,8 +52,6 @@ class _WeightListTileState extends State<WeightListTile>
       end: widget.offset,
     ).animate(animationController);
 
-    fadeAnimation = Tween<double>(begin: 1, end: 0)
-      .animate(animationController);
   }
 
   @override
@@ -144,7 +142,7 @@ class _WeightListTileState extends State<WeightListTile>
       final SortedMeasurement deletedSortedMeasurement = widget.measurement;
       database.deleteMeasurement(widget.measurement);
       final SnackBar snackBar = SnackBar(
-        content: const Text('Measurement was deleted'),
+        content: Text(AppLocalizations.of(context)!.measurementDeleted),
         behavior: SnackBarBehavior.floating,
         width: MediaQuery.of(context).size.width / 3 * 2,
         shape: RoundedRectangleBorder(
@@ -155,7 +153,7 @@ class _WeightListTileState extends State<WeightListTile>
           ),
         ),
         action: SnackBarAction(
-          label: 'Undo',
+          label: AppLocalizations.of(context)!.undo,
           onPressed: () {
             setState(() {
               reverse = false;

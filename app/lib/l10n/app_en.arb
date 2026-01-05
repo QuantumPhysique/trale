@@ -621,5 +621,13 @@
     "aboutDescription3": "Made by two devs with little spare time. Consider contributing or donating.",
     "@aboutDescription3": {
         "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Measurement was deleted.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Undo",
+    "@undo": {
+        "description": "Undo action label"
     }
 }

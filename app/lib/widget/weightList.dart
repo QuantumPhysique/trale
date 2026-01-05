@@ -74,16 +74,12 @@ class _WeightList extends State<WeightList>{
 
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int i) => AnimateInEffect(
-          durationInMilliseconds: widget.durationInMilliseconds,
-          delayInMilliseconds: widget.delayInMilliseconds,
-          child: WeightListTile(
-            measurement: widget.measurements[i],
-            updateActiveState: updateActiveListTile,
-            activeKey: activeListTile,
-            offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
-            durationInMilliseconds: widget.delayInMilliseconds,
-          ),
+        (BuildContext context, int i) => WeightListTile(
+          measurement: widget.measurements[i],
+          updateActiveState: updateActiveListTile,
+          activeKey: activeListTile,
+          offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
+          durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
         ),
         childCount: widget.measurements.length,
         addAutomaticKeepAlives: true,
