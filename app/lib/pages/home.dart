@@ -11,7 +11,6 @@ import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/settingsOverview.dart';
 import 'package:trale/pages/statScreen.dart';
 import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
 import 'package:trale/widget/userDialog.dart';
@@ -178,7 +177,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         show: showFAB,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      drawer: appDrawer(context, handlePageChanged, _pageIndex),
     );
   }
 }
