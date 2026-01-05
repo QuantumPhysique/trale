@@ -45,8 +45,9 @@ class PPIcon extends PhosphorIcon {
     super.shadows,
     super.semanticLabel,
     super.textDirection,
+    Color? duotoneSecondaryColor,
   }) : super(
           duotoneSecondaryOpacity: 1.0,
-          duotoneSecondaryColor: Theme.of(context).colorScheme.secondaryContainer,
+          duotoneSecondaryColor: duotoneSecondaryColor ?? Theme.of(context).colorScheme.secondaryContainer,
         );
 }
