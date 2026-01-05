@@ -113,13 +113,6 @@ final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
   //     years: '2019',
   // ),
   ThirdPartyLicence(
-      name: 'auto size text',
-      url: 'https://github.com/leisim/auto_size_text',
-      licence: 'MIT',
-      author: 'Simon Leier',
-      years: '2018',
-  ),
-  ThirdPartyLicence(
     name: 'dynamic color',
     url: 'https://github.com/material-foundation/flutter-packages/tree/main/packages/dynamic_color',
     licence: 'Apache',
@@ -139,6 +132,13 @@ final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
     licence: 'BSD 3',
     author: 'Iman Khoshabi',
     years: '2019',
+  ),
+  ThirdPartyLicence(
+      name: 'flutter auto size text',
+      url: 'https://github.com/FaFre/auto_size_text',
+      licence: 'MIT',
+      author: 'Simon Leier',
+      years: '2018',
   ),
   ThirdPartyLicence(
     name: 'flutter svg',
