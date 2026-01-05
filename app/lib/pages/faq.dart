@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
-import 'package:trale/core/gap.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/pages/home.dart';
 import 'package:trale/pages/onBoarding.dart';
-import 'package:trale/pages/splash.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
-import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -154,7 +149,7 @@ class _FAQ extends State<FAQ> {
         SettingsBanner(
           leadingIcon: PhosphorIconsBold.githubLogo,
           title: AppLocalizations.of(context)!.openIssue.allInCaps,
-          subtitle: 'Help improving the app by providing feedback',
+          subtitle: AppLocalizations.of(context)!.openIssueSubtitle,
           url: 'https://github.com/quantumphysique/trale/',
         ),
         SizedBox(height: 2 * TraleTheme.of(context)!.padding),

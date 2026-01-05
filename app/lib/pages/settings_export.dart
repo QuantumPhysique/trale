@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/backupInterval.dart';
 import 'package:trale/core/icons.dart';
+import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
@@ -48,7 +49,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 AutoSizeText(
-                  AppLocalizations.of(context)!.lastBackup,
+                  AppLocalizations.of(context)!.lastBackup.inCaps,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
@@ -65,7 +66,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 AutoSizeText(
-                  AppLocalizations.of(context)!.nextBackup,
+                  AppLocalizations.of(context)!.nextBackup.inCaps,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
@@ -116,7 +117,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.backup,
+        title: AppLocalizations.of(context)!.importAndExport,
         sliverlist: sliverList,
       ),
     );

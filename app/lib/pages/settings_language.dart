@@ -3,6 +3,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/language.dart';
+import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
@@ -21,8 +22,8 @@ class LanguageSettingsPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.translate,
-        title: "${AppLocalizations.of(context)!.translate} trale",
-        subtitle: AppLocalizations.of(context)!.translateSubtitle,
+        title: "${AppLocalizations.of(context)!.translate} trale".inCaps,
+        subtitle: AppLocalizations.of(context)!.translateSubtitle.inCaps,
         url: 'https://hosted.weblate.org/engage/trale/',
       ),
       SizedBox(height: 2 * TraleTheme.of(context)!.padding),

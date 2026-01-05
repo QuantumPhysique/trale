@@ -258,16 +258,13 @@ class _About extends State<About> {
           ),
           child: const IconHero()
         ),
-        const WidgetGroup(
+        WidgetGroup(
           children: <Widget>[
             GroupedText(
               text: Text(
-                'A simple weight log with short-term extrapolation.\n\n'
-                'Your privacy is respected. '
-                'No revenue sources in the app, nor error logs sent. '
-                'Please open an issue if you have problems.\n\n'
-                'Made by two devs with little spare time.\n'
-                'Consider contributing or donating.',
+                '${AppLocalizations.of(context)!.aboutDescription1}\n\n'
+                '${AppLocalizations.of(context)!.aboutDescription2}\n\n'
+                '${AppLocalizations.of(context)!.aboutDescription3}'
               ),
             ),
           ],

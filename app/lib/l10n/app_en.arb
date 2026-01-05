@@ -276,9 +276,9 @@
     "@sourcecode": {
         "description": "source code"
     },
-    "openIssue": "Open issue",
+    "openIssue": "Open an issue",
     "@openIssue": {
-        "description": "open issue"
+        "description": "open an issue"
     },
     "undertpl": "© {years} by {author} under {licence} licence",
     "@undertpl": {
@@ -605,5 +605,21 @@
     "defaultFormat": "Default",
     "@defaultFormat": {
         "description": "Default format option"
+    },
+    "openIssueSubtitle": "Help improve the app by providing feedback.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "A simple weight log with short-term extrapolation.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Your privacy is respected. No revenue sources in the app, nor error logs sent. Please open an issue if you have problems.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Made by two devs with little spare time. Consider contributing or donating.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
     }
 }
