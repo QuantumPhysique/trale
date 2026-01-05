@@ -12,6 +12,7 @@ import 'package:trale/database/database_helper.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/splash.dart';
 import 'package:trale/screens/onboarding_screen.dart';
+import 'package:trale/screens/home_screen.dart';
 
 
 const String measurementBoxName = 'measurements';
@@ -126,7 +127,7 @@ class AppInitializer extends StatelessWidget {
 
         // Show onboarding if not completed, otherwise home screen
         if (isOnboardingCompleted) {
-          return const Splash(); // Your existing home screen
+          return const HomeScreen(); // New home screen with entry timeline
         } else {
           return const OnboardingScreen();
         }
