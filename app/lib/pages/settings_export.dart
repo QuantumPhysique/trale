@@ -228,7 +228,11 @@ class ImportListTile extends StatelessWidget {
       ),
       trailing: IconButton(
         icon: PPIcon(PhosphorIconsDuotone.download, context),
-        onPressed: () => importBackup(context),
+        onPressed: () async {
+          await importBackup(context);
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        },
       ),
     );
   }
@@ -298,6 +302,7 @@ class ResetListTile extends StatelessWidget {
           if (accepted) {
             Provider.of<TraleNotifier>(context, listen: false).factoryReset();
             // leave settings
+            Navigator.of(context).pop();
             Navigator.of(context).pop();
           }
         },
