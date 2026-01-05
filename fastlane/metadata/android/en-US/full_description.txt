@@ -18,4 +18,4 @@ Join our community today! 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
 <b>Disclaimer ⚠️</b>
 Anorexia is a serious disease. Especially due to the many negative examples on social media, anorexia is increasingly becoming a problem for society as a whole. As part of our contribution to prevention, no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs. <a href="https://github.com/quantumphysique/trale/issues">Open a new issue</a> to report bugs or request features.
+This app is still in <b>beta</b> stage and may contain bugs. <a href="https://github.com/heets99/trale-plus/issues">Open a new issue</a> to report bugs or request features.

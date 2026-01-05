@@ -98,7 +98,7 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-    namespace 'de.quantumphysique.trale'
+    namespace 'com.heets.traleplus'
 }
 
 flutter {

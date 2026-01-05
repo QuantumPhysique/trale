@@ -285,7 +285,7 @@ class _About extends State<About> {
             ),
             trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
             onTap: () => _launchURL(
-                'https://github.com/quantumphysique/trale'
+                'https://github.com/heets99/trale-plus'
             ),
           ),
           ListTile(
