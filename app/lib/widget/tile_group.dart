@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trale/core/font.dart';
+import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 
 /// A rounded section that groups a list of tiles and draws dividers between
@@ -67,7 +68,7 @@ class WidgetGroup extends StatelessWidget {
                 left: 0.5 * padding,
               ),
               child: Text(
-                title!,
+                title!.inCaps,
                 style:
                     titleStyle ??
                     Theme.of(
