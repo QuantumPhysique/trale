@@ -585,5 +585,25 @@
     "aboutSubtitle": "Version and license information",
     "@aboutSubtitle": {
         "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolation smooths your weight curve by looking at nearby days to create a clearer trend. Soft uses 2 days, Medium 4 days, and Strong 7 days. Higher strength reduces daily fluctuations but may hide short-term changes. Choose 'None' to see your raw measurements without smoothing.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings"
+    },
+    "unitTitle": "Unit",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Date Settings",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Format",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Default",
+    "@defaultFormat": {
+        "description": "Default format option"
     }
 }

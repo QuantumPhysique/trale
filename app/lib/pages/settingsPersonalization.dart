@@ -81,21 +81,22 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
               ),
             ],
         ),
-        SizedBox(height: 2 * TraleTheme.of(context)!.padding),
+        SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
-          child: Text('Add some meaningful text explaining the interpolation settings here.',
+          child: Text(AppLocalizations.of(context)!.interpolationExplanation,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
+        SizedBox(height: TraleTheme.of(context)!.padding),
         WidgetGroup(
-          title: "Unit",
+          title: AppLocalizations.of(context)!.unitTitle,
           children: [
             const UnitsListTile(),
           ],
         ),
         WidgetGroup(
-          title: "Date Settings",
+          title: AppLocalizations.of(context)!.dateSettings,
           children: [
             const FirstDayListTile(),
             const DatePrintListTile(),
@@ -230,14 +231,14 @@ class DatePrintListTile extends StatelessWidget {
         vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        'Format',
+        AppLocalizations.of(context)!.format,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<TraleDatePrintFormat>(
         initialSelection: Provider.of<TraleNotifier>(context).datePrintFormat,
         label: AutoSizeText(
-          'Format',
+          AppLocalizations.of(context)!.format,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
@@ -246,7 +247,7 @@ class DatePrintListTile extends StatelessWidget {
               in TraleDatePrintFormat.values)
             DropdownMenuEntry<TraleDatePrintFormat>(
               value: datePrintFormat,
-              label: datePrintFormat.pattern ?? 'Default',
+              label: datePrintFormat.pattern ?? AppLocalizations.of(context)!.defaultFormat,
             )
         ],
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
