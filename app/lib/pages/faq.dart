@@ -158,7 +158,7 @@ class _FAQ extends State<FAQ> {
             ),
             trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
             onTap: () => _launchURL(
-                'https://github.com/quantumphysique/trale/'
+                'https://github.com/heets99/trale-plus'
             ),
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),
