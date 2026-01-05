@@ -17,4 +17,4 @@ Werde noch heute Teil unserer Community! 🐺🤸‍♀️🏋‍♀️🧘‍�
 <b>Disclaimer ⚠️</b>
 Magersucht ist eine ernstzunehmende Krankheit. Insbesondere durch die vielen Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten, ist daher keine Zielgewichteingabe unter 50 kg / 110 lb / 7,9 st möglich.
 
-Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten. Falls Du einen Fehler findest oder eine Funktion vermisst, bitte <a href="https://github.com/quantumphysique/trale/issues">eröffne ein neues Issue</a>.
+Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten. Falls Du einen Fehler findest oder eine Funktion vermisst, bitte <a href="https://github.com/heets99/trale-plus/issues">eröffne ein neues Issue</a>.
