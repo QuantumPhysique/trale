@@ -65,7 +65,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       _selectedEmotions = List.from(entry.emotions);
     }
 
-    setState(() => _isLoading = false);
+    if (mounted) {
+      setState(() => _isLoading = false);
+    }
   }
 
   Future<void> _saveEntry() async {
