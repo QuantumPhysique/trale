@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/theme.dart';
+import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
@@ -143,7 +143,7 @@ class UserDetailsGroup extends StatelessWidget {
               ),
               hintText: AppLocalizations.of(context)!.addUserName,
               hintMaxLines: 2,
-              labelText: AppLocalizations.of(context)!.name,
+              labelText: AppLocalizations.of(context)!.name.inCaps,
             ),
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
@@ -211,7 +211,7 @@ class UserDetailsGroup extends StatelessWidget {
               ),
               hintText: AppLocalizations.of(context)!.addHeight,
               suffixText: 'cm',
-              labelText: AppLocalizations.of(context)!.height,
+              labelText: AppLocalizations.of(context)!.height.inCaps,
             ),
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
