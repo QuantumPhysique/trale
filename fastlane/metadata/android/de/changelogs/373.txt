@@ -1,5 +1,3 @@
-v0.14.0
-
 Willkommen im Jahr 2026! Um euch dabei zu helfen euren Winterspeck wieder loszuwerden, haben wir die App komplett überarbeitet. 🎆
 
 Diese Version bildet den Grundstein für Version 1.0: Nachdem die Benutzeroberfläche neu gestaltet wurde, werden wir uns in zukünftigen Versionen auf neue Funktionen konzentrieren.

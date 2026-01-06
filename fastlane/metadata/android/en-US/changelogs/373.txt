@@ -1,5 +1,3 @@
-v0.14.0
-
 Welcome to 2026! To help you lose the weight you gained over Christmas, we have completely overhauled the app. 🎆
 
 This release lays the groundwork for version 1.0. Now that the UI has been redesigned, our focus will be on new functionality in future releases.
