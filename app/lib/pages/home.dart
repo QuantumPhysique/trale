@@ -8,11 +8,12 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
+import 'package:trale/pages/settingsOverview.dart';
 import 'package:trale/pages/statScreen.dart';
 import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/appDrawer.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
+import 'package:trale/widget/userDialog.dart';
 
 
 /// home scaffold
@@ -145,9 +146,24 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
           return <Widget>[
             CustomSliverAppBar(
               leading: IconButton(
-                icon: const Icon(PhosphorIconsRegular.list),
-                onPressed: () => key.currentState!.openDrawer(),
+                icon: PPIcon(PhosphorIconsDuotone.gear, context),
+                //onPressed: () => key.currentState!.openDrawer(),
+                onPressed: () {
+                  Navigator.of(context).push<dynamic>(
+                    MaterialPageRoute<Widget>(
+                      builder: (BuildContext context) => const SettingsOverviewPage(),
+                    ),
+                  );
+                },
               ),
+              actions: <Widget>[
+                IconButton(
+                  icon: PPIcon(PhosphorIconsDuotone.userCircle, context),
+                  onPressed: () {
+                    showUserDialog(context: context);
+                  },
+                ),
+              ],
             ),
           ];
         },
@@ -161,7 +177,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         show: showFAB,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      drawer: appDrawer(context, handlePageChanged, _pageIndex),
     );
   }
 }

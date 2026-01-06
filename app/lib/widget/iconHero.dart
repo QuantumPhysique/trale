@@ -55,16 +55,25 @@ class _IconHeroState extends State<IconHero> {
   @override
   Widget build(BuildContext context) {
     final ColorScheme ctheme = Theme.of(context).colorScheme;
-    return SvgPicture(
-      SvgAssetLoader(
-        assetName,
-        colorMapper: TraleIconColorMapper(
-          bgColor: ctheme.onSurfaceVariant,
-          wolfColor: ctheme.primaryContainer,
-          titleColor: ctheme.onSurface,
-          sloganColor: ctheme.primary,
-        ),
-      )
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final double width = constraints.maxWidth.isFinite
+            ? constraints.maxWidth
+            : MediaQuery.of(context).size.width;
+        return SvgPicture(
+          SvgAssetLoader(
+            assetName,
+            colorMapper: TraleIconColorMapper(
+              bgColor: ctheme.onSurfaceVariant,
+              wolfColor: ctheme.primaryContainer,
+              titleColor: ctheme.onSurface,
+              sloganColor: ctheme.primary,
+            ),
+          ),
+          width: width,
+          fit: BoxFit.contain,
+        );
+      }
     );
   }
 }

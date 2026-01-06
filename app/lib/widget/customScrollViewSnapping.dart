@@ -1,0 +1,101 @@
+import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'package:trale/core/font.dart';
+import 'package:trale/core/stringExtension.dart';
+import 'package:trale/core/theme.dart';
+
+class SliverAppBarSnap extends StatefulWidget {
+  const SliverAppBarSnap({
+    super.key,
+    required this.title,
+    required this.sliverlist,
+  });
+
+  final String title;
+  final List<Widget> sliverlist;
+
+  @override
+  _SliverAppBarSnapState createState() => _SliverAppBarSnapState();
+}
+
+class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
+  final ScrollController _controller = ScrollController();
+
+  double get maxHeight => 150 + MediaQuery.of(context).padding.top;
+  double get minHeight => kToolbarHeight + MediaQuery.of(context).padding.top;
+  bool isEmpty = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return NotificationListener<ScrollEndNotification>(
+      onNotification: (_) {
+        _snapAppbar();
+        return false;
+      },
+      child: Container(
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        child: CustomScrollView(
+          // physics: const AlwaysScrollableScrollPhysics(),
+          controller: _controller,
+          slivers: <Widget>[
+            SliverSafeArea(
+              top: false,
+              sliver: SliverAppBar.large(
+                pinned: true,
+                stretch: true,
+                title: Text(
+                  widget.title.allInCaps,
+                  style: Theme.of(context).textTheme.emphasized.headlineMedium
+                      ?.apply(color: Theme.of(context).colorScheme.onSurface),
+                ),
+                backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: PhosphorIcon(
+                    PhosphorIconsDuotone.arrowLeft,
+                    duotoneSecondaryColor: Theme.of(
+                      context,
+                    ).colorScheme.surfaceContainerLowest,
+                    duotoneSecondaryOpacity: 1.0,
+                  ),
+                ),
+                expandedHeight: maxHeight - MediaQuery.of(context).padding.top,
+              ),
+            ),
+            SliverPadding(
+              padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+              sliver: SliverList.list(children: widget.sliverlist),
+            ),
+            const SliverFillRemaining(
+              hasScrollBody: false,
+              child: SizedBox.shrink(),
+            ),
+            // insert sliver with fixed height maxHeight-minHeight to allow
+            // full collapse
+            SliverToBoxAdapter(child: SizedBox(height: maxHeight - minHeight)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _snapAppbar() {
+    final double scrollDistance = maxHeight - minHeight;
+    if (_controller.offset > 0 && _controller.offset < scrollDistance) {
+      final double snapOffset = _controller.offset / scrollDistance > 0.5
+          ? scrollDistance
+          : 0;
+
+      Future<void>.microtask(
+        () => _controller.animateTo(
+          snapOffset,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeIn,
+        ),
+      );
+    }
+  }
+}

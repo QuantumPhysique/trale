@@ -68,8 +68,6 @@ class _OverviewScreen extends State<OverviewScreen> {
 
     final int animationDurationInMilliseconds =
         TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
-    final int firstDelayInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
 
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
@@ -78,18 +76,12 @@ class _OverviewScreen extends State<OverviewScreen> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          AnimatedStatsWidgets(
+            key: ValueKey<List<Measurement>>(snapshot.data
+                                             ?? <Measurement>[]),
+          ),
           AnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: firstDelayInMilliseconds,
-            child: StatsWidgets(
-              visible: true,
-              key: ValueKey<List<Measurement>>(snapshot.data
-                                               ?? <Measurement>[]),
-            ),
-          ),
-          FadeInEffect(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            delayInMilliseconds: firstDelayInMilliseconds,
             child: CustomLineChart(
               loadedFirst: loadedFirst,
               ip: ip,

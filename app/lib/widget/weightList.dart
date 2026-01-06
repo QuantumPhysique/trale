@@ -1,12 +1,19 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/statsCards.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/settingsBanner.dart';
+import 'package:trale/widget/statsCards.dart';
 import 'package:trale/widget/weightListTile.dart';
 
 class WeightList extends StatefulWidget {
@@ -64,14 +71,6 @@ class _WeightList extends State<WeightList>{
 
   @override
   Widget build(BuildContext context) {
-    double getIntervalStart(int i) {
-      const int maximalShownListTile = 15;
-      if (maximalShownListTile < widget.measurements.length) {
-        return <double>[i / maximalShownListTile, 1].reduce(min).toDouble();
-      } else {
-        return i / widget.measurements.length;
-      }
-    }
 
     void updateActiveListTile(int? key){
       setState(() {
@@ -81,18 +80,12 @@ class _WeightList extends State<WeightList>{
 
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int i) => AnimateInEffect(
-          keepAlive: widget.keepAlive,
-          durationInMilliseconds: widget.durationInMilliseconds,
-          delayInMilliseconds: widget.delayInMilliseconds,
-          intervalStart: getIntervalStart(i),
-          child: WeightListTile(
-            measurement: widget.measurements[i],
-            updateActiveState: updateActiveListTile,
-            activeKey: activeListTile,
-            offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
-            durationInMilliseconds: widget.delayInMilliseconds,
-          ),
+        (BuildContext context, int i) => WeightListTile(
+          measurement: widget.measurements[i],
+          updateActiveState: updateActiveListTile,
+          activeKey: activeListTile,
+          offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
+          durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
         ),
         childCount: widget.measurements.length,
         addAutomaticKeepAlives: true,
@@ -123,9 +116,11 @@ class TotalWeightList extends StatefulWidget {
   _TotalWeightList createState() => _TotalWeightList();
 }
 
-class _TotalWeightList extends State<TotalWeightList>{
+class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderStateMixin{
   double heightFactor = 1.5;
   int? activeListTile;
+  Timer? _bannerTimer;
+  late final AnimationController _bannerController;
 
   void onScrollEvent() {
     if (activeListTile != null){
@@ -145,19 +140,53 @@ class _TotalWeightList extends State<TotalWeightList>{
     activeListTile = null;
     widget.scrollController.addListener(onScrollEvent);
     widget.tabController.animation!.addListener(onTabChangeEvent);
+
+    _bannerController = AnimationController(
+      vsync: this,
+      // place holder, will be updated in didChangeDependencies
+      duration: const Duration(milliseconds: 200),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((Duration _) {
+      final TraleNotifier notifier =
+        Provider.of<TraleNotifier>(context, listen: false);
+      if (!notifier.showMeasurementHintBanner) {
+        return;
+      }
+
+      _bannerTimer?.cancel();
+      _bannerTimer = Timer(const Duration(seconds: 3), () {
+        if (!mounted) {
+          return;
+        }
+        _bannerController.forward();
+      });
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _bannerController.duration =
+      TraleTheme.of(context)!.transitionDuration.normal;
   }
 
   @override
   void dispose() {
-    super.dispose();
     widget.scrollController.removeListener(onScrollEvent);
     widget.tabController.animation!.removeListener(onTabChangeEvent);
+
+    _bannerTimer?.cancel();
+    _bannerController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
+    final bool showBanner = notifier.showMeasurementHintBanner;
 
     final List<int> years = <int>[
       for (
@@ -182,6 +211,56 @@ class _TotalWeightList extends State<TotalWeightList>{
       controller: widget.scrollController,
       cacheExtent: 2 * MediaQuery.of(context).size.height,
       slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: SizeTransition(
+            sizeFactor: CurvedAnimation(
+              parent: _bannerController,
+              curve: Curves.easeOut,
+            ),
+            axisAlignment: -1.0,
+            child: !showBanner ? const SizedBox.shrink() : Padding(
+              padding: EdgeInsets.fromLTRB(
+                TraleTheme.of(context)!.padding,
+                TraleTheme.of(context)!.padding,
+                TraleTheme.of(context)!.padding,
+                0,
+              ),
+              child: Dismissible(
+                key: const Key('measurement_hint_banner'),
+                direction: DismissDirection.horizontal,
+                onDismissed: (DismissDirection direction) {
+                  notifier.showMeasurementHintBanner = false;
+                },
+                child: Material(
+                  elevation: 0,
+                  borderRadius: BorderRadius.circular(4),
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                  child: Padding(
+                    padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          PhosphorIconsBold.info,
+                          color: Theme.of(context).colorScheme.onInverseSurface,
+                          size: 20,
+                        ),
+                        SizedBox(width:  TraleTheme.of(context)!.padding),
+                        Expanded(
+                          child: Text(
+                            AppLocalizations.of(context)!.measurementHintSubtitle,
+                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context).colorScheme.onInverseSurface,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         ...<Widget>[
           for (final int year in years)
             ...<Widget>[
@@ -189,7 +268,6 @@ class _TotalWeightList extends State<TotalWeightList>{
                 child: getYearWidget(
                   year: '$year',
                   context: context,
-                  delayInMilliseconds: widget.delayInMilliseconds,
                 ),
               ),
               WeightList(
@@ -219,20 +297,16 @@ Widget getYearWidget({required BuildContext context,
   return Padding(
     padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
     child: StatCard(
+      pillShape: true,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       delayInMilliseconds: delayInMilliseconds,
       childWidget: Center(
-        child: Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-          child: AutoSizeText(
-            year,
-            style: Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700,
-              fontSize: Theme.of(context).textTheme.displayLarge!.fontSize,
-            ),
-            maxLines: 1,
+        child: Text(
+          year,
+          style: Theme.of(context).textTheme.emphasized.displayLarge!.apply(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
+          textAlign: TextAlign.center,
         ),
       ),
     ),

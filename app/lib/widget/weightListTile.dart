@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 
 @immutable
@@ -32,7 +34,6 @@ class _WeightListTileState extends State<WeightListTile>
     with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   late final Animation<Offset> offsetAnimation;
-  late final Animation<double> fadeAnimation;
 
   // bool reverse = false;
   final MeasurementDatabase database = MeasurementDatabase();
@@ -51,8 +52,6 @@ class _WeightListTileState extends State<WeightListTile>
       end: widget.offset,
     ).animate(animationController);
 
-    fadeAnimation = Tween<double>(begin: 1, end: 0)
-      .animate(animationController);
   }
 
   @override
@@ -87,9 +86,7 @@ class _WeightListTileState extends State<WeightListTile>
             widget.measurement.measurement.measureToString(
               context, ws: 11,
             ),
-            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              fontFamily: 'CourierPrime',
-            ),
+            style: Theme.of(context).textTheme.monospace.bodyLarge!,
           ),
         ),
       ],
@@ -145,7 +142,7 @@ class _WeightListTileState extends State<WeightListTile>
       final SortedMeasurement deletedSortedMeasurement = widget.measurement;
       database.deleteMeasurement(widget.measurement);
       final SnackBar snackBar = SnackBar(
-        content: const Text('Measurement was deleted'),
+        content: Text(AppLocalizations.of(context)!.measurementDeleted),
         behavior: SnackBarBehavior.floating,
         width: MediaQuery.of(context).size.width / 3 * 2,
         shape: RoundedRectangleBorder(
@@ -156,7 +153,7 @@ class _WeightListTileState extends State<WeightListTile>
           ),
         ),
         action: SnackBarAction(
-          label: 'Undo',
+          label: AppLocalizations.of(context)!.undo,
           onPressed: () {
             setState(() {
               reverse = false;
@@ -217,7 +214,7 @@ class _WeightListTileState extends State<WeightListTile>
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         actionButton(
-                          PhosphorIconsRegular.trash,
+                          PhosphorIconsFill.trash,
                           TraleTheme.of(context)!.themeData.colorScheme
                             .onTertiaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme
@@ -226,7 +223,7 @@ class _WeightListTileState extends State<WeightListTile>
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding),
                         actionButton(
-                          PhosphorIconsRegular.pencilSimple,
+                          PhosphorIconsFill.pencilSimple,
                           TraleTheme.of(context)!.themeData.colorScheme
                               .onSecondaryContainer,
                           TraleTheme.of(context)!.themeData.colorScheme

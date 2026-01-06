@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,10 +6,11 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
+import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
-import 'package:trale/core/statsCards.dart';
+import 'package:trale/widget/statsCards.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -18,16 +20,44 @@ import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
 
 
-class StatsWidgets extends StatefulWidget {
-  const StatsWidgets({required this.visible, super.key});
-
-  final bool visible;
+class AnimatedStatsWidgets extends StatefulWidget {
+  const AnimatedStatsWidgets({super.key});
 
   @override
-  _StatsWidgetsState createState() => _StatsWidgetsState();
+  _AnimatedStatsWidgetsState createState() => _AnimatedStatsWidgetsState();
 }
 
-class _StatsWidgetsState extends State<StatsWidgets> {
+class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
+  Timer? _weightLostDelayTimer;
+  bool _showWeightLostCard = false;
+
+  void _ensureWeightLostCardVisibility(bool shouldShow) {
+    if (!shouldShow) {
+      _weightLostDelayTimer?.cancel();
+      _weightLostDelayTimer = null;
+      if (!_showWeightLostCard) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        setState(() => _showWeightLostCard = false);
+      });
+      return;
+    }
+    if (_showWeightLostCard || _weightLostDelayTimer != null) return;
+    _weightLostDelayTimer = Timer(Duration(milliseconds: (TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds / 2).toInt()), () {
+      if (!mounted) return;
+      setState(() {
+        _showWeightLostCard = true;
+        _weightLostDelayTimer = null;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _weightLostDelayTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final MeasurementInterpolation ip = MeasurementInterpolation();
@@ -39,8 +69,9 @@ class _StatsWidgetsState extends State<StatsWidgets> {
         userTargetWeight, notifier.looseWeight,
     );
     final int nMeasured = ip.measurementDuration.inDays;
+    _ensureWeightLostCardVisibility(nMeasured >= 2);
     Card userTargetWeightCard(double utw) => Card(
-      shape: TraleTheme.of(context)!.borderShape,
+      shape: const StadiumBorder(),
       color: Theme.of(context).colorScheme.secondaryContainer,
       margin: EdgeInsets.symmetric(
         vertical: TraleTheme.of(context)!.padding,
@@ -72,7 +103,7 @@ class _StatsWidgetsState extends State<StatsWidgets> {
       final double deltaWeight = ip.finalSlope * 30;
 
       return Card(
-        shape: TraleTheme.of(context)!.borderShape,
+        shape: const StadiumBorder(),
         margin: EdgeInsets.symmetric(
           vertical: TraleTheme.of(context)!.padding,
         ),
@@ -124,25 +155,24 @@ class _StatsWidgetsState extends State<StatsWidgets> {
 
     return FractionallySizedBox(
       widthFactor: (userTargetWeight == null || nMeasured < 2) ? 0.5 : 1,
-      child: AnimatedCrossFade(
-        crossFadeState: widget.visible
-            ? CrossFadeState.showFirst
-            : CrossFadeState.showSecond,
-        duration: TraleTheme.of(context)!.transitionDuration.fast,
-        secondChild: const SizedBox.shrink(),
-        firstChild: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            if (userTargetWeight != null) Expanded(
-                child: userTargetWeightCard(userTargetWeight)
-            ),
-            if (nMeasured >= 2) Expanded(
-                child: userWeightLostCard(),
-            ),
-          ].addGap(
-            padding: TraleTheme.of(context)!.padding,
-            direction: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          if (userTargetWeight != null) Expanded(
+              child: AnimateInEffect(
+                durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
+                child: userTargetWeightCard(userTargetWeight),
+              )
           ),
+          if (nMeasured >= 2 && _showWeightLostCard) Expanded(
+              child: AnimateInEffect(
+                durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
+                child: userWeightLostCard(),
+              )
+          ),
+        ].addGap(
+          padding: TraleTheme.of(context)!.padding,
+          direction: Axis.horizontal,
         ),
       ),
     );
@@ -188,7 +218,7 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 textLabels[0],
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                   color: Theme.of(context).brightness == Brightness.light
                     ? Theme.of(context).colorScheme.onPrimary
                     : Theme.of(context).colorScheme.onPrimaryContainer,
@@ -244,7 +274,7 @@ StatCard getFrequencyInTotal({required BuildContext context,
                 alignment: Alignment.center,
                 child: AutoSizeText(
                   (7 * stats.frequencyInTotal!).toStringAsFixed(2),
-                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                  style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                     color: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
                         : Theme.of(context).colorScheme.onPrimaryContainer,
@@ -300,7 +330,7 @@ StatCard getTotalChangeWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.deltaWeight),
-                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                   color: Theme.of(context).colorScheme.onTertiaryContainer,
                   fontWeight: FontWeight.w900,
                   fontSize: 200,
@@ -341,6 +371,7 @@ Widget getMeanWidget({required BuildContext context,
     nx: 2,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
+    pillShape: true,
     childWidget: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -350,7 +381,7 @@ Widget getMeanWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               weightToString(context, stats.meanWeight),
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.w900,
                 fontSize: 200,
@@ -413,7 +444,7 @@ Widget getBMIWidget({
             alignment: Alignment.center,
             child: AutoSizeText(
               doubleToString(stats.currentBMI(context)),
-              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
                 fontWeight: FontWeight.w900,
                 fontSize: 200,
               ),
@@ -445,7 +476,7 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.change} ($unit)',
-              style: Theme.of(context).textTheme.bodyLarge!.onSurface(context)
+              style: Theme.of(context).textTheme.emphasized.bodyLarge!.onSurface(context)
                 .copyWith(fontWeight: FontWeight.w900),
               maxLines: 2,
               textAlign: TextAlign.center,
@@ -531,7 +562,7 @@ Widget getMinWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.minWeight),
-                style: Theme.of(context).textTheme.bodyMedium!
+                style: Theme.of(context).textTheme.emphasized.bodyMedium!
                   .onSurface(context).copyWith(
                     fontWeight: FontWeight.w700,
                     fontSize: 200,
@@ -566,7 +597,7 @@ Widget getMaxWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.maxWeight),
-                style: Theme.of(context).textTheme.bodyMedium!
+                style: Theme.of(context).textTheme.emphasized.bodyMedium!
                   .onSurface(context).copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: 200,
