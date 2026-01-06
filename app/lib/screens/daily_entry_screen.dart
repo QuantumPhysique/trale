@@ -89,10 +89,10 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         date: _selectedDate,
         weight: _weightController.text.isEmpty
             ? null
-            : double.parse(_weightController.text),
+            : double.tryParse(_weightController.text),
         height: _heightController.text.isEmpty
             ? null
-            : double.parse(_heightController.text),
+            : double.tryParse(_heightController.text),
         photoPaths: _photoPaths,
         workoutText: _workoutController.text.isEmpty
             ? null
@@ -1028,7 +1028,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color),
       ),
