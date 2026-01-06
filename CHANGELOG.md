@@ -13,14 +13,24 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other changes:)
 
 ## [Unreleased]
+
+Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆
+
+This release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.
+
 ### Added Features and Improvements 🙌:
-- Redesigned weight picker 🎉
+- Material You Expressive (ready) Design throughout the whole app 🎉
+- Redesigned, more responsive weight picker
+- Improved and all new Settings pages
 
 ### Other changes:
 - Remove outdated onboarding screen
+- New font family: RobotoFlex
+- All new animations to align with M3E design guidelines
 
 ### Bugfix 🐛:
 - Fix bug which prevents selecting zh-Hant variant
+- Add hints to explain which imports are supported, #338 and #357
 
 
 ## [0.13.2] - 2025-09-14
