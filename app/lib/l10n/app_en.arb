@@ -586,9 +586,15 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation uses state-of-the-art Gaussian filtering to smooth your weight curve and create a clearer trend. Higher strength levels (soft, medium, strong) reduce daily fluctuations but may hide short-term changes. Choose 'None' to see your raw measurements, though extrapolation will still use soft smoothing.",
+    "interpolationExplanation": "Interpolation uses state-of-the-art Gaussian filtering to smooth your weight curve and create a clearer trend. Higher strength levels reduce daily fluctuations but may hide short-term changes. Choose '{noneInterpol}' to see your raw measurements, though extrapolation will still use soft smoothing.",
     "@interpolationExplanation": {
-        "description": "Explanation text for interpolation settings"
+      "description": "Explanation text for interpolation settings",
+      "placeholders": {
+        "noneInterpol": {
+          "type": "String",
+          "example": "none"
+        }
+      }
     },
     "unitTitle": "Unit",
     "@unitTitle": {

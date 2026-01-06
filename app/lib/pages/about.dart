@@ -50,7 +50,11 @@ class ThirdPartyLicence {
       style: Theme.of(context).textTheme.bodyLarge
     ),
     subtitle: AutoSizeText(
-      AppLocalizations.of(context)!.undertpl(years, author, licence),
+      AppLocalizations.of(context)!.undertpl(
+        years: years,
+        author: author,
+        licence: licence,
+      ),
       style: Theme.of(context).textTheme.bodySmall,
       maxLines: 2,
     ),

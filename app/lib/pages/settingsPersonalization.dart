@@ -50,7 +50,7 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
                 divisions: InterpolStrength.values.length - 1,
                 min: 0.0,
                 max: InterpolStrength.values.length.toDouble() - 1,
-                label: Provider.of<TraleNotifier>(context).interpolStrength.name,
+                label: Provider.of<TraleNotifier>(context).interpolStrength.nameLong(context),
                 onChanged: (double newStrength) async {
                   Provider.of<TraleNotifier>(
                       context, listen: false
@@ -85,7 +85,9 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
         Padding(
           padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
           child: Text(
-            AppLocalizations.of(context)!.interpolationExplanation,
+            AppLocalizations.of(context)!.interpolationExplanation(
+              noneInterpol: InterpolStrength.none.nameLong(context),
+            ),
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
