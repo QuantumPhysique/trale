@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class LoadingOverlay {
+  static bool _isShowing = false;
+  
   static void show(BuildContext context, {String message = 'Loading...'}) {
+    if (_isShowing) return;
+    _isShowing = true;
+    
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -23,10 +28,19 @@ class LoadingOverlay {
           ),
         ),
       ),
-    );
+    ).then((_) => _isShowing = false);
   }
 
   static void hide(BuildContext context) {
-    Navigator.of(context, rootNavigator: true).pop();
+    if (!_isShowing) return;
+    try {
+      if (Navigator.of(context, rootNavigator: true).canPop()) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    } catch (e) {
+      // Ignore pop errors
+    } finally {
+      _isShowing = false;
+    }
   }
 }

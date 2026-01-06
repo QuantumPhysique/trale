@@ -8,7 +8,10 @@ class PhotoViewer extends StatefulWidget {
     required this.photoPaths,
     this.initialIndex = 0,
     this.onDelete,
-  }) : super(key: key);
+  }) : assert(photoPaths.length > 0, 'photoPaths cannot be empty'),
+       assert(initialIndex >= 0, 'initialIndex must be non-negative'),
+       assert(initialIndex < photoPaths.length, 'initialIndex out of range'),
+       super(key: key);
   final List<String> photoPaths;
   final int initialIndex;
   final Function(int)? onDelete;
@@ -34,23 +37,19 @@ class _PhotoViewerState extends State<PhotoViewer> {
     super.dispose();
   }
 
-  void _confirmDelete() {
-    showDialog(
+  Future<void> _confirmDelete() async {
+    final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Delete Photo'),
         content: const Text('Are you sure you want to delete this photo?'),
         actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(context, false),
             child: const Text('Cancel'),
           ),
           FilledButton(
-            onPressed: () {
-              Navigator.pop(context); // Close dialog
-              widget.onDelete?.call(_currentIndex);
-              Navigator.pop(context); // Close viewer
-            },
+            onPressed: () => Navigator.pop(context, true),
             style: FilledButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
@@ -59,6 +58,13 @@ class _PhotoViewerState extends State<PhotoViewer> {
         ],
       ),
     );
+    
+    if (confirmed == true && mounted) {
+      await widget.onDelete?.call(_currentIndex);
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    }
   }
 
   @override
@@ -91,6 +97,30 @@ class _PhotoViewerState extends State<PhotoViewer> {
               child: Image.file(
                 File(widget.photoPaths[index]),
                 fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.black,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Icon(
+                            Icons.broken_image,
+                            size: 80,
+                            color: Colors.white54,
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            'Image not found',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: Colors.white54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           );

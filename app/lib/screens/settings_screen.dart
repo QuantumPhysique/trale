@@ -27,6 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _loadUserProfile() async {
     final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
+    if (!mounted) return;
     setState(() {
       _userProfile = profile;
       _isLoading = false;
@@ -258,7 +259,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     
     controller.dispose();
   }
-
+  Future<void> _updateUnitPreference(UnitSystem value) async {
+    final UserProfile updatedProfile = UserProfile(
+      initialHeight: _userProfile?.initialHeight,
+      heightHistory: _userProfile?.heightHistory ?? <HeightEntry>[],
+      preferredUnits: value,
+    );
+    await DatabaseHelper.instance.saveUserProfile(updatedProfile);
+    if (mounted) {
+      Navigator.pop(context);
+      _loadUserProfile();
+    }
+  }
   Future<void> _showUnitsDialog() async {
     final UnitSystem currentUnit = _userProfile?.preferredUnits ?? UnitSystem.metric;
     
@@ -275,16 +287,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               groupValue: currentUnit,
               onChanged: (UnitSystem? value) async {
                 if (value != null) {
-                  final UserProfile updatedProfile = UserProfile(
-                    initialHeight: _userProfile?.initialHeight,
-                    heightHistory: _userProfile?.heightHistory ?? <HeightEntry>[],
-                    preferredUnits: value,
-                  );
-                  await DatabaseHelper.instance.saveUserProfile(updatedProfile);
-                  if (mounted) {
-                    Navigator.pop(context);
-                    _loadUserProfile();
-                  }
+                  await _updateUnitPreference(value);
                 }
               },
             ),
@@ -294,16 +297,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               groupValue: currentUnit,
               onChanged: (UnitSystem? value) async {
                 if (value != null) {
-                  final UserProfile updatedProfile = UserProfile(
-                    initialHeight: _userProfile?.initialHeight,
-                    heightHistory: _userProfile?.heightHistory ?? <HeightEntry>[],
-                    preferredUnits: value,
-                  );
-                  await DatabaseHelper.instance.saveUserProfile(updatedProfile);
-                  if (mounted) {
-                    Navigator.pop(context);
-                    _loadUserProfile();
-                  }
+                  await _updateUnitPreference(value);
                 }
               },
             ),

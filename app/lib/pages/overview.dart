@@ -166,7 +166,7 @@ class _OverviewScreen extends State<OverviewScreen> {
             ),
             const SizedBox(height: 16),
             Text(
-              "Tap a date above to add an entry.",
+              AppLocalizations.of(context)!.tapDateAboveToAddEntry,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],

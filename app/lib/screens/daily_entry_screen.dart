@@ -74,6 +74,16 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       _workoutTags = List.from(entry.workoutTags);
       _emotionalCheckIns = List.from(entry.emotionalCheckIns);
       _isEntryImmutable = entry.isImmutable;
+    } else {
+      // Clear form for new entry
+      _weightController.clear();
+      _heightController.clear();
+      _workoutController.clear();
+      _thoughtsController.clear();
+      _photoPaths = [];
+      _workoutTags = [];
+      _emotionalCheckIns = [];
+      _isEntryImmutable = false;
     }
 
     if (mounted) {

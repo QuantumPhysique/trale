@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trale/models/daily_entry.dart';
@@ -47,8 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadUserProfile() async {
-    final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
-    setState(() => _userProfile = profile);
+    try {
+      final UserProfile? profile = await DatabaseHelper.instance.getUserProfile();
+      if (mounted) {
+        setState(() => _userProfile = profile);
+      }
+    } catch (e) {
+      debugPrint('Error loading user profile: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to load user profile')),
+        );
+      }
+    }
   }
 
   Future<void> _openNewEntry() async {
@@ -306,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: _getBMIColor(bmi).withOpacity(0.2),
+                          color: _getBMIColor(bmi).withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: _getBMIColor(bmi)),
                         ),

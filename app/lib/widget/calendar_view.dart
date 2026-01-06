@@ -58,7 +58,7 @@ class _CalendarViewState extends State<CalendarView> {
           shouldFillViewport: widget.shouldFillViewport,
           rowHeight: widget.shouldFillViewport ? 52.0 : 64.0, // Larger touch targets
           firstDay: DateTime.utc(2020, 1, 1),
-          lastDay: DateTime.now(),
+          lastDay: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
           focusedDay: _focusedDay,
           currentDay: DateTime.now(),
           calendarFormat: CalendarFormat.month,
@@ -110,10 +110,10 @@ class _CalendarViewState extends State<CalendarView> {
             
             // Disabled State
             disabledTextStyle: theme.textTheme.bodyMedium!.copyWith(
-              color: colorScheme.onSurface.withOpacity(0.38)
+              color: colorScheme.onSurface.withValues(alpha: 0.38)
             ),
             outsideTextStyle: theme.textTheme.bodyMedium!.copyWith(
-              color: colorScheme.onSurface.withOpacity(0.38)
+              color: colorScheme.onSurface.withValues(alpha: 0.38)
             ),
           ),
           selectedDayPredicate: (day) {
@@ -133,7 +133,9 @@ class _CalendarViewState extends State<CalendarView> {
             }
           },
           onPageChanged: (focusedDay) {
-            _focusedDay = focusedDay;
+            setState(() {
+              _focusedDay = focusedDay;
+            });
           },
           calendarBuilders: CalendarBuilders(
             markerBuilder: (context, date, events) {

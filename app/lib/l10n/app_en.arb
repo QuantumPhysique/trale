@@ -16,6 +16,10 @@
     "@gainWeight": {
         "description": "Gain weight switch label."
     },
+    "tapDateAboveToAddEntry": "Tap a date above to add an entry.",
+    "@tapDateAboveToAddEntry": {
+        "description": "Helper text shown in empty state calendar view"
+    },
     "looseWeightSubtitle": "Switching between losing or gaining weight.",
     "@looseWeightSubtitle": {
         "description": "Switching between losing or gaining weight."

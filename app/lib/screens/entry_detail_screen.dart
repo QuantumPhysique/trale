@@ -185,7 +185,7 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                                 vertical: 6,
                               ),
                               decoration: BoxDecoration(
-                                color: _getBMIColor(bmi).withOpacity(0.2),
+                                color: _getBMIColor(bmi).withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(16),
                                 border: Border.all(color: _getBMIColor(bmi)),
                               ),
@@ -230,6 +230,21 @@ class _EntryDetailScreenState extends State<EntryDetailScreen> {
                               width: 120,
                               height: 120,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  width: 120,
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Icon(
+                                    Icons.broken_image,
+                                    size: 40,
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),

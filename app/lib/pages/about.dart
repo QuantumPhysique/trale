@@ -301,7 +301,7 @@ class _About extends State<About> {
               maxLines: 1,
             ),
             onTap: () => _launchURL(
-              'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
+              'https://github.com/heets99/trale-plus/blob/main/LICENSE',
             ),
           ),
           Divider(height: 2 * TraleTheme.of(context)!.padding),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/models/user_profile.dart';
@@ -40,7 +41,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final double height = double.parse(_heightController.text);
+      final double? height = double.tryParse(_heightController.text);
+      
+      if (height == null || height <= 0) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please enter a valid height')),
+          );
+        }
+        return;
+      }
 
       // Save user profile
       final UserProfile profile = UserProfile(
@@ -63,9 +73,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Navigator.of(context).pushReplacementNamed('/home');
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Invalid height value: $e')),
-      );
+      debugPrint('Error completing onboarding: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('An error occurred. Please try again.')),
+        );
+      }
     } finally {
       setState(() => _isLoading = false);
     }
