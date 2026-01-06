@@ -1,0 +1,448 @@
+type: logcat
+osVersion: google/panther/panther:16/BP4A.251205.006/2025122501:user/release-keys
+flags: dev options enabled
+package: com.heets.traleplus:2, targetSdk 36
+buffers: main,system,crash,events,kernel
+level: verbose
+
+--------- beginning of main
+01-05 19:43:21.695 10710 10710 I Zygote  : Process 10710 created for com.heets.traleplus
+01-05 19:43:21.695 10710 10710 I heets.traleplus: Late-enabling -Xcheck:jni
+01-05 19:43:21.715 10710 10710 I heets.traleplus: Using CollectorTypeCMC GC.
+01-05 19:43:21.720 10710 10710 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+01-05 19:43:21.736 10710 10710 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+01-05 19:43:21.736 10710 10710 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+01-05 19:43:21.781 10710 10710 D nativeloader: Configuring clns-9 for other apk /data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/lib/arm64:/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.heets.traleplus
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment: Currently set values for:
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[com.android.angle, com.google.android.apps.tachyon]
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment:   angle_gl_driver_selection_values=[angle, native]
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment: com.heets.traleplus is not listed in per-application setting
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment: ANGLE allowlist from config: 
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment: No special selections for ANGLE, returning default driver choice
+01-05 19:43:21.788 10710 10710 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+--------- beginning of system
+01-05 19:43:21.806 10710 10727 I DisplayManager: Choreographer implicitly registered for the refresh rate.
+--------- switch to main
+01-05 19:43:21.807 10710 10727 D vulkan  : searching for layers in '/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/lib/arm64'
+01-05 19:43:21.807 10710 10727 D vulkan  : searching for layers in '/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a'
+01-05 19:43:21.810 10710 10727 D vulkan  : added global layer 'VK_LAYER_KHRONOS_validation' from library '/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a/libVkLayer_khronos_validation.so'
+01-05 19:43:21.813 10710 10710 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+01-05 19:43:21.822 10710 10733 D FlutterJNI: Beginning load of flutter...
+01-05 19:43:21.823 10710 10734 I ResourceExtractor: Resource version mismatch res_timestamp-2-1767642201174
+01-05 19:43:21.841 10710 10733 D nativeloader: Load /data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a/libflutter.so using class loader ns clns-9 (caller=/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk): ok
+01-05 19:43:21.842 10710 10733 D FlutterJNI: flutter (null) was loaded normally!
+01-05 19:43:22.112 10710 10734 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/kernel_blob.bin
+01-05 19:43:22.113 10710 10734 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/vm_snapshot_data
+01-05 19:43:22.155 10710 10734 I ResourceExtractor: Extracted baseline resource assets/flutter_assets/isolate_snapshot_data
+--------- beginning of events
+01-05 19:43:22.166 10710 10710 I auditd  : avc=type=1400 audit(0.0:6407): avc:  denied  { read } for  comm="heets.traleplus" name="max_map_count" dev="proc" ino=1558413 scontext=u:r:untrusted_app:s0:c205,c256,c512,c768 tcontext=u:object_r:proc_max_map_count:s0 tclass=file permissive=0 app=com.heets.traleplus
+--------- switch to main
+01-05 19:43:22.166 10710 10710 W heets.traleplus: type=1400 audit(0.0:6407): avc:  denied  { read } for  name="max_map_count" dev="proc" ino=1558413 scontext=u:r:untrusted_app:s0:c205,c256,c512,c768 tcontext=u:object_r:proc_max_map_count:s0 tclass=file permissive=0 app=com.heets.traleplus
+01-05 19:43:22.180 10710 10710 D DesktopExperienceFlags: Toggle override initialized to: false
+01-05 19:43:22.180 10710 10710 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+01-05 19:43:22.188 10710 10736 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+01-05 19:43:22.239 10710 10755 I flutter : The Dart VM service is listening on http://127.0.0.1:35171/TR1eBaWjr0s=/
+01-05 19:43:22.429 10710 10710 D FileSaver: Attached to Activity
+01-05 19:43:22.433 10710 10710 D CompatChangeReporter: Compat change id reported: 377864165; UID 10205; state: ENABLED
+01-05 19:43:22.461 10710 10710 I heets.traleplus: hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported,test-api) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+01-05 19:43:22.461 10710 10710 I heets.traleplus: hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+01-05 19:43:22.461 10710 10710 I heets.traleplus: hiddenapi: Accessing hidden field Landroid/view/accessibility/AccessibilityNodeInfo;->mChildNodeIds:Landroid/util/LongArray; (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+01-05 19:43:22.461 10710 10710 I heets.traleplus: hiddenapi: Accessing hidden method Landroid/util/LongArray;->get(I)J (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+--------- switch to events
+01-05 19:43:22.472 10710 10710 I wm_on_create_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=performCreate,time=657ms]
+01-05 19:43:22.473 10710 10710 I wm_on_start_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=handleStartActivity,time=0ms]
+01-05 19:43:22.475 10710 10710 I wm_on_resume_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=RESUME_ACTIVITY,time=1ms]
+01-05 19:43:22.565 10710 10710 I wm_on_top_resumed_gained_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+--------- switch to main
+01-05 19:43:22.582 10710 10710 I Choreographer: Skipped 69 frames!  The application may be doing too much work on its main thread.
+01-05 19:43:22.583 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4bed292
+01-05 19:43:22.587 10710 10710 I WindowExtensionsImpl: Initializing Window Extensions, vendor API level=9, activity embedding enabled=true
+01-05 19:43:22.600 10710 10710 D VRI[MainActivity]: WindowInsets changed: 1080x2400 statusBars:[0,136,0,0] navigationBars:[0,0,0,53] mandatorySystemGestures:[0,163,0,71] 
+--------- switch to events
+01-05 19:43:22.611 10710 10710 I surfaceview_layout: [window=SV[68220209 MainActivity],format=4,width=1080,height=2400,z=-2,sizeFrom=layout,attached=1,lifecycleStrategy=0,viewVisible=1]
+01-05 19:43:22.613 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceCreated]
+01-05 19:43:22.658 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceChanged -- format=4 w=1080 h=2400]
+01-05 19:43:22.659 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceRedrawNeeded]
+01-05 19:43:22.659 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=Canceling draw. cancelDueToPreDrawListener=true cancelDueToSync=false]
+--------- switch to main
+01-05 19:43:22.726 10710 10710 D WindowLayoutComponentImpl: Register WindowLayoutInfoListener on Context=com.heets.traleplus.MainActivity@ad38416, of which baseContext=android.app.ContextImpl@97bcba2
+01-05 19:43:23.762 10710 10710 I Choreographer: Skipped 83 frames!  The application may be doing too much work on its main thread.
+--------- switch to events
+01-05 19:43:23.770 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceRedrawNeeded implemented]
+--------- switch to main
+01-05 19:43:23.780 10710 10710 I flutter : dynamic_color: Core palette detected.
+--------- switch to events
+01-05 19:43:23.834 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=Draw frame after cancel]
+01-05 19:43:23.844 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=reportDrawFinished seqId=0]
+--------- switch to system
+01-05 19:43:23.870 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:43:23.870 10710 10710 I ImeTracker: com.heets.traleplus:4244562e: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+01-05 19:43:27.811 10710 10781 D ProfileInstaller: Installing profile for com.heets.traleplus
+01-05 19:43:27.981 10710 10710 I ImeTracker: com.heets.traleplus:970bbb31: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+01-05 19:43:27.984 10710 10710 I HWUI    : Using FreeType backend (prop=Auto)
+--------- switch to system
+01-05 19:43:27.986 10710 10710 D InsetsController: show(ime())
+01-05 19:43:27.986 10710 10710 D InsetsController: Setting requestedVisibleTypes to 511 (was 503)
+--------- switch to main
+01-05 19:43:28.002 10710 10710 D InputConnectionAdaptor: The input method toggled cursor monitoring on
+01-05 19:43:28.003 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): ImeOnBackInvokedCallback@76469245 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@6e6c4d
+01-05 19:43:28.029 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:[0,0,0,940] 
+01-05 19:43:28.031 10710 10710 W InteractionJankMonitor: Initializing without READ_DEVICE_CONFIG permission. enabled=false, interval=1, missedFrameThreshold=3, frameTimeThreshold=64, package=com.heets.traleplus
+--------- switch to events
+01-05 19:43:28.031 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=80,Unix Time Ns=1767642208031508s,Elapsed Time Ns=94775669935.817s,Uptime Ns=77006647479.371s,Tag=0@1@com.heets.traleplus]
+01-05 19:43:28.331 10710 10784 I jank_cuj_events_end_request: [CUJ Type=80,Unix Time Ns=1767642208331032s,Elapsed Time Ns=94775969454.738s,Uptime Time Ns=77006946998.292s]
+--------- switch to main
+01-05 19:43:28.331 10710 10710 I ImeTracker: com.heets.traleplus:970bbb31: onShown
+01-05 19:43:31.557 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+01-05 19:43:31.695 10710 10710 I ImeTracker: com.heets.traleplus:b274fcc3: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:31.696 10710 10710 D InsetsController: hide(ime())
+01-05 19:43:31.696 10710 10710 D InsetsController: Setting requestedVisibleTypes to 503 (was 511)
+--------- switch to main
+01-05 19:43:31.697 10710 10710 D CompatChangeReporter: Compat change id reported: 395521150; UID 10205; state: ENABLED
+01-05 19:43:31.778 10710 10710 I flutter : unhandled element <defs/>; Picture key: Svg loader
+01-05 19:43:31.778 10710 10710 I flutter : unhandled element <sodipodi:namedview/>; Picture key: Svg loader
+01-05 19:43:31.858 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to events
+01-05 19:43:31.861 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=81,Unix Time Ns=1767642211860905s,Elapsed Time Ns=94779499325.019s,Uptime Ns=77010476868.248s,Tag=1@1@com.heets.traleplus]
+--------- switch to main
+01-05 19:43:31.863 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4bed292
+01-05 19:43:31.870 10710 10719 W heets.traleplus: userfaultfd: MOVE ioctl seems unsupported: Connection timed out
+01-05 19:43:31.909 10710 10710 I ImeTracker: system_server:edeae9b7: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+--------- switch to events
+01-05 19:43:32.193 10710 10784 I jank_cuj_events_end_request: [CUJ Type=81,Unix Time Ns=1767642212193740s,Elapsed Time Ns=94779832162.829s,Uptime Time Ns=77010809706.302s]
+--------- switch to main
+01-05 19:43:39.885 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+01-05 19:43:43.518 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4bed292
+--------- switch to system
+01-05 19:43:46.530 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:43:46.531 10710 10710 I ImeTracker: com.heets.traleplus:5c98caa: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+01-05 19:43:47.515 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+01-05 19:43:49.575 10710 10710 I ImeTracker: com.heets.traleplus:a71d20bc: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:49.575 10710 10710 D InsetsController: show(ime())
+01-05 19:43:49.575 10710 10710 D InsetsController: Setting requestedVisibleTypes to 511 (was 503)
+--------- switch to main
+01-05 19:43:49.599 10710 10710 I ImeTracker: com.heets.traleplus:88101d9e: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:49.599 10710 10710 D InsetsController: show(ime())
+--------- switch to main
+01-05 19:43:49.599 10710 10710 I ImeTracker: com.heets.traleplus:88101d9e: onCancelled at PHASE_CLIENT_REPORT_REQUESTED_VISIBLE_TYPES
+01-05 19:43:49.602 10710 10710 D InputConnectionAdaptor: The input method toggled cursor monitoring on
+01-05 19:43:49.622 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): ImeOnBackInvokedCallback@76469245 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@b89547b
+01-05 19:43:49.650 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:[0,0,0,940] 
+--------- switch to events
+01-05 19:43:49.651 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=80,Unix Time Ns=1767642229651044s,Elapsed Time Ns=94797289463.659s,Uptime Ns=77028267006.929s,Tag=0@1@com.heets.traleplus]
+01-05 19:43:49.958 10710 10784 I jank_cuj_events_end_request: [CUJ Type=80,Unix Time Ns=1767642229958292s,Elapsed Time Ns=94797596711.666s,Uptime Time Ns=77028574255.098s]
+--------- switch to main
+01-05 19:43:49.958 10710 10710 I ImeTracker: com.heets.traleplus:a71d20bc: onShown
+01-05 19:43:51.256 10710 10710 I ImeTracker: com.heets.traleplus:f55112b1: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:51.256 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:43:51.257 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to system
+01-05 19:43:51.257 10710 10710 D InsetsController: Setting requestedVisibleTypes to 503 (was 511)
+--------- switch to main
+01-05 19:43:51.268 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to events
+01-05 19:43:51.269 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=81,Unix Time Ns=1767642231269658s,Elapsed Time Ns=94798908078.691s,Uptime Ns=77029885621.96s,Tag=1@1@com.heets.traleplus]
+--------- switch to main
+01-05 19:43:51.282 10710 10710 I ImeTracker: system_server:74a2264d: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+--------- switch to events
+01-05 19:43:51.559 10710 10784 I jank_cuj_events_end_request: [CUJ Type=81,Unix Time Ns=1767642231559552s,Elapsed Time Ns=94799198001.583s,Uptime Time Ns=77030175545.26s]
+--------- switch to main
+01-05 19:43:54.145 10710 10710 I ImeTracker: com.heets.traleplus:be9b3124: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:54.146 10710 10710 D InsetsController: show(ime())
+01-05 19:43:54.146 10710 10710 D InsetsController: Setting requestedVisibleTypes to 511 (was 503)
+--------- switch to main
+01-05 19:43:54.149 10710 10710 I ImeTracker: com.heets.traleplus:b8684534: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:54.149 10710 10710 D InsetsController: show(ime())
+--------- switch to main
+01-05 19:43:54.150 10710 10710 I ImeTracker: com.heets.traleplus:b8684534: onCancelled at PHASE_CLIENT_REPORT_REQUESTED_VISIBLE_TYPES
+01-05 19:43:54.162 10710 10710 D InputConnectionAdaptor: The input method toggled cursor monitoring on
+01-05 19:43:54.172 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): ImeOnBackInvokedCallback@76469245 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@d97d7f3
+01-05 19:43:54.196 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:[0,0,0,940] 
+--------- switch to events
+01-05 19:43:54.197 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=80,Unix Time Ns=1767642234197345s,Elapsed Time Ns=94801835764.443s,Uptime Ns=77032813307.672s,Tag=0@1@com.heets.traleplus]
+01-05 19:43:54.505 10710 10784 I jank_cuj_events_end_request: [CUJ Type=80,Unix Time Ns=1767642234505596s,Elapsed Time Ns=94802144015.175s,Uptime Time Ns=77033121558.323s]
+--------- switch to main
+01-05 19:43:54.506 10710 10710 I ImeTracker: com.heets.traleplus:be9b3124: onShown
+01-05 19:43:56.328 10710 10710 I ImeTracker: com.heets.traleplus:e2c6efa9: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:56.329 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:43:56.329 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to system
+01-05 19:43:56.330 10710 10710 D InsetsController: Setting requestedVisibleTypes to 503 (was 511)
+--------- switch to main
+01-05 19:43:56.401 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to events
+01-05 19:43:56.403 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=81,Unix Time Ns=1767642236403019s,Elapsed Time Ns=94804041444.335s,Uptime Ns=77035018987.97s,Tag=1@1@com.heets.traleplus]
+--------- switch to main
+01-05 19:43:56.409 10710 10710 I ImeTracker: system_server:637351c: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+--------- switch to events
+01-05 19:43:56.737 10710 10784 I jank_cuj_events_end_request: [CUJ Type=81,Unix Time Ns=1767642236737000s,Elapsed Time Ns=94804375423.38s,Uptime Time Ns=77035352966.934s]
+--------- switch to main
+01-05 19:43:57.593 10710 10710 I ImeTracker: com.heets.traleplus:bf77f70: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:57.594 10710 10710 D InsetsController: show(ime())
+01-05 19:43:57.594 10710 10710 D InsetsController: Setting requestedVisibleTypes to 511 (was 503)
+--------- switch to main
+01-05 19:43:57.638 10710 10710 D InputConnectionAdaptor: The input method toggled cursor monitoring on
+01-05 19:43:57.660 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): ImeOnBackInvokedCallback@76469245 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@c94526b
+01-05 19:43:57.672 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:[0,0,0,940] 
+--------- switch to events
+01-05 19:43:57.673 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=80,Unix Time Ns=1767642237673787s,Elapsed Time Ns=94805312207.763s,Uptime Ns=77036289751.277s,Tag=0@1@com.heets.traleplus]
+01-05 19:43:57.972 10710 10784 I jank_cuj_events_end_request: [CUJ Type=80,Unix Time Ns=1767642237972662s,Elapsed Time Ns=94805611082.316s,Uptime Time Ns=77036588625.626s]
+--------- switch to main
+01-05 19:43:57.973 10710 10710 I ImeTracker: com.heets.traleplus:bf77f70: onShown
+01-05 19:43:58.893 10710 10710 I ImeTracker: com.heets.traleplus:f4b9d040: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:43:58.894 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:43:58.894 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to system
+01-05 19:43:58.894 10710 10710 D InsetsController: Setting requestedVisibleTypes to 503 (was 511)
+--------- switch to main
+01-05 19:43:58.905 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to events
+01-05 19:43:58.907 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=81,Unix Time Ns=1767642238907259s,Elapsed Time Ns=94806545685.71s,Uptime Ns=77037523229.834s,Tag=1@1@com.heets.traleplus]
+--------- switch to main
+01-05 19:43:58.935 10710 10710 I ImeTracker: system_server:66cac3b8: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+--------- switch to events
+01-05 19:43:59.216 10710 10784 I jank_cuj_events_end_request: [CUJ Type=81,Unix Time Ns=1767642239216690s,Elapsed Time Ns=94806855115.031s,Uptime Time Ns=77037832658.708s]
+--------- switch to main
+01-05 19:44:02.724 10710 10710 I ImeTracker: com.heets.traleplus:382109e: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:44:02.724 10710 10710 D InsetsController: show(ime())
+01-05 19:44:02.725 10710 10710 D InsetsController: Setting requestedVisibleTypes to 511 (was 503)
+--------- switch to main
+01-05 19:44:02.746 10710 10710 D InputConnectionAdaptor: The input method toggled cursor monitoring on
+01-05 19:44:02.761 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): ImeOnBackInvokedCallback@76469245 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@b66a3e3
+01-05 19:44:02.792 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:[0,0,0,940] 
+--------- switch to events
+01-05 19:44:02.793 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=80,Unix Time Ns=1767642242793339s,Elapsed Time Ns=94810431767.336s,Uptime Ns=77041409311.256s,Tag=0@1@com.heets.traleplus]
+01-05 19:44:03.105 10710 10784 I jank_cuj_events_end_request: [CUJ Type=80,Unix Time Ns=1767642243105686s,Elapsed Time Ns=94810744105.43s,Uptime Time Ns=77041721648.578s]
+--------- switch to main
+01-05 19:44:03.106 10710 10710 I ImeTracker: com.heets.traleplus:382109e: onShown
+01-05 19:44:08.040 10710 10710 I ImeTracker: com.heets.traleplus:51dad45c: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:44:08.040 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:44:08.041 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to system
+01-05 19:44:08.042 10710 10710 D InsetsController: Setting requestedVisibleTypes to 503 (was 511)
+--------- switch to main
+01-05 19:44:08.045 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to events
+01-05 19:44:08.047 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=81,Unix Time Ns=1767642248047409s,Elapsed Time Ns=94815685840.662s,Uptime Ns=77046663385.193s,Tag=1@1@com.heets.traleplus]
+--------- switch to main
+01-05 19:44:08.091 10710 10710 I ImeTracker: system_server:309a8ee8: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+--------- switch to events
+01-05 19:44:08.370 10710 10784 I jank_cuj_events_end_request: [CUJ Type=81,Unix Time Ns=1767642248370168s,Elapsed Time Ns=94816008590.133s,Uptime Time Ns=77046986133.728s]
+--------- switch to main
+01-05 19:44:09.388 10710 10710 I ImeTracker: com.heets.traleplus:ccc9a754: onRequestShow at ORIGIN_CLIENT reason SHOW_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:44:09.388 10710 10710 D InsetsController: show(ime())
+01-05 19:44:09.389 10710 10710 D InsetsController: Setting requestedVisibleTypes to 511 (was 503)
+--------- switch to main
+01-05 19:44:09.403 10710 10710 D InputConnectionAdaptor: The input method toggled cursor monitoring on
+01-05 19:44:09.407 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): ImeOnBackInvokedCallback@76469245 Callback=android.window.IOnBackInvokedCallback$Stub$Proxy@612ac5b
+01-05 19:44:09.444 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:[0,0,0,940] 
+--------- switch to events
+01-05 19:44:09.445 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=80,Unix Time Ns=1767642249445444s,Elapsed Time Ns=94817083867.233s,Uptime Ns=77048061410.788s,Tag=0@1@com.heets.traleplus]
+01-05 19:44:09.748 10710 10784 I jank_cuj_events_end_request: [CUJ Type=80,Unix Time Ns=1767642249748549s,Elapsed Time Ns=94817386972.133s,Uptime Time Ns=77048364515.687s]
+--------- switch to main
+01-05 19:44:09.749 10710 10710 I ImeTracker: com.heets.traleplus:ccc9a754: onShown
+01-05 19:44:10.727 10710 10710 I ImeTracker: com.heets.traleplus:d604dbdc: onRequestHide at ORIGIN_CLIENT reason HIDE_SOFT_INPUT fromUser false
+--------- switch to system
+01-05 19:44:10.727 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:44:10.728 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to system
+01-05 19:44:10.728 10710 10710 D InsetsController: Setting requestedVisibleTypes to 503 (was 511)
+--------- switch to main
+01-05 19:44:10.732 10710 10710 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to events
+01-05 19:44:10.734 10710 10784 I jank_cuj_events_begin_request: [CUJ Type=81,Unix Time Ns=1767642250733925s,Elapsed Time Ns=94818372349.249s,Uptime Ns=77049349893.251s,Tag=1@1@com.heets.traleplus]
+--------- switch to main
+01-05 19:44:10.783 10710 10710 I ImeTracker: system_server:e4f1bd58: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+01-05 19:44:10.784 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4bed292
+--------- switch to events
+01-05 19:44:11.087 10710 10784 I jank_cuj_events_end_request: [CUJ Type=81,Unix Time Ns=1767642251087043s,Elapsed Time Ns=94818725467.576s,Uptime Time Ns=77049703011.13s]
+--------- switch to main
+01-05 19:44:28.634 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to events
+01-05 19:44:46.409 10710 10710 I wm_on_top_resumed_lost_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+01-05 19:44:46.423 10710 10710 I wm_on_paused_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=performPause,time=11ms]
+--------- switch to main
+01-05 19:44:46.436 10710 10710 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+--------- switch to events
+01-05 19:44:46.443 10710 10710 I surfaceview_layout: [window=SV[68220209 MainActivity],format=4,width=1080,height=2400,z=-2,sizeFrom=layout,attached=1,lifecycleStrategy=0,viewVisible=0]
+01-05 19:44:46.444 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceDestroyed]
+01-05 19:44:46.465 10710 10710 I wm_on_stop_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=STOP_ACTIVITY_ITEM,time=4ms]
+01-05 19:44:46.499 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:44:46.500 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=Not drawing due to not visible. Reason=!mAppVisible && !mForceDecorViewVisibility]
+01-05 19:44:46.763 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:44:47.755 10710 10710 I wm_on_restart_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=performRestart,time=0ms]
+01-05 19:44:47.755 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:44:47.755 10710 10710 I wm_on_start_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=handleStartActivity,time=0ms]
+01-05 19:44:47.757 10710 10710 I wm_on_resume_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=RESUME_ACTIVITY,time=1ms]
+01-05 19:44:47.757 10710 10710 I wm_on_top_resumed_gained_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=topWhenResuming]
+01-05 19:44:47.758 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:44:47.772 10710 10710 I surfaceview_layout: [window=SV[68220209 MainActivity],format=4,width=1080,height=2400,z=-2,sizeFrom=layout,attached=1,lifecycleStrategy=0,viewVisible=1]
+01-05 19:44:47.775 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceCreated]
+01-05 19:44:47.786 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceChanged -- format=4 w=1080 h=2400]
+01-05 19:44:47.786 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceRedrawNeeded]
+01-05 19:44:47.787 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=Start draw after previous draw not visible]
+01-05 19:44:47.802 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=reportDrawFinished seqId=0]
+01-05 19:44:47.803 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=reportDrawFinished seqId=0]
+01-05 19:44:47.803 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceRedrawNeeded implemented]
+--------- switch to system
+01-05 19:44:48.227 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:44:48.227 10710 10710 I ImeTracker: com.heets.traleplus:164aa122: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+--------- switch to system
+01-05 19:44:51.088 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:44:51.088 10710 10710 I ImeTracker: com.heets.traleplus:9aede204: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+--------- switch to events
+01-05 19:45:44.871 10710 10727 I viewroot_draw_event: [window=VRI[MainActivity],event=Transaction not synced due to no frame drawn]
+--------- switch to main
+01-05 19:45:54.592 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4bed292
+--------- switch to events
+01-05 19:46:01.578 10710 10710 I view_enqueue_input_event: [eventType=Motion - Cancel,action=com.heets.traleplus/com.heets.traleplus.MainActivity]
+01-05 19:46:01.589 10710 10710 I wm_on_top_resumed_lost_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+01-05 19:46:03.112 10710 10710 I wm_on_top_resumed_gained_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+--------- switch to system
+01-05 19:46:03.124 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:46:03.125 10710 10710 I ImeTracker: com.heets.traleplus:aa3e04a6: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+01-05 19:46:42.190 10710 10710 I flutter : dynamic_color: Core palette detected.
+--------- switch to events
+01-05 19:46:42.544 10710 10727 I viewroot_draw_event: [window=VRI[MainActivity],event=Transaction not synced due to no frame drawn]
+--------- switch to system
+01-05 19:46:46.779 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:46:46.779 10710 10710 I ImeTracker: com.heets.traleplus:5b0062f5: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+01-05 19:46:48.507 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@82f0db9
+--------- switch to system
+01-05 19:46:53.614 10710 10710 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:46:53.615 10710 10710 I ImeTracker: com.heets.traleplus:279f2838: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+01-05 19:46:55.114 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@4bed292
+--------- switch to events
+01-05 19:46:56.540 10710 10710 I view_enqueue_input_event: [eventType=Motion - Cancel,action=com.heets.traleplus/com.heets.traleplus.MainActivity]
+01-05 19:46:56.544 10710 10710 I wm_on_top_resumed_lost_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+01-05 19:46:57.441 10710 10710 I wm_on_paused_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=performPause,time=1ms]
+01-05 19:46:57.444 10710 10710 I surfaceview_layout: [window=SV[68220209 MainActivity],format=4,width=1080,height=2400,z=-2,sizeFrom=layout,attached=1,lifecycleStrategy=0,viewVisible=0]
+01-05 19:46:57.447 10710 10710 I surfaceview_callback: [window=SV[68220209 MainActivity],callback=surfaceDestroyed]
+01-05 19:46:57.482 10710 10710 I wm_on_stop_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=STOP_ACTIVITY_ITEM,time=17ms]
+--------- switch to main
+01-05 19:46:57.486 10710 10710 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): null
+01-05 19:46:57.491 10710 10710 D FileSaver: Detached From Activity
+01-05 19:46:57.524 10710 10710 D FileSaver: Detached From Engine
+--------- switch to events
+01-05 19:46:57.865 10710 10710 I wm_on_destroy_called: [Token=185808337,Component Name=com.heets.traleplus.MainActivity,Reason=performDestroy,time=379ms]
+01-05 19:46:57.870 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:46:57.870 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:46:57.871 10710 10710 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+--------- switch to main
+01-05 19:46:57.885 10710 10710 D ViewRootImpl: Skipping stats log for color mode
+01-05 19:47:01.539 11208 11208 I Zygote  : Process 11208 created for com.heets.traleplus
+01-05 19:47:01.540 11208 11208 I heets.traleplus: Late-enabling -Xcheck:jni
+01-05 19:47:01.558 11208 11208 I heets.traleplus: Using CollectorTypeCMC GC.
+01-05 19:47:01.564 11208 11208 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+01-05 19:47:01.578 11208 11208 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+01-05 19:47:01.578 11208 11208 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+01-05 19:47:01.624 11208 11208 D nativeloader: Configuring clns-9 for other apk /data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/lib/arm64:/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.heets.traleplus
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment: Currently set values for:
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[com.android.angle, com.google.android.apps.tachyon]
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment:   angle_gl_driver_selection_values=[angle, native]
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment: com.heets.traleplus is not listed in per-application setting
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment: ANGLE allowlist from config: 
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment: No special selections for ANGLE, returning default driver choice
+01-05 19:47:01.632 11208 11208 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+--------- switch to system
+01-05 19:47:01.651 11208 11225 I DisplayManager: Choreographer implicitly registered for the refresh rate.
+--------- switch to main
+01-05 19:47:01.651 11208 11225 D vulkan  : searching for layers in '/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/lib/arm64'
+01-05 19:47:01.652 11208 11225 D vulkan  : searching for layers in '/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a'
+01-05 19:47:01.655 11208 11225 D vulkan  : added global layer 'VK_LAYER_KHRONOS_validation' from library '/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a/libVkLayer_khronos_validation.so'
+01-05 19:47:01.657 11208 11208 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+01-05 19:47:01.666 11208 11231 D FlutterJNI: Beginning load of flutter...
+01-05 19:47:01.668 11208 11232 I ResourceExtractor: Found extracted resources res_timestamp-2-1767642201174
+01-05 19:47:01.685 11208 11231 D nativeloader: Load /data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk!/lib/arm64-v8a/libflutter.so using class loader ns clns-9 (caller=/data/app/~~-ltxki-6f0WJhYOLFuLwFg==/com.heets.traleplus-Kc90w576lZpj551PBlhyug==/base.apk): ok
+01-05 19:47:01.686 11208 11231 D FlutterJNI: flutter (null) was loaded normally!
+--------- switch to events
+01-05 19:47:01.694 11208 11208 I auditd  : avc=type=1400 audit(0.0:6432): avc:  denied  { read } for  comm="heets.traleplus" name="max_map_count" dev="proc" ino=1558413 scontext=u:r:untrusted_app:s0:c205,c256,c512,c768 tcontext=u:object_r:proc_max_map_count:s0 tclass=file permissive=0 app=com.heets.traleplus
+--------- switch to main
+01-05 19:47:01.694 11208 11208 W heets.traleplus: type=1400 audit(0.0:6432): avc:  denied  { read } for  name="max_map_count" dev="proc" ino=1558413 scontext=u:r:untrusted_app:s0:c205,c256,c512,c768 tcontext=u:object_r:proc_max_map_count:s0 tclass=file permissive=0 app=com.heets.traleplus
+01-05 19:47:01.711 11208 11208 D DesktopExperienceFlags: Toggle override initialized to: false
+01-05 19:47:01.711 11208 11208 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+01-05 19:47:01.718 11208 11234 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+01-05 19:47:01.768 11208 11251 I flutter : The Dart VM service is listening on http://127.0.0.1:39149/IxmfW2M1wcM=/
+01-05 19:47:01.966 11208 11208 D FileSaver: Attached to Activity
+01-05 19:47:01.970 11208 11208 D CompatChangeReporter: Compat change id reported: 377864165; UID 10205; state: ENABLED
+01-05 19:47:01.997 11208 11208 I heets.traleplus: hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityNodeInfo;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported,test-api) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+01-05 19:47:01.997 11208 11208 I heets.traleplus: hiddenapi: Accessing hidden method Landroid/view/accessibility/AccessibilityRecord;->getSourceNodeId()J (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+01-05 19:47:01.997 11208 11208 I heets.traleplus: hiddenapi: Accessing hidden field Landroid/view/accessibility/AccessibilityNodeInfo;->mChildNodeIds:Landroid/util/LongArray; (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+01-05 19:47:01.997 11208 11208 I heets.traleplus: hiddenapi: Accessing hidden method Landroid/util/LongArray;->get(I)J (runtime_flags=0, domain=platform, api=unsupported) from Lio/flutter/view/AccessibilityViewEmbedder$ReflectionAccessors; (domain=app, TargetSdkVersion=36) using reflection: allowed
+--------- switch to events
+01-05 19:47:02.006 11208 11208 I wm_on_create_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=performCreate,time=346ms]
+01-05 19:47:02.008 11208 11208 I wm_on_start_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=handleStartActivity,time=0ms]
+01-05 19:47:02.009 11208 11208 I wm_on_resume_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=RESUME_ACTIVITY,time=0ms]
+01-05 19:47:02.094 11208 11208 I wm_on_top_resumed_gained_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+--------- switch to main
+01-05 19:47:02.106 11208 11208 I Choreographer: Skipped 41 frames!  The application may be doing too much work on its main thread.
+01-05 19:47:02.107 11208 11208 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@3ef18cf
+01-05 19:47:02.111 11208 11208 I WindowExtensionsImpl: Initializing Window Extensions, vendor API level=9, activity embedding enabled=true
+01-05 19:47:02.124 11208 11208 D VRI[MainActivity]: WindowInsets changed: 1080x2400 statusBars:[0,136,0,0] navigationBars:[0,0,0,53] ime:[0,0,0,940] mandatorySystemGestures:[0,163,0,71] 
+--------- switch to events
+01-05 19:47:02.134 11208 11208 I surfaceview_layout: [window=SV[255007827 MainActivity],format=4,width=1080,height=2400,z=-2,sizeFrom=layout,attached=1,lifecycleStrategy=0,viewVisible=1]
+01-05 19:47:02.135 11208 11208 I surfaceview_callback: [window=SV[255007827 MainActivity],callback=surfaceCreated]
+01-05 19:47:02.172 11208 11208 I surfaceview_callback: [window=SV[255007827 MainActivity],callback=surfaceChanged -- format=4 w=1080 h=2400]
+01-05 19:47:02.173 11208 11208 I surfaceview_callback: [window=SV[255007827 MainActivity],callback=surfaceRedrawNeeded]
+01-05 19:47:02.173 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=Canceling draw. cancelDueToPreDrawListener=true cancelDueToSync=false]
+--------- switch to main
+01-05 19:47:02.223 11208 11208 D WindowLayoutComponentImpl: Register WindowLayoutInfoListener on Context=com.heets.traleplus.MainActivity@6968990, of which baseContext=android.app.ContextImpl@e02aebc
+01-05 19:47:03.054 11208 11208 I Choreographer: Skipped 71 frames!  The application may be doing too much work on its main thread.
+--------- switch to events
+01-05 19:47:03.055 11208 11208 I surfaceview_callback: [window=SV[255007827 MainActivity],callback=surfaceRedrawNeeded implemented]
+--------- switch to main
+01-05 19:47:03.085 11208 11208 I flutter : dynamic_color: Core palette detected.
+01-05 19:47:03.437 11208 11208 I Choreographer: Skipped 33 frames!  The application may be doing too much work on its main thread.
+--------- switch to events
+01-05 19:47:03.438 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=Draw frame after cancel]
+01-05 19:47:03.442 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=reportDrawFinished seqId=0]
+--------- switch to main
+01-05 19:47:03.467 11208 11208 D VRI[MainActivity]: WindowInsets changed: ime:null 
+--------- switch to system
+01-05 19:47:03.476 11208 11208 D InsetsController: hide(ime())
+--------- switch to main
+01-05 19:47:03.476 11208 11208 I ImeTracker: com.heets.traleplus:67db1900: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+01-05 19:47:03.497 11208 11208 I ImeTracker: system_server:ddd713bd: onCancelled at PHASE_CLIENT_ON_CONTROLS_CHANGED
+01-05 19:47:07.170 11208 11208 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): io.flutter.embedding.android.FlutterActivity$1@51cdd4a
+01-05 19:47:07.996 11208 11275 D ProfileInstaller: Installing profile for com.heets.traleplus
+01-05 19:47:09.004 11208 11208 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.app.Activity$$ExternalSyntheticLambda0@3ef18cf
+01-05 19:47:23.832 11208 11217 W heets.traleplus: userfaultfd: MOVE ioctl seems unsupported: Connection timed out
+--------- switch to events
+01-05 19:48:12.164 11208 11208 I view_enqueue_input_event: [eventType=Motion - Cancel,action=com.heets.traleplus/com.heets.traleplus.MainActivity]
+01-05 19:48:12.171 11208 11208 I wm_on_top_resumed_lost_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=topStateChangedWhenResumed]
+01-05 19:48:12.252 11208 11208 I wm_on_paused_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=performPause,time=1ms]
+--------- switch to main
+01-05 19:48:12.950 11208 11208 D VRI[MainActivity]: visibilityChanged oldVisibility=true newVisibility=false
+--------- switch to events
+01-05 19:48:12.954 11208 11208 I surfaceview_layout: [window=SV[255007827 MainActivity],format=4,width=1080,height=2400,z=-2,sizeFrom=layout,attached=1,lifecycleStrategy=0,viewVisible=0]
+01-05 19:48:12.954 11208 11208 I surfaceview_callback: [window=SV[255007827 MainActivity],callback=surfaceDestroyed]
+01-05 19:48:12.989 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:48:12.990 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:48:12.991 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=Not drawing due to not visible. Reason=!mAppVisible && !mForceDecorViewVisibility]
+01-05 19:48:13.029 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
+01-05 19:48:13.030 11208 11208 I wm_on_stop_called: [Token=26405905,Component Name=com.heets.traleplus.MainActivity,Reason=STOP_ACTIVITY_ITEM,time=6ms]
+01-05 19:48:13.046 11208 11208 I viewroot_draw_event: [window=VRI[MainActivity],event=applyTransactionOnDraw applyImmediately]
