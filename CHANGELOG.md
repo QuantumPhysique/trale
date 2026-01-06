@@ -24,9 +24,10 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Improved and all new Settings pages
 
 ### Other changes:
-- Remove outdated onboarding screen
+- Upgraded to latest flutter 3.38
 - New font family: RobotoFlex
 - All new animations to align with M3E design guidelines
+- Remove outdated onboarding screen
 
 ### Bugfix 🐛:
 - Fix bug which prevents selecting zh-Hant variant
