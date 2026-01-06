@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -115,9 +116,11 @@ class TotalWeightList extends StatefulWidget {
   _TotalWeightList createState() => _TotalWeightList();
 }
 
-class _TotalWeightList extends State<TotalWeightList>{
+class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderStateMixin{
   double heightFactor = 1.5;
   int? activeListTile;
+  Timer? _bannerTimer;
+  late final AnimationController _bannerController;
 
   void onScrollEvent() {
     if (activeListTile != null){
@@ -137,13 +140,45 @@ class _TotalWeightList extends State<TotalWeightList>{
     activeListTile = null;
     widget.scrollController.addListener(onScrollEvent);
     widget.tabController.animation!.addListener(onTabChangeEvent);
+
+    _bannerController = AnimationController(
+      vsync: this,
+      // place holder, will be updated in didChangeDependencies
+      duration: const Duration(milliseconds: 200),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((Duration _) {
+      final TraleNotifier notifier =
+        Provider.of<TraleNotifier>(context, listen: false);
+      if (!notifier.showMeasurementHintBanner) {
+        return;
+      }
+
+      _bannerTimer?.cancel();
+      _bannerTimer = Timer(const Duration(seconds: 3), () {
+        if (!mounted) {
+          return;
+        }
+        _bannerController.forward();
+      });
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _bannerController.duration =
+      TraleTheme.of(context)!.transitionDuration.normal;
   }
 
   @override
   void dispose() {
-    super.dispose();
     widget.scrollController.removeListener(onScrollEvent);
     widget.tabController.animation!.removeListener(onTabChangeEvent);
+
+    _bannerTimer?.cancel();
+    _bannerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -176,9 +211,14 @@ class _TotalWeightList extends State<TotalWeightList>{
       controller: widget.scrollController,
       cacheExtent: 2 * MediaQuery.of(context).size.height,
       slivers: <Widget>[
-        if (showBanner)
-          SliverToBoxAdapter(
-            child: Padding(
+        SliverToBoxAdapter(
+          child: SizeTransition(
+            sizeFactor: CurvedAnimation(
+              parent: _bannerController,
+              curve: Curves.easeOut,
+            ),
+            axisAlignment: -1.0,
+            child: !showBanner ? const SizedBox.shrink() : Padding(
               padding: EdgeInsets.fromLTRB(
                 TraleTheme.of(context)!.padding,
                 TraleTheme.of(context)!.padding,
@@ -220,6 +260,7 @@ class _TotalWeightList extends State<TotalWeightList>{
               ),
             ),
           ),
+        ),
         ...<Widget>[
           for (final int year in years)
             ...<Widget>[
