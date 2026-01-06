@@ -1,15 +1,19 @@
 # Trale+ Store Listing - Quick Reference
 
 ## App Title
+
 **Trale+ - Privacy-First Fitness Journal**
 
 ## Short Description (80 chars)
+
 Privacy-first fitness journal. Track weight, workouts, photos & emotions offline.
 
 ## Category
+
 **Health & Fitness**
 
 ## Content Rating
+
 **Everyone**
 
 ## Tags/Keywords
@@ -48,8 +52,9 @@ Your completely private fitness companion. Track weight, workouts, photos, and e
 - Data export available anytime
 
 ## Support & Links
+
 - **Website**: [Your website]
-- **GitHub**: https://github.com/Turun/trale-plus
+- **GitHub**: <https://github.com/Turun/trale-plus>
 - **Privacy Policy**: [Link to privacy policy]
 - **Email**: [Support email]
 

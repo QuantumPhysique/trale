@@ -99,10 +99,6 @@ Based on the original [trale](https://github.com/QuantumPhysique/trale) app by Q
 
 Extended to include comprehensive fitness journal features while maintaining the privacy-first philosophy.
 
-## License
-
-GNU AGPLv3+
-
 ## Support
 
 Found a bug or have a feature request? Please open an issue.
