@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:synchronized/synchronized.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementInterpolation.dart';
@@ -113,6 +114,9 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   static final MeasurementDatabase _instance = MeasurementDatabase._internal();
 
   static const String _boxName = measurementBoxName;
+  
+  /// Lock for atomic insertMeasurementAsync operations
+  final Lock _insertLock = Lock();
 
   /// get box
   Box<Measurement> get box => Hive.box<Measurement>(_boxName);
@@ -138,12 +142,14 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// insert Measurements into box async
   Future<bool> insertMeasurementAsync(Measurement m) async {
-    final bool isContained = containsMeasurement(m);
-    if (!isContained) {
-      await box.add(m);
-      reinit();
-    }
-    return !isContained;
+    return await _insertLock.synchronized(() async {
+      final bool isContained = containsMeasurement(m);
+      if (!isContained) {
+        await box.add(m);
+        reinit();
+      }
+      return !isContained;
+    });
   }
 
   /// insert a list of measurements into the box

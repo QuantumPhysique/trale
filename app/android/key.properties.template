@@ -11,4 +11,4 @@ keyPassword=YOUR_KEY_PASSWORD_HERE
 keyAlias=trale-plus
 
 # Path to keystore file relative to android/ directory
-storeFile=app/trale-plus-release.jks
+storeFile=../trale-plus-release.jks

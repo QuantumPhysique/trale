@@ -22,13 +22,33 @@ class UserProfile {
   });
 
   factory UserProfile.fromMap(Map<String, dynamic> map) {
+    List<HeightEntry> heightHistory = [];
+    try {
+      if (map['height_history'] != null) {
+        final decoded = jsonDecode(map['height_history']);
+        if (decoded is List) {
+          heightHistory = decoded
+              .where((h) => h is Map<String, dynamic>)
+              .map((h) {
+                try {
+                  return HeightEntry.fromMap(h as Map<String, dynamic>);
+                } catch (e) {
+                  return null;
+                }
+              })
+              .where((h) => h != null)
+              .cast<HeightEntry>()
+              .toList();
+        }
+      }
+    } catch (e) {
+      // Log error, use empty list
+      heightHistory = [];
+    }
+    
     return UserProfile(
       initialHeight: map['initial_height'] as double?,
-      heightHistory: map['height_history'] != null
-          ? (jsonDecode(map['height_history']) as List)
-              .map((h) => HeightEntry.fromMap(h as Map<String, dynamic>))
-              .toList()
-          : [],
+      heightHistory: heightHistory,
       preferredUnits: UnitSystem.fromString(map['preferred_units'] as String? ?? 'metric'),
     );
   }
@@ -60,7 +80,7 @@ class HeightEntry {
   factory HeightEntry.fromMap(Map<String, dynamic> map) {
     return HeightEntry(
       date: DateTime.parse(map['date']),
-      height: map['height'] as double,
+      height: (map['height'] as num).toDouble(),
     );
   }
   final DateTime date;

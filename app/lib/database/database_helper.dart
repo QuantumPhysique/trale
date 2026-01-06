@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/daily_entry.dart';
@@ -75,36 +77,38 @@ class DatabaseHelper {
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     // Migration from v1 to v2: Emotional check-ins refactor
     if (oldVersion < 2 && newVersion >= 2) {
-      // Add new columns
-      await db.execute('ALTER TABLE daily_entries ADD COLUMN emotional_checkins TEXT');
-      await db.execute('ALTER TABLE daily_entries ADD COLUMN is_immutable INTEGER DEFAULT 0');
-      
-      // Migrate old emotions field to new emotional_checkins format
-      final List<Map<String, Object?>> entries = await db.query('daily_entries');
-      for (Map<String, Object?> entry in entries) {
-        final String? oldEmotions = entry['emotions'] as String?;
-        if (oldEmotions != null && oldEmotions.isNotEmpty && oldEmotions != '[]') {
-          // Convert old emotions array to single emotional check-in
-          final List<dynamic> emotionsList = jsonDecode(oldEmotions);
-          if (emotionsList.isNotEmpty) {
-            final String timestamp = entry['timestamp'] as String;
-            final Map<String, Object> checkIn = <String, Object>{
-              'timestamp': timestamp,
-              'emotions': emotionsList,
-              'text': '', // Old entries didn't have text
-            };
-            await db.update(
-              'daily_entries',
-              <String, Object?>{'emotional_checkins': jsonEncode(<Map<String, Object>>[checkIn])},
-              where: 'date = ?',
-              whereArgs: <Object?>[entry['date']],
-            );
+      await db.transaction((txn) async {
+        // Add new columns
+        await txn.execute('ALTER TABLE daily_entries ADD COLUMN emotional_checkins TEXT');
+        await txn.execute('ALTER TABLE daily_entries ADD COLUMN is_immutable INTEGER DEFAULT 0');
+        
+        // Migrate old emotions field to new emotional_checkins format
+        final List<Map<String, Object?>> entries = await txn.query('daily_entries');
+        for (Map<String, Object?> entry in entries) {
+          final String? oldEmotions = entry['emotions'] as String?;
+          if (oldEmotions != null && oldEmotions.isNotEmpty && oldEmotions != '[]') {
+            // Convert old emotions array to single emotional check-in
+            final List<dynamic> emotionsList = jsonDecode(oldEmotions);
+            if (emotionsList.isNotEmpty) {
+              final String timestamp = entry['timestamp'] as String;
+              final Map<String, Object> checkIn = <String, Object>{
+                'timestamp': timestamp,
+                'emotions': emotionsList,
+                'text': '', // Old entries didn't have text
+              };
+              await txn.update(
+                'daily_entries',
+                <String, Object?>{'emotional_checkins': jsonEncode(<Map<String, Object>>[checkIn])},
+                where: 'date = ?',
+                whereArgs: <Object?>[entry['date']],
+              );
+            }
           }
         }
-      }
-      
-      // Note: We keep the emotions column for now to avoid data loss
-      // It can be dropped in a future version after migration is confirmed
+        
+        // Note: We keep the emotions column for now to avoid data loss
+        // It can be dropped in a future version after migration is confirmed
+      });
     }
   }
 
@@ -156,7 +160,16 @@ class DatabaseHelper {
     // Get entry first to access photo paths
     final DailyEntry? entry = await getDailyEntry(date);
     
-    // Delete photos from disk
+    // Delete entry from database first
+    final Database db = await database;
+    final String dateStr = date.toIso8601String().split('T')[0];
+    await db.delete(
+      'daily_entries',
+      where: 'date = ?',
+      whereArgs: <Object?>[dateStr],
+    );
+    
+    // Only delete photos from disk after DB deletion succeeds
     if (entry != null && entry.photoPaths.isNotEmpty) {
       for (final String photoPath in entry.photoPaths) {
         try {
@@ -171,19 +184,10 @@ class DatabaseHelper {
             }
           }
         } catch (e) {
-          print('Error deleting photo: $e');
+          debugPrint('Error deleting photo: $e');
         }
       }
     }
-    
-    // Delete entry from database
-    final Database db = await database;
-    final String dateStr = date.toIso8601String().split('T')[0];
-    await db.delete(
-      'daily_entries',
-      where: 'date = ?',
-      whereArgs: <Object?>[dateStr],
-    );
   }
 
   // User Profile methods
