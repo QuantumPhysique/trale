@@ -6,12 +6,16 @@ import 'package:trale/core/theme.dart';
 
 class CalendarView extends StatefulWidget {
   final List<Measurement> measurements;
+  final Set<DateTime>? entryDates;
   final Function(DateTime)? onDateSelected;
+  final bool shouldFillViewport;
 
   const CalendarView({
     super.key,
     required this.measurements,
+    this.entryDates,
     this.onDateSelected,
+    this.shouldFillViewport = false,
   });
 
   @override
@@ -30,7 +34,11 @@ class _CalendarViewState extends State<CalendarView> {
   }
 
   bool _hasMeasurement(DateTime day) {
-    // Check if ANY measurement exists for this day, regardless of isMeasured flag
+    // Priority: usage of entryDates if provided (SQL data source)
+    if (widget.entryDates != null) {
+      return widget.entryDates!.any((d) => isSameDay(d, day));
+    }
+    // Fallback: legacy measurement list
     return widget.measurements.any((m) => isSameDay(m.date, day));
   }
 
@@ -47,6 +55,8 @@ class _CalendarViewState extends State<CalendarView> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
         child: TableCalendar(
+          shouldFillViewport: widget.shouldFillViewport,
+          rowHeight: widget.shouldFillViewport ? 52.0 : 64.0, // Larger touch targets
           firstDay: DateTime.utc(2020, 1, 1),
           lastDay: DateTime.now(),
           focusedDay: _focusedDay,

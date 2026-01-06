@@ -59,6 +59,15 @@ class _OverviewScreen extends State<OverviewScreen> {
     });
   }
 
+  Future<void> _refreshEntryDates() async {
+    final List<DailyEntry> entries = await DatabaseHelper.instance.getAllEntries();
+    if (mounted) {
+      setState(() {
+        _entryDates = entries.map((e) => e.date).toSet();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
@@ -90,6 +99,7 @@ class _OverviewScreen extends State<OverviewScreen> {
             delayInMilliseconds: firstDelayInMilliseconds,
             child: CalendarView(
               measurements: snapshot.data ?? <Measurement>[],
+              entryDates: _entryDates, // Pass entry dates
               onDateSelected: (DateTime date) async {
                 final result = await Navigator.push(
                   context,
@@ -99,6 +109,7 @@ class _OverviewScreen extends State<OverviewScreen> {
                 );
                 // Force rebuild if needed, though StreamBuilder might handle it
                  if (result == true) {
+                   _refreshEntryDates(); // Refresh dots
                    // Refresh logic if needed
                  }
               },
@@ -127,16 +138,16 @@ class _OverviewScreen extends State<OverviewScreen> {
         return overviewScreen(context, snapshot);
       }
 
-      return Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              FadeInEffect(
+      return Container(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: FadeInEffect(
                 durationInMilliseconds: animationDurationInMilliseconds,
                 delayInMilliseconds: firstDelayInMilliseconds,
                 child: CalendarView(
-                  measurements: data,
+                  entryDates: _entryDates, // Pass entry dates
                   onDateSelected: (DateTime date) async {
                     await Navigator.push(
                       context,
@@ -144,16 +155,19 @@ class _OverviewScreen extends State<OverviewScreen> {
                         builder: (context) => DailyEntryScreen(initialDate: date),
                       ),
                     );
+                    _refreshEntryDates(); // Refresh dots  builder: (context) => DailyEntryScreen(initialDate: date),
+                      ),
+                    );
                   },
                 ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                "Tap a date above to add an entry.",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              "Tap a date above to add an entry.",
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
         ),
       );
     }
