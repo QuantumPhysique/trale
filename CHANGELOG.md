@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+## [0.14.0] - 2026-01-06
+
 Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆
 
 This release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.
@@ -390,7 +393,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.13.2...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.14.0...main
+[0.14.0]: https://github.com/quantumphysique/trale/compare/v0.13.2...v0.14.0
 [0.13.2]: https://github.com/quantumphysique/trale/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/quantumphysique/trale/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/quantumphysique/trale/compare/v0.12.1...v0.13.0
