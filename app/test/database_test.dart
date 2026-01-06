@@ -70,6 +70,11 @@ void main() {
       final DailyEntry? retrievedUpdated = await DatabaseHelper.instance.getDailyEntry(DateTime(2023, 1, 1));
       expect(retrievedUpdated!.weight, 69.5);
       expect(retrievedUpdated.workoutText, 'Run + Swim');
+      // Verify omitted fields behavior
+      expect(retrievedUpdated.height, isNull); // height was not in update
+      expect(retrievedUpdated.workoutTags, isEmpty); // tags were not in update
+      expect(retrievedUpdated.thoughts, isNull); // thoughts were not in update
+      expect(retrievedUpdated.emotionalCheckIns.length, 2); // checkIns were included
       
       // Delete
       await DatabaseHelper.instance.deleteEntry(DateTime(2023, 1, 1));

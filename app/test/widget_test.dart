@@ -46,11 +46,11 @@ void main() {
       expect(find.byType(DailyEntryScreen), findsOneWidget);
     });
 
-    testWidgets('Settings screen is a StatefulWidget', (WidgetTester tester) async {
+    test('Settings screen is a StatefulWidget', () {
       expect(const SettingsScreen(), isA<StatefulWidget>());
     });
 
-    testWidgets('Daily entry screen is a StatefulWidget', (WidgetTester tester) async {
+    test('Daily entry screen is a StatefulWidget', () {
       expect(const DailyEntryScreen(), isA<StatefulWidget>());
     });
   });

@@ -1,4 +1,3 @@
-
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,7 +38,9 @@ class MockTraleNotifier extends ChangeNotifier implements TraleNotifier {
   bool get systemColorsAvailable => false;
   
   @override 
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+  dynamic noSuchMethod(Invocation invocation) {
+    throw UnimplementedError('Unmocked ${invocation.memberName}');
+  }
 }
 
 void main() {
