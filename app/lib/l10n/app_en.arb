@@ -132,6 +132,14 @@
     "@theme": {
         "description": "Theme menu item."
     },
+    "translate": "translate",
+    "@translate": {
+      "description": "translate {trale}"
+    },
+    "translateSubtitle": "Help translate the app",
+    "@translateSubtitle": {
+      "description": "translate subtitle"
+    },
     "darkmode": "Dark",
     "@darkmode": {
         "description": "Dark mode menu item."
@@ -168,9 +176,9 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "Import measurements from .txt backup file.",
+    "importSubtitle": "Import measurements from .txt backup or .csv file.",
     "@importSubtitle": {
-        "description": "Import measurements from txt backup file."
+        "description": "Import measurements from txt backup or .csv file."
     },
     "amoled": "Black",
     "@amoled": {
@@ -268,9 +276,9 @@
     "@sourcecode": {
         "description": "source code"
     },
-    "openIssue": "Open issue",
+    "openIssue": "Open an issue",
     "@openIssue": {
-        "description": "open issue"
+        "description": "open an issue"
     },
     "undertpl": "© {years} by {author} under {licence} licence",
     "@undertpl": {
@@ -298,9 +306,21 @@
     "@addHeight": {
         "description": "Enter your height"
     },
+    "height": "height",
+    "@height": {
+        "description": "height"
+    },
+    "target": "target",
+    "@target": {
+        "description": "Short label for target weight."
+    },
     "interpolation": "interpolation",
     "@interpolation": {
         "description": "interpolation"
+    },
+    "personalization": "personalization",
+    "@personalization": {
+        "description": "personalization"
     },
     "strength": "strength",
     "@strength": {
@@ -369,6 +389,10 @@
     "addUserName": "How shall we call you?",
     "@addUserName": {
         "description": "How shall we call you?"
+    },
+    "name": "name",
+    "@name": {
+        "description": "Name"
     },
     "addTargetWeight": "Add target weight",
     "@addTargetWeight": {
@@ -446,9 +470,21 @@
     "@totalChange": {
         "description": "The quantity describing the overall change of body weight"
     },
-    "schemeVariant": "scheme variant",
+    "schemeVariant": "Scheme variant",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "Choose a variant to determine how the color scheme is created from the selected seed color.",
+    "@schemeVariantDescription": {
+      "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Choose a seed color to determine the color scheme.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "additional settings",
+    "@additionalSettings": {
+        "description": "additional settings"
     },
     "mean": "mean",
     "@mean": {
@@ -487,5 +523,125 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "BMI",
-    "@bmi": {}
+    "@bmi": {},
+    "back": "back",
+    "@back": {},
+    "userDialogTitle": "User settings",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "You can import data. This will not delete your existing data and any duplicate entries will be ignored. 'txt' files from trale and 'csv' files from OpenScales are supported. In 'csv' files, the columns must be named 'weight' and 'datetime'; otherwise, the first column will be parsed as a date and the second as a weight. If you are using a custom 'txt' file, it should have one of the following formats:",
+    "@importLongDescription": {
+      "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Donation",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Support the development of trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Customization",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalization",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Customize your experience",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Set the color scheme",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Set the language",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Data settings",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Import and export",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Save and load your data",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "About the app",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Find answers to common questions",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Version and license information",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolation uses state-of-the-art Gaussian filtering to smooth your weight curve and create a clearer trend. Higher strength levels reduce daily fluctuations but may hide short-term changes. Choose '{noneInterpol}' to see your raw measurements, though extrapolation will still use soft smoothing.",
+    "@interpolationExplanation": {
+      "description": "Explanation text for interpolation settings",
+      "placeholders": {
+        "noneInterpol": {
+          "type": "String",
+          "example": "none"
+        }
+      }
+    },
+    "unitTitle": "Unit",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Date settings",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Format",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Default",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Help improve the app by providing feedback.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "A simple weight log with short-term extrapolation.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Your privacy is respected. No revenue sources in the app, nor error logs sent. Please open an issue if you have problems.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Made by two devs with little spare time. Consider contributing or donating.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Measurement was deleted.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Undo",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Edit measurements",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Long press on a measurement to edit or delete it. Swipe this message to dismiss.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    }
 }

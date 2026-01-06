@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trale/widget/customScrollViewSnapping.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:trale/widget/iconHero.dart';
+import 'package:trale/widget/tile_group.dart';
+import 'package:trale/widget/sinewave.dart';
 
 
 /// get version number
@@ -37,14 +42,19 @@ class ThirdPartyLicence {
   });
 
   /// get list representation of tpl
-  ListTile toListTile(BuildContext context) => ListTile(
+  ListTile toListTile(BuildContext context) => GroupedListTile(
     dense: true,
+    color: Theme.of(context).colorScheme.surfaceContainerLowest,
     title: AutoSizeText(
       name.inCaps,
       style: Theme.of(context).textTheme.bodyLarge
     ),
     subtitle: AutoSizeText(
-      AppLocalizations.of(context)!.undertpl(years, author, licence),
+      AppLocalizations.of(context)!.undertpl(
+        years: years,
+        author: author,
+        licence: licence,
+      ),
       style: Theme.of(context).textTheme.bodySmall,
       maxLines: 2,
     ),
@@ -73,18 +83,18 @@ final List<ThirdPartyLicence> tplsAssets = <ThirdPartyLicence>[
   //     years: '2021',
   // ),
   ThirdPartyLicence(
-      name: 'Courier Prime Font',
-      url: 'https://github.com/quoteunquoteapps/CourierPrime',
+      name: 'Roboto Flex',
+      url: 'https://github.com/TypeNetwork/Roboto-Flex',
       licence: 'SIL Open Font',
-      author: 'Courier Prime project authors',
-      years: '2015',
+      author: 'Roboto Flex Project Authors',
+      years: '2017',
   ),
   ThirdPartyLicence(
-    name: 'Lexend Font',
-    url: 'https://github.com/googlefonts/lexend',
+    name: 'Roboto Mono',
+    url: 'https://github.com/googlefonts/RobotoMono',
     licence: 'SIL Open Font',
-    author: 'The Lexend Project Authors',
-    years: '2018',
+    author: 'Roboto Mono Project Authors',
+    years: '2007',
   ),
   ThirdPartyLicence(
     name: 'Phosphor Icons',
@@ -107,13 +117,6 @@ final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
   //     years: '2019',
   // ),
   ThirdPartyLicence(
-      name: 'auto size text',
-      url: 'https://github.com/leisim/auto_size_text',
-      licence: 'MIT',
-      author: 'Simon Leier',
-      years: '2018',
-  ),
-  ThirdPartyLicence(
     name: 'dynamic color',
     url: 'https://github.com/material-foundation/flutter-packages/tree/main/packages/dynamic_color',
     licence: 'Apache',
@@ -133,6 +136,13 @@ final List<ThirdPartyLicence> tpls = <ThirdPartyLicence>[
     licence: 'BSD 3',
     author: 'Iman Khoshabi',
     years: '2019',
+  ),
+  ThirdPartyLicence(
+      name: 'flutter auto size text',
+      url: 'https://github.com/FaFre/auto_size_text',
+      licence: 'MIT',
+      author: 'Simon Leier',
+      years: '2018',
   ),
   ThirdPartyLicence(
     name: 'flutter svg',
@@ -241,137 +251,110 @@ class About extends StatefulWidget {
 class _About extends State<About> {
   @override
   Widget build(BuildContext context) {
-    Widget aboutList() {
-      return ListView(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-            child: const Text(
-              'A simple weight log with short-term extrapolation.\n\n'
-              'Your privacy is respected. '
-              'No revenue sources in the app, nor error logs sent. '
-              'Please open an issue if you have problems.\n\n'
-              'Made by two devs with little spare time.\n'
-              'Consider contributing or donating.',
-              textAlign: TextAlign.justify,
-            ),
+    List<Widget> aboutList() {
+      return <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            TraleTheme.of(context)!.padding,
+            0,
+            TraleTheme.of(context)!.padding,
+            2 * TraleTheme.of(context)!.padding,
           ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.version.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            trailing: FutureBuilder<String>(
-              future: _getVersionNumber(),
-              builder: (
-                BuildContext context, AsyncSnapshot<String> snapshot
-                ) => Text(
-                  snapshot.hasData
-                    ? snapshot.data!
-                    : '${AppLocalizations.of(context)!.loading} ...',
-                  style: Theme.of(context).textTheme.bodyLarge,
+          child: const IconHero()
+        ),
+        WidgetGroup(
+          children: <Widget>[
+            GroupedText(
+              text: Text(
+                '${AppLocalizations.of(context)!.aboutDescription1}\n\n'
+                '${AppLocalizations.of(context)!.aboutDescription2}\n\n'
+                '${AppLocalizations.of(context)!.aboutDescription3}'
               ),
             ),
-          ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.sourcecode.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
+          ],
+        ),
+        SizedBox(height: TraleTheme.of(context)!.padding),
+        WidgetGroup(
+          children: <Widget>[
+            GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.version.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: FutureBuilder<String>(
+                future: _getVersionNumber(),
+                builder: (
+                  BuildContext context, AsyncSnapshot<String> snapshot
+                  ) => Text(
+                    snapshot.hasData
+                      ? snapshot.data!
+                      : '${AppLocalizations.of(context)!.loading} ...',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
             ),
-            trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
-            onTap: () => _launchURL(
-                'https://github.com/quantumphysique/trale'
+            GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.sourcecode.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: PPIcon( PhosphorIconsDuotone.githubLogo, context),
+              onTap: () => _launchURL(
+                  'https://github.com/quantumphysique/trale'
+              ),
             ),
-          ),
-          ListTile(
-            dense: true,
-            title: AutoSizeText(
-              AppLocalizations.of(context)!.licence.allInCaps,
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
+            GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.licence.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: AutoSizeText(
+                'GNU AGPLv3+',
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              onTap: () => _launchURL(
+                'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
+              ),
             ),
-            trailing: AutoSizeText(
-              'GNU AGPLv3+',
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 1,
-            ),
-            onTap: () => _launchURL(
-              'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
-            ),
-          ),
-          Divider(height: 2 * TraleTheme.of(context)!.padding),
-          Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding,
-            ),
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.tpl.allInCaps,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall,
-              maxLines: 1,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              0,
-            ),
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.assets.allInCaps,
-              style: Theme.of(context).textTheme.titleLarge,
-              maxLines: 1,
-            ),
-          ),
-          for (final ThirdPartyLicence tpl in tplsAssets)
-            tpl.toListTile(context),
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              TraleTheme.of(context)!.padding,
-              0,
-            ),
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.packages.allInCaps,
-              style: Theme.of(context).textTheme.titleLarge,
-              maxLines: 1,
-            ),
-          ),
-          for (final ThirdPartyLicence tpl in tpls)
-            tpl.toListTile(context),
-        ],
-      );
-    }
-
-    Widget appBar() {
-      return CustomSliverAppBar(
-        title: AutoSizeText(
-          AppLocalizations.of(context)!.about.allInCaps,
+          ],
+        ),
+        const SineWave(),
+        Text(
+          AppLocalizations.of(context)!.tpl.allInCaps,
+          textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium,
-          maxLines: 1,
         ),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(PhosphorIconsRegular.arrowLeft),
+        WidgetGroup(
+          title: AppLocalizations.of(context)!.assets.allInCaps,
+          children: <Widget>[
+            for (final ThirdPartyLicence tpl in tplsAssets)
+              tpl.toListTile(context),
+          ]
         ),
-      );
+        WidgetGroup(
+          title: AppLocalizations.of(context)!.packages.allInCaps,
+          children: <Widget>[
+            for (final ThirdPartyLicence tpl in tpls)
+              tpl.toListTile(context),
+          ]
+        ),
+      ];
     }
 
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool _) {
-          return <Widget>[appBar()];
-        },
-        body: aboutList(),
+      body: SliverAppBarSnap(
+        title: AppLocalizations.of(context)!.about.allInCaps,
+        sliverlist: aboutList(),
       ),
     );
   }
