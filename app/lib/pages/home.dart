@@ -91,7 +91,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
     );
 
     // Refresh data if entry was saved
-    if (result == true) {
+    if (result == true && mounted) {
       setState(() {
         // Trigger refresh of data
       });
@@ -155,6 +155,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
         ),
       ),
       floatingActionButton: FAB(
+        key: const Key('add_daily_entry_fab'),
         onPressed: onFABpress,
         show: showFAB,
       ),

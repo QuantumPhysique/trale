@@ -1036,7 +1036,7 @@ class _Settings extends State<Settings> {
               maxLines: 1,
             ),
           ),
-          const LooseWeightListTile(),
+          // const LooseWeightListTile(),
           const ContrastLevelSetting(),
           SizedBox(height: TraleTheme.of(context)!.padding),
           Divider(

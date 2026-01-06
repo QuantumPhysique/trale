@@ -20,43 +20,11 @@ class _MeasurementScreen extends State<MeasurementScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
-
-    final int animationDurationInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
-    final int firstDelayInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
-    final int secondDelayInMilliseconds =  firstDelayInMilliseconds;
-
-    Widget measurementScreen(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
-      return Scrollbar(
-        radius: const Radius.circular(4),
-        thickness: 8,
-        interactive: true,
-        controller: scrollController,
-        child: TotalWeightList(
-          durationInMilliseconds: animationDurationInMilliseconds,
-          delayInMilliseconds: secondDelayInMilliseconds,
-          scrollController: scrollController,
-          tabController: widget.tabController,
-        ),
-      );
-    }
-
-    Widget measurementScreenWrapper(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
-      return measurements.isNotEmpty
-        ? measurementScreen(context, snapshot)
-        : defaultEmptyChart(context: context);
-    }
-
-    return StreamBuilder<List<Measurement>>(
-      stream: database.streamController.stream,
-      builder: (
-        BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-      ) => measurementScreenWrapper(context, snapshot),
+    return Center(
+      child: Text(
+        'Under construction',
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
     );
   }
 }

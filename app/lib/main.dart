@@ -12,7 +12,7 @@ import 'package:trale/database/database_helper.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/splash.dart';
 import 'package:trale/screens/onboarding_screen.dart';
-import 'package:trale/screens/home_screen.dart';
+import 'package:trale/pages/home.dart';
 
 
 const String measurementBoxName = 'measurements';
@@ -107,31 +107,16 @@ class TraleMainApp extends StatelessWidget {
 class AppInitializer extends StatelessWidget {
   const AppInitializer({super.key});
 
-  Future<bool> _checkOnboardingStatus() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('onboarding_completed') ?? false;
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
-      future: _checkOnboardingStatus(),
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
-
-        final bool isOnboardingCompleted = snapshot.data ?? false;
-
-        // Show onboarding if not completed, otherwise home screen
-        if (isOnboardingCompleted) {
-          return const HomeScreen(); // New home screen with entry timeline
-        } else {
-          return const OnboardingScreen();
-        }
-      },
-    );
+    // Preferences is already loaded in main()
+    final Preferences prefs = Preferences();
+    
+    // Show onboarding if not completed, otherwise splash (which initializes DB and goes to Home)
+    if (prefs.showOnBoarding) {
+      return const OnboardingScreen();
+    } else {
+      return const Splash();
+    }
   }
 }

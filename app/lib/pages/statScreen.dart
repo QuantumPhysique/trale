@@ -14,11 +14,17 @@ class StatsScreen extends StatefulWidget {
 }
 
 class _StatsScreen extends State<StatsScreen> {
-  final ScrollController scrollController = ScrollController();
-  final GlobalKey<ScaffoldState> key = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Under construction',
+        style: Theme.of(context).textTheme.headlineMedium,
+      ),
+    );
+  }
+/*
     final MeasurementDatabase database = MeasurementDatabase();
 
     Widget statsScreen(BuildContext context,
@@ -52,4 +58,5 @@ class _StatsScreen extends State<StatsScreen> {
     );
 
   }
+*/
 }

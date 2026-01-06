@@ -7,11 +7,12 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
-import 'package:trale/widget/emptyChart.dart';
+import 'package:trale/widget/calendar_view.dart';
 import 'package:trale/widget/fade_in_effect.dart';
 import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/statsWidgets.dart';
+import 'package:trale/screens/daily_entry_screen.dart';
 
 
 class OverviewScreen extends StatefulWidget {
@@ -87,6 +88,25 @@ class _OverviewScreen extends State<OverviewScreen> {
           FadeInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
             delayInMilliseconds: firstDelayInMilliseconds,
+            child: CalendarView(
+              measurements: snapshot.data ?? <Measurement>[],
+              onDateSelected: (DateTime date) async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DailyEntryScreen(initialDate: date),
+                  ),
+                );
+                // Force rebuild if needed, though StreamBuilder might handle it
+                 if (result == true) {
+                   // Refresh logic if needed
+                 }
+              },
+            ),
+          ),
+          FadeInEffect(
+            durationInMilliseconds: animationDurationInMilliseconds,
+            delayInMilliseconds: firstDelayInMilliseconds,
             child: CustomLineChart(
               loadedFirst: loadedFirst,
               ip: ip,
@@ -101,15 +121,45 @@ class _OverviewScreen extends State<OverviewScreen> {
 
     Widget overviewScreenWrapper(BuildContext context,
         AsyncSnapshot<List<Measurement>> snapshot) {
-      final MeasurementDatabase database = MeasurementDatabase();
-      final List<SortedMeasurement> measurements = database.sortedMeasurements;
+      final List<Measurement> data = snapshot.data ?? <Measurement>[];
 
-      return measurements.isNotEmpty
-          ? overviewScreen(context, snapshot)
-          : defaultEmptyChart(context: context, overviewScreen: true);
+      if (data.isNotEmpty) {
+        return overviewScreen(context, snapshot);
+      }
+
+      return Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FadeInEffect(
+                durationInMilliseconds: animationDurationInMilliseconds,
+                delayInMilliseconds: firstDelayInMilliseconds,
+                child: CalendarView(
+                  measurements: data,
+                  onDateSelected: (DateTime date) async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DailyEntryScreen(initialDate: date),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                "Tap a date above to add an entry.",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     return StreamBuilder<List<Measurement>>(
+      initialData: database.measurements,
       stream: database.streamController.stream,
       builder: (
           BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,

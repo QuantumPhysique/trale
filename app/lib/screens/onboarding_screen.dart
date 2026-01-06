@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/models/user_profile.dart';
 import 'package:trale/database/database_helper.dart';
 
@@ -16,6 +17,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   // Height entry state
   final TextEditingController _heightController = TextEditingController();
+  final FocusNode _heightFocusNode = FocusNode();
   UnitSystem _selectedUnit = UnitSystem.metric; // UnitSystem (metric or imperial)
   bool _isLoading = false;
 
@@ -23,6 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void dispose() {
     _pageController.dispose();
     _heightController.dispose();
+    _heightFocusNode.dispose();
     super.dispose();
   }
 
@@ -47,8 +50,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       await DatabaseHelper.instance.saveUserProfile(profile);
 
       // Set onboarding completed flag
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('onboarding_completed', true);
+      final Preferences prefs = Preferences();
+      prefs.showOnBoarding = false;
+      
+      // Also set the old key for compatibility just in case, or we rely purely on Preferences now.
+      // But AppInitializer uses onboarding_completed.
+      final SharedPreferences rawPrefs = await SharedPreferences.getInstance();
+      await rawPrefs.setBool('onboarding_completed', true);
 
       // Navigate to home screen
       if (mounted) {
@@ -74,6 +82,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 controller: _pageController,
                 onPageChanged: (int index) {
                   setState(() => _currentPage = index);
+                  if (index == 1) {
+                    // Auto-focus the height input when swiping to the second page
+                    // Delaying slightly to allow the transition to complete
+                    Future<void>.delayed(const Duration(milliseconds: 300), () {
+                      if (mounted) {
+                        _heightFocusNode.requestFocus();
+                      }
+                    });
+                  } else {
+                     FocusScope.of(context).unfocus();
+                  }
                 },
                 children: <Widget>[
                   _buildWelcomePage(),
@@ -182,6 +201,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             width: 200,
             child: TextField(
               controller: _heightController,
+              focusNode: _heightFocusNode,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineMedium,

@@ -33,9 +33,23 @@ NavigationDrawer appDrawer (
               topRight: Radius.circular(TraleTheme.of(context)!.borderRadius),
             ),
           ),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: const IconHero(),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 100, // Constrain height for icon
+                child: const IconHero(),
+              ),
+              const SizedBox(height: 8),
+              AutoSizeText(
+                'Your private journal',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 1,
+              ),
+            ],
           ),
       ),
       ListTile(
@@ -59,6 +73,7 @@ NavigationDrawer appDrawer (
         ),
         onTap: () {},
       ),
+      /*
       ListTile(
         dense: true,
         leading: PPIcon(PhosphorIconsDuotone.target, context),
@@ -81,6 +96,7 @@ NavigationDrawer appDrawer (
           notifier.notify;
         },
       ),
+      */
       ListTile(
         dense: true,
         leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),

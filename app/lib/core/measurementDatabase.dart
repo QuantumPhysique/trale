@@ -136,6 +136,16 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     return !isContained;
   }
 
+  /// insert Measurements into box async
+  Future<bool> insertMeasurementAsync(Measurement m) async {
+    final bool isContained = containsMeasurement(m);
+    if (!isContained) {
+      await box.add(m);
+      reinit();
+    }
+    return !isContained;
+  }
+
   /// insert a list of measurements into the box
   int insertMeasurementList(List<Measurement> ms) {
     int count = 0;

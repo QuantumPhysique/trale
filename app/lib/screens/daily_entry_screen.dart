@@ -6,6 +6,8 @@ import 'package:trale/models/emotional_checkin.dart';
 import 'package:trale/database/database_helper.dart';
 import 'package:trale/services/photo_service.dart';
 import 'package:trale/widgets/photo_viewer.dart';
+import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurementDatabase.dart';
 
 class DailyEntryScreen extends StatefulWidget { // For editing existing entries
 
@@ -105,6 +107,20 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
       await DatabaseHelper.instance.saveDailyEntry(entry);
 
+      // Sync with legacy MeasurementDatabase for charts
+      try {
+        if (entry.weight != null) {
+          final Measurement m = Measurement(
+            date: entry.date,
+            weight: entry.weight!,
+            isMeasured: true,
+          );
+          await MeasurementDatabase().insertMeasurementAsync(m);
+        }
+      } catch (e) {
+        debugPrint('Error syncing to legacy DB: $e');
+      }
+
       if (mounted) {
         setState(() => _isEntryImmutable = true);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -131,12 +147,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     }
     
     final String text = _emotionalTextController.text.trim();
+    /*
     if (text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please write about your feelings')),
       );
       return;
     }
+    */
     
     if (text.length > EmotionalCheckIn.maxTextLength) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -290,6 +308,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
+        key: const Key('save_entry_fab'),
         onPressed: _isSaving ? null : _saveEntry,
         icon: _isSaving
             ? const SizedBox(
@@ -328,6 +347,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    key: const Key('weight_input'),
                     controller: _weightController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
@@ -339,6 +359,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextField(
+                    key: const Key('height_input'),
                     controller: _heightController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
@@ -621,6 +642,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextField(
+                    key: const Key('workout_input'),
                     controller: _workoutController,
                     maxLines: 4,
                     maxLength: 500,
@@ -649,6 +671,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         },
                       )),
                       ActionChip(
+                        key: const Key('add_tag_button'),
                         label: const Text('+ Add Tag'),
                         onPressed: () => _showAddTagDialog(),
                       ),
@@ -691,6 +714,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: TextField(
+                key: const Key('thoughts_input'),
                 controller: _thoughtsController,
                 maxLines: 6,
                 maxLength: 2000,
@@ -791,6 +815,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     
                     // Text input for feelings
                     TextField(
+                      key: const Key('emotion_text_input'),
                       controller: _emotionalTextController,
                       maxLines: 4,
                       maxLength: EmotionalCheckIn.maxTextLength,
@@ -812,6 +837,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
+                        key: const Key('save_emotion_button'),
                         onPressed: _isSaving ? null : _saveEmotionalCheckIn,
                         icon: const Icon(Icons.check_circle),
                         label: const Text('Save Emotional Check-In'),
@@ -920,6 +946,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         final bool canSelect = _currentEmotions.length < EmotionalCheckIn.maxEmotionCount || isSelected;
 
         return InkWell(
+          key: Key('emotion_${entry.key}'),
           onTap: canSelect
               ? () {
                   setState(() {
@@ -1112,6 +1139,7 @@ class _AddTagDialogState extends State<_AddTagDialog> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextField(
+            key: const Key('new_tag_input'),
             controller: _controller,
             decoration: const InputDecoration(
               labelText: 'Tag name',
@@ -1150,6 +1178,7 @@ class _AddTagDialogState extends State<_AddTagDialog> {
           child: const Text('Cancel'),
         ),
         FilledButton(
+          key: const Key('add_tag_confirm_button'),
           onPressed: () {
             if (_controller.text.isNotEmpty) {
               Navigator.pop(context, _controller.text);
