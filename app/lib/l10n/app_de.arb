@@ -34,9 +34,9 @@
     "@delete": {},
     "edit": "Bearbeiten",
     "@edit": {},
-    "export": "Exportiere alle Messungen",
+    "export": "Exportiere alle Messwerte",
     "@export": {},
-    "exportDialog": "Dies wird alle Messungen in den externen Speicher schreiben. Schreibberechtigung wird benätigt.",
+    "exportDialog": "Dies wird alle Messwerte in den externen Speicher schreiben. Schreibberechtigung wird benötigt.",
     "@exportDialog": {},
     "exportSubtitle": "Danach haben alle Apps Zugriff auf alle exportierten Messwerte.",
     "@exportSubtitle": {},
@@ -60,17 +60,17 @@
     "@faq_q3": {},
     "factoryReset": "Auf Werkseinstellungen Zurücksetzen",
     "@factoryReset": {},
-    "factoryResetDialog": "Setzte App auf Werkseinstellungen zurück? Dadurch werden alle Einstellungen zurück gesetzt und Messungen unwideruflich gelöscht.",
+    "factoryResetDialog": "Setzte App auf Werkseinstellungen zurück? Dadurch werden alle Einstellungen zurück gesetzt und Messwerte unwideruflich gelöscht.",
     "@factoryResetDialog": {},
-    "factoryResetSubtitle": "Setzte alle Einstellungen zurück und lösche alle Messungen.",
+    "factoryResetSubtitle": "Setzte alle Einstellungen zurück und lösche alle Messwerte.",
     "@factoryResetSubtitle": {},
     "home": "Start",
     "@home": {},
     "import": "Importiere Backup",
     "@import": {},
-    "importDialog": "Importiere alle Messungen in die aktuelle Messreihe. Dies kann nicht rückgängig gemacht werden!",
+    "importDialog": "Importiere alle Messwerte in die aktuelle Messreihe. Dies kann nicht rückgängig gemacht werden!",
     "@importDialog": {},
-    "importSubtitle": "Daten aus einem .txt Backup importieren.",
+    "importSubtitle": "Messwerte aus einem .txt-Backup oder einer .csv-Datei importieren.",
     "@importSubtitle": {},
     "importingAbort": "Import abgebrochen.",
     "@importingAbort": {},
@@ -92,7 +92,7 @@
     "@loading": {},
     "medium": "mittel",
     "@medium": {},
-    "measurements": "Messungen",
+    "measurements": "Messwerte",
     "@measurements": {},
     "none": "ohne",
     "@none": {},
@@ -162,7 +162,7 @@
     "@welcome": {},
     "yes": "Ja",
     "@yes": {},
-    "target_weight_warning": "Magersucht ist eine ernstzunehmende Erkrankung, die nicht zuletzt durch die vielen Negativbeispiele in den sozialen Medien zunehmend zu einem gesamtgesellschaftlichen Problem wird. Als Beitrag zur Prävention ist kein Zielgewicht unter 50 kg / 110 lb / 7.9 st möglich.",
+    "target_weight_warning": "Magersucht ist eine ernstzunehmende Erkrankung, die nicht zuletzt durch die vielen Negativbeispiele in den sozialen Medien zunehmend zu einem gesamtgesellschaftlichen Problem wird. Zur Unterstützung von Präventionsbemühungen erlauben wir keine Zielgewichte unter 50 kg / 110 lb / 7,9 st und BMIs unter 18,5.",
     "@target_weight_warning": {},
     "firstDay": "Erster Tag",
     "@firstDay": {},
@@ -186,7 +186,7 @@
     "@week": {},
     "months": "Monate",
     "@months": {},
-    "change": "Änderung",
+    "change": "Veränderung",
     "@change": {
         "description": "A short word describing a difference in numbers, i.e. the change of the weight"
     },
@@ -194,11 +194,11 @@
     "@totalChange": {
         "description": "The quantity describing the overall change of body weight"
     },
-    "mean": "Durchschnitt",
+    "mean": "Mittelwert",
     "@mean": {
         "description": "The mathematical quantity (arithmetic mean)"
     },
-    "measurementFrequency": "Durchschnittliches Messintervall",
+    "measurementFrequency": "Messfrequenz",
     "@measurementFrequency": {
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
     },
@@ -212,23 +212,23 @@
     "@never": {
         "description": "Frequency of backup interval"
     },
-    "weekly": "wöchentlich",
+    "weekly": "Wöchentlich",
     "@weekly": {
         "description": "Frequency of backup interval"
     },
-    "biweekly": "zweiwöchentlich",
+    "biweekly": "Alle zwei Wochen",
     "@biweekly": {
         "description": "Frequency of backup interval"
     },
-    "monthly": "monatlich",
+    "monthly": "Monatlich",
     "@monthly": {
         "description": "Frequency of backup interval"
     },
-    "quarterly": "quartalsweise",
+    "quarterly": "Vierteljährlich",
     "@quarterly": {
         "description": "Frequency of backup interval"
     },
-    "backupReminder": "Bitte regelmässig sichern",
+    "backupReminder": "Bitte erstelle regelmäßig Sicherungen",
     "@backupReminder": {
         "description": "Please remember to back up your data regularly."
     },
@@ -240,11 +240,11 @@
     "@backupSuccess": {
         "description": "Back successfully exported"
     },
-    "lastBackup": "letzte Sicherung",
+    "lastBackup": "Letzte Sicherung",
     "@lastBackup": {
         "description": "Time of last backup"
     },
-    "nextBackup": "nächste Sicherung",
+    "nextBackup": "Nächste Sicherung",
     "@nextBackup": {
         "description": "Time of last backup"
     },
@@ -252,7 +252,7 @@
     "@strength": {
         "description": "interpolation strength"
     },
-    "min": "min",
+    "min": "min.",
     "@min": {
         "description": "Shorthand for minimum."
     },
@@ -260,7 +260,7 @@
     "@targetWeightReached": {
         "description": "Message shown when the user reached their target weight."
     },
-    "targetWeightReachedIn": "übrig um das Zielgewicht zu erreichen",
+    "targetWeightReachedIn": "verbleibend bis zum Erreichen des Zielgewichts",
     "@targetWeightReachedIn": {
         "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
     },
@@ -287,5 +287,183 @@
     "max": "max.",
     "@max": {
         "description": "Shorthand for maximum."
+    },
+    "translate": "Übersetzen",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Hilf, die Anwendung zu übersetzen",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "addHeight": "Größe eintragen",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "Größe",
+    "@height": {
+        "description": "height"
+    },
+    "target": "Ziel",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "personalization": "Personalisierung",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "Name",
+    "@name": {
+        "description": "Name"
+    },
+    "faq_q4": "Kann ich ein Zielgewicht unter 50kg / 110 lb / 7,9 st eintragen?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "Ja; indem du deine Größe einträgst.\n\nMagersucht ist eine ernstzunehmende Erkrankung, die nicht zuletzt durch die vielen Negativbeispiele in den sozialen Medien zunehmend zu einem gesamtgesellschaftlichen Problem wird. Zur Unterstützung von Präventionsbemühungen erlauben wir keine Zielgewichte unter 50 kg / 110 lb / 7,9 st. Eintragen deiner Größe ermöglicht es uns, ein Minimalzielgewicht zu errechnen, das einem BMI von 18,5 entspricht.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "schemeVariant": "Variante des Farbschemas",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "Wähle eine Variante, wie das Farbschema ausgehend von der gewählten Farbe erstellt wird.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Wähle eine Ausgangsfarbe für das Farbschema.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "Weitere Einstellungen",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "highContrast": "Hoher Kontrast",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "BMI",
+    "@bmi": {},
+    "back": "zurück",
+    "@back": {},
+    "userDialogTitle": "Nutzereinstellungen",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Du kannst Messwerte importieren. Das löscht existierende Messwerte nicht und doppelte Einträge werden ignoriert. \".txt\"-Dateien von trale und \".csv\"-Dateien von OpenScales werden unterstützt. In \".csv\"-Dateien müssen die Spalten als \"weight\" und \"datetime\" benannt sein. Andernfalls wird die erste Spalte als Zeitpunkt und die Zweite als Gewicht interpretiert. Eine \".txt\"-Datei sollte eines der folgenden Formate verwenden:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Spende",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Unterstütze die Entwicklung von trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Personalisierung",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalisierung",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Passe deine Erfahrung an",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Farbschema festlegen",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Sprache festlegen",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Einstellungen zu Messwerten",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Importieren und Exportieren",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Speichere und Lade deine Messwerte",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "Über die Anwendung",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Finde Antworten auf gängige Fragen",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Versions- und Lizenzinformationen",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolation verwendet einen Gauß-Filter, um die Gewichtskurve zu glätten und einen Trend erkennbar zu machen. Ein stärkerer Filter reduziert tägliche Sprünge aber versteckt eventuell kurzweilige Änderungen. Wähle \"{noneInterpol}\", um die rohen Messwerte zu sehen. Extrapolierte Werte werden dann trotzdem noch leicht geglättet.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "Einheit",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Datumseinstellungen",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Format",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Standard",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Hilf, die Anwendunge zu verbessern, indem du uns Feedback zukommen lässt.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Ein simples Gewichtstagebuch mit kurzzeitiger Extrapolation.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Deine Privatssphäre wird respektiert. Keine Einkommensquellen in der Anwendung und keine versendeten Protokolle. Bitte erstelle ein Ticket, falls du Probleme hast.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Erstellt von zwei Entwicklern mit wenig Freizeit. Erwäge, etwas beizutragen oder zu spenden.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Messwert wurde gelöscht.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Rückgängig",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Messwerte bearbeiten",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Tippe einen Messewert länger an, um ihn zu bearbeiten oder zu löschen. Streiche diese Nachricht zur Seite, um sie zu verwerfen.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
     }
 }
