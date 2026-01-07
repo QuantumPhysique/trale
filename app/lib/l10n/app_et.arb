@@ -111,7 +111,7 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "Impordi andmed .txt-failina salvestatud varukoopiast.",
+    "importSubtitle": "Impordi andmed .txt-failina salvestatud varukoopiast või .csv-failist.",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -313,7 +313,7 @@
     "@language": {
         "description": "Language menu item."
     },
-    "exportDialog": "Järgnevaga ekspordime kõik mõõdetu seadme andmeruumi. Selleks on vajalikud kirjutusõigused.",
+    "exportDialog": "Järgnevaga ekspordime kõik kaaluandmed seadme andmeruumi. Selleks on vajalikud kirjutusõigused.",
     "@exportDialog": {
         "description": "This will export all measurements to the external storage. Writing permissions are needed."
     },
@@ -483,8 +483,164 @@
     },
     "bmi": "KMI/BMI",
     "@bmi": {},
-    "schemeVariant": "värvikombinatsiooni variant",
+    "schemeVariant": "Värvikombinatsiooni variant",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
+    },
+    "translate": "tõlgi",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Aita seda rakendust tõlkida",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "height": "kõrgus",
+    "@height": {
+        "description": "height"
+    },
+    "target": "eesmärk",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "personalization": "Kohandamine sulle sobivaks",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "nimi",
+    "@name": {
+        "description": "Name"
+    },
+    "back": "tagasi",
+    "@back": {},
+    "additionalSettings": "täiendavad seadistused",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "userDialogTitle": "Kasutaja seadistused",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "aboutTheApp": "Rakenduse teave",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Vastused korduma kippuvatele küsimustele",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Versioon ja litsentsiteave",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "unitTitle": "Ühik",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Kuupäeva seadistused",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Vorming",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Vaikimisi",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Saates tagasisidet saad aidata rakenduse paremaks muutmisel.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Lihtne kaalujälgimise logi koos lühiajalise ekstrapoleerimise võimalusega.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Sinu privaatsus on oluline. Rakenduses pole tulundamist ja vealogisid ei saadeta mitte kusagile. Kui sul tekib probleeme, siis palun koosta veakirjeldus.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Rakenduse on loonud kaks arendajat oma napi vaba aja arvelt. Kui saad, siis palun tee kaastööd või toeta rahaliselt.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Kaaluandmete kirje on kustutatud.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Võta tegevus tagasi",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Muuda kaaluandmeid",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Konkreetse kaaluandme kirje muutmiseks või kustutamiseks vajuta temal pikalt. Viipamisega saad selle teate eemaldada.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "donation": "Rahaline toetus",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Toeta trale arendust",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Kohandamine",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Kohandamine sulle sobivaks",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Kohanda kasutajaliides selliseks, nagu soovid",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Vali värviteema",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Vali keel",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Andmete seadistused",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Import ja eksport",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Salvesta ja laadi oma andmeid",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "schemeVariantDescription": "Vali sobilik variant, mis määrab kuidas valitud lähtevärvist luuake terviklik värvivalik.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Vali värvikombinatsiooni lähtevärv.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "importLongDescription": "Sa saad andmeid importida. Sellega olemasolevad andmed ei kustu ning topeltkirjed jäävad vahele. Kasutada saad trale .txt-faile ja OpenScales'i .csv-faile. Viimasel juhul peavad veergude nimed olema „weight“ ja „datetime“ ja kui see nii pole, siis esimene veerg väärtustub ajatemplina ja teine kaaluna. Kui sa kasutad enda tehtud .txt-faili, siis ta peaks olema ühes järgnevas vormingus:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "interpolationExplanation": "Interpolatsiooni jaoks on kasutusel moodne Gaussi filtreerimine, mis muudab kaalukõvera sujuvamaks ja loob selgema trendi. Kõrgemad tugevuse tasemed vähendavad igapäevast kõikumist, aga võivad sellega peita lühiajalisi muudatusi. Kui tahad näha töötlemata mõõdistusi, siis vali „{noneInterpol}“. Aga sel puhul ekstrapoleerimine ikkagi kasutab pehmet tasandamist.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
     }
 }
