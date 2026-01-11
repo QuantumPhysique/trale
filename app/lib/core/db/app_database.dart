@@ -71,6 +71,7 @@ class CheckInColor extends Table {
   IntColumn get ts => integer()(); // Unix timestamp
   IntColumn get colorRgb => integer()();
   TextColumn get message => text().nullable()();
+  BoolColumn get isImmutable => boolean().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {checkInDate, ts};
@@ -134,6 +135,42 @@ class AppDatabase extends _$AppDatabase {
       await customStatement(
         'CREATE INDEX IF NOT EXISTS idx_photo_date ON check_in_photo(check_in_date)',
       );
+
+      // Prevent updates/deletes on past check-ins (immutability by date)
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
+        BEFORE UPDATE ON check_in
+        WHEN date < date('now','localtime')
+        BEGIN
+          SELECT RAISE(ABORT, 'check-in is immutable by date');
+        END;
+      ''');
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
+        BEFORE DELETE ON check_in
+        WHEN date < date('now','localtime')
+        BEGIN
+          SELECT RAISE(ABORT, 'check-in is immutable by date');
+        END;
+      ''');
+
+      // Prevent updates/deletes of emotional check-ins when they are marked immutable
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_update_immutable_checkin_color
+        BEFORE UPDATE ON check_in_color
+        WHEN OLD.isImmutable = 1
+        BEGIN
+          SELECT RAISE(ABORT, 'emotional check-in is immutable');
+        END;
+      ''');
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_delete_immutable_checkin_color
+        BEFORE DELETE ON check_in_color
+        WHEN OLD.isImmutable = 1
+        BEGIN
+          SELECT RAISE(ABORT, 'emotional check-in is immutable');
+        END;
+      ''');
     },
     onUpgrade: (Migrator m, int from, int to) async {
       // Delegate to a testable method which is idempotent
@@ -195,12 +232,32 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 
+  /// Returns whether the check-in for [dateStr] may be edited.
+  /// A check-in is immutable if it's older than today, or if an emotional
+  /// check-in for that date was stored with isImmutable = true.
+  Future<bool> isCheckInMutable(String dateStr) async {
+    try {
+      final parts = dateStr.split('-');
+      if (parts.length != 3) return false;
+      final d = DateTime(int.parse(parts[0]), int.parse(parts[1]), int.parse(parts[2]));
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      if (d.isBefore(today)) return false;
+
+      final imm = await (select(checkInColor)..where((c) => c.checkInDate.equals(dateStr) & c.isImmutable.equals(true))).get();
+      return imm.isEmpty;
+    } catch (e) {
+      return false;
+    }
+  }
+
   /// Insert an emotional color for a check-in date
   Future<int> insertColor(
     String date,
     int ts,
     int colorRgb, {
     String? message,
+    bool isImmutable = true,
   }) {
     return into(checkInColor).insert(
       CheckInColorCompanion.insert(
@@ -208,6 +265,7 @@ class AppDatabase extends _$AppDatabase {
         ts: ts,
         colorRgb: colorRgb,
         message: Value(message),
+        isImmutable: Value(isImmutable),
       ),
     );
   }
