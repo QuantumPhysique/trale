@@ -19,8 +19,11 @@ Future<bool> showAddCheckInDialog({
   double weight = initialWeight;
   double? height;
   DateTime date = initialDate;
+  final dateStr =
+      "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   final TextEditingController notesController = TextEditingController();
 
+  bool? isMutable;
   final List<_PhotoItem> photos = <_PhotoItem>[];
   Color? pickedColor;
 
@@ -88,6 +91,39 @@ Future<bool> showAddCheckInDialog({
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      // Determine mutability on first build
+                      if (isMutable == null) ...[
+                        FutureBuilder<bool>(
+                          future: db.isCheckInMutable(dateStr),
+                          builder: (ctx, snap) {
+                            if (snap.connectionState == ConnectionState.done &&
+                                snap.hasData) {
+                              isMutable = snap.data;
+                              return const SizedBox.shrink();
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
+                      ],
+                      if (isMutable == false)
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          color: Colors.amberAccent,
+                          child: Row(
+                            children: [
+                              const Icon(Icons.lock),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(
+                                        context,
+                                      )!.checkinImmutableInfo ??
+                                      'This check-in is immutable and cannot be modified.',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       Row(
                         children: [
                           Expanded(
@@ -207,78 +243,83 @@ Future<bool> showAddCheckInDialog({
                     child: Text(AppLocalizations.of(context)!.abort),
                   ),
                   ElevatedButton(
-                    onPressed: () async {
-                      // Save check-in and related records
-                      final dateStr =
-                          "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+                    onPressed: (isMutable == false)
+                        ? null
+                        : () async {
+                            // Save check-in and related records
+                            final dateStr =
+                                "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
 
-                      // Prevent saving if check-in is immutable
-                      final mutable = await db.isCheckInMutable(dateStr);
-                      if (!mutable) {
-                        await showDialog<void>(
-                          context: context,
-                          builder: (ctx) => AlertDialog(
-                            title: Text(
-                              AppLocalizations.of(ctx)!.error ?? 'Error',
-                            ),
-                            content: Text(
-                              AppLocalizations.of(ctx)!.checkinImmutableError ??
-                                  'This check-in is immutable and cannot be modified.',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(ctx),
-                                child: Text(
-                                  AppLocalizations.of(ctx)!.close ?? 'Close',
+                            // Prevent saving if check-in is immutable
+                            final mutable = await db.isCheckInMutable(dateStr);
+                            if (!mutable) {
+                              await showDialog<void>(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  title: Text(
+                                    AppLocalizations.of(ctx)!.error ?? 'Error',
+                                  ),
+                                  content: Text(
+                                    AppLocalizations.of(
+                                          ctx,
+                                        )!.checkinImmutableError ??
+                                        'This check-in is immutable and cannot be modified.',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(ctx),
+                                      child: Text(
+                                        AppLocalizations.of(ctx)!.close ??
+                                            'Close',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                              return;
+                            }
+
+                            await db.insertCheckIn(
+                              CheckInsCompanion.insert(
+                                date: dateStr,
+                                weight: Value(weight),
+                                height: Value(height),
+                                notes: Value(
+                                  notesController.text.isEmpty
+                                      ? null
+                                      : notesController.text,
                                 ),
                               ),
-                            ],
-                          ),
-                        );
-                        return;
-                      }
+                            );
 
-                      await db.insertCheckIn(
-                        CheckInsCompanion.insert(
-                          date: dateStr,
-                          weight: Value(weight),
-                          height: Value(height),
-                          notes: Value(
-                            notesController.text.isEmpty
-                                ? null
-                                : notesController.text,
-                          ),
-                        ),
-                      );
+                            final nowTs =
+                                DateTime.now().millisecondsSinceEpoch ~/ 1000;
+                            for (final p in photos) {
+                              await db.insertPhoto(
+                                dateStr,
+                                p.path,
+                                nowTs,
+                                fw: p.nsfw,
+                              );
+                            }
 
-                      final nowTs =
-                          DateTime.now().millisecondsSinceEpoch ~/ 1000;
-                      for (final p in photos) {
-                        await db.insertPhoto(
-                          dateStr,
-                          p.path,
-                          nowTs,
-                          fw: p.nsfw,
-                        );
-                      }
+                            if (pickedColor != null) {
+                              final colorInt =
+                                  (pickedColor!.red << 16) |
+                                  (pickedColor!.green << 8) |
+                                  pickedColor!.blue;
+                              await db.insertColor(
+                                dateStr,
+                                nowTs,
+                                colorInt,
+                                message: notesController.text.isEmpty
+                                    ? null
+                                    : notesController.text,
+                              );
+                            }
 
-                      if (pickedColor != null) {
-                        final colorInt =
-                            (pickedColor!.red << 16) |
-                            (pickedColor!.green << 8) |
-                            pickedColor!.blue;
-                        await db.insertColor(
-                          dateStr,
-                          nowTs,
-                          colorInt,
-                          message: notesController.text.isEmpty
-                              ? null
-                              : notesController.text,
-                        );
-                      }
-
-                      Navigator.pop(context, true);
-                    },
+                            Navigator.pop(context, true);
+                          },
                     child: Text(AppLocalizations.of(context)!.save),
                   ),
                 ],
