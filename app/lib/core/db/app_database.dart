@@ -177,6 +177,40 @@ class AppDatabase extends _$AppDatabase {
 
   Future<List<CheckInPhotoData>> photosForDate(String date) =>
       (select(checkInPhoto)..where((p) => p.checkInDate.equals(date))).get();
+
+  /// Insert a photo record for a given check-in date
+  Future<int> insertPhoto(
+    String date,
+    String filePath,
+    int ts, {
+    bool fw = false,
+  }) {
+    return into(checkInPhoto).insert(
+      CheckInPhotoCompanion.insert(
+        checkInDate: date,
+        filePath: filePath,
+        ts: ts,
+        fw: Value(fw),
+      ),
+    );
+  }
+
+  /// Insert an emotional color for a check-in date
+  Future<int> insertColor(
+    String date,
+    int ts,
+    int colorRgb, {
+    String? message,
+  }) {
+    return into(checkInColor).insert(
+      CheckInColorCompanion.insert(
+        checkInDate: date,
+        ts: ts,
+        colorRgb: colorRgb,
+        message: Value(message),
+      ),
+    );
+  }
 }
 
 LazyDatabase _openConnection() {

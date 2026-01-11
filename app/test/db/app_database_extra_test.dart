@@ -1,0 +1,55 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:drift/native.dart';
+import 'package:sqlite3/sqlite3.dart' as sqlite3;
+import 'package:trale/core/db/app_database.dart';
+
+void main() {
+  group('AppDatabase - photos & colors', () {
+    final hasSqlite = (() {
+      try {
+        sqlite3
+            .sqlite3; // accessing this may throw if native library not available
+        return true;
+      } catch (e) {
+        return false;
+      }
+    })();
+
+    late AppDatabase db;
+    setUp(() {
+      if (!hasSqlite) return;
+      db = AppDatabase.connect(NativeDatabase.memory());
+    });
+    tearDown(() async {
+      if (!hasSqlite) return;
+      await db.close();
+    });
+
+    test('insert photo and retrieve', () async {
+      if (!hasSqlite) return;
+      final date = '2026-01-11';
+      await db.insertCheckIn(CheckInsCompanion.insert(date: date));
+      final ts = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      final id = await db.insertPhoto(date, '/tmp/photo1.jpg', ts, fw: true);
+      final photos = await db.photosForDate(date);
+      expect(photos.length, 1);
+      expect(photos.first.filePath, '/tmp/photo1.jpg');
+      expect(photos.first.fw, isTrue);
+    });
+
+    test('insert color and retrieve', () async {
+      if (!hasSqlite) return;
+      final date = '2026-01-11';
+      await db.insertCheckIn(CheckInsCompanion.insert(date: date));
+      final ts = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      final color = 0x112233;
+      await db.insertColor(date, ts, color, message: 'mood');
+      final colors = await (db.select(
+        db.checkInColor,
+      )..where((c) => c.checkInDate.equals(date))).get();
+      expect(colors.length, 1);
+      expect(colors.first.colorRgb, color);
+      expect(colors.first.message, 'mood');
+    });
+  });
+}
