@@ -486,5 +486,91 @@
         "description": "(Color) scheme variant label."
     },
     "bmi": "IMC",
-    "@bmi": {}
+    "@bmi": {},
+    "translate": "Traduire",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Aidez à traduire l'app",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "height": "hauteur",
+    "@height": {
+        "description": "height"
+    },
+    "target": "cible",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "personalization": "personnalisation",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "nom",
+    "@name": {
+        "description": "Name"
+    },
+    "schemeVariantDescription": "Choisissez la variante qui détermine comment la palette de couleurs est créée à partir de la sélection de couleur de base",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Choisissez la couleur de base qui détermine la palette de couleurs",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "réglages additionnels",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "back": "retour",
+    "@back": {},
+    "userDialogTitle": "Réglages utilisateur",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Vous pouvez importer des données. Cela n'effacera pas vos données existantes et les doublons seront ignorés. Les fichiers 'txt' de trale et 'csv' d'open Scales sont supportés. Dans les fichiers 'csv', les colonnes doivent s'appeler 'weight' et 'datetime' ; sinon la première colonne sera prise contre une date et la seconde comme un poids. Si vous utilisez un fichier 'txt', il devra avoir l'un des formats suivants :",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Donation",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Soutenez le développement de trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Personnalisation",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personnalisation",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Personnalisez votre experience",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "aboutSubtitle": "Version et licence",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "unitTitle": "Unités",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Réglages de date",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Format",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Défaut",
+    "@defaultFormat": {
+        "description": "Default format option"
+    }
 }
