@@ -239,12 +239,21 @@ class AppDatabase extends _$AppDatabase {
     try {
       final parts = dateStr.split('-');
       if (parts.length != 3) return false;
-      final d = DateTime(int.parse(parts[0]), int.parse(parts[1]), int.parse(parts[2]));
+      final d = DateTime(
+        int.parse(parts[0]),
+        int.parse(parts[1]),
+        int.parse(parts[2]),
+      );
       final now = DateTime.now();
       final today = DateTime(now.year, now.month, now.day);
       if (d.isBefore(today)) return false;
 
-      final imm = await (select(checkInColor)..where((c) => c.checkInDate.equals(dateStr) & c.isImmutable.equals(true))).get();
+      final imm =
+          await (select(checkInColor)..where(
+                (c) =>
+                    c.checkInDate.equals(dateStr) & c.isImmutable.equals(true),
+              ))
+              .get();
       return imm.isEmpty;
     } catch (e) {
       return false;

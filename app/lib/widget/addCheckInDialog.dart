@@ -211,6 +211,33 @@ Future<bool> showAddCheckInDialog({
                       // Save check-in and related records
                       final dateStr =
                           "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+
+                      // Prevent saving if check-in is immutable
+                      final mutable = await db.isCheckInMutable(dateStr);
+                      if (!mutable) {
+                        await showDialog<void>(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text(
+                              AppLocalizations.of(ctx)!.error ?? 'Error',
+                            ),
+                            content: Text(
+                              AppLocalizations.of(ctx)!.checkinImmutableError ??
+                                  'This check-in is immutable and cannot be modified.',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(ctx),
+                                child: Text(
+                                  AppLocalizations.of(ctx)!.close ?? 'Close',
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                        return;
+                      }
+
                       await db.insertCheckIn(
                         CheckInsCompanion.insert(
                           date: dateStr,

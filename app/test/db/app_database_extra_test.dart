@@ -53,16 +53,27 @@ void main() {
 
       // When color is inserted as immutable, updates/deletes should be prevented
       final immTs = ts + 1;
-      await db.insertColor(date, immTs, 0x445566, message: 'locked', isImmutable: true);
-      final immRows = await (db.select(db.checkInColor)
-          ..where((c) => c.checkInDate.equals(date))
-          ..where((c) => c.isImmutable.equals(true))).get();
+      await db.insertColor(
+        date,
+        immTs,
+        0x445566,
+        message: 'locked',
+        isImmutable: true,
+      );
+      final immRows =
+          await (db.select(db.checkInColor)
+                ..where((c) => c.checkInDate.equals(date))
+                ..where((c) => c.isImmutable.equals(true)))
+              .get();
       expect(immRows.length, 1);
 
       // Attempt to delete immutable emotional check-in should raise
       bool deleteFailed = false;
       try {
-        await db.customStatement('DELETE FROM check_in_color WHERE check_in_date = ? AND ts = ?', [date, immTs]);
+        await db.customStatement(
+          'DELETE FROM check_in_color WHERE check_in_date = ? AND ts = ?',
+          [date, immTs],
+        );
       } catch (e) {
         deleteFailed = true;
       }
@@ -72,13 +83,17 @@ void main() {
     test('past check-in is immutable by date', () async {
       if (!hasSqlite) return;
       final pastDate = DateTime.now().subtract(const Duration(days: 2));
-      final dateStr = '${pastDate.year.toString().padLeft(4, '0')}-${pastDate.month.toString().padLeft(2,'0')}-${pastDate.day.toString().padLeft(2,'0')}';
+      final dateStr =
+          '${pastDate.year.toString().padLeft(4, '0')}-${pastDate.month.toString().padLeft(2, '0')}-${pastDate.day.toString().padLeft(2, '0')}';
       await db.insertCheckIn(CheckInsCompanion.insert(date: dateStr));
 
       // Attempt to update past check-in should raise via trigger
       bool updateFailed = false;
       try {
-        await db.customStatement('UPDATE check_in SET notes = ? WHERE date = ?', ['x', dateStr]);
+        await db.customStatement(
+          'UPDATE check_in SET notes = ? WHERE date = ?',
+          ['x', dateStr],
+        );
       } catch (e) {
         updateFailed = true;
       }
