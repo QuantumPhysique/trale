@@ -1,0 +1,1 @@
+Firecrawl fetch: repository README and package docs (sqflite, table_calendar, image_picker, flutter_colorpicker) retrieved. Noted latest trale release v0.14.0 and repo structure. Packages: sqflite migration docs, table_calendar features & event loader, image_picker camera-only & retrieveLostData, flutter_colorpicker ColorPicker widget examples.

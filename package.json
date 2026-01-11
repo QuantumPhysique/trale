@@ -1,0 +1,26 @@
+{
+  "name": "trale-plus",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">     <img src=\"fastlane/metadata/android/en-US/images/featureGraphic.png\" />     <a href=\"https://www.gnu.org/licenses/agpl-3.0\" alt=\"License: GPLv3\"><img src=\"https://img.shields.io/badge/License-AGPL%20v3-blue.svg\" alt=\"AGPLv3+ license badge\" />     <a href=\"https://github.com/QuantumPhysique/trale/releases\" alt=\"GitHub releases\"><img src=\"https://img.shields.io/github/release/QuantumPhysique/trale.svg\" alt=\"Release version badge\" />     <a href=\"https://hosted.weblate.org/engage/trale/\"><img src=\"https://hosted.weblate.org/widget/trale/localizations/svg-badge.svg\" alt=\"Translation status badge\" /> </a> </div>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heets99/trale-plus.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/heets99/trale-plus/issues"
+  },
+  "homepage": "https://github.com/heets99/trale-plus#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.6"
+  }
+}

@@ -145,3 +145,11 @@ app/.kotlin/
 app/.android/
 
 .db_schema_refactor.md
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

@@ -1,0 +1,1 @@
+Trale-plus: Flutter Material3 weight diary app to be converted into a private fitness journal. Key files: pubspec.yaml, lib/main.dart, lib/core/, android/app/build.gradle, ios/Runner.xcworkspace, .db_schema_refactor.md. Target: Pixel7 wireless ADB. Follow Agent_Instructions.md for stages T2–T9.
