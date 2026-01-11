@@ -46,7 +46,13 @@ dependencies:
   share_plus: ^12.0.1
   url_launcher: ^6.3.2
   calendar_date_picker2: ^2.0.1
-
+  
+  # Database: Drift (SQLite)
+  drift: ^2.9.0
+  sqlite3_flutter_libs: ^0.5.41
+  drift_sqflite: ^2.0.1
+  sqflite_common_ffi: ^2.2.0
+  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   # cupertino_icons: ^1.0.4
@@ -59,6 +65,7 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.7.1
+  drift_dev: ^2.9.0
   dependency_validator: ^5.0.3
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0

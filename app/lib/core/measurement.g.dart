@@ -8,16 +8,16 @@ part of 'measurement.dart';
 
 class MeasurementAdapter extends TypeAdapter<Measurement> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   Measurement read(BinaryReader reader) {
-    final int numOfFields = reader.readByte();
-    final Map<int, dynamic> fields = <int, dynamic>{
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Measurement(
-      weight: fields[0] as double,
+      weight: (fields[0] as num).toDouble(),
       date: fields[1] as DateTime,
     );
   }
