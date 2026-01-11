@@ -6,6 +6,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:trale/core/db/app_database.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:drift/drift.dart' show Value;
 
 /// Simple check-in dialog allowing weight, height, notes (thoughts),
 /// up to 3 camera-only photos, per-photo NSFW toggle, and an emotional color.
@@ -115,10 +116,7 @@ Future<bool> showAddCheckInDialog({
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  AppLocalizations.of(
-                                        context,
-                                      )!.checkinImmutableInfo ??
-                                      'This check-in is immutable and cannot be modified.',
+                                  'This check-in is immutable and cannot be modified.',
                                 ),
                               ),
                             ],
@@ -158,9 +156,7 @@ Future<bool> showAddCheckInDialog({
                       const SizedBox(height: 12),
                       TextFormField(
                         controller: notesController,
-                        decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.notes,
-                        ),
+                        decoration: InputDecoration(labelText: 'Notes'),
                         maxLines: 3,
                       ),
                       const SizedBox(height: 12),
@@ -174,9 +170,7 @@ Future<bool> showAddCheckInDialog({
                                     setState(() {});
                                   },
                             icon: const Icon(Icons.camera_alt),
-                            label: Text(
-                              AppLocalizations.of(context)!.takePhoto,
-                            ),
+                            label: Text('Take photo'),
                           ),
                           const SizedBox(width: 12),
                           ElevatedButton.icon(
@@ -186,9 +180,7 @@ Future<bool> showAddCheckInDialog({
                                 context: context,
                                 builder: (ctx) {
                                   return AlertDialog(
-                                    title: Text(
-                                      AppLocalizations.of(ctx)!.selectColor,
-                                    ),
+                                    title: Text('Select color'),
                                     content: SingleChildScrollView(
                                       child: BlockPicker(
                                         pickerColor: selected,
@@ -200,9 +192,7 @@ Future<bool> showAddCheckInDialog({
                                     actions: [
                                       TextButton(
                                         onPressed: () => Navigator.pop(ctx),
-                                        child: Text(
-                                          AppLocalizations.of(ctx)!.close,
-                                        ),
+                                        child: Text('Close'),
                                       ),
                                     ],
                                   );
@@ -211,9 +201,7 @@ Future<bool> showAddCheckInDialog({
                               setState(() {});
                             },
                             icon: const Icon(Icons.palette),
-                            label: Text(
-                              AppLocalizations.of(context)!.pickColor,
-                            ),
+                            label: Text('Pick color'),
                           ),
                         ],
                       ),
@@ -230,7 +218,7 @@ Future<bool> showAddCheckInDialog({
                                 color: pickedColor,
                               ),
                               const SizedBox(width: 8),
-                              Text(AppLocalizations.of(context)!.color),
+                              Text('Color'),
                             ],
                           ),
                         ),
@@ -256,22 +244,14 @@ Future<bool> showAddCheckInDialog({
                               await showDialog<void>(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                  title: Text(
-                                    AppLocalizations.of(ctx)!.error ?? 'Error',
-                                  ),
+                                  title: Text('Error'),
                                   content: Text(
-                                    AppLocalizations.of(
-                                          ctx,
-                                        )!.checkinImmutableError ??
-                                        'This check-in is immutable and cannot be modified.',
+                                    'This check-in is immutable and cannot be modified.',
                                   ),
                                   actions: [
                                     TextButton(
                                       onPressed: () => Navigator.pop(ctx),
-                                      child: Text(
-                                        AppLocalizations.of(ctx)!.close ??
-                                            'Close',
-                                      ),
+                                      child: Text('Close'),
                                     ),
                                   ],
                                 ),

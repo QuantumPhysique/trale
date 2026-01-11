@@ -8,6 +8,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
+import 'package:trale/pages/homescreen_calendar.dart';
 import 'package:trale/pages/settingsOverview.dart';
 import 'package:trale/pages/statScreen.dart';
 import 'package:trale/widget/addWeightDialog.dart';
@@ -157,6 +158,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 },
               ),
               actions: <Widget>[
+                IconButton(
+                  icon: PPIcon(PhosphorIconsDuotone.calendar, context),
+                  onPressed: () {
+                    Navigator.of(context).push<dynamic>(
+                      MaterialPageRoute<Widget>(
+                        builder: (BuildContext context) =>
+                            const HomeScreenCalendarPage(),
+                      ),
+                    );
+                  },
+                ),
                 IconButton(
                   icon: PPIcon(PhosphorIconsDuotone.userCircle, context),
                   onPressed: () {

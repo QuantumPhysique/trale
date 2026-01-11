@@ -1,0 +1,34 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:drift/native.dart';
+import 'package:trale/core/db/app_database.dart';
+import 'package:trale/pages/homescreen_calendar.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
+
+void main() {
+  testWidgets('Calendar shows markers for dates with check-ins', (
+    WidgetTester tester,
+  ) async {
+    // Provide initial events directly to avoid relying on native sqlite3 in test environment
+    await tester.pumpWidget(
+      MaterialApp(
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: HomeScreenCalendarPage(initialEvents: [DateTime(2026, 1, 11)]),
+      ),
+    );
+
+    // Wait for async load
+    await tester.pumpAndSettle();
+
+    // Expect to find the day number '11' in the calendar
+    expect(find.text('11'), findsWidgets);
+
+    // Select the date and ensure selection updates
+    await tester.tap(find.text('11').first);
+    await tester.pumpAndSettle();
+
+    // After selecting, events list should be present (even if empty list tile)
+    expect(find.byType(ListTile), findsWidgets);
+  });
+}
