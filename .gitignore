@@ -133,3 +133,15 @@ out/
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+
+
+# personal local folder - outputs
+outputs/
+
+#kotlin local settings
+app/.idea/kotlinSettings.xml
+app/.idea/
+app/.kotlin/
+app/.android/
+
+.db_schema_refactor.md
