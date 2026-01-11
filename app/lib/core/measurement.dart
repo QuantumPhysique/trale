@@ -15,85 +15,91 @@ class Measurement {
   Measurement({
     required this.weight,
     required this.date,
-    this.isMeasured=false,
+    this.isMeasured = false,
   });
 
   /// weight of measurement
   @HiveField(0)
   final double weight;
+
   /// date of measurement
   @HiveField(1)
   final DateTime date;
+
   /// to store if measured
   final bool isMeasured;
 
   /// copy with applying change
-  Measurement apply({
-    double? weight,
-    DateTime? date,
-    bool? isMeasured,
-  }) => Measurement(
-      weight: weight ?? this.weight,
-      date: date ?? this.date,
-      isMeasured: isMeasured ?? this.isMeasured,
-  );
+  Measurement apply({double? weight, DateTime? date, bool? isMeasured}) =>
+      Measurement(
+        weight: weight ?? this.weight,
+        date: date ?? this.date,
+        isMeasured: isMeasured ?? this.isMeasured,
+      );
 
   /// implement sorting entries by date
   /// comparator method
   int compareTo(Measurement other) => date.compareTo(other.date);
 
   /// check if identical
-  bool isIdentical(Measurement other) => (
-    weight == other.weight
-  ) && (
-    date.difference(other.date).inMinutes.abs() <= 1
-  );
+  bool isIdentical(Measurement other) =>
+      (weight == other.weight) &&
+      (date.difference(other.date).inMinutes.abs() <= 1);
 
   /// return weight in active unit
-  double inUnit(BuildContext context) => weight / Provider.of<TraleNotifier>(
-    context, listen: false
-  ).unit.scaling;
+  double inUnit(BuildContext context) =>
+      weight / Provider.of<TraleNotifier>(context, listen: false).unit.scaling;
 
   /// convert to String
-  String weightToString(BuildContext context, {bool showUnit=true})
-    => Provider.of<TraleNotifier>(
-        context, listen: false
+  String weightToString(BuildContext context, {bool showUnit = true}) =>
+      Provider.of<TraleNotifier>(
+        context,
+        listen: false,
       ).unit.measurementToString(this, showUnit: showUnit);
 
   /// convert date to String
   String dayToString(BuildContext context) => Provider.of<TraleNotifier>(
-      context, listen: false
-    ).dayFormat(context).format(date);
+    context,
+    listen: false,
+  ).dayFormat(context).format(date);
 
   /// convert date to String
   String dateToString(BuildContext context) => Provider.of<TraleNotifier>(
-      context, listen: false
+    context,
+    listen: false,
   ).dateFormat(context).format(date);
 
   /// convert date to String
-  String timeToString(BuildContext context) =>
-    TimeOfDay.fromDateTime(date).format(context).padLeft(
-      DateFormat(
-        'j', Localizations.localeOf(context).toString()
-      ).pattern!.contains('H') ? 5 : 8
-    );
+  String timeToString(BuildContext context) => TimeOfDay.fromDateTime(date)
+      .format(context)
+      .padLeft(
+        DateFormat(
+              'j',
+              Localizations.localeOf(context).toString(),
+            ).pattern!.contains('H')
+            ? 5
+            : 8,
+      );
 
   /// date followed by weight
-  String measureToString(BuildContext context, {int ws=10})
-    => '${dayToString(context)} ${timeToString(context)} '
+  String measureToString(BuildContext context, {int ws = 10}) =>
+      '${dayToString(context)} ${timeToString(context)} '
       '${weightToString(context).padLeft(ws)}';
 
   /// return day in milliseconds since epoch neglecting the hours, minutes
   int get dayInMs => DateTime(
-    date.year, date.month, date.day, 12,  // use 1h offset to ignore jumps
+    date.year,
+    date.month,
+    date.day,
+    12, // use 1h offset to ignore jumps
   ).millisecondsSinceEpoch;
 
   /// return date in milliseconds
   int get dateInMs => date.millisecondsSinceEpoch;
 
   /// return string for export
-  String get exportString
-    => '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
+  String get exportString =>
+      '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
 
   /// copy with applying change
   static Measurement fromString({required String exportString}) {
@@ -114,26 +120,23 @@ class Measurement {
   static int compare(Measurement a, Measurement b) => a.compareTo(b);
 }
 
-
 /// Class wrapping measurement with its hive key
 class SortedMeasurement {
   /// constructor
-  SortedMeasurement({
-    required this.key,
-    required this.measurement,
-  });
+  SortedMeasurement({required this.key, required this.measurement});
 
   /// Measurement object
   final Measurement measurement;
+
   /// Hive key
   final dynamic key;
 
   /// implement sorting entries by date
   /// comparator method
-  int compareTo(SortedMeasurement other)
-    => measurement.date.compareTo(other.measurement.date);
+  int compareTo(SortedMeasurement other) =>
+      measurement.date.compareTo(other.measurement.date);
 
   /// compare method to use default sort method on list
-  static int compare(SortedMeasurement a, SortedMeasurement b)
-    => a.compareTo(b);
+  static int compare(SortedMeasurement a, SortedMeasurement b) =>
+      a.compareTo(b);
 }

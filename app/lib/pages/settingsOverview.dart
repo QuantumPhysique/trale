@@ -21,7 +21,6 @@ class SettingsOverviewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.handHeart,
@@ -40,8 +39,8 @@ class SettingsOverviewPage extends StatelessWidget {
             subtitle: AppLocalizations.of(context)!.personalizationSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
-                builder: (BuildContext context)
-                  => const PersonalizationSettingsPage(),
+                builder: (BuildContext context) =>
+                    const PersonalizationSettingsPage(),
               ),
             ),
           ),
@@ -51,8 +50,7 @@ class SettingsOverviewPage extends StatelessWidget {
             subtitle: AppLocalizations.of(context)!.themeSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
-                builder: (BuildContext context)
-                => const ThemeSettingsPage(),
+                builder: (BuildContext context) => const ThemeSettingsPage(),
               ),
             ),
           ),
@@ -62,8 +60,7 @@ class SettingsOverviewPage extends StatelessWidget {
             subtitle: AppLocalizations.of(context)!.languageSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
-                builder: (BuildContext context)
-                  => const LanguageSettingsPage(),
+                builder: (BuildContext context) => const LanguageSettingsPage(),
               ),
             ),
           ),
@@ -78,8 +75,7 @@ class SettingsOverviewPage extends StatelessWidget {
             subtitle: AppLocalizations.of(context)!.importAndExportSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
-                builder: (BuildContext context)
-                  => const ExportSettingsPage(),
+                builder: (BuildContext context) => const ExportSettingsPage(),
               ),
             ),
           ),
@@ -136,16 +132,13 @@ class _SettingsTile extends StatelessWidget {
   final String subtitle;
   final VoidCallback? onTap;
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return GroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       // Remove inner padding so content spans full width
       contentPadding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding
+        horizontal: TraleTheme.of(context)!.padding,
       ),
       leading: PPIcon(icon, context),
       title: Text(

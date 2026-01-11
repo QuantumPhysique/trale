@@ -7,14 +7,11 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// m3 floating action button
 class FAB extends StatefulWidget {
-  const FAB({
-    required this.show,
-    required this.onPressed,
-    super.key
-  });
+  const FAB({required this.show, required this.onPressed, super.key});
 
   /// show FAB
   final bool show;
+
   /// onPressed
   final void Function() onPressed;
 
@@ -23,24 +20,24 @@ class FAB extends StatefulWidget {
 }
 
 class _FABState extends State<FAB> {
-
   @override
   Widget build(BuildContext context) {
-    const double buttonHeight = 80;  /// The new m3e size for a medium FAB
+    const double buttonHeight = 80;
+
+    /// The new m3e size for a medium FAB
     return AnimatedContainer(
-        alignment: Alignment.center,
-        height: widget.show ? buttonHeight : 0,
-        width: buttonHeight,
-        duration: TraleTheme.of(context)!.transitionDuration.normal,
-        child: M3EFloatingActionButton.medium(
-          elevation: 0,
-          onPressed: widget.onPressed,
-          tooltip: AppLocalizations.of(context)!.addWeight,
-        )
+      alignment: Alignment.center,
+      height: widget.show ? buttonHeight : 0,
+      width: buttonHeight,
+      duration: TraleTheme.of(context)!.transitionDuration.normal,
+      child: M3EFloatingActionButton.medium(
+        elevation: 0,
+        onPressed: widget.onPressed,
+        tooltip: AppLocalizations.of(context)!.addWeight,
+      ),
     );
   }
 }
-
 
 /// Material3-style FloatingActionButton with a `.medium` constructor.
 class M3EFloatingActionButton extends StatelessWidget {
@@ -54,9 +51,9 @@ class M3EFloatingActionButton extends StatelessWidget {
     this.foregroundColor,
     this.elevation = 0,
     this.enableFeedback = true,
-  })  : _size = 80.0,
-        _iconSize = 34.0,  // 28 is material spec, but icon has unwanted padding
-        _borderRadius = 20.0;
+  }) : _size = 80.0,
+       _iconSize = 34.0, // 28 is material spec, but icon has unwanted padding
+       _borderRadius = 20.0;
 
   final VoidCallback onPressed;
   final Widget? icon;
@@ -80,12 +77,8 @@ class M3EFloatingActionButton extends StatelessWidget {
       width: _size,
       height: _size,
       child: Center(
-        child: icon ??
-            Icon(
-              PhosphorIconsRegular.plus,
-              size: _iconSize,
-              color: fg,
-            ),
+        child:
+            icon ?? Icon(PhosphorIconsRegular.plus, size: _iconSize, color: fg),
       ),
     );
 
@@ -97,10 +90,7 @@ class M3EFloatingActionButton extends StatelessWidget {
     );
 
     if (tooltip != null && tooltip!.isNotEmpty) {
-      tappable = Tooltip(
-        message: tooltip!,
-        child: tappable,
-      );
+      tappable = Tooltip(message: tooltip!, child: tappable);
     }
 
     return SizedBox(

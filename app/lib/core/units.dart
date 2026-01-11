@@ -4,8 +4,10 @@ import 'package:trale/core/measurement.dart';
 enum TraleUnit {
   /// kg
   kg,
+
   /// stones
   st,
+
   /// pounds
   lb,
 }
@@ -34,21 +36,20 @@ extension TraleUnitExtension on TraleUnit {
   }[this]!;
 
   /// convert weight of measurement to string
-  String measurementToString(Measurement m, {bool showUnit= true}) {
+  String measurementToString(Measurement m, {bool showUnit = true}) {
     return weightToString(m.weight, showUnit: showUnit);
   }
 
   /// weight given in kg to string
-  String weightToString(double weight, {bool showUnit= true}) {
+  String weightToString(double weight, {bool showUnit = true}) {
     final String suffix = showUnit ? ' $name' : '';
     return '${doubleToPrecision(weight / scaling).toStringAsFixed(precision)}'
-      '$suffix';
+        '$suffix';
   }
 
   /// round double to given precision
-  double doubleToPrecision(double val) => (
-    val * ticksPerStep
-  ).roundToDouble() / ticksPerStep;
+  double doubleToPrecision(double val) =>
+      (val * ticksPerStep).roundToDouble() / ticksPerStep;
 
   /// get string expression
   String get name => toString().split('.').last;
@@ -61,8 +62,8 @@ extension TralUnitParsing on String {
     for (final TraleUnit unit in TraleUnit.values) {
       if (this == unit.name) {
         return unit;
-    }
       }
+    }
     return null;
   }
 }

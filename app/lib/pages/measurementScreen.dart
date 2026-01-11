@@ -23,10 +23,13 @@ class _MeasurementScreen extends State<MeasurementScreen> {
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
 
-    final int animationDurationInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
-    Widget measurementScreen(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
+    final int animationDurationInMilliseconds = TraleTheme.of(
+      context,
+    )!.transitionDuration.slow.inMilliseconds;
+    Widget measurementScreen(
+      BuildContext context,
+      AsyncSnapshot<List<Measurement>> snapshot,
+    ) {
       return Scrollbar(
         radius: const Radius.circular(4),
         thickness: 8,
@@ -41,18 +44,20 @@ class _MeasurementScreen extends State<MeasurementScreen> {
       );
     }
 
-    Widget measurementScreenWrapper(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
+    Widget measurementScreenWrapper(
+      BuildContext context,
+      AsyncSnapshot<List<Measurement>> snapshot,
+    ) {
       return measurements.isNotEmpty
-        ? measurementScreen(context, snapshot)
-        : defaultEmptyChart(context: context);
+          ? measurementScreen(context, snapshot)
+          : defaultEmptyChart(context: context);
     }
 
     return StreamBuilder<List<Measurement>>(
       stream: database.streamController.stream,
-      builder: (
-        BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-      ) => measurementScreenWrapper(context, snapshot),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<Measurement>> snapshot) =>
+              measurementScreenWrapper(context, snapshot),
     );
   }
 }

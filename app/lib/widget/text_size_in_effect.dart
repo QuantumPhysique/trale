@@ -4,7 +4,7 @@ class TextSizeInEffect extends StatefulWidget {
   const TextSizeInEffect({
     super.key,
     required this.text,
-    required this. textStyle,
+    required this.textStyle,
     this.durationInMilliseconds = 1000,
     this.delayInMilliseconds = 0,
     this.keepAlive = false,
@@ -34,9 +34,8 @@ class _TextSizeInEffectState extends State<TextSizeInEffect>
     );
 
     Future<TickerFuture>.delayed(
-      Duration(
-          milliseconds: widget.delayInMilliseconds),
-          () => animationController.forward(),
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
     );
 
     sizeAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -59,10 +58,7 @@ class _TextSizeInEffectState extends State<TextSizeInEffect>
     return AnimatedOpacity(
       opacity: sizeAnimation.value == 0 ? 0 : 1,
       duration: Duration(milliseconds: widget.durationInMilliseconds),
-      child: Text(
-        widget.text,
-        style: widget.textStyle,
-      ),
+      child: Text(widget.text, style: widget.textStyle),
     );
   }
 

@@ -73,7 +73,7 @@ class TraleNotifier with ChangeNotifier {
   /// getter
   TraleSchemeVariant get schemeVariant =>
       prefs.schemeVariant.toTraleSchemeVariant() ??
-          prefs.defaultSchemeVariant.toTraleSchemeVariant()!;
+      prefs.defaultSchemeVariant.toTraleSchemeVariant()!;
 
   /// setter
   set schemeVariant(TraleSchemeVariant newVariant) {
@@ -143,8 +143,9 @@ class TraleNotifier with ChangeNotifier {
     if (latestBackupDate == null) {
       return DateTime.now();
     }
-    final DateTime nextBackup =
-        latestBackupDate!.add(Duration(days: backupInterval.inDays));
+    final DateTime nextBackup = latestBackupDate!.add(
+      Duration(days: backupInterval.inDays),
+    );
     return nextBackup.isBefore(DateTime.now()) ? DateTime.now() : nextBackup;
   }
 
@@ -185,11 +186,13 @@ class TraleNotifier with ChangeNotifier {
       final Locale activeLocale = Localizations.localeOf(context);
       if (dateTimePatternMap().containsKey(activeLocale.languageCode)) {
         final Map<String, String> dateTimeLocaleMap =
-        dateTimePatternMap()[activeLocale.languageCode]!;
+            dateTimePatternMap()[activeLocale.languageCode]!;
         if (dateTimeLocaleMap.containsKey('yMd')) {
-          return DateFormat(dateTimeLocaleMap['yMd']!
-              .replaceFirst('d', 'dd')
-              .replaceFirst('M', 'MM'));
+          return DateFormat(
+            dateTimeLocaleMap['yMd']!
+                .replaceFirst('d', 'dd')
+                .replaceFirst('M', 'MM'),
+          );
         }
       }
     } else {
@@ -206,9 +209,11 @@ class TraleNotifier with ChangeNotifier {
         final Map<String, String> dateTimeLocaleMap =
             dateTimePatternMap()[activeLocale.languageCode]!;
         if (dateTimeLocaleMap.containsKey('Md')) {
-          return DateFormat(dateTimeLocaleMap['Md']!
-              .replaceFirst('d', 'dd')
-              .replaceFirst('M', 'MM'));
+          return DateFormat(
+            dateTimeLocaleMap['Md']!
+                .replaceFirst('d', 'dd')
+                .replaceFirst('M', 'MM'),
+          );
         }
       }
     } else {

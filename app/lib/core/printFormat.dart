@@ -24,24 +24,26 @@ enum TraleDatePrintFormat {
 /// Extension to add functionality to TraleDatePrintFormat
 extension TraleDateFormatExtension on TraleDatePrintFormat {
   /// Mapping of date formats to their patterns
-  static const Map<TraleDatePrintFormat, String?> _patternMapping = <TraleDatePrintFormat, String?>{
-    TraleDatePrintFormat.systemDefault: null,
-    TraleDatePrintFormat.yyyyMMdd: 'yyyy/MM/dd',
-    TraleDatePrintFormat.ddMMyyyy: 'dd/MM/yyyy',
-    TraleDatePrintFormat.MMddyyyy: 'MM/dd/yyyy',
-    TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM.yyyy',
-    TraleDatePrintFormat.iso8601: 'yyyy-MM-dd',
-  };
+  static const Map<TraleDatePrintFormat, String?> _patternMapping =
+      <TraleDatePrintFormat, String?>{
+        TraleDatePrintFormat.systemDefault: null,
+        TraleDatePrintFormat.yyyyMMdd: 'yyyy/MM/dd',
+        TraleDatePrintFormat.ddMMyyyy: 'dd/MM/yyyy',
+        TraleDatePrintFormat.MMddyyyy: 'MM/dd/yyyy',
+        TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM.yyyy',
+        TraleDatePrintFormat.iso8601: 'yyyy-MM-dd',
+      };
 
   /// Mapping of date formats to their patterns
-  static const Map<TraleDatePrintFormat, String?> _patternMappingShort = <TraleDatePrintFormat, String?>{
-    TraleDatePrintFormat.systemDefault: null,
-    TraleDatePrintFormat.yyyyMMdd: 'MM/dd',
-    TraleDatePrintFormat.ddMMyyyy: 'dd/MM',
-    TraleDatePrintFormat.MMddyyyy: 'MM/dd',
-    TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM',
-    TraleDatePrintFormat.iso8601: 'MM-dd',
-  };
+  static const Map<TraleDatePrintFormat, String?> _patternMappingShort =
+      <TraleDatePrintFormat, String?>{
+        TraleDatePrintFormat.systemDefault: null,
+        TraleDatePrintFormat.yyyyMMdd: 'MM/dd',
+        TraleDatePrintFormat.ddMMyyyy: 'dd/MM',
+        TraleDatePrintFormat.MMddyyyy: 'MM/dd',
+        TraleDatePrintFormat.ddMMyyyyDot: 'dd.MM',
+        TraleDatePrintFormat.iso8601: 'MM-dd',
+      };
 
   /// Get the pattern associated with each format option, using a custom format if provided
   String? get pattern => _patternMapping[this];

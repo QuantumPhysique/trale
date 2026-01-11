@@ -34,9 +34,8 @@ class _FadeInEffectState extends State<FadeInEffect>
     );
 
     Future<TickerFuture>.delayed(
-      Duration(
-          milliseconds: widget.delayInMilliseconds),
-          () => animationController.forward(),
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
     );
 
     opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -56,10 +55,7 @@ class _FadeInEffectState extends State<FadeInEffect>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return FadeTransition(
-      opacity: opacityAnimation,
-      child: widget.child,
-    );
+    return FadeTransition(opacity: opacityAnimation, child: widget.child);
   }
 
   @override

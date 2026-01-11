@@ -3,11 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 class Language {
-  Language(String tag)
-    : _locale = _localeFromTag(tag);
+  Language(String tag) : _locale = _localeFromTag(tag);
 
-  Language.fromLocale(Locale locale)
-    : _locale = locale;
+  Language.fromLocale(Locale locale) : _locale = locale;
 
   Language.system()
     : _locale = const Locale.fromSubtags(languageCode: systemDefault);
@@ -72,6 +70,7 @@ class Language {
 
   /// IANA default undetermined codec
   static const String systemDefault = 'und';
+
   /// list of supported locals
   static List<Language> supportedLanguages = <Language>[
     Language.system(),
@@ -108,7 +107,11 @@ Locale _localeFromTag(String tag) {
       region = p[1];
     }
   }
-  return Locale.fromSubtags(languageCode: p[0], scriptCode: script, countryCode: region);
+  return Locale.fromSubtags(
+    languageCode: p[0],
+    scriptCode: script,
+    countryCode: region,
+  );
 }
 
 // Extensions unchanged API for callers.

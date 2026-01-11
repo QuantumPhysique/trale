@@ -15,18 +15,16 @@ import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
 import 'package:trale/widget/userDialog.dart';
 
-
 /// home scaffold
 class Home extends StatefulWidget {
   /// constructor
   const Home({super.key});
   @override
-
   /// create state
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin{
+class _HomeState extends State<Home> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   final Duration animationDuration = const Duration(milliseconds: 500);
   bool popupShown = false;
@@ -100,6 +98,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
       popupShown = false;
     });
   }
+
   void handlePageChanged(int selectedPage) {
     setState(() {
       _pageIndex = selectedPage;
@@ -151,7 +150,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
                 onPressed: () {
                   Navigator.of(context).push<dynamic>(
                     MaterialPageRoute<Widget>(
-                      builder: (BuildContext context) => const SettingsOverviewPage(),
+                      builder: (BuildContext context) =>
+                          const SettingsOverviewPage(),
                     ),
                   );
                 },
@@ -167,15 +167,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
             ),
           ];
         },
-        body: TabBarView(
-          controller: _selectedTab,
-          children: activeTabs,
-        ),
+        body: TabBarView(controller: _selectedTab, children: activeTabs),
       ),
-      floatingActionButton: FAB(
-        onPressed: onFABpress,
-        show: showFAB,
-      ),
+      floatingActionButton: FAB(onPressed: onFABpress, show: showFAB),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

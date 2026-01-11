@@ -36,9 +36,8 @@ class _AnimateInEffectState extends State<AnimateInEffect>
     );
 
     Future<TickerFuture>.delayed(
-      Duration(
-          milliseconds: widget.delayInMilliseconds),
-          () => animationController.forward(),
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
     );
 
     final Curve intervalCurve = Interval(
@@ -47,16 +46,10 @@ class _AnimateInEffectState extends State<AnimateInEffect>
       curve: Curves.easeInOutCubic,
     );
 
-    offsetAnimation = Tween<Offset>(
-      begin: const Offset(40, 0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: intervalCurve,
-      ),
-    );
-
+    offsetAnimation =
+        Tween<Offset>(begin: const Offset(40, 0), end: Offset.zero).animate(
+          CurvedAnimation(parent: animationController, curve: intervalCurve),
+        );
   }
 
   @override
@@ -71,10 +64,8 @@ class _AnimateInEffectState extends State<AnimateInEffect>
 
     return AnimatedBuilder(
       animation: animationController,
-      builder: (BuildContext context, Widget? child) => Transform.translate(
-        offset: offsetAnimation.value,
-        child: child,
-      ),
+      builder: (BuildContext context, Widget? child) =>
+          Transform.translate(offset: offsetAnimation.value, child: child),
       child: widget.child,
     );
   }

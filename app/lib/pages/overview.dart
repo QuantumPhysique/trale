@@ -16,7 +16,6 @@ import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
-
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
   @override
@@ -37,15 +36,14 @@ class _OverviewScreen extends State<OverviewScreen> {
       if (loadedFirst) {
         loadedFirst = false;
         final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(
-          context, listen: false,
+          context,
+          listen: false,
         );
         if (traleNotifier.showBackupReminder) {
           final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
           sm.showSnackBar(
             SnackBar(
-              content: Text(
-                AppLocalizations.of(context)!.backupReminder,
-              ),
+              content: Text(AppLocalizations.of(context)!.backupReminder),
               behavior: SnackBarBehavior.fixed,
               duration: TraleTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
@@ -66,19 +64,21 @@ class _OverviewScreen extends State<OverviewScreen> {
     final MeasurementDatabase database = MeasurementDatabase();
     final MeasurementInterpolation ip = MeasurementInterpolation();
 
-    final int animationDurationInMilliseconds =
-        TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
+    final int animationDurationInMilliseconds = TraleTheme.of(
+      context,
+    )!.transitionDuration.slow.inMilliseconds;
 
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
-    Widget overviewScreen(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
+    Widget overviewScreen(
+      BuildContext context,
+      AsyncSnapshot<List<Measurement>> snapshot,
+    ) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           AnimatedStatsWidgets(
-            key: ValueKey<List<Measurement>>(snapshot.data
-                                             ?? <Measurement>[]),
+            key: ValueKey<List<Measurement>>(snapshot.data ?? <Measurement>[]),
           ),
           AnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
@@ -86,7 +86,8 @@ class _OverviewScreen extends State<OverviewScreen> {
               loadedFirst: loadedFirst,
               ip: ip,
               key: ValueKey<List<Measurement>>(
-                  snapshot.data ?? <Measurement>[]),
+                snapshot.data ?? <Measurement>[],
+              ),
             ),
           ),
           const SizedBox(height: 80.0),
@@ -94,8 +95,10 @@ class _OverviewScreen extends State<OverviewScreen> {
       );
     }
 
-    Widget overviewScreenWrapper(BuildContext context,
-        AsyncSnapshot<List<Measurement>> snapshot) {
+    Widget overviewScreenWrapper(
+      BuildContext context,
+      AsyncSnapshot<List<Measurement>> snapshot,
+    ) {
       final MeasurementDatabase database = MeasurementDatabase();
       final List<SortedMeasurement> measurements = database.sortedMeasurements;
 
@@ -106,12 +109,12 @@ class _OverviewScreen extends State<OverviewScreen> {
 
     return StreamBuilder<List<Measurement>>(
       stream: database.streamController.stream,
-      builder: (
-          BuildContext context, AsyncSnapshot<List<Measurement>> snapshot,
-      ) => SafeArea(
-        key: key,
-        child: overviewScreenWrapper(context, snapshot),
-      )
+      builder:
+          (BuildContext context, AsyncSnapshot<List<Measurement>> snapshot) =>
+              SafeArea(
+                key: key,
+                child: overviewScreenWrapper(context, snapshot),
+              ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class TraleIconColorMapper implements ColorMapper {
   const TraleIconColorMapper({
     required this.bgColor,
@@ -22,7 +21,10 @@ class TraleIconColorMapper implements ColorMapper {
 
   @override
   Color substitute(
-    String? id, String elementName, String attributeName, Color color
+    String? id,
+    String elementName,
+    String attributeName,
+    Color color,
   ) {
     if (color == _defaultBgColor) {
       return bgColor;
@@ -37,7 +39,6 @@ class TraleIconColorMapper implements ColorMapper {
     return color;
   }
 }
-
 
 /// Hero with icon for drawer
 class IconHero extends StatefulWidget {
@@ -73,11 +74,10 @@ class _IconHeroState extends State<IconHero> {
           width: width,
           fit: BoxFit.contain,
         );
-      }
+      },
     );
   }
 }
-
 
 /// Hero with icon for drawer
 class IconHeroStatScreen extends StatefulWidget {
@@ -96,15 +96,15 @@ class _IconHeroStatScreenState extends State<IconHeroStatScreen> {
   Widget build(BuildContext context) {
     final ColorScheme ctheme = Theme.of(context).colorScheme;
     return SvgPicture(
-        SvgAssetLoader(
-          assetName,
-          colorMapper: TraleIconColorMapper(
-            bgColor: ctheme.onSurface,
-            wolfColor: ctheme.primary,
-            titleColor: ctheme.onSurface,
-            sloganColor: ctheme.primary,
-          ),
-        )
+      SvgAssetLoader(
+        assetName,
+        colorMapper: TraleIconColorMapper(
+          bgColor: ctheme.onSurface,
+          wolfColor: ctheme.primary,
+          titleColor: ctheme.onSurface,
+          sloganColor: ctheme.primary,
+        ),
+      ),
     );
   }
 }
