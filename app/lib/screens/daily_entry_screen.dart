@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
@@ -48,12 +49,20 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
   final AppDatabase _db = AppDatabase();
 
+  // Timer for live clock updates
+  Timer? _clockTimer;
+
   @override
   void initState() {
     super.initState();
     _selectedDate = widget.initialDate ?? DateTime.now();
     _dateStr = _formatDate(_selectedDate);
     _loadEntryForDate();
+
+    // Start live clock timer
+    _clockTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() {});
+    });
   }
 
   @override
@@ -63,6 +72,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     _workoutController.dispose();
     _thoughtsController.dispose();
     _emotionalMessageController.dispose();
+    _clockTimer?.cancel();
     super.dispose();
   }
 
@@ -773,7 +783,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Current time: ${DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now())}',
+                            'Live time: ${DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now())}',
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontFamily: 'monospace',
                               color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -845,7 +855,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     ),
                     const SizedBox(height: 12),
                     ..._emotionalCheckIns.map((checkIn) {
-                      return _buildEmotionalCheckInCard(checkIn);
+                      return _buildEmotionalCheckInCard(checkIn, key: ValueKey(checkIn.timestamp));
                     }),
                   ] else if (!isToday) ...[
                     Center(
@@ -873,7 +883,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     );
   }
 
-  Widget _buildEmotionalCheckInCard(_EmotionalCheckIn checkIn) {
+  Widget _buildEmotionalCheckInCard(_EmotionalCheckIn checkIn, {Key? key}) {
     final DateTime checkInDate = checkIn.timestamp;
     final DateTime now = DateTime.now();
     final bool isToday = checkInDate.year == now.year &&
@@ -883,6 +893,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         ? DateFormat('h:mm a').format(checkInDate)
         : DateFormat('MMM d, h:mm a').format(checkInDate);
     return Card(
+      key: key,
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
       child: Padding(
