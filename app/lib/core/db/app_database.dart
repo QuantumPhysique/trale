@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 part 'app_database.g.dart';
 
@@ -122,7 +124,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.connect(QueryExecutor e) : super(e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -179,6 +181,61 @@ class AppDatabase extends _$AppDatabase {
       ''');
     },
     onUpgrade: (Migrator m, int from, int to) async {
+      // Handle schema changes for check_in table
+      if (from < 4) {
+        await customStatement('DROP TABLE IF EXISTS check_in');
+      }
+      // Create new tables if missing (idempotent)
+      await m.createAll();
+      // Create indexes matching the spec
+      await customStatement(
+        'CREATE INDEX IF NOT EXISTS idx_workout_checkin ON workout(check_in_date)',
+      );
+      await customStatement(
+        'CREATE INDEX IF NOT EXISTS idx_workout_workout_tag_tag ON workout_workout_tag(workout_tag_id)',
+      );
+      await customStatement(
+        'CREATE INDEX IF NOT EXISTS idx_color_date_ts ON check_in_color(check_in_date, ts)',
+      );
+      await customStatement(
+        'CREATE INDEX IF NOT EXISTS idx_photo_date ON check_in_photo(check_in_date)',
+      );
+
+      // Prevent updates/deletes on past check-ins (immutability by date)
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
+        BEFORE UPDATE ON check_in
+        WHEN date < date('now','localtime')
+        BEGIN
+          SELECT RAISE(ABORT, 'check-in is immutable by date');
+        END;
+      ''');
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
+        BEFORE DELETE ON check_in
+        WHEN date < date('now','localtime')
+        BEGIN
+          SELECT RAISE(ABORT, 'check-in is immutable by date');
+        END;
+      ''');
+
+      // Prevent updates/deletes of emotional check-ins when they are marked immutable
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_update_immutable_checkin_color
+        BEFORE UPDATE ON check_in_color
+        WHEN OLD.isImmutable = 1
+        BEGIN
+          SELECT RAISE(ABORT, 'emotional check-in is immutable');
+        END;
+      ''');
+      await customStatement('''
+        CREATE TRIGGER IF NOT EXISTS prevent_delete_immutable_checkin_color
+        BEFORE DELETE ON check_in_color
+        WHEN OLD.isImmutable = 1
+        BEGIN
+          SELECT RAISE(ABORT, 'emotional check-in is immutable');
+        END;
+      ''');
       // Delegate to a testable method which is idempotent
       await removeLegacyTargetWeightIfPresent();
     },
@@ -288,8 +345,15 @@ class AppDatabase extends _$AppDatabase {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final file = File('trale_app_db.sqlite');
-    return NativeDatabase(file);
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(p.join(dbFolder.path, 'trale_app_db.sqlite'));
+    return NativeDatabase(
+      file,
+      setup: (database) {
+        // Enable foreign key constraints
+        database.execute('PRAGMA foreign_keys = ON');
+      },
+    );
   });
 }
 

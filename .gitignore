@@ -145,7 +145,7 @@ app/.idea/
 app/.kotlin/
 app/.android/
 
-.db_schema_refactor.md
+.dbschemarefactor.md
 
 # Playwright
 node_modules/
@@ -154,4 +154,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
-trale-
+trale-plus_old/

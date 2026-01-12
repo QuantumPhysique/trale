@@ -1,6 +1,6 @@
 ---
 description: 'Owns Linear project setup and flow across stages, translating refactor instructions into Linear issues, cycles, and Git branches. Use when planning or tracking work, not coding details.'
-tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'github/*', 'linear/*', 'agent', 'todo']
+tools: ['vscode', 'execute', 'read', 'edit', 'search', 'web', 'github/*', 'linear/*', 'oraios/serena/*', 'agent', 'todo']
 model: Claude Sonnet 4.5 (copilot)
 ---
 This custom agent acts as the **Orchestrator** for the Trale fitness journal refactor, converting the high-level stage instructions (T2–T9) into Linear projects, cycles, and issues, and mapping them cleanly to Git branches and pull requests. [file:1] Use it when you need to: create or update Linear projects/cycles, define issue breakdowns per stage, decide branch naming, or move issues across workflow states. [file:1]  
