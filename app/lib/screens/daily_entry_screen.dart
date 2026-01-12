@@ -281,31 +281,6 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     }
   }
 
-  Future<void> _selectFromGallery() async {
-    if (_photoPaths.length >= 3) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Maximum 3 photos allowed')),
-        );
-      }
-      return;
-    }
-
-    final ImagePicker picker = ImagePicker();
-    final XFile? photo = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1920,
-      maxHeight: 1080,
-      imageQuality: 85,
-    );
-
-    if (photo != null) {
-      setState(() {
-        _photoPaths.add(photo.path);
-      });
-    }
-  }
-
   Future<void> _showAddTagDialog() async {
     final TextEditingController tagController = TextEditingController();
     final result = await showDialog<String>(
@@ -510,28 +485,15 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: photoCount >= 3 || _isEntryImmutable
-                              ? null
-                              : _capturePhoto,
-                          icon: const Icon(Icons.camera_alt),
-                          label: const Text('Camera'),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: OutlinedButton.icon(
-                          onPressed: photoCount >= 3 || _isEntryImmutable
-                              ? null
-                              : _selectFromGallery,
-                          icon: const Icon(Icons.photo_library),
-                          label: const Text('Gallery'),
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: photoCount >= 3 || _isEntryImmutable
+                          ? null
+                          : _capturePhoto,
+                      icon: const Icon(Icons.camera_alt),
+                      label: const Text('Take Photo'),
+                    ),
                   ),
                   if (photoCount == 0)
                     Padding(
