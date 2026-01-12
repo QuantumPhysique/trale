@@ -5,7 +5,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:trale/core/db/app_database.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurement.dart';
-import 'package:drift/drift.dart' show Value, OrderingTerm;
+import 'package:drift/drift.dart' show Value, OrderingTerm, InsertMode;
 
 /// Full-screen daily entry form with collapsible sections for weight, photos,
 /// workout, thoughts, and emotional check-ins.
@@ -238,7 +238,38 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             );
 
         // Save workout tags
-        // (Tag insertion logic would go here)
+        if (_workoutTags.isNotEmpty) {
+          // First, delete existing tag links for this check-in
+          await (_db.delete(_db.workoutWorkoutTags)
+                ..where((tbl) => tbl.checkInDate.equals(_dateStr)))
+              .go();
+
+          // Insert or get tag IDs for each tag
+          for (final tagName in _workoutTags) {
+            // Try to insert the tag, or get existing one
+            final existingTag = await (_db.select(_db.workoutTags)
+                  ..where((tbl) => tbl.tag.equals(tagName)))
+                .getSingleOrNull();
+
+            int tagId;
+            if (existingTag != null) {
+              tagId = existingTag.id;
+            } else {
+              tagId = await _db.into(_db.workoutTags).insert(
+                    WorkoutTagsCompanion.insert(tag: tagName),
+                  );
+            }
+
+            // Link the tag to this workout
+            await _db.into(_db.workoutWorkoutTags).insert(
+                  WorkoutWorkoutTagsCompanion.insert(
+                    checkInDate: _dateStr,
+                    workoutTagId: tagId,
+                  ),
+                  mode: InsertMode.insertOrIgnore,
+                );
+          }
+        }
       }
 
       if (mounted) {
