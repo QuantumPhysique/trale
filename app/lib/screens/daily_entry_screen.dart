@@ -41,7 +41,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   List<String> _photoPaths = [];
   List<String> _workoutTags = [];
   Color? _currentEmotionalColor;
-  List<EmotionalCheckIn> _emotionalCheckIns = [];
+  List<_EmotionalCheckIn> _emotionalCheckIns = [];
 
   // Section expansion state
   final Set<String> _expandedSections = {};
@@ -130,7 +130,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           (colorRgb >> 8) & 0xFF,
           colorRgb & 0xFF,
         );
-        return EmotionalCheckIn(
+        return _EmotionalCheckIn(
           timestamp: DateTime.fromMillisecondsSinceEpoch(row.ts),
           color: color,
           message: row.message ?? '',
@@ -233,36 +233,39 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
         // Save workout tags
         if (_workoutTags.isNotEmpty) {
-          // First, delete existing tag links for this check-in
-          await (_db.delete(_db.workoutWorkoutTags)
-                ..where((tbl) => tbl.checkInDate.equals(_dateStr)))
-              .go();
+          // Wrap the entire delete-and-insert sequence in a transaction
+          await _db.transaction(() async {
+            // First, delete existing tag links for this check-in
+            await (_db.delete(_db.workoutWorkoutTags)
+                  ..where((tbl) => tbl.checkInDate.equals(_dateStr)))
+                .go();
 
-          // Insert or get tag IDs for each tag
-          for (final tagName in _workoutTags) {
-            // Try to insert the tag, or get existing one
-            final existingTag = await (_db.select(_db.workoutTags)
-                  ..where((tbl) => tbl.tag.equals(tagName)))
-                .getSingleOrNull();
+            // Insert or get tag IDs for each tag
+            for (final tagName in _workoutTags) {
+              // Try to insert the tag, or get existing one
+              final existingTag = await (_db.select(_db.workoutTags)
+                    ..where((tbl) => tbl.tag.equals(tagName)))
+                  .getSingleOrNull();
 
-            int tagId;
-            if (existingTag != null) {
-              tagId = existingTag.id;
-            } else {
-              tagId = await _db.into(_db.workoutTags).insert(
-                    WorkoutTagsCompanion.insert(tag: tagName),
+              int tagId;
+              if (existingTag != null) {
+                tagId = existingTag.id;
+              } else {
+                tagId = await _db.into(_db.workoutTags).insert(
+                      WorkoutTagsCompanion.insert(tag: tagName),
+                    );
+              }
+
+              // Link the tag to this workout
+              await _db.into(_db.workoutWorkoutTags).insert(
+                    WorkoutWorkoutTagsCompanion.insert(
+                      checkInDate: _dateStr,
+                      workoutTagId: tagId,
+                    ),
+                    mode: InsertMode.insertOrIgnore,
                   );
             }
-
-            // Link the tag to this workout
-            await _db.into(_db.workoutWorkoutTags).insert(
-                  WorkoutWorkoutTagsCompanion.insert(
-                    checkInDate: _dateStr,
-                    workoutTagId: tagId,
-                  ),
-                  mode: InsertMode.insertOrIgnore,
-                );
-          }
+          });
         }
       }
 
@@ -313,7 +316,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       setState(() {
         _emotionalCheckIns.insert(
           0,
-          EmotionalCheckIn(
+          _EmotionalCheckIn(
             timestamp: timestamp,
             color: _currentEmotionalColor!,
             message: _emotionalMessageController.text,
@@ -832,8 +835,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     );
   }
 
-  Widget _buildEmotionalCheckInCard(EmotionalCheckIn checkIn) {
-    final dateFormatter = DateFormat('yyyy-MM-dd+HH:mm:ss');
+  Widget _buildEmotionalCheckInCard(_EmotionalCheckIn checkIn) {
+    final dateFormatter = DateFormat('yyyy-MM-ddTHH:mm:ss');
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
@@ -903,12 +906,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 }
 
 /// Data class for emotional check-in display
-class EmotionalCheckIn {
+class _EmotionalCheckIn {
   final DateTime timestamp;
   final Color color;
   final String message;
 
-  EmotionalCheckIn({
+  _EmotionalCheckIn({
     required this.timestamp,
     required this.color,
     required this.message,
