@@ -379,6 +379,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           ),
           autofocus: true,
           textCapitalization: TextCapitalization.words,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.done,
         ),
         actions: [
           TextButton(
@@ -639,6 +641,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                       alignLabelWithHint: true,
                     ),
                     enabled: !_isEntryImmutable,
+                    keyboardType: TextInputType.multiline,
+                    textInputAction: TextInputAction.newline,
                   ),
                   const SizedBox(height: 16),
                   Text(
@@ -709,6 +713,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   alignLabelWithHint: true,
                 ),
                 enabled: !_isEntryImmutable,
+                keyboardType: TextInputType.multiline,
+                textInputAction: TextInputAction.newline,
               ),
             ),
         ],
@@ -750,28 +756,60 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                     ),
+                    const SizedBox(height: 12),
+                    // Show current timestamp
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.access_time,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Current time: ${DateFormat('yyyy-MM-ddTHH:mm:ss').format(DateTime.now())}',
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontFamily: 'monospace',
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     const SizedBox(height: 16),
                     Text(
                       'Pick a color to represent your emotional state',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 16),
-                    ColorPicker(
-                      pickerColor: _currentEmotionalColor ?? Colors.blue,
-                      onColorChanged: (Color color) {
-                        setState(() {
-                          _currentEmotionalColor = color;
-                        });
-                      },
-                      enableAlpha: false,
-                      displayThumbColor: true,
-                      pickerAreaHeightPercent: 0.8,
+                    // Circular color wheel only
+                    Center(
+                      child: ColorPicker(
+                        pickerColor: _currentEmotionalColor ?? Colors.blue,
+                        onColorChanged: (Color color) {
+                          setState(() {
+                            _currentEmotionalColor = color;
+                          });
+                        },
+                        paletteType: PaletteType.hueWheel,
+                        enableAlpha: false,
+                        displayThumbColor: true,
+                        pickerAreaHeightPercent: 1.0,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     TextField(
                       controller: _emotionalMessageController,
                       maxLines: 3,
                       maxLength: 500,
+                      keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.newline,
                       decoration: const InputDecoration(
                         labelText: 'Message (optional)',
                         hintText: 'Describe how you\'re feeling...',
