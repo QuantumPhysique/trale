@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/preferences.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/homescreen_calendar.dart';
 import 'package:trale/pages/settingsOverview.dart';
 import 'package:trale/pages/statScreen.dart';
-import 'package:trale/widget/addWeightDialog.dart';
+import 'package:trale/screens/daily_entry_screen.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
 import 'package:trale/widget/userDialog.dart';
@@ -83,17 +80,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   /// on pressing FAB button
   Future<void> onFABpress() async {
-    final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
     setState(() {
       popupShown = true;
     });
-    await showAddWeightDialog(
-      context: context,
-      weight: measurements.isNotEmpty
-          ? measurements.first.measurement.weight.toDouble()
-          : Preferences().defaultUserWeight,
-      date: DateTime.now(),
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DailyEntryScreen(
+          initialDate: DateTime.now(),
+        ),
+      ),
     );
     setState(() {
       popupShown = false;

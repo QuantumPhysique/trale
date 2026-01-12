@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:trale/core/db/app_database.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/preferences.dart';
-import 'package:trale/widget/addCheckInDialog.dart';
+import 'package:trale/screens/daily_entry_screen.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Full screen month calendar page that highlights dates with check-ins.
@@ -93,22 +91,21 @@ class _HomeScreenCalendarPageState extends State<HomeScreenCalendarPage> {
                         _selected = selectedDay;
                         _focused = focusedDay;
                       });
-                      // In tests we may provide initialEvents and skip opening the dialog
+                      // In tests we may provide initialEvents and skip opening the screen
                       if (widget.initialEvents == null) {
-                        // Compute initial weight
-                        final measurementDb = MeasurementDatabase();
-                        final sortedMeasurements = measurementDb.sortedMeasurements;
-                        final initialWeight = sortedMeasurements.isNotEmpty
-                            ? sortedMeasurements.first.measurement.weight.toDouble()
-                            : Preferences().defaultUserWeight;
-                        // Open check-in dialog for date
-                        await showAddCheckInDialog(
-                          context: context,
-                          initialWeight: initialWeight,
-                          initialDate: selectedDay,
+                        // Open daily entry screen for date
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DailyEntryScreen(
+                              initialDate: selectedDay,
+                            ),
+                          ),
                         );
                         // reload events after returning
-                        _loadEvents();
+                        if (result == true) {
+                          _loadEvents();
+                        }
                       }
                     },
                     calendarBuilders: CalendarBuilders(
