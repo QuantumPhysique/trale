@@ -1,0 +1,4 @@
+- Target SDK35 and use gradle 8.10
+- Design improvements
+- Thx to the community, added localizations for Italian, Estonian, and Chinese
+- Removed target weight from the interpolation preview

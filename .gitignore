@@ -137,6 +137,7 @@ out/
 
 # personal local folder - outputs
 outputs/
+desired_ss/
 
 #kotlin local settings
 app/.idea/kotlinSettings.xml
@@ -153,3 +154,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+trale-

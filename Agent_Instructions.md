@@ -4,7 +4,21 @@
 **Framework**: GitHub Flow (feature branches) + Linear project management  
 **Device**: Pixel7 (wireless ADB, debugging enabled)  
 **Target**: iOS 18+, Android 9+ (minSdkVersion 28)  
-**Tools**: Linear MCP, Oraios/Serena (RAG), firecrawl, playwright, dart, Flutter CLI  
+**Tools**: Linear MCP, Oraios/Serena (RAG), firecrawl, playwright, dart, Flutter CLI
+
+**Reference Implementation**: See `trale-plus_old/app/lib/screens/daily_entry_screen.dart` for UI/UX patterns and `desired_ss/` for screenshot examples of expected UI flows.
+
+---
+
+## UI/UX Design Philosophy
+
+### Core Principles (from trale-plus_old reference)
+1. **Collapsible Card Sections**: Each entry component (weight/height, photos, workout, thoughts, emotions) lives in an expandable Card widget with ListTile header showing summary when collapsed
+2. **Emoji-Based Emotional Check-ins**: Use 8 emoji emotions (😠 Anger, 😨 Fear, 😣 Pain, 😔 Shame, 😞 Guilt, 😊 Joy, 💪 Strength, ❤️ Love), NOT color picker
+3. **Multiple Emotional Check-ins**: Allow multiple emotional check-ins per day with timestamps (HH:mm a format), each immutable after save
+4. **Form Validation**: NSFW photo checkboxes default checked, must uncheck to enable save; emotion selection requires 1-4 emojis
+5. **Immutability Indicators**: Visual badges/indicators for locked/immutable entries
+6. **Date Banner**: Display selected date prominently at top (e.g., "Wednesday, January 11, 2026")
 
 ---
 
@@ -196,51 +210,237 @@ flutter clean
 
 ### Substeps
 
-#### 3a. Weight & Height (Optional)
-1. Serena: "Flutter optional form fields weight height nullable"
-2. Update check-in form UI: add height field (optional)
-3. Update check-in model: add `height_cm` (nullable)
-4. Test: save with/without height; verify DB
+#### 3a. Weight & Height (Optional, Collapsible Card Section)
 
-#### 3b. Photos (Optional, Camera-Only, Up to 3, NSFW Flag)
-1. Serena: "Flutter image_picker camera only multiple 3 photos"
-2. Add `image_picker` to pubspec.yaml (camera only: `ImageSource.camera`)
-3. Implement photo upload UI: up to 3 image slots
-4. **NSFW Checkbox Logic**:
-   - Default: checkbox checked (NSFW = true)
-   - User must uncheck before saving
-   - On unchecked, enable submit button
-   - Serena: "Flutter checkbox state form validation"
-5. Store photos: Base64 encoded in SQLite or file paths in app cache
-6. Test: take 3 photos, verify NSFW toggle blocks save until unchecked
+**Reference**: `trale-plus_old/app/lib/screens/daily_entry_screen.dart` _buildWeightSection() (lines 334-398)
 
-#### 3c. Thoughts (Optional, Multi-line)
-1. Serena: "Flutter textarea multi-line text field form"
-2. Add thoughts field to check-in form (TextFormField, multiline, maxLines: 5)
-3. Update check-in model: add `thoughts` (nullable String)
-4. Test: enter multi-line text, save, retrieve
+1. **UI Structure**:
+   - Serena: "Flutter Card ListTile expandable collapsible section"
+   - Card widget with:
+     - ListTile header:
+       - Leading: Icon(Icons.monitor_weight)
+       - Title: "Weight & Height"
+       - Subtitle (when collapsed): Display summary if values present (e.g., "70.5 kg")
+       - Trailing: Expand/collapse icon (Icons.expand_more / Icons.expand_less)
+       - onTap: Toggle section expansion
+   - Expanded content (Padding 16px):
+     - Weight TextField:
+       - labelText: "Weight"
+       - keyboardType: TextInputType.number
+       - decoration: OutlineInputBorder, suffixText: "kg", prefixIcon: Icon(Icons.monitor_weight)
+     - SizedBox(height: 16)
+     - Height TextField:
+       - labelText: "Height (optional)"
+       - keyboardType: TextInputType.number
+       - decoration: OutlineInputBorder, suffixText: "cm", prefixIcon: Icon(Icons.height)
+       - helperText: "Update if changed"
+     - If both weight & height filled: Display BMI calculation
 
-#### 3d. Workout (Optional Text + User-Creatable Tags)
-1. Serena: "Flutter tags input user creatable multi-select"
-2. Add workout textarea (multiline text field, optional)
-3. Implement tag input system:
-   - Display existing tags (queryable from DB)
-   - Allow user to create new tags inline
-   - Multiple selection
-   - Store selected tags in `workout_tags` join table
-4. Update schema/models: `workouts` table, `workout_tags` join table
-5. Test: add workout text, select/create tags, save, verify DB
+2. **Model Updates**:
+   - Update check-in model: add `height_cm` field (nullable double)
+   - Store in check_in table
 
-#### 3e. Emotional Check-in (Immutable, Color Picker, Timestamp, Message)
-1. Serena: "Flutter timestamp format DD-MM-YYYY HH:mm:ss:ms"
-2. Implement color picker wheel (flutter_colorpicker or equivalent):
-   - Serena: "skydoves ColorPickerView flutter equivalent wheel"
-   - Present full color wheel picker (not just palette)
-   - Implement flagview() or similar visual indicator
-3. Add timestamp field (read-only, auto-populated DD-MM-YYYY HH:mm:ss:ms)
-4. Add message field (optional, multi-line)
-5. On save: mark check-in as immutable, store in `check_in_color` table with timestamp, color hex, message
-6. Test: color picker selection, timestamp accuracy, save
+3. **Test**:
+   - Save with weight only, height only, both, neither
+   - Verify collapsible behavior (tap to expand/collapse)
+   - Verify BMI display when both present
+
+#### 3b. Photos (Optional, Camera-Only, Up to 3, NSFW Flag, Collapsible Card Section)
+
+**Reference**: `trale-plus_old/app/lib/screens/daily_entry_screen.dart` _buildPhotoSection() (lines 400-510)
+
+1. **UI Structure**:
+   - Serena: "Flutter image_picker camera gallery multiple 3 photos GridView"
+   - Card widget with:
+     - ListTile header:
+       - Leading: Icon(Icons.photo_camera)
+       - Title: "Photos"
+       - Subtitle (when collapsed): "X photo(s) added" (if photos present)
+       - Trailing: Photo count badge "2/3" + expand/collapse icon
+       - onTap: Toggle section expansion
+   - Expanded content (Padding 16px):
+     - Action buttons row:
+       - OutlinedButton.icon (Camera): Icon(Icons.camera_alt), label: "Camera"
+       - OutlinedButton.icon (Gallery): Icon(Icons.photo_library), label: "Gallery"
+       - Disable if photoCount >= 3
+     - If photos.isNotEmpty:
+       - SizedBox(height: 16)
+       - GridView.builder (3-column grid, crossAxisSpacing: 8, mainAxisSpacing: 8):
+         - Display photo thumbnails (ClipRRect, borderRadius: 8)
+         - Stack with delete button overlay (top-right, IconButton with Icon(Icons.delete))
+         - onTap thumbnail: Open full-screen PhotoViewer
+     - Else: Display "No photos added yet" (bodySmall)
+
+2. **Image Picker Implementation**:
+   - Add `image_picker` to pubspec.yaml
+   - Serena: "Flutter image_picker ImageSource camera gallery"
+   - Camera button: `ImagePicker().pickImage(source: ImageSource.camera)`
+   - Gallery button: `ImagePicker().pickImage(source: ImageSource.gallery)`
+   - Store photo paths (or Base64 if preferred) in check_in_photo table
+
+3. **NSFW Toggle** (removed from old implementation, skip this):
+   - Original plan had per-photo NSFW checkbox, but not in reference UI
+   - Omit NSFW logic for simplicity unless explicitly requested
+
+4. **Photo Storage**:
+   - Store file paths in app directory or Base64 in SQLite
+   - Link to check-in via check_in_photo table (check_in_date FK, path, ts)
+
+5. **Test**:
+   - Capture 3 photos via camera
+   - Select 3 photos via gallery
+   - Verify 3-photo limit (buttons disable)
+   - Delete photos, verify removal
+   - Open photo viewer, verify display
+
+#### 3c. Thoughts (Optional, Multi-line, Collapsible Card Section)
+
+**Reference**: `trale-plus_old/app/lib/screens/daily_entry_screen.dart` _buildThoughtsSection() (lines 698-742)
+
+1. **UI Structure**:
+   - Serena: "Flutter textarea multi-line text field Card collapsible"
+   - Card widget with:
+     - ListTile header:
+       - Leading: Icon(Icons.edit_note)
+       - Title: "Thoughts"
+       - Subtitle (when collapsed): Show first 50 chars if text present ("...")
+       - Trailing: Expand/collapse icon
+       - onTap: Toggle section expansion
+   - Expanded content (Padding 16px):
+     - TextField:
+       - labelText: "How are you feeling today?"
+       - hintText: "Write your thoughts here..."
+       - border: OutlineInputBorder
+       - maxLines: 6
+       - maxLength: 2000
+       - alignLabelWithHint: true
+
+2. **Model Updates**:
+   - Update check-in model: add `thoughts` field (nullable String)
+   - Store in check_in table
+
+3. **Test**:
+   - Enter multi-line text, verify wrapping
+   - Verify character counter (0/2000)
+   - Save, retrieve, verify persistence
+   - Verify collapsed summary shows first 50 chars
+
+#### 3d. Workout (Optional Text + User-Creatable Tags, Collapsible Card Section)
+
+**Reference**: `trale-plus_old/app/lib/screens/daily_entry_screen.dart` _buildWorkoutSection() (lines 608-696)
+
+1. **UI Structure**:
+   - Serena: "Flutter tags input user creatable Chip ActionChip"
+   - Card widget with:
+     - ListTile header:
+       - Leading: Icon(Icons.fitness_center)
+       - Title: "Workout"
+       - Subtitle (when collapsed): Show workout summary if present (first 50 chars or tag count)
+       - Trailing: Expand/collapse icon
+       - onTap: Toggle section expansion
+   - Expanded content (Padding 16px):
+     - TextField (workout description):
+       - labelText: "Workout description"
+       - hintText: "Describe your workout..."
+       - border: OutlineInputBorder
+       - maxLines: 4
+       - maxLength: 500
+       - alignLabelWithHint: true
+     - SizedBox(height: 16)
+     - Text: "Tags" (titleSmall)
+     - SizedBox(height: 8)
+     - Wrap widget (spacing: 8, runSpacing: 8):
+       - Display existing tags as Chip widgets with delete buttons
+       - ActionChip: "+ Add Tag" (opens tag input dialog)
+
+2. **Tag Input System**:
+   - Serena: "Flutter dialog TextField create tag user input"
+   - On "+ Add Tag" tap:
+     - Show AlertDialog with TextField
+     - TextField: labelText: "Tag name", maxLength: 50
+     - Actions: Cancel, Add buttons
+     - On Add: validate non-empty, add to local tag list, update UI
+   - Store tags in workout_tags table (tag text)
+   - Link to workout via workout_workout_tags join table
+
+3. **Database Schema**:
+   - workout table: check_in_date (FK), description (nullable)
+   - workout_tag table: id (PK), tag (unique text)
+   - workout_workout_tag join table: workout_id, workout_tag_id
+
+4. **Test**:
+   - Add workout text, verify save
+   - Create new tags, verify storage
+   - Select existing tags from DB
+   - Delete tags from selection
+   - Save, retrieve, verify persistence
+
+#### 3e. Emotional Check-in (Immutable, Emoji Grid, Timestamp, Text Field)
+
+**Reference**: `trale-plus_old/app/lib/models/emotional_checkin.dart` and `trale-plus_old/app/lib/screens/daily_entry_screen.dart` (lines 740-1000)
+
+1. **Emoji Grid (NOT Color Picker)**:
+   - Serena: "Flutter grid 8 emoji buttons selectable emotional check-in"
+   - Display 8 emotions in 4x2 grid:
+     - 😠 Anger, 😨 Fear, 😣 Pain, 😔 Shame (top row)
+     - 😞 Guilt, 😊 Joy, 💪 Strength, ❤️ Love (bottom row)
+   - Selection rules:
+     - User must select 1-4 emotions
+     - Selected emotions show border highlight (primary color, 3px border)
+     - Clicking 5th emotion shows snackbar: "You can select up to 4 emotions"
+   - Display selected emotions as chips with delete buttons
+
+2. **Timestamp & Text Field**:
+   - Serena: "Flutter timestamp auto-populate current time HH:mm a format"
+   - Auto-populate timestamp: "Right now - 3:45 PM" (read-only, formatted: DateFormat('h:mm a').format(DateTime.now()))
+   - Multi-line text field (maxLines: 4, maxLength: 500):
+     - Label: "What's on your mind?"
+     - Hint: "Describe how you're feeling..."
+     - Show character counter: "0/500"
+   - Optional: text can be empty
+
+3. **Multiple Check-ins Per Day**:
+   - Serena: "Flutter list multiple timestamped entries same day"
+   - Allow saving multiple emotional check-ins for same date
+   - Each check-in saved to `check_in_color` table with:
+     - `check_in_date` (FK to check_in.date)
+     - `ts` (timestamp, milliseconds since epoch)
+     - `color` (store as emoji string, e.g., "😊,💪" comma-separated)
+     - `message` (text field, nullable)
+   - After save:
+     - Clear form (emotions, text field)
+     - Show success snackbar: "Emotional check-in saved!"
+     - Set `is_immutable = true` (cannot edit/delete)
+     - Display saved check-in in list below form
+
+4. **Display Previous Check-ins**:
+   - Show list of emotional check-ins for selected date (reverse chronological)
+   - Each check-in card displays:
+     - Timestamp (small, gray text): "3:45 PM"
+     - Emoji row: "😊 💪" (larger font, 20px)
+     - Text message (if present): wrap text, body medium style
+   - Card style: surfaceContainerHighest with 30% alpha, 12px padding
+
+5. **Immutability**:
+   - Once saved, emotional check-in cannot be edited or deleted
+   - No edit/delete buttons on saved check-in cards
+   - Show "immutable" indicator if user tries to interact
+
+6. **UI Structure** (collapsible card section):
+   - Card with ListTile header:
+     - Leading: Icon(Icons.sentiment_satisfied)
+     - Title: "Emotional Check-Ins"
+     - Subtitle (when collapsed): "X check-in(s) today"
+     - Trailing: Expand/collapse icon + emotion count badge "2/4" (if form active)
+   - Expanded content:
+     - "Right now - 3:45 PM" banner (for today only)
+     - Emoji grid (4x2)
+     - Selected emotions chips
+     - Text field
+     - "Save Emotional Check-In" button (full width, ElevatedButton.icon)
+     - Divider
+     - "Previous check-ins today" label
+     - List of saved check-in cards
 
 ### Full Stage 3 Execution
 
@@ -251,27 +451,54 @@ flutter clean
    git checkout -b feature/checkin-process-update
    ```
 
-2. **Execute substeps 3a–3e sequentially**:
+2. **Refactor Check-in Screen Structure**:
+   - Replace current `showAddCheckInDialog` with full-screen DailyEntryScreen (scaffold)
+   - Serena: "Flutter Scaffold ListView collapsible Card sections"
+   - AppBar:
+     - title: "Daily Entry"
+     - actions: Calendar icon button (select date)
+   - Date banner (Container, full width, primaryContainer background):
+     - Display selected date: DateFormat('EEEE, MMMM d, yyyy').format(_selectedDate)
+     - Center aligned, titleMedium text style
+   - Body: ListView with card sections (weight, photos, workout, thoughts, emotions)
+   - FloatingActionButton.extended:
+     - icon: Icons.save
+     - label: "Save Entry"
+     - onPressed: _saveEntry()
+
+3. **Execute substeps 3a–3e sequentially**:
    - After each substep, test on Pixel7:
      ```bash
      flutter run -d Pixel_7_<id>
      ```
-   - Playwright: Screenshot form fields
+   - Playwright: Screenshot form sections (collapsed, expanded states)
    - Verify DB save (check file or logs)
-   - Commit & push per substep
+   - Commit & push per substep:
+     ```bash
+     git add .
+     git commit -m "feat(checkin): add weight/height collapsible section"
+     git push origin feature/checkin-process-update
+     ```
 
-3. **Full test flow**:
+4. **Full test flow**:
    ```bash
    flutter run -d Pixel_7_<id>
    ```
-   - Navigate to "Add Check-in" screen
-   - Fill all fields (weight, height, 3 photos with NSFW unchecked, thoughts, workout + tags, emotional color + message)
+   - Navigate to "Daily Entry" screen (via FAB or calendar)
+   - Fill all fields:
+     - Weight/height (expand section, fill both)
+     - 3 photos (camera/gallery)
+     - Workout text + create tags
+     - Thoughts (multi-line text)
+     - Emotional check-in (select 2 emojis, add text, save)
+     - Add 2nd emotional check-in (different emojis, timestamp updates)
    - Verify save succeeds
-   - Playwright: Screenshot complete form, submission confirmation
+   - Reload screen, verify all data persists
+   - Playwright: Screenshot complete form (all sections expanded), submission confirmation, saved data display
 
-4. **Merge to main** after all substeps pass
+5. **Merge to main** after all substeps pass
 
-5. **Uninstall & update Linear**: T3 → Done
+6. **Uninstall & update Linear**: T3 → Done
 
 ---
 

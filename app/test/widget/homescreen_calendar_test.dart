@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:drift/native.dart';
-import 'package:trale/core/db/app_database.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:trale/pages/homescreen_calendar.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
@@ -30,5 +29,19 @@ void main() {
 
     // After selecting, events list should be present (even if empty list tile)
     expect(find.byType(ListTile), findsWidgets);
+
+    // Verify the event marker is rendered
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget is Container &&
+            widget.decoration is BoxDecoration &&
+            (widget.decoration as BoxDecoration).color ==
+                Theme.of(tester.element(find.byType(TableCalendar<String>)))
+                    .colorScheme
+                    .primary,
+      ),
+      findsOneWidget,
+    );
   });
 }

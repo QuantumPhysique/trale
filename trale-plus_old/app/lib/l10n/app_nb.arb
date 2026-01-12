@@ -1,0 +1,342 @@
+{
+    "achievements": "Oppnåelser",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "Måleenheter",
+    "@unit": {},
+    "date": "Dato",
+    "@date": {
+        "description": "Date"
+    },
+    "defaultLang": "Systemforvalg",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Språk",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "stats": "Statistikk",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "weight": "Vekt",
+    "@weight": {
+        "description": "weight"
+    },
+    "systemmode": "System",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Eksporter alle målinger",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "user": "Brukerprofil",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "lightmode": "Lys",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "userSettings": "Brukerinnstillinger",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "Faresone",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "Innstillinger",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "theme": "Drakt",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "faq": "O-S-S",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "Om",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "darkmode": "Mørk",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "ok"
+    },
+    "exportSubtitle": "Dette tilbyr alle målinger til alle programmer.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "open": "Åpne",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "Avbryt",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Importer sikkerhetskopi",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importingAbort": "Import avbrutt.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "amoled": "Svart",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "factoryReset": "Fabrikkinnstilling",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "delete": "Slett",
+    "@delete": {
+        "description": "delete"
+    },
+    "licence": "Lisens",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "Kildekode",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "addWeight": "Skriv inn din vekt",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "none": "Ingen",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "Myk",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "Middels",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "Høy",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "onBoarding2Title": "Stil",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "skip": "Hopp over",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "faq_q3": "Hva viser programikonet?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "startApp": "Start",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Målvekt",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "addTargetWeight": "Legg til målvekt",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro1": "Trykk",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "reset": "Tilbakestill program",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Tilbakestill alle innstillinger og slett alle målinger.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "intro3": "I dag er en god dag for første måling.",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "targetWeightShort": "Mål",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "yes": "Ja",
+    "@yes": {
+        "description": "yes"
+    },
+    "measurements": "Målinger",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "tpl": "Tredjepartslisenser",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "onBoarding3Title": "Personvern",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "home": "Hjem",
+    "@home": {
+        "description": "home screen"
+    },
+    "save": "Lagre",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "Rediger",
+    "@edit": {
+        "description": "edit"
+    },
+    "time": "Tid",
+    "@time": {
+        "description": "time"
+    },
+    "loading": "Laster inn",
+    "@loading": {
+        "description": "loading"
+    },
+    "welcome": "Velkommen",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "version": "Versjon",
+    "@version": {
+        "description": "version"
+    },
+    "openIssue": "Åpne feilrapport",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "faq_a2": "Ja. Trykk på ikonet nedenfor.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a3": "En ulv som sitter, og bokstaven «r» der halen er delvis skjult av bokstaven «t».",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "faqtext": "Her finner du svar på ofte stilte spørsmål. Hvis du har andre kan du bruke vårt GitHub-kodelager.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "onBoarding3": "Takk for at du bruker programmet. 🙂\n\nGi gjerne tilbakemelding, send noen kroner på GitHub, eller kjøp kaffe. Til gjengjeld gir vi deg ingen personvernskrenkende reklame.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding1": "Et enkelt program som hjelper deg å legge på deg eller ta av deg vekt, i materiell deig. Pålitelige forespeilinger og sirlig statistikk for å hjelpe deg å følge din plan.\n\nTa del i gemenskapen i dag og finn din idealvekt.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "targetWeightMotivation": "Å sette en idealvekt er et viktig steg i rett retning. Å ha et mål motiverer deg mer til å oppnå det.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "faq_a1": "Programmet vedlikeholdes på fritiden og vi prøver å holde det rent og enkelt. Mange funksjoner gjør fort ting mindre brukbart. Hvis du tror noe essensielt mangler kan du fortelle oss om det eller lage en flettingsforespørsel.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "exportDialog": "Dette eksporterer alle målinger til eksternlagring. Skrivetilgang kreves.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "importSubtitle": "Importer målinger fra .txt-sikkerhetskopifil.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoledSubtitle": "Endre bakgrunnsfarge til svart for mørk drakt.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "factoryResetDialog": "Tilbakestill programmet til forvalg? Dette sletter alle innstillinger, og tillagte målinger. Dette kan ikke angres.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "importDialog": "Inkluder alle målinger i nåværende database. Dette kan ikke angres.",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "packages": "pakker",
+    "@packages": {
+        "description": "packages"
+    },
+    "assets": "gjenstander",
+    "@assets": {
+        "description": "assets"
+    },
+    "undertpl": "© {years} av {author} med {licence}-lisens",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "interpolation": "interpolasjon",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "onBoarding2": "Velg én av seks drakter for å tilpasse programmet deg. Hvilken synes du kler deg?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "faq_a2_widget": "Tilbake til oppstartsinstruksen",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q1": "Funksjon X mangler. Når vil det bli implementert?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_q2": "Kan jeg se oppstartsinstruksen igjen?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "intro2": "Oppstartsinstruks",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "addUserName": "Hva skal vi kalle deg?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "backup": "Sikkerhetskopi",
+    "@backup": {
+        "description": "backup"
+    },
+    "firstDay": "Første dagen",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    }
+}

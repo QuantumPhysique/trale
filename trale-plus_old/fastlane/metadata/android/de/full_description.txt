@@ -1,0 +1,20 @@
+Erreiche Dein optimales Gewicht mit Hilfe dieser schlichten App im Material Design.
+
+<b> Wieso trale 🐺?</b>
+* Komplett <b>kostenlos</b>: Keine nervige Werbung, keine Tracker
+* Modernes Design basierend auf <b>Material Design 3</b>
+* <b>Anpassbar</b>: Viele Farbthemen, <b>Dark Mode</b>, und verschiedene <b>Gewichtseinheiten</b>
+* Verfolge deinen Fortschritt mit <b>state-of-the-art</b> Datenmodellierung 🧑‍💻
+* Import und Export der Messwerte möglich
+* <b>Privatsphäre</b>: Keine Berechtigungen und wir sammeln keinerlei Daten
+* <b><a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Open-source</a></b>: Unsere Worte sind nicht nur leere Versprechen
+
+<b>Zukünftige Funktionen 🚀</b>
+* Errungenschaften und motivierende Nachrichten
+
+Werde noch heute Teil unserer Community! 🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇
+
+<b>Disclaimer ⚠️</b>
+Magersucht ist eine ernstzunehmende Krankheit. Insbesondere durch die vielen Negativbeispiele in den sozialen Medien wird Magersucht zunehmend zu einem gesamtgesellschaftlichen Problem. Um unseren Beitrag zur Prävention zu leisten, ist daher keine Zielgewichteingabe unter 50 kg / 110 lb / 7,9 st möglich.
+
+Diese App befindet sich noch im <b>beta</b> Stadium und kann Fehler enthalten. Falls Du einen Fehler findest oder eine Funktion vermisst, bitte <a href="https://github.com/heets99/trale-plus/issues">eröffne ein neues Issue</a>.

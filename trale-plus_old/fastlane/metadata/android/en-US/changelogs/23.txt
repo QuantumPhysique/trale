@@ -1,0 +1,4 @@
+- Completely rewritten UI based on Material Design 3 and Flutter 3
+- Improved prediction based on weighted linear regression
+- Many new themes, improved zoom levels, many fixed bugs and so much more.
+

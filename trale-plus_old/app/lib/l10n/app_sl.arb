@@ -1,0 +1,90 @@
+{
+    "monthly": "mesečno",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "date": "Datum",
+    "@date": {
+        "description": "Date"
+    },
+    "import": "Uvozi varnostno kopijo",
+    "@import": {
+        "description": "Import backup."
+    },
+    "userSettings": "Uporabniške nastavitve",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "quarterly": "trimesečno",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "dvotedensko",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "never": "nikoli",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "tedensko",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "about": "O aplikaciji",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "Sistemsko privzeto",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Jezik",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "darkmode": "Temna",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "Svetla",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "Sistem",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Izvozi vse meritve",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "open": "Odpri",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "Prekini",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "user": "Uporabnik",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "weight": "Teža",
+    "@weight": {
+        "description": "weight"
+    },
+    "settings": "Nastavitve",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "PZV (FAQ)",
+    "@faq": {
+        "description": "Frequently ask questions"
+    }
+}

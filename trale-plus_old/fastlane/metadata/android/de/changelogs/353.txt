@@ -1,0 +1,10 @@
+Zusätzliche Funktionen und Verbesserungen 🙌:
+- Zoom-Schaltflächen hinzugefügt, ähnlich wie Doppeltippen. Sehe Dir jetzt deinen Verlauf an 🎉
+- ISO 8601-Datumsformat hinzugefügt
+
+Weitere Änderungen:
+- Zielplattform Android 16 (SDK 36)
+- Verwendung der neuesten Flutter-Version 3.35 mit aktualisierten Abhängigkeiten
+- Verbesserte Übersetzung
+
+Sowie mehrere kleinere Fehlerbehebungen 🐛

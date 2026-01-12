@@ -1,0 +1,9 @@
+Added Features and Improvements 🙌:
+- 3 brand new color themes
+- Trale offers now 7 color scheme variants. Check out the settings page 🎉
+
+Other changes:
+- Upgraded dependencies
+- Upgraded building envs (Kotlin, Gradle, Android Application, and NDK)
+
+And several minor bug fixes 🐛

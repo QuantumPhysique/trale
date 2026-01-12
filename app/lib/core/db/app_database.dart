@@ -109,10 +109,16 @@ class CheckInPhoto extends Table {
   ],
 )
 class AppDatabase extends _$AppDatabase {
-  // For production, pass a LazyDatabase that opens the native database
-  AppDatabase() : super(_openConnection());
+  /// Singleton instance
+  static AppDatabase? _instance;
 
-  // For tests: allow passing a QueryExecutor (e.g., an in-memory NativeDatabase)
+  /// Factory constructor for singleton
+  factory AppDatabase() => _instance ??= AppDatabase._internal();
+
+  /// Private constructor for production
+  AppDatabase._internal() : super(_openConnection());
+
+  /// For tests: allow passing a QueryExecutor (e.g., an in-memory NativeDatabase)
   AppDatabase.connect(QueryExecutor e) : super(e);
 
   @override

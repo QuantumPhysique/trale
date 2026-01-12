@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:trale/core/db/app_database.dart';
+import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/widget/addCheckInDialog.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Full screen month calendar page that highlights dates with check-ins.
 class HomeScreenCalendarPage extends StatefulWidget {
@@ -19,6 +22,7 @@ class _HomeScreenCalendarPageState extends State<HomeScreenCalendarPage> {
   final Map<DateTime, List<String>> _events = <DateTime, List<String>>{};
   DateTime _focused = DateTime.now();
   DateTime? _selected;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -37,24 +41,30 @@ class _HomeScreenCalendarPageState extends State<HomeScreenCalendarPage> {
   }
 
   void _loadEvents() async {
-    final rows = await _db.select(_db.checkIns).get();
-    setState(() {
-      _events.clear();
-      for (final r in rows) {
-        try {
-          final parts = r.date.split('-');
-          if (parts.length != 3) continue;
-          final d = DateTime(
-            int.parse(parts[0]),
-            int.parse(parts[1]),
-            int.parse(parts[2]),
-          );
-          _events.putIfAbsent(d, () => <String>[]).add('checkin');
-        } catch (e) {
-          // ignore malformed dates
+    setState(() => _isLoading = true);
+    try {
+      final rows = await _db.select(_db.checkIns).get();
+      setState(() {
+        _events.clear();
+        for (final r in rows) {
+          try {
+            final parts = r.date.split('-');
+            if (parts.length != 3) continue;
+            final d = DateTime(
+              int.parse(parts[0]),
+              int.parse(parts[1]),
+              int.parse(parts[2]),
+            );
+            final eventStr = r.weight != null ? 'Weight: ${r.weight}' : 'Check-in';
+            _events.putIfAbsent(d, () => <String>[]).add(eventStr);
+          } catch (e) {
+            // ignore malformed dates
+          }
         }
-      }
-    });
+      });
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   List<String> _getEventsForDay(DateTime day) {
@@ -65,66 +75,84 @@ class _HomeScreenCalendarPageState extends State<HomeScreenCalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calendar')),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.calendar)),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            TableCalendar<String>(
-              firstDay: DateTime.utc(2000, 1, 1),
-              lastDay: DateTime.utc(2100, 12, 31),
-              focusedDay: _focused,
-              calendarFormat: CalendarFormat.month,
-              selectedDayPredicate: (d) => isSameDay(_selected, d),
-              eventLoader: _getEventsForDay,
-              onDaySelected: (selectedDay, focusedDay) async {
-                setState(() {
-                  _selected = selectedDay;
-                  _focused = focusedDay;
-                });
-                // In tests we may provide initialEvents and skip opening the dialog
-                if (widget.initialEvents == null) {
-                  // Open check-in dialog for date
-                  await showAddCheckInDialog(
-                    context: context,
-                    initialWeight: 70.0,
-                    initialDate: selectedDay,
-                  );
-                  // reload events after returning
-                  _loadEvents();
-                }
-              },
-              calendarBuilders: CalendarBuilders(
-                markerBuilder: (context, day, events) {
-                  if (events.isNotEmpty) {
-                    return Positioned(
-                      right: 6,
-                      bottom: 6,
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.blueAccent,
-                        ),
-                      ),
-                    );
-                  }
-                  return null;
-                },
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                children: <Widget>[
+                  TableCalendar<String>(
+                    firstDay: DateTime.utc(2000, 1, 1),
+                    lastDay: DateTime.utc(2100, 12, 31),
+                    focusedDay: _focused,
+                    calendarFormat: CalendarFormat.month,
+                    selectedDayPredicate: (d) => isSameDay(_selected, d),
+                    eventLoader: _getEventsForDay,
+                    onDaySelected: (selectedDay, focusedDay) async {
+                      setState(() {
+                        _selected = selectedDay;
+                        _focused = focusedDay;
+                      });
+                      // In tests we may provide initialEvents and skip opening the dialog
+                      if (widget.initialEvents == null) {
+                        // Compute initial weight
+                        final measurementDb = MeasurementDatabase();
+                        final sortedMeasurements = measurementDb.sortedMeasurements;
+                        final initialWeight = sortedMeasurements.isNotEmpty
+                            ? sortedMeasurements.first.measurement.weight.toDouble()
+                            : Preferences().defaultUserWeight;
+                        // Open check-in dialog for date
+                        await showAddCheckInDialog(
+                          context: context,
+                          initialWeight: initialWeight,
+                          initialDate: selectedDay,
+                        );
+                        // reload events after returning
+                        _loadEvents();
+                      }
+                    },
+                    calendarBuilders: CalendarBuilders(
+                      markerBuilder: (context, day, events) {
+                        if (events.isNotEmpty) {
+                          return Positioned(
+                            right: 6,
+                            bottom: 6,
+                            child: Semantics(
+                              label: 'Check-in',
+                              child: Container(
+                                width: 12,
+                                height: 12,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Expanded(
+                    child: Builder(
+                      builder: (context) {
+                        final events = _getEventsForDay(_selected ?? DateTime.now());
+                        return ListView.builder(
+                          itemCount: events.length,
+                          itemBuilder: (context, index) {
+                            return Semantics(
+                              label: 'Check-in event: ${events[index]}',
+                              child: ListTile(title: Text(events[index])),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _getEventsForDay(_selected ?? DateTime.now()).length,
-                itemBuilder: (context, index) {
-                  final items = _getEventsForDay(_selected ?? DateTime.now());
-                  return ListTile(title: Text(items[index]));
-                },
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

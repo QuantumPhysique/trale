@@ -1,0 +1,2 @@
+- Ein brandneues Appicon mit einer frischen Ladeanimations
+- kleinere Fehlerbehebung und Verbesserungen

@@ -160,6 +160,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               actions: <Widget>[
                 IconButton(
                   icon: PPIcon(PhosphorIconsDuotone.calendar, context),
+                  tooltip: 'Open calendar',
                   onPressed: () {
                     Navigator.of(context).push<dynamic>(
                       MaterialPageRoute<Widget>(

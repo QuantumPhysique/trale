@@ -1,0 +1,17 @@
+0.4.3:
+- Use latest flutter 3.16
+- Fix fdroid issues (again) by removing loading animation
+
+0.4.2:
+- Try to enable reproducible builds
+
+0.4.1:
+- Upgrade deps
+- Add Proguard optimizations
+
+0.4.0:
+- App id changed to `de.quantumphysique.trale`, upgrading is not possible!
+- Initialized F-Droid inclusion process
+- Upgrade dependencies and minor UI improvements
+- Fix missing permission to open links
+- Improved ticks for large intervals

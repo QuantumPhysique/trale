@@ -180,7 +180,7 @@ Future<bool> showAddCheckInDialog({
                                 context: context,
                                 builder: (ctx) {
                                   return AlertDialog(
-                                    title: Text('Select color'),
+                                    title: Text('Emotional checkin'),
                                     content: SingleChildScrollView(
                                       child: BlockPicker(
                                         pickerColor: selected,
@@ -201,7 +201,7 @@ Future<bool> showAddCheckInDialog({
                               setState(() {});
                             },
                             icon: const Icon(Icons.palette),
-                            label: Text('Pick color'),
+                            label: Text('Emotional checkin'),
                           ),
                         ],
                       ),
@@ -218,7 +218,7 @@ Future<bool> showAddCheckInDialog({
                                 color: pickedColor,
                               ),
                               const SizedBox(width: 8),
-                              Text('Color'),
+                              Text('Emotional checkin'),
                             ],
                           ),
                         ),

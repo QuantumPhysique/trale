@@ -4,6 +4,10 @@
     "@achievements": {
         "description": "achievements"
     },
+    "calendar": "Calendar",
+    "@calendar": {
+        "description": "Calendar page title"
+    },
     "experimentalFeatures": "experimental features",
     "@experimentalFeatures": {
         "description": "Label for experimental features section"

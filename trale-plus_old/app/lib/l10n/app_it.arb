@@ -1,0 +1,444 @@
+{
+    "stats": "Statistiche",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "unit": "Unità",
+    "@unit": {},
+    "date": "Data",
+    "@date": {
+        "description": "Date"
+    },
+    "userSettings": "Impostazioni Utente",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "about": "Maggiori informazioni",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "Impostazione Predefinita del Sistema",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "lightmode": "Chiaro",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "Sistema",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Esporta Dati",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Questo rende disponibili tutte le misurazioni a tutte le app.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "abort": "Interrompere",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "importSubtitle": "Importa misure da file di backup .txt",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup file."
+    },
+    "amoled": "Nero",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "reset": "Ripristina app",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "Ripristino di Fabbrica",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "delete": "Cancella",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "Importazione interrotta.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "home": "Home",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "Si",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "Salva",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "Modifica",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "Backup",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "Tempo",
+    "@time": {
+        "description": "time"
+    },
+    "loading": "Caricamento",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Misure",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "Versione",
+    "@version": {
+        "description": "version"
+    },
+    "licence": "Licenza",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "Codice sorgente",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "welcome": "Benvenuto",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding2": "Scegli uno dei sei temi per personalizzare la tua app. Quale ti piace?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Privacy",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "Salta",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "Inizia",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Obiettivo peso",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightShort": "Obiettivo",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "faq_q1": "Manca la funzione X. Quando verrà aggiunta?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_q2": "Posso rivedere la schermata di benvenuto?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "Certo! Premi il pulsante qui sotto.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Torna alla schermata di benvenuto",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "achievements": "Obiettivi",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "weight": "Peso",
+    "@weight": {
+        "description": "weight"
+    },
+    "faq": "FAQ",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "user": "Utente",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "dangerzone": "Danger Zone",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "Impostazioni",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "language": "Lingua",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "darkmode": "Scuro",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "open": "Apri",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "exportDialog": "Questo esporterà tutte le misurazioni nel dispositivo di archiviazione esterno. Sono richiesti i permessi di scrittura.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "import": "Importa Backup",
+    "@import": {
+        "description": "Import backup."
+    },
+    "tpl": "Third-party licenses",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "factoryResetDialog": "Ripristinare l'app? Questo comporterà la cancellazione di tutte le impostazioni e le registrazioni. Questa azione non può essere annullata.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "importDialog": "Aggiungi tutte le misure al database attuale. Questa azione non può essere annullata!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "amoledSubtitle": "Cambia il colore di sfondo a nero puro per la modalità scura.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "factoryResetSubtitle": "Ripristina tutte le impostazioni ed elimina tutte le misurazioni.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "addWeight": "Inserisci il tuo peso",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "onBoarding1": "Questa app in Material You ti aiuta a raggiungere il tuo peso ideale! Che tu voglia ingrassare, dimagrire o mantenere il peso forma, fornisce previsioni affidabili e statistiche complete ti aiuteranno a monitorare i tuoi progressi.\n\nUnisciti alla nostra community per tenere traccia dei tuoi obiettivi.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding3": "Grazie per aver provato la nostra app. 🙂\n\nSe ti piace l'app, saremmo molto felici di ricevere un tuo feedback, un contributo su Github o un caffè. In cambio, ti risparmieremo fastidiose pubblicità che violano la privacy.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "Stile",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "targetWeightMotivation": "Stabilire un obiettivo di peso è molto importante ed è un passo nella giusta direzione. Avere un traguardo da raggiungere ti motiva a fare di più.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "addUserName": "Come ti chiami?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "addTargetWeight": "Aggiungi obiettivo di peso",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro2": "per iniziare",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "Oggi è un buon giorno per iniziare la tua prima misurazione!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "Qui trovi le risposte alle domande più frequenti. Per altre domande, apri una segnalazione su GitHub.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_a1": "L'app viene mantenuta nel nostro tempo libero e cerchiamo di tenerla semplice ed essenziale. Crediamo che aggiungere troppe funzioni la renda meno utilizzabile. Se pensi che manchi una funzione importante, apri una segnalazione o una richiesta di modifica.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_q3": "Cosa rappresenta l'icona dell'app?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "target_weight_warning": "L'anoressia è una malattia grave che sta diventando sempre più un problema per la società nel suo complesso, in parte a causa dei molti esempi negativi sui social media. Per contribuire alla prevenzione, non è possibile impostare un peso come obiettivo al di sotto dei 50 kg.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
+    },
+    "firstDay": "Primo giorno",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "week": "settimana",
+    "@week": {},
+    "years": "anni",
+    "@years": {},
+    "year": "anno",
+    "@year": {},
+    "never": "mai",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "settimanale",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "quindicinale",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "mensile",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "trimestrale",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "Si consiglia di fare il backup con regolarità",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupSuccess": "Backup esportato con successo",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "Intervallo",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "Ultimo backup",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "Prossimo backup",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "openIssue": "Segnala problema",
+    "@openIssue": {
+        "description": "open issue"
+    },
+    "strong": "Forte",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "none": "Nessuna",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "medium": "Media",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strength": "Forza",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "backupReminderButton": "Esegui backup",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "month": "mese",
+    "@month": {},
+    "weeks": "settimane",
+    "@weeks": {},
+    "totalChange": "variazione totale",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "change": "variazione",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "intro1": "Premi",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "days": "giorni",
+    "@days": {},
+    "months": "mesi",
+    "@months": {},
+    "faq_a3": "Un lupo che ulula seduto, con la coda nascosta in parte dalle lettere \"t\" e \"r\".",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "undertpl": "© {years} di {author} con licenza {licence}",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "interpolation": "interpolazione",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "soft": "Leggera",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "min": "min",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "mean": "media",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "measurementFrequency": "frequenza di misurazione",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "max": "max",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "targetWeightReached": "Hai raggiunto l'obiettivo di peso!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "mancanti per raggiungere l'obiettivo peso",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "serie più lunga",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "serie attuale",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "tempo dalla prima misurazione",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    }
+}
