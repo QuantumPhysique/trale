@@ -89,7 +89,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       // Load check-in data
       final checkIn = await (_db.select(
         _db.checkIns,
-      )..where((tbl) => tbl.date.equals(_dateStr))).getSingleOrNull();
+      )..where((tbl) => tbl.checkInDate.equals(_dateStr))).getSingleOrNull();
 
       if (checkIn != null) {
         _weightController.text = checkIn.weight?.toString() ?? '';
@@ -205,7 +205,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           .into(_db.checkIns)
           .insertOnConflictUpdate(
             CheckInsCompanion.insert(
-              date: _dateStr,
+              checkInDate: _dateStr,
               weight: Value(weight),
               height: Value(height),
               notes: Value(
@@ -331,7 +331,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             .into(_db.checkIns)
             .insert(
               CheckInsCompanion.insert(
-                date: _dateStr,
+                checkInDate: _dateStr,
                 weight: const Value(null),
                 height: const Value(null),
                 notes: const Value(null),

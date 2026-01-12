@@ -46,7 +46,7 @@ class _HomeScreenCalendarPageState extends State<HomeScreenCalendarPage> {
         _events.clear();
         for (final r in rows) {
           try {
-            final parts = r.date.split('-');
+            final parts = r.checkInDate.split('-');
             if (parts.length != 3) continue;
             final d = DateTime(
               int.parse(parts[0]),

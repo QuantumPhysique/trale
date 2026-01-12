@@ -12,13 +12,13 @@ class CheckIns extends Table {
   @override
   String get tableName => 'check_in';
 
-  TextColumn get date => text()(); // ISO-8601 YYYY-MM-DD
+  TextColumn get checkInDate => text()(); // ISO-8601 YYYY-MM-DD
   RealColumn get weight => real().nullable()();
   RealColumn get height => real().nullable()();
   TextColumn get notes => text().nullable()();
 
   @override
-  Set<Column> get primaryKey => {date};
+  Set<Column> get primaryKey => {checkInDate};
 }
 
 class WorkoutTags extends Table {
@@ -36,7 +36,7 @@ class Workouts extends Table {
   @override
   String get tableName => 'workout';
 
-  TextColumn get checkInDate => text()(); // FK -> check_in.date
+  TextColumn get checkInDate => text()(); // FK -> check_in.check_in_date
   TextColumn get description => text().nullable()();
 
   @override
@@ -44,7 +44,7 @@ class Workouts extends Table {
 
   @override
   List<String> get customConstraints => [
-    'FOREIGN KEY (check_in_date) REFERENCES check_in(date) ON DELETE CASCADE',
+    'FOREIGN KEY (check_in_date) REFERENCES check_in(check_in_date) ON DELETE CASCADE',
   ];
 }
 
@@ -80,7 +80,7 @@ class CheckInColor extends Table {
 
   @override
   List<String> get customConstraints => [
-    'FOREIGN KEY (check_in_date) REFERENCES check_in(date) ON DELETE CASCADE',
+    'FOREIGN KEY (check_in_date) REFERENCES check_in(check_in_date) ON DELETE CASCADE',
   ];
 }
 
@@ -96,7 +96,7 @@ class CheckInPhoto extends Table {
 
   @override
   List<String> get customConstraints => [
-    'FOREIGN KEY (check_in_date) REFERENCES check_in(date) ON DELETE CASCADE',
+    'FOREIGN KEY (check_in_date) REFERENCES check_in(check_in_date) ON DELETE CASCADE',
   ];
 }
 
@@ -124,7 +124,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.connect(QueryExecutor e) : super(e);
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -148,7 +148,7 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('''
         CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
         BEFORE UPDATE ON check_in
-        WHEN date < date('now','localtime')
+        WHEN check_in_date < date('now','localtime')
         BEGIN
           SELECT RAISE(ABORT, 'check-in is immutable by date');
         END;
@@ -156,7 +156,7 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('''
         CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
         BEFORE DELETE ON check_in
-        WHEN date < date('now','localtime')
+        WHEN check_in_date < date('now','localtime')
         BEGIN
           SELECT RAISE(ABORT, 'check-in is immutable by date');
         END;
@@ -185,6 +185,32 @@ class AppDatabase extends _$AppDatabase {
       if (from < 4) {
         await customStatement('DROP TABLE IF EXISTS check_in');
       }
+      
+      // Migration from v4 to v5: rename 'date' column to 'check_in_date'
+      if (from == 4 && to >= 5) {
+        // Create a temporary table with the new schema
+        await customStatement('''
+          CREATE TABLE check_in_new (
+            check_in_date TEXT NOT NULL PRIMARY KEY,
+            weight REAL,
+            height REAL,
+            notes TEXT
+          )
+        ''');
+        
+        // Copy data from old table to new table
+        await customStatement('''
+          INSERT INTO check_in_new (check_in_date, weight, height, notes)
+          SELECT date, weight, height, notes FROM check_in
+        ''');
+        
+        // Drop the old table
+        await customStatement('DROP TABLE check_in');
+        
+        // Rename new table to check_in
+        await customStatement('ALTER TABLE check_in_new RENAME TO check_in');
+      }
+      
       // Create new tables if missing (idempotent)
       await m.createAll();
       // Create indexes matching the spec
@@ -205,7 +231,7 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('''
         CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
         BEFORE UPDATE ON check_in
-        WHEN date < date('now','localtime')
+        WHEN check_in_date < date('now','localtime')
         BEGIN
           SELECT RAISE(ABORT, 'check-in is immutable by date');
         END;
@@ -213,7 +239,7 @@ class AppDatabase extends _$AppDatabase {
       await customStatement('''
         CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
         BEFORE DELETE ON check_in
-        WHEN date < date('now','localtime')
+        WHEN check_in_date < date('now','localtime')
         BEGIN
           SELECT RAISE(ABORT, 'check-in is immutable by date');
         END;
@@ -272,7 +298,7 @@ class AppDatabase extends _$AppDatabase {
   Future<CheckIn?> getCheckInByDate(String date) async {
     return (select(
       checkIns,
-    )..where((t) => t.date.equals(date))).getSingleOrNull();
+    )..where((t) => t.checkInDate.equals(date))).getSingleOrNull();
   }
 
   Future<List<CheckInPhotoData>> photosForDate(String date) =>
