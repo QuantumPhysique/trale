@@ -874,7 +874,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildEmotionalCheckInCard(_EmotionalCheckIn checkIn) {
-    final dateFormatter = DateFormat('yyyy-MM-ddTHH:mm:ss');
+    final DateTime checkInDate = checkIn.timestamp;
+    final DateTime now = DateTime.now();
+    final bool isToday = checkInDate.year == now.year &&
+                        checkInDate.month == now.month &&
+                        checkInDate.day == now.day;
+    final String formattedTimestamp = isToday
+        ? DateFormat('h:mm a').format(checkInDate)
+        : DateFormat('MMM d, h:mm a').format(checkInDate);
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
@@ -908,7 +915,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                             ),
                       ),
                       Text(
-                        dateFormatter.format(checkIn.timestamp),
+                        formattedTimestamp,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'monospace',
