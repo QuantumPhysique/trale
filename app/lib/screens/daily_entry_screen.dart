@@ -554,7 +554,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 child: CircularProgressIndicator(strokeWidth: 2),
               )
             : const Icon(Icons.save),
-        label: const Text('Save Entry'),
+        label: const Text('Save'),
       ),
     );
   }

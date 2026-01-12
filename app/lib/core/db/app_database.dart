@@ -372,7 +372,7 @@ class AppDatabase extends _$AppDatabase {
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'trale_app_db.sqlite'));
+    final file = File(p.join(dbFolder.path, 'trale_plus_v2.sqlite'));
     return NativeDatabase(
       file,
       setup: (database) {
