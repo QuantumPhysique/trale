@@ -244,7 +244,7 @@ class AppDatabase extends _$AppDatabase {
   Future<bool> isCheckInMutable(String dateStr) async {
     try {
       final parts = dateStr.split('-');
-      if (parts.length != 3) return false;
+      if (parts.length != 3) return true; // Default to mutable if parse fails
       final d = DateTime(
         int.parse(parts[0]),
         int.parse(parts[1]),
@@ -262,7 +262,7 @@ class AppDatabase extends _$AppDatabase {
               .get();
       return imm.isEmpty;
     } catch (e) {
-      return false;
+      return true; // Default to mutable on error
     }
   }
 
