@@ -206,7 +206,7 @@ class AppDatabase extends _$AppDatabase {
       }
       
       // Migration from v5 to v6: Rename date column to check_in_date and fix triggers
-      if (from == 5 && to >= 6) {
+      if (from <= 5 && to >= 6) {
         // First, check if the column is named 'date' or 'check_in_date'
         // by attempting to query the schema
         final tableInfo = await customSelect('PRAGMA table_info(check_in)').get();

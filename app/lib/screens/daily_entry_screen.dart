@@ -471,12 +471,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     }
     
     setState(() {
-      _photos[index] = _PhotoData(
-        id: photo.id,
-        path: photo.path,
-        isNsfw: newNsfw,
-        isNew: photo.isNew, // Preserve isNew flag
-      );
+      _photos[index] = photo.copyWith(isNsfw: newNsfw);
     });
   }
 
@@ -560,6 +555,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   );
                 }
                 
+                if (!mounted) return;
                 Navigator.pop(context, tag);
               }
             },
@@ -1248,6 +1244,20 @@ class _PhotoData {
     required this.isNsfw,
     this.isNew = false,
   });
+
+  _PhotoData copyWith({
+    int? id,
+    String? path,
+    bool? isNsfw,
+    bool? isNew,
+  }) {
+    return _PhotoData(
+      id: id ?? this.id,
+      path: path ?? this.path,
+      isNsfw: isNsfw ?? this.isNsfw,
+      isNew: isNew ?? this.isNew,
+    );
+  }
 }
 
 /// Full-screen photo viewer
@@ -1295,8 +1305,28 @@ class _PhotoViewerScreenState extends State<_PhotoViewerScreen> {
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
-              widget.onDelete(_currentIndex);
-              Navigator.of(context).pop();
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Delete photo?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          widget.onDelete(_currentIndex);
+                          Navigator.of(context).pop(); // Dismiss dialog
+                          Navigator.of(context).pop(); // Close viewer
+                        },
+                        child: const Text('Delete'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
           ),
         ],

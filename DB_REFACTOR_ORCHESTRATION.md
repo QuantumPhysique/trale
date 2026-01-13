@@ -3,7 +3,7 @@
 **Orchestrator Report**  
 **Date**: 2026-01-11  
 **Issue**: Database save errors due to SQLite reserved keyword 'date'  
-**Solution Status**: ✅ Documentation Complete, � Implementation Complete
+**Solution Status**: ✅ Documentation Complete, ✅ Implementation Complete
 
 ---
 
@@ -53,7 +53,7 @@ The `check_in` table uses `date` as its primary key column, which is a **reserve
 | 118 | Schema version | Bump from `5` to `6` |
 | 147-152 | Trigger (onCreate) | Update `WHEN date <` to `WHEN check_in_date <` |
 | 153-158 | Trigger (onCreate) | Update `WHEN date <` to `WHEN check_in_date <` |
-| 187+ | Migration | Add v4→v5 migration code block |
+| 187+ | Migration | Add v5→v6 migration code block |
 | 210-215 | Trigger (onUpgrade) | Update `WHEN date <` to `WHEN check_in_date <` |
 | 216-221 | Trigger (onUpgrade) | Update `WHEN date <` to `WHEN check_in_date <` |
 | 275 | Query method | Update `.date.equals()` to `.checkInDate.equals()` |
@@ -206,8 +206,8 @@ if (from < 6) {
 3. Update all 4 foreign key constraints
 4. Update both triggers (onCreate path)
 5. Update both triggers (onUpgrade path)
-6. Bump schema version to 5
-7. Add v4→v5 migration code block
+6. Bump schema version to 6
+7. Add v5→v6 migration code block
 
 ### Step 2: Query Method Updates (db_refactorist)
 1. Update `getCheckInByDate` method
@@ -280,7 +280,7 @@ If implementation fails:
 
 3. **Database**: Users must clear app data (if in testing)
 
-4. **Schema Version**: Keep at 4 until fix is verified
+4. **Schema Version**: Keep at 5 until fix is verified
 
 ---
 
@@ -291,7 +291,7 @@ If implementation fails:
 - [ ] Build succeeds without errors
 - [ ] All foreign keys reference correct column
 - [ ] All triggers use correct column name
-- [ ] Schema version = 5
+- [ ] Schema version = 6
 - [ ] Migration code added and tested
 - [ ] Fresh install works
 - [ ] Upgrade from v4 works
@@ -303,7 +303,7 @@ If implementation fails:
 
 ## Questions for db_refactorist
 
-1. **Migration Safety**: Do you want to add a backup step before the v4→v5 migration?
+1. **Migration Safety**: Do you want to add a backup step before the v5→v6 migration?
 2. **Column Naming**: Should we use `checkInDate` (camelCase in Dart) or `check_in_date` everywhere?
    - Recommendation: Use `checkInDate` in Dart code, `.named('check_in_date')` for SQL
 3. **Testing**: Do you have existing unit tests for the database layer?

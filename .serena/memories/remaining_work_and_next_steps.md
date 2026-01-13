@@ -1,6 +1,7 @@
 # Remaining Work and Next Steps
 
 ## Work Ready for PR/Merge
+
 ### 1. feature/homescreen-calendar → main
 - **Status**: Ready for PR creation
 - **Linear**: SUN-10 (In Review)
@@ -11,7 +12,7 @@
 ### 2. feature/checkin-ui-refactor → main
 - **Status**: Ready for PR creation
 - **Linear**: SUN-8 (In Review)
-- **Files**: 
+- **Files**:
   - app/lib/screens/daily_entry_screen.dart (975 lines)
   - app/lib/core/db/app_database.dart (extended)
   - Tests and screenshots
@@ -27,6 +28,7 @@
 - `app/lib/pages/measurementScreen.dart` (measurements)
 
 **Implementation**:
+
 ```dart
 Center(
   child: Text(
@@ -57,6 +59,7 @@ Center(
 - Update any documentation
 
 **Search needed**:
+
 ```bash
 grep -r "target.*weight" app/lib/
 grep -r "targetWeight" app/lib/
