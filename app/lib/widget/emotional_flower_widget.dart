@@ -34,7 +34,7 @@ class _EmotionalFlowerWidgetState extends State<EmotionalFlowerWidget>
   }
 
   Future<void> _loadEmotions() async {
-    final db = AppDatabase.instance;
+    final db = AppDatabase();
     // Query the last 20 emotional check-ins, ordered by date and timestamp
     final query = db.select(db.checkInColors)
       ..orderBy([

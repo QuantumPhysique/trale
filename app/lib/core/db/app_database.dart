@@ -184,7 +184,7 @@ class AppDatabase extends _$AppDatabase {
       final defaultTags = ['Cardio', 'Strength', 'Hyrox', 'Yoga', 'Outdoor running'];
       for (final tag in defaultTags) {
         await into(workoutTags).insert(
-          WorkoutTagsCompanion.insert(name: tag),
+          WorkoutTagsCompanion.insert(tag: tag),
           mode: InsertMode.insertOrIgnore,
         );
       }

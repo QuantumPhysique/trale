@@ -457,20 +457,51 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
   Future<void> _showAddTagDialog() async {
     final TextEditingController tagController = TextEditingController();
+
+    // Load all available tags from database
+    final allTags = await (_db.select(_db.workoutTags)).get();
+    final availableTags = allTags.map((tag) => tag.tag).toList();
+
     final result = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Add Workout Tag'),
-        content: TextField(
-          controller: tagController,
-          decoration: const InputDecoration(
-            labelText: 'Tag name',
-            hintText: 'e.g., Cardio, Strength, Yoga',
+        content: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Show pre-installed tags as selectable chips
+              if (availableTags.isNotEmpty) ...[
+                const Text('Choose from existing tags:'),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: availableTags.map((tag) => ActionChip(
+                    label: Text(tag),
+                    onPressed: () => Navigator.pop(context, tag),
+                  )).toList(),
+                ),
+                const Divider(height: 24),
+              ],
+              // Allow creating new tags
+              const Text('Or create a new tag:'),
+              const SizedBox(height: 8),
+              TextField(
+                controller: tagController,
+                decoration: const InputDecoration(
+                  labelText: 'Tag name',
+                  hintText: 'e.g., Cardio, Strength, Yoga',
+                ),
+                autofocus: true,
+                textCapitalization: TextCapitalization.words,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.done,
+              ),
+            ],
           ),
-          autofocus: true,
-          textCapitalization: TextCapitalization.words,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
         ),
         actions: [
           TextButton(
