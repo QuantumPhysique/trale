@@ -22,14 +22,16 @@ The `check_in` table uses `date` as its primary key column, which is a **reserve
 ## Documentation Deliverables
 
 ### ✅ 1. `.dbschemarefactor.md` (Updated)
+
 - Updated schema with `check_in_date` as primary key
 - Updated all 4 foreign key references
 - Added is_immutable field to check_in_color table (was missing)
 
 ### ✅ 2. `.dbschemarefactor_v2.md` (New - Detailed Implementation Guide)
+
 - Complete before/after comparison for all changes
 - Line-by-line code changes with line numbers
-- Migration strategy (v4 → v5)
+- Migration strategy (v5 → v6)
 - Validation checklist
 - Risk assessment
 - Testing requirements
@@ -48,7 +50,7 @@ The `check_in` table uses `date` as its primary key column, which is a **reserve
 | 47 | Workouts FK | Update reference to `check_in(check_in_date)` |
 | 83 | CheckInColor FK | Update reference to `check_in(check_in_date)` |
 | 99 | CheckInPhoto FK | Update reference to `check_in(check_in_date)` |
-| 118 | Schema version | Bump from `4` to `5` |
+| 118 | Schema version | Bump from `5` to `6` |
 | 147-152 | Trigger (onCreate) | Update `WHEN date <` to `WHEN check_in_date <` |
 | 153-158 | Trigger (onCreate) | Update `WHEN date <` to `WHEN check_in_date <` |
 | 187+ | Migration | Add v4→v5 migration code block |
@@ -134,12 +136,13 @@ WHEN check_in_date < date('now','localtime')
 ---
 
 ### 4. Schema Version & Migration
+
 ```dart
 // Bump version
-int get schemaVersion => 5;
+int get schemaVersion => 6;
 
 // Add migration (in onUpgrade)
-if (from < 5) {
+if (from < 6) {
   // Disable foreign keys temporarily
   await customStatement('PRAGMA foreign_keys = OFF');
   await customStatement('BEGIN TRANSACTION');

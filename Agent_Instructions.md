@@ -18,7 +18,7 @@
 
 ### 📋 COMPLETED & IN REVIEW (Ready for PR/Merge)
 - **T6**: Full-screen calendar HomeScreen - SUN-10 (branch: feature/homescreen-calendar)
-- **T3**: Camera-only photo capture (max 3, NSFW toggle) - SUN-7 ✅ 
+- **T3**: Camera-only photo capture (max 3, NSFW toggle) - SUN-7 ✅
 - **T4**: Multi-section check-in form (weight, height, photos, thoughts, workout, emotional) - SUN-8
 - **T5**: Emotional check-ins with **color wheel** (implemented), timestamp, multiple per day - SUN-9 ✅
 - **T7**: Immutability enforcement (past dates + saved emotional check-ins) - SUN-11 ✅
@@ -36,7 +36,7 @@
    - Current: ColorPickerArea color wheel, live timestamp, optional message
    - Future enhancement: Could add emoji-based alternative as Stage 3e
 2. **File**: `app/lib/screens/daily_entry_screen.dart` (975 lines, fully functional)
-3. **Testing**: Integration tests, widget tests, device-verified on Pixel7
+3. **Testing**: Integration tests, widget tests, device-verified on Pixel 7
 4. **Dependencies added**: flutter_colorpicker, image_picker, table_calendar, drift, sqlite3_flutter_libs
 
 ---
@@ -45,7 +45,7 @@
 
 ### Core Principles (from trale-plus_old reference)
 1. **Collapsible Card Sections**: Each entry component (weight/height, photos, workout, thoughts, emotions) lives in an expandable Card widget with ListTile header showing summary when collapsed
-2. **Emoji-Based Emotional Check-ins**: Use 8 emoji emotions (😠 Anger, 😨 Fear, 😣 Pain, 😔 Shame, 😞 Guilt, 😊 Joy, 💪 Strength, ❤️ Love), NOT color picker
+2. **Color Wheel Emotional Check-ins**: Current implementation uses ColorPickerArea (flutter_colorpicker) for intuitive color selection with live timestamps and optional messages; emoji-based alternative (8 emotions: 😠 Anger, 😨 Fear, 😣 Pain, 😔 Shame, 😞 Guilt, 😊 Joy, 💪 Strength, ❤️ Love) available as future Stage 3e enhancement
 3. **Multiple Emotional Check-ins**: Allow multiple emotional check-ins per day with timestamps (HH:mm a format), each immutable after save
 4. **Form Validation**: NSFW photo checkboxes default checked, must uncheck to enable save; emotion selection requires 1-4 emojis
 5. **Immutability Indicators**: Visual badges/indicators for locked/immutable entries

@@ -36,7 +36,7 @@ Latest commit: d5dac94 (Add live clock and widget keys for proper reconciliation
 - SUN-11 (T7 Immutability): Done ✅
 
 ## Next Steps
-- Create PR for feature/checkin-ui-refactor → main
+- PR #10 created and under review
 - Code review and CI/CD verification
 - Merge to main
 - Delete feature branches after merge

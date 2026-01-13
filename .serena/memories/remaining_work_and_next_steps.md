@@ -86,7 +86,9 @@ grep -r "targetWeight" app/lib/
 ## Integration and Testing TODOs
 
 ### Before Final Release
+
 1. **Run full test suite**:
+
    ```bash
    flutter analyze
    flutter test

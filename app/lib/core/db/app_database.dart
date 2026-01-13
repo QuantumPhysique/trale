@@ -150,7 +150,7 @@ class AppDatabase extends _$AppDatabase {
     await customStatement('''
       CREATE TRIGGER IF NOT EXISTS prevent_update_immutable_checkin_color
       BEFORE UPDATE ON check_in_color
-      WHEN OLD.isImmutable = 1
+      WHEN OLD.is_immutable = 1
       BEGIN
         SELECT RAISE(ABORT, 'emotional check-in is immutable');
       END;
@@ -158,7 +158,7 @@ class AppDatabase extends _$AppDatabase {
     await customStatement('''
       CREATE TRIGGER IF NOT EXISTS prevent_delete_immutable_checkin_color
       BEFORE DELETE ON check_in_color
-      WHEN OLD.isImmutable = 1
+      WHEN OLD.is_immutable = 1
       BEGIN
         SELECT RAISE(ABORT, 'emotional check-in is immutable');
       END;
@@ -249,7 +249,7 @@ class AppDatabase extends _$AppDatabase {
         await customStatement('DROP TRIGGER IF EXISTS prevent_delete_old_checkin');
         
         await customStatement('''
-          CREATE TRIGGER prevent_update_old_checkin
+          CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
           BEFORE UPDATE ON check_in
           WHEN OLD.check_in_date < date('now','localtime')
           BEGIN
@@ -257,7 +257,7 @@ class AppDatabase extends _$AppDatabase {
           END;
         ''');
         await customStatement('''
-          CREATE TRIGGER prevent_delete_old_checkin
+          CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
           BEFORE DELETE ON check_in
           WHEN OLD.check_in_date < date('now','localtime')
           BEGIN

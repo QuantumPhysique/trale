@@ -108,9 +108,9 @@ feature/checkin-ui-refactor (commit d5dac94)
 
 ## Dependencies
 - flutter_colorpicker: ^1.1.0 (color wheel)
-- image_picker: latest (camera capture)
-- provider: latest (state management)
-- drift: latest (database)
+- image_picker: ^0.8.7 (camera capture)
+- provider: ^6.1.5+1 (state management)
+- drift: ^2.9.0 (database)
 
 ## Key Commits
 - 240221a: Initial DailyEntryScreen implementation
