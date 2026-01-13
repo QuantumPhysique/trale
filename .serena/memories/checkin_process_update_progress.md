@@ -1,3 +1,5 @@
+# Check-in Process Update
+
 Check-in process update - COMPLETE ✅
 
 Branch: feature/checkin-ui-refactor (supersedes feature/checkin-process-update)

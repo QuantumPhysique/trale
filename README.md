@@ -68,6 +68,20 @@ You can help [translate trale on Hosted Weblate](https://hosted.weblate.org/enga
 <img src="https://hosted.weblate.org/widget/trale/horizontal-auto.svg" alt="Oversettelsesstatus" />
 </a>
 
+## trale-plus_old (local reference archive)
+
+The `trale-plus_old/` directory contains a local reference archive of approximately 355 files from the original trale project, including:
+- Architecture documentation
+- Build guides and release notes
+- Legacy implementation details
+
+This directory is kept locally (not tracked in git) to serve as a reference for contributors working on the trale-plus evolution. It provides historical context and implementation details that may be useful when:
+- Understanding the original design decisions
+- Referencing legacy features or implementations
+- Maintaining compatibility with existing data formats
+
+Contributors should consult this archive when working on features that have historical precedents, but should not modify files within it. For current development work, refer to the main codebase in the `app/` directory.
+
 ## Disclaimer
 Anorexia is a serious disease.
 Especially due to the many negative examples on social media, anorexia is increasingly becoming a problem for society as a whole.

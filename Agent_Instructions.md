@@ -33,13 +33,11 @@
 ### 📝 IMPLEMENTATION NOTES
 1. **Emotional Check-ins**: Implemented with **color wheel** (flutter_colorpicker) instead of emoji grid
    - Reference implementation in trale-plus_old uses 8 emoji emotions
-   - Current: BlockPicker color wheel, live timestamp, optional message
-   - Future enhancement: Could add emoji-based alternative
+   - Current: ColorPickerArea color wheel, live timestamp, optional message
+   - Future enhancement: Could add emoji-based alternative as Stage 3e
 2. **File**: `app/lib/screens/daily_entry_screen.dart` (975 lines, fully functional)
 3. **Testing**: Integration tests, widget tests, device-verified on Pixel7
 4. **Dependencies added**: flutter_colorpicker, image_picker, table_calendar, drift, sqlite3_flutter_libs
-
----
 
 ---
 

@@ -62,7 +62,7 @@
    - May need UI cleanup to remove any remaining references
 
 ## Branch Relationships
-```
+```text
 main (stable)
   ├─ feature/platform-targets (merged) ✅
   ├─ feature/db-sqlite-refactor (merged) ✅

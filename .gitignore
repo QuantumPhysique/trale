@@ -145,7 +145,8 @@ app/.idea/
 app/.kotlin/
 app/.android/
 
-.dbschemarefactor.md
+.dbschemarefactor*.md
+.serena/memories/db_schema_refactor*.md
 
 # Playwright
 node_modules/

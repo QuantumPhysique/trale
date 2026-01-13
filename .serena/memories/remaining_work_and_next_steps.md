@@ -23,8 +23,8 @@
 **Priority**: Medium (not urgent)
 **Scope**: Simple UI placeholders
 **Files to update**:
-- `lib/ui/achievements_screen.dart` or equivalent
-- `lib/ui/measurements_screen.dart` or equivalent
+- `app/lib/pages/statScreen.dart` (achievements)
+- `app/lib/pages/measurementScreen.dart` (measurements)
 
 **Implementation**:
 ```dart

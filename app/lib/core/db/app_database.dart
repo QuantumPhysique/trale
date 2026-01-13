@@ -126,6 +126,45 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 6;
 
+  /// Helper method to create immutability triggers
+  Future<void> _createImmutabilityTriggers() async {
+    // Prevent updates/deletes on past check-ins (immutability by date)
+    await customStatement('''
+      CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
+      BEFORE UPDATE ON check_in
+      WHEN OLD.check_in_date < date('now','localtime')
+      BEGIN
+        SELECT RAISE(ABORT, 'check-in is immutable by date');
+      END;
+    ''');
+    await customStatement('''
+      CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
+      BEFORE DELETE ON check_in
+      WHEN OLD.check_in_date < date('now','localtime')
+      BEGIN
+        SELECT RAISE(ABORT, 'check-in is immutable by date');
+      END;
+    ''');
+
+    // Prevent updates/deletes of emotional check-ins when they are marked immutable
+    await customStatement('''
+      CREATE TRIGGER IF NOT EXISTS prevent_update_immutable_checkin_color
+      BEFORE UPDATE ON check_in_color
+      WHEN OLD.isImmutable = 1
+      BEGIN
+        SELECT RAISE(ABORT, 'emotional check-in is immutable');
+      END;
+    ''');
+    await customStatement('''
+      CREATE TRIGGER IF NOT EXISTS prevent_delete_immutable_checkin_color
+      BEFORE DELETE ON check_in_color
+      WHEN OLD.isImmutable = 1
+      BEGIN
+        SELECT RAISE(ABORT, 'emotional check-in is immutable');
+      END;
+    ''');
+  }
+
   @override
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (Migrator m) async {
@@ -145,40 +184,8 @@ class AppDatabase extends _$AppDatabase {
       );
 
       // Prevent updates/deletes on past check-ins (immutability by date)
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
-        BEFORE UPDATE ON check_in
-        WHEN OLD.check_in_date < date('now','localtime')
-        BEGIN
-          SELECT RAISE(ABORT, 'check-in is immutable by date');
-        END;
-      ''');
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
-        BEFORE DELETE ON check_in
-        WHEN OLD.check_in_date < date('now','localtime')
-        BEGIN
-          SELECT RAISE(ABORT, 'check-in is immutable by date');
-        END;
-      ''');
-
-      // Prevent updates/deletes of emotional check-ins when they are marked immutable
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_update_immutable_checkin_color
-        BEFORE UPDATE ON check_in_color
-        WHEN OLD.isImmutable = 1
-        BEGIN
-          SELECT RAISE(ABORT, 'emotional check-in is immutable');
-        END;
-      ''');
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_delete_immutable_checkin_color
-        BEFORE DELETE ON check_in_color
-        WHEN OLD.isImmutable = 1
-        BEGIN
-          SELECT RAISE(ABORT, 'emotional check-in is immutable');
-        END;
-      ''');
+      // and emotional check-ins when they are marked immutable
+      await _createImmutabilityTriggers();
 
       // Insert default workout tags
       final defaultTags = ['Cardio', 'Strength', 'Hyrox', 'Yoga', 'Outdoor running'];
@@ -192,6 +199,9 @@ class AppDatabase extends _$AppDatabase {
     onUpgrade: (Migrator m, int from, int to) async {
       // Handle schema changes for check_in table
       if (from < 4) {
+        // Versions < 4 cannot be migrated due to schema incompatibility,
+        // missing columns, or irrecoverable format changes. Data from these
+        // older versions is non-critical and may be lost.
         await customStatement('DROP TABLE IF EXISTS check_in');
       }
       
@@ -272,41 +282,8 @@ class AppDatabase extends _$AppDatabase {
         'CREATE INDEX IF NOT EXISTS idx_photo_date ON check_in_photo(check_in_date)',
       );
 
-      // Prevent updates/deletes on past check-ins (immutability by date)
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_update_old_checkin
-        BEFORE UPDATE ON check_in
-        WHEN OLD.check_in_date < date('now','localtime')
-        BEGIN
-          SELECT RAISE(ABORT, 'check-in is immutable by date');
-        END;
-      ''');
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_delete_old_checkin
-        BEFORE DELETE ON check_in
-        WHEN OLD.check_in_date < date('now','localtime')
-        BEGIN
-          SELECT RAISE(ABORT, 'check-in is immutable by date');
-        END;
-      ''');
-
-      // Prevent updates/deletes of emotional check-ins when they are marked immutable
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_update_immutable_checkin_color
-        BEFORE UPDATE ON check_in_color
-        WHEN OLD.isImmutable = 1
-        BEGIN
-          SELECT RAISE(ABORT, 'emotional check-in is immutable');
-        END;
-      ''');
-      await customStatement('''
-        CREATE TRIGGER IF NOT EXISTS prevent_delete_immutable_checkin_color
-        BEFORE DELETE ON check_in_color
-        WHEN OLD.isImmutable = 1
-        BEGIN
-          SELECT RAISE(ABORT, 'emotional check-in is immutable');
-        END;
-      ''');
+      // Create immutability triggers
+      await _createImmutabilityTriggers();
       // Delegate to a testable method which is idempotent
       await removeLegacyTargetWeightIfPresent();
     },

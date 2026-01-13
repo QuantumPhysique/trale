@@ -94,7 +94,7 @@ Comprehensive check-in form with collapsible card sections for all entry compone
 ## Date Handling
 - **Selected Date**: `DateTime _selectedDate` (from initialDate or existingDate)
 - **Date Selection**: `_selectDate()` - shows DatePicker
-- **Format**: `_formatDate()` - returns "Wednesday, January 11, 2026"
+- **Format**: `_formatDate()` - returns "Sunday, January 11, 2026"
 - **Banner**: Shows formatted date at top of screen
 
 ## Testing
