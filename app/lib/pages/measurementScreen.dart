@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/theme.dart';
-import 'package:trale/widget/emptyChart.dart';
-import 'package:trale/widget/weightList.dart';
-
 class MeasurementScreen extends StatefulWidget {
   const MeasurementScreen({super.key, required this.tabController});
 
@@ -15,49 +9,36 @@ class MeasurementScreen extends StatefulWidget {
 }
 
 class _MeasurementScreen extends State<MeasurementScreen> {
-  final ScrollController scrollController = ScrollController();
-  final GlobalKey<ScaffoldState> key = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
-    final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
-
-    final int animationDurationInMilliseconds = TraleTheme.of(
-      context,
-    )!.transitionDuration.slow.inMilliseconds;
-    Widget measurementScreen(
-      BuildContext context,
-      AsyncSnapshot<List<Measurement>> snapshot,
-    ) {
-      return Scrollbar(
-        radius: const Radius.circular(4),
-        thickness: 8,
-        interactive: true,
-        controller: scrollController,
-        child: TotalWeightList(
-          durationInMilliseconds: animationDurationInMilliseconds,
-          delayInMilliseconds: (animationDurationInMilliseconds / 5).toInt(),
-          scrollController: scrollController,
-          tabController: widget.tabController,
-        ),
-      );
-    }
-
-    Widget measurementScreenWrapper(
-      BuildContext context,
-      AsyncSnapshot<List<Measurement>> snapshot,
-    ) {
-      return measurements.isNotEmpty
-          ? measurementScreen(context, snapshot)
-          : defaultEmptyChart(context: context);
-    }
-
-    return StreamBuilder<List<Measurement>>(
-      stream: database.streamController.stream,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Measurement>> snapshot) =>
-              measurementScreenWrapper(context, snapshot),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.construction,
+            size: 80,
+            color: Colors.grey[400],
+          ),
+          const SizedBox(height: 24),
+          Text(
+            'Under Construction',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'This feature is coming soon',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey[500],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

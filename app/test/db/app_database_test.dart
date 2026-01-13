@@ -43,7 +43,7 @@ void main() {
       if (!hasSqlite) return;
       final date = '2026-01-11';
       await db.insertCheckIn(
-        CheckInsCompanion.insert(date: date, weight: drift.Value(72.5)),
+        CheckInsCompanion.insert(checkInDate: date, weight: drift.Value(72.5)),
       );
 
       final c = await db.getCheckInByDate(date);
@@ -54,7 +54,7 @@ void main() {
     test('insert workout tag and link to workout', () async {
       if (!hasSqlite) return;
       final date = '2026-01-11';
-      await db.insertCheckIn(CheckInsCompanion.insert(date: date));
+      await db.insertCheckIn(CheckInsCompanion.insert(checkInDate: date));
 
       final tagId = await db
           .into(db.workoutTags)

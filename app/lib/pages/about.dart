@@ -247,6 +247,48 @@ final List<ThirdPartyLicence> tpls =
         author: 'Mark O\'Sullivan',
         years: '2019',
       ),
+      ThirdPartyLicence(
+        name: 'Drift',
+        url: 'https://github.com/simolus3/drift',
+        licence: 'MIT',
+        author: 'Simon Binder',
+        years: '2019',
+      ),
+      ThirdPartyLicence(
+        name: 'sqflite',
+        url: 'https://github.com/tekartik/sqflite',
+        licence: 'MIT',
+        author: 'Tekartik',
+        years: '2018',
+      ),
+      ThirdPartyLicence(
+        name: 'image_picker',
+        url: 'https://github.com/flutter/packages/tree/main/packages/image_picker',
+        licence: 'BSD',
+        author: 'Flutter authors',
+        years: '2019',
+      ),
+      ThirdPartyLicence(
+        name: 'flutter_colorpicker',
+        url: 'https://github.com/mchome/flutter_colorpicker',
+        licence: 'MIT',
+        author: 'Mao Haifei',
+        years: '2018',
+      ),
+      ThirdPartyLicence(
+        name: 'table_calendar',
+        url: 'https://github.com/aleksanderwozniak/table_calendar',
+        licence: 'Apache',
+        author: 'Aleksander Woźniak',
+        years: '2019',
+      ),
+      ThirdPartyLicence(
+        name: 'rive',
+        url: 'https://github.com/rive-app/rive-flutter',
+        licence: 'MIT',
+        author: 'Rive',
+        years: '2020',
+      ),
     ]..sort(
       (ThirdPartyLicence tpl1, ThirdPartyLicence tpl2) =>
           tpl1.name.toLowerCase().compareTo(tpl2.name.toLowerCase()),

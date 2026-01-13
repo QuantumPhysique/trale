@@ -185,7 +185,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Future<void> _saveEntry() async {
+    print('[DEBUG] _saveEntry called');
     if (_isEntryImmutable) {
+      print('[DEBUG] Entry is immutable, returning');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('This entry is immutable and cannot be modified.'),
@@ -197,9 +199,11 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     setState(() => _isSaving = true);
 
     try {
+      print('[DEBUG] Saving check-in with date: $_dateStr');
       // Save check-in
       final weight = double.tryParse(_weightController.text);
       final height = double.tryParse(_heightController.text);
+      print('[DEBUG] Weight: $weight, Height: $height');
 
       await _db
           .into(_db.checkIns)
@@ -215,7 +219,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               ),
             ),
           );
-
+      print('[DEBUG] Check-in saved successfully');
       // Sync with legacy MeasurementDatabase for charts
       if (weight != null) {
         final m = Measurement(
@@ -298,12 +302,15 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       }
 
       if (mounted) {
+        print('[DEBUG] Save completed successfully, showing snackbar');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Entry saved successfully!')),
         );
         Navigator.pop(context, true);
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
+      print('[DEBUG] Error saving entry: $e');
+      print('[DEBUG] Stack trace: $stackTrace');
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text('Error saving entry: $e')));

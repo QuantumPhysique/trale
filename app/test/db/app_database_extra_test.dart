@@ -28,7 +28,7 @@ void main() {
     test('insert photo and retrieve', () async {
       if (!hasSqlite) return;
       final date = '2026-01-11';
-      await db.insertCheckIn(CheckInsCompanion.insert(date: date));
+      await db.insertCheckIn(CheckInsCompanion.insert(checkInDate: date));
       final ts = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       final id = await db.insertPhoto(date, '/tmp/photo1.jpg', ts, fw: true);
       final photos = await db.photosForDate(date);
@@ -40,7 +40,7 @@ void main() {
     test('insert color and retrieve', () async {
       if (!hasSqlite) return;
       final date = '2026-01-11';
-      await db.insertCheckIn(CheckInsCompanion.insert(date: date));
+      await db.insertCheckIn(CheckInsCompanion.insert(checkInDate: date));
       final ts = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       final color = 0x112233;
       await db.insertColor(date, ts, color, message: 'mood');
@@ -85,13 +85,13 @@ void main() {
       final pastDate = DateTime.now().subtract(const Duration(days: 2));
       final dateStr =
           '${pastDate.year.toString().padLeft(4, '0')}-${pastDate.month.toString().padLeft(2, '0')}-${pastDate.day.toString().padLeft(2, '0')}';
-      await db.insertCheckIn(CheckInsCompanion.insert(date: dateStr));
+      await db.insertCheckIn(CheckInsCompanion.insert(checkInDate: dateStr));
 
       // Attempt to update past check-in should raise via trigger
       bool updateFailed = false;
       try {
         await db.customStatement(
-          'UPDATE check_in SET notes = ? WHERE date = ?',
+          'UPDATE check_in SET notes = ? WHERE check_in_date = ?',
           ['x', dateStr],
         );
       } catch (e) {

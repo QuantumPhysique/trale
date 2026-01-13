@@ -259,9 +259,10 @@ Future<bool> showAddCheckInDialog({
                               return;
                             }
 
+                            print('[DEBUG addCheckInDialog] About to save check-in for date: $dateStr');
                             await db.insertCheckIn(
                               CheckInsCompanion.insert(
-                                date: dateStr,
+                                checkInDate: dateStr,
                                 weight: Value(weight),
                                 height: Value(height),
                                 notes: Value(
@@ -271,6 +272,7 @@ Future<bool> showAddCheckInDialog({
                                 ),
                               ),
                             );
+                            print('[DEBUG addCheckInDialog] Check-in saved successfully');
 
                             final nowTs =
                                 DateTime.now().millisecondsSinceEpoch ~/ 1000;

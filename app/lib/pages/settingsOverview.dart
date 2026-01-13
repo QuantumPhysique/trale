@@ -6,7 +6,6 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/about.dart';
-import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settings_export.dart';
 import 'package:trale/pages/settingsPersonalization.dart';
 import 'package:trale/pages/settings_language.dart';
@@ -22,13 +21,6 @@ class SettingsOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> sliverlist = <Widget>[
-      SettingsBanner(
-        leadingIcon: PhosphorIconsBold.handHeart,
-        title: AppLocalizations.of(context)!.donation,
-        subtitle: AppLocalizations.of(context)!.donationSubtitle,
-        url: 'https://ko-fi.com/quantumphysique',
-        // TODO(gwosd): Update URL to donation page
-      ),
       const SineWave(),
       WidgetGroup(
         title: AppLocalizations.of(context)!.customization,
@@ -84,16 +76,6 @@ class SettingsOverviewPage extends StatelessWidget {
       WidgetGroup(
         title: AppLocalizations.of(context)!.aboutTheApp,
         children: <Widget>[
-          _SettingsTile(
-            icon: PhosphorIconsDuotone.question,
-            title: AppLocalizations.of(context)!.faq,
-            subtitle: AppLocalizations.of(context)!.faqSubtitle,
-            onTap: () => Navigator.of(context).push<dynamic>(
-              MaterialPageRoute<Widget>(
-                builder: (BuildContext context) => const FAQ(),
-              ),
-            ),
-          ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.info,
             title: AppLocalizations.of(context)!.about,
