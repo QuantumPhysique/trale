@@ -42,6 +42,10 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   Color? _currentEmotionalColor;
   List<_EmotionalCheckIn> _emotionalCheckIns = [];
 
+  // Track changes to existing photos
+  final List<int> _deletedPhotoIds = [];
+  final Map<int, bool> _nsfwChanges = {};
+
   // Section expansion state
   final Set<String> _expandedSections = {};
 
@@ -125,6 +129,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               .get();
       _photos = photos
           .map((photo) => _PhotoData(
+                id: photo.id,
                 path: photo.filePath,
                 isNsfw: photo.fw,
                 isNew: false, // Existing photos are not new
@@ -230,6 +235,20 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         await MeasurementDatabase().insertMeasurement(m);
       }
 
+      // Handle photo deletions
+      for (final photoId in _deletedPhotoIds) {
+        await (_db.delete(_db.checkInPhoto)
+              ..where((tbl) => tbl.id.equals(photoId)))
+            .go();
+      }
+
+      // Handle NSFW changes for existing photos
+      for (final entry in _nsfwChanges.entries) {
+        await (_db.update(_db.checkInPhoto)
+              ..where((tbl) => tbl.id.equals(entry.key)))
+            .write(CheckInPhotoCompanion(fw: Value(entry.value)));
+      }
+
       // Save only new photos (not already in database)
       for (final photo in _photos.where((p) => p.isNew)) {
         await _db
@@ -300,6 +319,10 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           });
         }
       }
+
+      // Clear tracking lists after successful save
+      _deletedPhotoIds.clear();
+      _nsfwChanges.clear();
 
       if (mounted) {
         print('[DEBUG] Save completed successfully, showing snackbar');
@@ -428,17 +451,31 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   void _deletePhoto(int index) {
+    final photo = _photos[index];
+    if (!photo.isNew && photo.id != null) {
+      // Track deletion of existing photo
+      _deletedPhotoIds.add(photo.id!);
+    }
     setState(() {
       _photos.removeAt(index);
     });
   }
 
   void _togglePhotoNsfw(int index) {
+    final photo = _photos[index];
+    final newNsfw = !photo.isNsfw;
+    
+    if (!photo.isNew && photo.id != null) {
+      // Track NSFW change for existing photo
+      _nsfwChanges[photo.id!] = newNsfw;
+    }
+    
     setState(() {
       _photos[index] = _PhotoData(
-        path: _photos[index].path,
-        isNsfw: !_photos[index].isNsfw,
-        isNew: _photos[index].isNew, // Preserve isNew flag
+        id: photo.id,
+        path: photo.path,
+        isNsfw: newNsfw,
+        isNew: photo.isNew, // Preserve isNew flag
       );
     });
   }
@@ -1200,11 +1237,13 @@ class _EmotionalCheckIn {
 
 /// Data class for photo with NSFW state
 class _PhotoData {
+  final int? id; // Database ID for existing photos
   final String path;
   final bool isNsfw;
   final bool isNew; // Track if photo is newly added
 
   _PhotoData({
+    this.id,
     required this.path,
     required this.isNsfw,
     this.isNew = false,
