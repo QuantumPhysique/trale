@@ -1013,25 +1013,29 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'Pick a color to represent your emotional state',
+                      'What color do you feel like right now?',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 16),
                     // Circular color wheel only
                     Center(
-                      child: ColorPicker(
-                        pickerColor: _currentEmotionalColor ?? Colors.blue,
-                        onColorChanged: (Color color) {
-                          setState(() {
-                            _currentEmotionalColor = color;
-                          });
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final size = constraints.maxWidth * 0.8; // 80% of available width
+                          return SizedBox(
+                            width: size,
+                            height: size,
+                            child: ColorPickerArea(
+                              HSVColor.fromColor(_currentEmotionalColor ?? Colors.white),
+                              (HSVColor hsvColor) {
+                                setState(() {
+                                  _currentEmotionalColor = hsvColor.toColor();
+                                });
+                              },
+                              PaletteType.hueWheel,
+                            ),
+                          );
                         },
-                        paletteType: PaletteType.hueWheel,
-                        enableAlpha: false,
-                        displayThumbColor: true,
-                        pickerAreaHeightPercent: 1.0,
-                        showLabel: false,
-                        labelTypes: const [],
                       ),
                     ),
                     const SizedBox(height: 16),
