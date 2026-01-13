@@ -509,9 +509,20 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             child: const Text('Cancel'),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               final tag = tagController.text.trim();
               if (tag.isNotEmpty) {
+                // Check if tag already exists
+                final existingTags = await (_db.select(_db.workoutTags)
+                  ..where((tbl) => tbl.tag.equals(tag))).get();
+                
+                // If tag doesn't exist, save it to database
+                if (existingTags.isEmpty) {
+                  await _db.into(_db.workoutTags).insert(
+                    WorkoutTagsCompanion.insert(tag: tag),
+                  );
+                }
+                
                 Navigator.pop(context, tag);
               }
             },
@@ -1019,6 +1030,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         enableAlpha: false,
                         displayThumbColor: true,
                         pickerAreaHeightPercent: 1.0,
+                        showLabel: false,
+                        labelTypes: const [],
                       ),
                     ),
                     const SizedBox(height: 16),
