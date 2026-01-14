@@ -71,41 +71,8 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     final MeasurementStats stats = MeasurementStats();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
-    final double? userTargetWeight = notifier.userTargetWeight;
-    final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-      userTargetWeight,
-      notifier.looseWeight,
-    );
     final int nMeasured = ip.measurementDuration.inDays;
     _ensureWeightLostCardVisibility(nMeasured >= 2);
-    Card userTargetWeightCard(double utw) => Card(
-      shape: const StadiumBorder(),
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
-      child: Padding(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AutoSizeText(
-              '${notifier.unit.weightToString(utw)} in',
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall!.onSecondaryContainer(context),
-            ),
-            AutoSizeText(
-              timeOfTargetWeight == null
-                  ? '--'
-                  : timeOfTargetWeight.durationToString(context),
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge!.onSecondaryContainer(context),
-            ),
-          ],
-        ),
-      ),
-    );
 
     Card userWeightLostCard() {
       final double deltaWeight = ip.finalSlope * 30;
@@ -165,20 +132,11 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     }
 
     return FractionallySizedBox(
-      widthFactor: (userTargetWeight == null || nMeasured < 2) ? 0.5 : 1,
+      widthFactor: 0.5,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:
             <Widget>[
-              if (userTargetWeight != null)
-                Expanded(
-                  child: AnimateInEffect(
-                    durationInMilliseconds: TraleTheme.of(
-                      context,
-                    )!.transitionDuration.slow.inMilliseconds,
-                    child: userTargetWeightCard(userTargetWeight),
-                  ),
-                ),
               if (nMeasured >= 2 && _showWeightLostCard)
                 Expanded(
                   child: AnimateInEffect(
@@ -195,82 +153,6 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
       ),
     );
   }
-}
-
-/// define StatCard for number of days until target weight is reached
-StatCard getReachingTargetWeightWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  final double? userTargetWeight = Provider.of<TraleNotifier>(
-    context,
-  ).userTargetWeight;
-  final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-  final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-    userTargetWeight,
-    notifier.looseWeight,
-  );
-
-  final List<String> textLabels =
-      (timeOfTargetWeight?.durationToString(context) ??
-              '-- ${AppLocalizations.of(context)!.days}')
-          .split(' ');
-
-  final String subtext = textLabels.length == 1
-      ? AppLocalizations.of(context)!.targetWeightReached
-      : '${textLabels[1]} ${AppLocalizations.of(context)!.targetWeightReachedIn}';
-
-  return StatCard(
-    backgroundColor: Theme.of(context).brightness == Brightness.light
-        ? Theme.of(context).primaryColor
-        : Theme.of(context).colorScheme.primaryContainer,
-    delayInMilliseconds: delayInMilliseconds,
-    ny: 2,
-    childWidget: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                textLabels[0],
-                style: Theme.of(context).textTheme.emphasized.displayLarge!
-                    .copyWith(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: AutoSizeText(
-                subtext,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.onPrimaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 3,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }
 
 /// define StatCard for the frequency in total

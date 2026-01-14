@@ -30,9 +30,6 @@ class CustomLineChart extends StatefulWidget {
     this.interpolationAboveAreaColor,
     this.measurementLineColor,
     this.measurementDotStrokeColor,
-    this.targetWeightLineColor,
-    this.targetWeightLabelTextColor,
-    this.targetWeightLabelBackgroundColor,
     this.backgroundColor,
     super.key,
   });
@@ -48,9 +45,6 @@ class CustomLineChart extends StatefulWidget {
   final Color? interpolationAboveAreaColor;
   final Color? measurementLineColor;
   final Color? measurementDotStrokeColor;
-  final Color? targetWeightLineColor;
-  final Color? targetWeightLabelTextColor;
-  final Color? targetWeightLabelBackgroundColor;
   final Color? backgroundColor;
 
   @override
@@ -63,7 +57,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
   @override
   void initState() {
     super.initState();
-    final TraleNotifier notifier = TraleNotifier();
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(
+      context,
+      listen: false,
+    );
     minX = widget.isPreview
         ? widget.ip.timesDisplay.first
         : notifier.zoomLevel.minX;
@@ -87,6 +84,11 @@ class _CustomLineChartState extends State<CustomLineChart> {
       context,
       listen: false,
     ).unit.scaling;
+
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(
+      context,
+      listen: false,
+    );
 
     final ml.Vector ms = widget.loadedFirst
         ? ml.Vector.filled(
@@ -118,9 +120,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
       ];
     }
 
-    final TraleNotifier notifier = TraleNotifier();
-    final double? targetWeight = notifier.userTargetWeight;
-
     final Color interpolationLineColor =
         widget.interpolationLineColor ?? Colors.transparent;
     final Color interpolationBelowAreaColor =
@@ -133,13 +132,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
         widget.measurementLineColor ?? colorScheme.primary;
     final Color measurementDotStrokeColor =
         widget.measurementDotStrokeColor ?? colorScheme.onSurface;
-    final Color targetWeightLineColor =
-        widget.targetWeightLineColor ?? colorScheme.tertiary;
-    final Color targetWeightLabelTextColor =
-        widget.targetWeightLabelTextColor ?? colorScheme.onSurface;
-    final Color targetWeightLabelBackgroundColor =
-        widget.targetWeightLabelBackgroundColor ??
-        colorScheme.surfaceContainerLow;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
     final List<FlSpot> measurementsInterpol = vectorsToFlSpot(
@@ -265,28 +257,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           clipData: const FlClipData.all(),
           extraLinesData: ExtraLinesData(
             extraLinesOnTop: true,
-            horizontalLines: <HorizontalLine>[
-              if (targetWeight != null && !widget.isPreview)
-                HorizontalLine(
-                  y: targetWeight / unitScaling,
-                  color: targetWeightLineColor,
-                  strokeWidth: 2,
-                  dashArray: <int>[8, 6],
-                  label: HorizontalLineLabel(
-                    show: true,
-                    alignment: ip.db.measurements.first.weight > targetWeight
-                        ? Alignment.bottomRight
-                        : Alignment.topRight,
-                    padding: const EdgeInsets.symmetric(vertical: 1),
-                    style: theme.textTheme.bodySmall!.apply(
-                      color: targetWeightLabelTextColor,
-                      backgroundColor: targetWeightLabelBackgroundColor,
-                    ),
-                    labelResolver: (HorizontalLine line) =>
-                        ' ${AppLocalizations.of(context)!.targetWeightShort}',
-                  ),
-                ),
-            ],
+            horizontalLines: <HorizontalLine>[],
           ),
           lineBarsData: <LineChartBarData>[
             LineChartBarData(
@@ -304,10 +275,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
                 // applyCutOffY: targetWeight != null,
               ),
               aboveBarData: BarAreaData(
-                show: targetWeight != null,
+                show: false,
                 color: interpolationAboveAreaColor,
-                cutOffY: targetWeight ?? 0,
-                applyCutOffY: true,
               ),
             ),
             LineChartBarData(

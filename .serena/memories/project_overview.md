@@ -10,6 +10,6 @@ Key features:
 - No permissions required
 - No advertising or trackers
 
-Tech stack: Flutter/Dart, with local storage using Hive, charts with FlChart, and other Flutter packages.
+Tech stack: Flutter/Dart, with local storage using Drift(SQLite), charts with FlChart, and other Flutter packages.
 
 The project is structured as a standard Flutter app in the `app/` directory, with Android and iOS platform code.

@@ -165,35 +165,4 @@ class MeasurementStats {
   /// get weight change [kg] within last week from last measurement
   double? get deltaWeightLastWeek =>
       _deltaWeightLastWeek ??= deltaWeightLastNDays(7);
-
-  /// get time of reaching target weight in kg
-  Duration? timeOfTargetWeight(double? targetWeight, bool loose) {
-    if ((targetWeight == null) || (db.nMeasurements < 2)) {
-      return null;
-    }
-
-    // Check if target weight is already completed
-    if (loose
-        ? targetWeight > ip.weightsDisplay[ip.idxLastDisplay]
-        : targetWeight <= ip.weightsDisplay[ip.idxLastDisplay]) {
-      return const Duration(days: -1);
-    }
-
-    final double slope = ip.finalSlope;
-    // Crossing is in the past
-    if (slope * (ip.weightsDisplay[ip.idxLastDisplay] - targetWeight) >= 0) {
-      return null;
-    }
-
-    // in ms from last measurement
-    final int remainingTime =
-        ((targetWeight - ip.weightsDisplay[ip.idxLastDisplay]) / slope).round();
-
-    // if remaining time is rounded to 0, return -1
-    if (remainingTime == 0) {
-      return const Duration(days: -1);
-    }
-
-    return Duration(days: remainingTime);
-  }
 }

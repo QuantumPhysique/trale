@@ -12,18 +12,6 @@
     "@experimentalFeatures": {
         "description": "Label for experimental features section"
     },
-    "looseWeight": "Lose weight",
-    "@looseWeight": {
-        "description": "Lose weight switch label (label name loose is a typo!)."
-    },
-    "gainWeight": "Gain weight",
-    "@gainWeight": {
-        "description": "Gain weight switch label."
-    },
-    "looseWeightSubtitle": "Switching between losing or gaining weight.",
-    "@looseWeightSubtitle": {
-        "description": "Switching between losing or gaining weight."
-    },
     "days": "days",
     "@days": {},
     "weeks": "weeks",
@@ -378,18 +366,6 @@
     "@startApp": {
         "description": "Press to start the app."
     },
-    "targetWeight": "Target weight",
-    "@targetWeight": {
-        "description": "Your target weight."
-    },
-    "targetWeightMotivation": "Setting a target weight is very important and a step in the right direction. Having a goal in mind motivates you to do more to achieve it.",
-    "@targetWeightMotivation": {
-        "description": "Explanation to clarify the importance of a target weight."
-    },
-    "targetWeightShort": "Target",
-    "@targetWeightShort": {
-        "description": "Short label to show for indicating target weight in line chart."
-    },
     "addUserName": "How shall we call you?",
     "@addUserName": {
         "description": "How shall we call you?"
@@ -397,10 +373,6 @@
     "name": "name",
     "@name": {
         "description": "Name"
-    },
-    "addTargetWeight": "Add target weight",
-    "@addTargetWeight": {
-        "description": "Press to add a target weight."
     },
     "intro1": "Press",
     "@intro1": {
@@ -454,10 +426,6 @@
     "@faq_a4": {
         "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
     },
-    "target_weight_warning": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st and BMIs below 18.5.",
-    "@target_weight_warning": {
-        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
-    },
     "max": "max",
     "@max": {
         "description": "Shorthand for maximum."
@@ -497,14 +465,6 @@
     "measurementFrequency": "measurement frequency",
     "@measurementFrequency": {
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
-    },
-    "targetWeightReached": "you reached your target weight!",
-    "@targetWeightReached": {
-        "description": "Message shown when the user reached their target weight."
-    },
-    "targetWeightReachedIn": "left to reach target weight",
-    "@targetWeightReachedIn": {
-        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
     },
     "maxStreak": "longest streak",
     "@maxStreak": {

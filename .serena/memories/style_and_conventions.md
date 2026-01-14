@@ -19,7 +19,7 @@ Based on flutter_lints with additional rules:
 ## Code Organization
 - Use provider for state management
 - Localize strings using flutter_localizations
-- Store data with Hive
+- Store data with Drift(SQLite)
 - Follow Material Design 3 guidelines
 
 ## Best Practices

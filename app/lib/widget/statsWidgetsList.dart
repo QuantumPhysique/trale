@@ -89,8 +89,6 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
           <Widget>[
             Column(
               children: <Widget>[
-                getReachingTargetWeightWidget(context: context, stats: stats),
-                SizedBox(height: TraleTheme.of(context)!.padding),
                 DefaultStatCard(
                   firstRow: AppLocalizations.of(
                     context,

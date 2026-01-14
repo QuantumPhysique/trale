@@ -39,10 +39,6 @@ class Preferences {
   /// default for userName
   final String defaultUserName = '';
 
-  /// default for userTargetWeight in kg
-  final double defaultUserTargetWeight = -1;
-
-  /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
 
   /// default for userHeight in m
@@ -97,9 +93,6 @@ class Preferences {
   final DateTime defaultLatestBackupReminderDate =
       DateTime.fromMillisecondsSinceEpoch(0);
 
-  /// default loose mode
-  final bool defaultLooseWeight = true;
-
   /// default show measurement hint banner
   final bool defaultShowMeasurementHintBanner = true;
 
@@ -116,15 +109,6 @@ class Preferences {
   /// get user height in cm
   double? get userHeight => prefs.getDouble('userHeight')! > 0
       ? prefs.getDouble('userHeight')!
-      : null;
-
-  /// set user target weight
-  set userTargetWeight(double? weight) =>
-      prefs.setDouble('userTargetWeight', weight ?? -1);
-
-  /// get user target weight
-  double? get userTargetWeight => prefs.getDouble('userTargetWeight')! > 0
-      ? prefs.getDouble('userTargetWeight')!
       : null;
 
   /// set if onboarding screen is shown
@@ -246,12 +230,6 @@ class Preferences {
   set datePrintFormat(TraleDatePrintFormat format) =>
       prefs.setString('dateFormat', format.name);
 
-  /// Get loose mode
-  bool get looseWeight => prefs.getBool('looseWeight')!;
-
-  /// Set loose mode
-  set looseWeight(bool loose) => prefs.setBool('looseWeight', loose);
-
   /// Get show measurement hint banner
   bool get showMeasurementHintBanner =>
       prefs.getBool('showMeasurementHintBanner')!;
@@ -289,9 +267,6 @@ class Preferences {
     if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;
     }
-    if (override || !prefs.containsKey('userTargetWeight')) {
-      userTargetWeight = defaultUserTargetWeight;
-    }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
     }
@@ -315,9 +290,6 @@ class Preferences {
     }
     if (override || !prefs.containsKey('dateFormat')) {
       datePrintFormat = defaultDatePrintFormat;
-    }
-    if (override || !prefs.containsKey('looseWeight')) {
-      looseWeight = defaultLooseWeight;
     }
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;

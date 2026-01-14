@@ -11,7 +11,6 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/dialog.dart';
 import 'package:trale/widget/tile_group.dart';
 
@@ -67,47 +66,6 @@ List<Widget> actions(
   ];
 }
 
-class LooseWeightListTile extends StatelessWidget {
-  /// constructor
-  const LooseWeightListTile({super.key, this.color});
-
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    final Color tileColor =
-        color ?? Theme.of(context).colorScheme.surfaceContainerLow;
-    return GroupedSwitchListTile(
-      color: tileColor,
-      dense: true,
-      leading: PPIcon(
-        Provider.of<TraleNotifier>(context).looseWeight
-            ? PhosphorIconsDuotone.trendDown
-            : PhosphorIconsDuotone.trendUp,
-        context,
-      ),
-      title: Text(
-        Provider.of<TraleNotifier>(context).looseWeight
-            ? AppLocalizations.of(context)!.looseWeight
-            : AppLocalizations.of(context)!.gainWeight,
-        style: Theme.of(context).textTheme.bodyLarge,
-        maxLines: 1,
-      ),
-      subtitle: Text(
-        AppLocalizations.of(context)!.looseWeightSubtitle,
-        style: Theme.of(context).textTheme.labelSmall,
-      ),
-      value: !Provider.of<TraleNotifier>(context).looseWeight,
-      onChanged: (bool? loose) {
-        if (loose == null) {
-          return;
-        }
-        Provider.of<TraleNotifier>(context, listen: false).looseWeight = !loose;
-      },
-    );
-  }
-}
-
 class UserDetailsGroup extends StatelessWidget {
   const UserDetailsGroup({
     super.key,
@@ -154,39 +112,6 @@ class UserDetailsGroup extends StatelessWidget {
           ),
           onTap: () {},
         ),
-        GroupedListTile(
-          color: tileColor,
-          dense: false,
-          leading: PPIcon(PhosphorIconsDuotone.target, context),
-          title: TextFormField(
-            readOnly: true,
-            initialValue: notifier.userTargetWeight != null
-                ? notifier.unit.weightToString(notifier.userTargetWeight!)
-                : AppLocalizations.of(context)!.addTargetWeight,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            maxLines: 1,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              labelText: AppLocalizations.of(context)!.targetWeight,
-            ),
-            onTap: () async {
-              await showTargetWeightDialog(
-                context: context,
-                weight:
-                    notifier.userTargetWeight ??
-                    Preferences().defaultUserWeight,
-              );
-              notifier.notify;
-              onRefresh();
-            },
-          ),
-        ),
-        LooseWeightListTile(color: tileColor),
         GroupedListTile(
           color: tileColor,
           dense: false,

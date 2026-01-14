@@ -244,17 +244,6 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
-  /// getter
-  double? get userTargetWeight => prefs.userTargetWeight;
-
-  /// setter
-  set userTargetWeight(double? newWeight) {
-    if (userTargetWeight != newWeight) {
-      prefs.userTargetWeight = newWeight;
-      notifyListeners();
-    }
-  }
-
   /// get user height in [cm]
   double? get userHeight => prefs.userHeight;
 
@@ -307,17 +296,6 @@ class TraleNotifier with ChangeNotifier {
   set datePrintFormat(TraleDatePrintFormat newDatePrintFormat) {
     if (datePrintFormat != newDatePrintFormat) {
       prefs.datePrintFormat = newDatePrintFormat;
-      notifyListeners();
-    }
-  }
-
-  /// getter
-  bool get looseWeight => prefs.looseWeight;
-
-  /// setter
-  set looseWeight(bool loose) {
-    if (loose != looseWeight) {
-      prefs.looseWeight = loose;
       notifyListeners();
     }
   }
