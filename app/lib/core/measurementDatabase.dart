@@ -92,7 +92,7 @@ class MeasurementDatabaseBaseclass {
   }
 }
 
-/// class providing an API to handle measurements stored in hive
+/// class providing an API to handle measurements stored in SQLite via Drift
 class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   /// singleton constructor
   factory MeasurementDatabase() => _instance;
@@ -102,6 +102,10 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// singleton instance
   static final MeasurementDatabase _instance = MeasurementDatabase._internal();
+
+  /// Drift database instance
+  AppDatabase? _db;
+  AppDatabase get db => _db ??= AppDatabase();
 
   /// check if measurement exists
   bool containsMeasurement(Measurement m) {
@@ -114,47 +118,31 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// insert Measurements into box
   bool insertMeasurement(Measurement m) {
-    // TODO: migrate to Drift
-    // final bool isContained = containsMeasurement(m);
-    // if (!isContained) {
-    //   box.add(m);
-    //   reinit();
-    // }
-    // return !isContained;
-    return false;
+    // Data is already persisted via app_database.dart (Drift)
+    // This just triggers refresh for charts/stats
+    reinit();
+    return true;
   }
 
   /// insert a list of measurements into the box
   int insertMeasurementList(List<Measurement> ms) {
-    // TODO: migrate to Drift
-    // int count = 0;
-    // for (final Measurement m in ms) {
-    //   final bool isContained = containsMeasurement(m);
-    //   if (!isContained) {
-    //     box.add(m);
-    //     count++;
-    //   }
-    // }
-    // if (count > 0) {
-    //   reinit();
-    // }
-    // return count;
-    return 0;
+    // Data is already persisted via app_database.dart (Drift)
+    // This just triggers refresh for charts/stats
+    reinit();
+    return ms.length;
   }
 
   /// delete Measurements from box
   void deleteMeasurement(Measurement m) {
-    // TODO: migrate to Drift
-    // box.delete(m.key);
+    // Data is already deleted via app_database.dart (Drift)
+    // This just triggers refresh for charts/stats
     reinit();
   }
 
   /// delete all Measurements from box
   Future<void> deleteAllMeasurements() async {
-    // TODO: migrate to Drift
-    // for (final SortedMeasurement m in sortedMeasurements) {
-    //   await box.delete(m.key);
-    // }
+    // Data is already deleted via app_database.dart (Drift)
+    // This just triggers refresh for charts/stats
     reinit();
   }
 
@@ -176,18 +164,44 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// initialize database
   void init() {
+    // Force load from database
     measurements;
   }
 
   @override
   List<Measurement>? _measurements;
 
+  /// Load measurements from Drift database
+  Future<void> _loadMeasurementsFromDatabase() async {
+    try {
+      final checkIns = await db.getAllCheckIns();
+      _measurements = checkIns
+          .where((c) => c.weight != null)
+          .map((c) => Measurement(
+                date: DateTime.parse(c.checkInDate),
+                weight: c.weight!,
+                isMeasured: true,
+              ))
+          .toList()
+        ..sort((Measurement a, Measurement b) => b.compareTo(a));
+    } catch (e) {
+      _measurements = <Measurement>[];
+    }
+  }
+
   /// get sorted measurements
   @override
-  List<Measurement> get measurements =>
-      _measurements ??= <Measurement>[]; // TODO: migrate to Drift
-      // box.values.toList()
-      //   ..sort((Measurement a, Measurement b) => b.compareTo(a));
+  List<Measurement> get measurements {
+    if (_measurements != null) return _measurements!;
+    
+    // Synchronously return empty list, but trigger async load
+    _loadMeasurementsFromDatabase().then((_) {
+      // After loading, fire stream to update UI
+      fireStream();
+    });
+    
+    return _measurements ?? <Measurement>[];
+  }
 
   /// date of latest measurement
   @override

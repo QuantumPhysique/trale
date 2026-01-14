@@ -323,6 +323,10 @@ class AppDatabase extends _$AppDatabase {
     )..where((t) => t.checkInDate.equals(date))).getSingleOrNull();
   }
 
+  Future<List<CheckIn>> getAllCheckIns() async {
+    return (select(checkIns)..orderBy([(t) => OrderingTerm.desc(t.checkInDate)])).get();
+  }
+
   Future<List<CheckInPhotoData>> photosForDate(String date) =>
       (select(checkInPhoto)..where((p) => p.checkInDate.equals(date))).get();
 
