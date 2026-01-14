@@ -27,7 +27,7 @@ Latest commit in main: 634ab92 (Merge pull request #6 from heets99/feature/check
 - Integration tests: app/test_driver/driver_test.dart
 - Database tests: app/test/db/app_database_extra_test.dart
 - Widget tests for date selection and form validation
-- Device testing: Verified on Pixel7
+- Device testing: Verified on Pixel 7
 - Screenshots: app/screenshots/*.png
 
 ## Linear Status
@@ -45,5 +45,4 @@ Latest commit in main: 634ab92 (Merge pull request #6 from heets99/feature/check
 - Clean up merged branches
 - Update CHANGELOG.md
 - Create release tag v0.15.0
-- Update Linear cycles</content>
-<parameter name="memory_file_name">checkin_process_update_progress
+- Update Linear cycles\n

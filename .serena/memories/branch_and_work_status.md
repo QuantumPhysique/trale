@@ -109,8 +109,7 @@ main (stable, all major features merged)
 
 ## Git Remotes
 
-Repository appears to be private or local (GitHub API 404 on boss/trale-plus)
+Repository appears to be private or local (GitHub API 404 on heets99/trale-plus)
 All feature branches still exist remotely but are merged to main
 
-## Updated as of January 14, 2026</content>
-<parameter name="memory_file_name">branch_and_work_status
+## Updated as of January 14, 2026\n

@@ -1,17 +1,29 @@
-# Style & Conventions
+# Code Style and Conventions
 
-- Analysis & Lints:
-  - Uses `flutter_lints` with a project `analysis_options.yaml` that enforces: no implicit casts/dynamic, `always_specify_types`, `prefer_single_quotes`, `prefer_final_locals`, and many Flutter best-practice rules.
+## Language
+- Dart with Flutter framework
+- SDK version: >=3.9.0 <4.0.0
+- Flutter version: >=3.38.5
 
-- Formatting:
-  - Use `dart format` (pre-commit hooks not present by default).
+## Linting Rules
+Based on flutter_lints with additional rules:
+- Always declare return types
+- Strong mode with no implicit casts or dynamic
+- Treat missing required params and returns as warnings
+- Exclude generated i18n files from analysis
 
-- Testing:
-  - Unit/widget tests: `flutter_test` (see `test/`)
-  - Integration tests: `integration_test` (Agent_Instructions outlines device-based integration tests)
+## Naming Conventions
+- Follow standard Dart naming: camelCase for variables/methods, PascalCase for classes/types
+- Use meaningful names, avoid abbreviations
 
-- Branch & PR etiquette:
-  - Feature branches follow `feature/<name>` convention, create PR against `main`, run CI, address CodeRabbit feedback, merge via squash.
+## Code Organization
+- Use provider for state management
+- Localize strings using flutter_localizations
+- Store data with Hive
+- Follow Material Design 3 guidelines
 
-- Documentation:
-  - Add screenshots to `screenshots/` as verification artifacts as specified in Agent_Instructions.
+## Best Practices
+- Privacy-focused: No data collection, minimal permissions
+- Use const constructors where possible
+- Prefer immutable data structures
+- Handle localization properly

@@ -1,41 +1,28 @@
 # Suggested Commands for Development
 
-## Setup
-- flutter pub get
-- dart pub get
+## Environment Setup
+- `flutter doctor`: Check Flutter installation and dependencies
+- `flutter pub get`: Install project dependencies
 
-## Codegen
-- dart run build_runner build --delete-conflicting-outputs
+## Running the App
+- `flutter run`: Run the app in debug mode on connected device/emulator
+- `flutter run --release`: Run in release mode
 
-## Lint/Format/Test
-- flutter analyze
-- flutter test
-- dart format .
-- flutter test test/widget_test.dart
+## Building
+- `flutter build apk`: Build Android APK
+- `flutter build ios`: Build iOS app (requires macOS)
+- `flutter build appbundle`: Build Android App Bundle
 
-## Build & Device (debug)
-- flutter build apk --debug
-- adb install -r build/app/outputs/flutter-apk/app-debug.apk
-- adb shell am start -n com.example.trale/.MainActivity
-- adb devices
-- export DEVICE_ID=$(adb devices | grep -v "List" | awk '{print $1}' | head -1)
+## Testing
+- `flutter test`: Run unit and widget tests
+- `flutter drive --driver=test_driver/driver_test.dart --target=test_driver/driver_main.dart`: Run integration tests
 
-## Integration tests on device
-- flutter test integration_test/<test_file>.dart -d $DEVICE_ID
+## Code Quality
+- `flutter analyze`: Run static analysis (linting)
+- `dart format .`: Format Dart code
+- `dart fix --apply`: Apply automatic fixes
 
-## Build (release) & release packaging
-- flutter build appbundle --release
-- flutter build apk --split-per-abi --release
-- fastlane (see `fastlane/` metadata)
-
-## Git / PR workflow (used by agent instructions)
-- git checkout -b feature/my-feature
-- git add . && git commit -m "feat: ..."
-- git push -u origin feature/my-feature
-- Create pull request, address CI and CodeRabbit feedback, then squash-merge and delete branch
-
-## Useful helper commands from Agent_Instructions.md
-- adb shell pm grant $PKG android.permission.CAMERA
-- adb exec-out screencap -p > screenshots/<name>.png
-- adb shell "run-as $PKG ls /data/data/$PKG/app_flutter/ | grep trale.db"
-
+## Other
+- `flutter clean`: Clean build artifacts
+- `flutter pub outdated`: Check for outdated dependencies
+- `flutter pub upgrade`: Upgrade dependencies
