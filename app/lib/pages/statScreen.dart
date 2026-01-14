@@ -14,7 +14,7 @@ class _StatsScreen extends State<StatsScreen> {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Icon(
             Icons.construction,
             size: 80,

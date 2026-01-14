@@ -13,7 +13,7 @@ void main() {
       MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: HomeScreenCalendarPage(initialEvents: [DateTime(2026, 1, 11)]),
+        home: HomeScreenCalendarPage(initialEvents: <DateTime>[DateTime(2026, 1, 11)]),
       ),
     );
 
@@ -33,7 +33,7 @@ void main() {
     // Verify the event marker is rendered
     expect(
       find.byWidgetPredicate(
-        (widget) =>
+        (Widget widget) =>
             widget is Container &&
             widget.decoration is BoxDecoration &&
             (widget.decoration as BoxDecoration).color ==

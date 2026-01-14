@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:intl/intl.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:trale/core/db/app_database.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/measurement.dart';
+
 import 'package:drift/drift.dart' show Value, OrderingTerm, InsertMode;
+import 'package:drift/src/runtime/query_builder/query_builder.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:trale/core/db/app_database.dart';
+import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurementDatabase.dart';
 
 /// Full-screen daily entry form with collapsible sections for weight, photos,
 /// workout, thoughts, and emotional check-ins.
@@ -38,17 +40,17 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       TextEditingController();
 
   // Form state
-  List<_PhotoData> _photos = [];
-  List<String> _workoutTags = [];
+  List<_PhotoData> _photos = <_PhotoData>[];
+  List<String> _workoutTags = <String>[];
   Color? _currentEmotionalColor;
-  List<_EmotionalCheckIn> _emotionalCheckIns = [];
+  List<_EmotionalCheckIn> _emotionalCheckIns = <_EmotionalCheckIn>[];
 
   // Track changes to existing photos
-  final List<int> _deletedPhotoIds = [];
-  final Map<int, bool> _nsfwChanges = {};
+  final List<int> _deletedPhotoIds = <int>[];
+  final Map<int, bool> _nsfwChanges = <int, bool>{};
 
   // Section expansion state
-  final Set<String> _expandedSections = {};
+  final Set<String> _expandedSections = <String>{};
 
   final AppDatabase _db = AppDatabase();
 
@@ -88,13 +90,13 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     try {
       // Check immutability
-      final mutable = await _db.isCheckInMutable(_dateStr);
+      final bool mutable = await _db.isCheckInMutable(_dateStr);
       _isEntryImmutable = !mutable;
 
       // Load check-in data
-      final checkIn = await (_db.select(
+      final CheckIn? checkIn = await (_db.select(
         _db.checkIns,
-      )..where((tbl) => tbl.checkInDate.equals(_dateStr))).getSingleOrNull();
+      )..where(($CheckInsTable tbl) => tbl.checkInDate.equals(_dateStr))).getSingleOrNull();
 
       if (checkIn != null) {
         _weightController.text = checkIn.weight?.toString() ?? '';
@@ -103,33 +105,33 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       }
 
       // Load workout data
-      final workout = await (_db.select(
+      final Workout? workout = await (_db.select(
         _db.workouts,
-      )..where((tbl) => tbl.checkInDate.equals(_dateStr))).getSingleOrNull();
+      )..where(($WorkoutsTable tbl) => tbl.checkInDate.equals(_dateStr))).getSingleOrNull();
 
       if (workout != null) {
         _workoutController.text = workout.description ?? '';
         // Load workout tags
-        final tagLinks = await (_db.select(
+        final List<WorkoutWorkoutTag> tagLinks = await (_db.select(
           _db.workoutWorkoutTags,
-        )..where((tbl) => tbl.checkInDate.equals(_dateStr))).get();
-        final tagIds = tagLinks.map((link) => link.workoutTagId).toList();
+        )..where(($WorkoutWorkoutTagsTable tbl) => tbl.checkInDate.equals(_dateStr))).get();
+        final List<int> tagIds = tagLinks.map((WorkoutWorkoutTag link) => link.workoutTagId).toList();
         if (tagIds.isNotEmpty) {
-          final tags = await (_db.select(
+          final List<WorkoutTag> tags = await (_db.select(
             _db.workoutTags,
-          )..where((tbl) => tbl.id.isIn(tagIds))).get();
-          _workoutTags = tags.map((tag) => tag.tag).toList();
+          )..where(($WorkoutTagsTable tbl) => tbl.id.isIn(tagIds))).get();
+          _workoutTags = tags.map((WorkoutTag tag) => tag.tag).toList();
         }
       }
 
       // Load photos
-      final photos =
+      final List<CheckInPhotoData> photos =
           await (_db.select(_db.checkInPhoto)
-                ..where((tbl) => tbl.checkInDate.equals(_dateStr))
-                ..orderBy([(tbl) => OrderingTerm.asc(tbl.ts)]))
+                ..where(($CheckInPhotoTable tbl) => tbl.checkInDate.equals(_dateStr))
+                ..orderBy(<OrderClauseGenerator<$CheckInPhotoTable>>[($CheckInPhotoTable tbl) => OrderingTerm.asc(tbl.ts)]))
               .get();
       _photos = photos
-          .map((photo) => _PhotoData(
+          .map((CheckInPhotoData photo) => _PhotoData(
                 id: photo.id,
                 path: photo.filePath,
                 isNsfw: photo.fw,
@@ -138,15 +140,15 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           .toList();
 
       // Load emotional check-ins
-      final emotionalRows =
+      final List<CheckInColorData> emotionalRows =
           await (_db.select(_db.checkInColor)
-                ..where((tbl) => tbl.checkInDate.equals(_dateStr))
-                ..orderBy([(tbl) => OrderingTerm.desc(tbl.ts)]))
+                ..where(($CheckInColorTable tbl) => tbl.checkInDate.equals(_dateStr))
+                ..orderBy(<OrderClauseGenerator<$CheckInColorTable>>[($CheckInColorTable tbl) => OrderingTerm.desc(tbl.ts)]))
               .get();
 
-      _emotionalCheckIns = emotionalRows.map((row) {
-        final colorRgb = row.colorRgb;
-        final color = Color.fromARGB(
+      _emotionalCheckIns = emotionalRows.map((CheckInColorData row) {
+        final int colorRgb = row.colorRgb;
+        final Color color = Color.fromARGB(
           255,
           (colorRgb >> 16) & 0xFF,
           (colorRgb >> 8) & 0xFF,
@@ -207,8 +209,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     try {
       if (kDebugMode) debugPrint('[DEBUG] Saving check-in with date: $_dateStr');
       // Save check-in
-      final weight = double.tryParse(_weightController.text);
-      final height = double.tryParse(_heightController.text);
+      final double? weight = double.tryParse(_weightController.text);
+      final double? height = double.tryParse(_heightController.text);
       if (kDebugMode) debugPrint('[DEBUG] Weight: $weight, Height: $height');
 
       await _db
@@ -228,30 +230,30 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
       if (kDebugMode) debugPrint('[DEBUG] Check-in saved successfully');
       // Sync with legacy MeasurementDatabase for charts
       if (weight != null) {
-        final m = Measurement(
+        final Measurement m = Measurement(
           date: _selectedDate,
           weight: weight,
           isMeasured: true,
         );
-        await MeasurementDatabase().insertMeasurement(m);
+        MeasurementDatabase().insertMeasurement(m);
       }
 
       // Handle photo deletions
-      for (final photoId in _deletedPhotoIds) {
+      for (final int photoId in _deletedPhotoIds) {
         await (_db.delete(_db.checkInPhoto)
-              ..where((tbl) => tbl.id.equals(photoId)))
+              ..where(($CheckInPhotoTable tbl) => tbl.id.equals(photoId)))
             .go();
       }
 
       // Handle NSFW changes for existing photos
-      for (final entry in _nsfwChanges.entries) {
+      for (final MapEntry<int, bool> entry in _nsfwChanges.entries) {
         await (_db.update(_db.checkInPhoto)
-              ..where((tbl) => tbl.id.equals(entry.key)))
+              ..where(($CheckInPhotoTable tbl) => tbl.id.equals(entry.key)))
             .write(CheckInPhotoCompanion(fw: Value(entry.value)));
       }
 
       // Save only new photos (not already in database)
-      for (final photo in _photos.where((p) => p.isNew)) {
+      for (final _PhotoData photo in _photos.where((_PhotoData p) => p.isNew)) {
         await _db
             .into(_db.checkInPhoto)
             .insert(
@@ -288,14 +290,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             // First, delete existing tag links for this check-in
             await (_db.delete(
               _db.workoutWorkoutTags,
-            )..where((tbl) => tbl.checkInDate.equals(_dateStr))).go();
+            )..where(($WorkoutWorkoutTagsTable tbl) => tbl.checkInDate.equals(_dateStr))).go();
 
             // Insert or get tag IDs for each tag
-            for (final tagName in _workoutTags) {
+            for (final String tagName in _workoutTags) {
               // Try to insert the tag, or get existing one
-              final existingTag = await (_db.select(
+              final WorkoutTag? existingTag = await (_db.select(
                 _db.workoutTags,
-              )..where((tbl) => tbl.tag.equals(tagName))).getSingleOrNull();
+              )..where(($WorkoutTagsTable tbl) => tbl.tag.equals(tagName))).getSingleOrNull();
 
               int tagId;
               if (existingTag != null) {
@@ -355,7 +357,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     try {
       // Ensure check_in record exists (FK constraint requirement)
-      final existingCheckIn = await _db.getCheckInByDate(_dateStr);
+      final CheckIn? existingCheckIn = await _db.getCheckInByDate(_dateStr);
       if (existingCheckIn == null) {
         // Create minimal check_in record
         await _db
@@ -370,8 +372,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             );
       }
 
-      final timestamp = DateTime.now();
-      final colorRgb =
+      final DateTime timestamp = DateTime.now();
+      final int colorRgb =
           (_currentEmotionalColor!.red << 16) |
           (_currentEmotionalColor!.green << 8) |
           _currentEmotionalColor!.blue;
@@ -452,7 +454,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   void _deletePhoto(int index) {
-    final photo = _photos[index];
+    final _PhotoData photo = _photos[index];
     if (!photo.isNew && photo.id != null) {
       // Track deletion of existing photo
       _deletedPhotoIds.add(photo.id!);
@@ -463,8 +465,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   void _togglePhotoNsfw(int index) {
-    final photo = _photos[index];
-    final newNsfw = !photo.isNsfw;
+    final _PhotoData photo = _photos[index];
+    final bool newNsfw = !photo.isNsfw;
     
     if (!photo.isNew && photo.id != null) {
       // Track NSFW change for existing photo
@@ -479,7 +481,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   void _openPhotoViewer(int index) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => _PhotoViewerScreen(
+        builder: (BuildContext context) => _PhotoViewerScreen(
           photos: _photos,
           initialIndex: index,
           onDelete: _deletePhoto,
@@ -492,27 +494,27 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     final TextEditingController tagController = TextEditingController();
 
     // Load all available tags from database
-    final allTags = await (_db.select(_db.workoutTags)).get();
-    final availableTags = allTags.map((tag) => tag.tag).toList();
+    final List<WorkoutTag> allTags = await _db.select(_db.workoutTags).get();
+    final List<String> availableTags = allTags.map((WorkoutTag tag) => tag.tag).toList();
 
-    final result = await showDialog<String>(
+    final String? result = await showDialog<String>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext context) => AlertDialog(
         title: const Text('Add Workout Tag'),
         content: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               // Show pre-installed tags as selectable chips
-              if (availableTags.isNotEmpty) ...[
+              if (availableTags.isNotEmpty) ...<Widget>[
                 const Text('Choose from existing tags:'),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: availableTags.map((tag) => ActionChip(
+                  children: availableTags.map((String tag) => ActionChip(
                     label: Text(tag),
                     onPressed: () => Navigator.pop(context, tag),
                   )).toList(),
@@ -536,18 +538,18 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             ],
           ),
         ),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
           TextButton(
             onPressed: () async {
-              final tag = tagController.text.trim();
+              final String tag = tagController.text.trim();
               if (tag.isNotEmpty) {
                 // Check if tag already exists
-                final existingTags = await (_db.select(_db.workoutTags)
-                  ..where((tbl) => tbl.tag.equals(tag))).get();
+                final List<WorkoutTag> existingTags = await (_db.select(_db.workoutTags)
+                  ..where(($WorkoutTagsTable tbl) => tbl.tag.equals(tag))).get();
                 
                 // If tag doesn't exist, save it to database
                 if (existingTags.isEmpty) {
@@ -584,7 +586,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daily Entry'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.calendar_today),
             onPressed: _selectDate,
@@ -593,7 +595,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         ],
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           // Date banner
           Container(
             width: double.infinity,
@@ -611,7 +613,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(16),
-              children: [
+              children: <Widget>[
                 _buildWeightSection(),
                 const SizedBox(height: 12),
                 _buildPhotoSection(),
@@ -660,7 +662,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.monitor_weight),
             title: const Text('Weight & Height'),
@@ -672,7 +674,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                children: [
+                children: <Widget>[
                   TextField(
                     controller: _weightController,
                     keyboardType: TextInputType.number,
@@ -711,7 +713,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.photo_camera),
             title: const Text('Photos'),
@@ -720,7 +722,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 : null,
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 Text(
                   '$photoCount/3',
                   style: Theme.of(context).textTheme.bodySmall,
@@ -735,7 +737,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
             Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                children: [
+                children: <Widget>[
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton.icon(
@@ -746,7 +748,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                       label: const Text('Take Photo'),
                     ),
                   ),
-                  if (photoCount > 0) ...[
+                  if (photoCount > 0) ...<Widget>[
                     const SizedBox(height: 16),
                     GridView.builder(
                       shrinkWrap: true,
@@ -759,7 +761,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                             childAspectRatio: 0.75,
                           ),
                       itemCount: photoCount,
-                      itemBuilder: (context, index) {
+                      itemBuilder: (BuildContext context, int index) {
                         return _buildPhotoThumbnail(index);
                       },
                     ),
@@ -780,23 +782,23 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
   }
 
   Widget _buildPhotoThumbnail(int index) {
-    final photo = _photos[index];
+    final _PhotoData photo = _photos[index];
 
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         Expanded(
           child: GestureDetector(
             onTap: () => _openPhotoViewer(index),
             child: Stack(
               fit: StackFit.expand,
-              children: [
+              children: <Widget>[
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.file(
                     File(photo.path),
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
+                    errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                       return Container(
                         color: Colors.grey[300],
                         child: const Icon(Icons.error),
@@ -832,12 +834,12 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         const SizedBox(height: 4),
         Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: <Widget>[
             Checkbox(
               value: photo.isNsfw,
               onChanged: _isEntryImmutable
                   ? null
-                  : (value) => _togglePhotoNsfw(index),
+                  : (bool? value) => _togglePhotoNsfw(index),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               visualDensity: VisualDensity.compact,
             ),
@@ -873,7 +875,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.fitness_center),
             title: const Text('Workout'),
@@ -886,7 +888,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   TextField(
                     controller: _workoutController,
                     maxLines: 4,
@@ -907,9 +909,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: [
+                    children: <Widget>[
                       ..._workoutTags.map(
-                        (tag) => Chip(
+                        (String tag) => Chip(
                           label: Text(tag),
                           onDeleted: _isEntryImmutable
                               ? null
@@ -946,7 +948,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.edit_note),
             title: const Text('Thoughts'),
@@ -986,7 +988,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
     return Card(
       child: Column(
-        children: [
+        children: <Widget>[
           ListTile(
             leading: const Icon(Icons.palette),
             title: const Text('Emotional Check-Ins'),
@@ -1003,9 +1005,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   // Add new emotional check-in (only for today)
-                  if (isToday) ...[
+                  if (isToday) ...<Widget>[
                     Text(
                       'Add Emotional Check-In',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -1023,7 +1025,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
-                        children: [
+                        children: <Widget>[
                           Icon(
                             Icons.access_time,
                             size: 20,
@@ -1054,8 +1056,8 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                     // Circular color wheel only
                     Center(
                       child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          final size = constraints.maxWidth * 0.8; // 80% of available width
+                        builder: (BuildContext context, BoxConstraints constraints) {
+                          final double size = constraints.maxWidth * 0.8; // 80% of available width
                           return SizedBox(
                             width: size,
                             height: size,
@@ -1098,14 +1100,14 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                         ),
                       ),
                     ),
-                    if (_emotionalCheckIns.isNotEmpty) ...[
+                    if (_emotionalCheckIns.isNotEmpty) ...<Widget>[
                       const SizedBox(height: 24),
                       const Divider(),
                       const SizedBox(height: 16),
                     ],
                   ],
                   // Show previous emotional check-ins
-                  if (_emotionalCheckIns.isNotEmpty) ...[
+                  if (_emotionalCheckIns.isNotEmpty) ...<Widget>[
                     Text(
                       'Previous Check-Ins ${isToday ? 'Today' : 'on This Day'}',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -1113,13 +1115,13 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    ..._emotionalCheckIns.map((checkIn) {
+                    ..._emotionalCheckIns.map((_EmotionalCheckIn checkIn) {
                       return _buildEmotionalCheckInCard(
                         checkIn,
                         key: ValueKey(checkIn.timestamp),
                       );
                     }),
-                  ] else if (!isToday) ...[
+                  ] else if (!isToday) ...<Widget>[
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -1161,9 +1163,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 Container(
                   width: 40,
                   height: 40,
@@ -1177,7 +1179,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Text(
                         'Timestamp',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -1196,7 +1198,7 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
                 ),
               ],
             ),
-            if (checkIn.message.isNotEmpty) ...[
+            if (checkIn.message.isNotEmpty) ...<Widget>[
               const SizedBox(height: 12),
               const Divider(),
               const SizedBox(height: 8),
@@ -1221,23 +1223,19 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
 
 /// Data class for emotional check-in display
 class _EmotionalCheckIn {
-  final DateTime timestamp;
-  final Color color;
-  final String message;
 
   _EmotionalCheckIn({
     required this.timestamp,
     required this.color,
     required this.message,
   });
+  final DateTime timestamp;
+  final Color color;
+  final String message;
 }
 
 /// Data class for photo with NSFW state
-class _PhotoData {
-  final int? id; // Database ID for existing photos
-  final String path;
-  final bool isNsfw;
-  final bool isNew; // Track if photo is newly added
+class _PhotoData { // Track if photo is newly added
 
   _PhotoData({
     this.id,
@@ -1245,6 +1243,10 @@ class _PhotoData {
     required this.isNsfw,
     this.isNew = false,
   });
+  final int? id; // Database ID for existing photos
+  final String path;
+  final bool isNsfw;
+  final bool isNew;
 
   _PhotoData copyWith({
     int? id,
@@ -1263,15 +1265,15 @@ class _PhotoData {
 
 /// Full-screen photo viewer
 class _PhotoViewerScreen extends StatefulWidget {
-  final List<_PhotoData> photos;
-  final int initialIndex;
-  final Function(int) onDelete;
 
   const _PhotoViewerScreen({
     required this.photos,
     required this.initialIndex,
     required this.onDelete,
   });
+  final List<_PhotoData> photos;
+  final int initialIndex;
+  final Function(int) onDelete;
 
   @override
   State<_PhotoViewerScreen> createState() => _PhotoViewerScreenState();
@@ -1302,7 +1304,7 @@ class _PhotoViewerScreenState extends State<_PhotoViewerScreen> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         title: Text('Photo ${_currentIndex + 1} of ${widget.photos.length}'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
@@ -1311,7 +1313,7 @@ class _PhotoViewerScreenState extends State<_PhotoViewerScreen> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     title: const Text('Delete photo?'),
-                    actions: [
+                    actions: <Widget>[
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),
                         child: const Text('Cancel'),
@@ -1335,19 +1337,19 @@ class _PhotoViewerScreenState extends State<_PhotoViewerScreen> {
       body: PageView.builder(
         controller: _pageController,
         itemCount: widget.photos.length,
-        onPageChanged: (index) {
+        onPageChanged: (int index) {
           setState(() {
             _currentIndex = index;
           });
         },
-        itemBuilder: (context, index) {
+        itemBuilder: (BuildContext context, int index) {
           return Center(
             child: InteractiveViewer(
               minScale: 0.5,
               maxScale: 4.0,
               child: Image.file(
                 File(widget.photos[index].path),
-                errorBuilder: (context, error, stackTrace) {
+                errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
                   return const Center(
                     child: Icon(Icons.error, color: Colors.white, size: 64),
                   );

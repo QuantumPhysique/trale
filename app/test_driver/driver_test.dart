@@ -10,17 +10,15 @@ void main() {
     });
 
     tearDownAll(() async {
-      if (driver != null) {
-        await driver.close();
-      }
-    });
+      await driver.close();
+        });
 
     test('should save a daily check-in successfully', () async {
       // Wait for the app to settle
       await driver.waitUntilNoTransientCallbacks();
 
       // Wait for the daily entry screen to load
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
       // Find weight input field and enter a value
       final weightFieldFinder = find.byType('TextFormField').first;
@@ -41,17 +39,17 @@ void main() {
       await driver.enterText('Feeling great after morning workout!');
 
       // Find the save button and tap it
-      final saveButtonFinder = find.text('Save');
+      final SerializableFinder saveButtonFinder = find.text('Save');
       await driver.waitFor(saveButtonFinder);
       await driver.tap(saveButtonFinder);
 
       // Wait for save operation to complete
       await driver.waitUntilNoTransientCallbacks();
-      await Future.delayed(Duration(seconds: 3));
+      await Future.delayed(const Duration(seconds: 3));
 
       // Check for success message or verify we're still on the screen
       // (if save was successful, we should still be on the daily entry screen)
-      final saveButtonStillExists = find.text('Save');
+      final SerializableFinder saveButtonStillExists = find.text('Save');
       await driver.waitFor(saveButtonStillExists);
 
       // If we get here without exceptions, the save operation likely succeeded
@@ -61,27 +59,27 @@ void main() {
     test('should add emotional check-in', () async {
       // Wait for the app to settle
       await driver.waitUntilNoTransientCallbacks();
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       // Find and tap the emotional check-in section to expand it
-      final emotionSectionFinder = find.text('Emotional Check-in');
+      final SerializableFinder emotionSectionFinder = find.text('Emotional Check-in');
       await driver.waitFor(emotionSectionFinder);
       await driver.tap(emotionSectionFinder);
 
       // Wait for expansion
       await driver.waitUntilNoTransientCallbacks();
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       // Find color picker and select a color (this might be complex)
       // For now, just verify the section expanded
-      final colorPickerFinder = find.byType('ColorPicker');
+      final SerializableFinder colorPickerFinder = find.byType('ColorPicker');
       try {
-        await driver.waitFor(colorPickerFinder, timeout: Duration(seconds: 5));
+        await driver.waitFor(colorPickerFinder, timeout: const Duration(seconds: 5));
         // Color picker found, section expanded successfully
       } catch (e) {
         // Color picker not found, but section might still be expanded
         // Let's check for the save emotional check-in button
-        final saveEmotionButtonFinder = find.text('Save Emotional Check-In');
+        final SerializableFinder saveEmotionButtonFinder = find.text('Save Emotional Check-In');
         await driver.waitFor(saveEmotionButtonFinder);
       }
 

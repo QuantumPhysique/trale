@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
 import 'package:trale/core/icons.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/pages/homescreen_calendar.dart';
 import 'package:trale/pages/measurementScreen.dart';
 import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/homescreen_calendar.dart';
 import 'package:trale/pages/settingsOverview.dart';
 import 'package:trale/pages/statScreen.dart';
 import 'package:trale/screens/daily_entry_screen.dart';
@@ -86,7 +85,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DailyEntryScreen(
+        builder: (BuildContext context) => DailyEntryScreen(
           initialDate: DateTime.now(),
         ),
       ),

@@ -1,12 +1,11 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:trale/core/db/app_database.dart';
-import 'package:trale/core/theme.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:drift/drift.dart' show Value;
+import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:trale/core/db/app_database.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Simple check-in dialog allowing weight, height, notes (thoughts),
 /// up to 3 camera-only photos, per-photo NSFW toggle, and an emotional color.
@@ -15,12 +14,12 @@ Future<bool> showAddCheckInDialog({
   required double initialWeight,
   required DateTime initialDate,
 }) async {
-  final db = AppDatabase();
+  final AppDatabase db = AppDatabase();
 
   double weight = initialWeight;
   double? height;
-  DateTime date = initialDate;
-  final dateStr =
+  final DateTime date = initialDate;
+  final String dateStr =
       "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   final TextEditingController notesController = TextEditingController();
 
@@ -43,9 +42,9 @@ Future<bool> showAddCheckInDialog({
       spacing: 8,
       children: photos
           .map(
-            (p) => Stack(
+            (_PhotoItem p) => Stack(
               alignment: Alignment.topRight,
-              children: [
+              children: <Widget>[
                 Image.file(
                   File(p.path),
                   width: 96,
@@ -54,7 +53,7 @@ Future<bool> showAddCheckInDialog({
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: [
+                  children: <Widget>[
                     IconButton(
                       icon: Icon(
                         p.nsfw
@@ -85,18 +84,18 @@ Future<bool> showAddCheckInDialog({
         barrierDismissible: false,
         builder: (BuildContext context) {
           return StatefulBuilder(
-            builder: (context, setState) {
+            builder: (BuildContext context, setState) {
               return AlertDialog(
                 title: Text(AppLocalizations.of(context)!.addWeight),
                 content: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: <Widget>[
                       // Determine mutability on first build
-                      if (isMutable == null) ...[
+                      if (isMutable == null) ...<Widget>[
                         FutureBuilder<bool>(
                           future: db.isCheckInMutable(dateStr),
-                          builder: (ctx, snap) {
+                          builder: (BuildContext ctx, AsyncSnapshot<bool> snap) {
                             if (snap.connectionState == ConnectionState.done &&
                                 snap.hasData) {
                               isMutable = snap.data;
@@ -110,10 +109,10 @@ Future<bool> showAddCheckInDialog({
                         Container(
                           padding: const EdgeInsets.all(12),
                           color: Colors.amberAccent,
-                          child: Row(
-                            children: [
-                              const Icon(Icons.lock),
-                              const SizedBox(width: 8),
+                          child: const Row(
+                            children: <Widget>[
+                              Icon(Icons.lock),
+                              SizedBox(width: 8),
                               Expanded(
                                 child: Text(
                                   'This check-in is immutable and cannot be modified.',
@@ -123,7 +122,7 @@ Future<bool> showAddCheckInDialog({
                           ),
                         ),
                       Row(
-                        children: [
+                        children: <Widget>[
                           Expanded(
                             child: TextFormField(
                               initialValue: weight.toStringAsFixed(1),
@@ -134,7 +133,7 @@ Future<bool> showAddCheckInDialog({
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!.weight,
                               ),
-                              onChanged: (v) =>
+                              onChanged: (String v) =>
                                   weight = double.tryParse(v) ?? weight,
                             ),
                           ),
@@ -148,7 +147,7 @@ Future<bool> showAddCheckInDialog({
                                   const TextInputType.numberWithOptions(
                                     decimal: true,
                                   ),
-                              onChanged: (v) => height = double.tryParse(v),
+                              onChanged: (String v) => height = double.tryParse(v),
                             ),
                           ),
                         ],
@@ -156,12 +155,12 @@ Future<bool> showAddCheckInDialog({
                       const SizedBox(height: 12),
                       TextFormField(
                         controller: notesController,
-                        decoration: InputDecoration(labelText: 'Notes'),
+                        decoration: const InputDecoration(labelText: 'Notes'),
                         maxLines: 3,
                       ),
                       const SizedBox(height: 12),
                       Row(
-                        children: [
+                        children: <Widget>[
                           ElevatedButton.icon(
                             onPressed: photos.length >= 3
                                 ? null
@@ -170,7 +169,7 @@ Future<bool> showAddCheckInDialog({
                                     setState(() {});
                                   },
                             icon: const Icon(Icons.camera_alt),
-                            label: Text('Take photo'),
+                            label: const Text('Take photo'),
                           ),
                           const SizedBox(width: 12),
                           ElevatedButton.icon(
@@ -178,21 +177,21 @@ Future<bool> showAddCheckInDialog({
                               final Color selected = pickedColor ?? Colors.blue;
                               await showDialog<void>(
                                 context: context,
-                                builder: (ctx) {
+                                builder: (BuildContext ctx) {
                                   return AlertDialog(
-                                    title: Text('Emotional checkin'),
+                                    title: const Text('Emotional checkin'),
                                     content: SingleChildScrollView(
                                       child: BlockPicker(
                                         pickerColor: selected,
-                                        onColorChanged: (c) {
+                                        onColorChanged: (Color c) {
                                           pickedColor = c;
                                         },
                                       ),
                                     ),
-                                    actions: [
+                                    actions: <Widget>[
                                       TextButton(
                                         onPressed: () => Navigator.pop(ctx),
-                                        child: Text('Close'),
+                                        child: const Text('Close'),
                                       ),
                                     ],
                                   );
@@ -201,7 +200,7 @@ Future<bool> showAddCheckInDialog({
                               setState(() {});
                             },
                             icon: const Icon(Icons.palette),
-                            label: Text('Emotional checkin'),
+                            label: const Text('Emotional checkin'),
                           ),
                         ],
                       ),
@@ -211,21 +210,21 @@ Future<bool> showAddCheckInDialog({
                         Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: Row(
-                            children: [
+                            children: <Widget>[
                               Container(
                                 width: 24,
                                 height: 24,
                                 color: pickedColor,
                               ),
                               const SizedBox(width: 8),
-                              Text('Emotional checkin'),
+                              const Text('Emotional checkin'),
                             ],
                           ),
                         ),
                     ],
                   ),
                 ),
-                actions: [
+                actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, false),
                     child: Text(AppLocalizations.of(context)!.abort),
@@ -235,23 +234,23 @@ Future<bool> showAddCheckInDialog({
                         ? null
                         : () async {
                             // Save check-in and related records
-                            final dateStr =
+                            final String dateStr =
                                 "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
 
                             // Prevent saving if check-in is immutable
-                            final mutable = await db.isCheckInMutable(dateStr);
+                            final bool mutable = await db.isCheckInMutable(dateStr);
                             if (!mutable) {
                               await showDialog<void>(
                                 context: context,
-                                builder: (ctx) => AlertDialog(
-                                  title: Text('Error'),
-                                  content: Text(
+                                builder: (BuildContext ctx) => AlertDialog(
+                                  title: const Text('Error'),
+                                  content: const Text(
                                     'This check-in is immutable and cannot be modified.',
                                   ),
-                                  actions: [
+                                  actions: <Widget>[
                                     TextButton(
                                       onPressed: () => Navigator.pop(ctx),
-                                      child: Text('Close'),
+                                      child: const Text('Close'),
                                     ),
                                   ],
                                 ),
@@ -274,9 +273,9 @@ Future<bool> showAddCheckInDialog({
                             );
                             print('[DEBUG addCheckInDialog] Check-in saved successfully');
 
-                            final nowTs =
+                            final int nowTs =
                                 DateTime.now().millisecondsSinceEpoch ~/ 1000;
-                            for (final p in photos) {
+                            for (final _PhotoItem p in photos) {
                               await db.insertPhoto(
                                 dateStr,
                                 p.path,
@@ -286,7 +285,7 @@ Future<bool> showAddCheckInDialog({
                             }
 
                             if (pickedColor != null) {
-                              final colorInt =
+                              final int colorInt =
                                   (pickedColor!.red << 16) |
                                   (pickedColor!.green << 8) |
                                   pickedColor!.blue;
@@ -316,7 +315,7 @@ Future<bool> showAddCheckInDialog({
 }
 
 class _PhotoItem {
-  _PhotoItem({required this.path, this.nsfw = false});
+  _PhotoItem({required this.path});
 
   String path;
   bool nsfw;

@@ -16,7 +16,7 @@ import 'package:drift_sqflite/drift_sqflite.dart';
 import 'package:trale/core/db/app_database.dart';
 
 void main() {
-  final hasSqlite = (() {
+  final bool hasSqlite = (() {
     try {
       // Accessing sqlite3.sqlite3 loads the native library; wrap in try/catch
       sqlite3.sqlite3;
@@ -41,22 +41,22 @@ void main() {
 
     test('insert and read check_in', () async {
       if (!hasSqlite) return;
-      final date = '2026-01-11';
+      const String date = '2026-01-11';
       await db.insertCheckIn(
-        CheckInsCompanion.insert(checkInDate: date, weight: drift.Value(72.5)),
+        CheckInsCompanion.insert(checkInDate: date, weight: const drift.Value(72.5)),
       );
 
-      final c = await db.getCheckInByDate(date);
+      final CheckIn? c = await db.getCheckInByDate(date);
       expect(c, isNotNull);
       expect(c!.weight, 72.5);
     }, skip: !hasSqlite);
 
     test('insert workout tag and link to workout', () async {
       if (!hasSqlite) return;
-      final date = '2026-01-11';
+      const String date = '2026-01-11';
       await db.insertCheckIn(CheckInsCompanion.insert(checkInDate: date));
 
-      final tagId = await db
+      final int tagId = await db
           .into(db.workoutTags)
           .insert(WorkoutTagsCompanion.insert(tag: 'cardio'));
       await db
@@ -64,7 +64,7 @@ void main() {
           .insert(
             WorkoutsCompanion.insert(
               checkInDate: date,
-              description: drift.Value('pm run'),
+              description: const drift.Value('pm run'),
             ),
           );
       await db
@@ -76,8 +76,8 @@ void main() {
             ),
           );
 
-      final tags = await (db.select(db.workoutTags)).get();
-      expect(tags.any((t) => t.id == tagId && t.tag == 'cardio'), isTrue);
+      final List<WorkoutTag> tags = await db.select(db.workoutTags).get();
+      expect(tags.any((WorkoutTag t) => t.id == tagId && t.tag == 'cardio'), isTrue);
     }, skip: !hasSqlite);
   });
 
@@ -85,20 +85,20 @@ void main() {
     test(
       'remove legacy target_weight column if present (pure function)',
       () async {
-        final executed = <String>[];
+        final List<String> executed = <String>[];
 
-        final hasColumnStub = (String table, String column) async => true;
-        final runSqlStub = (String sql) async => executed.add(sql);
+        Future<bool> Function(String table, String column) Future<bool> Future<bool> hasColumnStub(String table, String column) async => true;
+        Future<void> Function(String sql) Future<void> Future<void> runSqlStub(String sql) async => executed.add(sql);
 
         await removeLegacyTargetWeightIfPresentFn(hasColumnStub, runSqlStub);
 
         expect(
-          executed.any((s) => s.contains('PRAGMA foreign_keys = OFF')),
+          executed.any((String s) => s.contains('PRAGMA foreign_keys = OFF')),
           isTrue,
         );
         expect(
           executed.any(
-            (s) => s.contains(
+            (String s) => s.contains(
               'CREATE TABLE IF NOT EXISTS measurements_new AS SELECT id, date, weight, height, notes FROM measurements',
             ),
           ),
@@ -106,7 +106,7 @@ void main() {
         );
         expect(
           executed.any(
-            (s) => s.contains(
+            (String s) => s.contains(
               'ALTER TABLE measurements_new RENAME TO measurements',
             ),
           ),

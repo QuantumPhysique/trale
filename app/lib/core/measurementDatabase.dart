@@ -173,10 +173,10 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   /// Load measurements from Drift database
   Future<void> _loadMeasurementsFromDatabase() async {
     try {
-      final checkIns = await db.getAllCheckIns();
+      final List<CheckIn> checkIns = await db.getAllCheckIns();
       _measurements = checkIns
-          .where((c) => c.weight != null)
-          .map((c) => Measurement(
+          .where((CheckIn c) => c.weight != null)
+          .map((CheckIn c) => Measurement(
                 date: DateTime.parse(c.checkInDate),
                 weight: c.weight!,
                 isMeasured: true,

@@ -22,7 +22,7 @@ class LanguageSettingsPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.translate,
-        title: "${AppLocalizations.of(context)!.translate} trale".inCaps,
+        title: '${AppLocalizations.of(context)!.translate} trale'.inCaps,
         subtitle: AppLocalizations.of(context)!.translateSubtitle.inCaps,
         url: 'https://hosted.weblate.org/engage/trale/',
       ),
@@ -60,7 +60,7 @@ class _LanguageRadioTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String selectedLanguage = context.select<TraleNotifier, String>(
-      (notifier) => notifier.language.language,
+      (TraleNotifier notifier) => notifier.language.language,
     );
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final bool isSelected = selectedLanguage == language.language;

@@ -1,11 +1,14 @@
 import 'dart:math' as math;
+
+import 'package:drift/src/dsl/dsl.dart';
+import 'package:drift/src/runtime/query_builder/query_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:drift/drift.dart' show OrderingTerm, OrderingMode;
+
 import '../core/db/app_database.dart';
 
 /// A flower widget that displays the last 20 emotional check-ins as colored petals
 class EmotionalFlowerWidget extends StatefulWidget {
-  const EmotionalFlowerWidget({Key? key}) : super(key: key);
+  const EmotionalFlowerWidget({super.key});
 
   @override
   State<EmotionalFlowerWidget> createState() => _EmotionalFlowerWidgetState();
@@ -14,7 +17,7 @@ class EmotionalFlowerWidget extends StatefulWidget {
 class _EmotionalFlowerWidgetState extends State<EmotionalFlowerWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  List<CheckInColorData> _emotions = [];
+  List<CheckInColorData> _emotions = <CheckInColorData>[];
   bool _isLoading = true;
 
   @override
@@ -34,16 +37,16 @@ class _EmotionalFlowerWidgetState extends State<EmotionalFlowerWidget>
   }
 
   Future<void> _loadEmotions() async {
-    final db = AppDatabase();
+    final AppDatabase db = AppDatabase();
     // Query the last 20 emotional check-ins, ordered by date and timestamp
-    final query = db.select(db.checkInColors)
-      ..orderBy([
-        (t) => OrderingTerm(expression: t.checkInDate, mode: OrderingMode.desc),
-        (t) => OrderingTerm(expression: t.ts, mode: OrderingMode.desc),
+    final SimpleSelectStatement<HasResultSet, dynamic> query = db.select(db.checkInColors)
+      ..orderBy(<OrderClauseGenerator<HasResultSet>>[
+        (HasResultSet t) => OrderingTerm(expression: t.checkInDate, mode: OrderingMode.desc),
+        (HasResultSet t) => OrderingTerm(expression: t.ts, mode: OrderingMode.desc),
       ])
       ..limit(20);
 
-    final results = await query.get();
+    final List<dynamic> results = await query.get();
 
     setState(() {
       _emotions = results;
@@ -69,7 +72,7 @@ class _EmotionalFlowerWidgetState extends State<EmotionalFlowerWidget>
 
     return AnimatedBuilder(
       animation: _controller,
-      builder: (context, child) {
+      builder: (BuildContext context, Widget? child) {
         return CustomPaint(
           painter: FlowerPainter(
             emotions: _emotions,
@@ -83,38 +86,38 @@ class _EmotionalFlowerWidgetState extends State<EmotionalFlowerWidget>
 }
 
 class FlowerPainter extends CustomPainter {
-  final List<CheckInColorData> emotions;
-  final double animationValue;
 
   FlowerPainter({
     required this.emotions,
     required this.animationValue,
   });
+  final List<CheckInColorData> emotions;
+  final double animationValue;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final baseRadius = math.min(size.width, size.height) * 0.35;
+    final Offset center = Offset(size.width / 2, size.height / 2);
+    final double baseRadius = math.min(size.width, size.height) * 0.35;
 
     // Draw petals
-    final petalCount = emotions.length;
+    final int petalCount = emotions.length;
     for (int i = 0; i < petalCount; i++) {
-      final angle = (2 * math.pi * i) / petalCount;
-      final emotion = emotions[i];
+      final double angle = (2 * math.pi * i) / petalCount;
+      final CheckInColorData emotion = emotions[i];
 
       // Create pulsing effect
-      final pulseScale = 1.0 + (math.sin(animationValue * 2 * math.pi + angle) * 0.1);
-      final petalRadius = baseRadius * 0.4 * pulseScale;
+      final double pulseScale = 1.0 + (math.sin(animationValue * 2 * math.pi + angle) * 0.1);
+      final double petalRadius = baseRadius * 0.4 * pulseScale;
 
       // Calculate petal position
-      final petalDistance = baseRadius * 0.8;
-      final petalCenter = Offset(
+      final double petalDistance = baseRadius * 0.8;
+      final Offset petalCenter = Offset(
         center.dx + math.cos(angle) * petalDistance,
         center.dy + math.sin(angle) * petalDistance,
       );
 
       // Draw petal
-      final paint = Paint()
+      final Paint paint = Paint()
         ..color = Color(emotion.colorRgb).withOpacity(0.8)
         ..style = PaintingStyle.fill;
 
@@ -123,7 +126,7 @@ class FlowerPainter extends CustomPainter {
       canvas.translate(petalCenter.dx, petalCenter.dy);
       canvas.rotate(angle + math.pi / 2);
 
-      final petalPath = Path()
+      final Path petalPath = Path()
         ..addOval(Rect.fromCenter(
           center: Offset.zero,
           width: petalRadius,
@@ -133,7 +136,7 @@ class FlowerPainter extends CustomPainter {
       canvas.drawPath(petalPath, paint);
 
       // Add petal outline
-      final outlinePaint = Paint()
+      final Paint outlinePaint = Paint()
         ..color = Color(emotion.colorRgb).withOpacity(0.4)
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.0;
@@ -143,19 +146,19 @@ class FlowerPainter extends CustomPainter {
     }
 
     // Draw center circle
-    final centerPaint = Paint()
+    final Paint centerPaint = Paint()
       ..color = Colors.yellow.shade700
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, baseRadius * 0.25, centerPaint);
 
     // Add center detail
-    final centerDetailPaint = Paint()
+    final Paint centerDetailPaint = Paint()
       ..color = Colors.orange.shade800
       ..style = PaintingStyle.fill;
     for (int i = 0; i < 8; i++) {
-      final angle = (2 * math.pi * i) / 8;
-      final dotDistance = baseRadius * 0.15;
-      final dotCenter = Offset(
+      final double angle = (2 * math.pi * i) / 8;
+      final double dotDistance = baseRadius * 0.15;
+      final Offset dotCenter = Offset(
         center.dx + math.cos(angle) * dotDistance,
         center.dy + math.sin(angle) * dotDistance,
       );

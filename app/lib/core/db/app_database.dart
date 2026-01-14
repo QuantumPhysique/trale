@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+import 'package:sqlite3/src/ffi/api.dart';
 
 part 'app_database.g.dart';
 
@@ -18,7 +19,7 @@ class CheckIns extends Table {
   TextColumn get notes => text().nullable()();
 
   @override
-  Set<Column> get primaryKey => {checkInDate};
+  Set<Column> get primaryKey => <Column<Object>>{checkInDate};
 }
 
 class WorkoutTags extends Table {
@@ -29,7 +30,7 @@ class WorkoutTags extends Table {
   TextColumn get tag => text().withLength(min: 1, max: 256)();
 
   @override
-  List<String> get customConstraints => ['UNIQUE(tag)'];
+  List<String> get customConstraints => <String>['UNIQUE(tag)'];
 }
 
 class Workouts extends Table {
@@ -40,10 +41,10 @@ class Workouts extends Table {
   TextColumn get description => text().nullable()();
 
   @override
-  Set<Column> get primaryKey => {checkInDate};
+  Set<Column> get primaryKey => <Column<Object>>{checkInDate};
 
   @override
-  List<String> get customConstraints => [
+  List<String> get customConstraints => <String>[
     'FOREIGN KEY (check_in_date) REFERENCES check_in(check_in_date) ON DELETE CASCADE',
   ];
 }
@@ -56,10 +57,10 @@ class WorkoutWorkoutTags extends Table {
   IntColumn get workoutTagId => integer()();
 
   @override
-  Set<Column> get primaryKey => {checkInDate, workoutTagId};
+  Set<Column> get primaryKey => <Column<Object>>{checkInDate, workoutTagId};
 
   @override
-  List<String> get customConstraints => [
+  List<String> get customConstraints => <String>[
     'FOREIGN KEY (check_in_date) REFERENCES workout(check_in_date) ON DELETE CASCADE',
     'FOREIGN KEY (workout_tag_id) REFERENCES workout_tag(id) ON DELETE CASCADE',
   ];
@@ -76,10 +77,10 @@ class CheckInColor extends Table {
   BoolColumn get isImmutable => boolean().withDefault(const Constant(false))();
 
   @override
-  Set<Column> get primaryKey => {checkInDate, ts};
+  Set<Column> get primaryKey => <Column<Object>>{checkInDate, ts};
 
   @override
-  List<String> get customConstraints => [
+  List<String> get customConstraints => <String>[
     'FOREIGN KEY (check_in_date) REFERENCES check_in(check_in_date) ON DELETE CASCADE',
   ];
 }
@@ -95,13 +96,13 @@ class CheckInPhoto extends Table {
   BoolColumn get fw => boolean().withDefault(const Constant(false))();
 
   @override
-  List<String> get customConstraints => [
+  List<String> get customConstraints => <String>[
     'FOREIGN KEY (check_in_date) REFERENCES check_in(check_in_date) ON DELETE CASCADE',
   ];
 }
 
 @DriftDatabase(
-  tables: [
+  tables: <Type>[
     CheckIns,
     WorkoutTags,
     Workouts,
@@ -111,8 +112,6 @@ class CheckInPhoto extends Table {
   ],
 )
 class AppDatabase extends _$AppDatabase {
-  /// Singleton instance
-  static AppDatabase? _instance;
 
   /// Factory constructor for singleton
   factory AppDatabase() => _instance ??= AppDatabase._internal();
@@ -121,7 +120,9 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase._internal() : super(_openConnection());
 
   /// For tests: allow passing a QueryExecutor (e.g., an in-memory NativeDatabase)
-  AppDatabase.connect(QueryExecutor e) : super(e);
+  AppDatabase.connect(super.e);
+  /// Singleton instance
+  static AppDatabase? _instance;
 
   @override
   int get schemaVersion => 6;
@@ -188,8 +189,8 @@ class AppDatabase extends _$AppDatabase {
       await _createImmutabilityTriggers();
 
       // Insert default workout tags
-      final defaultTags = ['Cardio', 'Strength', 'Hyrox', 'Yoga', 'Outdoor running'];
-      for (final tag in defaultTags) {
+      final List<String> defaultTags = <String>['Cardio', 'Strength', 'Hyrox', 'Yoga', 'Outdoor running'];
+      for (final String tag in defaultTags) {
         await into(workoutTags).insert(
           WorkoutTagsCompanion.insert(tag: tag),
           mode: InsertMode.insertOrIgnore,
@@ -209,9 +210,9 @@ class AppDatabase extends _$AppDatabase {
       if (from <= 5 && to >= 6) {
         // First, check if the column is named 'date' or 'check_in_date'
         // by attempting to query the schema
-        final tableInfo = await customSelect('PRAGMA table_info(check_in)').get();
-        final hasDateColumn = tableInfo.any((row) => row.data['name'] == 'date');
-        final hasCheckInDateColumn = tableInfo.any((row) => row.data['name'] == 'check_in_date');
+        final List<QueryRow> tableInfo = await customSelect('PRAGMA table_info(check_in)').get();
+        final bool hasDateColumn = tableInfo.any((QueryRow row) => row.data['name'] == 'date');
+        final bool hasCheckInDateColumn = tableInfo.any((QueryRow row) => row.data['name'] == 'check_in_date');
         
         if (hasDateColumn && !hasCheckInDateColumn) {
           // Column is named 'date', need to rename it
@@ -297,8 +298,8 @@ class AppDatabase extends _$AppDatabase {
   /// Helper: detect whether a column exists in a table (public for testing)
   Future<bool> hasColumn(String table, String column) async {
     try {
-      final result = await customSelect('PRAGMA table_info(${table})').get();
-      for (final row in result) {
+      final List<QueryRow> result = await customSelect('PRAGMA table_info($table)').get();
+      for (final QueryRow row in result) {
         if (row.data['name'] == column) return true;
       }
     } catch (e) {
@@ -320,15 +321,15 @@ class AppDatabase extends _$AppDatabase {
   Future<CheckIn?> getCheckInByDate(String date) async {
     return (select(
       checkIns,
-    )..where((t) => t.checkInDate.equals(date))).getSingleOrNull();
+    )..where(($CheckInsTable t) => t.checkInDate.equals(date))).getSingleOrNull();
   }
 
   Future<List<CheckIn>> getAllCheckIns() async {
-    return (select(checkIns)..orderBy([(t) => OrderingTerm.desc(t.checkInDate)])).get();
+    return (select(checkIns)..orderBy(<OrderClauseGenerator<$CheckInsTable>>[($CheckInsTable t) => OrderingTerm.desc(t.checkInDate)])).get();
   }
 
   Future<List<CheckInPhotoData>> photosForDate(String date) =>
-      (select(checkInPhoto)..where((p) => p.checkInDate.equals(date))).get();
+      (select(checkInPhoto)..where(($CheckInPhotoTable p) => p.checkInDate.equals(date))).get();
 
   /// Insert a photo record for a given check-in date
   Future<int> insertPhoto(
@@ -352,22 +353,22 @@ class AppDatabase extends _$AppDatabase {
   /// Additionally, an emotional check-in for that date may mark it as immutable.
   Future<bool> isCheckInMutable(String dateStr) async {
     try {
-      final parts = dateStr.split('-');
+      final List<String> parts = dateStr.split('-');
       if (parts.length != 3) return true; // Default to mutable if parse fails
-      final d = DateTime(
+      final DateTime d = DateTime(
         int.parse(parts[0]),
         int.parse(parts[1]),
         int.parse(parts[2]),
       );
-      final now = DateTime.now();
-      final today = DateTime(now.year, now.month, now.day);
+      final DateTime now = DateTime.now();
+      final DateTime today = DateTime(now.year, now.month, now.day);
       
       // Only allow editing TODAY - block both past and future
       if (!d.isAtSameMomentAs(today)) return false;
 
-      final imm =
+      final List<CheckInColorData> imm =
           await (select(checkInColor)..where(
-                (c) =>
+                ($CheckInColorTable c) =>
                     c.checkInDate.equals(dateStr) & c.isImmutable.equals(true),
               ))
               .get();
@@ -399,11 +400,11 @@ class AppDatabase extends _$AppDatabase {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'trale_plus_v2.sqlite'));
+    final Directory dbFolder = await getApplicationDocumentsDirectory();
+    final File file = File(p.join(dbFolder.path, 'trale_plus_v2.sqlite'));
     return NativeDatabase(
       file,
-      setup: (database) {
+      setup: (Database database) {
         // Enable foreign key constraints
         database.execute('PRAGMA foreign_keys = ON');
       },
@@ -416,7 +417,7 @@ Future<void> removeLegacyTargetWeightIfPresentFn(
   Future<bool> Function(String table, String column) hasColumnFn,
   Future<void> Function(String sql) runSqlFn,
 ) async {
-  final hasTargetColumn = await hasColumnFn('measurements', 'target_weight');
+  final bool hasTargetColumn = await hasColumnFn('measurements', 'target_weight');
   if (hasTargetColumn) {
     // safe migration: copy, drop, rename
     await runSqlFn('PRAGMA foreign_keys = OFF');
