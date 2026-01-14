@@ -1,5 +1,0 @@
-- Hello World! Thx to the community, the app is now available in Estonian and Slovenian 🎉
-- Allow setting the first day of the week, thx to @olker159
-- Using the latest flutter 3.27 with upgraded deps
-- Improved and restructured settings page
-- Fixed the estimation of the current/max streak, see #183

@@ -1,4 +1,0 @@
-- All new and improved interpolation API, the predictions are now more reliable 🎉
-- Using the latest flutter 3.19 with upgraded deps and target Android 14
-- Thx to the community, the app is now available in Lithuanian, Chinese and Spanish
-- And many minor fixes and improvements

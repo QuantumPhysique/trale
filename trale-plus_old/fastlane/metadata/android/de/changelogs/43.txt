@@ -1,3 +1,0 @@
-- Ein brandneues Layout für die Messungsübersicht inklusive Statistik
-- Verbesserte Änderungsrate auf Starbildschirm Widget
-- Lineare Regression für Extrapolation vor erstem Messwert

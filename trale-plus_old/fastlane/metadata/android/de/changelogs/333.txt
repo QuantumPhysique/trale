@@ -1,9 +1,0 @@
-Neue Funktionen und Verbesserungen 🙌:
-- 3 brandneue Farbthemen
-- Trale bietet jetzt 7 Farbvarianten. Schaut in den Einstellung vorbei 🎉
-
-Andere Änderungen:
-- Upgrade der Abhängigkeiten
-- Upgrade der Entwicklungsumgebung (Kotlin, Gradle, Android-Anwendung und NDK)
-
-Und mehrere kleinere Fehlerbehebungen 🐛.

@@ -1,2 +1,0 @@
-- Animation auf dem Startscreen hinzugefügt
-- Der Homescreen wird jetzt geupdatet beim Hinzufügen des ersten Messwerts

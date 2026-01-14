@@ -1,2 +1,0 @@
-- Dank der Community ist die App jetzt auf Französisch, Finnisch und Italienisch
-- Upgrade auf flutter 3.22, aktuelle Abhängigkeiten und gradle 8+

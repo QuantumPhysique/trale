@@ -1,4 +1,0 @@
-- Ziel-SDK 35 und Verwendung von Gradle 8.10
-- Designverbesserungen
-- Danke an die Community, verbessert wurden Lokalisierungen für Italienisch, Estnisch und Chinesisch
-- Zielgewicht aus der Interpolationsvorschau entfernt

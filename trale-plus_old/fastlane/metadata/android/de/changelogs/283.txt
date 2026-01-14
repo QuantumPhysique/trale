@@ -1,7 +1,0 @@
-v0.10.0:
-- Hallo Welt! Dank der Community ist die App jetzt auch auf Russisch und Vietnamesisch verfügbar
-- Import/Export wurde überarbeitet: Speichern in Dateien und Importieren aus openScale und Withings sind nun möglich
-- Weitere kleinere Verbesserungen und Korrekturen
-
-v0.10.1:
-- Behebe verwechselte Buttons beim Importieren

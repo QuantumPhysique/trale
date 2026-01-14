@@ -1,3 +1,0 @@
-- All new measurment screen including now achievemts
-- Show current slope on start screen widget instead of 30 days average
-- Added linear regression for history prediction

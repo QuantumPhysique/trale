@@ -1,2 +1,0 @@
-- Zdravo svijete, the app is now available in Croatian
-- Upgraded to latest flutter 3.24 and dependencies

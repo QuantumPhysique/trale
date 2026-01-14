@@ -1,4 +1,0 @@
-- Komplett überarbeitete graphische Oberfläche basierend auf Material Design 3 und Flutter 3
-- Verbesserte Gewichtsvorhersage basierend auf linearer Regression
-- Viele neue Farbthemen, verbesserte Zoomlevels, viele beseitigte Fehler und vieles mehr.
-

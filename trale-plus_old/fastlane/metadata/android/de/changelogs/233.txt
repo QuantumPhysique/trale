@@ -1,5 +1,0 @@
-- Hallo Welt! Dank der Community ist die App jetzt auch auf Estnisch und Slowenisch verfügbar 🎉.
-- Erlaubt die Einstellung des ersten Wochentags, dank @olker159
-- Verwendet die neueste Flutter-Version 3.27 mit aktualisierten Deps
-- Verbesserte und umstrukturierte Einstellungsseite
-- Die Schätzung des aktuellen/maximalen Serie wurde korrigiert, siehe #183

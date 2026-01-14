@@ -1,2 +1,0 @@
-- Zdravo svijete, die App ist jetzt auf Kroatisch verfügbar
-- Aktualisiert auf neustes Flutter 3.24 und Abhängigkeiten

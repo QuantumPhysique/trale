@@ -1,5 +1,0 @@
-- App Id wurde zu `de.quantumphysique.trale` geändert, updaten ist nicht möglich!
-- Aufnahmeprozess zu F-Droid gestartet
-- Geupdatete Abhängigkeiten und kleine UI Verbesserungen
-- Problem behoben um Links zu öffnen
-- Verbesserte Ticks für große Intervalle

@@ -1,2 +1,0 @@
-- Thx to the community, the app is now available in Czech, Korean, Norwegian, and Polish 🎉
-- Improved readme, screenshots, and app description (fastlane)

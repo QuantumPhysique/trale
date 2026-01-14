@@ -1,3 +1,0 @@
-- Improving material you theme
-- Added import and export feature
-- Minor bugfixes

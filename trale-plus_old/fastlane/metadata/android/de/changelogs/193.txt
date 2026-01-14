@@ -1,3 +1,0 @@
-- Merhaba dünya, die App ist jetzt auf Türkisch verfügbar
-- Aktualisierte Abhängigkeiten
-- Einige Fehlerbehebungen und kleine Verbesserungen

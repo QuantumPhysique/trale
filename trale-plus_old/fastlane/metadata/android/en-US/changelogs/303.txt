@@ -1,3 +1,0 @@
-- Thx to the community, many translations have been improved 🎉
-- Improved material you theme
-- Upgraded flutter and deps
