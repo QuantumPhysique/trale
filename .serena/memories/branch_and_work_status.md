@@ -17,19 +17,17 @@
    - Unit tests passing
    - Linear: SUN-6 (Done)
 
-## In Review (Ready for Merge)
-
-3. **feature/homescreen-calendar** 📋 IN REVIEW
-   - Last commit: 633d3c7
+3. **feature/homescreen-calendar** ✅ MERGED
+   - PR: #4
    - File: app/lib/pages/homescreen_calendar.dart (156 lines)
    - Full-screen TableCalendar in month view
    - Date selection → DailyEntryScreen navigation
    - Event markers for existing check-ins
    - Widget tests included
-   - Linear: SUN-10 (In Review)
+   - Linear: SUN-10 (Done)
 
-4. **feature/checkin-ui-refactor** 📋 IN REVIEW (CURRENT BRANCH)
-   - Last commit: d5dac94
+4. **feature/checkin-ui-refactor** ✅ MERGED
+   - PR: #6
    - File: app/lib/screens/daily_entry_screen.dart (975 lines)
    - **Implements**:
      - T4: Enhanced multi-section check-in form (SUN-8)
@@ -44,9 +42,15 @@
      - Emotional check-ins (color wheel, live clock, multiple per day)
      - Immutability enforcement (midnight cutoff)
    - **Testing**: Integration tests, widget tests, Pixel7 device testing
-   - **Linear Issues**: SUN-7, SUN-8, SUN-9, SUN-11 (all Done or In Review)
+   - **Linear Issues**: SUN-7, SUN-8, SUN-9, SUN-11 (all Done)
 
-5. **feature/checkin-process-update** ⚠️ SUPERSEDED
+5. **Security fixes** ✅ MERGED
+   - fix/aikido-security-sast-13567081-jnDC (PR #7)
+   - fix/aikido-security-sast-13567240-pdQL (PR #8)
+   - fix/aikido-security-sast-13567271-7wFG (PR #9)
+   - Fixed SSL certificate validation, pinned actions, exported components
+
+6. **feature/checkin-process-update** ⚠️ SUPERSEDED
    - Commit: daef290
    - Early implementation of photo/color picker
    - Superseded by feature/checkin-ui-refactor (more complete)
@@ -54,12 +58,12 @@
 
 ## Not Started / Backlog
 
-6. **feature/coming-soon-tabs** ❌ NOT STARTED
+7. **feature/coming-soon-tabs** ❌ NOT STARTED
    - Linear: SUN-12 (Backlog)
    - Task: Add "Coming Soon" placeholders to Achievements and Measurements tabs
    - Simple UI change, low priority
 
-7. **Remove Target Weight** ❌ NOT STARTED
+8. **Remove Target Weight** ❌ NOT STARTED
    - Linear: SUN-5 (Backlog)
    - Database schema already updated (removed in DB refactor)
    - May need UI cleanup to remove any remaining references
@@ -67,40 +71,32 @@
 ## Branch Relationships
 
 ```text
-main (stable)
+main (stable, all major features merged)
   ├─ feature/platform-targets (merged) ✅
   ├─ feature/db-sqlite-refactor (merged) ✅
-  ├─ feature/homescreen-calendar (ready to merge) 📋
-  └─ feature/checkin-ui-refactor (ready to merge) 📋
+  ├─ feature/homescreen-calendar (merged) ✅
+  └─ feature/checkin-ui-refactor (merged) ✅
        └─ includes work from feature/checkin-process-update
 ```
 
 ## Current Working Branch
 
-**feature/checkin-ui-refactor** (d5dac94)
-- On branch: feature/checkin-ui-refactor
-- Tracking: origin/feature/checkin-ui-refactor
-- Status: Up to date with origin
-- Changes not staged: .github/agents/orchestrator.md (modified)
+**main** (up to date)
+- All features merged
+- Security fixes applied
+- Ready for cleanup and release
 
-## Next Steps for Merge
+## Next Steps for Cleanup
 
-1. **Create PRs**:
-   - feature/homescreen-calendar → main
-   - feature/checkin-ui-refactor → main
+1. **Delete merged feature branches**:
+   - Local: git branch -d feature/platform-targets, feature/db-sqlite-refactor, feature/homescreen-calendar, feature/checkin-ui-refactor
+   - Remote: git push origin --delete ...
 
-2. **PR Review Checklist**:
-   - Screenshots included
-   - Integration tests passing
-   - Device testing notes (Pixel 7)
-   - CodeRabbit feedback addressed
-   - CI/CD green
+2. **Update CHANGELOG.md**: Document all changes
 
-3. **After Merge**:
-   - Pull updated main
-   - Delete feature branches (local + remote)
-   - Update CHANGELOG.md
-   - Tag release if appropriate
+3. **Create release tag**: v0.15.0
+
+4. **Update Linear**: Close completed issues, update cycle
 
 ## Trale Fitness Journal Refactor
 
@@ -108,12 +104,13 @@ main (stable)
 **Team**: SundaeLabsInternal
 
 **Issues Status**:
-- ✅ Done: SUN-6 (T2 DB), SUN-7 (T3 Camera), SUN-9 (T5 Emotional), SUN-11 (T7 Immutability), SUN-13 (T9 Platform)
-- 📋 In Review: SUN-8 (T4 Check-in Form), SUN-10 (T6 Calendar)
+- ✅ Done: SUN-6 (T2 DB), SUN-7 (T3 Camera), SUN-8 (T4 Check-in), SUN-9 (T5 Emotional), SUN-10 (T6 Calendar), SUN-11 (T7 Immutability), SUN-13 (T9 Platform), SUN-14 (Security)
 - ⏸️ Backlog: SUN-12 (T8 Coming Soon), SUN-5 (Remove Target Weight)
-- 🔒 Blocked: SUN-14 (Security - Aikido SSL cert validation)
 
 ## Git Remotes
 
 Repository appears to be private or local (GitHub API 404 on boss/trale-plus)
-Remote origin: origin/feature/checkin-ui-refactor exists
+All feature branches still exist remotely but are merged to main
+
+## Updated as of January 14, 2026</content>
+<parameter name="memory_file_name">branch_and_work_status

@@ -1,29 +1,24 @@
 # Remaining Work and Next Steps
 
+## Work Completed and Merged
 
-## Work Ready for PR/Merge
-
-
-### 1. feature/homescreen-calendar → main
-- **Status**: Ready for PR creation
-- **Linear**: SUN-10 (In Review)
+### 1. feature/homescreen-calendar → main ✅ MERGED
+- **Status**: Merged (PR #4)
+- **Linear**: SUN-10 (Done)
 - **Files**: app/lib/pages/homescreen_calendar.dart (156 lines)
 - **Tests**: Widget tests in app/test/widget/homescreen_calendar_test.dart
-- **Action needed**: Create PR, wait for review, merge
+- **Action completed**: Merged to main
 
-
-### 2. feature/checkin-ui-refactor → main
-- **Status**: Ready for PR creation
-- **Linear**: SUN-8 (In Review)
+### 2. feature/checkin-ui-refactor → main ✅ MERGED
+- **Status**: Merged (PR #6)
+- **Linear**: SUN-8 (Done)
 - **Files**:
   - app/lib/screens/daily_entry_screen.dart (975 lines)
   - app/lib/core/db/app_database.dart (extended)
   - Tests and screenshots
-- **Action needed**: Create PR, wait for review, merge
-
+- **Action completed**: Merged to main
 
 ## Backlog Items (Not Started)
-
 
 ### 3. SUN-12: T8 - Add Coming Soon Messages to Tabs
 **Priority**: Medium (not urgent)
@@ -33,7 +28,6 @@
 - `app/lib/pages/measurementScreen.dart` (measurements)
 
 **Implementation**:
-
 
 ```dart
 Center(
@@ -45,14 +39,11 @@ Center(
     ),
   ),
 )
-
 ```
-
 
 **Branch**: `feature/coming-soon-tabs`
 **Estimated effort**: 30 minutes
 **Dependencies**: None
-
 
 ### 4. SUN-5: Remove Target Weight
 **Priority**: Low (database already updated)
@@ -69,21 +60,16 @@ Center(
 
 **Search needed**:
 
-
 ```bash
 grep -r "target.*weight" app/lib/
 grep -r "targetWeight" app/lib/
-
 ```
-
 
 **Branch**: `feature/remove-target-weight-ui`
 **Estimated effort**: 1-2 hours
 **Dependencies**: None
 
-
 ## Future Enhancements (Not in Current Scope)
-
 
 ### Emoji-Based Emotional Check-ins
 **Note**: Current implementation uses color wheel (flutter_colorpicker)
@@ -100,9 +86,7 @@ grep -r "targetWeight" app/lib/
 **Estimated effort**: 4-6 hours
 **Dependencies**: Would replace current emotional check-in implementation
 
-
 ## Integration and Testing TODOs
-
 
 ### Before Final Release
 
@@ -134,24 +118,23 @@ grep -r "targetWeight" app/lib/
    - README.md if needed
    - Agent_Instructions.md to reflect actual implementation
 
+## Security Issues Fixed
 
-## Security Issue
-
-### SUN-14: Improper SSL Certificate Validation
+### SUN-14: Improper SSL Certificate Validation ✅ FIXED
 - **Source**: Aikido Security scan
-- **Priority**: High
-- **File**: app/android/app/src/debug/AndroidManifest.xml (line 1)
-- **Status**: Backlog
-- **Action**: Review and fix SSL certificate validation in debug manifest
-- **Branch**: TBD (heet/sun-14-improper-ssl-certificate-validation-trale-plus suggested)
-
+- **Priority**: High → Fixed
+- **Files**: Various, including android/app/src/debug/AndroidManifest.xml
+- **Status**: Fixed via multiple PRs (#7, #8, #9)
+- **Actions completed**: 
+  - Pinned 3rd party GitHub Actions
+  - Fixed Android components with exported attribute
+  - Autofixed security issues
 
 ## CI/CD Considerations
 - GitHub Actions workflows should run on PR creation
 - CodeRabbit will provide automated review
 - Wait ~2 minutes for CI feedback before addressing
 - Ensure all tests pass before requesting human review
-
 
 ## Post-Merge Cleanup
 1. Delete merged feature branches:
@@ -174,4 +157,5 @@ grep -r "targetWeight" app/lib/
 
 3. Update Linear cycles and close issues
 
-4. Generate release notes for F-Droid/Play Store
+## Updated as of January 14, 2026</content>
+<parameter name="memory_file_name">remaining_work_and_next_steps

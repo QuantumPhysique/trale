@@ -5,10 +5,22 @@
   - `.github/workflows/flutter-release.yml` — release build steps
 
 - Tests present locally:
-  - Unit/widget tests: `test/widget_test.dart`
-  - No `integration_test/` directory currently in the repository (Agent_Instructions.md contains example integration tests to be added for T2–T9 flows).
+  - Unit/widget tests: `test/widget_test.dart`, `test/widget/`, `test/db/`
+  - Integration tests: `test_driver/driver_test.dart` (device-based integration tests for check-in flows)
+  - Driver tests: `test_driver/driver_main.dart` (test harness)
 
-- Gaps & Recommendations:
-  - Add `integration_test/` tests for database, camera, check-in form, emotional check-in, calendar, and immutability (Agent_Instructions has canonical examples).
-  - Add device verification steps (adb) as part of local QA; consider adding device matrix to CI (emulator) for at least smoke tests.
-  - Consider adding a `format` and `analyze` step in CI if not already present.
+- Current Coverage:
+  - ✅ Unit tests: Database CRUD operations, migrations
+  - ✅ Integration tests: Check-in form flow, emotional check-ins, calendar navigation
+  - ✅ Widget tests: Calendar, form validation, screen rendering
+  - ✅ Device tests: Pixel7 (Android 9+, minSdk 28) verified
+  - ⏸️ Playwright screenshots: Available in `app/screenshots/` but not automated
+
+- Recommendations:
+  - Add `integration_test/` directory for standard Flutter integration tests if needed
+  - Consider adding device matrix to CI (emulator) for smoke tests
+  - Add `format` and `analyze` step in CI if not already present
+  - Playwright tests are in root `tests/` directory for end-to-end testing
+
+- Updated as of January 14, 2026: Integration tests implemented and passing</content>
+<parameter name="memory_file_name">ci_and_tests
