@@ -1,9 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -18,10 +16,6 @@ Future<void> main() async {
   final Preferences prefs = Preferences();
   await prefs.loaded;
   final TraleNotifier traleNotifier = TraleNotifier();
-
-  await Hive.initFlutter();
-  Hive.registerAdapter<Measurement>(MeasurementAdapter());
-  await Hive.openBox<Measurement>(measurementBoxName);
 
   return runApp(
     ChangeNotifierProvider<TraleNotifier>.value(

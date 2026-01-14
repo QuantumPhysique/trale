@@ -33,8 +33,6 @@ dependencies:
   fl_chart: ^1.1.1
   flutter_auto_size_text: ^4.1.0
   flutter_svg: ^2.2.3
-  hive_ce: ^2.16.0
-  hive_ce_flutter: ^2.3.3
   intl: ^0.20.2
   introduction_screen: ^4.0.0
   ml_linalg: ^13.12.7
@@ -75,7 +73,6 @@ dev_dependencies:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
-  hive_ce_generator: ^1.10.0
   translations_cleaner: ^0.1.0
 
 # define app icons

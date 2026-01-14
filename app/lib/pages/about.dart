@@ -166,20 +166,6 @@ final List<ThirdPartyLicence> tpls =
         years: '2017',
       ),
       ThirdPartyLicence(
-        name: 'hive',
-        url: 'https://github.com/hivedb/hive/',
-        licence: 'Apache',
-        author: 'Simon Leier',
-        years: '2019',
-      ),
-      ThirdPartyLicence(
-        name: 'hive flutter',
-        url: 'https://github.com/hivedb/hive_flutter/',
-        licence: 'Apache',
-        author: 'Simon Leier',
-        years: '2019',
-      ),
-      ThirdPartyLicence(
         name: 'intl',
         url: 'https://github.com/dart-lang/intl',
         licence: 'BSD',

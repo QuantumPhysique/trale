@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 
-part 'measurement.g.dart';
-
 /// Class for weight event
-@HiveType(typeId: 0)
 class Measurement {
   /// constructor
   Measurement({
@@ -19,11 +15,9 @@ class Measurement {
   });
 
   /// weight of measurement
-  @HiveField(0)
   final double weight;
 
   /// date of measurement
-  @HiveField(1)
   final DateTime date;
 
   /// to store if measured
@@ -118,25 +112,4 @@ class Measurement {
 
   /// compare method to use default sort method on list
   static int compare(Measurement a, Measurement b) => a.compareTo(b);
-}
-
-/// Class wrapping measurement with its hive key
-class SortedMeasurement {
-  /// constructor
-  SortedMeasurement({required this.key, required this.measurement});
-
-  /// Measurement object
-  final Measurement measurement;
-
-  /// Hive key
-  final dynamic key;
-
-  /// implement sorting entries by date
-  /// comparator method
-  int compareTo(SortedMeasurement other) =>
-      measurement.date.compareTo(other.measurement.date);
-
-  /// compare method to use default sort method on list
-  static int compare(SortedMeasurement a, SortedMeasurement b) =>
-      a.compareTo(b);
 }

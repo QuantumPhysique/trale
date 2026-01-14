@@ -100,7 +100,7 @@ class _OverviewScreen extends State<OverviewScreen> {
       AsyncSnapshot<List<Measurement>> snapshot,
     ) {
       final MeasurementDatabase database = MeasurementDatabase();
-      final List<SortedMeasurement> measurements = database.sortedMeasurements;
+      final List<Measurement> measurements = database.measurements;
 
       return measurements.isNotEmpty
           ? overviewScreen(context, snapshot)

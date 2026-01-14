@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:hive_ce/hive.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
-
+import 'package:trale/core/db/app_database.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
@@ -105,11 +103,6 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   /// singleton instance
   static final MeasurementDatabase _instance = MeasurementDatabase._internal();
 
-  static const String _boxName = measurementBoxName;
-
-  /// get box
-  Box<Measurement> get box => Hive.box<Measurement>(_boxName);
-
   /// check if measurement exists
   bool containsMeasurement(Measurement m) {
     final List<bool> isMeasurement = <bool>[
@@ -121,48 +114,53 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// insert Measurements into box
   bool insertMeasurement(Measurement m) {
-    final bool isContained = containsMeasurement(m);
-    if (!isContained) {
-      box.add(m);
-      reinit();
-    }
-    return !isContained;
+    // TODO: migrate to Drift
+    // final bool isContained = containsMeasurement(m);
+    // if (!isContained) {
+    //   box.add(m);
+    //   reinit();
+    // }
+    // return !isContained;
+    return false;
   }
 
   /// insert a list of measurements into the box
   int insertMeasurementList(List<Measurement> ms) {
-    int count = 0;
-    for (final Measurement m in ms) {
-      final bool isContained = containsMeasurement(m);
-      if (!isContained) {
-        box.add(m);
-        count++;
-      }
-    }
-    if (count > 0) {
-      reinit();
-    }
-    return count;
+    // TODO: migrate to Drift
+    // int count = 0;
+    // for (final Measurement m in ms) {
+    //   final bool isContained = containsMeasurement(m);
+    //   if (!isContained) {
+    //     box.add(m);
+    //     count++;
+    //   }
+    // }
+    // if (count > 0) {
+    //   reinit();
+    // }
+    // return count;
+    return 0;
   }
 
   /// delete Measurements from box
-  void deleteMeasurement(SortedMeasurement m) {
-    box.delete(m.key);
+  void deleteMeasurement(Measurement m) {
+    // TODO: migrate to Drift
+    // box.delete(m.key);
     reinit();
   }
 
   /// delete all Measurements from box
   Future<void> deleteAllMeasurements() async {
-    for (final SortedMeasurement m in sortedMeasurements) {
-      await box.delete(m.key);
-    }
+    // TODO: migrate to Drift
+    // for (final SortedMeasurement m in sortedMeasurements) {
+    //   await box.delete(m.key);
+    // }
     reinit();
   }
 
   /// re initialize database
   void reinit() {
     _measurements = null;
-    _sortedMeasurements = null;
 
     // recalc all
     init();
@@ -179,7 +177,6 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   /// initialize database
   void init() {
     measurements;
-    sortedMeasurements;
   }
 
   @override
@@ -188,25 +185,17 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   /// get sorted measurements
   @override
   List<Measurement> get measurements =>
-      _measurements ??= box.values.toList()
-        ..sort((Measurement a, Measurement b) => b.compareTo(a));
-
-  List<SortedMeasurement>? _sortedMeasurements;
-
-  /// get sorted measurements, key tuples
-  List<SortedMeasurement> get sortedMeasurements =>
-      _sortedMeasurements ??= <SortedMeasurement>[
-        for (final dynamic key in box.keys)
-          SortedMeasurement(key: key, measurement: box.get(key)!),
-      ]..sort((SortedMeasurement a, SortedMeasurement b) => b.compareTo(a));
+      _measurements ??= <Measurement>[]; // TODO: migrate to Drift
+      // box.values.toList()
+      //   ..sort((Measurement a, Measurement b) => b.compareTo(a));
 
   /// date of latest measurement
   @override
-  DateTime get lastDate => sortedMeasurements.first.measurement.date;
+  DateTime get lastDate => measurements.isNotEmpty ? measurements.first.date : DateTime.now();
 
   /// date of first measurement
   @override
-  DateTime get firstDate => sortedMeasurements.last.measurement.date;
+  DateTime get firstDate => measurements.isNotEmpty ? measurements.last.date : DateTime.now();
 
   /// return string for export
   String get exportString {
