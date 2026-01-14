@@ -6,7 +6,6 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/main.dart';
 
 /// Extend DateTime for faster comparison
 extension DateTimeExtension on DateTime {
