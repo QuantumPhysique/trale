@@ -1,8 +1,8 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:trale/pages/homescreen_calendar.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/pages/homescreen_calendar.dart';
 
 void main() {
   testWidgets('Calendar shows markers for dates with check-ins', (

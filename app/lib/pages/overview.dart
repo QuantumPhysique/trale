@@ -6,10 +6,8 @@ import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/ioWidgets.dart';
-import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -76,14 +74,10 @@ class _OverviewScreen extends State<OverviewScreen> {
           AnimatedStatsWidgets(
             key: ValueKey<List<Measurement>>(snapshot.data ?? <Measurement>[]),
           ),
-          AnimateInEffect(
-            durationInMilliseconds: animationDurationInMilliseconds,
-            child: CustomLineChart(
-              loadedFirst: loadedFirst,
-              ip: ip,
-              key: ValueKey<List<Measurement>>(
-                snapshot.data ?? <Measurement>[],
-              ),
+          const Card(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text('Widgets for home coming soon'),
             ),
           ),
           const SizedBox(height: 80.0),

@@ -64,12 +64,12 @@ extension ZoomLevelExtension on ZoomLevel {
   }
 
   /// get maxX value in [ms]
-  double get maxX => _times.last;
+  double get maxX => _times.isNotEmpty ? _times.last.toDouble() : DateTime.now().millisecondsSinceEpoch.toDouble();
 
   /// get minX vale in [ms]
   double get minX {
     if (this == ZoomLevel.all) {
-      return _times.first;
+      return _times.isNotEmpty ? _times.first.toDouble() : DateTime.now().subtract(const Duration(days: 365)).millisecondsSinceEpoch.toDouble();
     }
     return maxX - _rangeInMilliseconds;
   }

@@ -1,18 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter_test/flutter_test.dart';
 import 'package:drift/drift.dart' as drift;
-import 'package:drift/drift.dart'
-    show
-        QueryExecutor,
-        QueryExecutorUser,
-        BatchedStatements,
-        SqlDialect,
-        TransactionExecutor;
 import 'package:drift/native.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:sqlite3/sqlite3.dart' as sqlite3;
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:drift_sqflite/drift_sqflite.dart';
 import 'package:trale/core/db/app_database.dart';
 
 void main() {
@@ -87,8 +76,8 @@ void main() {
       () async {
         final List<String> executed = <String>[];
 
-        Future<bool> Function(String table, String column) Future<bool> Future<bool> hasColumnStub(String table, String column) async => true;
-        Future<void> Function(String sql) Future<void> Future<void> runSqlStub(String sql) async => executed.add(sql);
+        Future<bool> hasColumnStub(String table, String column) async => true;
+        Future<void> runSqlStub(String sql) async => executed.add(sql);
 
         await removeLegacyTargetWeightIfPresentFn(hasColumnStub, runSqlStub);
 
