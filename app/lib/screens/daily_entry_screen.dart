@@ -334,9 +334,9 @@ class _DailyEntryScreenState extends State<DailyEntryScreen> {
     } catch (e, stackTrace) {
       print('[DEBUG] Error saving entry: $e');
       print('[DEBUG] Stack trace: $stackTrace');
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Error saving entry: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Unable to save entry, please try again')),
+      );
     } finally {
       setState(() => _isSaving = false);
     }

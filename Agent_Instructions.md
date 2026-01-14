@@ -10,11 +10,14 @@
 
 ---
 
+
 ## 🎯 IMPLEMENTATION STATUS (Last Updated: 2026-01-13)
+
 
 ### ✅ COMPLETED & MERGED TO MAIN
 - **T9 (Stage 1)**: Platform targets (Android 9+, iOS 18+) - SUN-13 ✅
 - **T2 (Stage 2)**: SQLite/Drift database refactor - SUN-6 ✅
+
 
 ### 📋 COMPLETED & IN REVIEW (Ready for PR/Merge)
 - **T6**: Full-screen calendar HomeScreen - SUN-10 (branch: feature/homescreen-calendar)
@@ -25,12 +28,15 @@
 
 **Branch**: `feature/checkin-ui-refactor` (commit d5dac94) - Contains T3, T4, T5, T7 implementations
 
+
 ### ⏸️ BACKLOG (Not Started)
 - **T8**: "Coming Soon" placeholders for Achievements/Measurements tabs - SUN-12
 - Remove target weight UI references - SUN-5
 - Fix SSL certificate validation (security) - SUN-14
 
+
 ### 📝 IMPLEMENTATION NOTES
+
 1. **Emotional Check-ins**: Implemented with **color wheel** (flutter_colorpicker) instead of emoji grid
    - Reference implementation in trale-plus_old uses 8 emoji emotions
    - Current: ColorPickerArea color wheel, live timestamp, optional message
@@ -42,6 +48,7 @@
 ---
 
 ## UI/UX Design Philosophy
+
 
 ### Core Principles (from trale-plus_old reference)
 1. **Collapsible Card Sections**: Each entry component (weight/height, photos, workout, thoughts, emotions) lives in an expandable Card widget with ListTile header showing summary when collapsed
@@ -55,10 +62,12 @@
 
 ## Prerequisites & Initial Setup
 
+
 ### Linear Project Creation
 1. Use **linear mcp connector** to create Linear project `trale-fitness-journal-refactor`
 2. Create cycles for each stage (DB Refactor, Check-in Process, etc.)
 3. Add Linear issues for T2–T9, sequenced as below
+
 
 ### Oraios/Serena RAG Index
 Index the following into Serena before starting:
@@ -66,6 +75,7 @@ Index the following into Serena before starting:
 - **Key files path**: `pubspec.yaml`, `lib/`, `android/app/build.gradle`, `ios/Runner.xcworkspace`
 - **Schema plan**: Full contents of `.db_schema_refactor.md`
 - **Reference**: trale GitHub repo (https://github.com/QuantumPhysique/trale)
+
 
 ### Context & Search Queries for MCP Servers
 
@@ -90,10 +100,12 @@ Index the following into Serena before starting:
 
 **Playwright**: Screenshot verification on Pixel7 post-build (home, calendar, check-in forms, emotional picker, immutability blocks)
 
+
 ### Device Setup
 ```bash
 flutter devices  # Verify Pixel7 listed as 'Pixel_7_*' (wireless ADB)
 ```
+
 
 ### Clean Main Branch Before Each Stage
 ```bash
@@ -110,6 +122,7 @@ flutter clean
 **Scope**: Update iOS 18.0 and Android 9+ (minSdkVersion 28)  
 **Branch**: `feature/platform-targets`  
 **Linear**: Create & link issues T8, T9
+
 
 ### Steps
 
@@ -175,6 +188,7 @@ flutter clean
 **Branch**: `feature/db-sqlite-refactor`  
 **Linear**: Link issue T2
 
+
 ### Steps
 
 1. **Create feature branch**:
@@ -238,6 +252,7 @@ flutter clean
 **Scope**: Implement new check-in form with weight, height, photos, thoughts, workout, emotional  
 **Branch**: `feature/checkin-process-update`  
 **Linear**: Link issue T3
+
 
 ### Substeps
 
@@ -473,6 +488,7 @@ flutter clean
      - "Previous check-ins today" label
      - List of saved check-in cards
 
+
 ### Full Stage 3 Execution
 
 1. **Create branch**:
@@ -539,6 +555,7 @@ flutter clean
 **Branch**: `feature/checkin-immutability`  
 **Linear**: Link issues T5, T6
 
+
 ### Steps
 
 1. **Create branch**:
@@ -592,6 +609,7 @@ flutter clean
 **Scope**: Full-screen month calendar; add/edit check-ins by date  
 **Branch**: `feature/homescreen-calendar`  
 **Linear**: Link issue T4
+
 
 ### Steps
 
@@ -649,6 +667,7 @@ flutter clean
 **Scope**: Add "Coming soon" placeholders for Achievements & Measurements tabs  
 **Branch**: `feature/tabs-coming-soon`  
 **Linear**: Link issue T7
+
 
 ### Steps
 

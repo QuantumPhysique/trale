@@ -176,6 +176,37 @@ if (from < 6) {
 
 ---
 
+## Database Triggers
+
+The database includes triggers to enforce immutability for past check-ins. These triggers prevent updates or deletions on check-in records where the `check_in_date` is before the current date.
+
+**Trigger Implementation**:
+```sql
+-- Prevent updates to past check-ins
+CREATE TRIGGER check_in_immutable_update
+  BEFORE UPDATE ON check_in
+  WHEN OLD.check_in_date < date('now','localtime')
+  BEGIN
+    SELECT RAISE(ABORT, 'Cannot update past check-ins');
+  END;
+
+-- Prevent deletions of past check-ins
+CREATE TRIGGER check_in_immutable_delete
+  BEFORE DELETE ON check_in
+  WHEN OLD.check_in_date < date('now','localtime')
+  BEGIN
+    SELECT RAISE(ABORT, 'Cannot delete past check-ins');
+  END;
+```
+
+**Key Points**:
+- Uses `OLD.check_in_date` to reference the existing date value
+- Compares against `date('now','localtime')` for current date
+- Triggers are created in both `onCreate` (fresh installs) and `onUpgrade` (migrations) paths
+- Enforces business rule that past entries are immutable
+
+---
+
 ## Testing Requirements
 
 ### Pre-Implementation Testing
@@ -195,6 +226,91 @@ if (from < 6) {
 - [ ] Verify workout creation links to check-in
 - [ ] Verify emotional color creation links to check-in
 - [ ] Verify photo creation links to check-in
+
+### Automated ON DELETE CASCADE Test
+
+Add the following integration test to verify ON DELETE CASCADE behavior:
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:trale/core/db/app_database.dart';
+
+void main() {
+  late AppDatabase db;
+
+  setUp(() async {
+    db = AppDatabase();
+    await db.customStatement('PRAGMA foreign_keys = ON'); // Ensure FKs enabled
+  });
+
+  tearDown(() async {
+    await db.close();
+  });
+
+  test('ON DELETE CASCADE removes related rows when check_in is deleted', () async {
+    final checkInDate = '2024-01-15';
+
+    // Create check_in
+    await db.checkIns.insertOne(CheckInsCompanion.insert(
+      checkInDate: checkInDate,
+      weight: 70.0,
+      height: 175.0,
+      notes: 'Test entry',
+    ));
+
+    // Create related workout
+    await db.workouts.insertOne(WorkoutsCompanion.insert(
+      checkInDate: checkInDate,
+      description: 'Test workout',
+    ));
+
+    // Create related check_in_color
+    await db.checkInColors.insertOne(CheckInColorsCompanion.insert(
+      checkInDate: checkInDate,
+      color: 0xFF0000FF, // Blue
+      message: 'Test emotion',
+    ));
+
+    // Create related check_in_photo
+    await db.checkInPhotos.insertOne(CheckInPhotosCompanion.insert(
+      checkInDate: checkInDate,
+      path: '/test/photo.jpg',
+      isNsfw: false,
+    ));
+
+    // Verify rows exist
+    var checkIn = await db.checkIns.getSingleOrNull(checkInDate: checkInDate);
+    expect(checkIn, isNotNull);
+
+    var workout = await db.workouts.select().getSingleOrNull();
+    expect(workout, isNotNull);
+
+    var color = await db.checkInColors.select().getSingleOrNull();
+    expect(color, isNotNull);
+
+    var photo = await db.checkInPhotos.select().getSingleOrNull();
+    expect(photo, isNotNull);
+
+    // Delete check_in
+    await db.checkIns.deleteWhere((tbl) => tbl.checkInDate.equals(checkInDate));
+
+    // Assert related rows are removed
+    checkIn = await db.checkIns.getSingleOrNull(checkInDate: checkInDate);
+    expect(checkIn, isNull);
+
+    workout = await db.workouts.select().getSingleOrNull();
+    expect(workout, isNull);
+
+    color = await db.checkInColors.select().getSingleOrNull();
+    expect(color, isNull);
+
+    photo = await db.checkInPhotos.select().getSingleOrNull();
+    expect(photo, isNull);
+  });
+}
+```
+
+This test creates a check_in row with related workout, check_in_color, and check_in_photo rows, deletes the check_in via `appDatabase.delete` (using `checkIns.deleteWhere`), and asserts that related rows in Workout, CheckInColor, and CheckInPhoto tables are removed using `getSingleOrNull()` and `select().getSingleOrNull()` queries.
 
 ---
 
