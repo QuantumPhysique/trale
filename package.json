@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/heets99/trale-plus#readme",
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
     "@types/node": "^25.0.6"
   }
 }
