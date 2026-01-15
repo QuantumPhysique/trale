@@ -10,10 +10,10 @@ class TraleIconColorMapper implements ColorMapper {
     required this.sloganColor,
   });
 
-  static const Color _defaultBgColor = Color(0xFF44464f);
-  static const Color _defaultWolfColor = Color(0xFFdae2ff);
-  static const Color _defaultTitleColor = Color(0xFF1b1b1f);
-  static const Color _defaultSloganColor = Color(0xFF0161a3);
+  static const Color _defaultBgColor = Color(0xFFFFF1EF);
+  static const Color _defaultWolfColor = Color(0xFF00658B);
+  static const Color _defaultTitleColor = Color(0xFF001D2C);
+  static const Color _defaultSloganColor = Color(0xFFFFDBCE);
 
   final Color bgColor;
   final Color wolfColor;
@@ -64,10 +64,10 @@ class _IconHeroState extends State<IconHero> {
           SvgAssetLoader(
             assetName,
             colorMapper: TraleIconColorMapper(
-              bgColor: ctheme.onSurfaceVariant,
-              wolfColor: ctheme.primaryContainer,
+              bgColor: ctheme.surfaceContainerLowest,
+              wolfColor: ctheme.primary,
               titleColor: ctheme.onSurface,
-              sloganColor: ctheme.primary,
+              sloganColor: ctheme.secondaryContainer,
             ),
           ),
           width: width,
