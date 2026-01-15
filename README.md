@@ -39,10 +39,11 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 
 ## Screenshots
 <div align="center">
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" />
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" />
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" />
-    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" />
+    <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" />
 </div>
 
 ## FAQ
