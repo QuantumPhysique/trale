@@ -359,7 +359,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             ),
           ],
         ),
-        duration: TraleTheme.of(context)!.transitionDuration.normal,
+        duration: TraleTheme.of(context)!.transitionDuration.slow,
         curve: Curves.easeOut,
       );
     }
