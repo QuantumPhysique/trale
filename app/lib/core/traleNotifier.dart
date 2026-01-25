@@ -165,7 +165,7 @@ class TraleNotifier with ChangeNotifier {
         nextBackupDate!.difference(DateTime.now()).inDays == 0 &&
         (latestBackupReminderDate == null ||
             latestBackupReminderDate!.difference(DateTime.now()).inDays < 0) &&
-        MeasurementDatabase().measurements.isNotEmpty;
+        MeasurementDatabase().measurements.length > 5;
   }
 
   /// getter

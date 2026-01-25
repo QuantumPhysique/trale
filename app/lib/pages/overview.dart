@@ -50,6 +50,7 @@ class _OverviewScreen extends State<OverviewScreen> {
                 label: AppLocalizations.of(context)!.backupReminderButton,
                 onPressed: () => exportBackup(context),
               ),
+              persist: false,
             ),
           );
           traleNotifier.latestBackupReminderDate = DateTime.now();
@@ -57,6 +58,15 @@ class _OverviewScreen extends State<OverviewScreen> {
         setState(() {});
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // Close any SnackBar shown by this page when leaving it.
+    final ScaffoldMessengerState? sm = ScaffoldMessenger.maybeOf(context);
+    sm?.clearSnackBars();
+
+    super.dispose();
   }
 
   @override
