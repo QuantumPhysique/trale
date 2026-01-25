@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Bugfix 🐛:
+- Fix bug on negative time estimates when the slope is zero, #314
+
 
 ## [0.14.0] - 2026-01-06
 
