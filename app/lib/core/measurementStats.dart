@@ -175,6 +175,11 @@ class MeasurementStats {
       return null;
     }
 
+    // if slope is less then 5 g/day, return null
+    // slope is given in kg/day
+    if (slope.abs() < 0.005) {
+      return null;
+    }
     // in ms from last measurement
     final int remainingTime = (
         (targetWeight - ip.weightsDisplay[ip.idxLastDisplay]) / slope
