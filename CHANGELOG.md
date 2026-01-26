@@ -14,9 +14,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+### Added Features and Improvements 🙌:
+- All new F-droid store page with Material You Expressive (ready) Design 🎉
+
 ### Bugfix 🐛:
 - Fix bug on negative time estimates when the slope is zero, #314
 - Fix persisting Backup reminder, #394
+- Fix Animation re-triggering when returning from settings to overview tab #402
+
 
 
 ## [0.14.0] - 2026-01-06
