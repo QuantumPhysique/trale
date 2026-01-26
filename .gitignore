@@ -6,6 +6,8 @@
 .env
 .env.dev
 /doc/
+.DS_Store
+
 
 # Miscellaneous
 app/*.class
