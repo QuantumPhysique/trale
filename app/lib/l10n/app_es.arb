@@ -108,7 +108,6 @@
         "description": "Yes for sure! Simple press the icon below."
     },
     "unit": "Unidades",
-    "@unit": {},
     "date": "Fecha",
     "@date": {
         "description": "Date"
@@ -165,7 +164,7 @@
     "@exportDialog": {
         "description": "This will export all measurements to the external storage. Writing permissions are needed."
     },
-    "importSubtitle": "Importar mediciones de un archivo .txt de copia de seguridad.",
+    "importSubtitle": "Importar mediciones de un archivo «txt» de copia de seguridad o de un archivo «csv».",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -376,19 +375,12 @@
         "description": "Frequency of backup interval"
     },
     "days": "días",
-    "@days": {},
     "weeks": "semanas",
-    "@weeks": {},
     "week": "semana",
-    "@week": {},
     "month": "mes",
-    "@month": {},
     "years": "años",
-    "@years": {},
     "year": "año",
-    "@year": {},
     "months": "meses",
-    "@months": {},
     "lastBackup": "última copia de seguridad",
     "@lastBackup": {
         "description": "Time of last backup"
@@ -477,7 +469,7 @@
     "@faq_a4": {
         "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
     },
-    "schemeVariant": "variante de esquema",
+    "schemeVariant": "Variante de esquema",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
     },
@@ -486,5 +478,159 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "IMC",
-    "@bmi": {}
+    "translate": "traducir",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Ayudar a traducir la aplicación",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "height": "altura",
+    "@height": {
+        "description": "height"
+    },
+    "target": "objetivo",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "personalization": "personalización",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "nombre",
+    "@name": {
+        "description": "Name"
+    },
+    "schemeVariantDescription": "Elija una variante para determinar cómo se crea la combinación de colores a partir del color inicial seleccionado.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Elige un color base para determinar la combinación de colores.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "configuraciones adicionales",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "back": "atrás",
+    "userDialogTitle": "Configuraciones de usuario",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Puede importar datos. Esto no eliminará los datos existentes y se ignorarán las entradas duplicadas. Se admiten archivos «txt» de trale y archivos «csv» de OpenScales. En los archivos «csv», las columnas deben llamarse «weight» y «datetime»; de lo contrario, la primera columna se analizará como una fecha y la segunda como un peso. Si utiliza un archivo «txt» personalizado, debe tener uno de los siguientes formatos:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Donación",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Apoyar el desarrollo de trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Customización",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalización",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Personaliza tu experiencia",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Elige el esquema de colores",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Elige el lenguaje",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Configuración de datos",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Importar y exportar",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Guarda y carga tus datos",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "Acerca de la aplicación",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Encuentra respuestas a preguntas frecuentes",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Versión e información de licencia",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "La interpolación utiliza un filtrado gaussiano de última generación para suavizar la curva de peso y crear una tendencia más clara. Los niveles de resistencia más altos reducen las fluctuaciones diarias, pero pueden ocultar los cambios a corto plazo. Elige '{noneInterpol}' para ver tus mediciones sin procesar, aunque la extrapolación seguirá utilizando un suavizado suave.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "Unidad",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Configuración de fecha",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Formato",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Predeterminado",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Ayuda a mejorar la aplicación enviando tus comentarios.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Un sencillo registro de peso con extrapolación a corto plazo.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Respetamos tu privacidad. La aplicación no contiene fuentes de ingresos ni envía registros de errores. Si tienes algún problema, abre una incidencia.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Creado por dos desarrolladores con poco tiempo libre. Considera la posibilidad de contribuir o hacer una donación.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "La medición se ha eliminado.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Deshacer",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Editar mediciones",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Mantenga pulsada una medición para editarla o eliminarla. Deslice este mensaje para descartarlo.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    }
 }
