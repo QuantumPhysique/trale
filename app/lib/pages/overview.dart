@@ -26,6 +26,7 @@ class _OverviewScreen extends State<OverviewScreen> {
   final GlobalKey<ScaffoldState> key = GlobalKey();
   bool popupShown = false;
   late bool loadedFirst;
+  ScaffoldMessengerState? _scaffoldMessenger;
 
   @override
   void initState() {
@@ -61,10 +62,16 @@ class _OverviewScreen extends State<OverviewScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Cache ScaffoldMessenger to safely access it in dispose
+    _scaffoldMessenger = ScaffoldMessenger.maybeOf(context);
+  }
+
+  @override
   void dispose() {
     // Close any SnackBar shown by this page when leaving it.
-    final ScaffoldMessengerState? sm = ScaffoldMessenger.maybeOf(context);
-    sm?.clearSnackBars();
+    _scaffoldMessenger?.clearSnackBars();
 
     super.dispose();
   }
