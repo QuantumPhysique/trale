@@ -15,14 +15,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
+## [0.15.0] - 2026-01-27
+
+
 ### Added Features and Improvements 🙌:
+- New app icon 🐺
 - All new F-droid store page with Material You Expressive (ready) Design 🎉
+
+### Other changes:
+- Improved chart animation
+- Improved translation
 
 ### Bugfix 🐛:
 - Fix bug on negative time estimates when the slope is zero, #314
 - Fix persisting Backup reminder, #394
 - Fix Animation re-triggering when returning from settings to overview tab #402
-
 
 
 ## [0.14.0] - 2026-01-06
@@ -403,7 +410,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.14.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.15.0...main
+[0.15.0]: https://github.com/quantumphysique/trale/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/quantumphysique/trale/compare/v0.13.2...v0.14.0
 [0.13.2]: https://github.com/quantumphysique/trale/compare/v0.13.1...v0.13.2
 [0.13.1]: https://github.com/quantumphysique/trale/compare/v0.13.0...v0.13.1
