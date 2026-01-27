@@ -61,15 +61,6 @@ class _OverviewScreen extends State<OverviewScreen> {
   }
 
   @override
-  void dispose() {
-    // Close any SnackBar shown by this page when leaving it.
-    final ScaffoldMessengerState? sm = ScaffoldMessenger.maybeOf(context);
-    sm?.clearSnackBars();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final MeasurementDatabase database = MeasurementDatabase();
     final MeasurementInterpolation ip = MeasurementInterpolation();
