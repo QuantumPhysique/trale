@@ -1,6 +1,5 @@
 {
     "unit": "Unités",
-    "@unit": {},
     "trale": "trale",
     "@trale": {
         "description": "Name of app: trale"
@@ -73,7 +72,7 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "Importer des mesures depuis une sauvegarde au format .txt.",
+    "importSubtitle": "Importer des mesures depuis une sauvegarde au format .txt ou .csv.",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -376,13 +375,9 @@
         "description": "Frequency of backup interval"
     },
     "week": "semaine",
-    "@week": {},
     "months": "mois",
-    "@months": {},
     "month": "mois",
-    "@month": {},
     "years": "années",
-    "@years": {},
     "nextBackup": "prochaine sauvegarde",
     "@nextBackup": {
         "description": "Time of last backup"
@@ -396,11 +391,8 @@
         "description": "Shorthand for minimum."
     },
     "days": "jours",
-    "@days": {},
     "weeks": "semaines",
-    "@weeks": {},
     "year": "année",
-    "@year": {},
     "lastBackup": "dernière sauvegarde",
     "@lastBackup": {
         "description": "Time of last backup"
@@ -481,12 +473,11 @@
     "@looseWeight": {
         "description": "Loose weight switch label."
     },
-    "schemeVariant": "variante de palette",
+    "schemeVariant": "Variante de palette",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
     },
     "bmi": "IMC",
-    "@bmi": {},
     "translate": "Traduire",
     "@translate": {
         "description": "translate {trale}"
@@ -511,11 +502,11 @@
     "@name": {
         "description": "Name"
     },
-    "schemeVariantDescription": "Choisissez la variante qui détermine comment la palette de couleurs est créée à partir de la sélection de couleur de base",
+    "schemeVariantDescription": "Choisissez la variante qui détermine comment la palette de couleurs est créée à partir de la sélection de couleur de base.",
     "@schemeVariantDescription": {
         "description": "Description for scheme variant selection."
     },
-    "themeDescription": "Choisissez la couleur de base qui détermine la palette de couleurs",
+    "themeDescription": "Choisissez la couleur de base qui détermine la palette de couleurs.",
     "@themeDescription": {
         "description": "Description for theme selection."
     },
@@ -524,7 +515,6 @@
         "description": "additional settings"
     },
     "back": "retour",
-    "@back": {},
     "userDialogTitle": "Réglages utilisateur",
     "@userDialogTitle": {
         "description": "User settings"
@@ -557,7 +547,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "unitTitle": "Unités",
+    "unitTitle": "Unité",
     "@unitTitle": {
         "description": "Unit section title"
     },
@@ -572,5 +562,75 @@
     "defaultFormat": "Défaut",
     "@defaultFormat": {
         "description": "Default format option"
+    },
+    "openIssueSubtitle": "Aidez-nous à améliorer l'application en donnant un avis.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutTheApp": "A propos de l'application",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "aboutDescription3": "Réalisé par deux développeurs avec peu de temps libre. Envisagez de contribuer ou de faire un don.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "aboutDescription2": "Votre vie privée est respectée. L'application ne génère aucun revenu et aucun journal d'erreur n'est envoyé. Merci d'ouvrir une issue si vous rencontrez un problème.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "languageSubtitle": "Définissez la langue",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Paramètres des données",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Importation et exportation",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Sauvegardez et chargez vos données",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "faqSubtitle": "Trouvez les réponses aux questions fréquentes",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "themeSubtitle": "Définissez le schéma de couleurs",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "undo": "Annuler",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "aboutDescription1": "Un simple journal de poids avec une extrapolation à court terme.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "interpolationExplanation": "L'interpolation utilise un filtrage Gaussien de pointe pour lisser votre courbe de poids et faire apparaître une tendance plus nette. Des niveaux d'interpolation plus élevés atténuent les fluctuations quotidiennes mais peuvent cacher les variations à court terme. Choisissez '{noneInterpol}' pour voir vos mesures brutes, l'extrapolation appliquera tout de même un faible lissage.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "measurementDeleted": "La mesure a été supprimée.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "measurementHintTitle": "Modifier les mesures",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Appuyez longuement sur une mesure pour la modifier ou la supprimer. Faites glisser ce message pour l'ignorer.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
     }
 }
