@@ -16,19 +16,12 @@
         "description": "Switching between losing or gaining weight."
     },
     "days": "天數",
-    "@days": {},
     "weeks": "週數",
-    "@weeks": {},
     "week": "週",
-    "@week": {},
     "months": "月",
-    "@months": {},
     "month": "月",
-    "@month": {},
     "years": "年",
-    "@years": {},
     "year": "年",
-    "@year": {},
     "never": "從不",
     "@never": {
         "description": "Frequency of backup interval"
@@ -78,7 +71,6 @@
         "description": "Header for statistics section"
     },
     "unit": "單位",
-    "@unit": {},
     "date": "日期",
     "@date": {
         "description": "Date"
@@ -159,7 +151,7 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "導入txt備份資料檔",
+    "importSubtitle": "從 .txt 備份檔或 .csv 檔案匯入測量資料。",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -222,5 +214,423 @@
     "time": "時間",
     "@time": {
         "description": "time"
+    },
+    "achievements": "成就",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "translate": "翻譯",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "協助翻譯此應用程式",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "importDialog": "將匯入的測量資料合併至目前資料庫。此操作無法復原！",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "assets": "資源",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "套件",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "正在載入",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "測量紀錄",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "版本",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "第三方授權",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "授權條款",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "原始碼",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "openIssue": "回報問題",
+    "@openIssue": {
+        "description": "open an issue"
+    },
+    "undertpl": "© {years} {author}，依 {licence} 授權",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "輸入體重值",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "addHeight": "輸入身高值",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "身高",
+    "@height": {
+        "description": "height"
+    },
+    "target": "目標",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "interpolation": "資料平滑",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "personalization": "個人化",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "strength": "平滑強度",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "無平滑",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "低強度",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "中強度",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "高強度",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "歡迎使用",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "這是一款用於體重與體成分管理的簡潔應用，可支援減脂、增重或體重維持。透過趨勢預測與統計分析，協助你長期且穩定地追蹤身體變化。\n\n開始記錄你的體重資料。\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "從六個主題中選擇一個來個性化你的應用。哪一個主題最能表達你的感受？",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "感謝你使用本應用程式。\n\n本應用不包含廣告，也不會收集或上傳任何個人健康資料。如有問題，歡迎回饋。",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "主題",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "隱私",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "略過",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "開始使用",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "目標體重",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "設定目標體重有助於建立清楚的健康管理目標，並持續評估進展。",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "目標",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "您的暱稱？",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "name": "暱稱",
+    "@name": {
+        "description": "Name"
+    },
+    "addTargetWeight": "新增目標體重",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "intro1": "點擊",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "開始",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "今天適合記錄首次體重測量！",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "此處彙整了常見問題。如仍有疑問，請至 GitHub 儲存庫提交回饋。",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "為什麼某些功能尚未提供？",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_a1": "本應用以簡潔與可長期維護為設計原則，避免引入過多可能影響使用體驗的功能。如你認為缺少關鍵功能，歡迎回報問題或提交合併請求。",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_q2": "可以再次查看引導畫面嗎？",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "可以！點擊下方按鈕即可重新進入。",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "返回引導畫面",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "應用程式圖示代表什麼？",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "圖示為一隻坐姿狼的形象，尾部與字母「t」「r」結合。",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "faq_q4": "可以設定較低的目標體重嗎？",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "可以，需提供身高資訊。\n\n為支持健康風險防控，系統不允許設定低於安全閾值的目標體重。輸入身高後，系統將依 BMI 18.5 自動計算最低可設定的目標體重。",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "target_weight_warning": "為支持健康風險防控，不允許設定低於 50 kg 或 BMI < 18.5 的目標體重。",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
+    },
+    "max": "最大值",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "最小值",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "變化量",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "累積變化",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "schemeVariant": "配色方案變體",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "選擇變體以決定如何依據種子顏色產生配色方案。",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "選擇種子顏色以產生整體配色方案。",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "附加設定",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "mean": "平均值",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "measurementFrequency": "測量頻率",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "已達成目標體重！",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "距離目標體重尚需",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "最長連續紀錄",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "目前連續紀錄",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "自首次測量以來",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "firstDay": "第一天",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "highContrast": "高對比模式",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "BMI",
+    "back": "返回",
+    "userDialogTitle": "使用者設定",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "支援匯入歷史測量資料。既有資料不會被刪除，重複紀錄將自動忽略。支援 trale 的 txt 檔與 OpenScales 的 csv 檔。csv 檔需包含 weight 與 datetime 欄位。",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "贊助",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "支持 trale 的持續開發",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "自訂",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "個人化設定",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "自訂你的使用體驗",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "設定配色方案",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "設定語言",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "資料設定",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "匯入與匯出",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "儲存與還原你的資料",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "關於應用程式",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "查看常見問題",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "版本與授權資訊",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "資料平滑透過高斯濾波降低短期波動，以呈現更清楚的長期趨勢。較高強度會削弱日內變化，但可能隱藏短期調整。選擇'{noneInterpol}'可查看原始資料。",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "單位",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "日期設定",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "格式",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "預設",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "透過回饋協助改進應用程式。",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "一款專注於體重趨勢分析的健康管理應用。",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "尊重使用者隱私，不包含廣告或資料上傳機制。",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "由開發者於業餘時間維護，歡迎貢獻或支持。",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "測量紀錄已刪除。",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "復原",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "編輯測量紀錄",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "長按測量紀錄即可編輯或刪除，滑動即可關閉提示。",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
     }
 }

@@ -4,7 +4,6 @@
         "description": "Header for statistics section"
     },
     "unit": "数据单位",
-    "@unit": {},
     "date": "日期",
     "@date": {
         "description": "Date"
@@ -123,7 +122,7 @@
     "@faq_q1": {
         "description": "The feature/function X is missing. When will it be implemented?"
     },
-    "openIssue": "提出问题（提交 issue）",
+    "openIssue": "反馈问题",
     "@openIssue": {
         "description": "open issue"
     },
@@ -203,7 +202,7 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "从 .txt 备份文件中导入测量数据。",
+    "importSubtitle": "从 .txt 备份文件或 .csv 文件导入测量数据。",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -340,17 +339,11 @@
         "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
     },
     "days": "天",
-    "@days": {},
     "weeks": "周",
-    "@weeks": {},
     "week": "周",
-    "@week": {},
     "month": "月",
-    "@month": {},
     "years": "年",
-    "@years": {},
     "year": "年",
-    "@year": {},
     "monthly": "每月备份",
     "@monthly": {
         "description": "Frequency of backup interval"
@@ -372,7 +365,6 @@
         "description": "Back successfully exported"
     },
     "months": "个月",
-    "@months": {},
     "backupInterval": "自动备份",
     "@backupInterval": {
         "description": "Frequency of backup interval"
@@ -482,9 +474,163 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "BMI",
-    "@bmi": {},
-    "schemeVariant": "其他的颜色方案",
+    "schemeVariant": "配色方案变体",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
+    },
+    "translate": "翻译",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "协助翻译此应用",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "height": "身高",
+    "@height": {
+        "description": "height"
+    },
+    "target": "目标",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "personalization": "个性化",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "昵称",
+    "@name": {
+        "description": "Name"
+    },
+    "schemeVariantDescription": "选择变体以决定如何基于种子颜色生成配色方案。",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "选择种子颜色以生成整体配色方案。",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "附加设置",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "back": "返回",
+    "userDialogTitle": "用户设置",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "支持导入历史测量数据。现有数据不会被删除，重复记录将自动忽略。支持 trale 的 txt 文件和 OpenScales 的 csv 文件。csv 文件需包含 weight 与 datetime 字段。",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "赞助",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "支持 trale 的持续开发",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "自定义",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "个性化设置",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "定制你的使用体验",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "设置配色方案",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "设置语言",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "数据设置",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "导入与导出",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "保存与恢复你的数据",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "关于应用",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "查看常见问题",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "版本与许可信息",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "数据平滑通过高斯滤波减少短期波动，以呈现更清晰的长期趋势。较高强度会削弱日内变化，但可能掩盖短期调整。选择'{noneInterpol}'可查看原始数据。",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "单位",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "日期设置",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "格式",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "默认",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "通过反馈协助改进应用。",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "一款专注于体重趋势分析的健康管理应用。",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "尊重用户隐私，不包含广告或数据上传机制。",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "由开发者在业余时间维护，欢迎贡献或支持。",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "测量记录已删除。",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "撤销",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "编辑测量记录",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "长按测量记录以编辑或删除，滑动即可关闭提示。",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
     }
 }
