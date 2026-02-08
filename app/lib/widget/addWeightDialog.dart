@@ -9,6 +9,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/dialog.dart';
@@ -122,7 +123,7 @@ Future<bool> showAddWeightDialog({
             },
             height: 0.15 * MediaQuery.of(context).size.height,
             value: currentSliderValue,
-            ticksPerStep: notifier.unit.ticksPerStep,
+            ticksPerStep: notifier.unitPrecision.ticksPerStep ?? notifier.unit.ticksPerStep,
           ),
         ],
       );
@@ -182,9 +183,10 @@ Future<bool> showTargetWeightDialog({
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+      final int ticksPerStep = notifier.unitPrecision.ticksPerStep
+        ?? notifier.unit.ticksPerStep;
       final double sliderLabel =
-          (currentSliderValue * notifier.unit.ticksPerStep).roundToDouble() /
-              notifier.unit.ticksPerStep;
+        (currentSliderValue * ticksPerStep).roundToDouble() / ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

@@ -10,6 +10,7 @@ import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/unit_precision.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/linechart.dart';
@@ -96,6 +97,7 @@ class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPag
           title: AppLocalizations.of(context)!.unitTitle,
           children: const <Widget>[
             UnitsListTile(),
+            UnitPrecisionListTile(),
           ],
         ),
         WidgetGroup(
@@ -160,6 +162,49 @@ class UnitsListTile extends StatelessWidget {
         onSelected: (TraleUnit? newUnit) async {
           if (newUnit != null) {
             Provider.of<TraleNotifier>(context, listen: false).unit = newUnit;
+          }
+        },
+      ),
+    );
+  }
+}
+
+/// ListTile for changing units settings
+class UnitPrecisionListTile extends StatelessWidget {
+  /// constructor
+  const UnitPrecisionListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.precision.inCaps,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<TraleUnitPrecision>(
+        initialSelection: Provider.of<TraleNotifier>(context).unitPrecision,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.precision,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleUnitPrecision>>[
+          for (final TraleUnitPrecision precision in TraleUnitPrecision.values)
+            DropdownMenuEntry<TraleUnitPrecision>(
+              value: precision,
+              label: precision.settingsName ?? AppLocalizations.of(context)!.defaultFormat,
+            )
+        ],
+        onSelected: (TraleUnitPrecision? newPrecision) async {
+          if (newPrecision != null) {
+            Provider.of<TraleNotifier>(context, listen: false).unitPrecision
+              = newPrecision;
           }
         },
       ),

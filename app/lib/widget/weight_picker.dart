@@ -6,6 +6,7 @@ import 'package:trale/core/font.dart';
 
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/tile_group.dart';
 
@@ -238,7 +239,7 @@ class RulerPickerState extends State<RulerPicker> {
     final TraleNotifier notifier =
       Provider.of<TraleNotifier>(context, listen: false);
     final Text valueLabel = Text(
-      '${weight.toStringAsFixed(notifier.unit.precision)} '
+      '${weight.toStringAsFixed(notifier.unitPrecision.precision ?? notifier.unit.precision)} '
           '${notifier.unit.name}',
       style: Theme.of(context).textTheme.emphasized.monospace.headlineLarge?.apply(
         color: color,

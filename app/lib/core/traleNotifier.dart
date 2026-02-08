@@ -10,6 +10,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 
@@ -224,6 +225,17 @@ class TraleNotifier with ChangeNotifier {
   set unit(TraleUnit newUnit) {
     if (unit != newUnit) {
       prefs.unit = newUnit;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  TraleUnitPrecision get unitPrecision => prefs.unitPrecision;
+
+  /// setter
+  set unitPrecision(TraleUnitPrecision newPrecision) {
+    if (unitPrecision != newPrecision) {
+      prefs.unitPrecision = newPrecision;
       notifyListeners();
     }
   }

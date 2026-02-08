@@ -1,4 +1,5 @@
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/unit_precision.dart';
 
 /// Units of weight measurements
 enum TraleUnit {
@@ -34,21 +35,23 @@ extension TraleUnitExtension on TraleUnit {
   }[this]!;
 
   /// convert weight of measurement to string
-  String measurementToString(Measurement m, {bool showUnit= true}) {
-    return weightToString(m.weight, showUnit: showUnit);
+  String measurementToString(Measurement m, TraleUnitPrecision tup, {bool showUnit= true}) {
+    return weightToString(m.weight, tup, showUnit: showUnit);
   }
 
   /// weight given in kg to string
-  String weightToString(double weight, {bool showUnit= true}) {
+  String weightToString(double weight, TraleUnitPrecision tup, {bool showUnit= true}) {
+    // get unit precision from context
     final String suffix = showUnit ? ' $name' : '';
-    return '${doubleToPrecision(weight / scaling).toStringAsFixed(precision)}'
+    final double scaledVal = doubleToPrecision(weight / scaling, tup);
+    return '${scaledVal.toStringAsFixed(tup.precision ?? precision)}'
       '$suffix';
   }
 
   /// round double to given precision
-  double doubleToPrecision(double val) => (
+  double doubleToPrecision(double val, TraleUnitPrecision tup) => (
     val * ticksPerStep
-  ).roundToDouble() / ticksPerStep;
+  ).roundToDouble() / (tup.ticksPerStep ?? ticksPerStep);
 
   /// get string expression
   String get name => toString().split('.').last;

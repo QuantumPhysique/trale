@@ -14,7 +14,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-# (### Bugfix 🐛:)
+### Added Features and Improvements 🙌:
+- Allows selecting 0.05kg/st/lb steps for more precision
+
+### Bugfix 🐛:
 - Fix broken calendar when choosing custom first Day of week option, #417 #418
 
 
