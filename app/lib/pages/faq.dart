@@ -99,8 +99,7 @@ class FAQEntry {
           textAlign: TextAlign.justify,
         ),
       ),
-      if (answerWidget != null)
-        answerWidget!
+      ?answerWidget
     ]
   );
 

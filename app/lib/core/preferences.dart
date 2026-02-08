@@ -6,6 +6,7 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/theme.dart';
+import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 
@@ -71,6 +72,10 @@ class Preferences {
 
   /// default unit
   final TraleUnit defaultUnit = TraleUnit.kg;
+
+  /// default unit precision
+  final TraleUnitPrecision defaultUnitPrecision
+    = TraleUnitPrecision.unitDefault;
 
   /// default interpolation strength
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
@@ -191,6 +196,16 @@ class Preferences {
         unit.name,
       );
 
+  /// get unit precision
+  TraleUnitPrecision get unitPrecision
+    => prefs.getString('unitPrecision')!.toTraleUnitPrecision()!;
+
+  /// set unit mode
+  set unitPrecision(TraleUnitPrecision precision) => prefs.setString(
+    'unitPrecision',
+    precision.name,
+  );
+
   /// get interpolation strength mode
   InterpolStrength get interpolStrength =>
       prefs.getString('interpolStrength')!.toInterpolStrength()!;
@@ -301,6 +316,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('unit')) {
       unit = defaultUnit;
+    }
+    if (override || !prefs.containsKey('unitPrecision')) {
+      unitPrecision = defaultUnitPrecision;
     }
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;

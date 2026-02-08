@@ -58,7 +58,11 @@ class Measurement {
   String weightToString(BuildContext context, {bool showUnit=true})
     => Provider.of<TraleNotifier>(
         context, listen: false
-      ).unit.measurementToString(this, showUnit: showUnit);
+      ).unit.measurementToString(
+        this,
+      Provider.of<TraleNotifier>( context, listen: false ).unitPrecision,
+        showUnit: showUnit,
+    );
 
   /// convert date to String
   String dayToString(BuildContext context) => Provider.of<TraleNotifier>(

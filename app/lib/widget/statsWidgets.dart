@@ -10,7 +10,6 @@ import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
-import 'package:trale/widget/statsCards.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -18,6 +17,7 @@ import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
+import 'package:trale/widget/statsCards.dart';
 
 
 class AnimatedStatsWidgets extends StatefulWidget {
@@ -83,7 +83,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             AutoSizeText(
-              '${notifier.unit.weightToString(utw)} in',
+              '${notifier.unit.weightToString(utw, notifier.unitPrecision)} in',
               style: Theme.of(context).textTheme.bodySmall!
                 .onSecondaryContainer(context),
             ),
@@ -124,7 +124,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   AutoSizeText(
-                    notifier.unit.weightToString(deltaWeight),
+                    notifier.unit.weightToString(deltaWeight, notifier.unitPrecision),
                     style: Theme.of(context).textTheme.bodyLarge!
                       .onSecondaryContainer(context),
                   ),
@@ -652,7 +652,10 @@ String weightToString(BuildContext context, double? d){
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
-      d, showUnit: false);
+        d,
+        Provider.of<TraleNotifier>(context).unitPrecision,
+        showUnit: false,
+  );
 }
 
 String doubleToString(double? d){

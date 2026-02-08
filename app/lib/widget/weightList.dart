@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
@@ -11,8 +9,6 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/animate_in_effect.dart';
-import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/statsCards.dart';
 import 'package:trale/widget/weightListTile.dart';
 

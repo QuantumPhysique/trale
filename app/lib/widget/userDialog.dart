@@ -165,7 +165,7 @@ class UserDetailsGroup extends StatelessWidget {
           title: TextFormField(
             readOnly: true,
             initialValue: notifier.userTargetWeight != null
-                ? notifier.unit.weightToString(notifier.userTargetWeight!)
+                ? notifier.unit.weightToString(notifier.userTargetWeight!, notifier.unitPrecision)
                 : AppLocalizations.of(context)!.addTargetWeight,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,

@@ -88,6 +88,10 @@
     },
     "unit": "Units",
     "@unit": {},
+    "precision": "precision",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
     "date": "Date",
     "@date": {
         "description": "Date"
