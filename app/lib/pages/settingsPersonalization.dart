@@ -5,12 +5,11 @@ import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolationPreview.dart';
 import 'package:trale/core/printFormat.dart';
-
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/core/unit_precision.dart';
+import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/linechart.dart';

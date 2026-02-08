@@ -6,8 +6,8 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/core/unit_precision.dart';
+import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 
 /// Class to coordinate shared preferences access

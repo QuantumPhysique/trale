@@ -10,7 +10,6 @@ import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
-import 'package:trale/widget/statsCards.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -18,6 +17,7 @@ import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
+import 'package:trale/widget/statsCards.dart';
 
 
 class AnimatedStatsWidgets extends StatefulWidget {

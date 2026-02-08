@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
@@ -76,7 +75,7 @@ class M3EFloatingActionButton extends StatelessWidget {
     final Color bg = backgroundColor ?? cs.primaryContainer;
     final Color fg = foregroundColor ?? cs.onPrimaryContainer;
 
-    Widget inkContent = SizedBox(
+    final Widget inkContent = SizedBox(
       width: _size,
       height: _size,
       child: Center(

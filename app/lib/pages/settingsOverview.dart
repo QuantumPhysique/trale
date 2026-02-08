@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -7,8 +6,8 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
-import 'package:trale/pages/settings_export.dart';
 import 'package:trale/pages/settingsPersonalization.dart';
+import 'package:trale/pages/settings_export.dart';
 import 'package:trale/pages/settings_language.dart';
 import 'package:trale/pages/settings_theme.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
