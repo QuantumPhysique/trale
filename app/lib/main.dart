@@ -1,8 +1,10 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:trale/core/firstDayLocalizationsDelegate.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
@@ -45,7 +47,13 @@ class TraleApp extends MaterialApp {
          theme: light.themeData,
          darkTheme: traleNotifier.isAmoled ? amoled.themeData : dark.themeData,
          themeMode: traleNotifier.themeMode,
-         localizationsDelegates: AppLocalizations.localizationsDelegates,
+         localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+           AppLocalizations.delegate,
+           FirstDayMaterialLocalizationsDelegate(
+             firstDay: traleNotifier.firstDay,
+           ),
+           GlobalWidgetsLocalizations.delegate,
+         ],
          supportedLocales: AppLocalizations.supportedLocales,
          locale: traleNotifier.locale,
        );
