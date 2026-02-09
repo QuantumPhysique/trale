@@ -24,15 +24,10 @@
         "description": "Loose weight switch label."
     },
     "days": "Дни",
-    "@days": {},
     "week": "Неделя",
-    "@week": {},
     "months": "Месяцы",
-    "@months": {},
     "month": "Месяц",
-    "@month": {},
     "year": "Год",
-    "@year": {},
     "never": "Никогда",
     "@never": {
         "description": "Frequency of backup interval"
@@ -70,7 +65,6 @@
         "description": "Header for statistics section"
     },
     "unit": "Единицы",
-    "@unit": {},
     "weight": "Вес",
     "@weight": {
         "description": "weight"
@@ -292,9 +286,7 @@
         "description": "Gain weight switch label."
     },
     "weeks": "Недели",
-    "@weeks": {},
     "years": "Года",
-    "@years": {},
     "looseWeightSubtitle": "Переключиться между показом потери или набора веса",
     "@looseWeightSubtitle": {
         "description": "Switching between loosing or gaining weight."
