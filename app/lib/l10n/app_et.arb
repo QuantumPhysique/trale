@@ -4,17 +4,11 @@
         "description": "achievements"
     },
     "days": "päeva",
-    "@days": {},
     "weeks": "nädalat",
-    "@weeks": {},
     "months": "kuud",
-    "@months": {},
     "month": "kuu",
-    "@month": {},
     "years": "aastat",
-    "@years": {},
     "year": "aasta",
-    "@year": {},
     "backupReminderButton": "varunda nüüd",
     "@backupReminderButton": {
         "description": "Back up now"
@@ -390,7 +384,6 @@
         "description": "Header for statistics section"
     },
     "week": "nädal",
-    "@week": {},
     "biweekly": "kaks korda nädalas",
     "@biweekly": {
         "description": "Frequency of backup interval"
@@ -404,7 +397,6 @@
         "description": "Settings which cannot be undone."
     },
     "unit": "Ühikud",
-    "@unit": {},
     "faqtext": "Järgnevas on vastused meilt tihti küsitule. Lisaküsimuste puhul palun ava teade meie GitHubi koodivaramus.",
     "@faqtext": {
         "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
@@ -482,7 +474,6 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "KMI/BMI",
-    "@bmi": {},
     "schemeVariant": "Värvikombinatsiooni variant",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
@@ -512,7 +503,6 @@
         "description": "Name"
     },
     "back": "tagasi",
-    "@back": {},
     "additionalSettings": "täiendavad seadistused",
     "@additionalSettings": {
         "description": "additional settings"
