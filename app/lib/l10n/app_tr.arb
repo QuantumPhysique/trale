@@ -1,6 +1,5 @@
 {
     "unit": "Birimler",
-    "@unit": {},
     "systemmode": "Sistem",
     "@systemmode": {
         "description": "System mode menu item."
@@ -344,13 +343,9 @@
         "description": "First displayed day of the week"
     },
     "days": "gün",
-    "@days": {},
     "months": "ay",
-    "@months": {},
     "month": "ay",
-    "@month": {},
     "year": "yıl",
-    "@year": {},
     "never": "hiç",
     "@never": {
         "description": "Frequency of backup interval"
@@ -396,7 +391,6 @@
         "description": "A brief sentence describing the duration from the first measurement to the present"
     },
     "years": "yıl",
-    "@years": {},
     "backupInterval": "Aralık",
     "@backupInterval": {
         "description": "Frequency of backup interval"
@@ -438,13 +432,11 @@
         "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
     },
     "weeks": "hafta",
-    "@weeks": {},
     "mean": "ortalama",
     "@mean": {
         "description": "The mathematical quantity (arithmetic mean)"
     },
     "week": "hafta",
-    "@week": {},
     "experimentalFeatures": "deneysel özelli̇kler",
     "@experimentalFeatures": {
         "description": "Label for experimental features section"
