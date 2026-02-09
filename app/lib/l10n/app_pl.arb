@@ -16,7 +16,6 @@
         "description": "Header for statistics section"
     },
     "unit": "Jednostki",
-    "@unit": {},
     "date": "Data",
     "@date": {
         "description": "Date"
@@ -360,7 +359,6 @@
         "description": "The current streak of measurements"
     },
     "year": "rok",
-    "@year": {},
     "weekly": "co tydzień",
     "@weekly": {
         "description": "Frequency of backup interval"
@@ -394,17 +392,11 @@
         "description": "Switching between loosing or gaining weight."
     },
     "days": "dni",
-    "@days": {},
     "week": "tydzień",
-    "@week": {},
     "months": "miesięcy",
-    "@months": {},
     "month": "miesiąc",
-    "@month": {},
     "years": "lat(a)",
-    "@years": {},
     "weeks": "tygodni(e)",
-    "@weeks": {},
     "backupReminderButton": "wykonaj kopię zapasową",
     "@backupReminderButton": {
         "description": "Back up now"
