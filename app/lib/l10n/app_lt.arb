@@ -4,7 +4,6 @@
         "description": "Header for statistics section"
     },
     "unit": "Matavimo vienetai",
-    "@unit": {},
     "weight": "Svoris",
     "@weight": {
         "description": "weight"
