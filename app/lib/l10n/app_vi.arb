@@ -20,19 +20,12 @@
         "description": "Switching between loosing or gaining weight."
     },
     "days": "ngày",
-    "@days": {},
     "weeks": "tuần",
-    "@weeks": {},
     "week": "tuần",
-    "@week": {},
     "months": "tháng",
-    "@months": {},
     "month": "tháng",
-    "@month": {},
     "years": "năm",
-    "@years": {},
     "year": "năm",
-    "@year": {},
     "never": "không bao giờ",
     "@never": {
         "description": "Frequency of backup interval"
@@ -74,7 +67,6 @@
         "description": "Header for statistics section"
     },
     "unit": "Đơn vị",
-    "@unit": {},
     "user": "Hồ sơ người dùng",
     "@user": {
         "description": "Name of user menu"
