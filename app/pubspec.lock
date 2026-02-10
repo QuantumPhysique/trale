@@ -306,10 +306,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_auto_size_text
-      sha256: eba9a0053ab13703eca8468754940f1567cfd364b5aa7225420ea5ec3c02b83e
+      sha256: d44a1f0360a731d8734dc5482a1f60756cd927a45a1a0759e1b2b839fe832427
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
+    version: "5.0.0"
   flutter_keyboard_visibility_linux:
     dependency: transitive
     description:
