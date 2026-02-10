@@ -21,19 +21,12 @@
         "description": "Switching between losing or gaining weight."
     },
     "days": "days",
-    "@days": {},
     "weeks": "weeks",
-    "@weeks": {},
     "week": "week",
-    "@week": {},
     "months": "months",
-    "@months": {},
     "month": "month",
-    "@month": {},
     "years": "years",
-    "@years": {},
     "year": "year",
-    "@year": {},
     "never": "never",
     "@never": {
         "description": "Frequency of backup interval"
@@ -66,7 +59,7 @@
     "@backupSuccess": {
         "description": "Back successfully exported"
     },
-    "backupInterval": "Interval",
+    "backupInterval": "Backup interval",
     "@backupInterval": {
         "description": "Frequency of backup interval"
     },
@@ -87,8 +80,7 @@
         "description": "Name of app: trale"
     },
     "unit": "Units",
-    "@unit": {},
-    "precision": "precision",
+    "precision": "Precision",
     "@precision": {
         "description": "Label for unit precision setting."
     },
@@ -138,11 +130,11 @@
     },
     "translate": "translate",
     "@translate": {
-      "description": "translate {trale}"
+        "description": "translate {trale}"
     },
     "translateSubtitle": "Help translate the app",
     "@translateSubtitle": {
-      "description": "translate subtitle"
+        "description": "translate subtitle"
     },
     "darkmode": "Dark",
     "@darkmode": {
@@ -216,7 +208,7 @@
     "@importingAbort": {
         "description": "Import aborted."
     },
-    "importDialog": "Include all measurements to the current database. This can not be undone!",
+    "importDialog": "Import all measurements to the current database. This can not be undone!",
     "@importDialog": {
         "description": "Include all measurements to the current database. This can not be undone!"
     },
@@ -338,7 +330,7 @@
     "@soft": {
         "description": "soft interpolation"
     },
-    "medium": "Medium",
+    "medium": "Medium interpolation",
     "@medium": {
         "description": "medium interpolation"
     },
@@ -480,7 +472,7 @@
     },
     "schemeVariantDescription": "Choose a variant to determine how the color scheme is created from the selected seed color.",
     "@schemeVariantDescription": {
-      "description": "Description for scheme variant selection."
+        "description": "Description for scheme variant selection."
     },
     "themeDescription": "Choose a seed color to determine the color scheme.",
     "@themeDescription": {
@@ -527,16 +519,14 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "BMI",
-    "@bmi": {},
     "back": "back",
-    "@back": {},
     "userDialogTitle": "User settings",
     "@userDialogTitle": {
         "description": "User settings"
     },
     "importLongDescription": "You can import data. This will not delete your existing data and any duplicate entries will be ignored. 'txt' files from trale and 'csv' files from OpenScales are supported. In 'csv' files, the columns must be named 'weight' and 'datetime'; otherwise, the first column will be parsed as a date and the second as a weight. If you are using a custom 'txt' file, it should have one of the following formats:",
     "@importLongDescription": {
-      "description": "Explanation of which files are supported by import."
+        "description": "Explanation of which files are supported by import."
     },
     "donation": "Donation",
     "@donation": {
@@ -592,13 +582,13 @@
     },
     "interpolationExplanation": "Interpolation uses state-of-the-art Gaussian filtering to smooth your weight curve and create a clearer trend. Higher strength levels reduce daily fluctuations but may hide short-term changes. Choose '{noneInterpol}' to see your raw measurements, though extrapolation will still use soft smoothing.",
     "@interpolationExplanation": {
-      "description": "Explanation text for interpolation settings",
-      "placeholders": {
-        "noneInterpol": {
-          "type": "String",
-          "example": "none"
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
         }
-      }
     },
     "unitTitle": "Unit",
     "@unitTitle": {

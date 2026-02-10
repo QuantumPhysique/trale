@@ -4,7 +4,6 @@
         "description": "Header for statistics section"
     },
     "unit": "Unità",
-    "@unit": {},
     "date": "Data",
     "@date": {
         "description": "Date"
@@ -286,11 +285,8 @@
         "description": "First displayed day of the week"
     },
     "week": "settimana",
-    "@week": {},
     "years": "anni",
-    "@years": {},
     "year": "anno",
-    "@year": {},
     "never": "mai",
     "@never": {
         "description": "Frequency of backup interval"
@@ -356,9 +352,7 @@
         "description": "Back up now"
     },
     "month": "mese",
-    "@month": {},
     "weeks": "settimane",
-    "@weeks": {},
     "totalChange": "variazione totale",
     "@totalChange": {
         "description": "The quantity describing the overall change of body weight"
@@ -372,9 +366,7 @@
         "description": "Start of 'press + to get started'"
     },
     "days": "giorni",
-    "@days": {},
     "months": "mesi",
-    "@months": {},
     "faq_a3": "Un lupo che ulula seduto, con la coda nascosta in parte dalle lettere \"t\" e \"r\".",
     "@faq_a3": {
         "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."

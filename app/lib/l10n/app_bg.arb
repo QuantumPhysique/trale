@@ -32,19 +32,12 @@
         "description": "Please remember to back up your data regularly."
     },
     "weeks": "седмици",
-    "@weeks": {},
     "week": "седмица",
-    "@week": {},
     "days": "дена",
-    "@days": {},
     "months": "месеца",
-    "@months": {},
     "month": "месец",
-    "@month": {},
     "years": "години",
-    "@years": {},
     "year": "година",
-    "@year": {},
     "never": "никога",
     "@never": {
         "description": "Frequency of backup interval"
@@ -86,7 +79,6 @@
         "description": "Name of app: trale"
     },
     "unit": "Мерни единици",
-    "@unit": {},
     "date": "Дата",
     "@date": {
         "description": "Date"
@@ -482,7 +474,6 @@
         "description": "High contrast mode label (accessibility setting)."
     },
     "bmi": "ИТМ",
-    "@bmi": {},
     "schemeVariant": "вариант на схема",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."

@@ -8,7 +8,6 @@
         "description": "Header for statistics section"
     },
     "unit": "Unidades",
-    "@unit": {},
     "about": "Sobre",
     "@about": {
         "description": "Name of about menu section"
@@ -50,11 +49,8 @@
         "description": "This will export all measurements to the external storage. Writing permissions are needed."
     },
     "weeks": "semanas",
-    "@weeks": {},
     "days": "dias",
-    "@days": {},
     "week": "semana",
-    "@week": {},
     "defaultLang": "Padrão do sistema",
     "@defaultLang": {
         "description": "System default language."
@@ -68,7 +64,6 @@
         "description": "Label for experimental features section"
     },
     "year": "ano",
-    "@year": {},
     "faq": "Perguntas frequentes",
     "@faq": {
         "description": "Frequently ask questions"
@@ -94,11 +89,8 @@
         "description": "Switching between loosing or gaining weight."
     },
     "months": "meses",
-    "@months": {},
     "month": "mês",
-    "@month": {},
     "years": "anos",
-    "@years": {},
     "monthly": "mensal",
     "@monthly": {
         "description": "Frequency of backup interval"
@@ -485,6 +477,5 @@
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
     },
-    "bmi": "IMC",
-    "@bmi": {}
+    "bmi": "IMC"
 }

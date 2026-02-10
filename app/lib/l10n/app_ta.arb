@@ -1,6 +1,5 @@
 {
     "unit": "அலகுகள்",
-    "@unit": {},
     "date": "திகதி",
     "@date": {
         "description": "Date"
@@ -98,19 +97,12 @@
         "description": "Switching between loosing or gaining weight."
     },
     "days": "நாட்கள்",
-    "@days": {},
     "weeks": "வாரங்கள்",
-    "@weeks": {},
     "week": "வாரம்",
-    "@week": {},
     "months": "திங்கள்கள்",
-    "@months": {},
     "month": "திங்கள்",
-    "@month": {},
     "years": "ஆண்டுகள்",
-    "@years": {},
     "year": "ஆண்டு",
-    "@year": {},
     "never": "ஒருபோதும்இல்லை",
     "@never": {
         "description": "Frequency of backup interval"
@@ -485,6 +477,5 @@
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
     },
-    "bmi": "உஎகு",
-    "@bmi": {}
+    "bmi": "உஎகு"
 }

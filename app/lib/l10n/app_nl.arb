@@ -16,19 +16,12 @@
         "description": "Switching between loosing or gaining weight."
     },
     "days": "Dagen",
-    "@days": {},
     "weeks": "Weken",
-    "@weeks": {},
     "week": "Week",
-    "@week": {},
     "months": "Maanden",
-    "@months": {},
     "month": "Maand",
-    "@month": {},
     "years": "Jaren",
-    "@years": {},
     "year": "Jaar",
-    "@year": {},
     "never": "Nooit",
     "@never": {
         "description": "Frequency of backup interval"
@@ -82,7 +75,6 @@
         "description": "Name of app: trale"
     },
     "unit": "Eenheden",
-    "@unit": {},
     "date": "Datum",
     "@date": {
         "description": "Date"
