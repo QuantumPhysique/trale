@@ -426,9 +426,136 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
 
   /// singleton instance
   static final MeasurementInterpolation _instance =
-    MeasurementInterpolation._internal();
+      MeasurementInterpolation._internal();
 
   /// get measurements
   @override
   MeasurementDatabase get db => MeasurementDatabase();
+
+  /// SharedPreferences key for the interpolation cache
+  static const String _cacheKey = 'interpolation_cache';
+
+  /// Cache version — bump when the cached data format changes
+  static const int _cacheVersion = 1;
+
+  /// Flag to skip cache loading during reinit (force recompute)
+  bool _skipCache = false;
+
+  @override
+  void init() {
+    if (!_skipCache && _loadFromCache()) {
+      return;
+    }
+    _skipCache = false;
+    super.init();
+    _saveToCache();
+  }
+
+  @override
+  void reinit() {
+    _skipCache = true;
+    super.reinit();
+  }
+
+  /// Try to restore all interpolation vectors from SharedPreferences.
+  /// Returns true if the cache was valid and successfully restored.
+  bool _loadFromCache() {
+    try {
+      final String? cached = Preferences().prefs.getString(_cacheKey);
+      if (cached == null) return false;
+
+      final Map<String, dynamic> map =
+          jsonDecode(cached) as Map<String, dynamic>;
+
+      // Validate cache matches current state
+      if (map['version'] != _cacheVersion) return false;
+      if (map['nMeasurements'] != db.nMeasurements) return false;
+      if (map['interpolStrength'] != interpolStrength.name) return false;
+
+      if (db.nMeasurements == 0) return false;
+
+      if (map['firstDateMs'] != db.firstDate.millisecondsSinceEpoch) {
+        return false;
+      }
+      if (map['lastDateMs'] != db.lastDate.millisecondsSinceEpoch) {
+        return false;
+      }
+
+      // Restore all vectors
+      _dateTimes = (map['dateTimes'] as List<dynamic>)
+          .map(
+            (dynamic ms) =>
+                DateTime.fromMillisecondsSinceEpoch((ms as num).toInt()),
+          )
+          .toList();
+      _times = _vectorFromJson(map['times']);
+      _isExtrapolated = _vectorFromJson(map['isExtrapolated']);
+      _weights = _vectorFromJson(map['weights']);
+      _isMeasurement = _vectorFromJson(map['isMeasurement']);
+      _idxsMeasurements = (map['idxsMeasurements'] as List<dynamic>)
+          .map((dynamic e) => (e as num).toInt())
+          .toList();
+      _times_measured = _vectorFromJson(map['timesMeasured']);
+      _weights_measured = _vectorFromJson(map['weightsMeasured']);
+      _weightsSmoothed = _vectorFromJson(map['weightsSmoothed']);
+      _weightsLinExtrapol = _vectorFromJson(map['weightsLinExtrapol']);
+      _weightsGaussianExtrapol = _vectorFromJson(
+        map['weightsGaussianExtrapol'],
+      );
+      _weightsDisplay = _vectorFromJson(map['weightsDisplay']);
+      _timesDisplay = _vectorFromJson(map['timesDisplay']);
+
+      return true;
+    } catch (e) {
+      // Cache is corrupt or incompatible — fall back to fresh computation
+      return false;
+    }
+  }
+
+  /// Persist all computed interpolation vectors to SharedPreferences.
+  void _saveToCache() {
+    try {
+      if (db.nMeasurements == 0) {
+        Preferences().prefs.remove(_cacheKey);
+        return;
+      }
+
+      final Map<String, dynamic> map = <String, dynamic>{
+        'version': _cacheVersion,
+        'nMeasurements': db.nMeasurements,
+        'interpolStrength': interpolStrength.name,
+        'firstDateMs': db.firstDate.millisecondsSinceEpoch,
+        'lastDateMs': db.lastDate.millisecondsSinceEpoch,
+        'dateTimes': dateTimes
+            .map((DateTime dt) => dt.millisecondsSinceEpoch)
+            .toList(),
+        'times': times.toList(),
+        'isExtrapolated': isExtrapolated.toList(),
+        'weights': weights.toList(),
+        'isMeasurement': isMeasurement.toList(),
+        'idxsMeasurements': idxsMeasurements,
+        'timesMeasured': times_measured.toList(),
+        'weightsMeasured': weights_measured.toList(),
+        'weightsSmoothed': weightsSmoothed.toList(),
+        'weightsLinExtrapol': weightsLinExtrapol.toList(),
+        'weightsGaussianExtrapol': weightsGaussianExtrapol.toList(),
+        'weightsDisplay': weightsDisplay.toList(),
+        'timesDisplay': timesDisplay.toList(),
+      };
+      Preferences().prefs.setString(_cacheKey, jsonEncode(map));
+    } catch (e) {
+      // Cache save failure is non-critical
+    }
+  }
+
+  /// Deserialize a JSON list back into a Vector.
+  static Vector _vectorFromJson(dynamic json) {
+    if (json == null) return Vector.empty();
+    final List<double> list = (json as List<dynamic>)
+        .map((dynamic e) => (e as num).toDouble())
+        .toList();
+    return list.isEmpty
+        ? Vector.empty()
+        : Vector.fromList(list, dtype: MeasurementInterpolationBaseclass.dtype);
+  }
 }
