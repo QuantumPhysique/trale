@@ -340,6 +340,59 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter for reminder enabled
+  bool get reminderEnabled => prefs.reminderEnabled;
+
+  /// setter for reminder enabled
+  set reminderEnabled(bool enabled) {
+    if (enabled != reminderEnabled) {
+      prefs.reminderEnabled = enabled;
+      notifyListeners();
+    }
+  }
+
+  /// getter for reminder days
+  List<int> get reminderDays => prefs.reminderDays;
+
+  /// setter for reminder days
+  set reminderDays(List<int> days) {
+    prefs.reminderDays = days;
+    notifyListeners();
+  }
+
+  /// getter for reminder hour
+  int get reminderHour => prefs.reminderHour;
+
+  /// setter for reminder hour
+  set reminderHour(int hour) {
+    if (hour != reminderHour) {
+      prefs.reminderHour = hour;
+      notifyListeners();
+    }
+  }
+
+  /// getter for reminder minute
+  int get reminderMinute => prefs.reminderMinute;
+
+  /// setter for reminder minute
+  set reminderMinute(int minute) {
+    if (minute != reminderMinute) {
+      prefs.reminderMinute = minute;
+      notifyListeners();
+    }
+  }
+
+  /// get reminder TimeOfDay
+  TimeOfDay get reminderTime =>
+      TimeOfDay(hour: reminderHour, minute: reminderMinute);
+
+  /// set reminder TimeOfDay
+  set reminderTime(TimeOfDay time) {
+    prefs.reminderHour = time.hour;
+    prefs.reminderMinute = time.minute;
+    notifyListeners();
+  }
+
   ColorScheme? _systemLightDynamic;
   ColorScheme? _systemDarkDynamic;
 

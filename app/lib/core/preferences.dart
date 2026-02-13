@@ -107,6 +107,18 @@ class Preferences {
   /// default show measurement hint banner
   final bool defaultShowMeasurementHintBanner = true;
 
+  /// default reminder enabled
+  final bool defaultReminderEnabled = false;
+
+  /// default reminder days (empty = none selected)
+  final List<int> defaultReminderDays = <int>[];
+
+  /// default reminder hour
+  final int defaultReminderHour = 8;
+
+  /// default reminder minute
+  final int defaultReminderMinute = 0;
+
   /// getter and setter for all preferences
   /// set user name
   set userName(String name) => prefs.setString('userName', name);
@@ -294,6 +306,35 @@ class Preferences {
   /// Set show measurement hint banner
   set showMeasurementHintBanner(bool show) => prefs.setBool('showMeasurementHintBanner', show);
 
+  /// Get reminder enabled
+  bool get reminderEnabled => prefs.getBool('reminderEnabled')!;
+
+  /// Set reminder enabled
+  set reminderEnabled(bool enabled) => prefs.setBool('reminderEnabled', enabled);
+
+  /// Get reminder days (ISO weekday: 1=Mon … 7=Sun)
+  List<int> get reminderDays {
+    final String raw = prefs.getString('reminderDays')!;
+    if (raw.isEmpty) return <int>[];
+    return raw.split(',').map(int.parse).toList();
+  }
+
+  /// Set reminder days
+  set reminderDays(List<int> days) =>
+      prefs.setString('reminderDays', days.join(','));
+
+  /// Get reminder hour
+  int get reminderHour => prefs.getInt('reminderHour')!;
+
+  /// Set reminder hour
+  set reminderHour(int hour) => prefs.setInt('reminderHour', hour);
+
+  /// Get reminder minute
+  int get reminderMinute => prefs.getInt('reminderMinute')!;
+
+  /// Set reminder minute
+  set reminderMinute(int minute) => prefs.setInt('reminderMinute', minute);
+
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
     if (override || !prefs.containsKey('nightMode')) {
@@ -358,6 +399,18 @@ class Preferences {
     }
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;
+    }
+    if (override || !prefs.containsKey('reminderEnabled')) {
+      reminderEnabled = defaultReminderEnabled;
+    }
+    if (override || !prefs.containsKey('reminderDays')) {
+      reminderDays = defaultReminderDays;
+    }
+    if (override || !prefs.containsKey('reminderHour')) {
+      reminderHour = defaultReminderHour;
+    }
+    if (override || !prefs.containsKey('reminderMinute')) {
+      reminderMinute = defaultReminderMinute;
     }
   }
 
