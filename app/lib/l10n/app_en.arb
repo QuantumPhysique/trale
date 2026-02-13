@@ -637,5 +637,49 @@
     "measurementHintSubtitle": "Long press on a measurement to edit or delete it. Swipe this message to dismiss.",
     "@measurementHintSubtitle": {
         "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "notifications": "Notifications",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Reminder",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Remind yourself to log your weight",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Enable reminder",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Get notified to log your weight",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Days",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Time",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Reminder time",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "You will receive a notification on the selected days at the chosen time, but only if you have not yet logged a measurement that day.",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "Time to weigh in!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "You haven't logged your weight today yet.",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
     }
 }

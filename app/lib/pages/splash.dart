@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/notificationService.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/onBoarding.dart';
 
@@ -56,7 +58,16 @@ class _SplashState extends State<Splash> {
     () {
         MeasurementDatabase().reinit();
       },
-    ).then((_) => onStop());
+    ).then((_) {
+      // Reschedule reminder notifications with localised strings.
+      final AppLocalizations? l10n = AppLocalizations.of(context);
+      if (l10n != null) {
+        NotificationService().rescheduleFromPreferences(
+          title: l10n.reminderNotificationTitle,
+          body: l10n.reminderNotificationBody,
+        );
+      }
+    }).then((_) => onStop());
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
