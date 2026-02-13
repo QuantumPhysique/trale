@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/notificationService.dart';
@@ -38,18 +39,26 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
     final AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    // Day labels – use MaterialLocalizations so they respect the locale.
-    final MaterialLocalizations mloc = MaterialLocalizations.of(context);
-    // narrowWeekdays is indexed 0=Sun…6=Sat, ISO weekday 1=Mon…7=Sun.
-    final List<String> narrowDays = mloc.narrowWeekdays;
+    // Day labels – use DateFormat.E() for locale-aware short names
+    // (Mon, Tue… / Mo, Di…).
+    final String locale = Localizations.localeOf(context).toString();
 
-    /// Map ISO weekday (1-7) → display label.
+    /// Map ISO weekday (1-7) → short display label.
     String dayLabel(int isoDay) {
-      // Convert ISO weekday to MaterialLocalizations index:
-      // ISO 1=Mon → index 1, … ISO 7=Sun → index 0.
-      final int index = isoDay % 7;
-      return narrowDays[index];
+      // Build a DateTime for the given ISO weekday (DateTime.monday == 1).
+      // 2024-01-01 is a Monday, so adding (isoDay - 1) gives the right day.
+      final DateTime ref = DateTime(2024, 1, isoDay);
+      return DateFormat.E(locale).format(ref);
     }
+
+    // Build the ordered list of ISO weekdays starting from the user's
+    // configured first day.
+    final MaterialLocalizations mloc = MaterialLocalizations.of(context);
+    final int firstDayIndex = mloc.firstDayOfWeekIndex; // 0=Sun…6=Sat
+    final int firstIsoDay = firstDayIndex == 0 ? 7 : firstDayIndex;
+    final List<int> orderedDays = <int>[
+      for (int i = 0; i < 7; i++) (firstIsoDay - 1 + i) % 7 + 1,
+    ];
 
     final List<int> selectedDays = notifier.reminderDays;
 
@@ -96,38 +105,36 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
       if (notifier.reminderEnabled) ...<Widget>[
         WidgetGroup(
           title: l10n.reminderDaysTitle,
+          direction: Axis.horizontal,
+          scrollable: true,
           children: <Widget>[
-            GroupedWidget(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: TraleTheme.of(context)!.padding,
-                  vertical: TraleTheme.of(context)!.padding,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    for (int day = 1; day <= 7; day++)
-                      _DayChip(
-                        label: dayLabel(day),
-                        selected: selectedDays.contains(day),
-                        onSelected: (bool selected) {
-                          final List<int> updated =
-                              List<int>.from(selectedDays);
-                          if (selected) {
-                            updated.add(day);
-                          } else {
-                            updated.remove(day);
-                          }
-                          updated.sort();
-                          notifier.reminderDays = updated;
-                          _applySchedule(notifier);
-                        },
-                      ),
-                  ],
+            for (final int day in orderedDays)
+              GroupedChip(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                selected: selectedDays.contains(day),
+                onSelected: (bool selected) {
+                  final List<int> updated = List<int>.from(selectedDays);
+                  if (selected) {
+                    updated.add(day);
+                  } else {
+                    updated.remove(day);
+                  }
+                  updated.sort();
+                  notifier.reminderDays = updated;
+                  _applySchedule(notifier);
+                },
+                child: Text(
+                  dayLabel(day),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: selectedDays.contains(day)
+                        ? FontWeight.bold
+                        : FontWeight.normal,
+                    color: selectedDays.contains(day)
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
         WidgetGroup(
@@ -184,34 +191,3 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
   }
 }
 
-/// A single selectable day-of-week chip.
-class _DayChip extends StatelessWidget {
-  const _DayChip({
-    required this.label,
-    required this.selected,
-    required this.onSelected,
-  });
-
-  final String label;
-  final bool selected;
-  final ValueChanged<bool> onSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return FilterChip(
-      label: Text(label),
-      selected: selected,
-      onSelected: onSelected,
-      showCheckmark: false,
-      shape: const CircleBorder(),
-      padding: const EdgeInsets.all(8),
-      labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: selected
-                ? Theme.of(context).colorScheme.onPrimary
-                : Theme.of(context).colorScheme.onSurface,
-          ),
-      selectedColor: Theme.of(context).colorScheme.primary,
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
-    );
-  }
-}
