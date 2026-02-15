@@ -221,6 +221,16 @@ class Preferences {
     precision.name,
   );
 
+  /// get height unit mode
+  TraleUnitHeight get heightUnit =>
+      prefs.getString('heightUnit')!.toTraleUnitHeight()!;
+
+  /// set height unit mode
+  set heightUnit(TraleUnitHeight heightUnit) => prefs.setString(
+    'heightUnit',
+    heightUnit.name,
+  );
+
   /// get interpolation strength mode
   InterpolStrength get interpolStrength =>
       prefs.getString('interpolStrength')!.toInterpolStrength()!;
