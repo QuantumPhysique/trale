@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
@@ -80,8 +81,8 @@ class PreviewDatabase extends MeasurementDatabaseBaseclass {
 
   /// get sorted measurements
   @override
-  List<Measurement> get measurements => _measurements ?? <Measurement>[]
-    ..sort((Measurement a, Measurement b) => b.compareTo(a));
+  List<Measurement> get measurements =>
+      _measurements..sort((Measurement a, Measurement b) => b.compareTo(a));
 }
 
 class PreviewInterpolation extends MeasurementInterpolationBaseclass {

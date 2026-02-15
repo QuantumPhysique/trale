@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -9,8 +10,10 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/addWeightDialog.dart';
 
+/// A dismissible list tile displaying a single weight measurement.
 @immutable
 class WeightListTile extends StatefulWidget {
+  /// Creates a [WeightListTile].
   const WeightListTile({
     super.key,
     required this.measurement,
@@ -20,10 +23,19 @@ class WeightListTile extends StatefulWidget {
     this.durationInMilliseconds = 1000,
   });
 
+  /// The measurement to display.
   final SortedMeasurement measurement;
+
+  /// Translation offset for the slide animation.
   final Offset offset;
+
+  /// Duration of the entry animation in milliseconds.
   final int durationInMilliseconds;
+
+  /// Callback to update which tile is active.
   final Function updateActiveState;
+
+  /// Key of the currently active tile, or null.
   final int? activeKey;
 
   @override

@@ -1,6 +1,8 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
+/// Extension for converting [Duration] to human-readable strings.
 extension StringExtension on Duration {
   /// convert Duration to a string
 

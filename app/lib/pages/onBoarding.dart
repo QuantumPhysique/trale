@@ -1,15 +1,8 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/stringExtension.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/pages/home.dart';
-// import 'package:trale/pages/settings.dart';
-import 'package:trale/widget/iconHero.dart';
 
 /// Page shown on the very first opening of the app
 class OnBoardingPage extends StatefulWidget {
@@ -23,13 +16,6 @@ class OnBoardingPage extends StatefulWidget {
 class _OnBoardingPageState extends State<OnBoardingPage> {
   /// shared preferences instance
   final Preferences prefs = Preferences();
-
-  void _onIntroEnd(BuildContext context) {
-    Navigator.of(context).pop();
-    Navigator.of(
-      context,
-    ).push<void>(MaterialPageRoute<void>(builder: (_) => const Home()));
-  }
 
   List<bool> unitIsSelected = TraleUnit.values
       .map((TraleUnit unit) => unit == TraleUnit.kg)

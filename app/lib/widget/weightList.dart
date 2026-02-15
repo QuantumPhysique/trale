@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -12,7 +13,9 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/statsCards.dart';
 import 'package:trale/widget/weightListTile.dart';
 
+/// A sliver list of weight measurements.
 class WeightList extends StatefulWidget {
+  /// Creates a [WeightList].
   const WeightList({
     super.key,
     required this.measurements,
@@ -23,15 +26,26 @@ class WeightList extends StatefulWidget {
     this.keepAlive = false,
   });
 
+  /// The sorted measurements to display.
   final List<SortedMeasurement> measurements;
+
+  /// Duration of entry animations in milliseconds.
   final int durationInMilliseconds;
+
+  /// Delay before animations start in milliseconds.
   final int delayInMilliseconds;
+
+  /// Whether to keep this widget alive when off-screen.
   final bool keepAlive;
+
+  /// Scroll controller for the parent scroll view.
   final ScrollController scrollController;
+
+  /// Tab controller to dismiss active tiles on tab change.
   final TabController tabController;
 
   @override
-  _WeightList createState() => _WeightList();
+  State<WeightList> createState() => _WeightList();
 }
 
 class _WeightList extends State<WeightList> {
@@ -93,6 +107,7 @@ class _WeightList extends State<WeightList> {
 
 /// A list of all measurements sorted by year.
 class TotalWeightList extends StatefulWidget {
+  /// Creates a [TotalWeightList].
   const TotalWeightList({
     super.key,
     required this.scrollController,
@@ -102,14 +117,23 @@ class TotalWeightList extends StatefulWidget {
     this.keepAlive = false,
   });
 
+  /// Duration of entry animations in milliseconds.
   final int durationInMilliseconds;
+
+  /// Delay before animations start in milliseconds.
   final int delayInMilliseconds;
+
+  /// Whether to keep this widget alive when off-screen.
   final bool keepAlive;
+
+  /// Scroll controller for the parent scroll view.
   final ScrollController scrollController;
+
+  /// Tab controller to dismiss active tiles on tab change.
   final TabController tabController;
 
   @override
-  _TotalWeightList createState() => _TotalWeightList();
+  State<TotalWeightList> createState() => _TotalWeightList();
 }
 
 class _TotalWeightList extends State<TotalWeightList>

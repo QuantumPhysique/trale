@@ -105,8 +105,6 @@ class _OverviewScreen extends State<OverviewScreen>
       context,
     )!.transitionDuration.slow.inMilliseconds;
 
-    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-
     Widget overviewScreen(
       BuildContext context,
       AsyncSnapshot<List<Measurement>> snapshot,

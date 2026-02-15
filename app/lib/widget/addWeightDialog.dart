@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -187,10 +188,6 @@ Future<bool> showTargetWeightDialog({
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final int ticksPerStep =
-          notifier.unitPrecision.ticksPerStep ?? notifier.unit.ticksPerStep;
-      final double sliderLabel =
-          (currentSliderValue * ticksPerStep).roundToDouble() / ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

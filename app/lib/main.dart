@@ -79,9 +79,6 @@ class TraleMainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
 
-    /// shared preferences instance
-    final Preferences prefs = Preferences();
-
     return DynamicColorBuilder(
       builder: (ColorScheme? systemLight, ColorScheme? systemDark) {
         traleNotifier.setColorScheme(systemLight, systemDark);

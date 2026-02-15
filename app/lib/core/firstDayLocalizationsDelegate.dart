@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -208,16 +209,22 @@ class _FirstDayMaterialLocalizations implements MaterialLocalizations {
 
   // Deprecated but still required by the interface
   @override
+  // ignore: deprecated_member_use
   String get reorderItemToStart => _base.reorderItemToStart;
   @override
+  // ignore: deprecated_member_use
   String get reorderItemToEnd => _base.reorderItemToEnd;
   @override
+  // ignore: deprecated_member_use
   String get reorderItemUp => _base.reorderItemUp;
   @override
+  // ignore: deprecated_member_use
   String get reorderItemDown => _base.reorderItemDown;
   @override
+  // ignore: deprecated_member_use
   String get reorderItemLeft => _base.reorderItemLeft;
   @override
+  // ignore: deprecated_member_use
   String get reorderItemRight => _base.reorderItemRight;
 
   // Getters with default implementations (still forward to real locale)

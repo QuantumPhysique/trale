@@ -25,6 +25,7 @@ class CustomIcons {
   // font family name
   static const String _kFontFam = 'CustomIcons';
 
+  /// Icon for medium interpolation strength.
   static const IconData interpol_medium = IconData(
     0xe812,
     fontFamily: _kFontFam,
@@ -37,6 +38,7 @@ class CustomIcons {
   static const IconData interpol_weak = IconData(0xe815, fontFamily: _kFontFam);
 }
 
+/// A themed [PhosphorIcon] wrapper with duotone secondary color.
 class PPIcon extends PhosphorIcon {
   PPIcon(
     super.icon,

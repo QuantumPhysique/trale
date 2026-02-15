@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 /// Usage:
 ///    thof.textTheme.monospace.bodyMedium
 extension MonospaceExtension on TextTheme {
+  /// Returns a copy of this [TextTheme] with the RobotoMono font family.
   TextTheme get monospace => apply(fontFamily: 'RobotoMono');
 }
 
@@ -32,9 +33,9 @@ extension _TextThemeMap on TextTheme {
   }
 }
 
+/// Extension to create emphasized text styles using variable-font axes.
 extension EmphasizedExtension on TextTheme {
-  // Emphasize all text styles using variable-font axes.
-  // Requires a font that supports these axes (e.g., Roboto Flex).
+  /// Returns an emphasized copy of this [TextTheme].
   TextTheme get emphasized => _withFontVariations(const <ui.FontVariation>[
     ui.FontVariation('wght', 700),
     ui.FontVariation('slnt', -5),

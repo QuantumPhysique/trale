@@ -372,30 +372,6 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    void scaleUpdate(ScaleUpdateDetails details) {
-      if (!widget.isPreview) {
-        setState(() {
-          final double scale = (1 - details.horizontalScale) / 50;
-          if (scale.isNegative) {
-            if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
-              minX -= (maxX - minX) * scale;
-              maxX += (maxX - minX) * scale;
-            }
-          } else {
-            if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
-              if (minX - (maxX - minX) * scale > msTimes.first) {
-                minX -= (maxX - minX) * scale;
-              }
-              if (maxX + (maxX - minX) * scale <
-                  DateTime.now().millisecondsSinceEpoch.toDouble()) {
-                maxX += (maxX - minX) * scale;
-              }
-            }
-          }
-        });
-      }
-    }
-
     void dragUpdate(DragUpdateDetails dragUpdDet) {
       if (!widget.isPreview) {
         setState(() {
