@@ -159,6 +159,7 @@ class UserDetailsGroup extends StatelessWidget {
           dense: false,
           leading: PPIcon(PhosphorIconsDuotone.target, context),
           title: TextFormField(
+            key: ValueKey<double?>(notifier.userTargetWeight),
             readOnly: true,
             initialValue: notifier.userTargetWeight != null
                 ? notifier.unit.weightToString(

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/firstDayLocalizationsDelegate.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/notificationService.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -24,6 +25,10 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<Measurement>(MeasurementAdapter());
   await Hive.openBox<Measurement>(measurementBoxName);
+
+  // Initialise the notification service.
+  final NotificationService notificationService = NotificationService();
+  await notificationService.init();
 
   return runApp(
     ChangeNotifierProvider<TraleNotifier>.value(
@@ -53,6 +58,7 @@ class TraleApp extends MaterialApp {
              firstDay: traleNotifier.firstDay,
            ),
            GlobalWidgetsLocalizations.delegate,
+           GlobalCupertinoLocalizations.delegate,
          ],
          supportedLocales: AppLocalizations.supportedLocales,
          locale: traleNotifier.locale,

@@ -18,10 +18,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Allows selecting 0.05kg/st/lb steps for more precision
 - Major performance improvements by making app async
 - Allow using imperial units for entering height
+- Add reminder notifications to prompt daily weight logging
+
+### Other changes:
+- Using the latest flutter 3.41
 
 ### Bugfix 🐛:
 - Fix broken calendar when choosing custom first Day of week option, #417 #418
 - Fix persisting popup on deleting measurements
+- Fix updating target weight in user dialog
 
 
 ## [0.15.1] - 2026-02-03
