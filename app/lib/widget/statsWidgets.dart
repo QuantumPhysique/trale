@@ -19,7 +19,6 @@ import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/statsCards.dart';
 
-
 class AnimatedStatsWidgets extends StatefulWidget {
   const AnimatedStatsWidgets({super.key});
 
@@ -43,13 +42,21 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
       return;
     }
     if (_showWeightLostCard || _weightLostDelayTimer != null) return;
-    _weightLostDelayTimer = Timer(Duration(milliseconds: (TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds / 2).toInt()), () {
-      if (!mounted) return;
-      setState(() {
-        _showWeightLostCard = true;
-        _weightLostDelayTimer = null;
-      });
-    });
+    _weightLostDelayTimer = Timer(
+      Duration(
+        milliseconds:
+            (TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds /
+                    2)
+                .toInt(),
+      ),
+      () {
+        if (!mounted) return;
+        setState(() {
+          _showWeightLostCard = true;
+          _weightLostDelayTimer = null;
+        });
+      },
+    );
   }
 
   @override
@@ -66,16 +73,15 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 
     final double? userTargetWeight = notifier.userTargetWeight;
     final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-        userTargetWeight, notifier.looseWeight,
+      userTargetWeight,
+      notifier.looseWeight,
     );
     final int nMeasured = ip.measurementDuration.inDays;
     _ensureWeightLostCardVisibility(nMeasured >= 2);
     Card userTargetWeightCard(double utw) => Card(
       shape: const StadiumBorder(),
       color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: EdgeInsets.symmetric(
-        vertical: TraleTheme.of(context)!.padding,
-      ),
+      margin: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
       child: Padding(
         padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
         child: Column(
@@ -84,15 +90,17 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
           children: <Widget>[
             AutoSizeText(
               '${notifier.unit.weightToString(utw, notifier.unitPrecision)} in',
-              style: Theme.of(context).textTheme.bodySmall!
-                .onSecondaryContainer(context),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall!.onSecondaryContainer(context),
             ),
             AutoSizeText(
               timeOfTargetWeight == null
-                ? '--'
-                : timeOfTargetWeight.durationToString(context),
-              style: Theme.of(context).textTheme.bodyLarge!
-                .onSecondaryContainer(context),
+                  ? '--'
+                  : timeOfTargetWeight.durationToString(context),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge!.onSecondaryContainer(context),
             ),
           ],
         ),
@@ -104,9 +112,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 
       return Card(
         shape: const StadiumBorder(),
-        margin: EdgeInsets.symmetric(
-          vertical: TraleTheme.of(context)!.padding,
-        ),
+        margin: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
         color: Theme.of(context).colorScheme.secondaryContainer,
         child: Padding(
           padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -115,33 +121,41 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               AutoSizeText(
-              '${AppLocalizations.of(context)!.change} / '
-                  '${AppLocalizations.of(context)!.month}',
-                style: Theme.of(context).textTheme.bodySmall!
-                  .onSecondaryContainer(context),
+                '${AppLocalizations.of(context)!.change} / '
+                '${AppLocalizations.of(context)!.month}',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall!.onSecondaryContainer(context),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   AutoSizeText(
-                    notifier.unit.weightToString(deltaWeight, notifier.unitPrecision),
-                    style: Theme.of(context).textTheme.bodyLarge!
-                      .onSecondaryContainer(context),
+                    notifier.unit.weightToString(
+                      deltaWeight,
+                      notifier.unitPrecision,
+                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge!.onSecondaryContainer(context),
                   ),
                   const SizedBox(width: 5),
                   SizedBox(
                     height: sizeOfText(
                       text: '0',
                       context: context,
-                      style: Theme.of(context).textTheme.bodyLarge!
-                        .onSecondaryContainer(context),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge!.onSecondaryContainer(context),
                     ).height,
                     child: Transform.rotate(
                       // a change of 1kg / 30d corresponds to 45°
                       angle: -1 * atan(deltaWeight),
                       child: Icon(
-                          PhosphorIconsRegular.arrowRight,
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        PhosphorIconsRegular.arrowRight,
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSecondaryContainer,
                       ),
                     ),
                   ),
@@ -157,45 +171,54 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
       widthFactor: (userTargetWeight == null || nMeasured < 2) ? 0.5 : 1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          if (userTargetWeight != null) Expanded(
-              child: AnimateInEffect(
-                durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
-                child: userTargetWeightCard(userTargetWeight),
-              )
-          ),
-          if (nMeasured >= 2 && _showWeightLostCard) Expanded(
-              child: AnimateInEffect(
-                durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
-                child: userWeightLostCard(),
-              )
-          ),
-        ].addGap(
-          padding: TraleTheme.of(context)!.padding,
-          direction: Axis.horizontal,
-        ),
+        children:
+            <Widget>[
+              if (userTargetWeight != null)
+                Expanded(
+                  child: AnimateInEffect(
+                    durationInMilliseconds: TraleTheme.of(
+                      context,
+                    )!.transitionDuration.slow.inMilliseconds,
+                    child: userTargetWeightCard(userTargetWeight),
+                  ),
+                ),
+              if (nMeasured >= 2 && _showWeightLostCard)
+                Expanded(
+                  child: AnimateInEffect(
+                    durationInMilliseconds: TraleTheme.of(
+                      context,
+                    )!.transitionDuration.slow.inMilliseconds,
+                    child: userWeightLostCard(),
+                  ),
+                ),
+            ].addGap(
+              padding: TraleTheme.of(context)!.padding,
+              direction: Axis.horizontal,
+            ),
       ),
     );
   }
 }
 
-
 /// define StatCard for number of days until target weight is reached
-StatCard getReachingTargetWeightWidget({required BuildContext context,
-                                        required MeasurementStats stats,
-                                        int? delayInMilliseconds}) {
-
-  final double? userTargetWeight =
-      Provider.of<TraleNotifier>(context).userTargetWeight;
+StatCard getReachingTargetWeightWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final double? userTargetWeight = Provider.of<TraleNotifier>(
+    context,
+  ).userTargetWeight;
   final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
   final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-    userTargetWeight, notifier.looseWeight,
+    userTargetWeight,
+    notifier.looseWeight,
   );
 
-  final List<String> textLabels=
-    (timeOfTargetWeight?.durationToString(context) ??
-     '-- ${AppLocalizations.of(context)!.days}'
-    ).split(' ');
+  final List<String> textLabels =
+      (timeOfTargetWeight?.durationToString(context) ??
+              '-- ${AppLocalizations.of(context)!.days}')
+          .split(' ');
 
   final String subtext = textLabels.length == 1
       ? AppLocalizations.of(context)!.targetWeightReached
@@ -203,8 +226,8 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
 
   return StatCard(
     backgroundColor: Theme.of(context).brightness == Brightness.light
-      ? Theme.of(context).primaryColor
-      : Theme.of(context).colorScheme.primaryContainer,
+        ? Theme.of(context).primaryColor
+        : Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
     ny: 2,
     childWidget: Padding(
@@ -218,13 +241,14 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 textLabels[0],
-                style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
-                  color: Theme.of(context).brightness == Brightness.light
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 200,
-                ),
+                style: Theme.of(context).textTheme.emphasized.displayLarge!
+                    .copyWith(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 200,
+                    ),
                 maxLines: 1,
               ),
             ),
@@ -237,26 +261,27 @@ StatCard getReachingTargetWeightWidget({required BuildContext context,
                 subtext,
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).brightness == Brightness.light
-                    ? Theme.of(context).colorScheme.onPrimary
-                    : Theme.of(context).colorScheme.onPrimaryContainer,
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onPrimaryContainer,
                   height: 1.0,
                 ),
                 maxLines: 3,
                 textAlign: TextAlign.center,
               ),
             ),
-          )
-        ]),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-
 /// define StatCard for the frequency in total
-StatCard getFrequencyInTotal({required BuildContext context,
-                              required MeasurementStats stats,
-                              int? delayInMilliseconds}) {
-
+StatCard getFrequencyInTotal({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
   return StatCard(
     backgroundColor: Theme.of(context).brightness == Brightness.light
         ? Theme.of(context).primaryColor
@@ -266,55 +291,60 @@ StatCard getFrequencyInTotal({required BuildContext context,
     childWidget: Padding(
       padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: Align(
-                alignment: Alignment.center,
-                child: AutoSizeText(
-                  (7 * stats.frequencyInTotal!).toStringAsFixed(2),
-                  style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 200,
-                  ),
-                  maxLines: 1,
-                ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Align(
+              alignment: Alignment.center,
+              child: AutoSizeText(
+                (7 * stats.frequencyInTotal!).toStringAsFixed(2),
+                style: Theme.of(context).textTheme.emphasized.displayLarge!
+                    .copyWith(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? Theme.of(context).colorScheme.onPrimary
+                          : Theme.of(context).colorScheme.onPrimaryContainer,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 200,
+                    ),
+                maxLines: 1,
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: AutoSizeText(
+          ),
+          Expanded(
+            flex: 1,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: AutoSizeText(
                 '${AppLocalizations.of(context)!.measurementFrequency}\n'
-                      '(/ ${AppLocalizations.of(context)!.week})',
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    color: Theme.of(context).brightness == Brightness.light
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).colorScheme.onPrimaryContainer,
-                    height: 1.0,
-                  ),
-                  maxLines: 3,
-                  textAlign: TextAlign.center,
+                '(/ ${AppLocalizations.of(context)!.week})',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : Theme.of(context).colorScheme.onPrimaryContainer,
+                  height: 1.0,
                 ),
+                maxLines: 3,
+                textAlign: TextAlign.center,
               ),
-            )
-          ]),
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
 
-
 /// define StatCard for number of days until target weight is reached
-StatCard getTotalChangeWidget({required BuildContext context,
-                        required MeasurementStats stats,
-                        int? delayInMilliseconds}) {
-  final String unit =
-      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+StatCard getTotalChangeWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
   return StatCard(
     ny: 2,
     delayInMilliseconds: delayInMilliseconds,
@@ -330,11 +360,12 @@ StatCard getTotalChangeWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 weightToString(context, stats.deltaWeight),
-                style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryContainer,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 200,
-                ),
+                style: Theme.of(context).textTheme.emphasized.displayLarge!
+                    .copyWith(
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 200,
+                    ),
                 maxLines: 1,
               ),
             ),
@@ -353,20 +384,23 @@ StatCard getTotalChangeWidget({required BuildContext context,
                 textAlign: TextAlign.center,
               ),
             ),
-          )
-        ]
+          ),
+        ],
       ),
     ),
   );
 }
 
-
 /// define StatCard for number of days until target weight is reached
-Widget getMeanWidget({required BuildContext context,
-                             required MeasurementStats stats,
-                             int? delayInMilliseconds}) {
-  final String unit =
-      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+Widget getMeanWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
   return StatCard(
     nx: 2,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
@@ -381,11 +415,12 @@ Widget getMeanWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               weightToString(context, stats.meanWeight),
-              style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                fontWeight: FontWeight.w900,
-                fontSize: 200,
-              ),
+              style: Theme.of(context).textTheme.emphasized.displayLarge!
+                  .copyWith(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 200,
+                  ),
               maxLines: 1,
             ),
           ),
@@ -404,20 +439,18 @@ Widget getMeanWidget({required BuildContext context,
               textAlign: TextAlign.center,
             ),
           ),
-        )
-      ]
+        ),
+      ],
     ),
   );
 }
 
-
-
 /// define StatCard for number of days until target weight is reached
 Widget getBMIWidget({
-    required BuildContext context,
-    required MeasurementStats stats,
-    int? delayInMilliseconds
-  }) {
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
   return StatCard(
     nx: 2,
     delayInMilliseconds: delayInMilliseconds,
@@ -430,9 +463,9 @@ Widget getBMIWidget({
             alignment: Alignment.center,
             child: AutoSizeText(
               AppLocalizations.of(context)!.bmi,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                height: 1.0,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -444,26 +477,27 @@ Widget getBMIWidget({
             alignment: Alignment.center,
             child: AutoSizeText(
               doubleToString(stats.currentBMI(context)),
-              style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
-                fontWeight: FontWeight.w900,
-                fontSize: 200,
-              ),
+              style: Theme.of(context).textTheme.emphasized.displayLarge!
+                  .copyWith(fontWeight: FontWeight.w900, fontSize: 200),
               maxLines: 1,
             ),
           ),
         ),
-      ]
+      ],
     ),
   );
 }
 
-
 /// define StatCard for change per week, month, and year
-StatCard getChangeRatesWidget({required BuildContext context,
-                               required MeasurementStats stats,
-                               int? delayInMilliseconds}) {
-  final String unit =
-      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+StatCard getChangeRatesWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
   return StatCard(
     nx: 2,
     delayInMilliseconds: delayInMilliseconds,
@@ -476,8 +510,9 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.center,
             child: AutoSizeText(
               '${AppLocalizations.of(context)!.change} ($unit)',
-              style: Theme.of(context).textTheme.emphasized.bodyLarge!.onSurface(context)
-                .copyWith(fontWeight: FontWeight.w900),
+              style: Theme.of(context).textTheme.emphasized.bodyLarge!
+                  .onSurface(context)
+                  .copyWith(fontWeight: FontWeight.w900),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -489,9 +524,10 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.week}\n'
-                '${weightToString(context, stats.deltaWeightLastWeek)}',
-              style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
-                .copyWith(height: 1.0),
+              '${weightToString(context, stats.deltaWeightLastWeek)}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -503,9 +539,10 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.month}\n'
-                '${weightToString(context, stats.deltaWeightLastMonth)}',
-              style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
-                .copyWith(height: 1.0),
+              '${weightToString(context, stats.deltaWeightLastMonth)}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
@@ -517,26 +554,30 @@ StatCard getChangeRatesWidget({required BuildContext context,
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${AppLocalizations.of(context)!.year}\n'
-                '${weightToString(context, stats.deltaWeightLastYear)}',
-              style: Theme.of(context).textTheme.bodyMedium!.onSurface(context)
-                .copyWith(height: 1.0),
+              '${weightToString(context, stats.deltaWeightLastYear)}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
               maxLines: 2,
               textAlign: TextAlign.center,
             ),
           ),
-        )
-      ]
+        ),
+      ],
     ),
   );
 }
 
-
 /// define StatCard for change per week, month, and year
-Widget getMinWidget({required BuildContext context,
-                     required MeasurementStats stats,
-                     int? delayInMilliseconds}) {
-  final String unit =
-      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+Widget getMinWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
   return OneThirdStatCard(
     delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
@@ -550,9 +591,10 @@ Widget getMinWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 '${AppLocalizations.of(context)!.min} ($unit)',
-                 style: Theme.of(context).textTheme.bodyLarge!
-                   .onSurface(context),
-                 maxLines: 1,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.onSurface(context),
+                maxLines: 1,
               ),
             ),
           ),
@@ -563,27 +605,32 @@ Widget getMinWidget({required BuildContext context,
               child: AutoSizeText(
                 weightToString(context, stats.minWeight),
                 style: Theme.of(context).textTheme.emphasized.bodyMedium!
-                  .onSurface(context).copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 200,
-                    height: 0.70,
-                ),
+                    .onSurface(context)
+                    .copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 200,
+                      height: 0.70,
+                    ),
                 maxLines: 1,
               ),
             ),
           ),
-        ]
+        ],
       ),
     ),
   );
 }
 
 /// define StatCard for change per week, month, and year
-Widget getMaxWidget({required BuildContext context,
-                     required MeasurementStats stats,
-                     int? delayInMilliseconds}) {
-  final String unit =
-      Provider.of<TraleNotifier>(context, listen: false).unit.name;
+Widget getMaxWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
   return OneThirdStatCard(
     delayInMilliseconds: delayInMilliseconds,
     childWidget: Padding(
@@ -598,11 +645,12 @@ Widget getMaxWidget({required BuildContext context,
               child: AutoSizeText(
                 weightToString(context, stats.maxWeight),
                 style: Theme.of(context).textTheme.emphasized.bodyMedium!
-                  .onSurface(context).copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 200,
-                  height: 0.70,
-                ),
+                    .onSurface(context)
+                    .copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 200,
+                      height: 0.70,
+                    ),
                 maxLines: 1,
               ),
             ),
@@ -613,28 +661,31 @@ Widget getMaxWidget({required BuildContext context,
               alignment: Alignment.center,
               child: AutoSizeText(
                 '${AppLocalizations.of(context)!.max} ($unit)',
-                style: Theme.of(context).textTheme.bodyLarge!
-                  .onSurface(context),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.onSurface(context),
                 maxLines: 1,
               ),
             ),
           ),
-        ]
+        ],
       ),
     ),
   );
 }
 
-
 /// define StatCard for change per week, month, and year
-Widget getIconWidget({required BuildContext context,
-                      required MeasurementStats stats,
-                      int? delayInMilliseconds}) {
+Widget getIconWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
   final double iconHeroSize =
-      (MediaQuery.sizeOf(context).width
-       - 5 * TraleTheme.of(context)!.padding) / 4;
-  final int animationDurationInMilliseconds =
-      TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
+      (MediaQuery.sizeOf(context).width - 5 * TraleTheme.of(context)!.padding) /
+      4;
+  final int animationDurationInMilliseconds = TraleTheme.of(
+    context,
+  )!.transitionDuration.slow.inMilliseconds;
 
   return AnimateInEffect(
     delayInMilliseconds: delayInMilliseconds ?? 0,
@@ -647,20 +698,16 @@ Widget getIconWidget({required BuildContext context,
   );
 }
 
-
-String weightToString(BuildContext context, double? d){
+String weightToString(BuildContext context, double? d) {
   return d == null
       ? '--'
       : Provider.of<TraleNotifier>(context).unit.weightToString(
-        d,
-        Provider.of<TraleNotifier>(context).unitPrecision,
-        showUnit: false,
-  );
+          d,
+          Provider.of<TraleNotifier>(context).unitPrecision,
+          showUnit: false,
+        );
 }
 
-String doubleToString(double? d){
-  print(d);
-  return d == null
-      ? '--'
-      : d.toStringAsFixed(1);
+String doubleToString(double? d) {
+  return d == null ? '--' : d.toStringAsFixed(1);
 }

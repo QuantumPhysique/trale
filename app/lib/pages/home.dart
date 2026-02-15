@@ -44,6 +44,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     );
     _selectedTab.addListener(_onSlideTab);
 
+    // Cache tab content widgets so they are not recreated on every rebuild
+    _activeTabs = <Widget>[
+      OverviewScreen(tabController: _selectedTab),
+      StatsScreen(tabController: _selectedTab),
+      MeasurementScreen(tabController: _selectedTab),
+    ];
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst && mounted) {
         loadedFirst = false;
@@ -58,6 +65,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   late TabController _selectedTab;
   // scrolling controller
   final ScrollController _scrollController = ScrollController();
+  // cached tab content widgets
+  late final List<Widget> _activeTabs;
   // active page
   int _pageIndex = 0;
 
@@ -77,7 +86,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void _onSlideTab() {
-    _onItemTapped(_selectedTab.index);
+    final int index = _selectedTab.index;
+    if (index != _selectedIndex) {
+      _onItemTapped(index);
+    }
   }
 
   /// on pressing FAB button
@@ -108,11 +120,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final bool showFAB = !popupShown & (_selectedIndex == 0);
-    final List<Widget> activeTabs = <Widget>[
-      const OverviewScreen(),
-      StatsScreen(tabController: _selectedTab),
-      MeasurementScreen(tabController: _selectedTab),
-    ];
     final List<Widget> destinations = <Widget>[
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
@@ -167,7 +174,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             ),
           ];
         },
-        body: TabBarView(controller: _selectedTab, children: activeTabs),
+        body: TabBarView(controller: _selectedTab, children: _activeTabs),
       ),
       floatingActionButton: FAB(onPressed: onFABpress, show: showFAB),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
