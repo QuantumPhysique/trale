@@ -6,18 +6,27 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/pages/home.dart';
 import 'package:trale/pages/onBoarding.dart';
 
-
 /// splash scaffold
 class Splash extends StatefulWidget {
   /// constructor
   const Splash({super.key});
   @override
-
   /// create state
   _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
+  late final Future<void> _loadMeasurements;
+  bool _navigated = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMeasurements = Future<void>(() {
+      MeasurementDatabase().reinit();
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -35,29 +44,26 @@ class _SplashState extends State<Splash> {
         systemNavigationBarIconBrightness: Theme.of(context).brightness,
       ),
     );
+
+    // Navigate once loading is complete
+    if (!_navigated) {
+      _navigated = true;
+      _loadMeasurements.then((_) {
+        if (!mounted) return;
+        final Preferences prefs = Preferences();
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute<Scaffold>(
+            builder: (BuildContext context) =>
+                prefs.showOnBoarding ? const OnBoardingPage() : const Home(),
+          ),
+        );
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    void onStop() {
-      final Preferences prefs = Preferences();
-      // leave settings
-      Navigator.of(context).pop();
-      Navigator.of(context).push(
-        MaterialPageRoute<Scaffold>(
-          builder: (BuildContext context) => prefs.showOnBoarding
-            ? const OnBoardingPage()
-            : const Home(),
-        ),
-      );
-    }
-
-    final Future<void> loadMeasurements = Future<void>(
-    () {
-        MeasurementDatabase().reinit();
-      },
-    ).then((_) => onStop());
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
@@ -66,12 +72,12 @@ class _SplashState extends State<Splash> {
         height: MediaQuery.of(context).size.height,
         child: SizedBox(
           width: 0.8 * MediaQuery.of(context).size.width,
-            child: FutureBuilder<void>(
-              future: loadMeasurements,
-              builder: (BuildContext context, AsyncSnapshot<void> snap) {
-                return const CircularProgressIndicator();
-              },
-            )
+          child: FutureBuilder<void>(
+            future: _loadMeasurements,
+            builder: (BuildContext context, AsyncSnapshot<void> snap) {
+              return const CircularProgressIndicator();
+            },
+          ),
         ),
       ),
     );

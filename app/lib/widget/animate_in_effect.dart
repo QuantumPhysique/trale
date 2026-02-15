@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/widget/animation_replay_scope.dart';
 
 class AnimateInEffect extends StatefulWidget {
   const AnimateInEffect({
@@ -23,8 +24,12 @@ class AnimateInEffect extends StatefulWidget {
 class _AnimateInEffectState extends State<AnimateInEffect>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late final AnimationController animationController;
-  late final Animation<Offset> offsetAnimation;
+  late Animation<Offset> offsetAnimation;
   late final Animation<double> fadeAnimation;
+  AnimationReplayController? _replayController;
+
+  /// The horizontal start offset magnitude.
+  static const double _slideMagnitude = 40;
 
   @override
   void initState() {
@@ -36,10 +41,18 @@ class _AnimateInEffectState extends State<AnimateInEffect>
     );
 
     Future<TickerFuture>.delayed(
-      Duration(
-          milliseconds: widget.delayInMilliseconds),
-          () => animationController.forward(),
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
     );
+
+    // Default: slide in from the right
+    _buildOffsetAnimation(SlideDirection.fromRight);
+  }
+
+  void _buildOffsetAnimation(SlideDirection direction) {
+    final double startX = direction == SlideDirection.fromRight
+        ? _slideMagnitude
+        : -_slideMagnitude;
 
     final Curve intervalCurve = Interval(
       widget.intervalStart,
@@ -47,20 +60,39 @@ class _AnimateInEffectState extends State<AnimateInEffect>
       curve: Curves.easeInOutCubic,
     );
 
-    offsetAnimation = Tween<Offset>(
-      begin: const Offset(40, 0),
-      end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: intervalCurve,
-      ),
-    );
+    offsetAnimation = Tween<Offset>(begin: Offset(startX, 0), end: Offset.zero)
+        .animate(
+          CurvedAnimation(parent: animationController, curve: intervalCurve),
+        );
+  }
 
+  void _onReplay() {
+    final SlideDirection dir =
+        _replayController?.direction ?? SlideDirection.fromRight;
+    _buildOffsetAnimation(dir);
+    animationController.reset();
+    Future<TickerFuture>.delayed(
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final AnimationReplayController? newController = AnimationReplayScope.of(
+      context,
+    );
+    if (newController != _replayController) {
+      _replayController?.removeListener(_onReplay);
+      _replayController = newController;
+      _replayController?.addListener(_onReplay);
+    }
   }
 
   @override
   void dispose() {
+    _replayController?.removeListener(_onReplay);
     animationController.dispose();
     super.dispose();
   }
@@ -71,10 +103,8 @@ class _AnimateInEffectState extends State<AnimateInEffect>
 
     return AnimatedBuilder(
       animation: animationController,
-      builder: (BuildContext context, Widget? child) => Transform.translate(
-        offset: offsetAnimation.value,
-        child: child,
-      ),
+      builder: (BuildContext context, Widget? child) =>
+          Transform.translate(offset: offsetAnimation.value, child: child),
       child: widget.child,
     );
   }
