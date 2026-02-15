@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 /// Direction from which widgets should slide in.
 enum SlideDirection {
-  /// Slide in from the right (default, e.g. app launch, returning from settings,
-  /// or navigating to a tab further right).
+  /// Slide in from the right (default, e.g. app launch,
+  /// returning from settings, or navigating to a tab
+  /// further right).
   fromRight,
 
   /// Slide in from the left (navigating to a tab further left).

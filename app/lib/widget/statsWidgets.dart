@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:async';
 import 'dart:math';
 
@@ -19,11 +20,13 @@ import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/statsCards.dart';
 
+/// Animated statistics widgets container.
 class AnimatedStatsWidgets extends StatefulWidget {
+  /// Constructor.
   const AnimatedStatsWidgets({super.key});
 
   @override
-  _AnimatedStatsWidgetsState createState() => _AnimatedStatsWidgetsState();
+  State<AnimatedStatsWidgets> createState() => _AnimatedStatsWidgetsState();
 }
 
 class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
@@ -34,14 +37,20 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     if (!shouldShow) {
       _weightLostDelayTimer?.cancel();
       _weightLostDelayTimer = null;
-      if (!_showWeightLostCard) return;
+      if (!_showWeightLostCard) {
+        return;
+      }
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
         setState(() => _showWeightLostCard = false);
       });
       return;
     }
-    if (_showWeightLostCard || _weightLostDelayTimer != null) return;
+    if (_showWeightLostCard || _weightLostDelayTimer != null) {
+      return;
+    }
     _weightLostDelayTimer = Timer(
       Duration(
         milliseconds:
@@ -50,7 +59,9 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
                 .toInt(),
       ),
       () {
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
         setState(() {
           _showWeightLostCard = true;
           _weightLostDelayTimer = null;
@@ -222,7 +233,8 @@ StatCard getReachingTargetWeightWidget({
 
   final String subtext = textLabels.length == 1
       ? AppLocalizations.of(context)!.targetWeightReached
-      : '${textLabels[1]} ${AppLocalizations.of(context)!.targetWeightReachedIn}';
+      : '${textLabels[1]} '
+            '${AppLocalizations.of(context)!.targetWeightReachedIn}';
 
   return StatCard(
     backgroundColor: Theme.of(context).brightness == Brightness.light
@@ -698,6 +710,7 @@ Widget getIconWidget({
   );
 }
 
+/// Converts a weight value to a display string.
 String weightToString(BuildContext context, double? d) {
   return d == null
       ? '--'
@@ -708,6 +721,7 @@ String weightToString(BuildContext context, double? d) {
         );
 }
 
+/// Converts a double value to a display string.
 String doubleToString(double? d) {
   return d == null ? '--' : d.toStringAsFixed(1);
 }

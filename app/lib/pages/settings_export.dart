@@ -13,7 +13,9 @@ import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/tile_group.dart';
 
+/// Export settings page.
 class ExportSettingsPage extends StatefulWidget {
+  /// Constructor.
   const ExportSettingsPage({super.key});
 
   @override
@@ -232,6 +234,9 @@ class ImportListTile extends StatelessWidget {
         icon: PPIcon(PhosphorIconsDuotone.download, context),
         onPressed: () async {
           await importBackup(context);
+          if (!context.mounted) {
+            return;
+          }
           Navigator.of(context).pop();
           Navigator.of(context).pop();
         },
@@ -309,6 +314,9 @@ class ResetListTile extends StatelessWidget {
                 ),
               ) ??
               false;
+          if (!context.mounted) {
+            return;
+          }
           if (accepted) {
             Provider.of<TraleNotifier>(context, listen: false).factoryReset();
             // leave settings

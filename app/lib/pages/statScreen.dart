@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
@@ -6,12 +7,15 @@ import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/statsWidgetsList.dart';
 
+/// Stats screen widget.
 class StatsScreen extends StatefulWidget {
+  /// Constructor.
   const StatsScreen({super.key, required this.tabController});
 
+  /// Tab controller for switching tabs.
   final TabController tabController;
   @override
-  _StatsScreen createState() => _StatsScreen();
+  State<StatsScreen> createState() => _StatsScreen();
 }
 
 class _StatsScreen extends State<StatsScreen>

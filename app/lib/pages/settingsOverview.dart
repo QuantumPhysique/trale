@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
@@ -16,7 +17,9 @@ import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/sinewave.dart';
 import 'package:trale/widget/tile_group.dart';
 
+/// Settings overview page.
 class SettingsOverviewPage extends StatelessWidget {
+  /// Constructor.
   const SettingsOverviewPage({super.key});
 
   @override
@@ -132,7 +135,8 @@ class SettingsOverviewPage extends StatelessWidget {
   }
 }
 
-/// A rounded section that groups a list of tiles and draws dividers between theme.
+/// A rounded section that groups a list of tiles
+/// and draws dividers between theme.
 /// Rounded tile with icon, title, subtitle and optional trailing widget.
 class _SettingsTile extends StatelessWidget {
   const _SettingsTile({

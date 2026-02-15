@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
@@ -7,12 +8,15 @@ import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/weightList.dart';
 
+/// Measurement screen widget.
 class MeasurementScreen extends StatefulWidget {
+  /// Constructor.
   const MeasurementScreen({super.key, required this.tabController});
 
+  /// Tab controller for switching tabs.
   final TabController tabController;
   @override
-  _MeasurementScreen createState() => _MeasurementScreen();
+  State<MeasurementScreen> createState() => _MeasurementScreen();
 }
 
 class _MeasurementScreen extends State<MeasurementScreen>

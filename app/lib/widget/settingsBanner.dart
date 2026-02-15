@@ -1,10 +1,13 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+/// Banner widget for settings pages.
 class SettingsBanner extends StatelessWidget {
+  /// Constructor.
   const SettingsBanner({
     required this.leadingIcon,
     this.trailingIcon,
@@ -17,13 +20,28 @@ class SettingsBanner extends StatelessWidget {
     super.key,
   });
 
+  /// Leading icon.
   final IconData leadingIcon;
+
+  /// Title text.
   final String title;
+
+  /// Subtitle text.
   final String subtitle;
+
+  /// Trailing icon.
   final IconData? trailingIcon;
+
+  /// Background color.
   final Color? backgroundColor;
+
+  /// Trailing icon color.
   final Color? trailingColor;
+
+  /// Font color.
   final Color? fontColor;
+
+  /// URL to open on tap.
   final String? url;
 
   @override

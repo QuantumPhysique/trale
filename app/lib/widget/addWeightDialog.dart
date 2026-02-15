@@ -73,6 +73,9 @@ Future<bool> showAddWeightDialog({
                     currentTime.minute,
                   );
 
+                  if (!context.mounted) {
+                    return;
+                  }
                   final TimeOfDay? time = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(currentDate),
@@ -152,6 +155,9 @@ Future<bool> showAddWeightDialog({
                   date: currentDate,
                 ),
               );
+              if (!context.mounted) {
+                return;
+              }
               if (!wasInserted &&
                   !(editMode &&
                       currentDate == initialDate &&
@@ -159,7 +165,8 @@ Future<bool> showAddWeightDialog({
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                      'Adding measurement was skipped. Measurement exists already.',
+                      'Adding measurement was skipped. '
+                      'Measurement exists already.',
                     ),
                     behavior: SnackBarBehavior.floating,
                   ),

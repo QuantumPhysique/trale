@@ -1,15 +1,24 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 
+/// Custom sliver persistent header delegate.
 class HeaderDelegate extends SliverPersistentHeaderDelegate {
+  /// Constructor.
   const HeaderDelegate(
     this.title,
     this.animationDurationInMilliseconds,
     this.firstDelayInMilliseconds,
   );
+
+  /// Header title text.
   final String title;
+
+  /// Animation duration in milliseconds.
   final int animationDurationInMilliseconds;
+
+  /// Delay before first animation.
   final int firstDelayInMilliseconds;
 
   @override

@@ -250,12 +250,13 @@ final List<ThirdPartyLicence> tpls =
           tpl1.name.toLowerCase().compareTo(tpl2.name.toLowerCase()),
     );
 
-/// about screen widget class
+/// About page widget.
 class About extends StatefulWidget {
+  /// Constructor.
   const About({super.key});
 
   @override
-  _About createState() => _About();
+  State<About> createState() => _About();
 }
 
 class _About extends State<About> {

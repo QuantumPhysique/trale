@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -5,18 +6,23 @@ import 'package:trale/core/font.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
 
+/// Snapping sliver app bar widget.
 class SliverAppBarSnap extends StatefulWidget {
+  /// Constructor.
   const SliverAppBarSnap({
     super.key,
     required this.title,
     required this.sliverlist,
   });
 
+  /// Title text.
   final String title;
+
+  /// List of sliver widgets.
   final List<Widget> sliverlist;
 
   @override
-  _SliverAppBarSnapState createState() => _SliverAppBarSnapState();
+  State<SliverAppBarSnap> createState() => _SliverAppBarSnapState();
 }
 
 class _SliverAppBarSnapState extends State<SliverAppBarSnap> {

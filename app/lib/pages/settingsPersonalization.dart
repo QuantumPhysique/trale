@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,9 @@ import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:trale/widget/userDialog.dart';
 
+/// Settings personalization page.
 class PersonalizationSettingsPage extends StatefulWidget {
+  /// Constructor.
   const PersonalizationSettingsPage({super.key});
 
   @override
@@ -245,6 +248,7 @@ class UnitPrecisionListTile extends StatelessWidget {
   }
 }
 
+/// Generic dropdown settings widget.
 class FirstDayListTile extends StatelessWidget {
   /// constructor
   const FirstDayListTile({super.key});
@@ -296,6 +300,7 @@ class FirstDayListTile extends StatelessWidget {
   }
 }
 
+/// Settings tile widget.
 class DatePrintListTile extends StatelessWidget {
   /// constructor
   const DatePrintListTile({super.key});

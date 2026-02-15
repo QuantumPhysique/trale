@@ -12,6 +12,7 @@ import 'package:trale/widget/tile_group.dart';
 
 /// Settings sub-page for configuring weight-logging reminders.
 class ReminderSettingsPage extends StatefulWidget {
+  /// Constructor.
   const ReminderSettingsPage({super.key});
 
   @override
@@ -87,7 +88,9 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
                 if (value) {
                   final NotificationService ns = NotificationService();
                   final bool granted = await ns.requestPermission();
-                  if (!granted) return;
+                  if (!granted) {
+                    return;
+                  }
                   await ns.requestExactAlarmPermission();
                 }
                 notifier.reminderEnabled = value;

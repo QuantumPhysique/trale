@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 /// SliverAppBar which prevents scrolling if not needed
@@ -60,7 +61,7 @@ class CustomSliverAppBar extends StatefulWidget {
   final Widget? flexibleSpace;
 
   @override
-  _CustomSliverAppBarState createState() => _CustomSliverAppBarState();
+  State<CustomSliverAppBar> createState() => _CustomSliverAppBarState();
 }
 
 class _CustomSliverAppBarState extends State<CustomSliverAppBar> {

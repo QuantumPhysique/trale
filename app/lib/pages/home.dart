@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
   const Home({super.key});
   @override
   /// create state
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
@@ -53,7 +53,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst && mounted) {
         loadedFirst = false;
-        // Removed setState() - it was causing animations to re-trigger when navigating back from settings
+        // Removed setState() - it was causing animations
+        // to re-trigger when navigating back from settings
       }
     });
   }

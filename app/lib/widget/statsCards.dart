@@ -1,10 +1,13 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 
+/// Stat card widget.
 class StatCard extends StatefulWidget {
+  /// Constructor.
   const StatCard({
     required this.childWidget,
     this.backgroundColor,
@@ -15,15 +18,26 @@ class StatCard extends StatefulWidget {
     super.key,
   });
 
+  /// Child widget to display.
   final Widget childWidget;
+
+  /// Horizontal size multiplier.
   final int nx;
+
+  /// Vertical size multiplier.
   final int ny;
+
+  /// Background color.
   final Color? backgroundColor;
+
+  /// Delay before animation.
   final int? delayInMilliseconds;
+
+  /// Whether to use pill shape.
   final bool pillShape;
 
   @override
-  _StatCardState createState() => _StatCardState();
+  State<StatCard> createState() => _StatCardState();
 }
 
 class _StatCardState extends State<StatCard> {
@@ -71,7 +85,9 @@ class _StatCardState extends State<StatCard> {
   }
 }
 
+/// One-third width stat card widget.
 class OneThirdStatCard extends StatefulWidget {
+  /// Constructor.
   const OneThirdStatCard({
     required this.childWidget,
     this.delayInMilliseconds = 0,
@@ -79,12 +95,17 @@ class OneThirdStatCard extends StatefulWidget {
     super.key,
   });
 
+  /// Child widget to display.
   final Widget childWidget;
+
+  /// Delay before animation.
   final int? delayInMilliseconds;
+
+  /// Whether to use pill shape.
   final bool pillShape;
 
   @override
-  _OneThirdStatCardState createState() => _OneThirdStatCardState();
+  State<OneThirdStatCard> createState() => _OneThirdStatCardState();
 }
 
 class _OneThirdStatCardState extends State<OneThirdStatCard> {
@@ -125,7 +146,9 @@ class _OneThirdStatCardState extends State<OneThirdStatCard> {
   }
 }
 
+/// Default stat card with text rows.
 class DefaultStatCard extends StatefulWidget {
+  /// Constructor.
   const DefaultStatCard({
     required this.firstRow,
     required this.secondRow,
@@ -134,13 +157,20 @@ class DefaultStatCard extends StatefulWidget {
     super.key,
   });
 
+  /// First row text.
   final String firstRow;
+
+  /// Second row text.
   final String secondRow;
+
+  /// Delay before animation.
   final int? delayInMilliseconds;
+
+  /// Whether to use pill shape.
   final bool pillShape;
 
   @override
-  _DefaultStatCardState createState() => _DefaultStatCardState();
+  State<DefaultStatCard> createState() => _DefaultStatCardState();
 }
 
 class _DefaultStatCardState extends State<DefaultStatCard> {

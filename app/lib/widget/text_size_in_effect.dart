@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trale/widget/animation_replay_scope.dart';
 
+/// Text size animation effect widget.
 class TextSizeInEffect extends StatefulWidget {
+  /// Constructor.
   const TextSizeInEffect({
     super.key,
     required this.text,
@@ -11,10 +13,19 @@ class TextSizeInEffect extends StatefulWidget {
     this.keepAlive = false,
   });
 
+  /// Text to display.
   final String text;
+
+  /// Text style to apply.
   final TextStyle textStyle;
+
+  /// Duration of the animation in milliseconds.
   final int durationInMilliseconds;
+
+  /// Delay before starting the animation.
   final int delayInMilliseconds;
+
+  /// Whether to keep the widget alive.
   final bool keepAlive;
 
   @override

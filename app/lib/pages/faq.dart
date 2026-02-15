@@ -88,12 +88,13 @@ class FAQEntry {
   final Widget? answerWidget;
 }
 
-/// about screen widget class
+/// FAQ page widget.
 class FAQ extends StatefulWidget {
+  /// Constructor.
   const FAQ({super.key});
 
   @override
-  _FAQ createState() => _FAQ();
+  State<FAQ> createState() => _FAQ();
 }
 
 class _FAQ extends State<FAQ> {

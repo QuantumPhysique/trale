@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -35,10 +36,12 @@ Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
 
   bool success = false;
   if (share) {
-    final ShareResult sharingResult = await Share.shareXFiles(
-      <XFile>[XFile(path)],
-      text: 'trale backup',
-      subject: 'trale backup',
+    final ShareResult sharingResult = await SharePlus.instance.share(
+      ShareParams(
+        files: <XFile>[XFile(path)],
+        text: 'trale backup',
+        title: 'trale backup',
+      ),
     );
     success = sharingResult.status == ShareResultStatus.success;
   } else {
@@ -52,6 +55,9 @@ Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
   }
   await file.delete();
 
+  if (!context.mounted) {
+    return success;
+  }
   if (success) {
     sm.showSnackBar(
       SnackBar(
@@ -66,6 +72,7 @@ Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
   return success;
 }
 
+/// Parses measurements from text format lines.
 List<Measurement> parseMeasurementsTxt(List<String?> lines) {
   final List<Measurement> newMeasurements = <Measurement>[];
   for (final String? line in lines) {
@@ -97,7 +104,7 @@ List<Measurement> parseMeasurementsCSV(
     }
     final List<String> strings = line.split(separator);
     if (strings.length < dateIdx || strings.length < weightIdx) {
-      print('error with parsing measurement (csv format)!');
+      debugPrint('error with parsing measurement (csv format)!');
       continue;
     }
     // remove all quotes from date String
@@ -110,7 +117,7 @@ List<Measurement> parseMeasurementsCSV(
         Measurement(weight: weight, date: date, isMeasured: true),
       );
     } catch (e) {
-      print('error with parsing date: $dateString');
+      debugPrint('error with parsing date: $dateString');
       continue;
     }
   }
@@ -143,6 +150,9 @@ Future<bool> importBackup(BuildContext context) async {
     type: FileType.custom,
     allowedExtensions: <String>['txt', 'csv'],
   );
+  if (!context.mounted) {
+    return false;
+  }
   final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
   final MeasurementDatabase db = MeasurementDatabase();
 
@@ -248,10 +258,16 @@ Future<bool> importBackup(BuildContext context) async {
         ) ??
         false;
 
+    if (!context.mounted) {
+      return true;
+    }
     if (accepted) {
       final int measurementCounts = await db.insertMeasurementList(
         newMeasurements,
       );
+      if (!context.mounted) {
+        return true;
+      }
       sm.showSnackBar(
         SnackBar(
           content: Text('$measurementCounts measurements added'),
@@ -262,6 +278,9 @@ Future<bool> importBackup(BuildContext context) async {
     }
   }
 
+  if (!context.mounted) {
+    return true;
+  }
   if (!pickedSuccess || !accepted) {
     sm.showSnackBar(
       SnackBar(

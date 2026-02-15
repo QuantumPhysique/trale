@@ -1,7 +1,10 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+/// Icon color mapper for trale SVG icons.
 class TraleIconColorMapper implements ColorMapper {
+  /// Constructor.
   const TraleIconColorMapper({
     required this.bgColor,
     required this.wolfColor,
@@ -14,9 +17,16 @@ class TraleIconColorMapper implements ColorMapper {
   static const Color _defaultTitleColor = Color(0xFF001D2C);
   static const Color _defaultSloganColor = Color(0xFFFFDBCE);
 
+  /// Background color.
   final Color bgColor;
+
+  /// Wolf color.
   final Color wolfColor;
+
+  /// Title color.
   final Color titleColor;
+
+  /// Slogan color.
   final Color sloganColor;
 
   @override
