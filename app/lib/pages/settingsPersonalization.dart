@@ -134,7 +134,11 @@ class _PersonalizationSettingsPageState
       SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
         title: AppLocalizations.of(context)!.unitTitle,
-        children: const <Widget>[UnitsListTile(), UnitPrecisionListTile()],
+        children: const <Widget>[
+          UnitsListTile(),
+          UnitPrecisionListTile(),
+          HeightUnitListTile(),
+        ],
       ),
       WidgetGroup(
         title: AppLocalizations.of(context)!.dateSettings,
@@ -332,6 +336,49 @@ class DatePrintListTile extends StatelessWidget {
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
           if (newDatePrintFormat != null) {
             traleNotifier.datePrintFormat = newDatePrintFormat;
+          }
+        },
+      ),
+    );
+  }
+}
+
+/// ListTile for changing height unit settings
+class HeightUnitListTile extends StatelessWidget {
+  /// constructor
+  const HeightUnitListTile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GroupedListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: TraleTheme.of(context)!.padding,
+        vertical: TraleTheme.of(context)!.padding,
+      ),
+      title: AutoSizeText(
+        AppLocalizations.of(context)!.heightUnit,
+        style: Theme.of(context).textTheme.bodyLarge,
+        maxLines: 1,
+      ),
+      trailing: DropdownMenu<TraleUnitHeight>(
+        initialSelection: Provider.of<TraleNotifier>(context).heightUnit,
+        label: AutoSizeText(
+          AppLocalizations.of(context)!.heightUnit,
+          style: Theme.of(context).textTheme.bodyLarge,
+          maxLines: 1,
+        ),
+        dropdownMenuEntries: <DropdownMenuEntry<TraleUnitHeight>>[
+          for (final TraleUnitHeight heightUnit in TraleUnitHeight.values)
+            DropdownMenuEntry<TraleUnitHeight>(
+              value: heightUnit,
+              label: heightUnit.label,
+            ),
+        ],
+        onSelected: (TraleUnitHeight? newHeightUnit) async {
+          if (newHeightUnit != null) {
+            Provider.of<TraleNotifier>(context, listen: false).heightUnit =
+                newHeightUnit;
           }
         },
       ),
