@@ -1,12 +1,64 @@
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:ml_linalg/linalg.dart';
 
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
+
+/// Data payload sent to the background isolate for Gaussian interpolation.
+class _GaussianIsolatePayload {
+  _GaussianIsolatePayload({
+    required this.timesData,
+    required this.sigmaData,
+    required this.isMeasurementData,
+    required this.isNoMeasurementData,
+    required this.interpolWeight,
+    required this.weightsData,
+    required this.n,
+  });
+
+  final List<double> timesData;
+  final List<double> sigmaData;
+  final List<double> isMeasurementData;
+  final List<double> isNoMeasurementData;
+  final double interpolWeight;
+  final List<double> weightsData;
+  final int n;
+}
+
+/// Top-level function that runs Gaussian interpolation in a background isolate.
+List<double> _computeGaussianInterpolation(_GaussianIsolatePayload p) {
+  final List<double> result = List<double>.filled(p.n, 0.0);
+  for (int idx = 0; idx < p.n; idx++) {
+    if (p.weightsData[idx] == 0) {
+      result[idx] = 0;
+      continue;
+    }
+    // Inline gaussianMean: compute Gaussian-weighted mean at times[idx]
+    final double t = p.timesData[idx];
+    double weightedSum = 0;
+    double normSum = 0;
+    for (int j = 0; j < p.n; j++) {
+      if (p.weightsData[j] <= 0) continue;
+      final double s = p.sigmaData[j];
+      final double diff = p.timesData[j] - t;
+      final double gaussVal =
+          math.exp(-diff * diff / (2 * s * s)) /
+          (s * math.sqrt(2 * math.pi));
+      final double w = gaussVal *
+          (p.isMeasurementData[j] * p.interpolWeight +
+              p.isNoMeasurementData[j]);
+      weightedSum += w * p.weightsData[j];
+      normSum += w;
+    }
+    result[idx] = normSum > 0 ? weightedSum / normSum : 0;
+  }
+  return result;
+}
 
 /// Base class for measurement interpolation
 class MeasurementInterpolationBaseclass {
@@ -38,6 +90,68 @@ class MeasurementInterpolationBaseclass {
 
     // recalculate all vectors
     init();
+  }
+
+  /// re initialize database asynchronously (offloads Gaussian interpolation
+  /// to a background isolate).
+  Future<void> reinitAsync() async {
+    _dateTimes = null;
+    _times = null;
+    _timesIdx = null;
+    _times_measured = null;
+    _timesDisplay = null;
+    _weights_measured = null;
+    _weights = null;
+    _weightsDisplay = null;
+    _isNoMeasurement = null;
+    _isNotExtrapolated = null;
+    _sigma = null;
+    _weightsLinExtrapol = null;
+    _weightsSmoothed = null;
+    _weightsGaussianExtrapol = null;
+
+    // Compute the lightweight synchronous vectors first.
+    times;
+    weights;
+
+    if (N == 0) return;
+
+    // Build the payload once – both Gaussian passes use the same geometry.
+    _GaussianIsolatePayload _makePayload(Vector inputWeights) =>
+        _GaussianIsolatePayload(
+          timesData: times.toList(),
+          sigmaData: sigma.toList(),
+          isMeasurementData: isMeasurement.toList(),
+          isNoMeasurementData: isNoMeasurement.toList(),
+          interpolWeight: interpolStrength.weight,
+          weightsData: inputWeights.toList(),
+          n: N,
+        );
+
+    // ---- Pass 1: weightsSmoothed ----
+    final Vector linInterpWeights = _linearExtrapolation(
+      _linearInterpolation(weights),
+    );
+    final List<double> smoothedRaw = await compute(
+      _computeGaussianInterpolation,
+      _makePayload(linInterpWeights),
+    );
+    _weightsSmoothed = Vector.fromList(smoothedRaw, dtype: dtype) *
+        isMeasurement; // zero out non-measurements
+
+    // ---- Pass 2: weightsGaussianExtrapol ----
+    _weightsLinExtrapol = _linearExtrapolation(
+      _linearInterpolation(_weightsSmoothed!),
+    );
+    final List<double> gaussExtRaw = await compute(
+      _computeGaussianInterpolation,
+      _makePayload(_weightsLinExtrapol!),
+    );
+    _weightsGaussianExtrapol =
+        Vector.fromList(gaussExtRaw, dtype: dtype);
+
+    // Derive display vectors.
+    weightsDisplay;
   }
 
   /// initialize database
@@ -448,6 +562,13 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
     }
     _skipCache = false;
     super.init();
+    _saveToCache();
+  }
+
+  @override
+  Future<void> reinitAsync() async {
+    _skipCache = true;
+    await super.reinitAsync();
     _saveToCache();
   }
 

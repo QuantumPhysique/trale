@@ -22,8 +22,8 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _loadMeasurements = Future<void>(() {
-      MeasurementDatabase().reinit();
+    _loadMeasurements = Future<void>(() async {
+      await MeasurementDatabase().reinit();
     });
   }
 

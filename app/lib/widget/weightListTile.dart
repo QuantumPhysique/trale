@@ -123,7 +123,7 @@ class _WeightListTileState extends State<WeightListTile>
         editMode: true,
       );
       if (changed) {
-        database.deleteMeasurement(widget.measurement);
+        await database.deleteMeasurement(widget.measurement);
         setState(() {});
       }
       setState(() {
@@ -140,7 +140,7 @@ class _WeightListTileState extends State<WeightListTile>
 
     void delete () {
       final SortedMeasurement deletedSortedMeasurement = widget.measurement;
-      database.deleteMeasurement(widget.measurement);
+      database.deleteMeasurement(widget.measurement);  // fire-and-forget
       final SnackBar snackBar = SnackBar(
         content: Text(AppLocalizations.of(context)!.measurementDeleted),
         behavior: SnackBarBehavior.floating,
@@ -166,7 +166,7 @@ class _WeightListTileState extends State<WeightListTile>
                   () {
                     database.insertMeasurement(
                         deletedSortedMeasurement.measurement
-                    );
+                    );  // fire-and-forget
                     // setState(() {});
                     widget.updateActiveState(null);
                   },

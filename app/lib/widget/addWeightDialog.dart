@@ -138,8 +138,8 @@ Future<bool> showAddWeightDialog({
         title: AppLocalizations.of(context)!.addWeight,
         content: content,
         actions: actions(
-          context, () {
-            final bool wasInserted = database.insertMeasurement(
+          context, () async {
+            final bool wasInserted = await database.insertMeasurement(
               Measurement(
                 weight: currentSliderValue * notifier.unit.scaling,
                 date: currentDate,

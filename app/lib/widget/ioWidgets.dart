@@ -255,7 +255,8 @@ Future<bool> importBackup(BuildContext context) async {
     ) ?? false;
 
     if (accepted) {
-      final int measurementCounts = db.insertMeasurementList(newMeasurements);
+      final int measurementCounts =
+          await db.insertMeasurementList(newMeasurements);
       sm.showSnackBar(
         SnackBar(
           content: Text('$measurementCounts measurements added'),

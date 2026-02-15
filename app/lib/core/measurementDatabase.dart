@@ -127,17 +127,17 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   }
 
   /// insert Measurements into box
-  bool insertMeasurement(Measurement m) {
+  Future<bool> insertMeasurement(Measurement m) async {
     final bool isContained = containsMeasurement(m);
     if (!isContained) {
       box.add(m);
-      reinit();
+      await reinit();
     }
     return !isContained;
   }
 
   /// insert a list of measurements into the box
-  int insertMeasurementList(List<Measurement> ms) {
+  Future<int> insertMeasurementList(List<Measurement> ms) async {
     int count = 0;
     for (final Measurement m in ms) {
       final bool isContained = containsMeasurement(m);
@@ -147,15 +147,15 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
       }
     }
     if (count > 0) {
-      reinit();
+      await reinit();
     }
     return count;
   }
 
   /// delete Measurements from box
-  void deleteMeasurement(SortedMeasurement m) {
+  Future<void> deleteMeasurement(SortedMeasurement m) async {
     box.delete(m.key);
-    reinit();
+    await reinit();
   }
 
   /// delete all Measurements from box
@@ -163,19 +163,19 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     for (final SortedMeasurement m in sortedMeasurements) {
       await box.delete(m.key);
     }
-    reinit();
+    await reinit();
   }
 
   /// re initialize database
-  void reinit() {
+  Future<void> reinit() async {
     _measurements = null;
     _sortedMeasurements = null;
 
     // recalc all
     init();
 
-    // update interpolation
-    MeasurementInterpolation().reinit();
+    // update interpolation (heavy Gaussian work runs in background isolate)
+    await MeasurementInterpolation().reinitAsync();
     MeasurementStats().reinit();
 
     // fire stream
