@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:trale/core/firstDay.dart';
+
 /// Override Locale by first day of week preference
 
 class FirstDayMaterialLocalizationsDelegate
     extends LocalizationsDelegate<MaterialLocalizations> {
   /// Creates a delegate that overrides [firstDayOfWeekIndex].
-  const FirstDayMaterialLocalizationsDelegate({
-    required this.firstDay,
-  });
+  const FirstDayMaterialLocalizationsDelegate({required this.firstDay});
 
   /// The user-chosen first day. [TraleFirstDay.Default] means "use locale".
   final TraleFirstDay firstDay;
@@ -29,8 +28,9 @@ class FirstDayMaterialLocalizationsDelegate
   @override
   Future<MaterialLocalizations> load(Locale locale) async {
     // Always load the real, locale-aware material localizations first.
-    final MaterialLocalizations base =
-        await GlobalMaterialLocalizations.delegate.load(locale);
+    final MaterialLocalizations base = await GlobalMaterialLocalizations
+        .delegate
+        .load(locale);
 
     final int? override = _firstDayOfWeekIndex;
     if (override == null) {
@@ -230,8 +230,7 @@ class _FirstDayMaterialLocalizations implements MaterialLocalizations {
   @override
   String get expansionTileCollapsedHint => _base.expansionTileCollapsedHint;
   @override
-  String get expansionTileExpandedTapHint =>
-      _base.expansionTileExpandedTapHint;
+  String get expansionTileExpandedTapHint => _base.expansionTileExpandedTapHint;
   @override
   String get expansionTileCollapsedTapHint =>
       _base.expansionTileCollapsedTapHint;
@@ -350,7 +349,11 @@ class _FirstDayMaterialLocalizations implements MaterialLocalizations {
     int rowCount,
     bool rowCountIsApproximate,
   ) => _base.pageRowsInfoTitle(
-      firstRow, lastRow, rowCount, rowCountIsApproximate);
+    firstRow,
+    lastRow,
+    rowCount,
+    rowCountIsApproximate,
+  );
   @override
   String tabLabel({required int tabIndex, required int tabCount}) =>
       _base.tabLabel(tabIndex: tabIndex, tabCount: tabCount);
@@ -369,8 +372,8 @@ class _FirstDayMaterialLocalizations implements MaterialLocalizations {
   String formatHour(
     TimeOfDay timeOfDay, {
     bool alwaysUse24HourFormat = false,
-  }) => _base.formatHour(
-      timeOfDay, alwaysUse24HourFormat: alwaysUse24HourFormat);
+  }) =>
+      _base.formatHour(timeOfDay, alwaysUse24HourFormat: alwaysUse24HourFormat);
   @override
   String formatMinute(TimeOfDay timeOfDay) => _base.formatMinute(timeOfDay);
   @override
@@ -378,7 +381,9 @@ class _FirstDayMaterialLocalizations implements MaterialLocalizations {
     TimeOfDay timeOfDay, {
     bool alwaysUse24HourFormat = false,
   }) => _base.formatTimeOfDay(
-      timeOfDay, alwaysUse24HourFormat: alwaysUse24HourFormat);
+    timeOfDay,
+    alwaysUse24HourFormat: alwaysUse24HourFormat,
+  );
   @override
   String formatYear(DateTime date) => _base.formatYear(date);
   @override
@@ -392,8 +397,7 @@ class _FirstDayMaterialLocalizations implements MaterialLocalizations {
   @override
   String formatMonthYear(DateTime date) => _base.formatMonthYear(date);
   @override
-  String formatShortMonthDay(DateTime date) =>
-      _base.formatShortMonthDay(date);
+  String formatShortMonthDay(DateTime date) => _base.formatShortMonthDay(date);
   @override
   DateTime? parseCompactDate(String? inputString) =>
       _base.parseCompactDate(inputString);

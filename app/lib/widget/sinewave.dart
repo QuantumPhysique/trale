@@ -7,7 +7,7 @@ import 'package:trale/core/theme.dart';
 class SineWave extends StatefulWidget {
   const SineWave({
     super.key,
-    this.amplitude = 4,  // 3 is pb default
+    this.amplitude = 4, // 3 is pb default
     this.wavelength = 40,
     this.speed = 10,
     this.strokeWidth = 4,
@@ -16,7 +16,7 @@ class SineWave extends StatefulWidget {
   });
 
   // constructor with material.io footer defaults
-  const SineWave .thin({
+  const SineWave.thin({
     super.key,
     this.amplitude = 4,
     this.wavelength = 30,
@@ -37,7 +37,8 @@ class SineWave extends StatefulWidget {
   State<SineWave> createState() => _SineWaveState();
 }
 
-class _SineWaveState extends State<SineWave> with SingleTickerProviderStateMixin {
+class _SineWaveState extends State<SineWave>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final DateTime _start;
 
@@ -45,9 +46,13 @@ class _SineWaveState extends State<SineWave> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _start = DateTime.now();
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 16))
-      ..addListener(() => setState(() {}))
-      ..repeat();
+    _controller =
+        AnimationController(
+            vsync: this,
+            duration: const Duration(milliseconds: 16),
+          )
+          ..addListener(() => setState(() {}))
+          ..repeat();
   }
 
   @override
@@ -56,12 +61,15 @@ class _SineWaveState extends State<SineWave> with SingleTickerProviderStateMixin
     super.dispose();
   }
 
-  double get _elapsedSeconds => DateTime.now().difference(_start).inMilliseconds / 1000.0;
+  double get _elapsedSeconds =>
+      DateTime.now().difference(_start).inMilliseconds / 1000.0;
 
   @override
   Widget build(BuildContext context) {
-    final double height = widget.amplitude + widget.strokeWidth +
-      4 * TraleTheme.of(context)!.padding;
+    final double height =
+        widget.amplitude +
+        widget.strokeWidth +
+        4 * TraleTheme.of(context)!.padding;
     final double pad = TraleTheme.of(context)!.padding;
     return SizedBox(
       width: double.infinity,
@@ -92,7 +100,6 @@ class _SineWaveState extends State<SineWave> with SingleTickerProviderStateMixin
   }
 }
 // dart
-
 
 class SineWavePainter extends CustomPainter {
   SineWavePainter({
@@ -142,10 +149,10 @@ class SineWavePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant SineWavePainter old) {
-    return old.elapsed != elapsed
-        || old.amplitude != amplitude
-        || old.wavelength != wavelength
-        || old.color != color
-        || old.strokeWidth != strokeWidth;
+    return old.elapsed != elapsed ||
+        old.amplitude != amplitude ||
+        old.wavelength != wavelength ||
+        old.color != color ||
+        old.strokeWidth != strokeWidth;
   }
 }

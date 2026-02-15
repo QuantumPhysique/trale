@@ -14,6 +14,7 @@
 ///
 ///
 library;
+
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -24,12 +25,17 @@ class CustomIcons {
   // font family name
   static const String _kFontFam = 'CustomIcons';
 
-  static const IconData interpol_medium = IconData(0xe812, fontFamily: _kFontFam);
+  static const IconData interpol_medium = IconData(
+    0xe812,
+    fontFamily: _kFontFam,
+  );
   static const IconData interpol_none = IconData(0xe813, fontFamily: _kFontFam);
-  static const IconData interpol_strong = IconData(0xe814, fontFamily: _kFontFam);
+  static const IconData interpol_strong = IconData(
+    0xe814,
+    fontFamily: _kFontFam,
+  );
   static const IconData interpol_weak = IconData(0xe815, fontFamily: _kFontFam);
 }
-
 
 class PPIcon extends PhosphorIcon {
   PPIcon(
@@ -47,7 +53,9 @@ class PPIcon extends PhosphorIcon {
     super.textDirection,
     Color? duotoneSecondaryColor,
   }) : super(
-          duotoneSecondaryOpacity: 1.0,
-          duotoneSecondaryColor: duotoneSecondaryColor ?? Theme.of(context).colorScheme.secondaryContainer,
-        );
+         duotoneSecondaryOpacity: 1.0,
+         duotoneSecondaryColor:
+             duotoneSecondaryColor ??
+             Theme.of(context).colorScheme.secondaryContainer,
+       );
 }

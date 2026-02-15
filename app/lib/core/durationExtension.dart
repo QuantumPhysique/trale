@@ -4,7 +4,7 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 extension StringExtension on Duration {
   /// convert Duration to a string
 
-  String durationToString (BuildContext context){
+  String durationToString(BuildContext context) {
     final int days = inDays;
     if (days == -1) {
       return '🥳';
@@ -22,4 +22,3 @@ extension StringExtension on Duration {
     }
   }
 }
-
