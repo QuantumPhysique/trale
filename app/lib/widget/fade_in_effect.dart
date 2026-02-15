@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trale/widget/animation_replay_scope.dart';
 
 class FadeInEffect extends StatefulWidget {
   const FadeInEffect({
@@ -24,6 +25,7 @@ class _FadeInEffectState extends State<FadeInEffect>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late final AnimationController animationController;
   late final Animation<double> opacityAnimation;
+  AnimationReplayController? _replayController;
 
   @override
   void initState() {
@@ -34,9 +36,8 @@ class _FadeInEffectState extends State<FadeInEffect>
     );
 
     Future<TickerFuture>.delayed(
-      Duration(
-          milliseconds: widget.delayInMilliseconds),
-          () => animationController.forward(),
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
     );
 
     opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -47,8 +48,30 @@ class _FadeInEffectState extends State<FadeInEffect>
     );
   }
 
+  void _onReplay() {
+    animationController.reset();
+    Future<TickerFuture>.delayed(
+      Duration(milliseconds: widget.delayInMilliseconds),
+      () => animationController.forward(),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final AnimationReplayController? newController = AnimationReplayScope.of(
+      context,
+    );
+    if (newController != _replayController) {
+      _replayController?.removeListener(_onReplay);
+      _replayController = newController;
+      _replayController?.addListener(_onReplay);
+    }
+  }
+
   @override
   void dispose() {
+    _replayController?.removeListener(_onReplay);
     animationController.dispose();
     super.dispose();
   }
@@ -56,10 +79,7 @@ class _FadeInEffectState extends State<FadeInEffect>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return FadeTransition(
-      opacity: opacityAnimation,
-      child: widget.child,
-    );
+    return FadeTransition(opacity: opacityAnimation, child: widget.child);
   }
 
   @override

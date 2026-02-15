@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -17,7 +18,6 @@ import 'package:trale/core/units.dart';
 import 'package:trale/core/zoomLevel.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/tile_group.dart';
-
 
 class CustomLineChart extends StatefulWidget {
   const CustomLineChart({
@@ -64,13 +64,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
   @override
   void initState() {
     super.initState();
-    final TraleNotifier notifier = TraleNotifier();
+    final Preferences prefs = Preferences();
     minX = widget.isPreview
-      ? widget.ip.timesDisplay.first
-      : notifier.zoomLevel.minX;
+        ? widget.ip.timesDisplay.first
+        : prefs.zoomLevel.minX;
     maxX = widget.isPreview
-      ? widget.ip.timesDisplay.last
-      : notifier.zoomLevel.maxX;
+        ? widget.ip.timesDisplay.last
+        : prefs.zoomLevel.maxX;
   }
 
   @override
@@ -85,26 +85,26 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     // scale to unit
     final double unitScaling = Provider.of<TraleNotifier>(
-      context, listen: false
+      context,
+      listen: false,
     ).unit.scaling;
 
     final ml.Vector ms = widget.loadedFirst
-      ? ml.Vector.filled(
-          ip.weights_measured.length,
-          ip.weights_measured.mean(),
-        )
-      : ip.weights_measured;
+        ? ml.Vector.filled(
+            ip.weights_measured.length,
+            ip.weights_measured.mean(),
+          )
+        : ip.weights_measured;
     final ml.Vector interpol = widget.loadedFirst
         ? ml.Vector.filled(
-          ip.weightsDisplay.length,
-           ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
-        )
+            ip.weightsDisplay.length,
+            ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
+          )
         : ip.weightsDisplay;
 
-    final TextStyle labelTextStyle =
-      theme.textTheme.monospace.bodySmall!.apply(
-        color: widget.axisLabelColor ?? colorScheme.onSurface,
-      );
+    final TextStyle labelTextStyle = theme.textTheme.monospace.bodySmall!.apply(
+      color: widget.axisLabelColor ?? colorScheme.onSurface,
+    );
     final Size textSize = sizeOfText(
       text: '1234',
       context: context,
@@ -112,26 +112,27 @@ class _CustomLineChartState extends State<CustomLineChart> {
     );
     final double margin = TraleTheme.of(context)!.padding;
 
-    List<FlSpot> vectorsToFlSpot (ml.Vector times, ml.Vector weights) {
+    List<FlSpot> vectorsToFlSpot(ml.Vector times, ml.Vector weights) {
       return <FlSpot>[
         for (int idx = 0; idx < times.length; idx++)
-          FlSpot(times[idx], weights[idx] / unitScaling)
+          FlSpot(times[idx], weights[idx] / unitScaling),
       ];
     }
 
-    final TraleNotifier notifier = TraleNotifier();
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(
+      context,
+      listen: false,
+    );
     final double? targetWeight = notifier.userTargetWeight;
 
     final Color interpolationLineColor =
         widget.interpolationLineColor ?? Colors.transparent;
     final Color interpolationBelowAreaColor =
         widget.interpolationBelowAreaColor ??
-            colorScheme.primaryContainer.withAlpha(155);
+        colorScheme.primaryContainer.withAlpha(155);
     final Color interpolationAboveAreaColor =
         widget.interpolationAboveAreaColor ??
-            colorScheme.tertiaryContainer.withAlpha(
-              widget.isPreview ? 0 : 255,
-            );
+        colorScheme.tertiaryContainer.withAlpha(widget.isPreview ? 0 : 255);
     final Color measurementLineColor =
         widget.measurementLineColor ?? colorScheme.primary;
     final Color measurementDotStrokeColor =
@@ -142,28 +143,27 @@ class _CustomLineChartState extends State<CustomLineChart> {
         widget.targetWeightLabelTextColor ?? colorScheme.onSurface;
     final Color targetWeightLabelBackgroundColor =
         widget.targetWeightLabelBackgroundColor ??
-            colorScheme.surfaceContainerLow;
+        colorScheme.surfaceContainerLow;
 
-    final List<FlSpot> measurements =
-      vectorsToFlSpot(msTimes, ms);
-    final List<FlSpot> measurementsInterpol =
-      vectorsToFlSpot(interpolTimes, interpol);
+    final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
+    final List<FlSpot> measurementsInterpol = vectorsToFlSpot(
+      interpolTimes,
+      interpol,
+    );
 
     final int indexFirst = measurements.lastIndexWhere(
-      (FlSpot e) => e.x < minX
+      (FlSpot e) => e.x < minX,
     );
     final int indexLast = measurements.indexWhere((FlSpot e) => e.x > maxX) + 1;
     final List<FlSpot> shownData = measurements.sublist(
-      indexFirst == -1
-        ? 0
-        : indexFirst,
-      (
-        indexLast == -1 ||
-        indexLast >= measurements.length ||
-        indexLast < indexFirst  //TODO: this includes -1 ?
-      )
-        ? measurements.length
-        : indexLast,
+      indexFirst == -1 ? 0 : indexFirst,
+      (indexLast == -1 ||
+              indexLast >= measurements.length ||
+              indexLast <
+                  indexFirst //TODO: this includes -1 ?
+                  )
+          ? measurements.length
+          : indexLast,
     );
 
     double minY;
@@ -187,82 +187,65 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     /// convert time [ms since Epoch] to xtick label
     String time2xticklabel(double time) {
-      final DateTime date = DateTime.fromMillisecondsSinceEpoch(
-        time.toInt()
-      );
-      final int interval = (
-        max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6
-      ).toInt();
+      final DateTime date = DateTime.fromMillisecondsSinceEpoch(time.toInt());
+      final int interval =
+          (max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6).toInt();
       if (date.day == 1 && date.month == 1) {
         return DateFormat(
-            'yy',
-            Localizations.localeOf(context).languageCode
+          'yy',
+          Localizations.localeOf(context).languageCode,
         ).format(date);
       } else if (date.day == 1) {
         // if tick interval of more than 45 days show only every second tick
         // starting from the first date of shown range.
-        if (
-          (interval <= 45) ||
-          (interval > 45 && interval < 75 && date.month % 2 == 1) ||
-          (interval >= 75 && interval < 120 && date.month % 3 == 1) ||
-          (interval >= 120 && date.month % 6 == 1)
-        ) {
+        if ((interval <= 45) ||
+            (interval > 45 && interval < 75 && date.month % 2 == 1) ||
+            (interval >= 75 && interval < 120 && date.month % 3 == 1) ||
+            (interval >= 120 && date.month % 6 == 1)) {
           return DateFormat(
-              'MMM',
-              Localizations.localeOf(context).languageCode
+            'MMM',
+            Localizations.localeOf(context).languageCode,
           ).format(date);
         }
         return '';
-      } else if (
-        date.month != date.add(Duration(days: interval ~/ 1.5)).month ||
-        (
-            maxX - date.millisecondsSinceEpoch <
-                const Duration(days: 1).inMilliseconds
-        )
-      ) {
+      } else if (date.month !=
+              date.add(Duration(days: interval ~/ 1.5)).month ||
+          (maxX - date.millisecondsSinceEpoch <
+              const Duration(days: 1).inMilliseconds)) {
         return '';
-      } else if (
-        date.day % interval == 0 && date.day - interval ~/ 1.5 > 0
-      ) {
+      } else if (date.day % interval == 0 && date.day - interval ~/ 1.5 > 0) {
         return date.day.toString();
       }
       return '';
     }
 
-
-    AxisTitles bottomTitles () {
+    AxisTitles bottomTitles() {
       return AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: textSize.height + margin,
-          interval: 24 * 3600 * 1000,  // days
+          interval: 24 * 3600 * 1000, // days
           getTitlesWidget: (double time, TitleMeta titleMeta) => Padding(
             padding: EdgeInsets.only(top: margin),
-            child: AutoSizeText(
-              time2xticklabel(time),
-              style: labelTextStyle,
-            ),
+            child: AutoSizeText(time2xticklabel(time), style: labelTextStyle),
           ),
         ),
       );
     }
 
-    AxisTitles leftTitles () {
+    AxisTitles leftTitles() {
       return AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
           reservedSize: textSize.width,
-          interval: max<int>((maxY - minY)~/ 4, 1).toDouble(),
+          interval: max<int>((maxY - minY) ~/ 4, 1).toDouble(),
           getTitlesWidget: (double weight, TitleMeta titleMeta) =>
-            AutoSizeText(
-              weight.toStringAsFixed(0),
-              style: labelTextStyle,
-            ),
+              AutoSizeText(weight.toStringAsFixed(0), style: labelTextStyle),
         ),
       );
     }
 
-    Widget lineChart (double minX, double maxX, double minY, double maxY) {
+    Widget lineChart(double minX, double maxX, double minY, double maxY) {
       return LineChart(
         LineChartData(
           minX: minX,
@@ -276,16 +259,16 @@ class _CustomLineChartState extends State<CustomLineChart> {
             bottomTitles: bottomTitles(),
             leftTitles: leftTitles(),
             topTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false)
+              sideTitles: SideTitles(showTitles: false),
             ),
             rightTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false)
+              sideTitles: SideTitles(showTitles: false),
             ),
             show: true,
           ),
           clipData: const FlClipData.all(),
           extraLinesData: ExtraLinesData(
-          extraLinesOnTop: true,
+            extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
               if (targetWeight != null && !widget.isPreview)
                 HorizontalLine(
@@ -295,17 +278,16 @@ class _CustomLineChartState extends State<CustomLineChart> {
                   dashArray: <int>[8, 6],
                   label: HorizontalLineLabel(
                     show: true,
-                    alignment:
-                      ip.db.measurements.first.weight > targetWeight
+                    alignment: ip.db.measurements.first.weight > targetWeight
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.symmetric(vertical: 1),
                     style: theme.textTheme.bodySmall!.apply(
-                        color: targetWeightLabelTextColor,
-                        backgroundColor: targetWeightLabelBackgroundColor,
+                      color: targetWeightLabelTextColor,
+                      backgroundColor: targetWeightLabelBackgroundColor,
                     ),
                     labelResolver: (HorizontalLine line) =>
-                      ' ${AppLocalizations.of(context)!.targetWeightShort}',
+                        ' ${AppLocalizations.of(context)!.targetWeightShort}',
                   ),
                 ),
             ],
@@ -340,21 +322,21 @@ class _CustomLineChartState extends State<CustomLineChart> {
               isStrokeCapRound: true,
               dotData: FlDotData(
                 show: true,
-                getDotPainter: (
-                  FlSpot spot,
-                  double percent,
-                  LineChartBarData barData,
-                  int index
-                ) => FlDotCirclePainter(
-                  radius:
-                    max<double>(
-                      5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
-                      1,
+                getDotPainter:
+                    (
+                      FlSpot spot,
+                      double percent,
+                      LineChartBarData barData,
+                      int index,
+                    ) => FlDotCirclePainter(
+                      radius: max<double>(
+                        5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
+                        1,
+                      ),
+                      color: measurementLineColor,
+                      strokeColor: measurementDotStrokeColor,
+                      strokeWidth: 0.2,
                     ),
-                  color: measurementLineColor,
-                  strokeColor: measurementDotStrokeColor,
-                  strokeWidth: 0.2,
-                )
               ),
             ),
           ],
@@ -364,7 +346,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    void scaleUpdate (ScaleUpdateDetails details) {
+    void scaleUpdate(ScaleUpdateDetails details) {
       if (!widget.isPreview) {
         setState(() {
           final double scale = (1 - details.horizontalScale) / 50;
@@ -378,10 +360,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               if (minX - (maxX - minX) * scale > msTimes.first) {
                 minX -= (maxX - minX) * scale;
               }
-              if (
-              maxX + (maxX - minX) * scale
-                  < DateTime.now().millisecondsSinceEpoch.toDouble()
-              ) {
+              if (maxX + (maxX - minX) * scale <
+                  DateTime.now().millisecondsSinceEpoch.toDouble()) {
                 maxX += (maxX - minX) * scale;
               }
             }
@@ -390,28 +370,27 @@ class _CustomLineChartState extends State<CustomLineChart> {
       }
     }
 
-    void dragUpdate (DragUpdateDetails dragUpdDet) {
+    void dragUpdate(DragUpdateDetails dragUpdDet) {
       if (!widget.isPreview) {
         setState(() {
           final double primDelta =
               (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
 
           final double allowedMaxX =
-          interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
               ? interpolTimes.last
               : DateTime.now().millisecondsSinceEpoch.toDouble();
           final double allowedMinX = interpolTimes.first;
-          if (
-          maxX - primDelta <= allowedMaxX &&
-              minX - primDelta >= allowedMinX
-          ) {
+          if (maxX - primDelta <= allowedMaxX &&
+              minX - primDelta >= allowedMinX) {
             maxX -= primDelta;
             minX -= primDelta;
           }
         });
       }
     }
-    void doubleTap () {
+
+    void doubleTap() {
       if (!widget.isPreview) {
         notifier.nextZoomLevel();
         setState(() {
@@ -430,67 +409,67 @@ class _CustomLineChartState extends State<CustomLineChart> {
             horizontal: TraleTheme.of(context)!.padding,
           ),
           child: Container(
-            height: MediaQuery.of(context).size.height  * widget.relativeHeight,
+            height: MediaQuery.of(context).size.height * widget.relativeHeight,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(margin, 2*margin, margin, margin),
+            padding: EdgeInsets.fromLTRB(margin, 2 * margin, margin, margin),
             child: GestureDetector(
               onDoubleTap: doubleTap,
               //onScaleUpdate: scaleUpdate,
               onHorizontalDragUpdate: dragUpdate,
-              child: lineChart(minX, maxX, minY, maxY)
+              child: lineChart(minX, maxX, minY, maxY),
             ),
           ),
         ),
         if (!widget.isPreview)
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              WidgetGroup(
-                direction: Axis.horizontal,
-                children: <Widget>[
-                  GroupedWidget(
-                    child: IconButton(
-                      onPressed: notifier.zoomLevel == ZoomLevel.all
-                        ? null
-                        : () {
-                          notifier.zoomOut();
-                          setState(() {
-                            maxX = notifier.zoomLevel.maxX;
-                            minX = notifier.zoomLevel.minX;
-                          });
-                        },
-                      icon: PPIcon(
-                        PhosphorIconsDuotone.magnifyingGlassMinus,
-                        context,
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: TraleTheme.of(context)!.padding,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                WidgetGroup(
+                  direction: Axis.horizontal,
+                  children: <Widget>[
+                    GroupedWidget(
+                      child: IconButton(
+                        onPressed: notifier.zoomLevel == ZoomLevel.all
+                            ? null
+                            : () {
+                                notifier.zoomOut();
+                                setState(() {
+                                  maxX = notifier.zoomLevel.maxX;
+                                  minX = notifier.zoomLevel.minX;
+                                });
+                              },
+                        icon: PPIcon(
+                          PhosphorIconsDuotone.magnifyingGlassMinus,
+                          context,
+                        ),
                       ),
                     ),
-                  ),
-                  GroupedWidget(
-                    child: IconButton(
-                      onPressed: notifier.zoomLevel == ZoomLevel.two
-                        ? null
-                        : () {
-                          notifier.zoomIn();
-                          setState(() {
-                            maxX = notifier.zoomLevel.maxX;
-                            minX = notifier.zoomLevel.minX;
-                          });
-                        },
-                      icon: PPIcon(
-                        PhosphorIconsDuotone.magnifyingGlassPlus,
-                        context,
+                    GroupedWidget(
+                      child: IconButton(
+                        onPressed: notifier.zoomLevel == ZoomLevel.two
+                            ? null
+                            : () {
+                                notifier.zoomIn();
+                                setState(() {
+                                  maxX = notifier.zoomLevel.maxX;
+                                  minX = notifier.zoomLevel.minX;
+                                });
+                              },
+                        icon: PPIcon(
+                          PhosphorIconsDuotone.magnifyingGlassPlus,
+                          context,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
-        )
       ],
     );
   }
