@@ -58,6 +58,7 @@ class TraleApp extends MaterialApp {
              firstDay: traleNotifier.firstDay,
            ),
            GlobalWidgetsLocalizations.delegate,
+           GlobalCupertinoLocalizations.delegate,
          ],
          supportedLocales: AppLocalizations.supportedLocales,
          locale: traleNotifier.locale,
