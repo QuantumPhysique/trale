@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolationPreview.dart';
+import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
@@ -20,111 +22,140 @@ class PersonalizationSettingsPage extends StatefulWidget {
   const PersonalizationSettingsPage({super.key});
 
   @override
-  State<PersonalizationSettingsPage> createState() => _PersonalizationSettingsPageState();
+  State<PersonalizationSettingsPage> createState() =>
+      _PersonalizationSettingsPageState();
 }
 
-class _PersonalizationSettingsPageState extends State<PersonalizationSettingsPage> {
+class _PersonalizationSettingsPageState
+    extends State<PersonalizationSettingsPage> {
+  /// Whether to show the user's own data instead of fake preview data.
+  bool _showUserData = false;
+
   @override
   Widget build(BuildContext context) {
-    final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(
+      context,
+      listen: false,
+    );
 
     final Widget sliderTile = Container(
-          padding: EdgeInsets.fromLTRB(
-            2 * TraleTheme.of(context)!.padding,
-            0.5 * TraleTheme.of(context)!.padding,
-            TraleTheme.of(context)!.padding,
-            0.5 * TraleTheme.of(context)!.padding,
+      padding: EdgeInsets.fromLTRB(
+        TraleTheme.of(context)!.padding,
+        0.5 * TraleTheme.of(context)!.padding,
+        TraleTheme.of(context)!.padding,
+        0.5 * TraleTheme.of(context)!.padding,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            AppLocalizations.of(context)!.strength.inCaps,
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 1,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                AppLocalizations.of(context)!.strength.inCaps,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              Slider(
-                value: Provider.of<TraleNotifier>(context)
-                    .interpolStrength.idx.toDouble(),
-                divisions: InterpolStrength.values.length - 1,
-                min: 0.0,
-                max: InterpolStrength.values.length.toDouble() - 1,
-                label: Provider.of<TraleNotifier>(context).interpolStrength.nameLong(context),
-                onChanged: (double newStrength) async {
-                  Provider.of<TraleNotifier>(
-                      context, listen: false
-                  ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
-                },
-              ),
-            ],
+          Slider(
+            value: Provider.of<TraleNotifier>(
+              context,
+            ).interpolStrength.idx.toDouble(),
+            divisions: InterpolStrength.values.length - 1,
+            min: 0.0,
+            max: InterpolStrength.values.length.toDouble() - 1,
+            label: Provider.of<TraleNotifier>(
+              context,
+            ).interpolStrength.nameLong(context),
+            onChanged: (double newStrength) async {
+              Provider.of<TraleNotifier>(
+                context,
+                listen: false,
+              ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
+            },
           ),
-        );
+        ],
+      ),
+    );
 
-      final List<Widget> sliverlist = <Widget>[
-        WidgetGroup(
-          title: AppLocalizations.of(context)!.interpolation,
-          children:  <Widget>[
-              GroupedWidget(
-                color: Theme.of(context).colorScheme.surfaceContainerLowest,
-                child: CustomLineChart(
-                  loadedFirst: false,
-                  ip: PreviewInterpolation(),
-                  isPreview: true,
-                  relativeHeight: 0.25,
-                  backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
-                ),
-              ),
-              GroupedWidget(
-                color: Theme.of(context).colorScheme.surfaceContainerLowest,
-                child: sliderTile,
-              ),
-            ],
-        ),
-        SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
-          child: Text(
-            AppLocalizations.of(context)!.interpolationExplanation(
-              noneInterpol: InterpolStrength.none.nameLong(context),
+    final bool hasEnoughData = MeasurementDatabase().measurements.length > 3;
+    final bool useUserData = _showUserData && hasEnoughData;
+
+    final List<Widget> sliverlist = <Widget>[
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.interpolation,
+        children: <Widget>[
+          GroupedWidget(
+            color: Theme.of(context).colorScheme.surfaceContainerLowest,
+            child: CustomLineChart(
+              loadedFirst: false,
+              ip: useUserData
+                  ? MeasurementInterpolation()
+                  : PreviewInterpolation(),
+              isPreview: !useUserData,
+              relativeHeight: 0.25,
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerLowest,
+              chartMargin: EdgeInsets.zero,
             ),
-            style: Theme.of(context).textTheme.bodyMedium,
           ),
+          if (hasEnoughData)
+            GroupedSwitchListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: TraleTheme.of(context)!.padding,
+              ),
+              title: Text(
+                AppLocalizations.of(context)!.showUserData.inCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              value: _showUserData,
+              onChanged: (bool? value) {
+                setState(() {
+                  _showUserData = value ?? false;
+                });
+              },
+            ),
+          GroupedWidget(
+            color: Theme.of(context).colorScheme.surfaceContainerLowest,
+            child: sliderTile,
+          ),
+        ],
+      ),
+      SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
+      Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
         ),
-        SizedBox(height: TraleTheme.of(context)!.padding),
-        WidgetGroup(
-          title: AppLocalizations.of(context)!.unitTitle,
-          children: const <Widget>[
-            UnitsListTile(),
-            UnitPrecisionListTile(),
-          ],
+        child: Text(
+          AppLocalizations.of(context)!.interpolationExplanation(
+            noneInterpol: InterpolStrength.none.nameLong(context),
+          ),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
-        WidgetGroup(
-          title: AppLocalizations.of(context)!.dateSettings,
-          children: const <Widget>[
-            FirstDayListTile(),
-            DatePrintListTile(),
-          ],
-        ),
-        UserDetailsGroup(
-          title: AppLocalizations.of(context)!.user,
-          backgroundColor:
-              Theme.of(context).colorScheme.surfaceContainerLowest,
-          notifier: notifier,
-          onRefresh: () => setState(() {}),
-        )
-      ];
+      ),
+      SizedBox(height: TraleTheme.of(context)!.padding),
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.unitTitle,
+        children: const <Widget>[UnitsListTile(), UnitPrecisionListTile()],
+      ),
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.dateSettings,
+        children: const <Widget>[FirstDayListTile(), DatePrintListTile()],
+      ),
+      UserDetailsGroup(
+        title: AppLocalizations.of(context)!.user,
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
+        notifier: notifier,
+        onRefresh: () => setState(() {}),
+      ),
+    ];
 
-      return Scaffold(
-        body: SliverAppBarSnap(
-          title: AppLocalizations.of(context)!.personalization,
-          sliverlist: sliverlist,
-        ),
-      );
+    return Scaffold(
+      body: SliverAppBarSnap(
+        title: AppLocalizations.of(context)!.personalization,
+        sliverlist: sliverlist,
+      ),
+    );
   }
 }
-
-
 
 /// ListTile for changing units settings
 class UnitsListTile extends StatelessWidget {
@@ -153,10 +184,7 @@ class UnitsListTile extends StatelessWidget {
         ),
         dropdownMenuEntries: <DropdownMenuEntry<TraleUnit>>[
           for (final TraleUnit unit in TraleUnit.values)
-            DropdownMenuEntry<TraleUnit>(
-              value: unit,
-              label: unit.name,
-            )
+            DropdownMenuEntry<TraleUnit>(value: unit, label: unit.name),
         ],
         onSelected: (TraleUnit? newUnit) async {
           if (newUnit != null) {
@@ -197,20 +225,21 @@ class UnitPrecisionListTile extends StatelessWidget {
           for (final TraleUnitPrecision precision in TraleUnitPrecision.values)
             DropdownMenuEntry<TraleUnitPrecision>(
               value: precision,
-              label: precision.settingsName ?? AppLocalizations.of(context)!.defaultFormat,
-            )
+              label:
+                  precision.settingsName ??
+                  AppLocalizations.of(context)!.defaultFormat,
+            ),
         ],
         onSelected: (TraleUnitPrecision? newPrecision) async {
           if (newPrecision != null) {
-            Provider.of<TraleNotifier>(context, listen: false).unitPrecision
-              = newPrecision;
+            Provider.of<TraleNotifier>(context, listen: false).unitPrecision =
+                newPrecision;
           }
         },
       ),
     );
   }
 }
-
 
 class FirstDayListTile extends StatelessWidget {
   /// constructor
@@ -245,9 +274,11 @@ class FirstDayListTile extends StatelessWidget {
               for (final TraleFirstDay firstDay in TraleFirstDay.values)
                 DropdownMenuEntry<TraleFirstDay>(
                   value: firstDay,
-                  label:
-                      TraleFirstDayExtension.getLocalizedName(firstDay, locale),
-                )
+                  label: TraleFirstDayExtension.getLocalizedName(
+                    firstDay,
+                    locale,
+                  ),
+                ),
             ],
             onSelected: (TraleFirstDay? newFirstDay) async {
               if (newFirstDay != null) {
@@ -260,7 +291,6 @@ class FirstDayListTile extends StatelessWidget {
     );
   }
 }
-
 
 class DatePrintListTile extends StatelessWidget {
   /// constructor
@@ -294,8 +324,10 @@ class DatePrintListTile extends StatelessWidget {
               in TraleDatePrintFormat.values)
             DropdownMenuEntry<TraleDatePrintFormat>(
               value: datePrintFormat,
-              label: datePrintFormat.pattern ?? AppLocalizations.of(context)!.defaultFormat,
-            )
+              label:
+                  datePrintFormat.pattern ??
+                  AppLocalizations.of(context)!.defaultFormat,
+            ),
         ],
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
           if (newDatePrintFormat != null) {

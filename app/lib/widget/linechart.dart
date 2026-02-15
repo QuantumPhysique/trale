@@ -35,6 +35,8 @@ class CustomLineChart extends StatefulWidget {
     this.targetWeightLabelTextColor,
     this.targetWeightLabelBackgroundColor,
     this.backgroundColor,
+    this.chartPadding,
+    this.chartMargin,
     super.key,
   });
 
@@ -54,6 +56,14 @@ class CustomLineChart extends StatefulWidget {
   final Color? targetWeightLabelBackgroundColor;
   final Color? backgroundColor;
 
+  /// Custom padding inside the chart card. Defaults to
+  /// `EdgeInsets.fromLTRB(margin, 2*margin, margin, margin)`.
+  final EdgeInsetsGeometry? chartPadding;
+
+  /// Custom margin around the chart card. Defaults to
+  /// `EdgeInsets.symmetric(horizontal: padding)`.
+  final EdgeInsetsGeometry? chartMargin;
+
   @override
   _CustomLineChartState createState() => _CustomLineChartState();
 }
@@ -71,6 +81,20 @@ class _CustomLineChartState extends State<CustomLineChart> {
     maxX = widget.isPreview
         ? widget.ip.timesDisplay.last
         : prefs.zoomLevel.maxX;
+  }
+
+  @override
+  void didUpdateWidget(covariant CustomLineChart oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.isPreview != widget.isPreview || oldWidget.ip != widget.ip) {
+      final Preferences prefs = Preferences();
+      minX = widget.isPreview
+          ? widget.ip.timesDisplay.first
+          : prefs.zoomLevel.minX;
+      maxX = widget.isPreview
+          ? widget.ip.timesDisplay.last
+          : prefs.zoomLevel.maxX;
+    }
   }
 
   @override
@@ -407,13 +431,15 @@ class _CustomLineChartState extends State<CustomLineChart> {
         Card(
           color: widget.backgroundColor,
           shape: TraleTheme.of(context)!.borderShape,
-          margin: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
-          ),
+          margin:
+              widget.chartMargin ??
+              EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
           child: Container(
             height: MediaQuery.of(context).size.height * widget.relativeHeight,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.fromLTRB(margin, 2 * margin, margin, margin),
+            padding:
+                widget.chartPadding ??
+                EdgeInsets.fromLTRB(margin, 2 * margin, margin, margin),
             child: GestureDetector(
               onDoubleTap: doubleTap,
               //onScaleUpdate: scaleUpdate,
