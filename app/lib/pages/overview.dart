@@ -40,8 +40,8 @@ class _OverviewScreen extends State<OverviewScreen>
 
   void _onTabAnimationTick() {
     final double value = widget.tabController!.animation!.value;
-    // Tab 0 "owns" the range [0, 0.5).
-    final bool nowActive = value < 0.5;
+    // Tab 0 "owns" the range [0, 0.1).
+    final bool nowActive = value < 0.1;
     if (nowActive && !_isActive) {
       // We just entered this tab's zone – fire immediately.
       final SlideDirection dir = value > 0

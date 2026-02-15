@@ -33,7 +33,7 @@ class _StatsScreen extends State<StatsScreen>
 
   void _onTabAnimationTick() {
     final double value = widget.tabController.animation!.value;
-    // Tab 1 "owns" the range [0.5, 1.5).
+    // Tab 1 "owns" the range [0.1, 1.9).
     final bool nowActive = value >= 0.1 && value < 1.9;
     if (nowActive && !_isActive) {
       final SlideDirection dir = value > _lastAnimValue
