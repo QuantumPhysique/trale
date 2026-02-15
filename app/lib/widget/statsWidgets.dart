@@ -659,7 +659,6 @@ String weightToString(BuildContext context, double? d){
 }
 
 String doubleToString(double? d){
-  print(d);
   return d == null
       ? '--'
       : d.toStringAsFixed(1);

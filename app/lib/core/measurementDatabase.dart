@@ -7,7 +7,6 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
-import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/main.dart';
 
 /// Extend DateTime for faster comparison
@@ -22,12 +21,9 @@ extension DateTimeExtension on DateTime {
 }
 
 /// check if day is in list
-bool dayInMeasurements(DateTime date, List<Measurement> measurements) =>
-    <bool>[
-      for (final Measurement m in measurements)
-        date.sameDay(m.date)
-    ].reduce((bool value, bool element) => value || element);
-
+bool dayInMeasurements(DateTime date, List<Measurement> measurements) => <bool>[
+  for (final Measurement m in measurements) date.sameDay(m.date),
+].reduce((bool value, bool element) => value || element);
 
 /// Base class for measurement database
 class MeasurementDatabaseBaseclass {
@@ -35,19 +31,17 @@ class MeasurementDatabaseBaseclass {
 
   /// broadcast stream to track change of db
   final StreamController<List<Measurement>> _streamController =
-  StreamController<List<Measurement>>.broadcast();
+      StreamController<List<Measurement>>.broadcast();
 
   /// get broadcast stream to track change of db
   StreamController<List<Measurement>> get streamController => _streamController;
 
   List<Measurement>? _measurements;
-  /// get sorted measurements
-  List<Measurement> get measurements => _measurements == null
-    ? <Measurement>[]
-    : _measurements!..sort(
-        (Measurement a, Measurement b) => b.compareTo(a)
-    );
 
+  /// get sorted measurements
+  List<Measurement> get measurements =>
+      _measurements == null ? <Measurement>[] : _measurements!
+        ..sort((Measurement a, Measurement b) => b.compareTo(a));
 
   /// fire stream
   void fireStream() {
@@ -60,12 +54,10 @@ class MeasurementDatabaseBaseclass {
       return ms;
     }
 
-    final double meanWeight = ms.fold(
-        0.0, (double sum, Measurement m) => sum + m.weight
-    ) / ms.length;
+    final double meanWeight =
+        ms.fold(0.0, (double sum, Measurement m) => sum + m.weight) / ms.length;
     return <Measurement>[
-      for (final Measurement m in ms)
-        m.apply(weight: meanWeight)
+      for (final Measurement m in ms) m.apply(weight: meanWeight),
     ];
   }
 
@@ -74,6 +66,7 @@ class MeasurementDatabaseBaseclass {
 
   /// date of latest measurement
   DateTime get lastDate => measurements.first.date;
+
   /// date of first measurement
   DateTime get firstDate => measurements.last.date;
 
@@ -83,8 +76,8 @@ class MeasurementDatabaseBaseclass {
       return null;
     }
     return measurements.reduce(
-            (Measurement current, Measurement next) =>
-        current.weight > next.weight ? current : next
+      (Measurement current, Measurement next) =>
+          current.weight > next.weight ? current : next,
     );
   }
 
@@ -94,12 +87,11 @@ class MeasurementDatabaseBaseclass {
       return null;
     }
     return measurements.reduce(
-            (Measurement current, Measurement next) =>
-        current.weight < next.weight ? current : next
+      (Measurement current, Measurement next) =>
+          current.weight < next.weight ? current : next,
     );
   }
 }
-
 
 /// class providing an API to handle measurements stored in hive
 class MeasurementDatabase extends MeasurementDatabaseBaseclass {
@@ -121,7 +113,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   bool containsMeasurement(Measurement m) {
     final List<bool> isMeasurement = <bool>[
       for (final Measurement measurement in measurements)
-        measurement.isIdentical(m)
+        measurement.isIdentical(m),
     ];
     return isMeasurement.contains(true);
   }
@@ -180,7 +172,6 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
     // fire stream
     fireStream();
-    TraleNotifier().notify;
   }
 
   /// initialize database
@@ -191,37 +182,37 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   @override
   List<Measurement>? _measurements;
+
   /// get sorted measurements
   @override
-  List<Measurement> get measurements => _measurements ??=
-    box.values.toList()..sort(
-      (Measurement a, Measurement b) => b.compareTo(a)
-    );
+  List<Measurement> get measurements =>
+      _measurements ??= box.values.toList()
+        ..sort((Measurement a, Measurement b) => b.compareTo(a));
 
   List<SortedMeasurement>? _sortedMeasurements;
+
   /// get sorted measurements, key tuples
-  List<SortedMeasurement> get sortedMeasurements => _sortedMeasurements ??=
-    <SortedMeasurement>[
-      for (final dynamic key in box.keys)
-        SortedMeasurement(key: key, measurement: box.get(key)!)
-    ]..sort(
-      (SortedMeasurement a, SortedMeasurement b) => b.compareTo(a)
-    );
+  List<SortedMeasurement> get sortedMeasurements =>
+      _sortedMeasurements ??= <SortedMeasurement>[
+        for (final dynamic key in box.keys)
+          SortedMeasurement(key: key, measurement: box.get(key)!),
+      ]..sort((SortedMeasurement a, SortedMeasurement b) => b.compareTo(a));
 
   /// date of latest measurement
   @override
   DateTime get lastDate => sortedMeasurements.first.measurement.date;
+
   /// date of first measurement
   @override
   DateTime get firstDate => sortedMeasurements.last.measurement.date;
 
   /// return string for export
   String get exportString {
-    const String header = '# This file was created with trale.\n'
-      '#Date weight[kg]\n';
+    const String header =
+        '# This file was created with trale.\n'
+        '#Date weight[kg]\n';
     final String body = <String>[
-      for (final Measurement m in measurements)
-        m.exportString
+      for (final Measurement m in measurements) m.exportString,
     ].join('\n');
     return header + body;
   }
@@ -233,7 +224,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
     return <Measurement>[
       for (final String line in lines)
-        Measurement.fromString(exportString: line)
+        Measurement.fromString(exportString: line),
     ];
   }
 }

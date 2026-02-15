@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
@@ -64,13 +65,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
   @override
   void initState() {
     super.initState();
-    final TraleNotifier notifier = TraleNotifier();
+    final Preferences prefs = Preferences();
     minX = widget.isPreview
       ? widget.ip.timesDisplay.first
-      : notifier.zoomLevel.minX;
+      : prefs.zoomLevel.minX;
     maxX = widget.isPreview
       ? widget.ip.timesDisplay.last
-      : notifier.zoomLevel.maxX;
+      : prefs.zoomLevel.maxX;
   }
 
   @override
@@ -119,7 +120,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
       ];
     }
 
-    final TraleNotifier notifier = TraleNotifier();
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(
+      context, listen: false,
+    );
     final double? targetWeight = notifier.userTargetWeight;
 
     final Color interpolationLineColor =
