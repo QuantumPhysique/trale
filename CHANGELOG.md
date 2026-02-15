@@ -17,6 +17,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - Allows selecting 0.05kg/st/lb steps for more precision
 - Major performance improvements by making app async
+- Add reminder notifications to prompt daily weight logging
 
 ### Other changes:
 - Using the latest flutter 3.41
