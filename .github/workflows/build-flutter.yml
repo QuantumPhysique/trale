@@ -4,7 +4,7 @@ on: [push]
 
 permissions:
   contents: read
-  
+
 jobs:
   deployAndroid:
     permissions: write-all
@@ -17,9 +17,17 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: "17.x"
-          cache: 'gradle'
           distribution: 'adopt'
         id: java
+      - name: 📦 Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('app/**/*.gradle*', 'app/**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
       - name: Set Flutter version
         run: |
           cd app
@@ -30,8 +38,23 @@ jobs:
         with:
           flutter-version: "${{ env.FLUTTER_VERSION }}"
           channel: 'stable'
-          cache: true
         id: flutter
+      - name: 📦 Cache Flutter SDK
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.FLUTTER_ROOT }}
+          key: flutter-sdk-${{ runner.os }}-${{ env.FLUTTER_VERSION }}
+          restore-keys: |
+            flutter-sdk-${{ runner.os }}-
+      - name: 📦 Cache Pub dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            app/.dart_tool
+          key: pub-${{ runner.os }}-${{ hashFiles('app/pubspec.lock') }}
+          restore-keys: |
+            pub-${{ runner.os }}-
       - name: 🔐 Retrieve base64 keystore and decode it to a file
         id: write_file
         uses: timheuer/base64-to-file@v1.2
