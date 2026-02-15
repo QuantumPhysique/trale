@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolationPreview.dart';
+import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
@@ -26,6 +28,9 @@ class PersonalizationSettingsPage extends StatefulWidget {
 
 class _PersonalizationSettingsPageState
     extends State<PersonalizationSettingsPage> {
+  /// Whether to show the user's own data instead of fake preview data.
+  bool _showUserData = false;
+
   @override
   Widget build(BuildContext context) {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(
@@ -35,7 +40,7 @@ class _PersonalizationSettingsPageState
 
     final Widget sliderTile = Container(
       padding: EdgeInsets.fromLTRB(
-        2 * TraleTheme.of(context)!.padding,
+        TraleTheme.of(context)!.padding,
         0.5 * TraleTheme.of(context)!.padding,
         TraleTheme.of(context)!.padding,
         0.5 * TraleTheme.of(context)!.padding,
@@ -69,6 +74,9 @@ class _PersonalizationSettingsPageState
       ),
     );
 
+    final bool hasEnoughData = MeasurementDatabase().measurements.length > 3;
+    final bool useUserData = _showUserData && hasEnoughData;
+
     final List<Widget> sliverlist = <Widget>[
       WidgetGroup(
         title: AppLocalizations.of(context)!.interpolation,
@@ -77,14 +85,34 @@ class _PersonalizationSettingsPageState
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: CustomLineChart(
               loadedFirst: false,
-              ip: PreviewInterpolation(),
+              ip: useUserData
+                  ? MeasurementInterpolation()
+                  : PreviewInterpolation(),
               isPreview: true,
               relativeHeight: 0.25,
               backgroundColor: Theme.of(
                 context,
               ).colorScheme.surfaceContainerLowest,
+              chartMargin: EdgeInsets.zero,
             ),
           ),
+          if (hasEnoughData)
+            GroupedSwitchListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: TraleTheme.of(context)!.padding,
+              ),
+              title: Text(
+                AppLocalizations.of(context)!.showUserData.inCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              value: _showUserData,
+              onChanged: (bool? value) {
+                setState(() {
+                  _showUserData = value ?? false;
+                });
+              },
+            ),
           GroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,

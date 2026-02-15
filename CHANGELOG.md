@@ -19,6 +19,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Major performance improvements by making app async
 - Allow using imperial units for entering height
 - Add reminder notifications to prompt daily weight logging
+- Add option to preview interpolation on own data
 
 ### Other changes:
 - Using the latest flutter 3.41
