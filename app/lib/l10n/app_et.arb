@@ -29,7 +29,7 @@
     "@quarterly": {
         "description": "Frequency of backup interval"
     },
-    "backupInterval": "Sagedus",
+    "backupInterval": "Varunduse välp",
     "@backupInterval": {
         "description": "Frequency of backup interval"
     },
@@ -191,7 +191,7 @@
     "@soft": {
         "description": "soft interpolation"
     },
-    "medium": "Keskmine",
+    "medium": "Keskmine interpolatsioon",
     "@medium": {
         "description": "medium interpolation"
     },
@@ -331,7 +331,7 @@
     "@ok": {
         "description": "ok"
     },
-    "importDialog": "Sellega kaasad kõik kaalumõõdistused praegusesse andmebaasi. Tegevust ei saa hiljem tagasi pöörata!",
+    "importDialog": "Impordi kõik kaalumõõdistused praegusesse andmebaasi. Tegevust ei saa hiljem tagasi pöörata!",
     "@importDialog": {
         "description": "Include all measurements to the current database. This can not be undone!"
     },
@@ -632,5 +632,9 @@
                 "example": "none"
             }
         }
+    },
+    "precision": "Täpsus",
+    "@precision": {
+        "description": "Label for unit precision setting."
     }
 }

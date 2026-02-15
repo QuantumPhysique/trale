@@ -9,7 +9,8 @@ import 'package:trale/core/preferences.dart';
 /// Top-level callback for notification taps (required by the plugin).
 @pragma('vm:entry-point')
 void onDidReceiveNotificationResponse(
-    NotificationResponse notificationResponse) {
+  NotificationResponse notificationResponse,
+) {
   // No-op: tapping opens the app via the launcher intent.
 }
 
@@ -65,8 +66,9 @@ class NotificationService {
     const AndroidInitializationSettings androidInit =
         AndroidInitializationSettings('@drawable/ic_notification');
 
-    const InitializationSettings initSettings =
-        InitializationSettings(android: androidInit);
+    const InitializationSettings initSettings = InitializationSettings(
+      android: androidInit,
+    );
 
     await _plugin.initialize(
       settings: initSettings,
@@ -88,9 +90,10 @@ class NotificationService {
   /// Request notification permission (Android 13+).
   /// Returns `true` if granted.
   Future<bool> requestPermission() async {
-    final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
-        _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    final AndroidFlutterLocalNotificationsPlugin? androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
     if (androidPlugin == null) return false;
     final bool? granted = await androidPlugin.requestNotificationsPermission();
     return granted ?? false;
@@ -99,12 +102,12 @@ class NotificationService {
   /// Request the exact-alarm permission required for scheduled notifications
   /// on Android 14+.
   Future<bool> requestExactAlarmPermission() async {
-    final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
-        _plugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    final AndroidFlutterLocalNotificationsPlugin? androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
     if (androidPlugin == null) return false;
-    final bool? granted =
-        await androidPlugin.requestExactAlarmsPermission();
+    final bool? granted = await androidPlugin.requestExactAlarmsPermission();
     return granted ?? false;
   }
 
@@ -131,20 +134,24 @@ class NotificationService {
 
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
-      _channelId,
-      _channelName,
-      channelDescription: _channelDescription,
-      importance: Importance.high,
-      priority: Priority.high,
-    );
+          _channelId,
+          _channelName,
+          channelDescription: _channelDescription,
+          importance: Importance.high,
+          priority: Priority.high,
+        );
 
-    const NotificationDetails details =
-        NotificationDetails(android: androidDetails);
+    const NotificationDetails details = NotificationDetails(
+      android: androidDetails,
+    );
 
     for (final int day in days) {
       final int notificationId = _baseNotificationId + day;
-      final tz.TZDateTime scheduledDate =
-          _nextInstanceOfWeekdayTime(day, hour, minute);
+      final tz.TZDateTime scheduledDate = _nextInstanceOfWeekdayTime(
+        day,
+        hour,
+        minute,
+      );
 
       await _plugin.zonedSchedule(
         id: notificationId,
@@ -174,7 +181,8 @@ class NotificationService {
     if (!prefs.reminderEnabled) return;
 
     final MeasurementDatabase db = MeasurementDatabase();
-    final bool loggedToday = db.measurements.isNotEmpty &&
+    final bool loggedToday =
+        db.measurements.isNotEmpty &&
         dayInMeasurements(DateTime.now(), db.measurements);
 
     if (loggedToday) {
@@ -215,11 +223,16 @@ class NotificationService {
 
   /// Return the next [tz.TZDateTime] that matches [weekday] at
   /// [hour]:[minute].  [weekday] uses ISO 8601 (1 = Monday … 7 = Sunday).
-  tz.TZDateTime _nextInstanceOfWeekdayTime(
-      int weekday, int hour, int minute) {
+  tz.TZDateTime _nextInstanceOfWeekdayTime(int weekday, int hour, int minute) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduled = tz.TZDateTime(
-        tz.local, now.year, now.month, now.day, hour, minute);
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      hour,
+      minute,
+    );
 
     // Move to the correct weekday.
     while (scheduled.weekday != weekday) {

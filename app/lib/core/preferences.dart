@@ -77,8 +77,8 @@ class Preferences {
   final TraleUnitHeight defaultHeightUnit = TraleUnitHeight.metric;
 
   /// default unit precision
-  final TraleUnitPrecision defaultUnitPrecision
-    = TraleUnitPrecision.unitDefault;
+  final TraleUnitPrecision defaultUnitPrecision =
+      TraleUnitPrecision.unitDefault;
 
   /// default interpolation strength
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
@@ -97,8 +97,9 @@ class Preferences {
       TraleDatePrintFormat.systemDefault;
 
   /// latest backup date
-  final DateTime defaultLatestBackupDate =
-      DateTime.fromMillisecondsSinceEpoch(0);
+  final DateTime defaultLatestBackupDate = DateTime.fromMillisecondsSinceEpoch(
+    0,
+  );
 
   /// latest backup date
   final DateTime defaultLatestBackupReminderDate =
@@ -130,10 +131,7 @@ class Preferences {
   String get userName => prefs.getString('userName')!;
 
   /// set user height in cm
-  set userHeight(double? height) => prefs.setDouble(
-        'userHeight',
-        height ?? -1,
-      );
+  set userHeight(double? height) => prefs.setDouble('userHeight', height ?? -1);
 
   /// get user height in cm
   double? get userHeight => prefs.getDouble('userHeight')! > 0
@@ -141,10 +139,8 @@ class Preferences {
       : null;
 
   /// set user target weight
-  set userTargetWeight(double? weight) => prefs.setDouble(
-        'userTargetWeight',
-        weight ?? -1,
-      );
+  set userTargetWeight(double? weight) =>
+      prefs.setDouble('userTargetWeight', weight ?? -1);
 
   /// get user target weight
   double? get userTargetWeight => prefs.getDouble('userTargetWeight')! > 0
@@ -174,10 +170,8 @@ class Preferences {
   Language get language => prefs.getString('language')!.toLanguage();
 
   /// set language value
-  set language(Language language) => prefs.setString(
-        'language',
-        language.language,
-      );
+  set language(Language language) =>
+      prefs.setString('language', language.language);
 
   /// get theme mode
   String get theme => prefs.getString('theme')!;
@@ -193,81 +187,70 @@ class Preferences {
       prefs.setString('schemeVariant', variant);
 
   /// get contrast level
-  ContrastLevel get contrastLevel => prefs.getString('contrastLevel')!
-    .toContrastLevel()!;
+  ContrastLevel get contrastLevel =>
+      prefs.getString('contrastLevel')!.toContrastLevel()!;
 
   /// set contrast level
-  set contrastLevel(ContrastLevel level) => prefs.setString(
-      'contrastLevel',
-      level.name,
-    );
+  set contrastLevel(ContrastLevel level) =>
+      prefs.setString('contrastLevel', level.name);
 
   /// get unit mode
   TraleUnit get unit => prefs.getString('unit')!.toTraleUnit()!;
 
   /// set unit mode
-  set unit(TraleUnit unit) => prefs.setString(
-        'unit',
-        unit.name,
-      );
+  set unit(TraleUnit unit) => prefs.setString('unit', unit.name);
 
   /// get unit precision
-  TraleUnitPrecision get unitPrecision
-    => prefs.getString('unitPrecision')!.toTraleUnitPrecision()!;
+  TraleUnitPrecision get unitPrecision =>
+      prefs.getString('unitPrecision')!.toTraleUnitPrecision()!;
 
   /// set unit mode
-  set unitPrecision(TraleUnitPrecision precision) => prefs.setString(
-    'unitPrecision',
-    precision.name,
-  );
+  set unitPrecision(TraleUnitPrecision precision) =>
+      prefs.setString('unitPrecision', precision.name);
 
   /// get height unit mode
   TraleUnitHeight get heightUnit =>
       prefs.getString('heightUnit')!.toTraleUnitHeight()!;
 
   /// set height unit mode
-  set heightUnit(TraleUnitHeight heightUnit) => prefs.setString(
-    'heightUnit',
-    heightUnit.name,
-  );
+  set heightUnit(TraleUnitHeight heightUnit) =>
+      prefs.setString('heightUnit', heightUnit.name);
 
   /// get interpolation strength mode
   InterpolStrength get interpolStrength =>
       prefs.getString('interpolStrength')!.toInterpolStrength()!;
 
   /// set interpolation strength mode
-  set interpolStrength(InterpolStrength strength) => prefs.setString(
-        'interpolStrength',
-        strength.name,
-      );
+  set interpolStrength(InterpolStrength strength) =>
+      prefs.setString('interpolStrength', strength.name);
 
   /// get backup frequency
   BackupInterval get backupInterval =>
       prefs.getString('backupInterval')!.toBackupInterval()!;
 
   /// set backup frequency
-  set backupInterval(BackupInterval interval) => prefs.setString(
-        'backupInterval',
-        interval.name,
-      );
+  set backupInterval(BackupInterval interval) =>
+      prefs.setString('backupInterval', interval.name);
 
   /// get last backup date
   DateTime? get latestBackupDate {
-    final DateTime latestBackup =
-        DateTime.parse(prefs.getString('latestBackupDate')!);
+    final DateTime latestBackup = DateTime.parse(
+      prefs.getString('latestBackupDate')!,
+    );
     return latestBackup == defaultLatestBackupDate ? null : latestBackup;
   }
 
   /// set latest backup date
   set latestBackupDate(DateTime? date) => prefs.setString(
-        'latestBackupDate',
-        (date ?? defaultLatestBackupDate).toString(),
-      );
+    'latestBackupDate',
+    (date ?? defaultLatestBackupDate).toString(),
+  );
 
   /// get last backup date
   DateTime? get latestBackupReminderDate {
-    final DateTime latestBackupReminder =
-        DateTime.parse(prefs.getString('latestBackupReminderDate')!);
+    final DateTime latestBackupReminder = DateTime.parse(
+      prefs.getString('latestBackupReminderDate')!,
+    );
     return latestBackupReminder == defaultLatestBackupReminderDate
         ? null
         : latestBackupReminder;
@@ -275,37 +258,29 @@ class Preferences {
 
   /// set latest backup date
   set latestBackupReminderDate(DateTime? date) => prefs.setString(
-        'latestBackupReminderDate',
-        (date ?? defaultLatestBackupReminderDate).toString(),
-      );
+    'latestBackupReminderDate',
+    (date ?? defaultLatestBackupReminderDate).toString(),
+  );
 
   /// get zoom level
   ZoomLevel get zoomLevel => prefs.getInt('zoomLevel')!.toZoomLevel()!;
 
   /// set zoom Level
-  set zoomLevel(ZoomLevel level) => prefs.setInt(
-        'zoomLevel',
-        level.index,
-      );
+  set zoomLevel(ZoomLevel level) => prefs.setInt('zoomLevel', level.index);
 
   /// get first day
   TraleFirstDay get firstDay => prefs.getString('firstDay')!.toTraleFirstDay()!;
 
   /// set first day
-  set firstDay(TraleFirstDay day) => prefs.setString(
-        'firstDay',
-        day.name,
-      );
+  set firstDay(TraleFirstDay day) => prefs.setString('firstDay', day.name);
 
   /// Get date format
   TraleDatePrintFormat get datePrintFormat =>
       prefs.getString('dateFormat')!.toTraleDateFormat()!;
 
   /// Set date format
-  set datePrintFormat(TraleDatePrintFormat format) => prefs.setString(
-        'dateFormat',
-        format.name,
-      );
+  set datePrintFormat(TraleDatePrintFormat format) =>
+      prefs.setString('dateFormat', format.name);
 
   /// Get loose mode
   bool get looseWeight => prefs.getBool('looseWeight')!;
@@ -314,16 +289,19 @@ class Preferences {
   set looseWeight(bool loose) => prefs.setBool('looseWeight', loose);
 
   /// Get show measurement hint banner
-  bool get showMeasurementHintBanner => prefs.getBool('showMeasurementHintBanner')!;
+  bool get showMeasurementHintBanner =>
+      prefs.getBool('showMeasurementHintBanner')!;
 
   /// Set show measurement hint banner
-  set showMeasurementHintBanner(bool show) => prefs.setBool('showMeasurementHintBanner', show);
+  set showMeasurementHintBanner(bool show) =>
+      prefs.setBool('showMeasurementHintBanner', show);
 
   /// Get reminder enabled
   bool get reminderEnabled => prefs.getBool('reminderEnabled')!;
 
   /// Set reminder enabled
-  set reminderEnabled(bool enabled) => prefs.setBool('reminderEnabled', enabled);
+  set reminderEnabled(bool enabled) =>
+      prefs.setBool('reminderEnabled', enabled);
 
   /// Get reminder days (ISO weekday: 1=Mon … 7=Sun)
   List<int> get reminderDays {

@@ -2,8 +2,10 @@
 enum TraleUnitPrecision {
   /// Default: unit-based
   unitDefault,
+
   /// 0.1 precision
   single,
+
   /// 0.05 precision
   double,
 }
@@ -11,20 +13,18 @@ enum TraleUnitPrecision {
 /// extend units
 extension TraleUnitPrecisionExtension on TraleUnitPrecision {
   /// get the number of ticks
-  int? get ticksPerStep =>
-      <TraleUnitPrecision, int?>{
-        TraleUnitPrecision.unitDefault: null,
-        TraleUnitPrecision.single: 10,
-        TraleUnitPrecision.double: 20,
-      }[this];
+  int? get ticksPerStep => <TraleUnitPrecision, int?>{
+    TraleUnitPrecision.unitDefault: null,
+    TraleUnitPrecision.single: 10,
+    TraleUnitPrecision.double: 20,
+  }[this];
 
   /// get the number of ticks
-  int? get precision =>
-      <TraleUnitPrecision, int?>{
-        TraleUnitPrecision.unitDefault: null,
-        TraleUnitPrecision.single: 1,
-        TraleUnitPrecision.double: 2,
-      }[this];
+  int? get precision => <TraleUnitPrecision, int?>{
+    TraleUnitPrecision.unitDefault: null,
+    TraleUnitPrecision.single: 1,
+    TraleUnitPrecision.double: 2,
+  }[this];
 
   /// get string expression
   String get name => toString().split('.').last;
@@ -36,7 +36,6 @@ extension TraleUnitPrecisionExtension on TraleUnitPrecision {
     TraleUnitPrecision.double: '0.05',
   }[this];
 }
-
 
 /// convert units to string
 extension TralUnitPrecisionParsing on String {

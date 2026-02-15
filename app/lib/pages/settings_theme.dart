@@ -563,9 +563,7 @@ class ThemeSettingsPage extends StatelessWidget {
         title: AppLocalizations.of(context)!.theme,
         children: <Widget>[
           GroupedText(
-            text: Text(
-            AppLocalizations.of(context)!.themeDescription,
-            ),
+            text: Text(AppLocalizations.of(context)!.themeDescription),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -578,9 +576,7 @@ class ThemeSettingsPage extends StatelessWidget {
         title: AppLocalizations.of(context)!.schemeVariant,
         children: <Widget>[
           GroupedText(
-            text: Text(
-              AppLocalizations.of(context)!.schemeVariantDescription,
-            ),
+            text: Text(AppLocalizations.of(context)!.schemeVariantDescription),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,

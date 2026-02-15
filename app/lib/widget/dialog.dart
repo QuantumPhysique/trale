@@ -14,7 +14,12 @@ import 'package:trale/core/theme.dart';
 class DialogM3E extends StatelessWidget {
   /// Creates a M3 dialog with a centered [title], custom [content],
   /// and [actions] laid out with spaceBetween.
-  const DialogM3E({super.key, required this.content, required this.actions, required this.title});
+  const DialogM3E({
+    super.key,
+    required this.content,
+    required this.actions,
+    required this.title,
+  });
 
   /// Body widget displayed in the dialog's content area.
   final Widget content;
@@ -35,6 +40,7 @@ class DialogM3E extends StatelessWidget {
       ),
       actionsPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
+
         /// todo: why -4? Find reason and fix properly
         vertical: TraleTheme.of(context)!.padding - 4,
       ),
@@ -45,8 +51,8 @@ class DialogM3E extends StatelessWidget {
         child: Text(
           title,
           style: Theme.of(context).textTheme.emphasized.headlineSmall!.apply(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
           maxLines: 1,
         ),
       ),

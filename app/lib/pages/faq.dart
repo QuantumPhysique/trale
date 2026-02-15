@@ -13,7 +13,6 @@ import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-
 /// launch url
 Future<void> _launchURL(String url) async {
   if (await canLaunchUrlString(url)) {
@@ -22,7 +21,6 @@ Future<void> _launchURL(String url) async {
     throw 'Could not launch $url';
   }
 }
-
 
 /// ListTile for changing Amoled settings
 class OnBoardingListTile extends StatelessWidget {
@@ -35,51 +33,41 @@ class OnBoardingListTile extends StatelessWidget {
       child: GroupedListTile(
         color: Theme.of(context).colorScheme.primaryContainer,
         title: Text(
-            AppLocalizations.of(context)!.faq_a2_widget,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
-            ),
+          AppLocalizations.of(context)!.faq_a2_widget,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
+          ),
         ),
         leading: PPIcon(PhosphorIconsRegular.signOut, context),
       ),
       onTap: () {
-          Provider.of<TraleNotifier>(
-              context, listen: false
-          ).showOnBoarding = true;
-          // leave settings; pop twice to get back to home
-          Navigator.of(context).popUntil(
-            (Route<dynamic> route) => route.isFirst,
-          );
-          Navigator.of(context).push(
-            MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => const OnBoardingPage()
-            )
-          );
+        Provider.of<TraleNotifier>(context, listen: false).showOnBoarding =
+            true;
+        // leave settings; pop twice to get back to home
+        Navigator.of(context).popUntil((Route<dynamic> route) => route.isFirst);
+        Navigator.of(context).push(
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => const OnBoardingPage(),
+          ),
+        );
       },
     );
   }
 }
 
-
 /// class for listing 3rd party licences
 class FAQEntry {
   /// constructor
-  FAQEntry({
-    required this.question,
-    required this.answer,
-    this.answerWidget,
-  });
+  FAQEntry({required this.question, required this.answer, this.answerWidget});
 
   /// get list representation of tpl
   Widget toWidget(BuildContext context) => WidgetGroup(
     children: <Widget>[
       GroupedListTile(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        leading: PPIcon(
-              PhosphorIconsDuotone.question,
-              context,
-        ),
-        title: Text(question,
+        leading: PPIcon(PhosphorIconsDuotone.question, context),
+        title: Text(
+          question,
           style: Theme.of(context).textTheme.emphasized.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.onSurface,
           ),
@@ -87,10 +75,7 @@ class FAQEntry {
       ),
       GroupedListTile(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
-        leading: PPIcon(
-              PhosphorIconsDuotone.chatCircleDots,
-              context,
-        ),
+        leading: PPIcon(PhosphorIconsDuotone.chatCircleDots, context),
         title: Text(
           answer,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -99,14 +84,16 @@ class FAQEntry {
           textAlign: TextAlign.justify,
         ),
       ),
-      ?answerWidget
-    ]
+      ?answerWidget,
+    ],
   );
 
   /// name of package
   final String question;
+
   /// name of url
   final String answer;
+
   /// license
   final Widget? answerWidget;
 }
@@ -154,9 +141,8 @@ class _FAQ extends State<FAQ> {
         SizedBox(height: 2 * TraleTheme.of(context)!.padding),
         SizedBox(height: TraleTheme.of(context)!.padding),
         ...<Widget>[
-          for (final FAQEntry faq in faqEntries)
-            faq.toWidget(context),
-        ]
+          for (final FAQEntry faq in faqEntries) faq.toWidget(context),
+        ],
       ];
     }
 

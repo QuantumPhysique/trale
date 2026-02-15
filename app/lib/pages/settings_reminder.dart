@@ -72,10 +72,7 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
             contentPadding: EdgeInsets.symmetric(
               horizontal: TraleTheme.of(context)!.padding,
             ),
-            leading: PPIcon(
-              Icons.notifications_active_outlined,
-              context,
-            ),
+            leading: PPIcon(Icons.notifications_active_outlined, context),
             title: Text(
               l10n.reminderEnable.inCaps,
               style: Theme.of(context).textTheme.bodyLarge,
@@ -163,8 +160,8 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
                 child: Text(
                   notifier.reminderTime.format(context),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ),
             ),
@@ -173,7 +170,8 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
         SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding),
+            horizontal: TraleTheme.of(context)!.padding,
+          ),
           child: Text(
             l10n.reminderExplanation,
             style: Theme.of(context).textTheme.bodyMedium,
@@ -190,4 +188,3 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
     );
   }
 }
-

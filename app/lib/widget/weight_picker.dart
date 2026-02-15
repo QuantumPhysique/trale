@@ -39,11 +39,16 @@ class MultiItemSnapScrollPhysics extends ScrollPhysics {
 
   @override
   SpringDescription get spring => SpringDescription.withDampingRatio(
-    mass: 1.0, stiffness: stiffness, ratio: ratio,
+    mass: 1.0,
+    stiffness: stiffness,
+    ratio: ratio,
   );
 
   @override
-  Simulation? createBallisticSimulation(ScrollMetrics position, double velocity) {
+  Simulation? createBallisticSimulation(
+    ScrollMetrics position,
+    double velocity,
+  ) {
     // Let parent handle overscroll.
     if (position.outOfRange) {
       return parent?.createBallisticSimulation(position, velocity);
@@ -57,29 +62,41 @@ class MultiItemSnapScrollPhysics extends ScrollPhysics {
       final double targetPage = currentPage.roundToDouble();
       final double targetPx = _pixelsForPage(targetPage);
       if ((targetPx - position.pixels).abs() < tol.distance) return null;
-      return ScrollSpringSimulation(spring, position.pixels, targetPx, velocity, tolerance: tol);
+      return ScrollSpringSimulation(
+        spring,
+        position.pixels,
+        targetPx,
+        velocity,
+        tolerance: tol,
+      );
     }
 
     // Convert velocity -> number of items to travel (at least 1).
-    final double deltaItems =
-        (velocity.abs() / (snapSize * velocityDivisor)).clamp(1.0, maxItemsPerFling);
+    final double deltaItems = (velocity.abs() / (snapSize * velocityDivisor))
+        .clamp(1.0, maxItemsPerFling);
 
     // Clamp to bounds and snap to nearest tick.
     final double minPage = position.minScrollExtent / snapSize;
     final double maxPage = position.maxScrollExtent / snapSize;
-    final double targetPage =
-        (currentPage + deltaItems * velocity.sign).clamp(minPage, maxPage).roundToDouble();
+    final double targetPage = (currentPage + deltaItems * velocity.sign)
+        .clamp(minPage, maxPage)
+        .roundToDouble();
 
     final double targetPx = _pixelsForPage(targetPage);
     if ((targetPx - position.pixels).abs() < tol.distance) return null;
 
-    return ScrollSpringSimulation(spring, position.pixels, targetPx, velocity, tolerance: tol);
+    return ScrollSpringSimulation(
+      spring,
+      position.pixels,
+      targetPx,
+      velocity,
+      tolerance: tol,
+    );
   }
 
   @override
   bool get allowImplicitScrolling => false;
 }
-
 
 class _Painter extends CustomPainter {
   _Painter({
@@ -100,15 +117,15 @@ class _Painter extends CustomPainter {
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(0, 0, width, height),
-      Radius.circular(width / 4),
-        ), paint
+        Radius.circular(width / 4),
+      ),
+      paint,
     );
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
 
 /// Marker widget displayed at the center top of the RulerPicker
 class _SliderMarker extends StatelessWidget {
@@ -182,7 +199,6 @@ class RulerPicker extends StatefulWidget {
     super.key,
   }) : controller = controller ?? RulerPickerController(value: value);
 
-
   final ValueChangedCallback onValueChange;
   final double height;
   final int ticksPerStep;
@@ -209,7 +225,7 @@ class RulerPickerState extends State<RulerPicker> {
 
     final int initialIndex = (widget.value * widget.ticksPerStep).round();
     _scrollController = ScrollController(
-      initialScrollOffset: initialIndex * tickWidth
+      initialScrollOffset: initialIndex * tickWidth,
     );
 
     // External commands to jump/change value
@@ -217,12 +233,12 @@ class RulerPickerState extends State<RulerPicker> {
       if (!_scrollController.hasClients) {
         return;
       }
-      final int targetIndex = (
-        widget.controller.value * widget.ticksPerStep
-      ).round();
+      final int targetIndex = (widget.controller.value * widget.ticksPerStep)
+          .round();
       _scrollController.animateTo(
         targetIndex * tickWidth,
-        duration: TraleTheme.of(context)?.transitionDuration.normal ??
+        duration:
+            TraleTheme.of(context)?.transitionDuration.normal ??
             const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
       );
@@ -236,26 +252,26 @@ class RulerPickerState extends State<RulerPicker> {
   }
 
   Widget _weightLabelWidget(BuildContext context, double weight, Color color) {
-    final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
+    final TraleNotifier notifier = Provider.of<TraleNotifier>(
+      context,
+      listen: false,
+    );
     final Text valueLabel = Text(
       '${weight.toStringAsFixed(notifier.unitPrecision.precision ?? notifier.unit.precision)} '
-          '${notifier.unit.name}',
-      style: Theme.of(context).textTheme.emphasized.monospace.headlineLarge?.apply(
-        color: color,
-      ),
+      '${notifier.unit.name}',
+      style: Theme.of(
+        context,
+      ).textTheme.emphasized.monospace.headlineLarge?.apply(color: color),
     );
 
     final double padding = TraleTheme.of(context)!.padding;
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: EdgeInsets.only(
-        top: 0.75 * padding,
-        bottom: 0.5 * padding,
-      ),
+      padding: EdgeInsets.only(top: 0.75 * padding, bottom: 0.5 * padding),
       child: valueLabel,
     );
   }
+
   void _updateWeightValue(num newValue) {
     widget.onValueChange(newValue);
     setState(() {
@@ -267,7 +283,9 @@ class RulerPickerState extends State<RulerPicker> {
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-    final double offset = _scrollController.hasClients ? _scrollController.offset : 0.0;
+    final double offset = _scrollController.hasClients
+        ? _scrollController.offset
+        : 0.0;
     final double page = offset / tickWidth;
     final int nearestIndex = page.round();
 
@@ -277,9 +295,7 @@ class RulerPickerState extends State<RulerPicker> {
       children: <Widget>[
         GroupedWidget(
           color: colorScheme.secondary,
-          child: _weightLabelWidget(
-            context, newValue, colorScheme.onSecondary,
-          ),
+          child: _weightLabelWidget(context, newValue, colorScheme.onSecondary),
         ),
         GroupedWidget(
           color: colorScheme.secondaryContainer,
@@ -288,15 +304,15 @@ class RulerPickerState extends State<RulerPicker> {
             width: MediaQuery.of(context).size.width,
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) =>
-              _WeightSlider(
-                constraints: constraints,
-                scrollController: _scrollController,
-                ticksPerStep: widget.ticksPerStep,
-                onValueChange: _updateWeightValue,
-                tickWidth: tickWidth,
-              )
+                  _WeightSlider(
+                    constraints: constraints,
+                    scrollController: _scrollController,
+                    ticksPerStep: widget.ticksPerStep,
+                    onValueChange: _updateWeightValue,
+                    tickWidth: tickWidth,
+                  ),
             ),
-          )
+          ),
         ),
       ],
     );
@@ -337,9 +353,14 @@ class _WeightSliderState extends State<_WeightSlider> {
     final double tickWidth = widget.tickWidth;
 
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final double leadTrailPad = ((width - tickWidth) / 2.0).clamp(0.0, double.infinity);
+    final double leadTrailPad = ((width - tickWidth) / 2.0).clamp(
+      0.0,
+      double.infinity,
+    );
 
-    final double offset = scrollController.hasClients ? scrollController.offset : 0.0;
+    final double offset = scrollController.hasClients
+        ? scrollController.offset
+        : 0.0;
     final double page = offset / tickWidth;
     final int nearestIndex = page.round();
 
@@ -360,25 +381,38 @@ class _WeightSliderState extends State<_WeightSlider> {
         child: AnimatedBuilder(
           animation: scrollController,
           builder: (BuildContext context, _) {
-            final double offset = scrollController.hasClients ? scrollController.offset : 0.0;
+            final double offset = scrollController.hasClients
+                ? scrollController.offset
+                : 0.0;
             final double page = offset / tickWidth;
 
             // Visible items count in viewport (approx).
-            final double pagesVisible = (width / tickWidth).clamp(1.0, double.infinity);
+            final double pagesVisible = (width / tickWidth).clamp(
+              1.0,
+              double.infinity,
+            );
 
             // Start fading at the third-last visible tick towards each edge
             final double edgeStart = (1.0 - 4.0 / pagesVisible).clamp(0.0, 1.0);
 
             // Inside build(), before scaleForIndex:
-            final double zeroAtInsetPx = 0.5 * tickWidth; // reach 0 scale this many px before the edge
+            final double zeroAtInsetPx =
+                0.5 * tickWidth; // reach 0 scale this many px before the edge
             final double halfViewportPx = width / 2.0;
-            final double zeroAtRel = ((halfViewportPx - zeroAtInsetPx) / halfViewportPx).clamp(0.0, 1.0);
+            final double zeroAtRel =
+                ((halfViewportPx - zeroAtInsetPx) / halfViewportPx).clamp(
+                  0.0,
+                  1.0,
+                );
 
             // Keep pagesVisible and edgeStart as you already compute them.
             // Then update scaleForIndex:
             double scaleForIndex(int index) {
               final double rel = ((index - page) / (pagesVisible / 2.0)).abs();
-              final double denom = max(1e-6, zeroAtRel - edgeStart); // avoid div-by-zero
+              final double denom = max(
+                1e-6,
+                zeroAtRel - edgeStart,
+              ); // avoid div-by-zero
               final double t = ((rel - edgeStart) / denom).clamp(0.0, 1.0);
               return 1.0 - t;
             }
@@ -426,7 +460,11 @@ class _WeightSliderState extends State<_WeightSlider> {
                       children: <Widget>[
                         Transform(
                           alignment: Alignment.topCenter,
-                          transform: Matrix4.diagonal3Values(scalex, scaley, 1.0),
+                          transform: Matrix4.diagonal3Values(
+                            scalex,
+                            scaley,
+                            1.0,
+                          ),
                           child: Container(
                             width: isMajor ? barWidth : barWidth / 2,
                             height: tickHeight,
@@ -440,18 +478,32 @@ class _WeightSliderState extends State<_WeightSlider> {
                           Positioned(
                             bottom: 0,
                             width: tickWidth * widget.ticksPerStep,
-                            left: -0.5 * tickWidth * (widget.ticksPerStep - 0.75),
+                            left:
+                                -0.5 * tickWidth * (widget.ticksPerStep - 0.75),
                             child: Container(
                               alignment: Alignment.center,
                               child: Transform(
                                 alignment: Alignment.topCenter,
-                                origin: Offset(0, - (1 - scaley) * heightLargeTick),
-                                transform: Matrix4.diagonal3Values(scalex, scalex, 1.0),
+                                origin: Offset(
+                                  0,
+                                  -(1 - scaley) * heightLargeTick,
+                                ),
+                                transform: Matrix4.diagonal3Values(
+                                  scalex,
+                                  scalex,
+                                  1.0,
+                                ),
                                 child: Text(
-                                  (index / widget.ticksPerStep).toStringAsFixed(0),
-                                  style: Theme.of(context).textTheme.monospace.titleLarge!.apply(
-                                    color: colorScheme.onSecondaryContainer,
+                                  (index / widget.ticksPerStep).toStringAsFixed(
+                                    0,
                                   ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .monospace
+                                      .titleLarge!
+                                      .apply(
+                                        color: colorScheme.onSecondaryContainer,
+                                      ),
                                 ),
                               ),
                             ),
@@ -460,10 +512,7 @@ class _WeightSliderState extends State<_WeightSlider> {
                     );
                   },
                 ),
-                Positioned(
-                  top: 0,
-                  child: marker,
-                ),
+                Positioned(top: 0, child: marker),
               ],
             );
           },
