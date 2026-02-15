@@ -230,6 +230,17 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// getter
+  TraleUnitHeight get heightUnit => prefs.heightUnit;
+
+  /// setter
+  set heightUnit(TraleUnitHeight newHeightUnit) {
+    if (heightUnit != newHeightUnit) {
+      prefs.heightUnit = newHeightUnit;
+      notifyListeners();
+    }
+  }
+
+  /// getter
   TraleUnitPrecision get unitPrecision => prefs.unitPrecision;
 
   /// setter

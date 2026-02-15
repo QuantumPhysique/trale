@@ -15,13 +15,12 @@ import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/dialog.dart';
 import 'package:trale/widget/tile_group.dart';
 
-
 ///
-Future<bool> showUserDialog({
-  required BuildContext context,
-}) async {
-  final TraleNotifier notifier =
-      Provider.of<TraleNotifier>(context, listen: false);
+Future<bool> showUserDialog({required BuildContext context}) async {
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  );
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext innerContext, StateSetter setState) {
@@ -32,27 +31,33 @@ Future<bool> showUserDialog({
     },
   );
 
-  final bool accepted = await showDialog<bool>(
-    barrierDismissible: false,
-    context: context,
-    builder: (BuildContext context) {
-      return DialogM3E(
-        title: AppLocalizations.of(context)!.userDialogTitle,
-        content: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: content,
-        ),
-        actions: actions(context, () {
-          Navigator.pop(context, true);
-        }),
-      );
-    }) ?? false;
+  final bool accepted =
+      await showDialog<bool>(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return DialogM3E(
+            title: AppLocalizations.of(context)!.userDialogTitle,
+            content: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: content,
+            ),
+            actions: actions(context, () {
+              Navigator.pop(context, true);
+            }),
+          );
+        },
+      ) ??
+      false;
   return accepted;
 }
 
 ///
-List<Widget> actions(BuildContext context, Function onPress,
-    {bool enabled = true}) {
+List<Widget> actions(
+  BuildContext context,
+  Function onPress, {
+  bool enabled = true,
+}) {
   return <Widget>[
     FilledButton.icon(
       onPressed: enabled ? () => onPress() : null,
@@ -61,8 +66,6 @@ List<Widget> actions(BuildContext context, Function onPress,
     ),
   ];
 }
-
-
 
 class LooseWeightListTile extends StatelessWidget {
   /// constructor
@@ -79,14 +82,14 @@ class LooseWeightListTile extends StatelessWidget {
       dense: true,
       leading: PPIcon(
         Provider.of<TraleNotifier>(context).looseWeight
-          ? PhosphorIconsDuotone.trendDown
-          : PhosphorIconsDuotone.trendUp,
+            ? PhosphorIconsDuotone.trendDown
+            : PhosphorIconsDuotone.trendUp,
         context,
       ),
       title: Text(
         Provider.of<TraleNotifier>(context).looseWeight
-          ? AppLocalizations.of(context)!.looseWeight
-          : AppLocalizations.of(context)!.gainWeight,
+            ? AppLocalizations.of(context)!.looseWeight
+            : AppLocalizations.of(context)!.gainWeight,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
@@ -104,7 +107,6 @@ class LooseWeightListTile extends StatelessWidget {
     );
   }
 }
-
 
 class UserDetailsGroup extends StatelessWidget {
   const UserDetailsGroup({
@@ -130,10 +132,7 @@ class UserDetailsGroup extends StatelessWidget {
         GroupedListTile(
           color: tileColor,
           dense: false,
-          leading: PPIcon(
-            PhosphorIconsDuotone.user,
-            context,
-          ),
+          leading: PPIcon(PhosphorIconsDuotone.user, context),
           title: TextFormField(
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
@@ -158,14 +157,14 @@ class UserDetailsGroup extends StatelessWidget {
         GroupedListTile(
           color: tileColor,
           dense: false,
-          leading: PPIcon(
-            PhosphorIconsDuotone.target,
-            context,
-          ),
+          leading: PPIcon(PhosphorIconsDuotone.target, context),
           title: TextFormField(
             readOnly: true,
             initialValue: notifier.userTargetWeight != null
-                ? notifier.unit.weightToString(notifier.userTargetWeight!, notifier.unitPrecision)
+                ? notifier.unit.weightToString(
+                    notifier.userTargetWeight!,
+                    notifier.unitPrecision,
+                  )
                 : AppLocalizations.of(context)!.addTargetWeight,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
@@ -181,7 +180,8 @@ class UserDetailsGroup extends StatelessWidget {
             onTap: () async {
               await showTargetWeightDialog(
                 context: context,
-                weight: notifier.userTargetWeight ??
+                weight:
+                    notifier.userTargetWeight ??
                     Preferences().defaultUserWeight,
               );
               notifier.notify;
@@ -193,37 +193,44 @@ class UserDetailsGroup extends StatelessWidget {
         GroupedListTile(
           color: tileColor,
           dense: false,
-          leading: PPIcon(
-            PhosphorIconsDuotone.arrowsVertical,
-            context,
-          ),
+          leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
           title: TextFormField(
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(
-                RegExp(r'^[1-9][0-9]*'),
-              ),
-            ],
+            key: ValueKey<Object>((notifier.heightUnit, notifier.userHeight)),
+            keyboardType: notifier.heightUnit == TraleUnitHeight.metric
+                ? TextInputType.number
+                : TextInputType.text,
+            inputFormatters: notifier.heightUnit == TraleUnitHeight.metric
+                ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*')),
+                  ]
+                : <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'''[0-9'″" ]''')),
+                  ],
             decoration: InputDecoration(
               border: InputBorder.none,
               hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
-              hintText: AppLocalizations.of(context)!.addHeight,
-              suffixText: 'cm',
+              hintText: notifier.heightUnit == TraleUnitHeight.imperial
+                  ? '5\'11"'
+                  : AppLocalizations.of(context)!.addHeight,
+              suffixText: notifier.heightUnit.suffixText,
               labelText: AppLocalizations.of(context)!.height.inCaps,
             ),
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
             initialValue: notifier.userHeight != null
-                ? '${notifier.userHeight!.toInt()}'
+                ? notifier.heightUnit.heightToString(notifier.userHeight!)
                 : null,
             onChanged: (String value) {
-              final double? newHeight = double.tryParse(value);
+              final double? newHeight = notifier.heightUnit.parseHeight(value);
               if (newHeight != null) {
                 notifier.userHeight = newHeight;
               }
+            },
+            onEditingComplete: () {
+              onRefresh();
             },
           ),
           onTap: () {},

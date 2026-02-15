@@ -73,6 +73,9 @@ class Preferences {
   /// default unit
   final TraleUnit defaultUnit = TraleUnit.kg;
 
+  /// default height unit
+  final TraleUnitHeight defaultHeightUnit = TraleUnitHeight.metric;
+
   /// default unit precision
   final TraleUnitPrecision defaultUnitPrecision
     = TraleUnitPrecision.unitDefault;
@@ -319,6 +322,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('unitPrecision')) {
       unitPrecision = defaultUnitPrecision;
+    }
+    if (override || !prefs.containsKey('heightUnit')) {
+      heightUnit = defaultHeightUnit;
     }
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
