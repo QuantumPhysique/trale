@@ -638,6 +638,10 @@
     "@measurementHintSubtitle": {
         "description": "Subtitle explaining how to edit or delete measurements"
     },
+    "heightUnit": "Height unit",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
     "notifications": "Notifications",
     "@notifications": {
         "description": "Notifications section title in settings"

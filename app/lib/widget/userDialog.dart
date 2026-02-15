@@ -196,30 +196,42 @@ class UserDetailsGroup extends StatelessWidget {
           dense: false,
           leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
           title: TextFormField(
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*')),
-            ],
+            key: ValueKey<Object>((notifier.heightUnit, notifier.userHeight)),
+            keyboardType: notifier.heightUnit == TraleUnitHeight.metric
+                ? TextInputType.number
+                : TextInputType.text,
+            inputFormatters: notifier.heightUnit == TraleUnitHeight.metric
+                ? <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*')),
+                  ]
+                : <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'''[0-9'″" ]''')),
+                  ],
             decoration: InputDecoration(
               border: InputBorder.none,
               hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
                 color: Theme.of(context).colorScheme.onSurface,
               ),
-              hintText: AppLocalizations.of(context)!.addHeight,
-              suffixText: 'cm',
+              hintText: notifier.heightUnit == TraleUnitHeight.imperial
+                  ? '5\'11"'
+                  : AppLocalizations.of(context)!.addHeight,
+              suffixText: notifier.heightUnit.suffixText,
               labelText: AppLocalizations.of(context)!.height.inCaps,
             ),
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
             initialValue: notifier.userHeight != null
-                ? '${notifier.userHeight!.toInt()}'
+                ? notifier.heightUnit.heightToString(notifier.userHeight!)
                 : null,
             onChanged: (String value) {
-              final double? newHeight = double.tryParse(value);
+              final double? newHeight = notifier.heightUnit.parseHeight(value);
               if (newHeight != null) {
                 notifier.userHeight = newHeight;
               }
+            },
+            onEditingComplete: () {
+              onRefresh();
             },
           ),
           onTap: () {},
