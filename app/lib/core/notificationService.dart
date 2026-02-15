@@ -61,9 +61,9 @@ class NotificationService {
       tz.setLocalLocation(fallback);
     }
 
-    // Plugin setup.
+    // Plugin setup – use the monochrome trale icon for the notification tray.
     const AndroidInitializationSettings androidInit =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@drawable/ic_notification');
 
     const InitializationSettings initSettings =
         InitializationSettings(android: androidInit);
@@ -72,6 +72,11 @@ class NotificationService {
       settings: initSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
+
+    // If the app was launched by tapping a notification, the plugin already
+    // brings it to the foreground.  We call getNotificationAppLaunchDetails()
+    // so the plugin can complete the launch handshake on a cold start.
+    await _plugin.getNotificationAppLaunchDetails();
 
     _initialised = true;
   }
