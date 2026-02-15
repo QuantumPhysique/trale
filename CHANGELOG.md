@@ -24,6 +24,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Bugfix 🐛:
 - Fix broken calendar when choosing custom first Day of week option, #417 #418
 - Fix persisting popup on deleting measurements
+- Fix updating target weight in user dialog
 
 
 ## [0.15.1] - 2026-02-03
