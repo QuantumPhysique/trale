@@ -69,7 +69,8 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
 
   // Build sigma list (same logic as the getter on the base class).
   final List<double> sigma = List<double>.generate(p.n, (int i) {
-    final double s = p.isMeasurementData[i] * p.strengthMeasurement +
+    final double s =
+        p.isMeasurementData[i] * p.strengthMeasurement +
         p.isNoMeasurementData[i] * p.strengthInterpol;
     return s * dayInMs;
   });
@@ -128,7 +129,10 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
 
   /// Linear regression extrapolation using Gaussian-weighted moments.
   List<double> linearRegression(
-    List<double> w, double tRef, int startIdx, int endIdx,
+    List<double> w,
+    double tRef,
+    int startIdx,
+    int endIdx,
   ) {
     final List<double> gw = gaussianWeights(tRef, w);
     double meanW = 0, meanT = 0;
@@ -160,11 +164,16 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
       return out;
     }
     final List<double> initExtrapol = linearRegression(
-      w, p.timesData[p.offsetInDays], 0, p.offsetInDays,
+      w,
+      p.timesData[p.offsetInDays],
+      0,
+      p.offsetInDays,
     );
     final List<double> finalExtrapol = linearRegression(
-      w, p.timesData[p.n - p.offsetInDays],
-      p.n - p.offsetInDays, p.n,
+      w,
+      p.timesData[p.n - p.offsetInDays],
+      p.n - p.offsetInDays,
+      p.n,
     );
     for (int i = 0; i < p.offsetInDays; i++) {
       out[i] = initExtrapol[i];
@@ -184,8 +193,7 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
         final double s = sigma[j];
         final double diff = p.timesData[j] - t;
         final double gaussVal =
-            math.exp(-diff * diff / (2 * s * s)) /
-            (s * math.sqrt(2 * math.pi));
+            math.exp(-diff * diff / (2 * s * s)) / (s * math.sqrt(2 * math.pi));
         final double val =
             gaussVal *
             (p.isMeasurementData[j] * p.interpolWeight +
@@ -211,19 +219,22 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
   // ---- Pass 2: weightsGaussianExtrapol ----
   final List<double> linInterp2 = linearInterpolation(weightsSmoothed);
   final List<double> weightsLinExtrapol = linearExtrapolation(linInterp2);
-  final List<double> weightsGaussianExtrapol =
-      gaussianInterpolation(weightsLinExtrapol);
+  final List<double> weightsGaussianExtrapol = gaussianInterpolation(
+    weightsLinExtrapol,
+  );
 
   // ---- weightsDisplay ----
   List<double> weightsDisplay;
   if (p.interpolStrengthIsNone) {
-    final List<double> wLinear =
-        linearInterpolation(p.weightsData)
-            .sublist(p.offsetInDays, p.n - p.offsetInDays);
+    final List<double> wLinear = linearInterpolation(
+      p.weightsData,
+    ).sublist(p.offsetInDays, p.n - p.offsetInDays);
     // finalSlope for extrapolation
     final int idxLast = p.n - 1 - p.offsetInDays;
     final double fSlope = slope(
-      idxLast, idxLast + p.offsetInDaysShown, weightsGaussianExtrapol,
+      idxLast,
+      idxLast + p.offsetInDaysShown,
+      weightsGaussianExtrapol,
     );
     weightsDisplay = List<double>.from(wLinear);
     for (int i = 1; i <= p.offsetInDaysShown; i++) {
@@ -323,10 +334,14 @@ class MeasurementInterpolationBaseclass {
 
     // Store the results.
     _weightsSmoothed = Vector.fromList(result.weightsSmoothed, dtype: dtype);
-    _weightsLinExtrapol =
-        Vector.fromList(result.weightsLinExtrapol, dtype: dtype);
-    _weightsGaussianExtrapol =
-        Vector.fromList(result.weightsGaussianExtrapol, dtype: dtype);
+    _weightsLinExtrapol = Vector.fromList(
+      result.weightsLinExtrapol,
+      dtype: dtype,
+    );
+    _weightsGaussianExtrapol = Vector.fromList(
+      result.weightsGaussianExtrapol,
+      dtype: dtype,
+    );
     _weightsDisplay = Vector.fromList(result.weightsDisplay, dtype: dtype);
 
     // Derive remaining display vectors (cheap subvector / offset ops).
