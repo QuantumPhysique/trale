@@ -104,7 +104,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
-    final ml.Vector msTimes = ip.times_measured;
+    final ml.Vector msTimes = ip.timesMeasured;
     final ml.Vector interpolTimes = ip.timesDisplay;
 
     // scale to unit
@@ -114,11 +114,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
     ).unit.scaling;
 
     final ml.Vector ms = widget.loadedFirst
-        ? ml.Vector.filled(
-            ip.weights_measured.length,
-            ip.weights_measured.mean(),
-          )
-        : ip.weights_measured;
+        ? ml.Vector.filled(ip.weightsMeasured.length, ip.weightsMeasured.mean())
+        : ip.weightsMeasured;
     final ml.Vector interpol = widget.loadedFirst
         ? ml.Vector.filled(
             ip.weightsDisplay.length,

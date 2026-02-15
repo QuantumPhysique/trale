@@ -265,11 +265,23 @@ class GroupedRadioListTile<T> extends StatelessWidget {
 
   /// Whether feedback (sound/haptic) is enabled.
   final bool? enableFeedback;
+
+  /// Scale factor for the radio button.
   final double radioScaleFactor;
+
+  /// Title alignment within the list tile.
   final ListTileTitleAlignment? titleAlignment;
+
+  /// Whether the tile is enabled.
   final bool? enabled;
+
+  /// Whether to add internal semantics for tap events.
   final bool internalAddSemanticForOnTap;
+
+  /// Background color of the radio button.
   final WidgetStateProperty<Color?>? radioBackgroundColor;
+
+  /// Border side of the radio button.
   final BorderSide? radioSide;
 
   /// Background color of the grouped radio tile

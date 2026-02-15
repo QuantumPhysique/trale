@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:intl/intl.dart';
 
 /// Enum for available date formats
@@ -12,6 +13,7 @@ enum TraleDatePrintFormat {
   ddMMyyyy,
 
   /// MM/dd/yyyy format (e.g., 10/26/2024)
+  // ignore: constant_identifier_names
   MMddyyyy,
 
   /// dd.MM.yyyy format (e.g., 26.10.2024)
@@ -45,10 +47,12 @@ extension TraleDateFormatExtension on TraleDatePrintFormat {
         TraleDatePrintFormat.iso8601: 'MM-dd',
       };
 
-  /// Get the pattern associated with each format option, using a custom format if provided
+  /// Get the pattern associated with each format option,
+  /// using a custom format if provided
   String? get pattern => _patternMapping[this];
 
-  /// Get the pattern associated with each format option, using a custom format if provided
+  /// Get the pattern associated with each format option,
+  /// using a custom format if provided
   String? get patternShort => _patternMappingShort[this];
 
   /// Format a DateTime object according to the selected format

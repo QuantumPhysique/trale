@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:convert';
 import 'dart:math' as math;
 
@@ -107,7 +108,9 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
     final List<double> gw = List<double>.filled(p.n, 0);
     double total = 0;
     for (int j = 0; j < p.n; j++) {
-      if (w[j] <= 0) continue;
+      if (w[j] <= 0) {
+        continue;
+      }
       final double s = sigma[j];
       final double diff = p.timesData[j] - tRef;
       final double gaussVal =
@@ -185,11 +188,15 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
   List<double> gaussianInterpolation(List<double> w) {
     final List<double> result = List<double>.filled(p.n, 0);
     for (int idx = 0; idx < p.n; idx++) {
-      if (w[idx] == 0) continue;
+      if (w[idx] == 0) {
+        continue;
+      }
       final double t = p.timesData[idx];
       double weightedSum = 0, normSum = 0;
       for (int j = 0; j < p.n; j++) {
-        if (w[j] <= 0) continue;
+        if (w[j] <= 0) {
+          continue;
+        }
         final double s = sigma[j];
         final double diff = p.timesData[j] - t;
         final double gaussVal =
@@ -257,10 +264,12 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
 
 /// Base class for measurement interpolation
 class MeasurementInterpolationBaseclass {
+  /// Creates a [MeasurementInterpolationBaseclass] and calls [init].
   MeasurementInterpolationBaseclass() {
     init();
   }
 
+  /// The underlying measurement database.
   MeasurementDatabaseBaseclass get db => MeasurementDatabaseBaseclass();
 
   /// get interpolation strength values
@@ -271,9 +280,9 @@ class MeasurementInterpolationBaseclass {
     _dateTimes = null;
     _times = null;
     _timesIdx = null;
-    _times_measured = null;
+    _timesMeasured = null;
     _timesDisplay = null;
-    _weights_measured = null;
+    _weightsMeasured = null;
     _weights = null;
     _weightsDisplay = null;
     _isNoMeasurement = null;
@@ -294,9 +303,9 @@ class MeasurementInterpolationBaseclass {
     _dateTimes = null;
     _times = null;
     _timesIdx = null;
-    _times_measured = null;
+    _timesMeasured = null;
     _timesDisplay = null;
-    _weights_measured = null;
+    _weightsMeasured = null;
     _weights = null;
     _weightsDisplay = null;
     _isNoMeasurement = null;
@@ -311,7 +320,9 @@ class MeasurementInterpolationBaseclass {
     times;
     weights;
 
-    if (N == 0) return;
+    if (N == 0) {
+      return;
+    }
 
     // Ship the full pipeline to a background isolate.
     final _InterpolationResult result = await compute(
@@ -361,10 +372,11 @@ class MeasurementInterpolationBaseclass {
   static const DType dtype = DType.float64;
 
   /// length of vectors
+  // ignore: non_constant_identifier_names
   int get N => times.length;
 
   /// length of displayed vectors
-  int get NDisplay => timesDisplay.length;
+  int get nDisplay => timesDisplay.length;
 
   List<DateTime>? _dateTimes;
 
@@ -391,7 +403,7 @@ class MeasurementInterpolationBaseclass {
   }
 
   /// number of measurements
-  int get NMeasurements => times_measured.length;
+  int get nMeasurements => timesMeasured.length;
 
   /// time span of measurements
   int get measuredTimeSpan => N == 0 ? 0 : N - 2 * _offsetInDays;
@@ -400,7 +412,7 @@ class MeasurementInterpolationBaseclass {
   int get idxLast => N - 1 - _offsetInDays;
 
   /// idx of last displayed measurement
-  int get idxLastDisplay => NDisplay - 1 - _offsetInDaysShown;
+  int get idxLastDisplay => nDisplay - 1 - _offsetInDaysShown;
 
   Vector? _times;
 
@@ -416,7 +428,7 @@ class MeasurementInterpolationBaseclass {
     }
     // set isExtrapolated
     _isExtrapolated = Vector.fromList(
-      List.generate(
+      List<int>.generate(
         dts.length,
         (int idx) =>
             ((idx < _offsetInDays) || (idx + 1 > dts.length - _offsetInDays))
@@ -436,10 +448,10 @@ class MeasurementInterpolationBaseclass {
   List<int> get timesIdx =>
       _timesIdx ??= List<int>.generate(N, (int idx) => idx);
 
-  Vector? _times_measured;
+  Vector? _timesMeasured;
 
   /// get vector containing the times of the measurements
-  Vector get times_measured => _times_measured ??= _createTimesMeasured();
+  Vector get timesMeasured => _timesMeasured ??= _createTimesMeasured();
 
   /// create vector of all measurements time stamps
   Vector _createTimesMeasured() {
@@ -448,10 +460,10 @@ class MeasurementInterpolationBaseclass {
     ], dtype: dtype);
   }
 
-  Vector? _weights_measured;
+  Vector? _weightsMeasured;
 
   /// get vector containing the weights of the measurements [kg]
-  Vector get weights_measured => _weights_measured ??= _createWeightsMeasured();
+  Vector get weightsMeasured => _weightsMeasured ??= _createWeightsMeasured();
 
   /// create vector of all measurements weights
   Vector _createWeightsMeasured() {
@@ -701,9 +713,9 @@ class MeasurementInterpolationBaseclass {
   ], dtype: dtype);
 
   /// get time span between first and last measurement
-  Duration get measurementDuration => times_measured.isNotEmpty
+  Duration get measurementDuration => timesMeasured.isNotEmpty
       ? Duration(
-          milliseconds: (times_measured.last - times_measured.first).round(),
+          milliseconds: (timesMeasured.last - timesMeasured.first).round(),
         )
       : Duration.zero;
 
@@ -777,17 +789,27 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   bool _loadFromCache() {
     try {
       final String? cached = Preferences().prefs.getString(_cacheKey);
-      if (cached == null) return false;
+      if (cached == null) {
+        return false;
+      }
 
       final Map<String, dynamic> map =
           jsonDecode(cached) as Map<String, dynamic>;
 
       // Validate cache matches current state
-      if (map['version'] != _cacheVersion) return false;
-      if (map['nMeasurements'] != db.nMeasurements) return false;
-      if (map['interpolStrength'] != interpolStrength.name) return false;
+      if (map['version'] != _cacheVersion) {
+        return false;
+      }
+      if (map['nMeasurements'] != db.nMeasurements) {
+        return false;
+      }
+      if (map['interpolStrength'] != interpolStrength.name) {
+        return false;
+      }
 
-      if (db.nMeasurements == 0) return false;
+      if (db.nMeasurements == 0) {
+        return false;
+      }
 
       if (map['firstDateMs'] != db.firstDate.millisecondsSinceEpoch) {
         return false;
@@ -810,8 +832,8 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
       _idxsMeasurements = (map['idxsMeasurements'] as List<dynamic>)
           .map((dynamic e) => (e as num).toInt())
           .toList();
-      _times_measured = _vectorFromJson(map['timesMeasured']);
-      _weights_measured = _vectorFromJson(map['weightsMeasured']);
+      _timesMeasured = _vectorFromJson(map['timesMeasured']);
+      _weightsMeasured = _vectorFromJson(map['weightsMeasured']);
       _weightsSmoothed = _vectorFromJson(map['weightsSmoothed']);
       _weightsLinExtrapol = _vectorFromJson(map['weightsLinExtrapol']);
       _weightsGaussianExtrapol = _vectorFromJson(
@@ -849,8 +871,8 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
         'weights': weights.toList(),
         'isMeasurement': isMeasurement.toList(),
         'idxsMeasurements': idxsMeasurements,
-        'timesMeasured': times_measured.toList(),
-        'weightsMeasured': weights_measured.toList(),
+        'timesMeasured': timesMeasured.toList(),
+        'weightsMeasured': weightsMeasured.toList(),
         'weightsSmoothed': weightsSmoothed.toList(),
         'weightsLinExtrapol': weightsLinExtrapol.toList(),
         'weightsGaussianExtrapol': weightsGaussianExtrapol.toList(),
@@ -865,7 +887,9 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
 
   /// Deserialize a JSON list back into a Vector.
   static Vector _vectorFromJson(dynamic json) {
-    if (json == null) return Vector.empty();
+    if (json == null) {
+      return Vector.empty();
+    }
     final List<double> list = (json as List<dynamic>)
         .map((dynamic e) => (e as num).toDouble())
         .toList();

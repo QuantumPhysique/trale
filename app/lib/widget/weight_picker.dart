@@ -246,8 +246,11 @@ class RulerPicker extends StatefulWidget {
 class RulerPickerState extends State<RulerPicker> {
   late final ScrollController _scrollController;
 
+  /// Width in logical pixels of each ruler tick.
   // Tick visuals
   final double tickWidth = 10.0;
+
+  /// Current weight value selected by the picker.
   late num weightValue = widget.value;
 
   @override

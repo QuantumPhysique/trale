@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
@@ -43,7 +44,9 @@ class NotificationService {
   /// Initialise the plugin and the timezone database.
   /// Call once at app start (in `main()`).
   Future<void> init() async {
-    if (_initialised) return;
+    if (_initialised) {
+      return;
+    }
 
     // Timezone setup.
     tz.initializeTimeZones();
@@ -94,7 +97,9 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin
         >();
-    if (androidPlugin == null) return false;
+    if (androidPlugin == null) {
+      return false;
+    }
     final bool? granted = await androidPlugin.requestNotificationsPermission();
     return granted ?? false;
   }
@@ -106,7 +111,9 @@ class NotificationService {
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin
         >();
-    if (androidPlugin == null) return false;
+    if (androidPlugin == null) {
+      return false;
+    }
     final bool? granted = await androidPlugin.requestExactAlarmsPermission();
     return granted ?? false;
   }
@@ -178,7 +185,9 @@ class NotificationService {
     final Preferences prefs = Preferences();
     await prefs.loaded;
 
-    if (!prefs.reminderEnabled) return;
+    if (!prefs.reminderEnabled) {
+      return;
+    }
 
     final MeasurementDatabase db = MeasurementDatabase();
     final bool loggedToday =

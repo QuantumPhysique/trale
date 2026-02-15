@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:ml_linalg/vector.dart';
@@ -50,13 +51,13 @@ class MeasurementStats {
   }
 
   /// get max weight
-  double? get maxWeight => ip.weights_measured.max();
+  double? get maxWeight => ip.weightsMeasured.max();
 
   /// get min weight
-  double? get minWeight => ip.weights_measured.min();
+  double? get minWeight => ip.weightsMeasured.min();
 
   /// get min weight
-  double? get meanWeight => ip.weights_measured.mean();
+  double? get meanWeight => ip.weightsMeasured.mean();
 
   /// get current BMI
   double? currentBMI(BuildContext context) {
@@ -67,20 +68,20 @@ class MeasurementStats {
     if (notifier.userHeight == null) {
       return null;
     }
-    return ip.weights_measured.last /
+    return ip.weightsMeasured.last /
         (notifier.userHeight! * notifier.userHeight! * 0.0001);
   }
 
   /// get total change in weight
   double? get deltaWeight =>
-      maxWeight == null ? null : maxWeight! - ip.weights_measured.last;
+      maxWeight == null ? null : maxWeight! - ip.weightsMeasured.last;
 
   /// the start of the first measurement until now
   /// get time of records
   Duration get deltaTime => DateTime.now().difference(db.firstDate);
 
   /// get number of measurements
-  int get nMeasurements => ip.NMeasurements;
+  int get nMeasurements => ip.nMeasurements;
 
   /// get current streak
   Duration get currentStreak => db.lastDate.sameDay(DateTime.now())
@@ -116,7 +117,7 @@ class MeasurementStats {
 
     /// count number of measurements in the last n days
     int numberOfMeasurements = 0;
-    for (final double time in ip.times_measured.toList()) {
+    for (final double time in ip.timesMeasured.toList()) {
       if (time >= startingTime) {
         numberOfMeasurements += 1;
       }

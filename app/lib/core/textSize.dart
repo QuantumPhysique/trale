@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
 /// function to measure size of text widget
@@ -10,7 +11,7 @@ Size sizeOfText({
   return (TextPainter(
     text: TextSpan(text: text, style: style),
     maxLines: 1,
-    textScaleFactor: MediaQuery.of(context).textScaleFactor,
+    textScaler: MediaQuery.textScalerOf(context),
     textDirection: Directionality.of(context),
   )..layout()).size;
 }

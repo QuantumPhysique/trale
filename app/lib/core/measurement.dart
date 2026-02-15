@@ -110,7 +110,7 @@ class Measurement {
     final List<String> strings = exportString.split(' ');
 
     if (strings.length != 2) {
-      print('error with parsing measurement!');
+      debugPrint('error with parsing measurement!');
     }
 
     return Measurement(
