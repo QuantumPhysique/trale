@@ -7,6 +7,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
+import 'package:trale/core/notificationService.dart';
 import 'package:trale/main.dart';
 
 /// Extend DateTime for faster comparison
@@ -124,6 +125,8 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     if (!isContained) {
       box.add(m);
       await reinit();
+      // Cancel today's reminder notification since we just logged a measurement.
+      NotificationService().cancelTodayIfMeasured();
     }
     return !isContained;
   }

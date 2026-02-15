@@ -12,6 +12,7 @@ class WidgetGroup extends StatelessWidget {
     this.title,
     this.titleStyle,
     this.direction = Axis.vertical,
+    this.scrollable = false,
   }) : itemBuilder = null,
        itemCount = null;
 
@@ -22,6 +23,7 @@ class WidgetGroup extends StatelessWidget {
     this.title,
     this.titleStyle,
     this.direction = Axis.vertical,
+    this.scrollable = false,
   }) : children = const <Widget>[];
 
   /// List of GroupedWidgets to display in the group
@@ -41,6 +43,9 @@ class WidgetGroup extends StatelessWidget {
 
   /// Vertical or horizontal layout
   final Axis direction;
+
+  /// Whether the content should be scrollable along [direction].
+  final bool scrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +88,22 @@ class WidgetGroup extends StatelessWidget {
             color: Colors.transparent,
             shape: TraleTheme.of(context)!.borderShape,
             clipBehavior: Clip.antiAlias,
-            child: Flex(
-              spacing: gap,
-              direction: direction,
-              mainAxisSize: MainAxisSize.min,
-              children: effectiveChildren,
-            ),
+            child: scrollable
+                ? SingleChildScrollView(
+                    scrollDirection: direction,
+                    child: Flex(
+                      spacing: gap,
+                      direction: direction,
+                      mainAxisSize: MainAxisSize.min,
+                      children: effectiveChildren,
+                    ),
+                  )
+                : Flex(
+                    spacing: gap,
+                    direction: direction,
+                    mainAxisSize: MainAxisSize.min,
+                    children: effectiveChildren,
+                  ),
           ),
         ],
       ),
@@ -420,6 +435,73 @@ class GroupedSwitchListTile extends StatelessWidget {
         splashRadius: splashRadius,
         thumbColor: thumbColor,
         trackColor: trackColor,
+      ),
+    );
+  }
+}
+
+/// Squared selectable chip for use inside a horizontal [WidgetGroup].
+///
+/// Unselected: rounded-rectangle shape ([TraleTheme.innerBorderShape]).
+/// Selected: circle shape with the primary colour.
+///
+/// The border-radius animates smoothly between the two states.
+class GroupedChip extends StatelessWidget {
+  const GroupedChip({
+    super.key,
+    required this.selected,
+    required this.onSelected,
+    required this.child,
+    this.size = 56,
+    this.color,
+  });
+
+  /// Whether the chip is currently selected.
+  final bool selected;
+
+  /// Called when the chip is tapped.
+  final ValueChanged<bool> onSelected;
+
+  /// Content displayed at the centre of the chip (typically a [Text]).
+  final Widget child;
+
+  /// Side length of the squared chip.
+  final double size;
+
+  /// Background colour when unselected. Defaults to [ColorScheme.surfaceContainer].
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    final TraleTheme theme = TraleTheme.of(context)!;
+    final ColorScheme colors = Theme.of(context).colorScheme;
+
+    // Use RoundedRectangleBorder for both states so Flutter can lerp
+    // smoothly between inner border radius and a full circle.
+    final RoundedRectangleBorder shape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(
+        selected ? size / 2 : theme.innerBorderRadius,
+      ),
+    );
+
+    return SizedBox.square(
+      dimension: size,
+      child: AnimatedContainer(
+        duration: theme.transitionDuration.normal,
+        curve: Curves.easeInOutCubic,
+        decoration: ShapeDecoration(
+          color: selected ? colors.primary : (color ?? colors.surfaceContainer),
+          shape: shape,
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            customBorder: shape,
+            onTap: () => onSelected(!selected),
+            child: Center(child: child),
+          ),
+        ),
       ),
     );
   }

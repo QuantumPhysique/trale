@@ -9,6 +9,7 @@ import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settingsPersonalization.dart';
 import 'package:trale/pages/settings_export.dart';
 import 'package:trale/pages/settings_language.dart';
+import 'package:trale/pages/settings_reminder.dart';
 import 'package:trale/pages/settings_theme.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
@@ -63,6 +64,22 @@ class SettingsOverviewPage extends StatelessWidget {
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context)
                   => const LanguageSettingsPage(),
+              ),
+            ),
+          ),
+        ],
+      ),
+      WidgetGroup(
+        title: AppLocalizations.of(context)!.notifications,
+        children: <Widget>[
+          _SettingsTile(
+            icon: PhosphorIconsDuotone.bellRinging,
+            title: AppLocalizations.of(context)!.reminderTitle,
+            subtitle: AppLocalizations.of(context)!.reminderSubtitle,
+            onTap: () => Navigator.of(context).push<dynamic>(
+              MaterialPageRoute<Widget>(
+                builder: (BuildContext context)
+                  => const ReminderSettingsPage(),
               ),
             ),
           ),
