@@ -314,6 +314,10 @@
     "@interpolation": {
         "description": "interpolation"
     },
+    "showUserData": "show my data",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
     "personalization": "personalization",
     "@personalization": {
         "description": "personalization"
