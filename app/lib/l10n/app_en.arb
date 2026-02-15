@@ -638,11 +638,10 @@
     "@measurementHintSubtitle": {
         "description": "Subtitle explaining how to edit or delete measurements"
     },
-<<<<<<< HEAD
     "heightUnit": "Height unit",
     "@heightUnit": {
         "description": "Label for height unit selection"
-=======
+    },
     "notifications": "Notifications",
     "@notifications": {
         "description": "Notifications section title in settings"
@@ -686,6 +685,5 @@
     "reminderNotificationBody": "You haven't logged your weight today yet.",
     "@reminderNotificationBody": {
         "description": "Body text of the reminder notification"
->>>>>>> 118ee1aa4b15447a40fde488425b9a44f84daee1
     }
 }
