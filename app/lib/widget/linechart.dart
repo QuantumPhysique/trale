@@ -136,7 +136,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final Color measurementLineColor =
         widget.measurementLineColor ?? colorScheme.primary;
     final Color measurementDotStrokeColor =
-        widget.measurementDotStrokeColor ?? colorScheme.onSurface;
+        widget.measurementDotStrokeColor ?? Colors.transparent;
     final Color targetWeightLineColor =
         widget.targetWeightLineColor ?? colorScheme.tertiary;
     final Color targetWeightLabelTextColor =
@@ -329,10 +329,12 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       LineChartBarData barData,
                       int index,
                     ) => FlDotCirclePainter(
-                      radius: max<double>(
-                        5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
-                        1,
-                      ),
+                      radius:
+                          max<double>(
+                            5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
+                            1.0,
+                          ) +
+                          0.4,
                       color: measurementLineColor,
                       strokeColor: measurementDotStrokeColor,
                       strokeWidth: 0.2,
