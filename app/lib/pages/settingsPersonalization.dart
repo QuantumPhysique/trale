@@ -88,7 +88,7 @@ class _PersonalizationSettingsPageState
               ip: useUserData
                   ? MeasurementInterpolation()
                   : PreviewInterpolation(),
-              isPreview: !useUserData,
+              isPreview: true,
               relativeHeight: 0.25,
               backgroundColor: Theme.of(
                 context,
