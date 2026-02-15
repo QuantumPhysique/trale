@@ -9,10 +9,12 @@ import 'package:trale/widget/fade_in_effect.dart';
 
 /// Define empty Chart, which is used in case there are no measurements yet
 Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
-  final int animationDurationInMilliseconds =
-      TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds;
-  final int firstDelayInMilliseconds =
-      TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds;
+  final int animationDurationInMilliseconds = TraleTheme.of(
+    context,
+  )!.transitionDuration.slow.inMilliseconds;
+  final int firstDelayInMilliseconds = TraleTheme.of(
+    context,
+  )!.transitionDuration.normal.inMilliseconds;
 
   return AnimateInEffect(
     durationInMilliseconds: animationDurationInMilliseconds,
@@ -30,8 +32,8 @@ Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
         ),
         child: FadeInEffect(
           durationInMilliseconds: animationDurationInMilliseconds,
-          delayInMilliseconds: firstDelayInMilliseconds +
-          animationDurationInMilliseconds,
+          delayInMilliseconds:
+              firstDelayInMilliseconds + animationDurationInMilliseconds,
           child: Center(
             child: RichText(
               text: TextSpan(
@@ -49,30 +51,24 @@ Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
 
 /// Define the default empty Chart,
 /// which is used in case there are no measurements yet.
-Widget defaultEmptyChart({required BuildContext context,
-                          bool overviewScreen = false}) {
+Widget defaultEmptyChart({
+  required BuildContext context,
+  bool overviewScreen = false,
+}) {
   List<InlineSpan> inlineSpan;
-  if (overviewScreen){
+  if (overviewScreen) {
     inlineSpan = <InlineSpan>[
-      TextSpan(
-        text: AppLocalizations.of(context)!.intro1,
-      ),
+      TextSpan(text: AppLocalizations.of(context)!.intro1),
       WidgetSpan(
         child: PPIcon(PhosphorIconsDuotone.plusCircle, context),
         alignment: PlaceholderAlignment.middle,
       ),
-      TextSpan(
-        text: AppLocalizations.of(context)!.intro2,
-      ),
+      TextSpan(text: AppLocalizations.of(context)!.intro2),
     ];
-  } else{
+  } else {
     inlineSpan = <InlineSpan>[
-      TextSpan(
-        text: AppLocalizations.of(context)!.intro3,
-      ),
-      const TextSpan(
-          text: '\n\n😃'
-      ),
+      TextSpan(text: AppLocalizations.of(context)!.intro3),
+      const TextSpan(text: '\n\n😃'),
     ];
   }
   return emptyChart(context, inlineSpan);

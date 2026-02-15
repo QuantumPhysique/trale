@@ -91,7 +91,9 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
         ),
       ),
       Container(
-        padding: EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
+        padding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
         child: WidgetGroup(
           children: <GroupedText>[
             for (final String fmt in <String>[
@@ -250,8 +252,8 @@ class ResetListTile extends StatelessWidget {
       title: AutoSizeText(
         AppLocalizations.of(context)!.factoryReset,
         style: Theme.of(context).textTheme.bodyLarge!.apply(
-              color: Theme.of(context).colorScheme.onErrorContainer,
-            ),
+          color: Theme.of(context).colorScheme.onErrorContainer,
+        ),
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
@@ -260,11 +262,15 @@ class ResetListTile extends StatelessWidget {
       subtitle: AutoSizeText(
         AppLocalizations.of(context)!.factoryResetSubtitle,
         style: Theme.of(context).textTheme.labelSmall!.apply(
-              color: Theme.of(context).colorScheme.onErrorContainer,
-            ),
+          color: Theme.of(context).colorScheme.onErrorContainer,
+        ),
       ),
       trailing: IconButton(
-        icon: PPIcon(PhosphorIconsDuotone.trash, context, duotoneSecondaryColor: Theme.of(context).colorScheme.onError),
+        icon: PPIcon(
+          PhosphorIconsDuotone.trash,
+          context,
+          duotoneSecondaryColor: Theme.of(context).colorScheme.onError,
+        ),
         onPressed: () async {
           final bool accepted =
               await showDialog<bool>(

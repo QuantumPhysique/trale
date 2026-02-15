@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 /// SliverAppBar which prevents scrolling if not needed
 class CustomSliverAppBar extends StatefulWidget {
   /// constructor
-  const CustomSliverAppBar({super.key,
-    this.pinned=true,
-    this.snap=false,
-    this.floating=false,
-    this.centerTitle=true,
-    this.automaticallyImplyLeading=true,
+  const CustomSliverAppBar({
+    super.key,
+    this.pinned = true,
+    this.snap = false,
+    this.floating = false,
+    this.centerTitle = true,
+    this.automaticallyImplyLeading = true,
     this.forceElevated = false,
     this.leading,
     this.title,
@@ -21,28 +22,40 @@ class CustomSliverAppBar extends StatefulWidget {
 
   /// if AppBar is sticky
   final bool pinned;
+
   /// if title should be centered
   final bool centerTitle;
+
   /// floating
   final bool floating;
+
   /// snap
   final bool snap;
+
   /// force shadow
   final bool forceElevated;
+
   ///
   final bool automaticallyImplyLeading;
+
   /// leading widget
   final Widget? leading;
+
   /// title widget
   final Widget? title;
+
   /// trailing widgets
   final List<Widget>? actions;
+
   /// background color
   final Color? backgroundColor;
+
   /// expanded height
   final double? expandedHeight;
+
   /// collapsed height
   final double? collapsedHeight;
+
   /// flexible space
   final Widget? flexibleSpace;
 

@@ -59,13 +59,13 @@ extension TraleFirstDayExtension on TraleFirstDay {
   }
 
   /// Converts DateTime weekday to TraleFirstDay enum
-  static TraleFirstDay fromDateTimeWeekday(int weekday) =>
-      _weekdayMapping.entries
-          .firstWhere(
-            (MapEntry<TraleFirstDay, int?> entry) => entry.value == weekday,
-            orElse: () => const MapEntry(TraleFirstDay.sunday, DateTime.sunday),
-          )
-          .key;
+  static TraleFirstDay fromDateTimeWeekday(int weekday) => _weekdayMapping
+      .entries
+      .firstWhere(
+        (MapEntry<TraleFirstDay, int?> entry) => entry.value == weekday,
+        orElse: () => const MapEntry(TraleFirstDay.sunday, DateTime.sunday),
+      )
+      .key;
 }
 
 extension TraleFirstDayParsing on String {

@@ -34,18 +34,18 @@ class WeightList extends StatefulWidget {
   _WeightList createState() => _WeightList();
 }
 
-class _WeightList extends State<WeightList>{
+class _WeightList extends State<WeightList> {
   double heightFactor = 1.5;
   int? activeListTile;
 
   void onScrollEvent() {
-    if (activeListTile != null){
+    if (activeListTile != null) {
       setState(() => activeListTile = null);
     }
   }
 
   void onTabChangeEvent() {
-    if (activeListTile != null){
+    if (activeListTile != null) {
       setState(() => activeListTile = null);
     }
   }
@@ -67,8 +67,7 @@ class _WeightList extends State<WeightList>{
 
   @override
   Widget build(BuildContext context) {
-
-    void updateActiveListTile(int? key){
+    void updateActiveListTile(int? key) {
       setState(() {
         activeListTile = key;
       });
@@ -81,7 +80,9 @@ class _WeightList extends State<WeightList>{
           updateActiveState: updateActiveListTile,
           activeKey: activeListTile,
           offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
-          durationInMilliseconds: TraleTheme.of(context)!.transitionDuration.slow.inMilliseconds,
+          durationInMilliseconds: TraleTheme.of(
+            context,
+          )!.transitionDuration.slow.inMilliseconds,
         ),
         childCount: widget.measurements.length,
         addAutomaticKeepAlives: true,
@@ -89,7 +90,6 @@ class _WeightList extends State<WeightList>{
     );
   }
 }
-
 
 /// A list of all measurements sorted by year.
 class TotalWeightList extends StatefulWidget {
@@ -112,20 +112,21 @@ class TotalWeightList extends StatefulWidget {
   _TotalWeightList createState() => _TotalWeightList();
 }
 
-class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderStateMixin{
+class _TotalWeightList extends State<TotalWeightList>
+    with SingleTickerProviderStateMixin {
   double heightFactor = 1.5;
   int? activeListTile;
   Timer? _bannerTimer;
   late final AnimationController _bannerController;
 
   void onScrollEvent() {
-    if (activeListTile != null){
+    if (activeListTile != null) {
       setState(() => activeListTile = null);
     }
   }
 
   void onTabChangeEvent() {
-    if (activeListTile != null){
+    if (activeListTile != null) {
       setState(() => activeListTile = null);
     }
   }
@@ -144,8 +145,10 @@ class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderS
     );
 
     WidgetsBinding.instance.addPostFrameCallback((Duration _) {
-      final TraleNotifier notifier =
-        Provider.of<TraleNotifier>(context, listen: false);
+      final TraleNotifier notifier = Provider.of<TraleNotifier>(
+        context,
+        listen: false,
+      );
       if (!notifier.showMeasurementHintBanner) {
         return;
       }
@@ -163,8 +166,9 @@ class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderS
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bannerController.duration =
-      TraleTheme.of(context)!.transitionDuration.normal;
+    _bannerController.duration = TraleTheme.of(
+      context,
+    )!.transitionDuration.normal;
   }
 
   @override
@@ -186,22 +190,21 @@ class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderS
 
     final List<int> years = <int>[
       for (
-      int year= measurements.first.measurement.date.year;
-      year >= measurements.last.measurement.date.year;
-      year--
+        int year = measurements.first.measurement.date.year;
+        year >= measurements.last.measurement.date.year;
+        year--
       )
-        year
+        year,
     ];
 
     final Map<int, List<SortedMeasurement>> measurementsPerYear =
-    <int, List<SortedMeasurement>>{
-      for (final int year in years)
-        year: <SortedMeasurement>[
-          for (final SortedMeasurement m in measurements)
-            if (m.measurement.date.year == year)
-              m
-        ]
-    };
+        <int, List<SortedMeasurement>>{
+          for (final int year in years)
+            year: <SortedMeasurement>[
+              for (final SortedMeasurement m in measurements)
+                if (m.measurement.date.year == year) m,
+            ],
+        };
 
     return CustomScrollView(
       controller: widget.scrollController,
@@ -214,82 +217,88 @@ class _TotalWeightList extends State<TotalWeightList> with SingleTickerProviderS
               curve: Curves.easeOut,
             ),
             axisAlignment: -1.0,
-            child: !showBanner ? const SizedBox.shrink() : Padding(
-              padding: EdgeInsets.fromLTRB(
-                TraleTheme.of(context)!.padding,
-                TraleTheme.of(context)!.padding,
-                TraleTheme.of(context)!.padding,
-                0,
-              ),
-              child: Dismissible(
-                key: const Key('measurement_hint_banner'),
-                direction: DismissDirection.horizontal,
-                onDismissed: (DismissDirection direction) {
-                  notifier.showMeasurementHintBanner = false;
-                },
-                child: Material(
-                  elevation: 0,
-                  borderRadius: BorderRadius.circular(4),
-                  color: Theme.of(context).colorScheme.inverseSurface,
-                  child: Padding(
-                    padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          PhosphorIconsBold.info,
-                          color: Theme.of(context).colorScheme.onInverseSurface,
-                          size: 20,
-                        ),
-                        SizedBox(width:  TraleTheme.of(context)!.padding),
-                        Expanded(
-                          child: Text(
-                            AppLocalizations.of(context)!.measurementHintSubtitle,
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: Theme.of(context).colorScheme.onInverseSurface,
-                            ),
+            child: !showBanner
+                ? const SizedBox.shrink()
+                : Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      TraleTheme.of(context)!.padding,
+                      TraleTheme.of(context)!.padding,
+                      TraleTheme.of(context)!.padding,
+                      0,
+                    ),
+                    child: Dismissible(
+                      key: const Key('measurement_hint_banner'),
+                      direction: DismissDirection.horizontal,
+                      onDismissed: (DismissDirection direction) {
+                        notifier.showMeasurementHintBanner = false;
+                      },
+                      child: Material(
+                        elevation: 0,
+                        borderRadius: BorderRadius.circular(4),
+                        color: Theme.of(context).colorScheme.inverseSurface,
+                        child: Padding(
+                          padding: EdgeInsets.all(
+                            TraleTheme.of(context)!.padding,
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                PhosphorIconsBold.info,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onInverseSurface,
+                                size: 20,
+                              ),
+                              SizedBox(width: TraleTheme.of(context)!.padding),
+                              Expanded(
+                                child: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.measurementHintSubtitle,
+                                  style: Theme.of(context).textTheme.bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onInverseSurface,
+                                      ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
           ),
         ),
         ...<Widget>[
-          for (final int year in years)
-            ...<Widget>[
-              SliverToBoxAdapter(
-                child: getYearWidget(
-                  year: '$year',
-                  context: context,
-                ),
-              ),
-              WeightList(
-                measurements: measurementsPerYear[year]!,
-                durationInMilliseconds: widget.durationInMilliseconds,
-                delayInMilliseconds: widget.delayInMilliseconds,
-                scrollController: widget.scrollController,
-                tabController: widget.tabController,
-              ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: TraleTheme.of(context)!.padding,
-                ),
-              ),
-            ],
+          for (final int year in years) ...<Widget>[
+            SliverToBoxAdapter(
+              child: getYearWidget(year: '$year', context: context),
+            ),
+            WeightList(
+              measurements: measurementsPerYear[year]!,
+              durationInMilliseconds: widget.durationInMilliseconds,
+              delayInMilliseconds: widget.delayInMilliseconds,
+              scrollController: widget.scrollController,
+              tabController: widget.tabController,
+            ),
+            SliverToBoxAdapter(
+              child: SizedBox(height: TraleTheme.of(context)!.padding),
+            ),
+          ],
         ],
       ],
     );
   }
 }
 
-
 /// define StatCard for change per week, month, and year
-Widget getYearWidget({required BuildContext context,
+Widget getYearWidget({
+  required BuildContext context,
   required String year,
-  int? delayInMilliseconds}) {
+  int? delayInMilliseconds,
+}) {
   return Padding(
     padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
     child: StatCard(

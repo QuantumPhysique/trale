@@ -2,28 +2,25 @@ import 'package:ml_linalg/linalg.dart';
 
 import 'package:trale/core/measurementInterpolation.dart';
 
-
 /// zoom level for line chart in [month]
-enum ZoomLevel {
-  two,
-  six,
-  year,
-  twoYear,
-  fourYear,
-  all,
-}
+enum ZoomLevel { two, six, year, twoYear, fourYear, all }
 
 /// extend zoom levels
 extension ZoomLevelExtension on ZoomLevel {
   /// get the window length in month
-  double get _rangeInMilliseconds => <ZoomLevel, int>{
-      ZoomLevel.two: 2,
-      ZoomLevel.six: 6,
-      ZoomLevel.year: 12,
-      ZoomLevel.twoYear: 24,
-      ZoomLevel.fourYear: 48,
-      ZoomLevel.all: -1,
-    }[this]! * 30 * 24 * 3600 * 1000;
+  double get _rangeInMilliseconds =>
+      <ZoomLevel, int>{
+        ZoomLevel.two: 2,
+        ZoomLevel.six: 6,
+        ZoomLevel.year: 12,
+        ZoomLevel.twoYear: 24,
+        ZoomLevel.fourYear: 48,
+        ZoomLevel.all: -1,
+      }[this]! *
+      30 *
+      24 *
+      3600 *
+      1000;
 
   /// get range
   double get rangeInMilliseconds => maxX - minX;
@@ -45,9 +42,7 @@ extension ZoomLevelExtension on ZoomLevel {
     final ZoomLevel nextLevel = ZoomLevel.values[index + 1];
 
     /// if range of measurements to short show all available
-    if (
-      (_times.last - _times.first).abs() < nextLevel._rangeInMilliseconds
-    ) {
+    if ((_times.last - _times.first).abs() < nextLevel._rangeInMilliseconds) {
       return nextLevel.zoomOut;
     }
     return nextLevel;
@@ -62,9 +57,7 @@ extension ZoomLevelExtension on ZoomLevel {
     final ZoomLevel nextLevel = ZoomLevel.values[index - 1];
 
     /// if range of measurements to short show all available
-    if (
-      (_times.last - _times.first).abs() < nextLevel._rangeInMilliseconds
-    ) {
+    if ((_times.last - _times.first).abs() < nextLevel._rangeInMilliseconds) {
       return nextLevel.zoomIn;
     }
     return nextLevel;
@@ -91,7 +84,6 @@ extension ZoomLevelExtension on ZoomLevel {
 /// convert units to string
 extension ZoomLevelParsing on int {
   /// convert number to difficulty
-  ZoomLevel? toZoomLevel() => this < ZoomLevel.values.length
-    ? ZoomLevel.values[this]
-    : null;
+  ZoomLevel? toZoomLevel() =>
+      this < ZoomLevel.values.length ? ZoomLevel.values[this] : null;
 }
