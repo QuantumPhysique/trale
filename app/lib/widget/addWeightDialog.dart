@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -72,6 +73,9 @@ Future<bool> showAddWeightDialog({
                     currentTime.minute,
                   );
 
+                  if (!context.mounted) {
+                    return;
+                  }
                   final TimeOfDay? time = await showTimePicker(
                     context: context,
                     initialTime: TimeOfDay.fromDateTime(currentDate),
@@ -151,6 +155,9 @@ Future<bool> showAddWeightDialog({
                   date: currentDate,
                 ),
               );
+              if (!context.mounted) {
+                return;
+              }
               if (!wasInserted &&
                   !(editMode &&
                       currentDate == initialDate &&
@@ -158,7 +165,8 @@ Future<bool> showAddWeightDialog({
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                      'Adding measurement was skipped. Measurement exists already.',
+                      'Adding measurement was skipped. '
+                      'Measurement exists already.',
                     ),
                     behavior: SnackBarBehavior.floating,
                   ),
@@ -187,10 +195,6 @@ Future<bool> showTargetWeightDialog({
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final int ticksPerStep =
-          notifier.unitPrecision.ticksPerStep ?? notifier.unit.ticksPerStep;
-      final double sliderLabel =
-          (currentSliderValue * ticksPerStep).roundToDouble() / ticksPerStep;
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

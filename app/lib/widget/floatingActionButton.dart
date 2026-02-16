@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -6,6 +7,7 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// m3 floating action button
 class FAB extends StatefulWidget {
+  /// Constructor.
   const FAB({required this.show, required this.onPressed, super.key});
 
   /// show FAB
@@ -50,21 +52,38 @@ class M3EFloatingActionButton extends StatelessWidget {
     this.foregroundColor,
     this.elevation = 0,
     this.enableFeedback = true,
-  }) : _size = 80.0,
-       _iconSize = 34.0, // 28 is material spec, but icon has unwanted padding
-       _borderRadius = 20.0;
+  });
 
+  /// Callback when button is pressed.
   final VoidCallback onPressed;
+
+  /// Icon widget.
   final Widget? icon;
+
+  /// Tooltip text.
   final String? tooltip;
+
+  /// Background color.
   final Color? backgroundColor;
+
+  /// Foreground color.
   final Color? foregroundColor;
+
+  /// Elevation of the button.
   final double elevation;
+
+  /// Whether to enable haptic feedback.
   final bool enableFeedback;
 
-  final double _size;
-  final double _iconSize;
-  final double _borderRadius;
+  /// Size of the button.
+  double get _size => 80.0;
+
+  /// Icon size.
+  // 28 is material spec, but icon has unwanted padding
+  double get _iconSize => 34.0;
+
+  /// Border radius.
+  double get _borderRadius => 20.0;
 
   @override
   Widget build(BuildContext context) {

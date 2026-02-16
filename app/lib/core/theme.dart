@@ -30,7 +30,7 @@ double overlayOpacity(double elevation) =>
 
 /// overlay color with elevation
 Color colorElevated(Color color, double elevation) => Color.alphaBlend(
-  getFontColor(color).withOpacity(overlayOpacity(elevation)),
+  getFontColor(color).withValues(alpha: overlayOpacity(elevation)),
   color,
 );
 
@@ -115,6 +115,8 @@ class TraleTheme {
   final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
   );
+
+  /// Inner border shape
   final RoundedRectangleBorder innerBorderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(4),
   );
@@ -227,6 +229,7 @@ class TraleTheme {
       ),
     );
 
+    // ignore: deprecated_member_use
     const SliderThemeData sliderTheme = SliderThemeData(year2023: false);
 
     const CardThemeData cardTheme = CardThemeData(
@@ -234,6 +237,7 @@ class TraleTheme {
     );
 
     const ProgressIndicatorThemeData progressIndicatorTheme =
+        // ignore: deprecated_member_use
         ProgressIndicatorThemeData(year2023: false);
 
     /// Now that we have ColorScheme and TextTheme, we can create the ThemeData
@@ -325,6 +329,7 @@ extension TraleCustomThemeExtension on TraleCustomTheme {
   double contrast(BuildContext context) =>
       Provider.of<TraleNotifier>(context, listen: false).contrastLevel.contrast;
 
+  /// Get the [DynamicSchemeVariant] for the current notifier.
   DynamicSchemeVariant schemeVariant(BuildContext context) =>
       Provider.of<TraleNotifier>(
         context,
@@ -367,6 +372,7 @@ extension CustomThemeParsing on String {
   }
 }
 
+/// Ordered list of available theme modes.
 final List<ThemeMode> orderedThemeModes = <ThemeMode>[
   ThemeMode.light,
   ThemeMode.system,
@@ -418,7 +424,7 @@ extension CustomThemeModeEncoding on ThemeMode {
 @immutable
 class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
   /// constructor
-  const TraleThemeExtension({@required this.padding});
+  const TraleThemeExtension({required this.padding});
 
   /// global padding parameter
   final double? padding;
@@ -450,10 +456,15 @@ class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
 
 /// extension of theme
 extension ColorTextThemeExtension on TextStyle {
+  /// Apply [onSecondaryContainer] color to this text style.
   TextStyle onSecondaryContainer(BuildContext context) =>
       copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer);
+
+  /// Apply [onSurface] color to this text style.
   TextStyle onSurface(BuildContext context) =>
       copyWith(color: Theme.of(context).colorScheme.onSurface);
+
+  /// Apply [onSurfaceVariant] color to this text style.
   TextStyle onSurfaceVariant(BuildContext context) =>
       copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
 }

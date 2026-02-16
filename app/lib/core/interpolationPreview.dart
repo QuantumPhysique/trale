@@ -1,8 +1,9 @@
+// ignore_for_file: file_names
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 
-Map<int, double> _ms_map = <int, double>{
+Map<int, double> _msMap = <int, double>{
   0: 80.5,
   1: 79.7,
   // 2: 80.6,
@@ -66,25 +67,29 @@ Map<int, double> _ms_map = <int, double>{
 };
 
 List<Measurement> _ms = <Measurement>[
-  for (int i in _ms_map.keys)
+  for (int i in _msMap.keys)
     Measurement(
-      weight: _ms_map[i]!,
+      weight: _msMap[i]!,
       date: DateTime.now().subtract(Duration(days: i)),
     ),
 ];
 
+/// Database backed by preview (sample) measurements.
 class PreviewDatabase extends MeasurementDatabaseBaseclass {
+  /// Creates the preview database.
   PreviewDatabase();
 
   final List<Measurement> _measurements = _ms;
 
   /// get sorted measurements
   @override
-  List<Measurement> get measurements => _measurements ?? <Measurement>[]
-    ..sort((Measurement a, Measurement b) => b.compareTo(a));
+  List<Measurement> get measurements =>
+      _measurements..sort((Measurement a, Measurement b) => b.compareTo(a));
 }
 
+/// Interpolation backed by [PreviewDatabase] for UI previews.
 class PreviewInterpolation extends MeasurementInterpolationBaseclass {
+  /// Creates a preview interpolation instance.
   PreviewInterpolation();
 
   /// get measurements

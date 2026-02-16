@@ -1,9 +1,28 @@
+// ignore_for_file: file_names
 import 'package:ml_linalg/linalg.dart';
 
 import 'package:trale/core/measurementInterpolation.dart';
 
 /// zoom level for line chart in [month]
-enum ZoomLevel { two, six, year, twoYear, fourYear, all }
+enum ZoomLevel {
+  /// Two months.
+  two,
+
+  /// Six months.
+  six,
+
+  /// One year.
+  year,
+
+  /// Two years.
+  twoYear,
+
+  /// Four years.
+  fourYear,
+
+  /// All time.
+  all,
+}
 
 /// extend zoom levels
 extension ZoomLevelExtension on ZoomLevel {

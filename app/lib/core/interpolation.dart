@@ -52,6 +52,7 @@ extension InterpolStrengthExtension on InterpolStrength {
     InterpolStrength.strong: CustomIcons.interpol_strong,
   }[this]!;
 
+  /// Index of this interpolation strength in the enum values.
   int get idx {
     for (int i = 0; i < InterpolStrength.values.length; i++) {
       if (InterpolStrength.values[i] == this) {

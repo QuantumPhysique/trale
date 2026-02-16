@@ -11,16 +11,6 @@ import 'package:trale/pages/onBoarding.dart';
 import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/tile_group.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-
-/// launch url
-Future<void> _launchURL(String url) async {
-  if (await canLaunchUrlString(url)) {
-    await launchUrlString(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
 
 /// ListTile for changing Amoled settings
 class OnBoardingListTile extends StatelessWidget {
@@ -98,12 +88,13 @@ class FAQEntry {
   final Widget? answerWidget;
 }
 
-/// about screen widget class
+/// FAQ page widget.
 class FAQ extends StatefulWidget {
+  /// Constructor.
   const FAQ({super.key});
 
   @override
-  _FAQ createState() => _FAQ();
+  State<FAQ> createState() => _FAQ();
 }
 
 class _FAQ extends State<FAQ> {

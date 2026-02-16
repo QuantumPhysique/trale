@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
@@ -412,6 +413,7 @@ class TraleNotifier with ChangeNotifier {
   ColorScheme? _systemLightDynamic;
   ColorScheme? _systemDarkDynamic;
 
+  /// The system seed color if available, otherwise black.
   Color get systemSeedColor =>
       systemColorsAvailable ? _systemLightDynamic!.primary : Colors.black;
 

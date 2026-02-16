@@ -4,7 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:trale/core/theme.dart';
 
+/// Animated sine wave widget.
 class SineWave extends StatefulWidget {
+  /// Constructor.
   const SineWave({
     super.key,
     this.amplitude = 4, // 3 is pb default
@@ -15,7 +17,7 @@ class SineWave extends StatefulWidget {
     this.color,
   });
 
-  // constructor with material.io footer defaults
+  /// Named constructor for thin sine wave variant.
   const SineWave.thin({
     super.key,
     this.amplitude = 4,
@@ -26,11 +28,22 @@ class SineWave extends StatefulWidget {
     this.color,
   });
 
+  /// Wave amplitude.
   final double amplitude;
+
+  /// Wavelength.
   final double wavelength;
+
+  /// Animation speed.
   final double speed;
+
+  /// Wave color.
   final Color? color;
+
+  /// Stroke width.
   final double strokeWidth;
+
+  /// Sample step size.
   final double sampleStep;
 
   @override
@@ -99,9 +112,10 @@ class _SineWaveState extends State<SineWave>
     );
   }
 }
-// dart
 
+/// Custom painter for rendering a sine wave.
 class SineWavePainter extends CustomPainter {
+  /// Constructor.
   SineWavePainter({
     required this.amplitude,
     required this.wavelength,
@@ -112,12 +126,25 @@ class SineWavePainter extends CustomPainter {
     required this.sampleStep,
   });
 
+  /// Wave amplitude.
   final double amplitude;
+
+  /// Wavelength.
   final double wavelength;
+
+  /// Animation speed.
   final double speed;
+
+  /// Elapsed time.
   final double elapsed;
+
+  /// Wave color.
   final Color color;
+
+  /// Stroke width.
   final double strokeWidth;
+
+  /// Sample step size.
   final double sampleStep;
 
   @override

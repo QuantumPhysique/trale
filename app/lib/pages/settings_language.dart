@@ -11,14 +11,17 @@ import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/settingsBanner.dart';
 import 'package:trale/widget/tile_group.dart';
 
+/// Language settings page.
 class LanguageSettingsPage extends StatelessWidget {
+  /// Constructor.
   const LanguageSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
-    // Build list of sliver children: translate pill + radio list + bottom spacer
+    // Build list of sliver children: translate pill +
+    // radio list + bottom spacer
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.translate,
@@ -69,7 +72,8 @@ class _LanguageRadioTile extends StatelessWidget {
           ? colorScheme.secondaryContainer
           : colorScheme.surfaceContainerLowest,
       shape: isSelected ? const StadiumBorder() : null,
-      // groupValue omitted (deprecated) — RadioGroup ancestor supplies selection
+      // groupValue omitted (deprecated) — RadioGroup
+      // ancestor supplies selection
       value: language.language,
       // onChanged omitted; RadioGroup handles it
       title: Text(

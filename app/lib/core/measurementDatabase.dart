@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:async';
 import 'dart:convert';
 
@@ -28,6 +29,7 @@ bool dayInMeasurements(DateTime date, List<Measurement> measurements) => <bool>[
 
 /// Base class for measurement database
 class MeasurementDatabaseBaseclass {
+  /// Creates a [MeasurementDatabaseBaseclass].
   MeasurementDatabaseBaseclass();
 
   /// broadcast stream to track change of db
@@ -125,7 +127,8 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     if (!isContained) {
       box.add(m);
       await reinit();
-      // Cancel today's reminder notification since we just logged a measurement.
+      // Cancel today's reminder notification since
+      // we just logged a measurement.
       NotificationService().cancelTodayIfMeasured();
     }
     return !isContained;
@@ -184,6 +187,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   }
 
   @override
+  // ignore: overridden_fields
   List<Measurement>? _measurements;
 
   /// get sorted measurements

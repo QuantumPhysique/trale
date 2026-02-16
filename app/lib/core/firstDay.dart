@@ -1,9 +1,11 @@
+// ignore_for_file: file_names
 import 'package:intl/date_symbols.dart';
 import 'package:intl/intl.dart';
 
 /// Enum representing the first day of the week
 enum TraleFirstDay {
   /// Default: locale-based
+  // ignore: constant_identifier_names
   Default,
 
   /// Monday as the first day of the week
@@ -19,12 +21,14 @@ enum TraleFirstDay {
   sunday,
 }
 
+/// Extension providing utility methods for [TraleFirstDay].
 extension TraleFirstDayExtension on TraleFirstDay {
   // Caching the localized names
   static final Map<String, Map<TraleFirstDay, String>> _localizedNamesCache =
       <String, Map<TraleFirstDay, String>>{};
 
-  /// Mapping of TraleFirstDay values to DateTime weekday values (Monday = 1, Sunday = 7)
+  /// Mapping of TraleFirstDay values to DateTime weekday values
+  /// (Monday = 1, Sunday = 7).
   static const Map<TraleFirstDay, int?> _weekdayMapping = <TraleFirstDay, int?>{
     TraleFirstDay.Default: null, // No specific weekday for Default
     TraleFirstDay.sunday: DateTime.sunday,
@@ -40,7 +44,9 @@ extension TraleFirstDayExtension on TraleFirstDay {
 
   /// Load and store the localized names of weekdays for a specific locale
   static Future<void> loadLocalizedNames(String locale) async {
-    if (_localizedNamesCache.containsKey(locale)) return;
+    if (_localizedNamesCache.containsKey(locale)) {
+      return;
+    }
 
     final DateSymbols dateSymbols = DateFormat('EEEE', locale).dateSymbols;
     final List<String> standaloneWeekdays = dateSymbols.STANDALONEWEEKDAYS;
@@ -63,11 +69,15 @@ extension TraleFirstDayExtension on TraleFirstDay {
       .entries
       .firstWhere(
         (MapEntry<TraleFirstDay, int?> entry) => entry.value == weekday,
-        orElse: () => const MapEntry(TraleFirstDay.sunday, DateTime.sunday),
+        orElse: () => const MapEntry<TraleFirstDay, int?>(
+          TraleFirstDay.sunday,
+          DateTime.sunday,
+        ),
       )
       .key;
 }
 
+/// Extension for parsing [String] to [TraleFirstDay].
 extension TraleFirstDayParsing on String {
   /// Convert string to TraleFirstDay enum
   TraleFirstDay? toTraleFirstDay() {

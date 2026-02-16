@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -67,10 +68,12 @@ List<Widget> actions(
   ];
 }
 
+/// Tile to toggle between losing and gaining weight.
 class LooseWeightListTile extends StatelessWidget {
   /// constructor
   const LooseWeightListTile({super.key, this.color});
 
+  /// Optional background color.
   final Color? color;
 
   @override
@@ -108,7 +111,9 @@ class LooseWeightListTile extends StatelessWidget {
   }
 }
 
+/// A grouped set of user-detail input fields.
 class UserDetailsGroup extends StatelessWidget {
+  /// Creates a [UserDetailsGroup].
   const UserDetailsGroup({
     super.key,
     required this.notifier,
@@ -117,9 +122,16 @@ class UserDetailsGroup extends StatelessWidget {
     this.backgroundColor,
   });
 
+  /// The notifier providing user settings.
   final TraleNotifier notifier;
+
+  /// Callback invoked when a field changes.
   final VoidCallback onRefresh;
+
+  /// Optional title displayed above the group.
   final String? title;
+
+  /// Optional background color.
   final Color? backgroundColor;
 
   @override

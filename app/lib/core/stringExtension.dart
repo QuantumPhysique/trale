@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 /// Inspired by Günter Zöchbauer
 /// https://stackoverflow.com/a/29629114
 extension CapExtension on String {

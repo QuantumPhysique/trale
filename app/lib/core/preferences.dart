@@ -306,7 +306,9 @@ class Preferences {
   /// Get reminder days (ISO weekday: 1=Mon … 7=Sun)
   List<int> get reminderDays {
     final String raw = prefs.getString('reminderDays')!;
-    if (raw.isEmpty) return <int>[];
+    if (raw.isEmpty) {
+      return <int>[];
+    }
     return raw.split(',').map(int.parse).toList();
   }
 

@@ -13,6 +13,7 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/splash.dart';
 
+/// Hive box name for persisted measurements.
 const String measurementBoxName = 'measurements';
 
 Future<void> main() async {
@@ -66,12 +67,20 @@ class TraleApp extends MaterialApp {
 
   /// themeNotifier for interactive change of theme
   final TraleNotifier traleNotifier;
+
+  /// Light theme.
   final TraleTheme light;
+
+  /// Dark theme.
   final TraleTheme dark;
+
+  /// AMOLED theme.
   final TraleTheme amoled;
 }
 
+/// Root widget of the trale application.
 class TraleMainApp extends StatelessWidget {
+  /// Creates the root [TraleMainApp] widget.
   const TraleMainApp({super.key});
 
   // This widget is the root of your application.
@@ -80,6 +89,7 @@ class TraleMainApp extends StatelessWidget {
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
 
     /// shared preferences instance
+    // ignore: unused_local_variable
     final Preferences prefs = Preferences();
 
     return DynamicColorBuilder(

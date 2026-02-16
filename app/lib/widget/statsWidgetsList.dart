@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
@@ -9,11 +10,13 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/statsCards.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
+/// List of statistics widgets.
 class StatsWidgetsList extends StatefulWidget {
+  /// Constructor.
   const StatsWidgetsList({super.key});
 
   @override
-  _StatsWidgetsListState createState() => _StatsWidgetsListState();
+  State<StatsWidgetsList> createState() => _StatsWidgetsListState();
 }
 
 class _StatsWidgetsListState extends State<StatsWidgetsList> {
@@ -83,6 +86,10 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
           ),
     );
 
+    final String measurementsLabel = AppLocalizations.of(
+      context,
+    )!.measurements.toLowerCase();
+
     final Widget col234 = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children:
@@ -102,8 +109,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             Column(
               children: <Widget>[
                 DefaultStatCard(
-                  firstRow:
-                      '# ${AppLocalizations.of(context)!.measurements.toLowerCase()}',
+                  firstRow: '# $measurementsLabel',
                   secondRow: '${stats.nMeasurements}',
                   delayInMilliseconds: delayInMilliseconds,
                   pillShape: true,

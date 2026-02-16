@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs
 import 'package:flutter/material.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -247,17 +248,41 @@ class GroupedRadioListTile<T> extends StatelessWidget {
   final bool autofocus;
   final EdgeInsetsGeometry? contentPadding;
   final ShapeBorder? shape;
+
+  /// Color of the list tile background.
   final Color? tileColor;
+
+  /// Color of the list tile when selected.
   final Color? selectedTileColor;
+
+  /// Visual density of the list tile.
   final VisualDensity? visualDensity;
+
+  /// Focus node for the list tile.
   final FocusNode? focusNode;
+
+  /// Called when the focus state changes.
   final ValueChanged<bool>? onFocusChange;
+
+  /// Whether feedback (sound/haptic) is enabled.
   final bool? enableFeedback;
+
+  /// Scale factor for the radio button.
   final double radioScaleFactor;
+
+  /// Title alignment within the list tile.
   final ListTileTitleAlignment? titleAlignment;
+
+  /// Whether the tile is enabled.
   final bool? enabled;
+
+  /// Whether to add internal semantics for tap events.
   final bool internalAddSemanticForOnTap;
+
+  /// Background color of the radio button.
   final WidgetStateProperty<Color?>? radioBackgroundColor;
+
+  /// Border side of the radio button.
   final BorderSide? radioSide;
 
   /// Background color of the grouped radio tile
@@ -306,7 +331,9 @@ class GroupedRadioListTile<T> extends StatelessWidget {
   }
 }
 
+/// A grouped text widget with a styled background.
 class GroupedText extends StatelessWidget {
+  /// Creates a [GroupedText].
   const GroupedText({super.key, required this.text, this.color});
 
   /// Background color of the grouped text widget
@@ -331,7 +358,9 @@ class GroupedText extends StatelessWidget {
   }
 }
 
+/// A grouped switch list tile with a styled background.
 class GroupedSwitchListTile extends StatelessWidget {
+  /// Creates a [GroupedSwitchListTile].
   const GroupedSwitchListTile({
     super.key,
     required this.value,
@@ -365,33 +394,88 @@ class GroupedSwitchListTile extends StatelessWidget {
     this.leading,
   });
 
+  /// Whether the switch is on.
   final bool value;
+
+  /// Called when the switch value changes.
   final ValueChanged<bool?>? onChanged;
+
+  /// Mouse cursor for the tile.
   final MouseCursor? mouseCursor;
+
+  /// Active switch color.
   final Color? activeColor;
+
+  /// Active switch track color.
   final Color? activeTrackColor;
+
+  /// Inactive switch thumb color.
   final Color? inactiveThumbColor;
+
+  /// Inactive switch track color.
   final Color? inactiveTrackColor;
+
+  /// Hover highlight color.
   final Color? hoverColor;
+
+  /// Whether the tile auto-focuses.
   final bool autofocus;
+
+  /// Padding around the content.
   final EdgeInsetsGeometry? contentPadding;
+
+  /// Secondary widget (e.g. icon).
   final Widget? secondary;
+
+  /// Title widget.
   final Widget? title;
+
+  /// Subtitle widget.
   final Widget? subtitle;
+
+  /// Whether the tile has three lines.
   final bool isThreeLine;
+
+  /// Whether the tile is dense.
   final bool? dense;
+
+  /// Color of the list tile background.
   final Color? tileColor;
+
+  /// Color when selected.
   final Color? selectedTileColor;
+
+  /// Shape of the list tile.
   final ShapeBorder? shape;
+
+  /// Whether the tile is selected.
   final bool selected;
+
+  /// Position of the switch control.
   final ListTileControlAffinity controlAffinity;
+
+  /// Whether feedback is enabled.
   final bool? enableFeedback;
+
+  /// Visual density of the tile.
   final VisualDensity? visualDensity;
+
+  /// Focus node.
   final FocusNode? focusNode;
+
+  /// Called when focus changes.
   final ValueChanged<bool>? onFocusChange;
+
+  /// Splash radius.
   final double? splashRadius;
+
+  /// Thumb color state property.
   final WidgetStateProperty<Color?>? thumbColor;
+
+  /// Track color state property.
   final WidgetStateProperty<Color?>? trackColor;
+
+  /// Background color of the grouped tile.
   final Color? color;
 
   /// Optional leading widget shown before the title.
@@ -447,6 +531,7 @@ class GroupedSwitchListTile extends StatelessWidget {
 ///
 /// The border-radius animates smoothly between the two states.
 class GroupedChip extends StatelessWidget {
+  /// Creates a [GroupedChip].
   const GroupedChip({
     super.key,
     required this.selected,
@@ -468,7 +553,8 @@ class GroupedChip extends StatelessWidget {
   /// Side length of the squared chip.
   final double size;
 
-  /// Background colour when unselected. Defaults to [ColorScheme.surfaceContainer].
+  /// Background colour when unselected.
+  /// Defaults to [ColorScheme.surfaceContainer].
   final Color? color;
 
   @override

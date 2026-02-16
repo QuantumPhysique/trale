@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
   const Home({super.key});
   @override
   /// create state
-  _HomeState createState() => _HomeState();
+  State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
@@ -35,7 +35,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     loadedFirst = true;
-    _pageIndex = 0;
 
     _selectedTab = TabController(
       vsync: this,
@@ -54,7 +53,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst && mounted) {
         loadedFirst = false;
-        // Removed setState() - it was causing animations to re-trigger when navigating back from settings
+        // Removed setState() - it was causing animations
+        // to re-trigger when navigating back from settings
       }
     });
   }
@@ -67,9 +67,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   // cached tab content widgets
   late final List<Widget> _activeTabs;
-  // active page
-  int _pageIndex = 0;
-
   void _onItemTapped(int index) {
     if (index == _selectedTab.length) {
       onFABpress();
@@ -112,9 +109,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   void handlePageChanged(int selectedPage) {
-    setState(() {
-      _pageIndex = selectedPage;
-    });
+    setState(() {});
   }
 
   @override

@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
+/// Wrapper around a [Locale] representing a user-selectable language.
 class Language {
+  /// Creates a [Language] from a BCP‑47 tag.
   Language(String tag) : _locale = _localeFromTag(tag);
 
+  /// Creates a [Language] from an existing [Locale].
   Language.fromLocale(Locale locale) : _locale = locale;
 
+  /// Creates a [Language] representing the system default.
   Language.system()
     : _locale = const Locale.fromSubtags(languageCode: systemDefault);
 
   final Locale _locale;
 
+  /// The locale this language represents.
   Locale get locale => _locale;
 
-  // Full BCP‑47 tag, e.g., "zh-Hans", "en-US", "und"
+  /// The BCP‑47 tag for this language (e.g. "zh-Hans", "en").
   String get language => _toTag(_locale);
 
   /// contains country code
@@ -115,6 +120,7 @@ Locale _localeFromTag(String tag) {
 }
 
 // Extensions unchanged API for callers.
+/// Extension to parse a [String] into a [Language].
 extension LanguageStringParsing on String {
   /// parsing
   Language toLanguage() => Language(this);

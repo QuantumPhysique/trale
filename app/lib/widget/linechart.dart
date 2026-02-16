@@ -19,7 +19,9 @@ import 'package:trale/core/zoomLevel.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/tile_group.dart';
 
+/// Custom line chart widget for weight data.
 class CustomLineChart extends StatefulWidget {
+  /// Constructor.
   const CustomLineChart({
     required this.loadedFirst,
     required this.ip,
@@ -40,20 +42,46 @@ class CustomLineChart extends StatefulWidget {
     super.key,
   });
 
+  /// Whether data was loaded initially.
   final bool loadedFirst;
+
+  /// Whether chart is in preview mode.
   final bool isPreview;
+
+  /// Measurement interpolation data.
   final MeasurementInterpolationBaseclass ip;
 
+  /// Relative height of the chart.
   final double relativeHeight;
+
+  /// Axis label color.
   final Color? axisLabelColor;
+
+  /// Interpolation line color.
   final Color? interpolationLineColor;
+
+  /// Area color below interpolation.
   final Color? interpolationBelowAreaColor;
+
+  /// Area color above interpolation.
   final Color? interpolationAboveAreaColor;
+
+  /// Measurement line color.
   final Color? measurementLineColor;
+
+  /// Measurement dot stroke color.
   final Color? measurementDotStrokeColor;
+
+  /// Target weight line color.
   final Color? targetWeightLineColor;
+
+  /// Target weight label text color.
   final Color? targetWeightLabelTextColor;
+
+  /// Target weight label background color.
   final Color? targetWeightLabelBackgroundColor;
+
+  /// Chart background color.
   final Color? backgroundColor;
 
   /// Custom padding inside the chart card. Defaults to
@@ -65,7 +93,7 @@ class CustomLineChart extends StatefulWidget {
   final EdgeInsetsGeometry? chartMargin;
 
   @override
-  _CustomLineChartState createState() => _CustomLineChartState();
+  State<CustomLineChart> createState() => _CustomLineChartState();
 }
 
 class _CustomLineChartState extends State<CustomLineChart> {
@@ -104,7 +132,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
-    final ml.Vector msTimes = ip.times_measured;
+    final ml.Vector msTimes = ip.timesMeasured;
     final ml.Vector interpolTimes = ip.timesDisplay;
 
     // scale to unit
@@ -114,11 +142,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
     ).unit.scaling;
 
     final ml.Vector ms = widget.loadedFirst
-        ? ml.Vector.filled(
-            ip.weights_measured.length,
-            ip.weights_measured.mean(),
-          )
-        : ip.weights_measured;
+        ? ml.Vector.filled(ip.weightsMeasured.length, ip.weightsMeasured.mean())
+        : ip.weightsMeasured;
     final ml.Vector interpol = widget.loadedFirst
         ? ml.Vector.filled(
             ip.weightsDisplay.length,
@@ -184,7 +209,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
       (indexLast == -1 ||
               indexLast >= measurements.length ||
               indexLast <
-                  indexFirst //TODO: this includes -1 ?
+                  indexFirst // TODO(pb): this includes -1 ?
                   )
           ? measurements.length
           : indexLast,
@@ -372,29 +397,29 @@ class _CustomLineChartState extends State<CustomLineChart> {
       );
     }
 
-    void scaleUpdate(ScaleUpdateDetails details) {
-      if (!widget.isPreview) {
-        setState(() {
-          final double scale = (1 - details.horizontalScale) / 50;
-          if (scale.isNegative) {
-            if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
-              minX -= (maxX - minX) * scale;
-              maxX += (maxX - minX) * scale;
-            }
-          } else {
-            if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
-              if (minX - (maxX - minX) * scale > msTimes.first) {
-                minX -= (maxX - minX) * scale;
-              }
-              if (maxX + (maxX - minX) * scale <
-                  DateTime.now().millisecondsSinceEpoch.toDouble()) {
-                maxX += (maxX - minX) * scale;
-              }
-            }
-          }
-        });
-      }
-    }
+    // void scaleUpdate(ScaleUpdateDetails details) {
+    //   if (!widget.isPreview) {
+    //     setState(() {
+    //       final double scale = (1 - details.horizontalScale) / 50;
+    //       if (scale.isNegative) {
+    //         if (maxX - minX > 1000 * 3600 * 24 * 7 * 2) {
+    //           minX -= (maxX - minX) * scale;
+    //           maxX += (maxX - minX) * scale;
+    //         }
+    //       } else {
+    //         if (maxX - minX < 1000 * 3600 * 24 * 7 * 12) {
+    //           if (minX - (maxX - minX) * scale > msTimes.first) {
+    //             minX -= (maxX - minX) * scale;
+    //           }
+    //           if (maxX + (maxX - minX) * scale <
+    //               DateTime.now().millisecondsSinceEpoch.toDouble()) {
+    //             maxX += (maxX - minX) * scale;
+    //           }
+    //         }
+    //       }
+    //     });
+    //   }
+    // }
 
     void dragUpdate(DragUpdateDetails dragUpdDet) {
       if (!widget.isPreview) {

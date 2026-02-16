@@ -10,7 +10,9 @@ import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/tile_group.dart';
 
+/// Custom scroll physics that snaps to multiples of [snapSize].
 class MultiItemSnapScrollPhysics extends ScrollPhysics {
+  /// Creates snap-based scroll physics.
   const MultiItemSnapScrollPhysics({
     required this.snapSize,
     this.maxItemsPerFling = 50.0,
@@ -18,10 +20,19 @@ class MultiItemSnapScrollPhysics extends ScrollPhysics {
     super.parent,
   });
 
+  /// Pixel size of one snap step.
   final double snapSize;
+
+  /// Maximum items traveled per fling gesture.
   final double maxItemsPerFling;
+
+  /// Divisor applied to fling velocity.
   final double velocityDivisor;
+
+  /// Spring stiffness constant.
   static const double stiffness = 140.0;
+
+  /// Spring damping ratio.
   static const double ratio = 0.8;
 
   @override
@@ -61,7 +72,9 @@ class MultiItemSnapScrollPhysics extends ScrollPhysics {
     if (velocity.abs() <= tol.velocity) {
       final double targetPage = currentPage.roundToDouble();
       final double targetPx = _pixelsForPage(targetPage);
-      if ((targetPx - position.pixels).abs() < tol.distance) return null;
+      if ((targetPx - position.pixels).abs() < tol.distance) {
+        return null;
+      }
       return ScrollSpringSimulation(
         spring,
         position.pixels,
@@ -83,7 +96,9 @@ class MultiItemSnapScrollPhysics extends ScrollPhysics {
         .roundToDouble();
 
     final double targetPx = _pixelsForPage(targetPage);
-    if ((targetPx - position.pixels).abs() < tol.distance) return null;
+    if ((targetPx - position.pixels).abs() < tol.distance) {
+      return null;
+    }
 
     return ScrollSpringSimulation(
       spring,
@@ -179,15 +194,18 @@ class _SliderMarker extends StatelessWidget {
   }
 }
 
-// dart
+/// Controller for the [RulerPicker] allowing external value changes.
 class RulerPickerController extends ValueNotifier<double> {
+  /// Creates a controller with the given initial [value].
   RulerPickerController({double value = 0.0}) : super(value);
 }
 
-// dart
+/// Callback invoked when the picker value changes.
 typedef ValueChangedCallback = void Function(num value);
 
+/// A horizontal ruler-style picker for selecting numeric values.
 class RulerPicker extends StatefulWidget {
+  /// Creates a [RulerPicker].
   RulerPicker({
     required this.onValueChange,
     required this.ticksPerStep,
@@ -199,24 +217,40 @@ class RulerPicker extends StatefulWidget {
     super.key,
   }) : controller = controller ?? RulerPickerController(value: value);
 
+  /// Callback invoked on value change.
   final ValueChangedCallback onValueChange;
+
+  /// Height of the picker widget.
   final double height;
+
+  /// Number of ticks per integer step.
   final int ticksPerStep;
+
+  /// Background colour of the picker.
   final Color backgroundColor;
+
+  /// Optional custom marker widget.
   final Widget? marker;
 
+  /// The current value of the picker.
   final double value;
+
+  /// Controller for external value changes.
   final RulerPickerController controller;
 
   @override
   State<StatefulWidget> createState() => RulerPickerState();
 }
 
+/// State for [RulerPicker].
 class RulerPickerState extends State<RulerPicker> {
   late final ScrollController _scrollController;
 
+  /// Width in logical pixels of each ruler tick.
   // Tick visuals
   final double tickWidth = 10.0;
+
+  /// Current weight value selected by the picker.
   late num weightValue = widget.value;
 
   @override
@@ -256,8 +290,10 @@ class RulerPickerState extends State<RulerPicker> {
       context,
       listen: false,
     );
+    final int precision =
+        notifier.unitPrecision.precision ?? notifier.unit.precision;
     final Text valueLabel = Text(
-      '${weight.toStringAsFixed(notifier.unitPrecision.precision ?? notifier.unit.precision)} '
+      '${weight.toStringAsFixed(precision)} '
       '${notifier.unit.name}',
       style: Theme.of(
         context,
@@ -358,13 +394,6 @@ class _WeightSliderState extends State<_WeightSlider> {
       double.infinity,
     );
 
-    final double offset = scrollController.hasClients
-        ? scrollController.offset
-        : 0.0;
-    final double page = offset / tickWidth;
-    final int nearestIndex = page.round();
-
-    final double newValue = nearestIndex / widget.ticksPerStep;
     final Widget marker = _SliderMarker(
       widthLargeTick: widthLargeTick,
       heightLargeTick: heightLargeTick,

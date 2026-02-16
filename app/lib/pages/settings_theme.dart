@@ -141,6 +141,7 @@ class DarkModeListTile extends StatelessWidget {
 /// Carousel picker for selecting a `TraleSchemeVariant` using the generic
 /// `SelectionCarousel` infrastructure.
 class SchemeVariantSelection extends StatelessWidget {
+  /// Constructor.
   const SchemeVariantSelection({super.key});
 
   @override
@@ -154,7 +155,8 @@ class SchemeVariantSelection extends StatelessWidget {
     const List<TraleSchemeVariant> variants = TraleSchemeVariant.values;
 
     Widget previewBuilder(BuildContext ctx, TraleSchemeVariant variant) {
-      // Create a temporary theme with this scheme variant applied to derive colors.
+      // Create a temporary theme with this scheme
+      // variant applied to derive colors.
       final TraleTheme baseTheme = isDark
           ? notifier.theme.dark(ctx)
           : notifier.theme.light(ctx);
@@ -197,6 +199,7 @@ class SchemeVariantSelection extends StatelessWidget {
 
 /// ListTile for changing interpolation settings
 class ThemeSelection extends StatelessWidget {
+  /// Constructor.
   const ThemeSelection({super.key});
 
   @override
@@ -248,7 +251,9 @@ class ThemeSelection extends StatelessWidget {
   }
 }
 
+/// A generic carousel widget for selecting from a list of items.
 class SelectionCarousel<T> extends StatefulWidget {
+  /// Constructor.
   const SelectionCarousel({
     super.key,
     required this.items,
@@ -258,10 +263,19 @@ class SelectionCarousel<T> extends StatefulWidget {
     this.shapeBuilder,
   });
 
+  /// Items to display in the carousel.
   final List<T> items;
+
+  /// Callback to check if an item is selected.
   final bool Function(T item) isSelected;
+
+  /// Callback when an item is selected.
   final void Function(T item) onSelected;
+
+  /// Builder for item preview widgets.
   final Widget Function(BuildContext context, T item) previewBuilder;
+
+  /// Optional custom shape builder.
   final ShapeBorder Function(
     BuildContext context,
     int index,
@@ -404,10 +418,15 @@ class _SelectionCarouselState<T> extends State<SelectionCarousel<T>> {
   }
 }
 
+/// Burger-style theme preview widget.
 class BurgerTheme extends StatelessWidget {
+  /// Constructor.
   const BurgerTheme({super.key, required this.theme, required this.isSelected});
 
+  /// Theme to preview.
   final TraleTheme theme;
+
+  /// Whether this theme is currently selected.
   final bool isSelected;
 
   @override
@@ -487,7 +506,8 @@ class BurgerTheme extends StatelessWidget {
   }
 }
 
-extension CarouselHeightEstimate on _SelectionCarouselState<Object?> {
+/// Height estimation helpers for the selection carousel.
+extension _CarouselHeightEstimate on _SelectionCarouselState<Object?> {
   /// This heuristic is (obviously) generated with copilot. Do not trust it!
   ///
   /// Heuristic height estimate for the carousel based on available width.
@@ -507,10 +527,12 @@ extension CarouselHeightEstimate on _SelectionCarouselState<Object?> {
     final double radioBlockHeight =
         rawRadioHeight + 0.5 * padding; // bottom padding inside item
 
-    // Desired preview (color area) height target from width (aspect ratio heuristic).
+    // Desired preview (color area) height target
+    // from width (aspect ratio heuristic).
     final double targetAspectHeight = width * 0.25; // empirical sweet spot
 
-    // Compute minimum height needed by fixed pieces and a conservative color area.
+    // Compute minimum height needed by fixed pieces
+    // and a conservative color area.
     final double minColorArea =
         4 * labelFontSize; // fallback if width very small
     final double colorAreaHeight = targetAspectHeight.clamp(
@@ -553,7 +575,9 @@ ShapeBorder themeItemShapeDefault(
   );
 }
 
+/// Theme settings page.
 class ThemeSettingsPage extends StatelessWidget {
+  /// Constructor.
   const ThemeSettingsPage({super.key});
 
   @override

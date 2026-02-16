@@ -25,19 +25,32 @@ class CustomIcons {
   // font family name
   static const String _kFontFam = 'CustomIcons';
 
+  /// Icon for medium interpolation strength.
+  // ignore: constant_identifier_names
   static const IconData interpol_medium = IconData(
     0xe812,
     fontFamily: _kFontFam,
   );
+
+  /// Icon for no interpolation.
+  // ignore: constant_identifier_names
   static const IconData interpol_none = IconData(0xe813, fontFamily: _kFontFam);
+
+  /// Icon for strong interpolation strength.
+  // ignore: constant_identifier_names
   static const IconData interpol_strong = IconData(
     0xe814,
     fontFamily: _kFontFam,
   );
+
+  /// Icon for weak interpolation strength.
+  // ignore: constant_identifier_names
   static const IconData interpol_weak = IconData(0xe815, fontFamily: _kFontFam);
 }
 
+/// A themed [PhosphorIcon] wrapper with duotone secondary color.
 class PPIcon extends PhosphorIcon {
+  /// Creates a [PPIcon] with themed duotone secondary color.
   PPIcon(
     super.icon,
     BuildContext context, {

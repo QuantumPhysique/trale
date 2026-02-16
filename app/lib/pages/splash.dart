@@ -14,7 +14,7 @@ class Splash extends StatefulWidget {
   const Splash({super.key});
   @override
   /// create state
-  _SplashState createState() => _SplashState();
+  State<Splash> createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
@@ -51,7 +51,9 @@ class _SplashState extends State<Splash> {
     if (!_navigated) {
       _navigated = true;
       _loadMeasurements.then((_) {
-        if (!mounted) return;
+        if (!mounted) {
+          return;
+        }
         // Reschedule reminder notifications with localised strings.
         final AppLocalizations? l10n = AppLocalizations.of(context);
         if (l10n != null) {

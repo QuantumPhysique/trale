@@ -41,7 +41,7 @@ class DialogM3E extends StatelessWidget {
       actionsPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
 
-        /// todo: why -4? Find reason and fix properly
+        // TODO(pb): why -4? Find reason and fix properly
         vertical: TraleTheme.of(context)!.padding - 4,
       ),
       actionsAlignment: actions.length == 1

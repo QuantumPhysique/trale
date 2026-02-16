@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trale/widget/animation_replay_scope.dart';
 
+/// Animated slide-in effect widget.
 class AnimateInEffect extends StatefulWidget {
+  /// Constructor.
   const AnimateInEffect({
     super.key,
     required this.child,
@@ -11,10 +13,19 @@ class AnimateInEffect extends StatefulWidget {
     this.keepAlive = false,
   });
 
+  /// Child widget to animate.
   final Widget child;
+
+  /// Start of the animation interval.
   final double intervalStart;
+
+  /// Duration of the animation in milliseconds.
   final int durationInMilliseconds;
+
+  /// Delay before starting the animation.
   final int delayInMilliseconds;
+
+  /// Whether to keep the widget alive.
   final bool keepAlive;
 
   @override

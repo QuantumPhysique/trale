@@ -13,14 +13,16 @@ import 'package:trale/widget/ioWidgets.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/statsWidgets.dart';
 
+/// Overview screen widget.
 class OverviewScreen extends StatefulWidget {
+  /// Constructor.
   const OverviewScreen({super.key, this.tabController});
 
   /// Optional tab controller to replay animations on tab switch.
   final TabController? tabController;
 
   @override
-  _OverviewScreen createState() => _OverviewScreen();
+  State<OverviewScreen> createState() => _OverviewScreen();
 }
 
 class _OverviewScreen extends State<OverviewScreen>
@@ -105,13 +107,12 @@ class _OverviewScreen extends State<OverviewScreen>
       context,
     )!.transitionDuration.slow.inMilliseconds;
 
-    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-
     Widget overviewScreen(
       BuildContext context,
       AsyncSnapshot<List<Measurement>> snapshot,
     ) {
-      // Use measurements count as stable key to avoid recreating widgets on navigation
+      // Use measurements count as stable key to avoid
+      // recreating widgets on navigation
       final int measurementCount = snapshot.data?.length ?? 0;
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
