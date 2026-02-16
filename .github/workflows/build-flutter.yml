@@ -20,7 +20,7 @@ jobs:
           distribution: 'adopt'
         id: java
       - name: 📦 Cache Gradle dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.gradle/caches
@@ -40,14 +40,14 @@ jobs:
           channel: 'stable'
         id: flutter
       - name: 📦 Cache Flutter SDK
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.FLUTTER_ROOT }}
           key: flutter-sdk-${{ runner.os }}-${{ env.FLUTTER_VERSION }}
           restore-keys: |
             flutter-sdk-${{ runner.os }}-
       - name: 📦 Cache Pub dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             ~/.pub-cache
