@@ -350,12 +350,11 @@ class _TargetDateTile extends StatelessWidget {
   final Color tileColor;
   final VoidCallback onRefresh;
 
-  /// Find today's measurement weight, or null.
-  double? _todayWeight() {
+  /// Find measurement weight on a specific date, or null.
+  double? _weightOnDate(DateTime date) {
     final MeasurementDatabase db = MeasurementDatabase();
-    final DateTime now = DateTime.now();
     for (final Measurement m in db.measurements) {
-      if (now.sameDay(m.date)) {
+      if (date.sameDay(m.date)) {
         return m.weight;
       }
     }
@@ -388,11 +387,12 @@ class _TargetDateTile extends StatelessWidget {
           return;
         }
 
-        // Determine current weight for the starting
-        // point of the target line.
-        double? todayW = _todayWeight();
-        if (todayW == null) {
-          // No measurement today — prompt user to add
+        // Check if a start weight is available.
+        double? startWeight = _weightOnDate(now);
+        DateTime startDate = now;
+
+        if (startWeight == null) {
+          // No measurement today — prompt user to add one.
           if (!context.mounted) {
             return;
           }
@@ -400,24 +400,33 @@ class _TargetDateTile extends StatelessWidget {
           final double fallbackWeight = db.nMeasurements > 0
               ? db.measurements.first.weight
               : Preferences().defaultUserWeight;
+
+          DateTime? savedDate;
+          double? savedWeight;
           final bool added = await showAddWeightDialog(
             context: context,
             weight: fallbackWeight,
             date: now,
+            message:
+                AppLocalizations.of(context)!
+                    .targetWeightPrompt,
+            onSaved: (DateTime d, double w) {
+              savedDate = d;
+              savedWeight = w;
+            },
           );
-          if (!added) {
-            // User cancelled — don't set target date
+          if (!added ||
+              savedDate == null ||
+              savedWeight == null) {
             return;
           }
-          todayW = _todayWeight();
-          if (todayW == null) {
-            return;
-          }
+          startDate = savedDate!;
+          startWeight = savedWeight!;
         }
 
         notifier.userTargetWeightDate = selectedDate;
-        notifier.userTargetWeightSetDate = now;
-        notifier.userTargetWeightSetWeight = todayW;
+        notifier.userTargetWeightSetDate = startDate;
+        notifier.userTargetWeightSetWeight = startWeight;
         MeasurementDatabase().fireStream();
         onRefresh();
       },
@@ -489,6 +498,17 @@ class _TargetWeightRateTile extends StatelessWidget {
     return null;
   }
 
+  /// Find measurement weight on a specific date, or null.
+  double? _weightOnDate(DateTime date) {
+    final MeasurementDatabase db = MeasurementDatabase();
+    for (final Measurement m in db.measurements) {
+      if (date.sameDay(m.date)) {
+        return m.weight;
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final double? ratePerWeek = _calculateRatePerWeek();
@@ -508,8 +528,61 @@ class _TargetWeightRateTile extends StatelessWidget {
       color: tileColor,
       leading: PPIcon(PhosphorIconsDuotone.trendDown, context),
       title: Text(AppLocalizations.of(context)!.targetWeightRate),
-      trailing: Text(rateText, style: Theme.of(context).textTheme.bodyLarge),
+      trailing: Text(
+        rateText,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
       onTap: () async {
+        final DateTime now = DateTime.now();
+
+        // Ensure a start weight exists before setting rate.
+        double? startWeight = _weightOnDate(now);
+        DateTime startDate = now;
+
+        if (startWeight == null &&
+            notifier.userTargetWeightSetWeight == null) {
+          if (!context.mounted) {
+            return;
+          }
+          final MeasurementDatabase db =
+              MeasurementDatabase();
+          final double fallbackWeight =
+              db.nMeasurements > 0
+                  ? db.measurements.first.weight
+                  : Preferences().defaultUserWeight;
+
+          DateTime? savedDate;
+          double? savedWeight;
+          final bool added = await showAddWeightDialog(
+            context: context,
+            weight: fallbackWeight,
+            date: now,
+            message:
+                AppLocalizations.of(context)!
+                    .targetWeightPrompt,
+            onSaved: (DateTime d, double w) {
+              savedDate = d;
+              savedWeight = w;
+            },
+          );
+          if (!added ||
+              savedDate == null ||
+              savedWeight == null) {
+            return;
+          }
+          startDate = savedDate!;
+          startWeight = savedWeight!;
+
+          // Save set date/weight now
+          notifier.userTargetWeightSetDate = startDate;
+          notifier.userTargetWeightSetWeight =
+              startWeight;
+        }
+
+        if (!context.mounted) {
+          return;
+        }
+
         final double? currentRate = ratePerWeek;
         final double initialRate = currentRate != null
             ? currentRate / unitScaling
@@ -597,6 +670,11 @@ class _TargetWeightRateTile extends StatelessWidget {
           final DateTime? newDate = _calculateDateFromRate(newRate);
           if (newDate != null) {
             notifier.userTargetWeightDate = newDate;
+            // Ensure set date/weight are persisted
+            notifier.userTargetWeightSetDate ??=
+                startDate;
+            notifier.userTargetWeightSetWeight ??=
+                startWeight;
             MeasurementDatabase().fireStream();
             onRefresh();
           }

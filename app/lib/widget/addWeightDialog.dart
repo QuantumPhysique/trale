@@ -23,6 +23,8 @@ Future<bool> showAddWeightDialog({
   required double weight,
   required DateTime date,
   bool editMode = false,
+  String? message,
+  void Function(DateTime date, double weight)? onSaved,
 }) async {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(
     context,
@@ -40,6 +42,19 @@ Future<bool> showAddWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          if (message != null)
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: TraleTheme.of(context)!.padding,
+              ),
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
           WidgetGroup(
             children: <Widget>[
               GroupedListTile(
@@ -170,6 +185,12 @@ Future<bool> showAddWeightDialog({
                     ),
                     behavior: SnackBarBehavior.floating,
                   ),
+                );
+              }
+              if (wasInserted && onSaved != null) {
+                onSaved(
+                  currentDate,
+                  currentSliderValue * notifier.unit.scaling,
                 );
               }
               Navigator.pop(context, wasInserted);
