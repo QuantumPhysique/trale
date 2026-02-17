@@ -29,7 +29,11 @@ Future<void> main() async {
 
   // Initialise the notification service.
   final NotificationService notificationService = NotificationService();
-  await notificationService.init();
+  try {
+    await notificationService.init();
+  } catch (e) {
+    debugPrint('NotificationService init failed: $e');
+  }
 
   return runApp(
     ChangeNotifierProvider<TraleNotifier>.value(
