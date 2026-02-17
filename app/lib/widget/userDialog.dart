@@ -7,6 +7,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/icons.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stringExtension.dart';
@@ -178,7 +179,6 @@ class UserDetailsGroup extends StatelessWidget {
           ),
           onTap: () {},
         ),
-        LooseWeightListTile(color: tileColor),
         GroupedListTile(
           color: tileColor,
           dense: false,
@@ -292,46 +292,35 @@ class TargetWeightGroup extends StatelessWidget {
 
         // ── Expanded target weight settings (only when enabled) ─────
         if (enabled) ...<Widget>[
+          LooseWeightListTile(color: tileColor),
           // Target weight value
           GroupedListTile(
             color: tileColor,
-            dense: false,
             leading: PPIcon(PhosphorIconsDuotone.scales, context),
-            title: TextFormField(
-              key: ValueKey<double?>(notifier.userTargetWeight),
-              readOnly: true,
-              initialValue: notifier.userTargetWeight != null
+            title: Text(AppLocalizations.of(context)!.targetWeight),
+            trailing: Text(
+              notifier.userTargetWeight != null
                   ? notifier.unit.weightToString(
                       notifier.userTargetWeight!,
                       notifier.unitPrecision,
                     )
                   : AppLocalizations.of(context)!.addTargetWeight,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              maxLines: 1,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                labelText: AppLocalizations.of(context)!.targetWeight,
-              ),
-              onTap: () async {
-                await showTargetWeightDialog(
-                  context: context,
-                  weight:
-                      notifier.userTargetWeight ??
-                      Preferences().defaultUserWeight,
-                );
-                notifier.notify;
-                onRefresh();
-              },
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
+            onTap: () async {
+              await showTargetWeightDialog(
+                context: context,
+                weight:
+                    notifier.userTargetWeight ??
+                    Preferences().defaultUserWeight,
+              );
+              notifier.notify;
+              onRefresh();
+            },
           ),
-          // Starting date + Target date (side by side)
+          // Target date
           if (notifier.userTargetWeight != null)
-            _DateRow(
+            _TargetDateTile(
               notifier: notifier,
               tileColor: tileColor,
               onRefresh: onRefresh,
@@ -349,9 +338,9 @@ class TargetWeightGroup extends StatelessWidget {
   }
 }
 
-/// Row showing starting date and target date side by side.
-class _DateRow extends StatelessWidget {
-  const _DateRow({
+/// Target date tile matching the addWeightDialog style.
+class _TargetDateTile extends StatelessWidget {
+  const _TargetDateTile({
     required this.notifier,
     required this.tileColor,
     required this.onRefresh,
@@ -361,141 +350,77 @@ class _DateRow extends StatelessWidget {
   final Color tileColor;
   final VoidCallback onRefresh;
 
+  /// Find today's measurement weight, or null.
+  double? _todayWeight() {
+    final MeasurementDatabase db = MeasurementDatabase();
+    final DateTime now = DateTime.now();
+    for (final Measurement m in db.measurements) {
+      if (now.sameDay(m.date)) {
+        return m.weight;
+      }
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final DateTime now = DateTime.now();
-    final DateTime startDate = notifier.userTargetWeightSetDate ?? now;
     final DateTime? targetDate = notifier.userTargetWeightDate;
 
-    return GroupedWidget(
+    return GroupedListTile(
       color: tileColor,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-          vertical: TraleTheme.of(context)!.padding * 0.5,
-        ),
-        child: Row(
-          children: <Widget>[
-            // Starting date
-            Expanded(
-              child: _DateTile(
-                icon: PhosphorIconsDuotone.calendarBlank,
-                label: AppLocalizations.of(context)!.startingDate,
-                dateText: notifier.dateFormat(context).format(startDate),
-                onTap: () async {
-                  final DateTime? selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate: startDate,
-                    firstDate: DateTime.fromMillisecondsSinceEpoch(0),
-                    lastDate: now,
-                  );
-                  if (selectedDate != null) {
-                    notifier.userTargetWeightSetDate = selectedDate;
-                    // Also update the set weight to the latest measurement
-                    // if not already set
-                    if (notifier.userTargetWeightSetWeight == null) {
-                      final MeasurementDatabase db = MeasurementDatabase();
-                      if (db.nMeasurements > 0) {
-                        notifier.userTargetWeightSetWeight =
-                            db.measurements.first.weight;
-                      }
-                    }
-                    MeasurementDatabase().fireStream();
-                    onRefresh();
-                  }
-                },
-              ),
-            ),
-            SizedBox(width: TraleTheme.of(context)!.padding),
-            // Target date
-            Expanded(
-              child: _DateTile(
-                icon: PhosphorIconsDuotone.calendarCheck,
-                label: AppLocalizations.of(context)!.targetWeightDate,
-                dateText: targetDate != null
-                    ? notifier.dateFormat(context).format(targetDate)
-                    : AppLocalizations.of(context)!.addTargetWeightDate,
-                onTap: () async {
-                  final DateTime? selectedDate = await showDatePicker(
-                    context: context,
-                    initialDate:
-                        targetDate ?? now.add(const Duration(days: 90)),
-                    firstDate: now,
-                    lastDate: now.add(const Duration(days: 365 * 5)),
-                  );
-                  if (selectedDate != null) {
-                    notifier.userTargetWeightDate = selectedDate;
-                    // Ensure a starting date is set
-                    notifier.userTargetWeightSetDate ??= now;
-                    if (notifier.userTargetWeightSetWeight == null) {
-                      final MeasurementDatabase db = MeasurementDatabase();
-                      if (db.nMeasurements > 0) {
-                        notifier.userTargetWeightSetWeight =
-                            db.measurements.first.weight;
-                      }
-                    }
-                    MeasurementDatabase().fireStream();
-                    onRefresh();
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
+      leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
+      title: Text(AppLocalizations.of(context)!.targetWeightDate),
+      trailing: Text(
+        targetDate != null
+            ? notifier.dateFormat(context).format(targetDate)
+            : AppLocalizations.of(context)!.addTargetWeightDate,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
-    );
-  }
-}
+      onTap: () async {
+        final DateTime? selectedDate = await showDatePicker(
+          context: context,
+          initialDate: targetDate ?? now.add(const Duration(days: 90)),
+          firstDate: now,
+          lastDate: now.add(const Duration(days: 365 * 5)),
+        );
+        if (selectedDate == null) {
+          return;
+        }
 
-/// A compact date display with icon, label, and tappable date text.
-class _DateTile extends StatelessWidget {
-  const _DateTile({
-    required this.icon,
-    required this.label,
-    required this.dateText,
-    required this.onTap,
-  });
+        // Determine current weight for the starting
+        // point of the target line.
+        double? todayW = _todayWeight();
+        if (todayW == null) {
+          // No measurement today — prompt user to add
+          if (!context.mounted) {
+            return;
+          }
+          final MeasurementDatabase db = MeasurementDatabase();
+          final double fallbackWeight = db.nMeasurements > 0
+              ? db.measurements.first.weight
+              : Preferences().defaultUserWeight;
+          final bool added = await showAddWeightDialog(
+            context: context,
+            weight: fallbackWeight,
+            date: now,
+          );
+          if (!added) {
+            // User cancelled — don't set target date
+            return;
+          }
+          todayW = _todayWeight();
+          if (todayW == null) {
+            return;
+          }
+        }
 
-  final IconData icon;
-  final String label;
-  final String dateText;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(
-                icon,
-                size: 16,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const SizedBox(width: 4),
-              Flexible(
-                child: Text(
-                  label,
-                  style: Theme.of(context).textTheme.labelSmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 2),
-          Text(
-            dateText,
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
+        notifier.userTargetWeightDate = selectedDate;
+        notifier.userTargetWeightSetDate = now;
+        notifier.userTargetWeightSetWeight = todayW;
+        MeasurementDatabase().fireStream();
+        onRefresh();
+      },
     );
   }
 }
@@ -581,117 +506,102 @@ class _TargetWeightRateTile extends StatelessWidget {
 
     return GroupedListTile(
       color: tileColor,
-      dense: false,
       leading: PPIcon(PhosphorIconsDuotone.trendDown, context),
-      title: TextFormField(
-        key: ValueKey<double?>(ratePerWeek),
-        readOnly: true,
-        initialValue: rateText,
-        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        maxLines: 1,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-            color: Theme.of(context).colorScheme.onSurface,
-          ),
-          labelText: AppLocalizations.of(context)!.targetWeightRate,
-        ),
-        onTap: () async {
-          final double? currentRate = ratePerWeek;
-          final double initialRate = currentRate != null
-              ? currentRate / unitScaling
-              : -0.5 / unitScaling;
+      title: Text(AppLocalizations.of(context)!.targetWeightRate),
+      trailing: Text(rateText, style: Theme.of(context).textTheme.bodyLarge),
+      onTap: () async {
+        final double? currentRate = ratePerWeek;
+        final double initialRate = currentRate != null
+            ? currentRate / unitScaling
+            : -0.5 / unitScaling;
 
-          final double? newRate = await showDialog<double>(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              double sliderValue = initialRate.abs();
-              // Clamp to reasonable range
-              if (sliderValue < 0.1 / unitScaling) {
-                sliderValue = 0.1 / unitScaling;
-              }
-              if (sliderValue > 2.0 / unitScaling) {
-                sliderValue = 2.0 / unitScaling;
-              }
+        final double? newRate = await showDialog<double>(
+          context: context,
+          builder: (BuildContext dialogContext) {
+            double sliderValue = initialRate.abs();
+            // Clamp to reasonable range
+            if (sliderValue < 0.1 / unitScaling) {
+              sliderValue = 0.1 / unitScaling;
+            }
+            if (sliderValue > 2.0 / unitScaling) {
+              sliderValue = 2.0 / unitScaling;
+            }
 
-              return StatefulBuilder(
-                builder: (BuildContext ctx, StateSetter setState) {
-                  final bool isLosingWeight = notifier.looseWeight;
-                  final double signedRate = isLosingWeight
-                      ? -sliderValue
-                      : sliderValue;
-                  final DateTime? estimatedDate = _calculateDateFromRate(
-                    signedRate * unitScaling,
-                  );
-                  final String dateStr = estimatedDate != null
-                      ? notifier.dateFormat(context).format(estimatedDate)
-                      : '--';
+            return StatefulBuilder(
+              builder: (BuildContext ctx, StateSetter setState) {
+                final bool isLosingWeight = notifier.looseWeight;
+                final double signedRate = isLosingWeight
+                    ? -sliderValue
+                    : sliderValue;
+                final DateTime? estimatedDate = _calculateDateFromRate(
+                  signedRate * unitScaling,
+                );
+                final String dateStr = estimatedDate != null
+                    ? notifier.dateFormat(context).format(estimatedDate)
+                    : '--';
 
-                  return AlertDialog(
-                    title: Text(AppLocalizations.of(context)!.targetWeightRate),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          '${sliderValue.toStringAsFixed(2)} '
-                          '${notifier.unit.name}'
-                          '${AppLocalizations.of(context)!.perWeek}',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        const SizedBox(height: 16),
-                        Slider(
-                          value: sliderValue,
-                          min: 0.1 / unitScaling,
-                          max: 2.0 / unitScaling,
-                          divisions: 19,
-                          label: sliderValue.toStringAsFixed(2),
-                          onChanged: (double value) {
-                            setState(() {
-                              sliderValue = value;
-                            });
-                          },
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          '${AppLocalizations.of(context)!.targetWeightDate}: '
-                          '$dateStr',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(dialogContext),
-                        child: Text(AppLocalizations.of(context)!.abort),
+                return AlertDialog(
+                  title: Text(AppLocalizations.of(context)!.targetWeightRate),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        '${sliderValue.toStringAsFixed(2)} '
+                        '${notifier.unit.name}'
+                        '${AppLocalizations.of(context)!.perWeek}',
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
-                      FilledButton(
-                        onPressed: () {
-                          final double signed = isLosingWeight
-                              ? -sliderValue
-                              : sliderValue;
-                          Navigator.pop(dialogContext, signed * unitScaling);
+                      const SizedBox(height: 16),
+                      Slider(
+                        value: sliderValue,
+                        min: 0.1 / unitScaling,
+                        max: 2.0 / unitScaling,
+                        divisions: 19,
+                        label: sliderValue.toStringAsFixed(2),
+                        onChanged: (double value) {
+                          setState(() {
+                            sliderValue = value;
+                          });
                         },
-                        child: Text(AppLocalizations.of(context)!.save),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        '${AppLocalizations.of(context)!.targetWeightDate}: '
+                        '$dateStr',
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
-                  );
-                },
-              );
-            },
-          );
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(dialogContext),
+                      child: Text(AppLocalizations.of(context)!.abort),
+                    ),
+                    FilledButton(
+                      onPressed: () {
+                        final double signed = isLosingWeight
+                            ? -sliderValue
+                            : sliderValue;
+                        Navigator.pop(dialogContext, signed * unitScaling);
+                      },
+                      child: Text(AppLocalizations.of(context)!.save),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        );
 
-          if (newRate != null) {
-            final DateTime? newDate = _calculateDateFromRate(newRate);
-            if (newDate != null) {
-              notifier.userTargetWeightDate = newDate;
-              MeasurementDatabase().fireStream();
-              onRefresh();
-            }
+        if (newRate != null) {
+          final DateTime? newDate = _calculateDateFromRate(newRate);
+          if (newDate != null) {
+            notifier.userTargetWeightDate = newDate;
+            MeasurementDatabase().fireStream();
+            onRefresh();
           }
-        },
-      ),
+        }
+      },
     );
   }
 }

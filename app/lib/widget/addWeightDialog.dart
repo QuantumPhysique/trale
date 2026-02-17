@@ -267,12 +267,23 @@ Future<bool> showTargetWeightDialog({
                 notifier.userTargetWeight =
                     currentSliderValue * notifier.unit.scaling;
                 // Save the date and weight when the target was set
-                notifier.userTargetWeightSetDate = DateTime.now();
+                final DateTime now = DateTime.now();
+                notifier.userTargetWeightSetDate = now;
                 final MeasurementDatabase db = MeasurementDatabase();
-                if (db.nMeasurements > 0) {
-                  notifier.userTargetWeightSetWeight =
-                      db.measurements.first.weight;
+                // Use today's measurement if available,
+                // otherwise latest measurement
+                double? todayWeight;
+                for (final Measurement m in db.measurements) {
+                  if (now.sameDay(m.date)) {
+                    todayWeight = m.weight;
+                    break;
+                  }
                 }
+                notifier.userTargetWeightSetWeight =
+                    todayWeight ??
+                    (db.nMeasurements > 0
+                        ? db.measurements.first.weight
+                        : null);
               }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
