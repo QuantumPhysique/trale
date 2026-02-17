@@ -398,6 +398,34 @@
     "@addTargetWeight": {
         "description": "Press to add a target weight."
     },
+    "targetWeightEnabled": "Target weight",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Set a target weight and track your progress.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "startingDate": "Starting date",
+    "@startingDate": {
+        "description": "The date when the user started working towards their target weight."
+    },
+    "targetWeightDate": "Target date",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "addTargetWeightDate": "Set target date",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Rate",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/week",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
     "intro1": "Press",
     "@intro1": {
         "description": "Start of 'press + to get started'"

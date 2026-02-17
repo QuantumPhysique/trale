@@ -19,6 +19,28 @@ import 'package:trale/core/zoomLevel.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/tile_group.dart';
 
+/// Build FlSpot list for the target weight line.
+/// The line goes from (setDate, setWeight) to (targetDate, targetWeight),
+/// then continues horizontally at targetWeight to the chart's right edge.
+List<FlSpot> _buildTargetWeightSpots({
+  required double setDateMs,
+  required double setWeight,
+  required double targetDateMs,
+  required double targetWeight,
+  required double chartMaxX,
+}) {
+  final List<FlSpot> spots = <FlSpot>[
+    FlSpot(setDateMs, setWeight),
+    FlSpot(targetDateMs, targetWeight),
+  ];
+  // Extend horizontally to the right if the chart extends beyond targetDate
+  final double extensionX =
+      max<double>(chartMaxX, targetDateMs) +
+      365 * 24 * 3600 * 1000; // extend well beyond chart
+  spots.add(FlSpot(extensionX, targetWeight));
+  return spots;
+}
+
 /// Custom line chart widget for weight data.
 class CustomLineChart extends StatefulWidget {
   /// Constructor.
@@ -172,7 +194,21 @@ class _CustomLineChartState extends State<CustomLineChart> {
       context,
       listen: false,
     );
-    final double? targetWeight = notifier.userTargetWeight;
+    final double? targetWeight = notifier.effectiveTargetWeight;
+    final DateTime? targetWeightDate = notifier.targetWeightEnabled
+        ? notifier.userTargetWeightDate
+        : null;
+    // Use fallbacks: current date and latest measured weight
+    final DateTime effectiveSetDate =
+        (notifier.targetWeightEnabled
+            ? notifier.userTargetWeightSetDate
+            : null) ??
+        DateTime.now();
+    final double? effectiveSetWeight =
+        (notifier.targetWeightEnabled
+            ? notifier.userTargetWeightSetWeight
+            : null) ??
+        (ip.db.nMeasurements > 0 ? ip.db.measurements.first.weight : null);
 
     final Color interpolationLineColor =
         widget.interpolationLineColor ?? Colors.transparent;
@@ -319,7 +355,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
           extraLinesData: ExtraLinesData(
             extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
-              if (targetWeight != null && !widget.isPreview)
+              // Fallback: show horizontal line only when no dates are set
+              if (targetWeight != null &&
+                  !widget.isPreview &&
+                  (targetWeightDate == null || effectiveSetWeight == null))
                 HorizontalLine(
                   y: targetWeight / unitScaling,
                   color: targetWeightLineColor,
@@ -346,15 +385,12 @@ class _CustomLineChartState extends State<CustomLineChart> {
               spots: measurementsInterpol,
               isCurved: true,
               color: interpolationLineColor,
-              //color: Theme.of(context).colorScheme.primaryContainer,
               barWidth: 3,
               isStrokeCapRound: true,
               dotData: const FlDotData(show: false),
               belowBarData: BarAreaData(
                 show: true,
                 color: interpolationBelowAreaColor,
-                // cutOffY: targetWeight ?? 0,
-                // applyCutOffY: targetWeight != null,
               ),
               aboveBarData: BarAreaData(
                 show: targetWeight != null,
@@ -390,6 +426,30 @@ class _CustomLineChartState extends State<CustomLineChart> {
                     ),
               ),
             ),
+            // Target weight line: sloped from setDate to targetDate,
+            // then horizontal from targetDate onwards.
+            if (targetWeight != null &&
+                !widget.isPreview &&
+                targetWeightDate != null &&
+                effectiveSetWeight != null)
+              LineChartBarData(
+                spots: _buildTargetWeightSpots(
+                  setDateMs: effectiveSetDate.millisecondsSinceEpoch.toDouble(),
+                  setWeight: effectiveSetWeight / unitScaling,
+                  targetDateMs: targetWeightDate.millisecondsSinceEpoch
+                      .toDouble(),
+                  targetWeight: targetWeight / unitScaling,
+                  chartMaxX: maxX,
+                ),
+                isCurved: false,
+                color: targetWeightLineColor,
+                barWidth: 2,
+                isStrokeCapRound: true,
+                dashArray: <int>[8, 6],
+                dotData: const FlDotData(show: false),
+                belowBarData: BarAreaData(show: false),
+                aboveBarData: BarAreaData(show: false),
+              ),
           ],
         ),
         duration: TraleTheme.of(context)!.transitionDuration.slow,

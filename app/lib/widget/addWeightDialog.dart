@@ -266,6 +266,13 @@ Future<bool> showTargetWeightDialog({
               } else {
                 notifier.userTargetWeight =
                     currentSliderValue * notifier.unit.scaling;
+                // Save the date and weight when the target was set
+                notifier.userTargetWeightSetDate = DateTime.now();
+                final MeasurementDatabase db = MeasurementDatabase();
+                if (db.nMeasurements > 0) {
+                  notifier.userTargetWeightSetWeight =
+                      db.measurements.first.weight;
+                }
               }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
