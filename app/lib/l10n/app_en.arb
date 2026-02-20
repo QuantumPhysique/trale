@@ -426,6 +426,10 @@
     "@targetWeightPrompt": {
         "description": "Explanation shown when prompting the user to add a weight for target date/rate."
     },
+    "targetWeightRateAdvice": "Choose a moderate rate. Too low and progress will be hard to notice; too high and you risk losing muscle mass instead of fat.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
     "intro1": "Press",
     "@intro1": {
         "description": "Start of 'press + to get started'"
