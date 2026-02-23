@@ -573,5 +573,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: '0.1.0',
     dateString: '2022-03-01',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'initial release',
+      ],
+    },
   ),
 ]);

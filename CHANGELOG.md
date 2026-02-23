@@ -428,6 +428,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 
 
 ## [0.1.0] - 2022-03-01
+### Added Features and Improvements 🙌:
 - initial release
 
 
