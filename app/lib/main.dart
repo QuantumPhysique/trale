@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/firstDayLocalizationsDelegate.dart';
@@ -33,6 +34,17 @@ Future<void> main() async {
     await notificationService.init();
   } catch (e) {
     debugPrint('NotificationService init failed: $e');
+  }
+  //
+  final PackageInfo info = await PackageInfo.fromPlatform();
+  // try parsing build number
+  final int? buildNumber = int.tryParse(info.buildNumber);
+  if (buildNumber == null) {
+    debugPrint('Failed to parse build number: ${info.buildNumber}');
+  } else if (buildNumber > prefs.lastBuildNumber) {
+    // App has been updated since last run.
+    traleNotifier.showChangelog = true;
+    prefs.lastBuildNumber = buildNumber;
   }
 
   return runApp(
