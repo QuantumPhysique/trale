@@ -21,7 +21,7 @@ hive:
 
 ## Run all code generators
 .PHONY: generate
-generate: $(CHANGELOG_GEN) hive
+generate: $(CHANGELOG_GEN)
 
 # ── Flutter commands (with auto-generation) ───────────────────────────
 
