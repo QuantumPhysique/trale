@@ -20,6 +20,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Allow using imperial units for entering height
 - Add reminder notifications to prompt daily weight logging
 - Add option to preview interpolation on own data
+- Add changelog to app
 
 ### Other changes:
 - Using the latest flutter 3.41

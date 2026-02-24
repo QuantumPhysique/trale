@@ -16,6 +16,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Allow using imperial units for entering height',
         'Add reminder notifications to prompt daily weight logging',
         'Add option to preview interpolation on own data',
+        'Add changelog to app',
       ],
       ChangelogSection.otherChanges: <String>[
         'Using the latest flutter 3.41',
