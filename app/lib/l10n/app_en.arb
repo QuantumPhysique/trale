@@ -272,6 +272,10 @@
     "@sourcecode": {
         "description": "source code"
     },
+    "changelog": "Changelog",
+    "@changelog": {
+        "description": "changelog"
+    },
     "openIssue": "Open an issue",
     "@openIssue": {
         "description": "open an issue"
