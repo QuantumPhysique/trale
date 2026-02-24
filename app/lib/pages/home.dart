@@ -14,6 +14,7 @@ import 'package:trale/widget/addWeightDialog.dart';
 import 'package:trale/widget/customSliverAppBar.dart';
 import 'package:trale/widget/floatingActionButton.dart';
 import 'package:trale/widget/userDialog.dart';
+import 'package:trale/widget/changelog_widget.dart';
 
 /// home scaffold
 class Home extends StatefulWidget {
@@ -53,8 +54,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (loadedFirst && mounted) {
         loadedFirst = false;
-        // Removed setState() - it was causing animations
-        // to re-trigger when navigating back from settings
+        // Show changelog on first launch after update
+        if (Preferences().showChangelog) {
+          Preferences().showChangelog = false;
+          showChangelog(context);
+        }
       }
     });
   }
