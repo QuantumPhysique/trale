@@ -7,9 +7,43 @@ import 'package:trale/widget/bulletList.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:trale/core/changelog.dart';
 
-class ChangelogContent extends StatelessWidget {
+class ChangelogContent extends StatefulWidget {
   const ChangelogContent({super.key, required this.scrollController});
   final ScrollController scrollController;
+
+  @override
+  State<ChangelogContent> createState() => _ChangelogContentState();
+}
+
+class _ChangelogContentState extends State<ChangelogContent>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _handleController;
+
+  @override
+  void initState() {
+    super.initState();
+    _handleController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+      value: 1.0,
+    );
+    widget.scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (widget.scrollController.offset > 0) {
+      _handleController.reverse();
+    } else {
+      _handleController.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.scrollController.removeListener(_onScroll);
+    _handleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,25 +68,29 @@ class ChangelogContent extends StatelessWidget {
         Theme.of(context).colorScheme.onSurfaceVariant;
 
     return CustomScrollView(
-      controller: scrollController,
+      controller: widget.scrollController,
       slivers: <Widget>[
         // Drag handle matching Flutter's internal _DragHandle
         SliverToBoxAdapter(
-          child: Center(
-            child: SizedBox(
-              height: kMinInteractiveDimension,
-              width: kMinInteractiveDimension,
-              child: Center(
+          child: AnimatedBuilder(
+            animation: _handleController,
+            builder: (BuildContext context, Widget? child) {
+              final double t = _handleController.value;
+              return Container(
+                alignment: Alignment.center,
+                height: kMinInteractiveDimension * t + (1 - t) * theme.padding,
+                width: kMinInteractiveDimension,
+                padding: EdgeInsets.only(top: (1 - t) * theme.padding),
                 child: Container(
                   width: handleSize.width,
-                  height: handleSize.height,
+                  height: handleSize.height * t,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(handleSize.height / 2),
                     color: handleColor,
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ),
         SliverList.builder(
