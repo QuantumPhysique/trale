@@ -340,7 +340,7 @@ class GroupedText extends StatelessWidget {
   final Color? color;
 
   /// Text to display
-  final Text text;
+  final Widget text;
 
   @override
   Widget build(BuildContext context) {

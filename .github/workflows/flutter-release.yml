@@ -54,11 +54,15 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
+      - name: Generate code-gen
+        run: |
+          cd app
+          make generate
       - name: 🤖📦 Create Android release
         run: |
           cd app
-          flutter build appbundle --release
-          flutter build apk --split-per-abi --release
+          make build
+          make build-aab
       - name: 🤖🚀 Upload to GitHub release
         uses: AButler/upload-release-assets@v3.0
         with:

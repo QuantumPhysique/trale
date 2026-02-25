@@ -405,6 +405,28 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter
+  bool get showChangelog => prefs.showChangelog;
+
+  /// setter
+  set showChangelog(bool show) {
+    if (show != showChangelog) {
+      prefs.showChangelog = show;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  int get lastBuildNumber => prefs.lastBuildNumber;
+
+  /// setter
+  set lastBuildNumber(int number) {
+    if (number != lastBuildNumber) {
+      prefs.lastBuildNumber = number;
+      notifyListeners();
+    }
+  }
+
   /// getter for reminder enabled
   bool get reminderEnabled => prefs.reminderEnabled;
 

@@ -83,10 +83,14 @@ jobs:
         run: |
           cd app
           dart run dependency_validator
+      - name: Generate code-gen
+        run: |
+          cd app
+          make generate
       - name: 🤖📦 Create Android release
         run: |
           cd app
-          flutter build apk --split-per-abi --release
+          make build
       - name: Create Artifact Name
         run: |
           BRANCH_NAME="apks_${{ github.head_ref || github.ref_name }}"
