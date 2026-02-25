@@ -56,6 +56,10 @@ class Changelog {
   /// All changelog entries, newest first.
   final List<ChangelogEntry> entries;
 
+  /// All changelog entries except the Unreleased one
+  List<ChangelogEntry> getReleasedEntries() =>
+      entries.where((entry) => entry.version != 'Unreleased').toList();
+
   /// The latest released entry (skips "Unreleased").
   ChangelogEntry? get latestRelease {
     for (final ChangelogEntry entry in entries) {

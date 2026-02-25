@@ -67,6 +67,7 @@ class _ChangelogContentState extends State<ChangelogContent>
         sheetTheme.dragHandleColor ??
         Theme.of(context).colorScheme.onSurfaceVariant;
 
+    final List<ChangelogEntry> entries = changelog.getReleasedEntries();
     return CustomScrollView(
       controller: widget.scrollController,
       slivers: <Widget>[
@@ -94,12 +95,12 @@ class _ChangelogContentState extends State<ChangelogContent>
           ),
         ),
         SliverList.builder(
-          itemCount: changelog.entries.length,
+          itemCount: entries.length,
           itemBuilder: (_, int i) => Padding(
             padding: EdgeInsets.symmetric(horizontal: theme.padding),
             child: WidgetGroup(
-              title: getTitle(changelog.entries[i]),
-              children: changelog.entries[i].sections.entries.map((
+              title: getTitle(entries[i]),
+              children: entries[i].sections.entries.map((
                 MapEntry<ChangelogSection, List<String>> section,
               ) {
                 return GroupedText(
