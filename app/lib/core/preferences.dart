@@ -111,6 +111,12 @@ class Preferences {
   /// default show measurement hint banner
   final bool defaultShowMeasurementHintBanner = true;
 
+  /// default show changelog
+  final bool defaultShowChangelog = true;
+
+  /// default build number (used for showing changelog after update)
+  final int defaultLastBuildNumber = 0;
+
   /// default reminder enabled
   final bool defaultReminderEnabled = false;
 
@@ -296,6 +302,18 @@ class Preferences {
   set showMeasurementHintBanner(bool show) =>
       prefs.setBool('showMeasurementHintBanner', show);
 
+  /// Get show changelog
+  bool get showChangelog => prefs.getBool('showChangelog')!;
+
+  /// Set show changelog
+  set showChangelog(bool show) => prefs.setBool('showChangelog', show);
+
+  /// Get build number
+  int get lastBuildNumber => prefs.getInt('lastBuildNumber') ?? 0;
+
+  /// Set build number
+  set lastBuildNumber(int number) => prefs.setInt('lastBuildNumber', number);
+
   /// Get reminder enabled
   bool get reminderEnabled => prefs.getBool('reminderEnabled')!;
 
@@ -395,6 +413,12 @@ class Preferences {
     }
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;
+    }
+    if (override || !prefs.containsKey('showChangelog')) {
+      showChangelog = defaultShowChangelog;
+    }
+    if (override || !prefs.containsKey('lastBuildNumber')) {
+      lastBuildNumber = defaultLastBuildNumber;
     }
     if (override || !prefs.containsKey('reminderEnabled')) {
       reminderEnabled = defaultReminderEnabled;

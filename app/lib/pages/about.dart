@@ -10,6 +10,7 @@ import 'package:trale/widget/customScrollViewSnapping.dart';
 import 'package:trale/widget/iconHero.dart';
 import 'package:trale/widget/sinewave.dart';
 import 'package:trale/widget/tile_group.dart';
+import 'package:trale/widget/changelog_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// get version number
@@ -306,6 +307,17 @@ class _About extends State<About> {
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
               ),
+            ),
+            GroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              dense: true,
+              title: AutoSizeText(
+                AppLocalizations.of(context)!.changelog.allInCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              trailing: PPIcon(PhosphorIconsDuotone.bookOpenText, context),
+              onTap: () => showChangelog(context),
             ),
             GroupedListTile(
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
