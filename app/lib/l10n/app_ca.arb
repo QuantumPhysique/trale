@@ -1,1 +1,118 @@
-{}
+{
+    "achievements": "Assoliments",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "Funcions experimentals",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "Perdre pes",
+    "@looseWeight": {
+        "description": "Lose weight switch label (label name loose is a typo!)."
+    },
+    "gainWeight": "Guanyar pes",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "looseWeightSubtitle": "Canviar mode: perdre / guanyar pes.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between losing or gaining weight."
+    },
+    "days": "dies",
+    "weeks": "setmanes",
+    "week": "setmana",
+    "months": "mesos",
+    "month": "mes",
+    "years": "anys",
+    "year": "any",
+    "never": "mai",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "setmanal",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "quinzenal",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "mensual",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "quatrimestral",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "Si us plau, fes còpia de seguretat sovint",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "còpia de seguretat",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "la còpia de seguretat s'ha exportat satisfactòriament",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "interval de còpia de seguretat",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "última còpia de seguretat",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "pròxima còpia de seguretat",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "stats": "Estadístiques",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "unitats",
+    "precision": "Precisió",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "date": "Data",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "Pes",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "Perfil d'usuari",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "Preferències de l'usuari",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "Opcions irreversibles",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "Preferències",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "FAQ",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "Quant a",
+    "@about": {
+        "description": "Name of about menu section"
+    }
+}
