@@ -82,7 +82,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     final MeasurementStats stats = MeasurementStats();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
-    final double? userTargetWeight = notifier.userTargetWeight;
+    final double? userTargetWeight = notifier.effectiveTargetWeight;
     final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
       userTargetWeight,
       notifier.looseWeight,
@@ -219,7 +219,7 @@ StatCard getReachingTargetWeightWidget({
 }) {
   final double? userTargetWeight = Provider.of<TraleNotifier>(
     context,
-  ).userTargetWeight;
+  ).effectiveTargetWeight;
   final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
   final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
     userTargetWeight,
