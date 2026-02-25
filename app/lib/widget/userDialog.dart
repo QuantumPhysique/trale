@@ -157,75 +157,51 @@ class UserDetailsGroup extends StatelessWidget {
     return WidgetGroup(
       title: title,
       children: <Widget>[
-        GroupedListTile(
+        _GroupedFormFieldTile(
           color: tileColor,
-          dense: false,
-          leading: PPIcon(PhosphorIconsDuotone.user, context),
-          title: TextFormField(
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              hintText: AppLocalizations.of(context)!.addUserName,
-              hintMaxLines: 2,
-              labelText: AppLocalizations.of(context)!.name.inCaps,
-            ),
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            initialValue: notifier.userName,
-            onChanged: (String value) {
-              notifier.userName = value;
-            },
-          ),
-          onTap: () {},
+          icon: PhosphorIconsDuotone.user,
+          keyboardType: TextInputType.name,
+          hintText: AppLocalizations.of(context)!.addUserName,
+          labelText: AppLocalizations.of(context)!.name.inCaps,
+          initialValue: notifier.userName,
+          onChanged: (String value) {
+            notifier.userName = value;
+          },
         ),
-        GroupedListTile(
+        _GroupedFormFieldTile(
           color: tileColor,
-          dense: false,
-          leading: PPIcon(PhosphorIconsDuotone.arrowsVertical, context),
-          title: TextFormField(
-            key: ValueKey<Object>((notifier.heightUnit, notifier.userHeight)),
-            keyboardType: notifier.heightUnit == TraleUnitHeight.metric
-                ? TextInputType.number
-                : TextInputType.text,
-            inputFormatters: notifier.heightUnit == TraleUnitHeight.metric
-                ? <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*')),
-                  ]
-                : <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'''[0-9'″" ]''')),
-                  ],
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              hintText: notifier.heightUnit == TraleUnitHeight.imperial
-                  ? '5\'11"'
-                  : AppLocalizations.of(context)!.addHeight,
-              suffixText: notifier.heightUnit.suffixText,
-              labelText: AppLocalizations.of(context)!.height.inCaps,
-            ),
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            initialValue: notifier.userHeight != null
-                ? notifier.heightUnit.heightToString(notifier.userHeight!)
-                : null,
-            onChanged: (String value) {
-              final double? newHeight = notifier.heightUnit.parseHeight(value);
-              if (newHeight != null) {
-                notifier.userHeight = newHeight;
-              }
-            },
-            onEditingComplete: () {
-              onRefresh();
-            },
-          ),
-          onTap: () {},
+          icon: PhosphorIconsDuotone.arrowsVertical,
+          fieldKey: ValueKey<Object>((
+            notifier.heightUnit,
+            notifier.userHeight,
+          )),
+          keyboardType: notifier.heightUnit == TraleUnitHeight.metric
+              ? TextInputType.number
+              : TextInputType.text,
+          inputFormatters: notifier.heightUnit == TraleUnitHeight.metric
+              ? <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'^[1-9][0-9]*')),
+                ]
+              : <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'''[0-9'″" ]''')),
+                ],
+          hintText: notifier.heightUnit == TraleUnitHeight.imperial
+              ? '5\'11"'
+              : AppLocalizations.of(context)!.addHeight,
+          suffixText: notifier.heightUnit.suffixText,
+          labelText: AppLocalizations.of(context)!.height.inCaps,
+          initialValue: notifier.userHeight != null
+              ? notifier.heightUnit.heightToString(notifier.userHeight!)
+              : null,
+          onChanged: (String value) {
+            final double? newHeight = notifier.heightUnit.parseHeight(value);
+            if (newHeight != null) {
+              notifier.userHeight = newHeight;
+            }
+          },
+          onEditingComplete: () {
+            onRefresh();
+          },
         ),
       ],
     );
@@ -297,19 +273,18 @@ class TargetWeightGroup extends StatelessWidget {
         if (enabled) ...<Widget>[
           LooseWeightListTile(color: tileColor),
           // Target weight value
-          GroupedListTile(
+          _GroupedFormFieldTile(
             color: tileColor,
-            leading: PPIcon(PhosphorIconsDuotone.scales, context),
-            title: Text(AppLocalizations.of(context)!.targetWeight),
-            trailing: Text(
-              notifier.userTargetWeight != null
-                  ? notifier.unit.weightToString(
-                      notifier.userTargetWeight!,
-                      notifier.unitPrecision,
-                    )
-                  : AppLocalizations.of(context)!.addTargetWeight,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            icon: PhosphorIconsDuotone.scales,
+            fieldKey: ValueKey<double?>(notifier.userTargetWeight),
+            readOnly: true,
+            initialValue: notifier.userTargetWeight != null
+                ? notifier.unit.weightToString(
+                    notifier.userTargetWeight!,
+                    notifier.unitPrecision,
+                  )
+                : AppLocalizations.of(context)!.addTargetWeightDate,
+            labelText: AppLocalizations.of(context)!.targetWeight,
             onTap: () async {
               await showTargetWeightDialog(
                 context: context,
@@ -323,17 +298,22 @@ class TargetWeightGroup extends StatelessWidget {
           ),
           // Target date
           if (notifier.userTargetWeight != null)
-            _TargetDateTile(
-              notifier: notifier,
-              tileColor: tileColor,
-              onRefresh: onRefresh,
-            ),
-          // Rate (kg/week)
-          if (notifier.userTargetWeight != null)
-            _TargetWeightRateTile(
-              notifier: notifier,
-              tileColor: tileColor,
-              onRefresh: onRefresh,
+            _GroupedFormFieldTile(
+              color: tileColor,
+              icon: PhosphorIconsDuotone.calendarCheck,
+              fieldKey: ValueKey<DateTime?>(notifier.userTargetWeightDate),
+              readOnly: true,
+              initialValue: notifier.userTargetWeightDate != null
+                  ? notifier
+                        .dateFormat(context)
+                        .format(notifier.userTargetWeightDate!)
+                  : AppLocalizations.of(context)!.addTargetWeightDate,
+              labelText: AppLocalizations.of(context)!.targetWeightDate,
+              onTap: () async {
+                await showTargetWeightDateDialog(context: context);
+                notifier.notify;
+                onRefresh();
+              },
             ),
         ],
       ],
@@ -426,9 +406,75 @@ class _TargetDateTile extends StatelessWidget {
         notifier.userTargetWeightDate = selectedDate;
         notifier.userTargetWeightSetDate = startDate;
         notifier.userTargetWeightSetWeight = startWeight;
+
         MeasurementDatabase().fireStream();
         onRefresh();
       },
+    );
+  }
+}
+
+/// Reusable tile wrapping [GroupedListTile] with a styled [TextFormField].
+class _GroupedFormFieldTile extends StatelessWidget {
+  const _GroupedFormFieldTile({
+    required this.color,
+    required this.icon,
+    required this.labelText,
+    this.fieldKey,
+    this.hintText,
+    this.suffixText,
+    this.initialValue,
+    this.keyboardType,
+    this.inputFormatters,
+    this.readOnly = false,
+    this.onChanged,
+    this.onEditingComplete,
+    this.onTap,
+  });
+
+  final Color color;
+  final IconData icon;
+  final String labelText;
+  final Key? fieldKey;
+  final String? hintText;
+  final String? suffixText;
+  final String? initialValue;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool readOnly;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final GestureTapCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final TextStyle textStyle = Theme.of(context).textTheme.titleSmall!
+        .copyWith(color: Theme.of(context).colorScheme.onSurface);
+    return GroupedListTile(
+      color: color,
+      dense: false,
+      leading: PPIcon(icon, context),
+      title: TextFormField(
+        key: fieldKey,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        readOnly: readOnly,
+        maxLines: 1,
+        initialValue: initialValue,
+        style: textStyle,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintStyle: textStyle,
+          hintText: hintText,
+          hintMaxLines: 2,
+          suffixText: suffixText,
+          labelText: labelText,
+        ),
+        onChanged: onChanged,
+        onEditingComplete: onEditingComplete,
+        onTap: onTap,
+      ),
+      onTap: () {},
     );
   }
 }
@@ -734,4 +780,70 @@ class _TargetWeightRateTile extends StatelessWidget {
       },
     );
   }
+}
+
+/// Find measurement weight on a specific date, or null.
+double? _weightOnDate(DateTime date) {
+  final MeasurementDatabase db = MeasurementDatabase();
+  for (final Measurement m in db.measurements) {
+    if (date.sameDay(m.date)) {
+      return m.weight;
+    }
+  }
+  return null;
+}
+
+Future<void> showTargetWeightDateDialog({required BuildContext context}) async {
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  );
+  final DateTime? targetDate = notifier.userTargetWeightDate;
+  final DateTime now = DateTime.now();
+  final DateTime? selectedDate = await showDatePicker(
+    context: context,
+    initialDate: targetDate ?? now.add(const Duration(days: 90)),
+    firstDate: now,
+    lastDate: now.add(const Duration(days: 365 * 5)),
+  );
+  if (selectedDate == null) {
+    return;
+  }
+
+  // Check if a start weight is available.
+  double? startWeight = _weightOnDate(now);
+  DateTime startDate = now;
+
+  if (startWeight == null) {
+    // No measurement today — prompt user to add one.
+    if (!context.mounted) {
+      return;
+    }
+    final MeasurementDatabase db = MeasurementDatabase();
+    final double fallbackWeight = db.nMeasurements > 0
+        ? db.measurements.first.weight
+        : Preferences().defaultUserWeight;
+
+    DateTime? savedDate;
+    double? savedWeight;
+    final bool added = await showAddWeightDialog(
+      context: context,
+      weight: fallbackWeight,
+      date: now,
+      message: AppLocalizations.of(context)!.targetWeightPrompt,
+      onSaved: (DateTime d, double w) {
+        savedDate = d;
+        savedWeight = w;
+      },
+    );
+    if (!added || savedDate == null || savedWeight == null) {
+      return;
+    }
+    startDate = savedDate!;
+    startWeight = savedWeight!;
+  }
+
+  notifier.userTargetWeightDate = selectedDate;
+  notifier.userTargetWeightSetDate = startDate;
+  notifier.userTargetWeightSetWeight = startWeight;
 }
