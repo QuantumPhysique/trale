@@ -688,5 +688,9 @@
     "reminderNotificationBody": "Sa pole täna veel oma kaalu loginud.",
     "@reminderNotificationBody": {
         "description": "Body text of the reminder notification"
+    },
+    "changelog": "Muudatuste logi",
+    "@changelog": {
+        "description": "changelog"
     }
 }
