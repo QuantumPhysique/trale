@@ -114,5 +114,45 @@
     "about": "Quant a",
     "@about": {
         "description": "Name of about menu section"
+    },
+    "defaultLang": "Predeterminat del sistema",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Llengua",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "translate": "traduir",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Ajuda a traduir l'aplicació",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "darkmode": "Fosc",
+    "@darkmode": {
+        "description": "Dark mode menu item."
+    },
+    "lightmode": "Clar",
+    "@lightmode": {
+        "description": "Light mode menu item."
+    },
+    "systemmode": "Sistema",
+    "@systemmode": {
+        "description": "System mode menu item."
+    },
+    "export": "Exporta totes les mesures",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Això fa accessibles totes les mesures a qualsevol aplicació.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
     }
 }
