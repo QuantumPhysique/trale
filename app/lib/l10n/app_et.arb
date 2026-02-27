@@ -636,5 +636,61 @@
     "precision": "Täpsus",
     "@precision": {
         "description": "Label for unit precision setting."
+    },
+    "showUserData": "näita minu andmeid",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "heightUnit": "Pikkuse mõõtühik",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "Teavitused",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Meeldetuletus",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Et kaalu logimine ei ununeks, saada endale meeldetuletus",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Võta meeldetuletus kasutusele",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Saad teavituse, et logiksid oma kaalu",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Päevi",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Kellaaeg",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Meeldetuletuse aeg",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "Saad teavituse valitud päevade valitud kellaajal, aga seda vaid siis, kui antud päeval pole sa ühtegi kaalukirjet lisatud.",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "Õige aeg kaalumiseks!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "Sa pole täna veel oma kaalu loginud.",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "changelog": "Muudatuste logi",
+    "@changelog": {
+        "description": "changelog"
     }
 }
