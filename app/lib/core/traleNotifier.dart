@@ -268,6 +268,21 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter for target weight enabled
+  bool get targetWeightEnabled => prefs.targetWeightEnabled;
+
+  /// setter for target weight enabled
+  set targetWeightEnabled(bool enabled) {
+    if (enabled != targetWeightEnabled) {
+      prefs.targetWeightEnabled = enabled;
+      notifyListeners();
+    }
+  }
+
+  /// getter – returns target weight only when the feature is enabled
+  double? get effectiveTargetWeight =>
+      targetWeightEnabled ? prefs.userTargetWeight : null;
+
   /// getter
   double? get userTargetWeight => prefs.userTargetWeight;
 
@@ -275,6 +290,39 @@ class TraleNotifier with ChangeNotifier {
   set userTargetWeight(double? newWeight) {
     if (userTargetWeight != newWeight) {
       prefs.userTargetWeight = newWeight;
+      notifyListeners();
+    }
+  }
+
+  /// getter for target weight date
+  DateTime? get userTargetWeightDate => prefs.userTargetWeightDate;
+
+  /// setter for target weight date
+  set userTargetWeightDate(DateTime? newDate) {
+    if (userTargetWeightDate != newDate) {
+      prefs.userTargetWeightDate = newDate;
+      notifyListeners();
+    }
+  }
+
+  /// getter for date when target weight was set
+  DateTime? get userTargetWeightSetDate => prefs.userTargetWeightSetDate;
+
+  /// setter for date when target weight was set
+  set userTargetWeightSetDate(DateTime? newDate) {
+    if (userTargetWeightSetDate != newDate) {
+      prefs.userTargetWeightSetDate = newDate;
+      notifyListeners();
+    }
+  }
+
+  /// getter for weight at time of setting target weight (in kg)
+  double? get userTargetWeightSetWeight => prefs.userTargetWeightSetWeight;
+
+  /// setter for weight at time of setting target weight (in kg)
+  set userTargetWeightSetWeight(double? newWeight) {
+    if (userTargetWeightSetWeight != newWeight) {
+      prefs.userTargetWeightSetWeight = newWeight;
       notifyListeners();
     }
   }

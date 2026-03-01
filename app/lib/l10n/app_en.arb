@@ -402,6 +402,38 @@
     "@addTargetWeight": {
         "description": "Press to add a target weight."
     },
+    "targetWeightEnabled": "Target weight",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Set a target weight and track your progress.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Target date",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "addTargetWeightDate": "Set target date",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Rate",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/week",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "A current weight measurement is needed to calculate the target date and rate. You can also pick an older date to start the target line from that point.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Choose a moderate rate. Too low and progress will be hard to notice; too high and you risk losing muscle mass instead of fat.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
     "intro1": "Press",
     "@intro1": {
         "description": "Start of 'press + to get started'"

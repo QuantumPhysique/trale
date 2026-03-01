@@ -23,6 +23,8 @@ Future<bool> showAddWeightDialog({
   required double weight,
   required DateTime date,
   bool editMode = false,
+  String? message,
+  void Function(DateTime date, double weight)? onSaved,
 }) async {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(
     context,
@@ -40,6 +42,19 @@ Future<bool> showAddWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          if (message != null)
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: TraleTheme.of(context)!.padding,
+              ),
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
           WidgetGroup(
             children: <Widget>[
               GroupedListTile(
@@ -172,6 +187,12 @@ Future<bool> showAddWeightDialog({
                   ),
                 );
               }
+              if (wasInserted && onSaved != null) {
+                onSaved(
+                  currentDate,
+                  currentSliderValue * notifier.unit.scaling,
+                );
+              }
               Navigator.pop(context, wasInserted);
             }, enabled: true),
           );
@@ -266,6 +287,24 @@ Future<bool> showTargetWeightDialog({
               } else {
                 notifier.userTargetWeight =
                     currentSliderValue * notifier.unit.scaling;
+                // Save the date and weight when the target was set
+                final DateTime now = DateTime.now();
+                notifier.userTargetWeightSetDate = now;
+                final MeasurementDatabase db = MeasurementDatabase();
+                // Use today's measurement if available,
+                // otherwise latest measurement
+                double? todayWeight;
+                for (final Measurement m in db.measurements) {
+                  if (now.sameDay(m.date)) {
+                    todayWeight = m.weight;
+                    break;
+                  }
+                }
+                notifier.userTargetWeightSetWeight =
+                    todayWeight ??
+                    (db.nMeasurements > 0
+                        ? db.measurements.first.weight
+                        : null);
               }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
