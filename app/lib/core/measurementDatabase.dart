@@ -67,6 +67,9 @@ class MeasurementDatabaseBaseclass {
   /// get number of measurements
   int get nMeasurements => measurements.length;
 
+  /// is empty
+  bool get isEmpty => measurements.isEmpty;
+
   /// date of latest measurement
   DateTime get lastDate => measurements.first.date;
 
@@ -119,6 +122,20 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
         measurement.isIdentical(m),
     ];
     return isMeasurement.contains(true);
+  }
+
+  /// check if measurement exists on date
+  bool existsMeasurementOnDate(DateTime date) =>
+      dayInMeasurements(date, measurements);
+
+  /// return
+  Measurement? measurementOnDate(DateTime date) {
+    for (final Measurement m in measurements) {
+      if (date.sameDay(m.date)) {
+        return m;
+      }
+    }
+    return null;
   }
 
   /// insert Measurements into box
@@ -212,6 +229,10 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   /// date of first measurement
   @override
   DateTime get firstDate => sortedMeasurements.last.measurement.date;
+
+  /// get largest measurement
+  @override
+  Measurement get latestMeasurement => sortedMeasurements.first.measurement;
 
   /// return string for export
   String get exportString {

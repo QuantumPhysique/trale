@@ -414,6 +414,10 @@
     "@targetWeightDate": {
         "description": "The date by which the user wants to reach their target weight."
     },
+    "targetWeightDateSubtitle": "Set a target date and rate to reach your goal.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
     "addTargetWeightDate": "Set target date",
     "@addTargetWeightDate": {
         "description": "Press to set a target date for reaching target weight."
@@ -433,6 +437,10 @@
     "targetWeightRateAdvice": "Choose a moderate rate. Too low and progress will be hard to notice; too high and you risk losing muscle mass instead of fat.",
     "@targetWeightRateAdvice": {
         "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "Start date",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
     },
     "intro1": "Press",
     "@intro1": {

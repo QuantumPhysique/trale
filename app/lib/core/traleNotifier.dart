@@ -317,7 +317,10 @@ class TraleNotifier with ChangeNotifier {
   }
 
   /// getter for weight at time of setting target weight (in kg)
-  double? get userTargetWeightSetWeight => prefs.userTargetWeightSetWeight;
+  double? get userTargetWeightSetWeight {
+    return prefs.userTargetWeightSetWeight ??
+        MeasurementDatabase().latestMeasurement.weight;
+  }
 
   /// setter for weight at time of setting target weight (in kg)
   set userTargetWeightSetWeight(double? newWeight) {
