@@ -62,12 +62,12 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
               children: <Widget>[
                 DefaultStatCard(
                   firstRow: AppLocalizations.of(context)!.currentStreak,
-                  secondRow: stats.currentStreak.durationToString(context),
+                  secondRow: stats.currentStreak.durationToStringDays(context),
                 ),
                 SizedBox(height: TraleTheme.of(context)!.padding),
                 DefaultStatCard(
                   firstRow: AppLocalizations.of(context)!.maxStreak,
-                  secondRow: stats.maxStreak.durationToString(context),
+                  secondRow: stats.maxStreak.durationToStringDays(context),
                 ),
               ],
             ),
