@@ -11,6 +11,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
+        'Allow to set a target date',
         'Allows selecting 0.05kg/st/lb steps for more precision',
         'Major performance improvements by making app async',
         'Allow using imperial units for entering height',
