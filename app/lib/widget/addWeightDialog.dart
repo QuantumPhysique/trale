@@ -348,9 +348,7 @@ Future<bool> showTargetWeightDialog({
                 }
                 notifier.userTargetWeightSetWeight =
                     todayWeight ??
-                    (db.nMeasurements > 0
-                        ? db.measurements.first.weight
-                        : null);
+                    (db.nMeasurements > 0 ? db.latestMeasurement.weight : null);
               }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
