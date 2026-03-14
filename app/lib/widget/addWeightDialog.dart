@@ -44,9 +44,7 @@ Future<bool> showAddWeightDialog({
         children: <Widget>[
           if (message != null)
             Padding(
-              padding: EdgeInsets.only(
-                bottom: TraleTheme.of(context)!.padding,
-              ),
+              padding: EdgeInsets.only(bottom: TraleTheme.of(context)!.padding),
               child: Text(
                 message,
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -213,6 +211,13 @@ Future<bool> showTargetWeightDialog({
   );
 
   double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
+  bool looseWeight = notifier.looseWeight;
+
+  // Latest measurement for auto-toggle
+  final MeasurementDatabase db = MeasurementDatabase();
+  final double? latestWeight = db.nMeasurements > 0
+      ? db.latestMeasurement.weight
+      : null;
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
@@ -240,11 +245,51 @@ Future<bool> showTargetWeightDialog({
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
+              // Auto-toggle lose/gain based on selected vs latest weight
+              if (latestWeight != null) {
+                final double selectedKg =
+                    currentSliderValue * notifier.unit.scaling;
+                looseWeight = selectedKg < latestWeight;
+              }
               setState(() {});
             },
             height: 0.15 * MediaQuery.of(context).size.height,
             value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          WidgetGroup(
+            children: <Widget>[
+              GroupedSwitchListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
+                dense: true,
+                leading: PPIcon(
+                  looseWeight
+                      ? PhosphorIconsDuotone.trendDown
+                      : PhosphorIconsDuotone.trendUp,
+                  context,
+                ),
+                title: Text(
+                  looseWeight
+                      ? AppLocalizations.of(context)!.looseWeight
+                      : AppLocalizations.of(context)!.gainWeight,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.looseWeightSubtitle,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                value: !looseWeight,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    setState(() {
+                      looseWeight = !value;
+                    });
+                  }
+                },
+              ),
+            ],
           ),
         ],
       );
@@ -287,6 +332,7 @@ Future<bool> showTargetWeightDialog({
               } else {
                 notifier.userTargetWeight =
                     currentSliderValue * notifier.unit.scaling;
+                notifier.looseWeight = looseWeight;
                 // Save the date and weight when the target was set
                 final DateTime now = DateTime.now();
                 notifier.userTargetWeightSetDate = now;

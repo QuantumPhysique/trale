@@ -84,49 +84,6 @@ Future<bool> showUserDialog({required BuildContext context}) async {
   return accepted;
 }
 
-/// Tile to toggle between losing and gaining weight.
-class LooseWeightListTile extends StatelessWidget {
-  /// constructor
-  const LooseWeightListTile({super.key, this.color});
-
-  /// Optional background color.
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    final Color tileColor =
-        color ?? Theme.of(context).colorScheme.surfaceContainerLow;
-    return GroupedSwitchListTile(
-      color: tileColor,
-      dense: true,
-      leading: PPIcon(
-        Provider.of<TraleNotifier>(context).looseWeight
-            ? PhosphorIconsDuotone.trendDown
-            : PhosphorIconsDuotone.trendUp,
-        context,
-      ),
-      title: Text(
-        Provider.of<TraleNotifier>(context).looseWeight
-            ? AppLocalizations.of(context)!.looseWeight
-            : AppLocalizations.of(context)!.gainWeight,
-        style: Theme.of(context).textTheme.bodyLarge,
-        maxLines: 1,
-      ),
-      subtitle: Text(
-        AppLocalizations.of(context)!.looseWeightSubtitle,
-        style: Theme.of(context).textTheme.labelSmall,
-      ),
-      value: !Provider.of<TraleNotifier>(context).looseWeight,
-      onChanged: (bool? loose) {
-        if (loose == null) {
-          return;
-        }
-        Provider.of<TraleNotifier>(context, listen: false).looseWeight = !loose;
-      },
-    );
-  }
-}
-
 /// A grouped set of user-detail input fields.
 class UserDetailsGroup extends StatelessWidget {
   /// Creates a [UserDetailsGroup].
@@ -277,7 +234,6 @@ class TargetWeightGroup extends StatelessWidget {
 
         // ── Expanded target weight settings (only when enabled) ─────
         if (enabled) ...<Widget>[
-          LooseWeightListTile(color: tileColor),
           // Target weight value
           _GroupedFormFieldTile(
             color: tileColor,
@@ -579,12 +535,26 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
-                          AppLocalizations.of(context)!.targetWeightRate,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                        IconButton.filled(
+                          onPressed: () {
+                            setState(() {
+                              rateDisplayAbs = snapToStep(
+                                ((rateDisplayAbs / step).floor() - 1) * step,
+                              );
+                              rateController.text = rateDisplayAbs
+                                  .toStringAsFixed(decimals);
+                              syncFromRate();
+                            });
+                          },
+                          icon: PPIcon(PhosphorIconsBold.minus, context),
+                          style: IconButton.styleFrom(
+                            backgroundColor: tileColor,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onSurface,
+                          ),
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding / 2),
-
                         Expanded(
                           child: TextField(
                             controller: rateController,
@@ -597,9 +567,9 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                               labelText:
                                   '${notifier.unit.name}'
                                   '${AppLocalizations.of(context)!.perWeek}',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
+                              filled: true,
+                              fillColor: tileColor,
+                              border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: TraleTheme.of(context)!.padding / 2,
                                 vertical: TraleTheme.of(context)!.padding / 2,
@@ -617,22 +587,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                           ),
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding / 2),
-                        IconButton.filledTonal(
-                          onPressed: () {
-                            setState(() {
-                              rateDisplayAbs = snapToStep(
-                                ((rateDisplayAbs / step).floor() - 1) * step,
-                              );
-                              rateController.text = rateDisplayAbs
-                                  .toStringAsFixed(decimals);
-                              syncFromRate();
-                            });
-                          },
-                          icon: PPIcon(PhosphorIconsBold.minus, context),
-                          color: tileColor,
-                        ),
-                        SizedBox(width: TraleTheme.of(context)!.padding / 2),
-                        IconButton.filledTonal(
+                        IconButton.filled(
                           onPressed: () {
                             setState(() {
                               rateDisplayAbs = snapToStep(
@@ -644,7 +599,12 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                             });
                           },
                           icon: PPIcon(PhosphorIconsBold.plus, context),
-                          color: tileColor,
+                          style: IconButton.styleFrom(
+                            backgroundColor: tileColor,
+                            foregroundColor: Theme.of(
+                              context,
+                            ).colorScheme.onSurface,
+                          ),
                         ),
                       ],
                     ),
