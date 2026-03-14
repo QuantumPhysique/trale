@@ -555,21 +555,30 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                           ),
                         ),
                         SizedBox(width: TraleTheme.of(context)!.padding / 2),
-                        Expanded(
+                        IntrinsicWidth(
                           child: TextField(
                             controller: rateController,
                             keyboardType: const TextInputType.numberWithOptions(
                               decimal: true,
                             ),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d*\.?\d{0,2}'),
+                              ),
+                            ],
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.monospace.titleLarge,
                             decoration: InputDecoration(
-                              labelText:
-                                  '${notifier.unit.name}'
-                                  '${AppLocalizations.of(context)!.perWeek}',
                               filled: true,
                               fillColor: tileColor,
-                              border: InputBorder.none,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  TraleTheme.of(context)!.borderRadius,
+                                ),
+                                borderSide: BorderSide.none,
+                              ),
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: TraleTheme.of(context)!.padding / 2,
                                 vertical: TraleTheme.of(context)!.padding / 2,
