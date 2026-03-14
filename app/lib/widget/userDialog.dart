@@ -513,8 +513,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     ),
                     child: Text(
                       '${AppLocalizations.of(context)!.targetWeightRate} '
-                      '${notifier.unit.name}'
-                      '${AppLocalizations.of(context)!.perWeek}',
+                      '(${notifier.unit.name}'
+                      '${AppLocalizations.of(context)!.perWeek})',
                       style: Theme.of(context)
                           .textTheme
                           .emphasized
@@ -526,7 +526,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   ),
                 ),
                 GroupedWidget(
-                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  color: tileColor,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: TraleTheme.of(context)!.padding,
@@ -534,8 +534,9 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: TraleTheme.of(context)!.padding,
                       children: <Widget>[
-                        IconButton.filled(
+                        IconButton.filledTonal(
                           onPressed: () {
                             setState(() {
                               rateDisplayAbs = snapToStep(
@@ -547,14 +548,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                             });
                           },
                           icon: PPIcon(PhosphorIconsBold.minus, context),
-                          style: IconButton.styleFrom(
-                            backgroundColor: tileColor,
-                            foregroundColor: Theme.of(
-                              context,
-                            ).colorScheme.onSurface,
-                          ),
                         ),
-                        SizedBox(width: TraleTheme.of(context)!.padding / 2),
                         IntrinsicWidth(
                           child: TextField(
                             controller: rateController,
@@ -571,14 +565,17 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                               context,
                             ).textTheme.monospace.titleLarge,
                             decoration: InputDecoration(
-                              filled: true,
-                              fillColor: tileColor,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  TraleTheme.of(context)!.borderRadius,
-                                ),
-                                borderSide: BorderSide.none,
-                              ),
+                              // filled: true,
+                              // fillColor: Theme.of(
+                              //   context,
+                              // ).colorScheme.secondaryContainer,
+                              // border: OutlineInputBorder(
+                              //   borderRadius: BorderRadius.circular(
+                              //     TraleTheme.of(context)!.borderRadius,
+                              //   ),
+                              //   borderSide: BorderSide.none,
+                              // ),
+                              border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: TraleTheme.of(context)!.padding / 2,
                                 vertical: TraleTheme.of(context)!.padding / 2,
@@ -595,8 +592,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                             },
                           ),
                         ),
-                        SizedBox(width: TraleTheme.of(context)!.padding / 2),
-                        IconButton.filled(
+                        IconButton.filledTonal(
                           onPressed: () {
                             setState(() {
                               rateDisplayAbs = snapToStep(
@@ -608,23 +604,11 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                             });
                           },
                           icon: PPIcon(PhosphorIconsBold.plus, context),
-                          style: IconButton.styleFrom(
-                            backgroundColor: tileColor,
-                            foregroundColor: Theme.of(
-                              context,
-                            ).colorScheme.onSurface,
-                          ),
                         ),
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: TraleTheme.of(context)!.padding),
-            // ── Target date & start date ────────────────────────────
-            WidgetGroup(
-              children: <Widget>[
                 GroupedListTile(
                   color: tileColor,
                   leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
