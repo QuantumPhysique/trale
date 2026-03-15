@@ -28,17 +28,21 @@ List<FlSpot> _buildTargetWeightSpots({
   required double targetDateMs,
   required double targetWeight,
   required double chartMaxX,
+  required double chartMinX,
 }) {
-  final List<FlSpot> spots = <FlSpot>[
-    FlSpot(setDateMs, setWeight),
-    FlSpot(targetDateMs, targetWeight),
-  ];
   // Extend horizontally to the right if the chart extends beyond targetDate
-  final double extensionX =
+  final double maxX =
       max<double>(chartMaxX, targetDateMs) +
       365 * 24 * 3600 * 1000; // extend well beyond chart
-  spots.add(FlSpot(extensionX, targetWeight));
-  return spots;
+  final double minX =
+      max<double>(chartMinX, setDateMs) -
+      365 * 24 * 3600 * 1000; // extend well beyond chart
+  return <FlSpot>[
+    FlSpot(minX, setDateMs),
+    FlSpot(setDateMs, setWeight),
+    FlSpot(targetDateMs, targetWeight),
+    FlSpot(targetWeight, maxX),
+  ];
 }
 
 /// Custom line chart widget for weight data.
@@ -440,6 +444,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                       .toDouble(),
                   targetWeight: targetWeight / unitScaling,
                   chartMaxX: maxX,
+                  chartMinX: minX,
                 ),
                 isCurved: false,
                 color: targetWeightLineColor,
