@@ -38,10 +38,11 @@ List<FlSpot> _buildTargetWeightSpots({
       max<double>(chartMinX, setDateMs) -
       365 * 24 * 3600 * 1000; // extend well beyond chart
   return <FlSpot>[
-    FlSpot(minX, setDateMs),
+    FlSpot(minX, targetWeight),
+    FlSpot(setDateMs, targetWeight),
     FlSpot(setDateMs, setWeight),
     FlSpot(targetDateMs, targetWeight),
-    FlSpot(targetWeight, maxX),
+    FlSpot(maxX, targetWeight),
   ];
 }
 
@@ -359,15 +360,25 @@ class _CustomLineChartState extends State<CustomLineChart> {
           extraLinesData: ExtraLinesData(
             extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
-              // Fallback: show horizontal line only when no dates are set
               if (targetWeight != null &&
-                  !widget.isPreview &&
-                  (targetWeightDate == null || effectiveSetWeight == null))
+                  !widget.isPreview) ...<HorizontalLine>[
+                // Visible dashed line when no target date is set
+                if (targetWeightDate == null || effectiveSetWeight == null)
+                  HorizontalLine(
+                    y: targetWeight / unitScaling,
+                    color: targetWeightLineColor,
+                    strokeWidth: 2,
+                    dashArray: <int>[8, 6],
+                    label: HorizontalLineLabel(show: false),
+                  ),
+                // Label clamped to visible y-range so it never disappears
                 HorizontalLine(
-                  y: targetWeight / unitScaling,
-                  color: targetWeightLineColor,
-                  strokeWidth: 2,
-                  dashArray: <int>[8, 6],
+                  y: (targetWeight / unitScaling).clamp(
+                    minY.floorToDouble(),
+                    maxY.ceilToDouble(),
+                  ),
+                  color: Colors.transparent,
+                  strokeWidth: 0,
                   label: HorizontalLineLabel(
                     show: true,
                     alignment: ip.db.measurements.first.weight > targetWeight
@@ -382,6 +393,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                         ' ${AppLocalizations.of(context)!.targetWeightShort}',
                   ),
                 ),
+              ],
             ],
           ),
           lineBarsData: <LineChartBarData>[
