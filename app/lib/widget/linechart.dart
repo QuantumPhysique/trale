@@ -35,8 +35,8 @@ List<FlSpot> _buildTargetWeightSpots({
       max<double>(chartMaxX, targetDateMs) +
       365 * 24 * 3600 * 1000; // extend well beyond chart
   final double minX =
-      max<double>(chartMinX, setDateMs) -
-      365 * 24 * 3600 * 1000; // extend well beyond chart
+      min<double>(chartMinX, setDateMs) -
+      365 * 24 * 3600 * 1000; // extend well befor chart
   return <FlSpot>[
     FlSpot(minX, targetWeight),
     FlSpot(setDateMs, targetWeight),
@@ -361,7 +361,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
             extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
               if (targetWeight != null &&
-                  !widget.isPreview) ...<HorizontalLine>[
+                  !widget.isPreview &&
+                  ip.db.measurements.isNotEmpty) ...<HorizontalLine>[
                 // Visible dashed line when no target date is set
                 if (targetWeightDate == null || effectiveSetWeight == null)
                   HorizontalLine(

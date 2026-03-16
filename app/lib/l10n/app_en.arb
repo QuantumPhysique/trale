@@ -414,7 +414,7 @@
     "@targetWeightDate": {
         "description": "The date by which the user wants to reach their target weight."
     },
-    "targetWeightDateSubtitle": "Set a target date and rate to reach your goal.",
+    "targetWeightDateSubtitle": "Set a target date or rate to reach your goal in time.",
     "@targetWeightDateSubtitle": {
         "description": "Subtitle for the target date toggle."
     },

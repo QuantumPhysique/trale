@@ -209,10 +209,10 @@ class Preferences {
       prefs.setDouble('userTargetWeightSetWeight', weight ?? -1);
 
   /// get weight when user set the target weight (in kg)
-  double? get userTargetWeightSetWeight =>
-      prefs.getDouble('userTargetWeightSetWeight')! > 0
-      ? prefs.getDouble('userTargetWeightSetWeight')!
-      : null;
+  double? get userTargetWeightSetWeight {
+    final double utwsw = prefs.getDouble('userTargetWeightSetWeight') ?? -1;
+    return utwsw > 0 ? utwsw : null;
+  }
 
   /// set if onboarding screen is shown
   set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);

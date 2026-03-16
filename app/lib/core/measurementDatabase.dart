@@ -231,7 +231,6 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   DateTime get firstDate => sortedMeasurements.last.measurement.date;
 
   /// get largest measurement
-  @override
   Measurement get latestMeasurement => sortedMeasurements.first.measurement;
 
   /// return string for export

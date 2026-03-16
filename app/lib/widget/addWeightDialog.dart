@@ -213,12 +213,6 @@ Future<bool> showTargetWeightDialog({
   double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
   bool looseWeight = notifier.looseWeight;
 
-  // Latest measurement for auto-toggle
-  final MeasurementDatabase db = MeasurementDatabase();
-  final double? latestWeight = db.nMeasurements > 0
-      ? db.latestMeasurement.weight
-      : null;
-
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
       return Column(
@@ -245,12 +239,6 @@ Future<bool> showTargetWeightDialog({
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
-              // Auto-toggle lose/gain based on selected vs latest weight
-              if (latestWeight != null) {
-                final double selectedKg =
-                    currentSliderValue * notifier.unit.scaling;
-                looseWeight = selectedKg < latestWeight;
-              }
               setState(() {});
             },
             height: 0.15 * MediaQuery.of(context).size.height,
