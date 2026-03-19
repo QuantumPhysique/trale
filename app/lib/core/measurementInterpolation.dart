@@ -285,6 +285,8 @@ class MeasurementInterpolationBaseclass {
     _weightsMeasured = null;
     _weights = null;
     _weightsDisplay = null;
+    _measurementsDisplay = null;
+    _isMeasurementDisplay = null;
     _isNoMeasurement = null;
     _isNotExtrapolated = null;
     _sigma = null;
@@ -308,6 +310,8 @@ class MeasurementInterpolationBaseclass {
     _weightsMeasured = null;
     _weights = null;
     _weightsDisplay = null;
+    _measurementsDisplay = null;
+    _isMeasurementDisplay = null;
     _isNoMeasurement = null;
     _isNotExtrapolated = null;
     _sigma = null;
@@ -357,6 +361,8 @@ class MeasurementInterpolationBaseclass {
 
     // Derive remaining display vectors (cheap subvector / offset ops).
     timesDisplay;
+    measurementsDisplay;
+    isMeasurementDisplay;
   }
 
   /// initialize database
@@ -612,6 +618,55 @@ class MeasurementInterpolationBaseclass {
     );
   }
 
+  Vector? _measurementsDisplay;
+
+  /// get vector containing the raw (daily-averaged) measurements aligned with
+  /// [timesDisplay]. 0 on days without a measurement.
+  Vector get measurementsDisplay =>
+      _measurementsDisplay ??= _createMeasurementsDisplay();
+
+  Vector _createMeasurementsDisplay() {
+    if (N == 0) {
+      return weights;
+    }
+    if (interpolStrength == InterpolStrength.none) {
+      final Vector slice = weights.subvector(_offsetInDays, N - _offsetInDays);
+      return Vector.fromList(
+        slice.toList()..addAll(List<double>.filled(_offsetInDaysShown, 0)),
+      );
+    }
+    return weights.subvector(
+      _offsetInDays - _offsetInDaysShown,
+      N - _offsetInDays + _offsetInDaysShown,
+    );
+  }
+
+  Vector? _isMeasurementDisplay;
+
+  /// get vector containing 1 if [timesDisplay] entry has a measurement, 0
+  /// otherwise.
+  Vector get isMeasurementDisplay =>
+      _isMeasurementDisplay ??= _createIsMeasurementDisplay();
+
+  Vector _createIsMeasurementDisplay() {
+    if (N == 0) {
+      return isMeasurement;
+    }
+    if (interpolStrength == InterpolStrength.none) {
+      final Vector slice = isMeasurement.subvector(
+        _offsetInDays,
+        N - _offsetInDays,
+      );
+      return Vector.fromList(
+        slice.toList()..addAll(List<double>.filled(_offsetInDaysShown, 0)),
+      );
+    }
+    return isMeasurement.subvector(
+      _offsetInDays - _offsetInDaysShown,
+      N - _offsetInDays + _offsetInDaysShown,
+    );
+  }
+
   Vector? _timesDisplay;
 
   /// get vector containing the weights to display
@@ -723,6 +778,29 @@ class MeasurementInterpolationBaseclass {
   double get finalSlope =>
       _slope(idxLast, idxLast + _offsetInDaysShown, weightsGaussianExtrapol);
 
+  /// Return the index into [weightsDisplay] for a given [day], or null
+  /// if [day] falls outside the display range.
+  int? displayIndexForDay(DateTime day) {
+    if (nDisplay == 0) {
+      return null;
+    }
+    // timesDisplay is uniformly spaced at _dayInMs intervals with a 12 h
+    // offset.  Adding the same offset to the query day makes the difference
+    // an exact multiple of _dayInMs, so the index is a simple division.
+    final double dayMs =
+        DateTime(
+          day.year,
+          day.month,
+          day.day,
+        ).millisecondsSinceEpoch.toDouble() +
+        _dailyOffsetInHours / 24 * _dayInMs;
+    final int displayIdx = ((dayMs - timesDisplay.first) / _dayInMs).round();
+    if (displayIdx < 0 || displayIdx >= nDisplay) {
+      return null;
+    }
+    return displayIdx;
+  }
+
   /// offset of day in interpolation
   static const int _offsetInDays = 21;
 
@@ -756,7 +834,7 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   static const String _cacheKey = 'interpolation_cache';
 
   /// Cache version — bump when the cached data format changes
-  static const int _cacheVersion = 1;
+  static const int _cacheVersion = 2;
 
   /// Flag to skip cache loading during reinit (force recompute)
   bool _skipCache = false;
@@ -840,6 +918,8 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
         map['weightsGaussianExtrapol'],
       );
       _weightsDisplay = _vectorFromJson(map['weightsDisplay']);
+      _measurementsDisplay = _vectorFromJson(map['measurementsDisplay']);
+      _isMeasurementDisplay = _vectorFromJson(map['isMeasurementDisplay']);
       _timesDisplay = _vectorFromJson(map['timesDisplay']);
 
       return true;
@@ -877,6 +957,8 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
         'weightsLinExtrapol': weightsLinExtrapol.toList(),
         'weightsGaussianExtrapol': weightsGaussianExtrapol.toList(),
         'weightsDisplay': weightsDisplay.toList(),
+        'measurementsDisplay': measurementsDisplay.toList(),
+        'isMeasurementDisplay': isMeasurementDisplay.toList(),
         'timesDisplay': timesDisplay.toList(),
       };
       Preferences().prefs.setString(_cacheKey, jsonEncode(map));
