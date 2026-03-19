@@ -801,6 +801,28 @@ class MeasurementInterpolationBaseclass {
     return displayIdx;
   }
 
+  /// Return the interpolated weight for [day], or null if out of range.
+  double? interpolationForDay(DateTime day) {
+    final int? idx = displayIndexForDay(day);
+    return idx != null ? weightsDisplay[idx] : null;
+  }
+
+  /// Return the raw measurement for [day], or null if out of range or no
+  /// measurement on that day.
+  double? measurementForDay(DateTime day) {
+    final int? idx = displayIndexForDay(day);
+    if (idx == null || isMeasurementDisplay[idx] == 0) {
+      return null;
+    }
+    return measurementsDisplay[idx];
+  }
+
+  /// Whether a measurement exists on [day].
+  bool hasMeasurementOnDay(DateTime day) {
+    final int? idx = displayIndexForDay(day);
+    return idx != null && isMeasurementDisplay[idx] == 1;
+  }
+
   /// offset of day in interpolation
   static const int _offsetInDays = 21;
 
