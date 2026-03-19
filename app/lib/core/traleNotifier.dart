@@ -8,6 +8,7 @@ import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/theme.dart';
@@ -305,8 +306,15 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
-  /// getter for date when target weight was set
-  DateTime? get userTargetWeightSetDate => prefs.userTargetWeightSetDate;
+  /// getter for date when target weight was set.
+  /// Returns null if the stored date has no measurement (e.g. it was deleted).
+  DateTime? get userTargetWeightSetDate {
+    final DateTime? date = prefs.userTargetWeightSetDate;
+    if (date == null) {
+      return null;
+    }
+    return MeasurementInterpolation().hasMeasurementOnDay(date) ? date : null;
+  }
 
   /// setter for date when target weight was set
   set userTargetWeightSetDate(DateTime? newDate) {
@@ -314,6 +322,17 @@ class TraleNotifier with ChangeNotifier {
       prefs.userTargetWeightSetDate = newDate;
       notifyListeners();
     }
+  }
+
+  /// getter for weight at time of setting target weight (in kg).
+  /// Dynamically looks up the measurement on [userTargetWeightSetDate].
+  /// Returns null if no set date or no measurement on that day.
+  double? get userTargetWeightSetWeight {
+    final DateTime? date = userTargetWeightSetDate;
+    if (date == null) {
+      return null;
+    }
+    return MeasurementInterpolation().measurementForDay(date);
   }
 
   /// get user height in [cm]
