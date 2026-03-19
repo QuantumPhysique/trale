@@ -211,7 +211,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
         DateTime.now();
     final double? effectiveSetWeight =
         (notifier.targetWeightEnabled
-            ? notifier.userTargetWeightSetWeight
+            ? ip.measurementForDay(
+                notifier.userTargetWeightSetDate ?? DateTime.now(),
+              )
             : null) ??
         (ip.db.nMeasurements > 0 ? ip.db.measurements.first.weight : null);
 

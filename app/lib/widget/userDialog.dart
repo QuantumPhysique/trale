@@ -10,6 +10,7 @@ import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stringExtension.dart';
 import 'package:trale/core/theme.dart';
@@ -370,11 +371,12 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   const int decimals = 2;
 
   // ── Initialise from notifier or latest measurement ──────────────
+  final MeasurementInterpolation ip = MeasurementInterpolation();
   final Measurement latestMeasurement = db.latestMeasurement;
   DateTime initDate =
       notifier.userTargetWeightSetDate ?? latestMeasurement.date;
   double initWeight =
-      notifier.userTargetWeightSetWeight ?? latestMeasurement.weight;
+      ip.measurementForDay(initDate) ?? latestMeasurement.weight;
   DateTime? targetDate = notifier.userTargetWeightDate;
 
   // ── Helpers ─────────────────────────────────────────────────────
@@ -648,15 +650,14 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                       initialDate: initDate,
                       firstDate: db.firstDate,
                       lastDate: db.lastDate,
-                      selectableDayPredicate: (DateTime date) =>
-                          db.existsMeasurementOnDate(date),
+                      selectableDayPredicate: ip.hasMeasurementOnDay,
                     );
                     if (selected != null) {
-                      final Measurement? m = db.measurementOnDate(selected);
-                      if (m != null) {
+                      final double? w = ip.measurementForDay(selected);
+                      if (w != null) {
                         setState(() {
                           initDate = selected;
-                          initWeight = m.weight;
+                          initWeight = w;
                           syncFromInitDate();
                         });
                       }
@@ -683,11 +684,9 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
               if (targetDateEnabled && targetDate != null) {
                 notifier.userTargetWeightDate = targetDate;
                 notifier.userTargetWeightSetDate = initDate;
-                notifier.userTargetWeightSetWeight = initWeight;
               } else {
                 notifier.userTargetWeightDate = null;
                 notifier.userTargetWeightSetDate = null;
-                notifier.userTargetWeightSetWeight = null;
               }
               MeasurementDatabase().fireStream();
               Navigator.pop(context, true);

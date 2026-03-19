@@ -52,9 +52,6 @@ class Preferences {
   /// default for userTargetWeightSetDate (not set)
   final DateTime? defaultUserTargetWeightSetDate = null;
 
-  /// default for userTargetWeightSetWeight (not set)
-  final double defaultUserTargetWeightSetWeight = -1;
-
   /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
 
@@ -202,16 +199,6 @@ class Preferences {
     }
     final DateTime parsed = DateTime.parse(raw);
     return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
-  }
-
-  /// set weight when user set the target weight (in kg)
-  set userTargetWeightSetWeight(double? weight) =>
-      prefs.setDouble('userTargetWeightSetWeight', weight ?? -1);
-
-  /// get weight when user set the target weight (in kg)
-  double? get userTargetWeightSetWeight {
-    final double utwsw = prefs.getDouble('userTargetWeightSetWeight') ?? -1;
-    return utwsw > 0 ? utwsw : null;
   }
 
   /// set if onboarding screen is shown
@@ -453,9 +440,6 @@ class Preferences {
     }
     if (override || !prefs.containsKey('userTargetWeightSetDate')) {
       userTargetWeightSetDate = defaultUserTargetWeightSetDate;
-    }
-    if (override || !prefs.containsKey('userTargetWeightSetWeight')) {
-      userTargetWeightSetWeight = defaultUserTargetWeightSetWeight;
     }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;

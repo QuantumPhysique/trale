@@ -316,21 +316,6 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
-  /// getter for weight at time of setting target weight (in kg)
-  double? get userTargetWeightSetWeight {
-    final MeasurementDatabase db = MeasurementDatabase();
-    return prefs.userTargetWeightSetWeight ??
-        (db.isEmpty ? null : db.latestMeasurement.weight);
-  }
-
-  /// setter for weight at time of setting target weight (in kg)
-  set userTargetWeightSetWeight(double? newWeight) {
-    if (userTargetWeightSetWeight != newWeight) {
-      prefs.userTargetWeightSetWeight = newWeight;
-      notifyListeners();
-    }
-  }
-
   /// get user height in [cm]
   double? get userHeight => prefs.userHeight;
 
