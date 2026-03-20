@@ -153,6 +153,12 @@ class _PersonalizationSettingsPageState
         notifier: notifier,
         onRefresh: () => setState(() {}),
       ),
+      TargetWeightGroup(
+        title: AppLocalizations.of(context)!.targetWeight,
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
+        notifier: notifier,
+        onRefresh: () => setState(() {}),
+      ),
     ];
 
     return Scaffold(

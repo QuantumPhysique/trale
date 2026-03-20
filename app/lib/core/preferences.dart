@@ -40,8 +40,17 @@ class Preferences {
   /// default for userName
   final String defaultUserName = '';
 
+  /// default for target weight enabled
+  final bool defaultTargetWeightEnabled = false;
+
   /// default for userTargetWeight in kg
   final double defaultUserTargetWeight = -1;
+
+  /// default for userTargetWeightDate (not set)
+  final DateTime? defaultUserTargetWeightDate = null;
+
+  /// default for userTargetWeightSetDate (not set)
+  final DateTime? defaultUserTargetWeightSetDate = null;
 
   /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
@@ -144,6 +153,13 @@ class Preferences {
       ? prefs.getDouble('userHeight')!
       : null;
 
+  /// Get target weight enabled
+  bool get targetWeightEnabled => prefs.getBool('targetWeightEnabled')!;
+
+  /// Set target weight enabled
+  set targetWeightEnabled(bool enabled) =>
+      prefs.setBool('targetWeightEnabled', enabled);
+
   /// set user target weight
   set userTargetWeight(double? weight) =>
       prefs.setDouble('userTargetWeight', weight ?? -1);
@@ -152,6 +168,38 @@ class Preferences {
   double? get userTargetWeight => prefs.getDouble('userTargetWeight')! > 0
       ? prefs.getDouble('userTargetWeight')!
       : null;
+
+  /// set user target weight date (when to reach target)
+  set userTargetWeightDate(DateTime? date) => prefs.setString(
+    'userTargetWeightDate',
+    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
+  );
+
+  /// get user target weight date
+  DateTime? get userTargetWeightDate {
+    final String raw = prefs.getString('userTargetWeightDate') ?? '';
+    if (raw.isEmpty) {
+      return null;
+    }
+    final DateTime parsed = DateTime.parse(raw);
+    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
+  }
+
+  /// set date when user set the target weight
+  set userTargetWeightSetDate(DateTime? date) => prefs.setString(
+    'userTargetWeightSetDate',
+    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
+  );
+
+  /// get date when user set the target weight
+  DateTime? get userTargetWeightSetDate {
+    final String raw = prefs.getString('userTargetWeightSetDate') ?? '';
+    if (raw.isEmpty) {
+      return null;
+    }
+    final DateTime parsed = DateTime.parse(raw);
+    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
+  }
 
   /// set if onboarding screen is shown
   set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
@@ -381,8 +429,17 @@ class Preferences {
     if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;
     }
+    if (override || !prefs.containsKey('targetWeightEnabled')) {
+      targetWeightEnabled = defaultTargetWeightEnabled;
+    }
     if (override || !prefs.containsKey('userTargetWeight')) {
       userTargetWeight = defaultUserTargetWeight;
+    }
+    if (override || !prefs.containsKey('userTargetWeightDate')) {
+      userTargetWeightDate = defaultUserTargetWeightDate;
+    }
+    if (override || !prefs.containsKey('userTargetWeightSetDate')) {
+      userTargetWeightSetDate = defaultUserTargetWeightSetDate;
     }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;

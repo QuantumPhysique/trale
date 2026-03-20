@@ -23,6 +23,8 @@ Future<bool> showAddWeightDialog({
   required double weight,
   required DateTime date,
   bool editMode = false,
+  String? message,
+  void Function(DateTime date, double weight)? onSaved,
 }) async {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(
     context,
@@ -40,6 +42,17 @@ Future<bool> showAddWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          if (message != null)
+            Padding(
+              padding: EdgeInsets.only(bottom: TraleTheme.of(context)!.padding),
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
           WidgetGroup(
             children: <Widget>[
               GroupedListTile(
@@ -172,6 +185,12 @@ Future<bool> showAddWeightDialog({
                   ),
                 );
               }
+              if (wasInserted && onSaved != null) {
+                onSaved(
+                  currentDate,
+                  currentSliderValue * notifier.unit.scaling,
+                );
+              }
               Navigator.pop(context, wasInserted);
             }, enabled: true),
           );
@@ -192,6 +211,7 @@ Future<bool> showTargetWeightDialog({
   );
 
   double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
+  bool looseWeight = notifier.looseWeight;
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
@@ -224,6 +244,40 @@ Future<bool> showTargetWeightDialog({
             height: 0.15 * MediaQuery.of(context).size.height,
             value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          WidgetGroup(
+            children: <Widget>[
+              GroupedSwitchListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
+                dense: true,
+                leading: PPIcon(
+                  looseWeight
+                      ? PhosphorIconsDuotone.trendDown
+                      : PhosphorIconsDuotone.trendUp,
+                  context,
+                ),
+                title: Text(
+                  looseWeight
+                      ? AppLocalizations.of(context)!.looseWeight
+                      : AppLocalizations.of(context)!.gainWeight,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                subtitle: Text(
+                  AppLocalizations.of(context)!.looseWeightSubtitle,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                value: !looseWeight,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    setState(() {
+                      looseWeight = !value;
+                    });
+                  }
+                },
+              ),
+            ],
           ),
         ],
       );
@@ -266,6 +320,10 @@ Future<bool> showTargetWeightDialog({
               } else {
                 notifier.userTargetWeight =
                     currentSliderValue * notifier.unit.scaling;
+                notifier.looseWeight = looseWeight;
+                // Save the date when the target was set
+                final DateTime now = DateTime.now();
+                notifier.userTargetWeightSetDate = now;
               }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();
