@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/traleNotifier.dart';
 
 /// class providing an API to handle interpolation of measurements
@@ -41,23 +42,22 @@ class MeasurementStats {
   /// initialize database
   void init() {}
 
-  /// return difference of Gaussian smoothed weights
+  /// return difference of smoothed weights over last [nDays]
   double? deltaWeightLastNDays(int nDays) {
-    if (ip.measuredTimeSpan < nDays) {
+    if (ip.idxLast < nDays) {
       return null;
     }
-    return ip.weightsGaussianExtrapol[ip.idxLast] -
-        ip.weightsGaussianExtrapol[ip.idxLast - nDays];
+    return ip.weights[ip.idxLast] - ip.weights[ip.idxLast - nDays];
   }
 
   /// get max weight
-  double? get maxWeight => ip.weightsMeasured.max();
+  double? get maxWeight => ip.measured().measurements.max();
 
   /// get min weight
-  double? get minWeight => ip.weightsMeasured.min();
+  double? get minWeight => ip.measured().measurements.min();
 
-  /// get min weight
-  double? get meanWeight => ip.weightsMeasured.mean();
+  /// get mean weight
+  double? get meanWeight => ip.measured().measurements.mean();
 
   /// get current BMI
   double? currentBMI(BuildContext context) {
@@ -68,20 +68,20 @@ class MeasurementStats {
     if (notifier.userHeight == null) {
       return null;
     }
-    return ip.weightsMeasured.last /
+    return ip.measured().measurements.last /
         (notifier.userHeight! * notifier.userHeight! * 0.0001);
   }
 
   /// get total change in weight
   double? get deltaWeight =>
-      maxWeight == null ? null : maxWeight! - ip.weightsMeasured.last;
+      maxWeight == null ? null : maxWeight! - ip.measured().measurements.last;
 
   /// the start of the first measurement until now
   /// get time of records
   Duration get deltaTime => DateTime.now().difference(db.firstDate);
 
   /// get number of measurements
-  int get nMeasurements => ip.nMeasurements;
+  int get nMeasurements => db.nMeasurements;
 
   /// get current streak
   Duration get currentStreak => db.lastDate.sameDay(DateTime.now())
@@ -117,7 +117,7 @@ class MeasurementStats {
 
     /// count number of measurements in the last n days
     int numberOfMeasurements = 0;
-    for (final double time in ip.timesMeasured.toList()) {
+    for (final double time in ip.measured().times.toList()) {
       if (time >= startingTime) {
         numberOfMeasurements += 1;
       }
@@ -175,14 +175,14 @@ class MeasurementStats {
 
     // Check if target weight is already completed
     if (loose
-        ? targetWeight > ip.weightsDisplay[ip.idxLastDisplay]
-        : targetWeight <= ip.weightsDisplay[ip.idxLastDisplay]) {
+        ? targetWeight > ip.weights[ip.idxLast]
+        : targetWeight <= ip.weights[ip.idxLast]) {
       return const Duration(days: -1);
     }
 
     final double slope = ip.finalSlope;
     // Crossing is in the past
-    if (slope * (ip.weightsDisplay[ip.idxLastDisplay] - targetWeight) >= 0) {
+    if (slope * (ip.weights[ip.idxLast] - targetWeight) >= 0) {
       return null;
     }
 
@@ -192,8 +192,8 @@ class MeasurementStats {
       return null;
     }
     // in ms from last measurement
-    final int remainingTime =
-        ((targetWeight - ip.weightsDisplay[ip.idxLastDisplay]) / slope).round();
+    final int remainingTime = ((targetWeight - ip.weights[ip.idxLast]) / slope)
+        .round();
 
     // if remaining time is rounded to 0, return -1
     if (remainingTime == 0) {
@@ -201,5 +201,85 @@ class MeasurementStats {
     }
 
     return Duration(days: remainingTime);
+  }
+
+  /// Return the interpolated weight [kg] for a given [day], or null if [day]
+  /// falls outside the displayed (measured + extrapolated) range.
+  double? interpolationAtDay(DateTime day) {
+    final int? displayIdx = ip.indexForDay(day);
+    if (displayIdx == null) {
+      return null;
+    }
+    return ip.weights[displayIdx];
+  }
+
+  /// Interpolated weight [kg] for today.
+  double? get interpolationToday => interpolationAtDay(DateTime.now());
+
+  /// Return the target-weight reference value [kg] for a given [day],
+  /// following the "Z"-shaped line used in the line chart.
+  ///
+  /// * Before [setDate]: constant at [targetWeight].
+  /// * Between [setDate] and [targetDate]: linear from [setWeight] to
+  ///   [targetWeight].
+  /// * After [targetDate]: constant at [targetWeight].
+  ///
+  /// Returns null when the target-weight feature is disabled or no target
+  /// weight is set. When no target date is configured, returns a constant
+  /// [targetWeight] for every day.
+  double? referenceAtDay(DateTime day) {
+    final Preferences prefs = Preferences();
+    if (!prefs.targetWeightEnabled) {
+      return null;
+    }
+
+    final double? targetWeight = prefs.userTargetWeight;
+    if (targetWeight == null) {
+      return null;
+    }
+
+    final DateTime? targetDate = prefs.userTargetWeightDate;
+    if (targetDate == null) {
+      return targetWeight;
+    }
+
+    final TraleNotifier notifier = TraleNotifier();
+    final DateTime? setDate = notifier.userTargetWeightSetDate;
+    final double? setWeight = notifier.userTargetWeightSetWeight;
+    if (setDate == null || setWeight == null) {
+      return targetWeight;
+    }
+
+    final DateTime d = DateTime(day.year, day.month, day.day);
+    final DateTime sd = DateTime(setDate.year, setDate.month, setDate.day);
+    final DateTime td = DateTime(
+      targetDate.year,
+      targetDate.month,
+      targetDate.day,
+    );
+
+    // Before setDate or after targetDate → constant at targetWeight
+    if (d.compareTo(sd) <= 0 || d.compareTo(td) >= 0) {
+      return targetWeight;
+    }
+
+    // Between setDate and targetDate → linear interpolation
+    final int totalDays = td.difference(sd).inDays;
+    final int elapsedDays = d.difference(sd).inDays;
+    return setWeight + (targetWeight - setWeight) * (elapsedDays / totalDays);
+  }
+
+  /// Return the difference between the interpolated weight and the
+  /// target-weight reference for a given [day].
+  ///
+  /// Positive means above the reference, negative means below.
+  /// Returns null when either value is unavailable.
+  double? differenceAtDay(DateTime day) {
+    final double? interpolation = interpolationAtDay(day);
+    final double? reference = referenceAtDay(day);
+    if (interpolation == null || reference == null) {
+      return null;
+    }
+    return interpolation - reference;
   }
 }

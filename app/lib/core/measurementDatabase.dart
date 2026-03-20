@@ -76,6 +76,14 @@ class MeasurementDatabaseBaseclass {
   /// date of first measurement
   DateTime get firstDate => measurements.last.date;
 
+  /// time span between first and last measurement in days
+  int get measuredTimeSpan =>
+      isEmpty ? 0 : lastDate.difference(firstDate).inDays;
+
+  /// duration between first and last measurement
+  Duration get measurementDuration =>
+      isEmpty ? Duration.zero : lastDate.difference(firstDate);
+
   /// get largest measurement
   Measurement? get max {
     if (measurements.isEmpty) {
