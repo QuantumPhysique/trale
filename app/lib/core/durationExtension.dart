@@ -23,4 +23,13 @@ extension StringExtension on Duration {
       return '$years ${AppLocalizations.of(context)!.years}';
     }
   }
+
+  String durationToStringDays(BuildContext context) {
+    final int days = inDays;
+    if (days == -1) {
+      return '🥳';
+    } else {
+      return '$days ${AppLocalizations.of(context)!.days}';
+    }
+  }
 }
