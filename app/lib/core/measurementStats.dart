@@ -43,11 +43,16 @@ class MeasurementStats {
   void init() {}
 
   /// return difference of smoothed weights over last [nDays]
-  double? deltaWeightLastNDays(int nDays) {
-    if (ip.idxLast < nDays) {
+  double? deltaWeightLastNDays(int nDays, {DateTime? from}) {
+    final DateTime fromDate = from ?? DateTime.now();
+    final double? weightFrom = ip.interpolationForDay(fromDate);
+    final double? weightTo = ip.interpolationForDay(
+      fromDate.subtract(Duration(days: nDays)),
+    );
+    if (weightFrom == null || weightTo == null) {
       return null;
     }
-    return ip.weights[ip.idxLast] - ip.weights[ip.idxLast - nDays];
+    return weightFrom - weightTo;
   }
 
   /// get max weight
@@ -168,21 +173,31 @@ class MeasurementStats {
       _deltaWeightLastWeek ??= deltaWeightLastNDays(7);
 
   /// get time of reaching target weight in kg
-  Duration? timeOfTargetWeight(double? targetWeight, bool loose) {
+  Duration? timeOfTargetWeight(
+    double? targetWeight,
+    bool loose, {
+    DateTime? from,
+  }) {
     if ((targetWeight == null) || (db.nMeasurements < 2)) {
       return null;
     }
 
+    DateTime fromDate = from ?? DateTime.now();
+    double? interpolationDate = ip.interpolationForDay(fromDate);
+    // if no interpolation value for fromDate, no prediction
+    if (interpolationDate == null) {
+      return null;
+    }
     // Check if target weight is already completed
     if (loose
-        ? targetWeight > ip.weights[ip.idxLast]
-        : targetWeight <= ip.weights[ip.idxLast]) {
+        ? targetWeight > interpolationDate
+        : targetWeight <= interpolationDate) {
       return const Duration(days: -1);
     }
 
     final double slope = ip.finalSlope;
     // Crossing is in the past
-    if (slope * (ip.weights[ip.idxLast] - targetWeight) >= 0) {
+    if (slope * (interpolationDate - targetWeight) >= 0) {
       return null;
     }
 
@@ -192,7 +207,7 @@ class MeasurementStats {
       return null;
     }
     // in ms from last measurement
-    final int remainingTime = ((targetWeight - ip.weights[ip.idxLast]) / slope)
+    final int remainingTime = ((targetWeight - interpolationDate) / slope)
         .round();
 
     // if remaining time is rounded to 0, return -1
@@ -202,19 +217,6 @@ class MeasurementStats {
 
     return Duration(days: remainingTime);
   }
-
-  /// Return the interpolated weight [kg] for a given [day], or null if [day]
-  /// falls outside the displayed (measured + extrapolated) range.
-  double? interpolationAtDay(DateTime day) {
-    final int? displayIdx = ip.indexForDay(day);
-    if (displayIdx == null) {
-      return null;
-    }
-    return ip.weights[displayIdx];
-  }
-
-  /// Interpolated weight [kg] for today.
-  double? get interpolationToday => interpolationAtDay(DateTime.now());
 
   /// Return the target-weight reference value [kg] for a given [day],
   /// following the "Z"-shaped line used in the line chart.
@@ -258,12 +260,12 @@ class MeasurementStats {
       targetDate.day,
     );
 
-    // Before setDate or after targetDate → constant at targetWeight
+    // Before setDate or after targetDate -> constant at targetWeight
     if (d.compareTo(sd) <= 0 || d.compareTo(td) >= 0) {
       return targetWeight;
     }
 
-    // Between setDate and targetDate → linear interpolation
+    // Between setDate and targetDate -> linear interpolation
     final int totalDays = td.difference(sd).inDays;
     final int elapsedDays = d.difference(sd).inDays;
     return setWeight + (targetWeight - setWeight) * (elapsedDays / totalDays);
@@ -275,7 +277,7 @@ class MeasurementStats {
   /// Positive means above the reference, negative means below.
   /// Returns null when either value is unavailable.
   double? differenceAtDay(DateTime day) {
-    final double? interpolation = interpolationAtDay(day);
+    final double? interpolation = ip.interpolationForDay(day);
     final double? reference = referenceAtDay(day);
     if (interpolation == null || reference == null) {
       return null;

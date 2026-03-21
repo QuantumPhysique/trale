@@ -632,8 +632,8 @@ class MeasurementInterpolationBaseclass {
             ) +
             _dailyOffsetInHours / 24 * _dayInMs;
 
-  /// Index of the last actual measurement day in display vectors.
-  int get idxLast => times.length - 1 - _offsetInDaysShown;
+  /// Number of days between first and last measurement (inclusive).
+  int get nDays => times.length - 2 * _offsetInDaysShown;
 
   // ---------------------------------------------------------------------------
   // Public API — date-range filtered accessors
@@ -683,21 +683,11 @@ class MeasurementInterpolationBaseclass {
     final Vector m = measurementsInRange(from: from, to: to);
     final Vector mask = isMeasurementInRange(from: from, to: to);
 
-    final List<double> filteredTimes = <double>[];
-    final List<double> filteredMeasurements = <double>[];
-    for (int i = 0; i < mask.length; i++) {
-      if (mask[i] == 1) {
-        filteredTimes.add(t[i]);
-        filteredMeasurements.add(m[i]);
-      }
-    }
+    bool isMeasured(double _, int i) => mask[i] == 1;
+
     return (
-      times: filteredTimes.isEmpty
-          ? Vector.empty()
-          : Vector.fromList(filteredTimes, dtype: dtype),
-      measurements: filteredMeasurements.isEmpty
-          ? Vector.empty()
-          : Vector.fromList(filteredMeasurements, dtype: dtype),
+      times: t.filterElements(isMeasured),
+      measurements: m.filterElements(isMeasured),
     );
   }
 
