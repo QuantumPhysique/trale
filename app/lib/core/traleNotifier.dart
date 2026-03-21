@@ -11,6 +11,7 @@ import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/printFormat.dart';
+import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -333,6 +334,39 @@ class TraleNotifier with ChangeNotifier {
       return null;
     }
     return MeasurementInterpolation().measurementForDay(date);
+  }
+
+  /// getter for stats range from date used for StatsRange.custom
+  DateTime? get statsRangeFrom => prefs.statsRangeFrom;
+
+  /// setter for stats range from date used for StatsRange.custom
+  set statsRangeFrom(DateTime? newDate) {
+    if (statsRangeFrom != newDate) {
+      prefs.statsRangeFrom = newDate;
+      notifyListeners();
+    }
+  }
+
+  /// getter for stats range to date used for StatsRange.custom
+  DateTime? get statsRangeTo => prefs.statsRangeTo;
+
+  /// setter for stats range to date used for StatsRange.custom
+  set statsRangeTo(DateTime? newDate) {
+    if (statsRangeTo != newDate) {
+      prefs.statsRangeTo = newDate;
+      notifyListeners();
+    }
+  }
+
+  /// getter for stats range mode
+  StatsRange get statsRange => prefs.statsRange;
+
+  /// setter for stats range mode
+  set statsRange(StatsRange newRange) {
+    if (statsRange != newRange) {
+      prefs.statsRange = newRange;
+      notifyListeners();
+    }
   }
 
   /// get user height in [cm]
