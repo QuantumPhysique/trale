@@ -27,6 +27,22 @@
     "month": "month",
     "years": "years",
     "year": "year",
+    "all": "all",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "since goal",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "last year",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "custom",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
     "never": "never",
     "@never": {
         "description": "Frequency of backup interval"

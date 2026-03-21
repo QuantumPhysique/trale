@@ -129,12 +129,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
   void initState() {
     super.initState();
     final Preferences prefs = Preferences();
-    minX = widget.isPreview
-        ? widget.ip.timesDisplay.first
-        : prefs.zoomLevel.minX;
-    maxX = widget.isPreview
-        ? widget.ip.timesDisplay.last
-        : prefs.zoomLevel.maxX;
+    minX = widget.isPreview ? widget.ip.times.first : prefs.zoomLevel.minX;
+    maxX = widget.isPreview ? widget.ip.times.last : prefs.zoomLevel.maxX;
   }
 
   @override
@@ -142,12 +138,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isPreview != widget.isPreview || oldWidget.ip != widget.ip) {
       final Preferences prefs = Preferences();
-      minX = widget.isPreview
-          ? widget.ip.timesDisplay.first
-          : prefs.zoomLevel.minX;
-      maxX = widget.isPreview
-          ? widget.ip.timesDisplay.last
-          : prefs.zoomLevel.maxX;
+      minX = widget.isPreview ? widget.ip.times.first : prefs.zoomLevel.minX;
+      maxX = widget.isPreview ? widget.ip.times.last : prefs.zoomLevel.maxX;
     }
   }
 
@@ -158,8 +150,9 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final MeasurementInterpolationBaseclass ip = widget.ip;
 
     // load times
-    final ml.Vector msTimes = ip.timesMeasured;
-    final ml.Vector interpolTimes = ip.timesDisplay;
+    final ({ml.Vector times, ml.Vector measurements}) msData = ip.measured();
+    final ml.Vector msTimes = msData.times;
+    final ml.Vector interpolTimes = ip.times;
 
     // scale to unit
     final double unitScaling = Provider.of<TraleNotifier>(
@@ -168,14 +161,14 @@ class _CustomLineChartState extends State<CustomLineChart> {
     ).unit.scaling;
 
     final ml.Vector ms = widget.loadedFirst
-        ? ml.Vector.filled(ip.weightsMeasured.length, ip.weightsMeasured.mean())
-        : ip.weightsMeasured;
-    final ml.Vector interpol = widget.loadedFirst
         ? ml.Vector.filled(
-            ip.weightsDisplay.length,
-            ip.weightsDisplay.sum() / ip.isNotExtrapolated.sum(),
+            msData.measurements.length,
+            msData.measurements.mean(),
           )
-        : ip.weightsDisplay;
+        : msData.measurements;
+    final ml.Vector interpol = widget.loadedFirst
+        ? ml.Vector.filled(ip.weights.length, ip.weights.mean())
+        : ip.weights;
 
     final TextStyle labelTextStyle = theme.textTheme.monospace.bodySmall!.apply(
       color: widget.axisLabelColor ?? colorScheme.onSurface,

@@ -5,6 +5,7 @@ import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/printFormat.dart';
+import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -51,6 +52,12 @@ class Preferences {
 
   /// default for userTargetWeightSetDate (not set)
   final DateTime? defaultUserTargetWeightSetDate = null;
+
+  /// default for statsRangeFrom
+  final DateTime? defaultStatsRangeFrom = null;
+
+  /// default for statsRangeTo
+  final DateTime? defaultStatsRangeTo = null;
 
   /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
@@ -138,6 +145,9 @@ class Preferences {
   /// default reminder minute
   final int defaultReminderMinute = 0;
 
+  /// default stats Range
+  final StatsRange defaultStatsRange = StatsRange.all;
+
   /// getter and setter for all preferences
   /// set user name
   set userName(String name) => prefs.setString('userName', name);
@@ -200,6 +210,30 @@ class Preferences {
     final DateTime parsed = DateTime.parse(raw);
     return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
   }
+
+  /// Get statsRangeFrom
+  DateTime? get statsRangeFrom {
+    final DateTime parsed = DateTime.parse(prefs.getString('statsRangeFrom')!);
+    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
+  }
+
+  /// Set statsRangeFrom
+  set statsRangeFrom(DateTime? date) => prefs.setString(
+    'statsRangeFrom',
+    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
+  );
+
+  /// Get statsRangeTo
+  DateTime? get statsRangeTo {
+    final DateTime parsed = DateTime.parse(prefs.getString('statsRangeTo')!);
+    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
+  }
+
+  /// Set statsRangeTo
+  set statsRangeTo(DateTime? date) => prefs.setString(
+    'statsRangeTo',
+    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
+  );
 
   /// set if onboarding screen is shown
   set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
@@ -394,6 +428,12 @@ class Preferences {
   /// Set reminder minute
   set reminderMinute(int minute) => prefs.setInt('reminderMinute', minute);
 
+  /// Get stats range
+  StatsRange get statsRange => prefs.getString('statsRange')!.toStatsRange()!;
+
+  /// Set stats range
+  set statsRange(StatsRange range) => prefs.setString('statsRange', range.name);
+
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
     if (override || !prefs.containsKey('nightMode')) {
@@ -488,6 +528,15 @@ class Preferences {
     }
     if (override || !prefs.containsKey('reminderMinute')) {
       reminderMinute = defaultReminderMinute;
+    }
+    if (override || !prefs.containsKey('statsRange')) {
+      statsRange = defaultStatsRange;
+    }
+    if (override || !prefs.containsKey('statsRangeFrom')) {
+      statsRangeFrom = defaultStatsRangeFrom;
+    }
+    if (override || !prefs.containsKey('statsRangeTo')) {
+      statsRangeTo = defaultStatsRangeTo;
     }
   }
 

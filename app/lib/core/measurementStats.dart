@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/preferences.dart';
+import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/traleNotifier.dart';
 
 /// class providing an API to handle interpolation of measurements
@@ -25,12 +27,32 @@ class MeasurementStats {
   /// get interpolation
   MeasurementInterpolation get ip => MeasurementInterpolation();
 
+  /// get stats range setting
+  StatsRange get _statsRange => Preferences().statsRange;
+
+  /// get dates for stats range
+  ({DateTime? from, DateTime? to}) get _dates => _statsRange.dates;
+
+  /// get measurements in stats range
+  Vector get _measurements =>
+      ip.measured(from: _dates.from, to: _dates.to).measurements;
+
+  /// get weights in stats range
+  Vector get _weights =>
+      ip.measurementsInRange(from: _dates.from, to: _dates.to);
+
+  /// get toDate, default to now if null
+  DateTime get toDate => _dates.to ?? DateTime.now();
+
+  /// get fromDate, default to first measurement date if null
+  DateTime get fromDate => _dates.from ?? db.firstDate;
+
+  /// get number of measurements in stats range
+  int get nMeasurements => _measurements.length;
+
   /// re initialize database
   void reinit() {
     _streakList = null;
-    _frequencyLastWeek = null;
-    _frequencyLastMonth = null;
-    _frequencyLastYear = null;
     _deltaWeightLastWeek = null;
     _deltaWeightLastMonth = null;
     _deltaWeightLastYear = null;
@@ -41,23 +63,35 @@ class MeasurementStats {
   /// initialize database
   void init() {}
 
-  /// return difference of Gaussian smoothed weights
+  /// return difference of smoothed weights over last [nDays]
   double? deltaWeightLastNDays(int nDays) {
-    if (ip.measuredTimeSpan < nDays) {
+    final double? weight = ip.interpolationForDay(toDate);
+    final double? weightLastN = ip.interpolationForDay(
+      toDate.subtract(Duration(days: nDays)),
+    );
+    if (weight == null || weightLastN == null) {
       return null;
     }
-    return ip.weightsGaussianExtrapol[ip.idxLast] -
-        ip.weightsGaussianExtrapol[ip.idxLast - nDays];
+    return weight - weightLastN;
   }
 
   /// get max weight
-  double? get maxWeight => ip.weightsMeasured.max();
+  double? get maxWeight => _measurements.max();
+
+  /// get max interpolated weight in stats range
+  double? get maxInterpolatedWeight => _weights.max();
 
   /// get min weight
-  double? get minWeight => ip.weightsMeasured.min();
+  double? get minWeight => _measurements.min();
 
-  /// get min weight
-  double? get meanWeight => ip.weightsMeasured.mean();
+  /// get min interpolated weight in stats range
+  double? get minInterpolatedWeight => _weights.min();
+
+  /// get mean weight
+  double? get meanWeight => _measurements.mean();
+
+  /// get mean interpolated weight in stats range
+  double? get meanInterpolatedWeight => _weights.mean();
 
   /// get current BMI
   double? currentBMI(BuildContext context) {
@@ -68,23 +102,29 @@ class MeasurementStats {
     if (notifier.userHeight == null) {
       return null;
     }
-    return ip.weightsMeasured.last /
-        (notifier.userHeight! * notifier.userHeight! * 0.0001);
+    final double? weight = ip.interpolationForDay(toDate);
+    if (weight == null) {
+      return null;
+    }
+    return weight / (notifier.userHeight! * notifier.userHeight! * 0.0001);
   }
 
   /// get total change in weight
-  double? get deltaWeight =>
-      maxWeight == null ? null : maxWeight! - ip.weightsMeasured.last;
+  double? get deltaWeight {
+    final double? maxWeight = maxInterpolatedWeight;
+    final double? weight = ip.interpolationForDay(toDate);
+    if (weight == null || maxWeight == null) {
+      return null;
+    }
+    return maxWeight - weight;
+  }
 
   /// the start of the first measurement until now
   /// get time of records
-  Duration get deltaTime => DateTime.now().difference(db.firstDate);
-
-  /// get number of measurements
-  int get nMeasurements => ip.nMeasurements;
+  Duration get deltaTime => toDate.difference(fromDate);
 
   /// get current streak
-  Duration get currentStreak => db.lastDate.sameDay(DateTime.now())
+  Duration get currentStreak => ip.hasMeasurementOnDay(toDate)
       ? Duration(days: streakList.last.round())
       : Duration.zero;
 
@@ -98,7 +138,10 @@ class MeasurementStats {
   Vector _estimateStreakList() {
     int streak = 0;
     final List<int> streakList = <int>[0]; // catch for no measurements
-    for (final double isMS in ip.isMeasurement) {
+    for (final double isMS in ip.isMeasurementInRange(
+      from: fromDate,
+      to: toDate,
+    )) {
       if (isMS.round() == 1) {
         streak++;
       } else if (streak > 0) {
@@ -108,43 +151,6 @@ class MeasurementStats {
     }
     return Vector.fromList(streakList);
   }
-
-  /// get frequency of taking measurements
-  double _getFrequency(int nDays) {
-    final int startingTime = DateTime.now()
-        .subtract(Duration(days: nDays))
-        .millisecondsSinceEpoch;
-
-    /// count number of measurements in the last n days
-    int numberOfMeasurements = 0;
-    for (final double time in ip.timesMeasured.toList()) {
-      if (time >= startingTime) {
-        numberOfMeasurements += 1;
-      }
-    }
-    // to ensure that the time before the very first measurement is not
-    // biasing the result, use as duration min of nDays or days since first m
-    if (deltaTime.inDays < nDays) {
-      return numberOfMeasurements / deltaTime.inDays;
-    } else {
-      return numberOfMeasurements / nDays;
-    }
-  }
-
-  double? _frequencyLastWeek;
-
-  /// get frequency of taking measurements (last week)
-  double? get frequencyLastWeek => _frequencyLastWeek ??= _getFrequency(7);
-
-  double? _frequencyLastMonth;
-
-  /// get frequency of taking measurements (last month)
-  double? get frequencyLastMonth => _frequencyLastMonth ??= _getFrequency(30);
-
-  double? _frequencyLastYear;
-
-  /// get frequency of taking measurements (last year)
-  double? get frequencyLastYear => _frequencyLastYear ??= _getFrequency(365);
 
   /// get frequency of taking measurements (in total)
   double? get frequencyInTotal => nMeasurements / (deltaTime.inDays + 1);
@@ -173,16 +179,19 @@ class MeasurementStats {
       return null;
     }
 
+    final double? weight = ip.interpolationForDay(toDate);
+    // if no interpolation value for fromDate, no prediction
+    if (weight == null) {
+      return null;
+    }
     // Check if target weight is already completed
-    if (loose
-        ? targetWeight > ip.weightsDisplay[ip.idxLastDisplay]
-        : targetWeight <= ip.weightsDisplay[ip.idxLastDisplay]) {
+    if (loose ? targetWeight > weight : targetWeight <= weight) {
       return const Duration(days: -1);
     }
 
     final double slope = ip.finalSlope;
     // Crossing is in the past
-    if (slope * (ip.weightsDisplay[ip.idxLastDisplay] - targetWeight) >= 0) {
+    if (slope * (weight - targetWeight) >= 0) {
       return null;
     }
 
@@ -192,8 +201,7 @@ class MeasurementStats {
       return null;
     }
     // in ms from last measurement
-    final int remainingTime =
-        ((targetWeight - ip.weightsDisplay[ip.idxLastDisplay]) / slope).round();
+    final int remainingTime = ((targetWeight - weight) / slope).round();
 
     // if remaining time is rounded to 0, return -1
     if (remainingTime == 0) {
@@ -202,4 +210,72 @@ class MeasurementStats {
 
     return Duration(days: remainingTime);
   }
+
+  /// Return the target-weight reference value [kg] for a given day
+  ///
+  /// * Before [setDate]: constant at [targetWeight].
+  /// * Between [setDate] and [targetDate]: linear from [setWeight] to
+  ///   [targetWeight].
+  /// * After [targetDate]: constant at [targetWeight].
+  double? referenceAtDay(DateTime day) {
+    final Preferences prefs = Preferences();
+    if (!prefs.targetWeightEnabled) {
+      return null;
+    }
+
+    final double? targetWeight = prefs.userTargetWeight;
+    if (targetWeight == null) {
+      return null;
+    }
+
+    final DateTime? targetDate = prefs.userTargetWeightDate;
+    if (targetDate == null) {
+      return targetWeight;
+    }
+
+    final TraleNotifier notifier = TraleNotifier();
+    final DateTime? setDate = notifier.userTargetWeightSetDate;
+    final double? setWeight = notifier.userTargetWeightSetWeight;
+    if (setDate == null || setWeight == null) {
+      return targetWeight;
+    }
+
+    final DateTime d = DateTime(day.year, day.month, day.day);
+    final DateTime sd = DateTime(setDate.year, setDate.month, setDate.day);
+    final DateTime td = DateTime(
+      targetDate.year,
+      targetDate.month,
+      targetDate.day,
+    );
+
+    // Before setDate or after targetDate -> constant at targetWeight
+    if (d.compareTo(sd) <= 0 || d.compareTo(td) >= 0) {
+      return targetWeight;
+    }
+
+    // Between setDate and targetDate -> linear interpolation
+    final int totalDays = td.difference(sd).inDays;
+    final int elapsedDays = d.difference(sd).inDays;
+    return setWeight + (targetWeight - setWeight) * (elapsedDays / totalDays);
+  }
+
+  /// Return the difference between the interpolated weight and the
+  /// target-weight reference for a given [day].
+  double? differenceAtDay(DateTime day) {
+    final double? interpolation = ip.interpolationForDay(day);
+    final double? reference = referenceAtDay(day);
+    if (interpolation == null || reference == null) {
+      return null;
+    }
+    return interpolation - reference;
+  }
+
+  /// Return the difference between the interpolated weight and the
+  double? get currentDifference => differenceAtDay(toDate);
+
+  /// kcal per kg of weight change
+  static const double _kcalPerKg = 7700;
+
+  /// get daily calorie deficit based on final slope [kcal/day]
+  double get dailyDeficit => ip.finalSlope * _kcalPerKg;
 }
