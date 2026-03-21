@@ -9,6 +9,7 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/printFormat.dart';
 import 'package:trale/core/stats_range.dart';
@@ -343,6 +344,7 @@ class TraleNotifier with ChangeNotifier {
   set statsRangeFrom(DateTime? newDate) {
     if (statsRangeFrom != newDate) {
       prefs.statsRangeFrom = newDate;
+      MeasurementStats().reinit();
       notifyListeners();
     }
   }
@@ -354,6 +356,7 @@ class TraleNotifier with ChangeNotifier {
   set statsRangeTo(DateTime? newDate) {
     if (statsRangeTo != newDate) {
       prefs.statsRangeTo = newDate;
+      MeasurementStats().reinit();
       notifyListeners();
     }
   }
@@ -365,6 +368,7 @@ class TraleNotifier with ChangeNotifier {
   set statsRange(StatsRange newRange) {
     if (statsRange != newRange) {
       prefs.statsRange = newRange;
+      MeasurementStats().reinit();
       notifyListeners();
     }
   }

@@ -29,7 +29,7 @@ extension StatsRangeExtension on StatsRange {
   }[this]!;
 
   /// get international name
-  ({DateTime? from, DateTime? to}) dates(BuildContext context) {
+  ({DateTime? from, DateTime? to}) get dates {
     if (this == StatsRange.all) {
       return (from: null, to: null);
     } else if (this == StatsRange.sinceTarget) {
