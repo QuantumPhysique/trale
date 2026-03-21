@@ -31,21 +31,24 @@ class MeasurementStats {
   StatsRange get _statsRange => Preferences().statsRange;
 
   /// get dates for stats range
-  ({DateTime? from, DateTime? to}) get _statsRangeDates => _statsRange.dates;
+  ({DateTime? from, DateTime? to}) get _dates => _statsRange.dates;
 
   /// get measurements in stats range
-  Vector get _measurementsRangeDates => ip
-      .measured(from: _statsRangeDates.from, to: _statsRangeDates.to)
-      .measurements;
+  Vector get _measurements =>
+      ip.measured(from: _dates.from, to: _dates.to).measurements;
+
+  /// get weights in stats range
+  Vector get _weights =>
+      ip.measurementsInRange(from: _dates.from, to: _dates.to);
 
   /// get toDate, default to now if null
-  DateTime get toDate => _statsRangeDates.to ?? DateTime.now();
+  DateTime get toDate => _dates.to ?? DateTime.now();
 
   /// get fromDate, default to first measurement date if null
-  DateTime get fromDate => _statsRangeDates.from ?? db.firstDate;
+  DateTime get fromDate => _dates.from ?? db.firstDate;
 
   /// get number of measurements in stats range
-  int get nMeasurements => _measurementsRangeDates.length;
+  int get nMeasurements => _measurements.length;
 
   /// re initialize database
   void reinit() {
@@ -73,13 +76,22 @@ class MeasurementStats {
   }
 
   /// get max weight
-  double? get maxWeight => _measurementsRangeDates.max();
+  double? get maxWeight => _measurements.max();
+
+  /// get max interpolated weight in stats range
+  double? get maxInterpolatedWeight => _weights.max();
 
   /// get min weight
-  double? get minWeight => _measurementsRangeDates.min();
+  double? get minWeight => _measurements.min();
+
+  /// get min interpolated weight in stats range
+  double? get minInterpolatedWeight => _weights.min();
 
   /// get mean weight
-  double? get meanWeight => _measurementsRangeDates.mean();
+  double? get meanWeight => _measurements.mean();
+
+  /// get mean interpolated weight in stats range
+  double? get meanInterpolatedWeight => _weights.mean();
 
   /// get current BMI
   double? currentBMI(BuildContext context) {
@@ -99,7 +111,7 @@ class MeasurementStats {
 
   /// get total change in weight
   double? get deltaWeight {
-    final double? maxWeight = this.maxWeight;
+    final double? maxWeight = maxInterpolatedWeight;
     final double? weight = ip.interpolationForDay(toDate);
     if (weight == null || maxWeight == null) {
       return null;
@@ -260,4 +272,10 @@ class MeasurementStats {
 
   /// Return the difference between the interpolated weight and the
   double? get currentDifference => differenceAtDay(toDate);
+
+  /// kcal per kg of weight change
+  static const double _kcalPerKg = 7700;
+
+  /// get daily calorie deficit based on final slope [kcal/day]
+  double get dailyDeficit => ip.finalSlope * _kcalPerKg;
 }
