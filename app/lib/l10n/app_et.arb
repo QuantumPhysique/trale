@@ -692,5 +692,29 @@
     "changelog": "Muudatuste logi",
     "@changelog": {
         "description": "changelog"
+    },
+    "targetWeightEnabled": "Kaalueesmärk",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Sisesta oma kaalueesmärk ja jälgi edenemist.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Soovitud kuupäev",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Sisesta oma kuupäeva eesmärk ja jälgi edenemist.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Sisesta kuupäeva eesmärk",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Edenemistempo",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
     }
 }
