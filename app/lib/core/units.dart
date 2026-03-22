@@ -59,8 +59,10 @@ extension TraleUnitExtension on TraleUnit {
   }
 
   /// round double to given precision
-  double doubleToPrecision(double val, TraleUnitPrecision tup) =>
-      (val * ticksPerStep).roundToDouble() / (tup.ticksPerStep ?? ticksPerStep);
+  double doubleToPrecision(double val, TraleUnitPrecision tup) {
+    final int tps = tup.ticksPerStep ?? ticksPerStep;
+    return (val * tps).roundToDouble() / tps;
+  }
 
   /// get string expression
   String get name => toString().split('.').last;
