@@ -1,11 +1,16 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:trale/core/font.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementStats.dart';
+import 'package:trale/core/theme.dart';
+import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/emptyChart.dart';
+import 'package:trale/widget/statsRangeDialog.dart';
 import 'package:trale/widget/statsWidgetsList.dart';
 
 /// Stats screen widget.
@@ -72,12 +77,49 @@ class _StatsScreen extends State<StatsScreen>
     super.build(context);
 
     Widget statsScreen(BuildContext context) {
+      final MeasurementStats stats = MeasurementStats();
+      final TraleNotifier notifier = Provider.of<TraleNotifier>(
+        context,
+        listen: false,
+      );
+      final String fromStr = notifier
+          .dateFormat(context)
+          .format(stats.fromDate);
+      final String toStr = notifier.dateFormat(context).format(stats.toDate);
+
       return CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
           SliverToBoxAdapter(
-            key: ValueKey<int>(MeasurementStats().hashCode),
+            child: InkWell(
+              onTap: () => showStatsRangeDialog(context: context),
+              borderRadius: BorderRadius.circular(
+                TraleTheme.of(context)!.padding,
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: TraleTheme.of(context)!.padding,
+                  vertical: 0.5 * TraleTheme.of(context)!.padding,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'data from',
+                      style: Theme.of(context).textTheme.displaySmall,
+                    ),
+                    Text(
+                      '$fromStr  –  $toStr',
+                      style: Theme.of(context).textTheme.emphasized.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            key: ValueKey<int>(stats.hashCode),
             child: const StatsWidgetsList(),
           ),
         ],

@@ -757,5 +757,25 @@
     "diffFromTarget": "Diff. from target",
     "@diffFromTarget": {
         "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Stats range",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "From",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "To",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Dates",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Long press a date to unset it. An unset start date means from the first measurement, an unset end date means until today.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
     }
 }
