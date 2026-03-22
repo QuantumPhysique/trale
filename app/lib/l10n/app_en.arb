@@ -749,5 +749,13 @@
     "reminderNotificationBody": "You haven't logged your weight today yet.",
     "@reminderNotificationBody": {
         "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "calorie deficit",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Diff. from target",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
     }
 }

@@ -726,3 +726,30 @@ String weightToString(BuildContext context, double? d) {
 String doubleToString(double? d) {
   return d == null ? '--' : d.toStringAsFixed(1);
 }
+
+/// get caloric deficit widget
+Widget getCalorieDeficitWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) => DefaultStatCard(
+  firstRow: '${AppLocalizations.of(context)!.calorieDeficit}\n(kcal/day)',
+  secondRow: '${stats.dailyDeficit}',
+);
+
+/// get caloric deficit widget
+Widget getDiffFromTargetWidget({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int? delayInMilliseconds,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
+
+  return DefaultStatCard(
+    firstRow: '${AppLocalizations.of(context)!.diffFromTarget} ($unit)',
+    secondRow: weightToString(context, stats.currentDifference),
+  );
+}
