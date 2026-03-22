@@ -34,7 +34,7 @@ extension StatsRangeExtension on StatsRange {
       return (from: null, to: null);
     } else if (this == StatsRange.sinceTarget) {
       final Preferences prefs = Preferences();
-      final DateTime? setDate = prefs.defaultUserTargetWeightSetDate;
+      final DateTime? setDate = prefs.userTargetWeightSetDate;
       return (from: setDate, to: null);
     } else if (this == StatsRange.lastYear) {
       return (
