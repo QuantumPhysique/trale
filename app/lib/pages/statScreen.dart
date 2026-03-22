@@ -85,11 +85,9 @@ class _StatsScreen extends State<StatsScreen>
     }
 
     Widget statsScreenWrapper(BuildContext context) {
-      final List<SortedMeasurement> measurements =
-          MeasurementDatabase().sortedMeasurements;
-      return measurements.isNotEmpty
-          ? statsScreen(context)
-          : defaultEmptyChart(context: context);
+      return MeasurementDatabase().isEmpty
+          ? defaultEmptyChart(context: context)
+          : statsScreen(context);
     }
 
     return AnimationReplayScope(

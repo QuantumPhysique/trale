@@ -24,12 +24,14 @@ extension StringExtension on Duration {
     }
   }
 
-  String durationToStringDays(BuildContext context) {
+  String streakToStringDays(BuildContext context, {bool addLabel = true}) {
     final int days = inDays;
-    if (days == -1) {
-      return '🥳';
-    } else {
-      return '$days ${AppLocalizations.of(context)!.days}';
+    if (!addLabel) {
+      if (days == 0) {
+        return '-';
+      }
+      return '$days';
     }
+    return '$days ${AppLocalizations.of(context)!.days}';
   }
 }

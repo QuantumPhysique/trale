@@ -287,7 +287,7 @@ StatCard getReachingTargetWeightWidget({
 }
 
 /// define StatCard for the frequency in total
-StatCard getFrequencyInTotal({
+StatCard getCurrentStreak({
   required BuildContext context,
   required MeasurementStats stats,
   int? delayInMilliseconds,
@@ -308,7 +308,10 @@ StatCard getFrequencyInTotal({
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                (7 * stats.frequencyInTotal!).toStringAsFixed(2),
+                stats.currentStreak.streakToStringDays(
+                  context,
+                  addLabel: false,
+                ),
                 style: Theme.of(context).textTheme.emphasized.displayLarge!
                     .copyWith(
                       color: Theme.of(context).brightness == Brightness.light
@@ -326,8 +329,8 @@ StatCard getFrequencyInTotal({
             child: Align(
               alignment: Alignment.topCenter,
               child: AutoSizeText(
-                '${AppLocalizations.of(context)!.measurementFrequency}\n'
-                '(/ ${AppLocalizations.of(context)!.week})',
+                '${AppLocalizations.of(context)!.currentStreak}\n'
+                '(/ ${AppLocalizations.of(context)!.days})',
                 style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: Theme.of(context).brightness == Brightness.light
                       ? Theme.of(context).colorScheme.onPrimary

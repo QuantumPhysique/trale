@@ -155,8 +155,8 @@ class MeasurementStats {
     return Vector.fromList(streakList);
   }
 
-  /// get frequency of taking measurements (in total)
-  double? get frequencyInTotal => nMeasurements / (deltaTime.inDays + 1);
+  /// get frequency of taking measurements (in total) [/week]
+  double? get frequency => 7 * nMeasurements / (deltaTime.inDays + 1);
 
   double? _deltaWeightLastYear;
 

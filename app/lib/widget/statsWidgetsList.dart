@@ -59,21 +59,23 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
       children:
           <Widget>[
             Column(
+              spacing: TraleTheme.of(context)!.padding,
               children: <Widget>[
                 DefaultStatCard(
-                  firstRow: AppLocalizations.of(context)!.currentStreak,
-                  secondRow: stats.currentStreak.durationToStringDays(context),
-                ),
-                SizedBox(height: TraleTheme.of(context)!.padding),
-                DefaultStatCard(
                   firstRow: AppLocalizations.of(context)!.maxStreak,
-                  secondRow: stats.maxStreak.durationToStringDays(context),
+                  secondRow: stats.maxStreak.streakToStringDays(context),
+                ),
+                DefaultStatCard(
+                  firstRow:
+                      '${AppLocalizations.of(context)!.measurementFrequency}\n'
+                      '(/ ${AppLocalizations.of(context)!.week})',
+                  secondRow: stats.frequency!.toStringAsFixed(2),
                 ),
               ],
             ),
             Column(
               children: <Widget>[
-                getFrequencyInTotal(
+                getCurrentStreak(
                   context: context,
                   stats: stats,
                   delayInMilliseconds: delayInMilliseconds,
