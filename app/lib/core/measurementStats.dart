@@ -189,7 +189,7 @@ class MeasurementStats {
       return const Duration(days: -1);
     }
 
-    final double slope = ip.finalSlope;
+    final double slope = ip.slopeAtDay(toDate);
     // Crossing is in the past
     if (slope * (weight - targetWeight) >= 0) {
       return null;
@@ -277,5 +277,8 @@ class MeasurementStats {
   static const double _kcalPerKg = 7700;
 
   /// get daily calorie deficit based on final slope [kcal/day]
-  double get dailyDeficit => ip.finalSlope * _kcalPerKg;
+  double get dailyDeficit => ip.slopeAtDay(toDate) * _kcalPerKg;
+
+  /// get monthly change in weight [kg/month]
+  double get monthlyChange => ip.slopeAtDay(toDate) * 30;
 }

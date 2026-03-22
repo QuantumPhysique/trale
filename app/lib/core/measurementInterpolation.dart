@@ -534,6 +534,15 @@ class MeasurementInterpolationBaseclass {
   Vector get _weightsGaussianExtrapol =>
       __weightsGaussianExtrapol ??= _gaussianInterpolation(_weightsLinExtrapol);
 
+  /// convert display idx to internal idx (returns null if out of range)
+  int? _idxDisplayToInternal(int idxDisplay) {
+    final int idxInternal = idxDisplay + _offsetInDays - _offsetInDaysShown;
+    if (idxInternal < 0 || idxInternal >= _n) {
+      return null;
+    }
+    return idxInternal;
+  }
+
   // ---------------------------------------------------------------------------
   // Public API — display-length vectors
   // ---------------------------------------------------------------------------
@@ -556,7 +565,7 @@ class MeasurementInterpolationBaseclass {
       final Vector weightsExtrapol =
           Vector.fromList(<double>[
             for (int idx = 1; idx <= _offsetInDaysShown; idx++)
-              finalSlope * idx,
+              _finalSlope * idx,
           ]) +
           weightsLinear.last;
 
@@ -765,6 +774,23 @@ class MeasurementInterpolationBaseclass {
   double _slope(int idxFrom, int idxTo, Vector w) =>
       w.isNotEmpty ? (w[idxTo] - w[idxFrom]) / (idxTo - idxFrom) : 0;
 
+  /// first derivative of gaussian Interpolation. Internal idx!
+  double _derivative(int idx) {
+    // check if idx + 2 and idx- 2 are in range
+    if (idx - 2 >= 0 && idx + 2 < _n) {
+      return (1 * _weightsGaussianExtrapol[idx - 2] -
+              8 * _weightsGaussianExtrapol[idx - 1] +
+              8 * _weightsGaussianExtrapol[idx + 1] -
+              1 * _weightsGaussianExtrapol[idx + 2]) /
+          12;
+    } else if (idx - 1 >= 0 && idx + 1 < _n) {
+      return (_weightsGaussianExtrapol[idx - 1] -
+              _weightsGaussianExtrapol[idx + 1]) /
+          2;
+    }
+    return 0;
+  }
+
   Vector _gaussianInterpolation(Vector w) => Vector.fromList(<double>[
     for (final int idx in _timesIdx)
       (w[idx] != 0) ? _gaussianMean(_times[idx], w) : 0,
@@ -775,8 +801,19 @@ class MeasurementInterpolationBaseclass {
   // ---------------------------------------------------------------------------
 
   /// Final slope of extrapolation [kg/day].
-  double get finalSlope =>
-      _slope(_idxLast, _idxLast + _offsetInDaysShown, _weightsGaussianExtrapol);
+  double get _finalSlope => _derivative(_idxLast);
+  // _slope(_idxLast, _idxLast + _offsetInDaysShown, _weightsGaussianExtrapol);
+
+  /// get slope of display weights at [day]
+  double slopeAtDay(DateTime day) {
+    final int? idx = indexForDay(day);
+    final int? idxInternal = idx != null ? _idxDisplayToInternal(idx) : null;
+    if (idxInternal == null) {
+      return 0;
+    }
+
+    return _derivative(idxInternal);
+  }
 
   /// Return the index into display vectors for a given [day], or null
   /// if [day] falls outside the display range.

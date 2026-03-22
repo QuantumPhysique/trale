@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/textSize.dart';
 import 'package:trale/core/theme.dart';
@@ -79,8 +77,6 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 
   @override
   Widget build(BuildContext context) {
-    final MeasurementInterpolation ip = MeasurementInterpolation();
-    final MeasurementDatabase db = MeasurementDatabase();
     final MeasurementStats stats = MeasurementStats();
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
@@ -89,7 +85,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
       userTargetWeight,
       notifier.looseWeight,
     );
-    final int nMeasured = db.measurementDuration.inDays;
+    final int nMeasured = stats.nMeasurements;
     _ensureWeightLostCardVisibility(nMeasured >= 2);
     Card userTargetWeightCard(double utw) => Card(
       shape: const StadiumBorder(),
@@ -121,7 +117,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     );
 
     Card userWeightLostCard() {
-      final double deltaWeight = ip.finalSlope * 30;
+      final double deltaWeight = stats.monthlyChange;
 
       return Card(
         shape: const StadiumBorder(),
