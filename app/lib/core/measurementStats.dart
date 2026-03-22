@@ -50,6 +50,9 @@ class MeasurementStats {
   /// get number of measurements in stats range
   int get nMeasurements => _measurements.length;
 
+  /// Content-based hash combining date range and interpolation state.
+  int get hashCode => Object.hash(toDate, fromDate, ip.hashCode);
+
   /// re initialize database
   void reinit() {
     _streakList = null;

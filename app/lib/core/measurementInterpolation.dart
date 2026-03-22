@@ -552,6 +552,9 @@ class MeasurementInterpolationBaseclass {
   /// Interpolated weights to display (smoothed + extrapolated, display length).
   Vector get weights => _weightsDisplay ??= _createWeightsDisplay();
 
+  /// Content-based hash of the interpolated weights vector.
+  int get hashCode => Object.hashAll(weights);
+
   Vector _createWeightsDisplay() {
     if (_n == 0) {
       return _weights;

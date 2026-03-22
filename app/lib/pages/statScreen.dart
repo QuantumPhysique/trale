@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/emptyChart.dart';
 import 'package:trale/widget/statsWidgetsList.dart';
@@ -70,25 +71,24 @@ class _StatsScreen extends State<StatsScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    Widget statsScreen(
-      BuildContext context,
-      AsyncSnapshot<List<Measurement>> snapshot,
-    ) {
+    Widget statsScreen(BuildContext context) {
       return CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
         cacheExtent: MediaQuery.of(context).size.height,
-        slivers: const <Widget>[SliverToBoxAdapter(child: StatsWidgetsList())],
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            key: ValueKey<int>(MeasurementStats().hashCode),
+            child: const StatsWidgetsList(),
+          ),
+        ],
       );
     }
 
-    Widget statsScreenWrapper(
-      BuildContext context,
-      AsyncSnapshot<List<Measurement>> snapshot,
-    ) {
-      final MeasurementDatabase database = MeasurementDatabase();
-      final List<SortedMeasurement> measurements = database.sortedMeasurements;
+    Widget statsScreenWrapper(BuildContext context) {
+      final List<SortedMeasurement> measurements =
+          MeasurementDatabase().sortedMeasurements;
       return measurements.isNotEmpty
-          ? statsScreen(context, snapshot)
+          ? statsScreen(context)
           : defaultEmptyChart(context: context);
     }
 
@@ -96,9 +96,7 @@ class _StatsScreen extends State<StatsScreen>
       controller: _replayController,
       child: StreamBuilder<List<Measurement>>(
         stream: _measurementStream,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<Measurement>> snapshot) =>
-                statsScreenWrapper(context, snapshot),
+        builder: (BuildContext context, _) => statsScreenWrapper(context),
       ),
     );
   }
