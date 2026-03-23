@@ -59,13 +59,13 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
           children: <Widget>[
             DefaultStatCard(
               firstRow: AppLocalizations.of(context)!.maxStreak,
-              secondRow: stats.maxStreak.streakToStringDays(context),
+              secondRow: stats.globalMaxStreak.streakToStringDays(context),
             ),
             DefaultStatCard(
               firstRow:
                   '${AppLocalizations.of(context)!.measurementFrequency}\n'
                   '(/ ${AppLocalizations.of(context)!.week})',
-              secondRow: stats.frequency!.toStringAsFixed(2),
+              secondRow: stats.globalFrequency!.toStringAsFixed(2),
             ),
           ],
         ),
@@ -96,7 +96,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             getReachingTargetWeightWidget(context: context, stats: stats),
             DefaultStatCard(
               firstRow: AppLocalizations.of(context)!.timeSinceFirstMeasurement,
-              secondRow: stats.deltaTime.durationToString(context),
+              secondRow: stats.globalDeltaTime.durationToString(context),
             ),
           ],
         ),
@@ -105,7 +105,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
           children: <Widget>[
             DefaultStatCard(
               firstRow: '# $measurementsLabel',
-              secondRow: '${stats.nMeasurements}',
+              secondRow: '${stats.globalNMeasurements}',
               delayInMilliseconds: delayInMilliseconds,
               pillShape: true,
             ),

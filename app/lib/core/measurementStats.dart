@@ -33,13 +33,20 @@ class MeasurementStats {
   /// get dates for stats range
   ({DateTime? from, DateTime? to}) get _dates => _statsRange.dates;
 
+  /// cached measurements in stats range
+  Vector? _measurements;
+
   /// get measurements in stats range
-  Vector get _measurements =>
-      ip.measured(from: _dates.from, to: _dates.to).measurements;
+  Vector get measurements => _measurements ??= ip
+      .measured(from: _dates.from, to: _dates.to)
+      .measurements;
+
+  /// cached weights in stats range
+  Vector? _weights;
 
   /// get weights in stats range
-  Vector get _weights =>
-      ip.measurementsInRange(from: _dates.from, to: _dates.to);
+  Vector get weights =>
+      _weights ??= ip.measurementsInRange(from: _dates.from, to: _dates.to);
 
   /// get toDate, default to now if null
   DateTime get toDate => _dates.to ?? DateTime.now();
@@ -48,18 +55,20 @@ class MeasurementStats {
   DateTime get fromDate => _dates.from ?? db.firstDate;
 
   /// get number of measurements in stats range
-  int get nMeasurements => _measurements.length;
+  int get nMeasurements => measurements.length;
 
   /// Content-based hash combining date range and interpolation state.
   int get hashCode => Object.hash(toDate, fromDate, ip.hashCode);
 
   /// re initialize database
   void reinit() {
-    _streakList = null;
+    _globalStreakList = null;
     _deltaWeightLastWeek = null;
     _deltaWeightLastMonth = null;
     _deltaWeightLastYear = null;
-    // recalculate all vectors
+    _measurements = null;
+    _weights = null;
+
     init();
   }
 
@@ -79,22 +88,22 @@ class MeasurementStats {
   }
 
   /// get max weight
-  double? get maxWeight => _measurements.max();
+  double? get maxWeight => measurements.max();
 
   /// get max interpolated weight in stats range
-  double? get maxInterpolatedWeight => _weights.max();
+  double? get maxInterpolatedWeight => weights.max();
 
   /// get min weight
-  double? get minWeight => _measurements.min();
+  double? get minWeight => measurements.min();
 
   /// get min interpolated weight in stats range
-  double? get minInterpolatedWeight => _weights.min();
+  double? get minInterpolatedWeight => weights.min();
 
   /// get mean weight
-  double? get meanWeight => _measurements.mean();
+  double? get meanWeight => measurements.mean();
 
   /// get mean interpolated weight in stats range
-  double? get meanInterpolatedWeight => _weights.mean();
+  double? get meanInterpolatedWeight => weights.mean();
 
   /// get current BMI
   double? currentBMI(BuildContext context) {
@@ -126,25 +135,44 @@ class MeasurementStats {
   /// get time of records
   Duration get deltaTime => toDate.difference(fromDate);
 
-  /// get current streak
-  Duration get currentStreak => ip.hasMeasurementOnDay(toDate)
-      ? Duration(days: streakList.last.round())
+  /// get frequency of taking measurements (in stats range) [/week]
+  double? get frequency => 7 * nMeasurements / (deltaTime.inDays + 1);
+
+  ////////////////////////////////////////////////////////////////////
+  // Global stats (always computed over the full measurement range) //
+  ////////////////////////////////////////////////////////////////////
+
+  /// get total number of measurements (all time)
+  int get globalNMeasurements => db.nMeasurements;
+
+  /// the start of the first measurement until now (all time)
+  Duration get globalDeltaTime => DateTime.now().difference(db.firstDate);
+
+  Vector? _globalStreakList;
+
+  /// get list of all streaks (all time)
+  Vector get globalStreakList => _globalStreakList ??= _estimateStreakList();
+
+  /// get current streak (all time)
+  Duration get globalCurrentStreak => ip.hasMeasurementOnDay(DateTime.now())
+      ? Duration(days: globalStreakList.last.round())
       : Duration.zero;
 
-  /// get max streak
-  Duration get maxStreak => Duration(days: streakList.max().round());
+  /// get max streak (all time)
+  Duration get globalMaxStreak =>
+      Duration(days: globalStreakList.max().round());
 
-  Vector? _streakList;
+  /// get frequency of taking measurements (all time) [/week]
+  double? get globalFrequency =>
+      7 * globalNMeasurements / (globalDeltaTime.inDays + 1);
 
-  /// get list of all streaks
-  Vector get streakList => _streakList ??= _estimateStreakList();
+  // ---- Shared helpers ----
+
+  /// Estimate streak list for a given date range.
   Vector _estimateStreakList() {
     int streak = 0;
     final List<int> streakList = <int>[0]; // catch for no measurements
-    for (final double isMS in ip.isMeasurementInRange(
-      from: fromDate,
-      to: toDate,
-    )) {
+    for (final double isMS in ip.isMeasurement) {
       if (isMS.round() == 1) {
         streak++;
       } else if (streak > 0) {
@@ -154,9 +182,6 @@ class MeasurementStats {
     }
     return Vector.fromList(streakList);
   }
-
-  /// get frequency of taking measurements (in total) [/week]
-  double? get frequency => 7 * nMeasurements / (deltaTime.inDays + 1);
 
   double? _deltaWeightLastYear;
 

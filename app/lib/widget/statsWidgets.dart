@@ -308,7 +308,7 @@ StatCard getCurrentStreak({
             child: Align(
               alignment: Alignment.center,
               child: AutoSizeText(
-                stats.currentStreak.streakToStringDays(
+                stats.globalCurrentStreak.streakToStringDays(
                   context,
                   addLabel: false,
                 ),
