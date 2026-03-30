@@ -87,10 +87,41 @@ class _StatsScreen extends State<StatsScreen>
           .format(stats.fromDate);
       final String toStr = notifier.dateFormat(context).format(stats.toDate);
 
+      final DateTime dbFirstDate = MeasurementDatabase().firstDate;
+      final DateTime today = DateTime.now();
+      const double minVal = 0;
+      final double maxVal = today
+          .difference(dbFirstDate)
+          .inDays
+          .clamp(1, 1 << 30)
+          .toDouble();
+      final double fromVal = stats.fromDate
+          .difference(dbFirstDate)
+          .inDays
+          .clamp(0, maxVal.toInt())
+          .toDouble();
+      final double toVal = stats.toDate
+          .difference(dbFirstDate)
+          .inDays
+          .clamp(0, maxVal.toInt())
+          .toDouble();
+
       return CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+              child: Center(
+                child: Text(
+                  'Stats',
+                  style: Theme.of(context).textTheme.emphasized.displaySmall,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
           SliverToBoxAdapter(
             child: InkWell(
               onTap: () => showStatsRangeDialog(context: context),
@@ -99,18 +130,27 @@ class _StatsScreen extends State<StatsScreen>
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: TraleTheme.of(context)!.padding,
-                  vertical: 0.5 * TraleTheme.of(context)!.padding,
+                  horizontal: 2 * TraleTheme.of(context)!.padding,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Row(
                   children: <Widget>[
                     Text(
-                      'data from',
-                      style: Theme.of(context).textTheme.displaySmall,
+                      fromStr,
+                      style: Theme.of(context).textTheme.emphasized.bodyLarge,
+                    ),
+                    Expanded(
+                      child: IgnorePointer(
+                        child: RangeSlider(
+                          values: RangeValues(fromVal, toVal),
+                          min: minVal,
+                          max: maxVal,
+                          divisions: maxVal.toInt(),
+                          onChanged: (_) {},
+                        ),
+                      ),
                     ),
                     Text(
-                      '$fromStr  –  $toStr',
+                      toStr,
                       style: Theme.of(context).textTheme.emphasized.bodyLarge,
                     ),
                   ],
@@ -122,6 +162,7 @@ class _StatsScreen extends State<StatsScreen>
             key: ValueKey<int>(stats.hashCode),
             child: const StatsWidgetsList(),
           ),
+          const SliverToBoxAdapter(child: GlobalStatsWidgetsList()),
         ],
       );
     }

@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/durationExtension.dart';
@@ -16,8 +17,8 @@ import 'package:trale/core/traleNotifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/widget/bento_card.dart';
 import 'package:trale/widget/iconHero.dart';
-import 'package:trale/widget/statsCards.dart';
 
 /// Animated statistics widgets container.
 class AnimatedStatsWidgets extends StatefulWidget {
@@ -209,217 +210,38 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
   }
 }
 
-/// define StatCard for number of days until target weight is reached
-StatCard getReachingTargetWeightWidget({
+// ---------------------------------------------------------------------------
+// BentoCard-based widget builders
+// ---------------------------------------------------------------------------
+
+/// Brightness-aware primary background color.
+Color _primaryBg(BuildContext context) =>
+    Theme.of(context).brightness == Brightness.light
+    ? Theme.of(context).primaryColor
+    : Theme.of(context).colorScheme.primaryContainer;
+
+/// Brightness-aware primary foreground color.
+Color _primaryFg(BuildContext context) =>
+    Theme.of(context).brightness == Brightness.light
+    ? Theme.of(context).colorScheme.onPrimary
+    : Theme.of(context).colorScheme.onPrimaryContainer;
+
+/// Full-width change-rates card (week / month / year columns).
+BentoCard changeRatesCard({
   required BuildContext context,
   required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  final double? userTargetWeight = Provider.of<TraleNotifier>(
-    context,
-  ).effectiveTargetWeight;
-  final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-  final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-    userTargetWeight,
-    notifier.looseWeight,
-  );
-
-  final List<String> textLabels =
-      (timeOfTargetWeight?.durationToString(context) ??
-              '-- ${AppLocalizations.of(context)!.days}')
-          .split(' ');
-
-  final String subtext = textLabels.length == 1
-      ? AppLocalizations.of(context)!.targetWeightReached
-      : '${textLabels[1]} '
-            '${AppLocalizations.of(context)!.targetWeightReachedIn}';
-
-  return StatCard(
-    backgroundColor: Theme.of(context).brightness == Brightness.light
-        ? Theme.of(context).primaryColor
-        : Theme.of(context).colorScheme.primaryContainer,
-    delayInMilliseconds: delayInMilliseconds,
-    ny: 2,
-    childWidget: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                textLabels[0],
-                style: Theme.of(context).textTheme.emphasized.displayLarge!
-                    .copyWith(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: AutoSizeText(
-                subtext,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.onPrimaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 3,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-/// define StatCard for the frequency in total
-StatCard getCurrentStreak({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  return StatCard(
-    backgroundColor: Theme.of(context).brightness == Brightness.light
-        ? Theme.of(context).primaryColor
-        : Theme.of(context).colorScheme.primaryContainer,
-    delayInMilliseconds: delayInMilliseconds,
-    ny: 2,
-    childWidget: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                stats.globalCurrentStreak.streakToStringDays(
-                  context,
-                  addLabel: false,
-                ),
-                style: Theme.of(context).textTheme.emphasized.displayLarge!
-                    .copyWith(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Theme.of(context).colorScheme.onPrimary
-                          : Theme.of(context).colorScheme.onPrimaryContainer,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: AutoSizeText(
-                '${AppLocalizations.of(context)!.currentStreak}\n'
-                '(/ ${AppLocalizations.of(context)!.days})',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Theme.of(context).colorScheme.onPrimaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 3,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-/// define StatCard for number of days until target weight is reached
-StatCard getTotalChangeWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
+  int delayInMilliseconds = 0,
 }) {
   final String unit = Provider.of<TraleNotifier>(
     context,
     listen: false,
   ).unit.name;
-  return StatCard(
-    ny: 2,
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
+  return BentoCard(
+    columnSpan: 12,
+    rowSpan: 3,
     delayInMilliseconds: delayInMilliseconds,
-    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-    childWidget: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                weightToString(context, stats.deltaWeight),
-                style: Theme.of(context).textTheme.emphasized.displayLarge!
-                    .copyWith(
-                      color: Theme.of(context).colorScheme.onTertiaryContainer,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 200,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: AutoSizeText(
-                '${AppLocalizations.of(context)!.totalChange}\n($unit)',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: Theme.of(context).colorScheme.onTertiaryContainer,
-                  height: 1.0,
-                ),
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-/// define StatCard for number of days until target weight is reached
-Widget getMeanWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  final String unit = Provider.of<TraleNotifier>(
-    context,
-    listen: false,
-  ).unit.name;
-  return StatCard(
-    nx: 2,
-    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-    delayInMilliseconds: delayInMilliseconds,
-    pillShape: true,
-    childWidget: Row(
+    child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Expanded(
@@ -427,102 +249,7 @@ Widget getMeanWidget({
           child: Align(
             alignment: Alignment.center,
             child: AutoSizeText(
-              weightToString(context, stats.meanWeight),
-              style: Theme.of(context).textTheme.emphasized.displayLarge!
-                  .copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 200,
-                  ),
-              maxLines: 1,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Align(
-            alignment: Alignment.center,
-            child: AutoSizeText(
-              '${AppLocalizations.of(context)!.mean} ($unit)',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                height: 1.0,
-              ),
-              maxLines: 2,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// define StatCard for number of days until target weight is reached
-Widget getBMIWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  return StatCard(
-    nx: 2,
-    delayInMilliseconds: delayInMilliseconds,
-    childWidget: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Align(
-            alignment: Alignment.center,
-            child: AutoSizeText(
-              AppLocalizations.of(context)!.bmi,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium!.copyWith(height: 1.0),
-              maxLines: 2,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Align(
-            alignment: Alignment.center,
-            child: AutoSizeText(
-              doubleToString(stats.currentBMI(context)),
-              style: Theme.of(context).textTheme.emphasized.displayLarge!
-                  .copyWith(fontWeight: FontWeight.w900, fontSize: 200),
-              maxLines: 1,
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-/// define StatCard for change per week, month, and year
-StatCard getChangeRatesWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  final String unit = Provider.of<TraleNotifier>(
-    context,
-    listen: false,
-  ).unit.name;
-  return StatCard(
-    nx: 2,
-    delayInMilliseconds: delayInMilliseconds,
-    childWidget: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-          flex: 2,
-          child: Align(
-            alignment: Alignment.center,
-            child: AutoSizeText(
-              '${AppLocalizations.of(context)!.change} ($unit)',
+              '${l10n.change} ($unit)',
               style: Theme.of(context).textTheme.emphasized.bodyLarge!
                   .onSurface(context)
                   .copyWith(fontWeight: FontWeight.w900),
@@ -532,12 +259,10 @@ StatCard getChangeRatesWidget({
           ),
         ),
         Expanded(
-          flex: 1,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              '/ ${AppLocalizations.of(context)!.week}\n'
-              '${weightToString(context, stats.deltaWeightLastWeek)}',
+              '/ ${l10n.week}\n${weightToString(context, stats.deltaWeightLastWeek)}',
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
@@ -547,12 +272,10 @@ StatCard getChangeRatesWidget({
           ),
         ),
         Expanded(
-          flex: 1,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              '/ ${AppLocalizations.of(context)!.month}\n'
-              '${weightToString(context, stats.deltaWeightLastMonth)}',
+              '/ ${l10n.month}\n${weightToString(context, stats.deltaWeightLastMonth)}',
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
@@ -562,12 +285,10 @@ StatCard getChangeRatesWidget({
           ),
         ),
         Expanded(
-          flex: 1,
           child: Align(
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
-              '/ ${AppLocalizations.of(context)!.year}\n'
-              '${weightToString(context, stats.deltaWeightLastYear)}',
+              '/ ${l10n.year}\n${weightToString(context, stats.deltaWeightLastYear)}',
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
@@ -581,133 +302,263 @@ StatCard getChangeRatesWidget({
   );
 }
 
-/// define StatCard for change per week, month, and year
-Widget getMinWidget({
+/// Hero card: days until target weight is reached (with rotating M3E shape).
+BentoCard reachingTargetWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
-  int? delayInMilliseconds,
+  int delayInMilliseconds = 0,
+}) {
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  );
+  final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
+    notifier.effectiveTargetWeight,
+    notifier.looseWeight,
+  );
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
+  final List<String> labels =
+      (timeOfTargetWeight?.durationToString(context) ?? '-- ${l10n.days}')
+          .split(' ');
+  final String subtext = labels.length == 1
+      ? l10n.targetWeightReached
+      : '${labels[1]} ${l10n.targetWeightReachedIn}';
+
+  return BentoCard.hero(
+    span: 6,
+    label: subtext,
+    value: labels[0],
+    textColor: _primaryFg(context),
+    backgroundColor: _primaryBg(context),
+    delayInMilliseconds: delayInMilliseconds,
+    m3eShape: Shapes.sunny,
+    rotateDuration: const Duration(seconds: 60),
+  );
+}
+
+/// Text card: number of total measurements (pill shape).
+BentoCard nMeasurementsCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) {
+  final String measurementsLabel = AppLocalizations.of(
+    context,
+  )!.measurements.toLowerCase();
+  return BentoCard.text(
+    columnSpan: 6,
+    label: '# $measurementsLabel',
+    value: '${stats.globalNMeasurements}',
+    delayInMilliseconds: delayInMilliseconds,
+    pillShape: true,
+  );
+}
+
+/// Hero card: total weight change.
+BentoCard totalChangeCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
 }) {
   final String unit = Provider.of<TraleNotifier>(
     context,
     listen: false,
   ).unit.name;
-  return OneThirdStatCard(
+  return BentoCard.hero(
+    span: 6,
+    label: '${AppLocalizations.of(context)!.totalChange}\n($unit)',
+    value: weightToString(context, stats.deltaWeight),
+    valueFlex: 3,
+    textColor: Theme.of(context).colorScheme.onTertiaryContainer,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     delayInMilliseconds: delayInMilliseconds,
-    childWidget: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                '${AppLocalizations.of(context)!.min} ($unit)',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.onSurface(context),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                weightToString(context, stats.minWeight),
-                style: Theme.of(context).textTheme.emphasized.bodyMedium!
-                    .onSurface(context)
-                    .copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                      height: 0.70,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
   );
 }
 
-/// define StatCard for change per week, month, and year
-Widget getMaxWidget({
+/// Inline card: time since first measurement (number on left, label on right).
+BentoCard timeSinceFirstCard({
   required BuildContext context,
   required MeasurementStats stats,
-  int? delayInMilliseconds,
+  int delayInMilliseconds = 0,
+}) {
+  final String durationStr = stats.globalDeltaTime.durationToString(context);
+  final List<String> parts = durationStr.split(' ');
+  final String number = parts[0];
+  final String unit = parts.length > 1 ? parts.sublist(1).join(' ') : '';
+  return BentoCard.textInline(
+    columnSpan: 12,
+    reversed: true,
+    value: number,
+    label: '$unit\n${AppLocalizations.of(context)!.timeSinceFirstMeasurement}',
+    valueFlex: 2,
+    delayInMilliseconds: delayInMilliseconds,
+  );
+}
+
+/// Emphasized-text card: minimum recorded weight (label above, value below).
+BentoCard minWeightCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
 }) {
   final String unit = Provider.of<TraleNotifier>(
     context,
     listen: false,
   ).unit.name;
-  return OneThirdStatCard(
+  return BentoCard.textEmphasized(
+    columnSpan: 5,
+    rowSpan: 2,
+    label: '${AppLocalizations.of(context)!.min} ($unit)',
+    value: weightToString(context, stats.minWeight),
+    valueFlex: 2,
     delayInMilliseconds: delayInMilliseconds,
-    childWidget: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                weightToString(context, stats.maxWeight),
-                style: Theme.of(context).textTheme.emphasized.bodyMedium!
-                    .onSurface(context)
-                    .copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                      height: 0.70,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                '${AppLocalizations.of(context)!.max} ($unit)',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge!.onSurface(context),
-                maxLines: 1,
-              ),
-            ),
-          ),
-        ],
-      ),
-    ),
   );
 }
 
-/// define StatCard for change per week, month, and year
-Widget getIconWidget({
+/// Transparent card: app icon hero.
+BentoCard iconHeroCard({
+  required BuildContext context,
+  int delayInMilliseconds = 0,
+}) => BentoCard(
+  columnSpan: 2,
+  rowSpan: 2,
+  backgroundColor: Colors.transparent,
+  delayInMilliseconds: delayInMilliseconds,
+  child: const IconHeroStatScreen(),
+);
+
+/// Emphasized-text card: maximum recorded weight (value above, label below).
+BentoCard maxWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
-  int? delayInMilliseconds,
+  int delayInMilliseconds = 0,
 }) {
-  final double iconHeroSize =
-      (MediaQuery.sizeOf(context).width - 5 * TraleTheme.of(context)!.padding) /
-      4;
-  final int animationDurationInMilliseconds = TraleTheme.of(
+  final String unit = Provider.of<TraleNotifier>(
     context,
-  )!.transitionDuration.slow.inMilliseconds;
+    listen: false,
+  ).unit.name;
+  return BentoCard.textEmphasized(
+    columnSpan: 5,
+    rowSpan: 2,
+    reversed: true,
+    label: '${AppLocalizations.of(context)!.max} ($unit)',
+    value: weightToString(context, stats.maxWeight),
+    valueFlex: 2,
+    delayInMilliseconds: delayInMilliseconds,
+  );
+}
 
-  return AnimateInEffect(
-    delayInMilliseconds: delayInMilliseconds ?? 0,
-    durationInMilliseconds: animationDurationInMilliseconds,
-    child: SizedBox(
-      width: iconHeroSize,
-      height: iconHeroSize,
-      child: const IconHeroStatScreen(),
-    ),
+/// Text card: mean weight.
+BentoCard meanWeightCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
+  return BentoCard.text(
+    columnSpan: 6,
+    rowSpan: 3,
+    label: '${AppLocalizations.of(context)!.mean} ($unit)',
+    value: weightToString(context, stats.meanWeight),
+    delayInMilliseconds: delayInMilliseconds,
+  );
+}
+
+/// Text card: all-time max streak.
+BentoCard maxStreakCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) => BentoCard.text(
+  columnSpan: 6,
+  label: AppLocalizations.of(context)!.maxStreak,
+  value: stats.globalMaxStreak.streakToStringDays(context),
+  delayInMilliseconds: delayInMilliseconds,
+);
+
+/// Hero card: current streak (with rotating M3E shape).
+BentoCard currentStreakCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) {
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
+  return BentoCard.hero(
+    span: 6,
+    label: '${l10n.currentStreak}\n(/ ${l10n.days})',
+    value: (stats.globalCurrentStreak + const Duration(days: 120))
+        .streakToStringDays(context, addLabel: false),
+    textColor: _primaryFg(context),
+    backgroundColor: _primaryBg(context),
+    delayInMilliseconds: delayInMilliseconds,
+    m3eShape: Shapes.c12_sided_cookie,
+    rotateDuration: const Duration(seconds: 60),
+  );
+}
+
+/// Text card: measurement frequency per week.
+BentoCard measurementFrequencyCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) {
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
+  return BentoCard.text(
+    columnSpan: 6,
+    label: '${l10n.measurementFrequency}\n(/ ${l10n.week})',
+    value: stats.globalFrequency!.toStringAsFixed(2),
+    delayInMilliseconds: delayInMilliseconds,
+  );
+}
+
+/// Inline card: current BMI (label on left, value on right).
+BentoCard bmiCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) => BentoCard.textInline(
+  columnSpan: 12,
+  label: AppLocalizations.of(context)!.bmi,
+  value: doubleToString(stats.currentBMI(context)),
+  delayInMilliseconds: delayInMilliseconds,
+);
+
+/// Text card: estimated daily calorie deficit.
+BentoCard calorieDeficitCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) => BentoCard.text(
+  columnSpan: 6,
+  rowSpan: 3,
+  label: '${AppLocalizations.of(context)!.calorieDeficit}\n(kcal/day)',
+  value: '${stats.dailyDeficit}',
+  delayInMilliseconds: delayInMilliseconds,
+);
+
+/// Text card: difference from target weight.
+BentoCard diffFromTargetCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
+  return BentoCard.hero(
+    span: 6,
+    label: '${AppLocalizations.of(context)!.diffFromTarget} ($unit)',
+    value: weightToString(context, stats.currentDifference),
+    valueFlex: 3,
+    textColor: Theme.of(context).colorScheme.onTertiaryContainer,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+    delayInMilliseconds: delayInMilliseconds,
+    m3eShape: Shapes.pill,
+    rotateDuration: const Duration(seconds: 120),
   );
 }
 
@@ -725,31 +576,4 @@ String weightToString(BuildContext context, double? d) {
 /// Converts a double value to a display string.
 String doubleToString(double? d) {
   return d == null ? '--' : d.toStringAsFixed(1);
-}
-
-/// get caloric deficit widget
-Widget getCalorieDeficitWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) => DefaultStatCard(
-  firstRow: '${AppLocalizations.of(context)!.calorieDeficit}\n(kcal/day)',
-  secondRow: '${stats.dailyDeficit}',
-);
-
-/// get caloric deficit widget
-Widget getDiffFromTargetWidget({
-  required BuildContext context,
-  required MeasurementStats stats,
-  int? delayInMilliseconds,
-}) {
-  final String unit = Provider.of<TraleNotifier>(
-    context,
-    listen: false,
-  ).unit.name;
-
-  return DefaultStatCard(
-    firstRow: '${AppLocalizations.of(context)!.diffFromTarget} ($unit)',
-    secondRow: weightToString(context, stats.currentDifference),
-  );
 }
