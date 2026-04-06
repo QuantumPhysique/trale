@@ -311,4 +311,23 @@ class MeasurementStats {
 
   /// get monthly change in weight [kg/month]
   double get monthlyChange => ip.slopeAtDay(toDate) * 30;
+
+  /// get interpolated weight today [kg]
+  double? get weightToday => ip.interpolationForDay(toDate);
+
+  /// get forecast weight in n days [kg], extrapolated from today's slope
+  double? weightInNDays(int nDays) {
+    final double? today = weightToday;
+    final double? slope = ip.slopeAtDay(toDate);
+    if (today == null || slope == null) {
+      return null;
+    }
+    return today + slope * nDays;
+  }
+
+  /// get forecast weight in 1 week [kg], extrapolated from today's slope
+  double? get weightInOneWeek => weightInNDays(7);
+
+  /// get forecast weight in 1 month [kg], extrapolated from today's slope
+  double? get weightInOneMonth => weightInNDays(30);
 }
