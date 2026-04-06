@@ -1,4 +1,6 @@
 // ignore_for_file: file_names
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:ml_linalg/vector.dart';
@@ -104,6 +106,12 @@ class MeasurementStats {
 
   /// get mean interpolated weight in stats range
   double? get meanInterpolatedWeight => weights.mean();
+
+  /// get median weight
+  double? get medianWeight => measurements.median();
+
+  /// get median weight
+  double? get medianInterpolatedWeight => weights.median();
 
   /// get current BMI
   double? currentBMI(BuildContext context) {
@@ -318,11 +326,10 @@ class MeasurementStats {
   /// get forecast weight in n days [kg], extrapolated from today's slope
   double? weightInNDays(int nDays) {
     final double? today = weightToday;
-    final double? slope = ip.slopeAtDay(toDate);
-    if (today == null || slope == null) {
+    if (today == null) {
       return null;
     }
-    return today + slope * nDays;
+    return today + ip.slopeAtDay(toDate) * nDays;
   }
 
   /// get forecast weight in 1 week [kg], extrapolated from today's slope
@@ -330,4 +337,27 @@ class MeasurementStats {
 
   /// get forecast weight in 1 month [kg], extrapolated from today's slope
   double? get weightInOneMonth => weightInNDays(30);
+
+  /// get standard deviation of measurements in stats range
+  double? standardDeviationLastNDays(int nDays) {
+    final Vector measurementsLastNDays = ip.measurementsInRange(
+      from: toDate.subtract(Duration(days: nDays)),
+      to: toDate,
+    );
+    return measurementsLastNDays.std();
+  }
+
+  // todo: add std from interpolation
+}
+
+/// add extension to Vector for standard deviation
+extension VectorStats on Vector {
+  /// get standard deviation of vector
+  double? std() {
+    if (length < 2) {
+      return null;
+    }
+    final double mean = this.mean();
+    return sqrt((this - mean).pow(2).sum() / (length - 1));
+  }
 }
