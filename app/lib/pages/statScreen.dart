@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 
 import 'package:trale/core/measurement.dart';
+import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/theme.dart';
@@ -106,54 +108,65 @@ class _StatsScreen extends State<StatsScreen>
           .clamp(0, maxVal.toInt())
           .toDouble();
 
+      final int animationDurationInMilliseconds = TraleTheme.of(
+        context,
+      )!.transitionDuration.slow.inMilliseconds;
+      final AppLocalizations l10n = AppLocalizations.of(context)!;
+
       return CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
         cacheExtent: MediaQuery.of(context).size.height,
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
-              child: Center(
-                child: Text(
-                  'Stats',
-                  style: Theme.of(context).textTheme.emphasized.displaySmall,
-                  textAlign: TextAlign.center,
+            child: AnimateInEffect(
+              durationInMilliseconds: animationDurationInMilliseconds,
+              child: Padding(
+                padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                child: Center(
+                  child: Text(
+                    l10n.stats,
+                    style: Theme.of(context).textTheme.emphasized.displaySmall,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ),
           ),
           SliverToBoxAdapter(
-            child: InkWell(
-              onTap: () => showStatsRangeDialog(context: context),
-              borderRadius: BorderRadius.circular(
-                TraleTheme.of(context)!.padding,
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 2 * TraleTheme.of(context)!.padding,
+            child: AnimateInEffect(
+              durationInMilliseconds: animationDurationInMilliseconds,
+              child: InkWell(
+                onTap: () => showStatsRangeDialog(context: context),
+                borderRadius: BorderRadius.circular(
+                  TraleTheme.of(context)!.padding,
                 ),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      fromStr,
-                      style: Theme.of(context).textTheme.emphasized.bodyLarge,
-                    ),
-                    Expanded(
-                      child: IgnorePointer(
-                        child: RangeSlider(
-                          values: RangeValues(fromVal, toVal),
-                          min: minVal,
-                          max: maxVal,
-                          divisions: maxVal.toInt(),
-                          onChanged: (_) {},
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 3 * TraleTheme.of(context)!.padding,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        fromStr,
+                        style: Theme.of(context).textTheme.emphasized.bodyLarge,
+                      ),
+                      Expanded(
+                        child: IgnorePointer(
+                          child: RangeSlider(
+                            values: RangeValues(fromVal, toVal),
+                            min: minVal,
+                            max: maxVal,
+                            divisions: maxVal.toInt(),
+                            onChanged: (_) {},
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      toStr,
-                      style: Theme.of(context).textTheme.emphasized.bodyLarge,
-                    ),
-                  ],
+                      Text(
+                        toStr,
+                        style: Theme.of(context).textTheme.emphasized.bodyLarge,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -162,7 +175,25 @@ class _StatsScreen extends State<StatsScreen>
             key: ValueKey<int>(stats.hashCode),
             child: const StatsWidgetsList(),
           ),
-          const SliverToBoxAdapter(child: GlobalStatsWidgetsList()),
+          SliverToBoxAdapter(
+            child: AnimateInEffect(
+              durationInMilliseconds: animationDurationInMilliseconds,
+              child: Padding(
+                padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                child: Center(
+                  child: Text(
+                    l10n.allTimeStats,
+                    style: Theme.of(context).textTheme.emphasized.displaySmall,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            key: ValueKey<int>(stats.ip.hashCode),
+            child: const GlobalStatsWidgetsList(),
+          ),
         ],
       );
     }

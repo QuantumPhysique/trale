@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/bento_card.dart';
 import 'package:trale/widget/bento_grid.dart';
 import 'package:trale/widget/statsWidgets.dart';
@@ -32,8 +32,9 @@ class StatsWidgetsList extends StatelessWidget {
         BentoGrid(
           children: <BentoCard>[
             changeRatesCard(context: context, stats: stats),
-            reachingTargetWeightCard(context: context, stats: stats),
-            totalChangeCard(
+            diffFromTargetCard(context: context, stats: stats),
+            calorieDeficitCard(context: context, stats: stats),
+            meanWeightCard(
               context: context,
               stats: stats,
               delayInMilliseconds: delay,
@@ -48,13 +49,14 @@ class StatsWidgetsList extends StatelessWidget {
               stats: stats,
               delayInMilliseconds: delay,
             ),
-            diffFromTargetCard(context: context, stats: stats),
-            meanWeightCard(
+            reachingTargetWeightCard(context: context, stats: stats),
+            totalChangeCard(
               context: context,
               stats: stats,
               delayInMilliseconds: delay,
             ),
-            calorieDeficitCard(context: context, stats: stats),
+            weightForecastCard(context: context, stats: stats),
+
             if (notifier.userHeight != null)
               bmiCard(context: context, stats: stats),
           ],
@@ -78,36 +80,39 @@ class GlobalStatsWidgetsList extends StatelessWidget {
     )!.transitionDuration.normal.inMilliseconds;
     final double padding = TraleTheme.of(context)!.padding;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: padding),
-          child: Text(
-            AppLocalizations.of(context)!.all,
-            style: Theme.of(context).textTheme.titleMedium,
+    return Padding(
+      padding: EdgeInsets.only(bottom: padding),
+      child: BentoGrid(
+        children: <BentoCard>[
+          nMeasurementsCard(
+            context: context,
+            stats: stats,
+            delayInMilliseconds: delay,
           ),
-        ),
-        SizedBox(height: padding / 2),
-        BentoGrid(
-          children: <BentoCard>[
-            nMeasurementsCard(
-              context: context,
-              stats: stats,
-              delayInMilliseconds: delay,
-            ),
-            currentStreakCard(
-              context: context,
-              stats: stats,
-              delayInMilliseconds: delay,
-            ),
-            maxStreakCard(context: context, stats: stats),
-            measurementFrequencyCard(context: context, stats: stats),
-            timeSinceFirstCard(context: context, stats: stats),
-          ],
-        ),
-        SizedBox(height: padding),
-      ],
+          currentStreakCard(
+            context: context,
+            stats: stats,
+            delayInMilliseconds: delay,
+          ),
+          maxStreakCard(context: context, stats: stats),
+          measurementFrequencyCard(context: context, stats: stats),
+          BentoCard.shaped(
+            span: 2,
+            m3eShape: Shapes.soft_boom,
+            backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+            rotateDuration: Duration(seconds: 15),
+            child: const SizedBox.shrink(),
+          ),
+          timeSinceFirstCard(context: context, stats: stats),
+          BentoCard.shaped(
+            span: 2,
+            m3eShape: Shapes.soft_boom,
+            backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+            rotateDuration: Duration(seconds: 15),
+            child: const SizedBox.shrink(),
+          ),
+        ],
+      ),
     );
   }
 }

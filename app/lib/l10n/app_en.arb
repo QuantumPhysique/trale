@@ -27,6 +27,11 @@
     "month": "month",
     "years": "years",
     "year": "year",
+    "today": "today",
+    "weightForecast": "forecast",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
     "all": "all",
     "@all": {
         "description": "Stats range: use all data"
@@ -90,6 +95,10 @@
     "stats": "Statistics",
     "@stats": {
         "description": "Header for statistics section"
+    },
+    "allTimeStats": "All-time stats",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
     },
     "trale": "trale",
     "@trale": {

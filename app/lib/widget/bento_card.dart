@@ -366,22 +366,22 @@ class BentoCard extends StatelessWidget {
               child: SizedBox(
                 width: diameter,
                 height: diameter,
-                child: ClipOval(
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                      _RotatingShape(
-                        shape: _m3eShape,
-                        color: bgColor,
-                        duration: _rotateDuration,
-                      ),
-                      SizedBox(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    _RotatingShape(
+                      shape: _m3eShape,
+                      color: bgColor,
+                      duration: _rotateDuration,
+                    ),
+                    ClipOval(
+                      child: SizedBox(
                         width: innerSide,
                         height: innerSide,
                         child: content,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );

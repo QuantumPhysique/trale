@@ -239,7 +239,7 @@ BentoCard changeRatesCard({
   final AppLocalizations l10n = AppLocalizations.of(context)!;
   return BentoCard(
     columnSpan: 12,
-    rowSpan: 3,
+    rowSpan: 2,
     delayInMilliseconds: delayInMilliseconds,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -289,6 +289,82 @@ BentoCard changeRatesCard({
             alignment: Alignment.centerLeft,
             child: AutoSizeText(
               '/ ${l10n.year}\n${weightToString(context, stats.deltaWeightLastYear)}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+/// Full-width weight forecast card (today / +1 week / +1 month).
+BentoCard weightForecastCard({
+  required BuildContext context,
+  required MeasurementStats stats,
+  int delayInMilliseconds = 0,
+}) {
+  final String unit = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  ).unit.name;
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
+  return BentoCard(
+    columnSpan: 12,
+    rowSpan: 2,
+    delayInMilliseconds: delayInMilliseconds,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          flex: 2,
+          child: Align(
+            alignment: Alignment.center,
+            child: AutoSizeText(
+              '${l10n.weightForecast} ($unit)',
+              style: Theme.of(context).textTheme.emphasized.bodyLarge!
+                  .onSurface(context)
+                  .copyWith(fontWeight: FontWeight.w900),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              '/ ${l10n.today}\n${weightToString(context, stats.weightToday)}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              '/ ${l10n.week}\n${weightToString(context, stats.weightInOneWeek)}',
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: AutoSizeText(
+              '/ ${l10n.month}\n${weightToString(context, stats.weightInOneMonth)}',
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.onSurface(context).copyWith(height: 1.0),
@@ -386,11 +462,11 @@ BentoCard timeSinceFirstCard({
   final String number = parts[0];
   final String unit = parts.length > 1 ? parts.sublist(1).join(' ') : '';
   return BentoCard.textInline(
-    columnSpan: 12,
+    columnSpan: 8,
     reversed: true,
     value: number,
     label: '$unit\n${AppLocalizations.of(context)!.timeSinceFirstMeasurement}',
-    valueFlex: 2,
+    valueFlex: 1,
     delayInMilliseconds: delayInMilliseconds,
   );
 }
@@ -406,8 +482,8 @@ BentoCard minWeightCard({
     listen: false,
   ).unit.name;
   return BentoCard.textEmphasized(
-    columnSpan: 5,
-    rowSpan: 2,
+    columnSpan: 4,
+    rowSpan: 3,
     label: '${AppLocalizations.of(context)!.min} ($unit)',
     value: weightToString(context, stats.minWeight),
     valueFlex: 2,
@@ -420,8 +496,8 @@ BentoCard iconHeroCard({
   required BuildContext context,
   int delayInMilliseconds = 0,
 }) => BentoCard(
-  columnSpan: 2,
-  rowSpan: 2,
+  columnSpan: 4,
+  rowSpan: 3,
   backgroundColor: Colors.transparent,
   delayInMilliseconds: delayInMilliseconds,
   child: const IconHeroStatScreen(),
@@ -438,8 +514,8 @@ BentoCard maxWeightCard({
     listen: false,
   ).unit.name;
   return BentoCard.textEmphasized(
-    columnSpan: 5,
-    rowSpan: 2,
+    columnSpan: 4,
+    rowSpan: 3,
     reversed: true,
     label: '${AppLocalizations.of(context)!.max} ($unit)',
     value: weightToString(context, stats.maxWeight),
@@ -552,13 +628,13 @@ BentoCard diffFromTargetCard({
   return BentoCard.hero(
     span: 6,
     label: '${AppLocalizations.of(context)!.diffFromTarget} ($unit)',
-    value: weightToString(context, stats.currentDifference),
+    value: '2', //weightToString(context, stats.currentDifference),
     valueFlex: 3,
     textColor: Theme.of(context).colorScheme.onTertiaryContainer,
     backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     delayInMilliseconds: delayInMilliseconds,
-    m3eShape: Shapes.pill,
-    rotateDuration: const Duration(seconds: 120),
+    m3eShape: Shapes.l8_leaf_clover,
+    rotateDuration: const Duration(seconds: 40),
   );
 }
 
