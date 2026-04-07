@@ -43,6 +43,13 @@ class MeasurementStats {
       .measured(from: _dates.from, to: _dates.to)
       .measurements;
 
+  /// cached diff in stats range
+  Vector? _diff;
+
+  /// get measurements in stats range
+  Vector get diff =>
+      _diff ??= ip.measuredDiff(from: _dates.from, to: _dates.to).difference;
+
   /// cached weights in stats range
   Vector? _weights;
 
@@ -70,6 +77,7 @@ class MeasurementStats {
     _deltaWeightLastYear = null;
     _measurements = null;
     _weights = null;
+    _diff = null;
 
     init();
   }
@@ -347,7 +355,14 @@ class MeasurementStats {
     return measurementsLastNDays.std();
   }
 
-  // todo: add std from interpolation
+  /// get standard deviation from interpolation in stats range
+  double? get std {
+    final Vector diff = this.diff;
+    if (diff.isEmpty) {
+      return null;
+    }
+    return sqrt(diff.pow(2).mean());
+  }
 }
 
 /// add extension to Vector for standard deviation

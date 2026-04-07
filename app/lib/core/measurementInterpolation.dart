@@ -703,6 +703,25 @@ class MeasurementInterpolationBaseclass {
     );
   }
 
+  /// Return only the actual deviatoin of measurement data points (filtering out
+  /// interpolated days) within the optional date range from the interpolation.
+  ({Vector times, Vector difference}) measuredDiff({
+    DateTime? from,
+    DateTime? to,
+  }) {
+    final Vector t = timesInRange(from: from, to: to);
+    final Vector m = measurementsInRange(from: from, to: to);
+    final Vector w = weightsInRange(from: from, to: to);
+    final Vector mask = isMeasurementInRange(from: from, to: to);
+
+    bool isMeasured(double _, int i) => mask[i] == 1;
+
+    return (
+      times: t.filterElements(isMeasured),
+      difference: (w - m).filterElements(isMeasured),
+    );
+  }
+
   // ---------------------------------------------------------------------------
   // Internal interpolation helpers
   // ---------------------------------------------------------------------------
