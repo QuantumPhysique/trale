@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
@@ -39,15 +40,11 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
       } else {
         resolvedDates = selectedRange.dates;
       }
-      final DateTime effectiveFrom =
-          resolvedDates.from ?? db.firstDate;
-      final DateTime effectiveTo =
-          resolvedDates.to ?? DateTime.now();
+      final DateTime effectiveFrom = resolvedDates.from ?? db.firstDate;
+      final DateTime effectiveTo = resolvedDates.to ?? DateTime.now();
 
-      final String fromStr =
-          notifier.dateFormat(context).format(effectiveFrom);
-      final String toStr =
-          notifier.dateFormat(context).format(effectiveTo);
+      final String fromStr = notifier.dateFormat(context).format(effectiveFrom);
+      final String toStr = notifier.dateFormat(context).format(effectiveTo);
 
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -104,10 +101,9 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                 onTap: isCustom
                     ? () async {
                         final DateTime now = DateTime.now();
-                        final DateTime lastDate =
-                            customTo != null
-                                ? customTo!.subtract(const Duration(days: 1))
-                                : now;
+                        final DateTime lastDate = customTo != null
+                            ? customTo!.subtract(const Duration(days: 1))
+                            : now;
                         final DateTime? selected = await showDatePicker(
                           context: context,
                           initialDate: customFrom ?? db.firstDate,
@@ -137,10 +133,9 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                 onTap: isCustom
                     ? () async {
                         final DateTime now = DateTime.now();
-                        final DateTime firstDate =
-                            customFrom != null
-                                ? customFrom!.add(const Duration(days: 1))
-                                : db.firstDate;
+                        final DateTime firstDate = customFrom != null
+                            ? customFrom!.add(const Duration(days: 1))
+                            : db.firstDate;
                         final DateTime? selected = await showDatePicker(
                           context: context,
                           initialDate: customTo ?? now,
@@ -198,6 +193,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                     prefs.statsRangeFrom = customFrom;
                     prefs.statsRangeTo = customTo;
                   }
+                  MeasurementStats().reinit();
                   MeasurementDatabase().fireStream();
                   Navigator.pop(context, true);
                 },
