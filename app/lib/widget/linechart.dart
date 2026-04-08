@@ -125,6 +125,7 @@ class CustomLineChart extends StatefulWidget {
 class _CustomLineChartState extends State<CustomLineChart> {
   late double minX;
   late double maxX;
+  bool _isDragging = false;
   @override
   void initState() {
     super.initState();
@@ -221,6 +222,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
     final Color targetWeightLabelBackgroundColor =
         widget.targetWeightLabelBackgroundColor ??
         colorScheme.surfaceContainerLow;
+    final Color tooltipLineColor = colorScheme.tertiary;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
     final List<FlSpot> measurementsInterpol = vectorsToFlSpot(
@@ -323,13 +325,135 @@ class _CustomLineChartState extends State<CustomLineChart> {
     }
 
     Widget lineChart(double minX, double maxX, double minY, double maxY) {
+      // Find the interpolation spot whose x is closest to the visible centre.
+      int centerInterpolIdx = 0;
+      if (measurementsInterpol.isNotEmpty) {
+        final double centerX = (minX + maxX) / 2;
+        double minDist = double.infinity;
+        for (int i = 0; i < measurementsInterpol.length; i++) {
+          final double dist = (measurementsInterpol[i].x - centerX).abs();
+          if (dist < minDist) {
+            minDist = dist;
+            centerInterpolIdx = i;
+          }
+        }
+      }
+
+      // Dot radius – same formula used for measurement dots.
+      final double dotRadius =
+          max<double>(5 - (maxX - minX) / (90 * 24 * 3600 * 1000), 1.0) + 0.4;
+
+      // Build the interpolation bar once so we can reference it in both
+      // lineBarsData and showingTooltipIndicators.
+      final LineChartBarData interpolBarData = LineChartBarData(
+        spots: measurementsInterpol,
+        showingIndicators:
+            (!widget.isPreview &&
+                _isDragging &&
+                measurementsInterpol.isNotEmpty)
+            ? <int>[centerInterpolIdx]
+            : <int>[],
+        isCurved: true,
+        color: interpolationLineColor,
+        barWidth: 3,
+        isStrokeCapRound: true,
+        dotData: const FlDotData(show: false),
+        belowBarData: BarAreaData(
+          show: true,
+          color: interpolationBelowAreaColor,
+        ),
+        aboveBarData: BarAreaData(
+          show: targetWeight != null,
+          color: interpolationAboveAreaColor,
+          cutOffY: targetWeight ?? 0,
+          applyCutOffY: true,
+        ),
+      );
+
       return LineChart(
         LineChartData(
           minX: minX,
           maxX: maxX,
           minY: minY.floorToDouble(),
           maxY: maxY.ceilToDouble(),
-          lineTouchData: const LineTouchData(enabled: false),
+          showingTooltipIndicators:
+              (!widget.isPreview &&
+                  _isDragging &&
+                  measurementsInterpol.isNotEmpty)
+              ? <ShowingTooltipIndicators>[
+                  ShowingTooltipIndicators(<LineBarSpot>[
+                    LineBarSpot(
+                      interpolBarData,
+                      0,
+                      measurementsInterpol[centerInterpolIdx],
+                    ),
+                  ]),
+                ]
+              : <ShowingTooltipIndicators>[],
+          lineTouchData: widget.isPreview
+              ? const LineTouchData(enabled: false)
+              : LineTouchData(
+                  enabled: false,
+                  handleBuiltInTouches: false,
+                  getTouchedSpotIndicator:
+                      (LineChartBarData barData, List<int> spotIndexes) =>
+                          spotIndexes
+                              .map(
+                                (int index) => TouchedSpotIndicatorData(
+                                  FlLine(
+                                    color: tooltipLineColor,
+                                    strokeWidth: 2,
+                                  ),
+                                  FlDotData(
+                                    getDotPainter:
+                                        (
+                                          FlSpot spot,
+                                          double percent,
+                                          LineChartBarData barData,
+                                          int index,
+                                        ) => FlDotCirclePainter(
+                                          radius: dotRadius,
+                                          color: tooltipLineColor,
+                                          strokeColor: tooltipLineColor,
+                                          strokeWidth: 0.2,
+                                        ),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                  touchTooltipData: LineTouchTooltipData(
+                    getTooltipColor: (_) => colorScheme.surfaceContainerHigh,
+                    fitInsideHorizontally: true,
+                    tooltipPadding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    getTooltipItems: (List<LineBarSpot> touchedSpots) =>
+                        touchedSpots.map((LineBarSpot spot) {
+                          final DateTime date =
+                              DateTime.fromMillisecondsSinceEpoch(
+                                spot.x.toInt(),
+                              );
+                          return LineTooltipItem(
+                            notifier.dayFormat(context).format(date),
+                            theme.textTheme.bodySmall!.copyWith(
+                              color: colorScheme.onSurface,
+                            ),
+                            textAlign: TextAlign.center,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    '\n${notifier.unit.weightToString(spot.y * unitScaling, notifier.unitPrecision)}',
+                                style: theme.textTheme.bodySmall!.copyWith(
+                                  color: colorScheme.onSurface,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          );
+                        }).toList(),
+                  ),
+                ),
           borderData: FlBorderData(show: false),
           gridData: const FlGridData(show: false),
           titlesData: FlTitlesData(
@@ -385,24 +509,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
             ],
           ),
           lineBarsData: <LineChartBarData>[
-            LineChartBarData(
-              spots: measurementsInterpol,
-              isCurved: true,
-              color: interpolationLineColor,
-              barWidth: 3,
-              isStrokeCapRound: true,
-              dotData: const FlDotData(show: false),
-              belowBarData: BarAreaData(
-                show: true,
-                color: interpolationBelowAreaColor,
-              ),
-              aboveBarData: BarAreaData(
-                show: targetWeight != null,
-                color: interpolationAboveAreaColor,
-                cutOffY: targetWeight ?? 0,
-                applyCutOffY: true,
-              ),
-            ),
+            interpolBarData,
             LineChartBarData(
               spots: measurements,
               isCurved: false,
@@ -490,19 +597,25 @@ class _CustomLineChartState extends State<CustomLineChart> {
     void dragUpdate(DragUpdateDetails dragUpdDet) {
       if (!widget.isPreview) {
         setState(() {
+          _isDragging = true;
           final double primDelta =
               (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
 
-          final double allowedMaxX =
+          final double range = maxX - minX;
+          final double dataMaxX =
               interpolTimes.last > DateTime.now().millisecondsSinceEpoch
               ? interpolTimes.last
               : DateTime.now().millisecondsSinceEpoch.toDouble();
-          final double allowedMinX = interpolTimes.first;
-          if (maxX - primDelta <= allowedMaxX &&
-              minX - primDelta >= allowedMinX) {
-            maxX -= primDelta;
-            minX -= primDelta;
-          }
+          // Allow scrolling until the first/last interpolation point is
+          // centred in the visible window.
+          final double allowedMaxX = dataMaxX + range / 2;
+          final double allowedMinX = interpolTimes.first - range / 2;
+          final double newMaxX = (maxX - primDelta).clamp(
+            allowedMinX + range,
+            allowedMaxX,
+          );
+          maxX = newMaxX;
+          minX = newMaxX - range;
         });
       }
     }
@@ -535,6 +648,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
               onDoubleTap: doubleTap,
               //onScaleUpdate: scaleUpdate,
               onHorizontalDragUpdate: dragUpdate,
+              onHorizontalDragEnd: (_) => setState(() => _isDragging = false),
+              onHorizontalDragCancel: () => setState(() => _isDragging = false),
               child: lineChart(minX, maxX, minY, maxY),
             ),
           ),
@@ -569,7 +684,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                     ),
                     GroupedWidget(
                       child: IconButton(
-                        onPressed: notifier.zoomLevel == ZoomLevel.two
+                        onPressed: notifier.zoomLevel == ZoomLevel.one
                             ? null
                             : () {
                                 notifier.zoomIn();
