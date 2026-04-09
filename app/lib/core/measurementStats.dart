@@ -6,6 +6,7 @@ import 'package:ml_linalg/linalg.dart';
 import 'package:ml_linalg/vector.dart';
 import 'package:provider/provider.dart';
 
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
 import 'package:trale/core/preferences.dart';
@@ -23,7 +24,7 @@ class MeasurementStats {
   /// singleton instance
   static final MeasurementStats _instance = MeasurementStats._internal();
 
-  /// get measurements
+  /// get measurementbase
   MeasurementDatabase get db => MeasurementDatabase();
 
   /// get interpolation
@@ -181,6 +182,76 @@ class MeasurementStats {
   /// get frequency of taking measurements (all time) [/week]
   double? get globalFrequency =>
       7 * globalNMeasurements / (globalDeltaTime.inDays + 1);
+
+  /// get global max weight with date
+  ({double? weight, DateTime? date}) get globalMaxWeightDate {
+    if (db.nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    Measurement currentMax = db.measurements.first;
+    for (final Measurement m in db.measurements) {
+      if (m.weight > currentMax.weight) {
+        currentMax = m;
+      }
+    }
+    return (weight: currentMax.weight, date: currentMax.date);
+  }
+
+  /// get global min weight with date
+  ({double? weight, DateTime? date}) get globalMinWeightDate {
+    if (db.nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    Measurement currentMin = db.measurements.first;
+    for (final Measurement m in db.measurements) {
+      if (m.weight <= currentMin.weight) {
+        currentMin = m;
+      }
+    }
+    return (weight: currentMin.weight, date: currentMin.date);
+  }
+
+  /// get global interpolated max weight with date
+  ({double? weight, DateTime? date}) get globalMaxInterpolatedWeightDate {
+    if (db.nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    final Vector weights = ip.measurementsInRange(
+      from: db.firstDate,
+      to: DateTime.now(),
+    );
+    final Vector dates = ip.timesInRange(
+      from: db.firstDate,
+      to: DateTime.now(),
+    );
+    // get where weights is max
+    final int maxIndex = weights.argmax();
+    return (
+      weight: weights[maxIndex],
+      date: DateTime.fromMillisecondsSinceEpoch(dates[maxIndex].round()),
+    );
+  }
+
+  /// get global interpolated min weight with date
+  ({double? weight, DateTime? date}) get globalMinInterpolatedWeightDate {
+    if (db.nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    final Vector weights = ip.measurementsInRange(
+      from: db.firstDate,
+      to: DateTime.now(),
+    );
+    final Vector dates = ip.timesInRange(
+      from: db.firstDate,
+      to: DateTime.now(),
+    );
+    // get where weights is min
+    final int minIndex = weights.argmin();
+    return (
+      weight: weights[minIndex],
+      date: DateTime.fromMillisecondsSinceEpoch(dates[minIndex].round()),
+    );
+  }
 
   // ---- Shared helpers ----
 
@@ -346,14 +417,25 @@ class MeasurementStats {
   /// get forecast weight in 1 month [kg], extrapolated from today's slope
   double? get weightInOneMonth => weightInNDays(30);
 
-  /// get standard deviation of measurements in stats range
-  double? standardDeviationLastNDays(int nDays) {
-    final Vector measurementsLastNDays = ip.measurementsInRange(
-      from: toDate.subtract(Duration(days: nDays)),
-      to: toDate,
-    );
-    return measurementsLastNDays.std();
+  /// get standard deviation from interpolation
+  double? stdLastNDays(int nDays) {
+    final Vector diff = ip
+        .measuredDiff(
+          from: toDate.subtract(Duration(days: nDays)),
+          to: toDate,
+        )
+        .difference;
+    if (diff.isEmpty) {
+      return null;
+    }
+    return sqrt(diff.pow(2).mean());
   }
+
+  /// get standard deviation from interpolation in last month
+  double? get stdLastMonth => stdLastNDays(30);
+
+  /// get standard deviation from interpolation in last year
+  double? get stdLastYear => stdLastNDays(365);
 
   /// get standard deviation from interpolation in stats range
   double? get std {
@@ -367,12 +449,25 @@ class MeasurementStats {
 
 /// add extension to Vector for standard deviation
 extension VectorStats on Vector {
-  /// get standard deviation of vector
-  double? std() {
-    if (length < 2) {
-      return null;
+  /// get index of max value in vector
+  int argmax() {
+    int maxIndex = 0;
+    for (int i = 1; i < length; i++) {
+      if (this[i] > this[maxIndex]) {
+        maxIndex = i;
+      }
     }
-    final double mean = this.mean();
-    return sqrt((this - mean).pow(2).sum() / (length - 1));
+    return maxIndex;
+  }
+
+  /// get index of min value in vector
+  int argmin() {
+    int minIndex = 0;
+    for (int i = 1; i < length; i++) {
+      if (this[i] <= this[minIndex]) {
+        minIndex = i;
+      }
+    }
+    return minIndex;
   }
 }
