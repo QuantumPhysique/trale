@@ -565,8 +565,10 @@ BentoCard currentStreakCard({
   return BentoCard.hero(
     span: 6,
     label: '${l10n.currentStreak}\n(/ ${l10n.days})',
-    value: (stats.globalCurrentStreak + const Duration(days: 120))
-        .streakToStringDays(context, addLabel: false),
+    value: stats.globalCurrentStreak.streakToStringDays(
+      context,
+      addLabel: false,
+    ),
     textColor: _primaryFg(context),
     backgroundColor: _primaryBg(context),
     delayInMilliseconds: delayInMilliseconds,
@@ -628,7 +630,7 @@ BentoCard diffFromTargetCard({
   return BentoCard.hero(
     span: 6,
     label: '${AppLocalizations.of(context)!.diffFromTarget} ($unit)',
-    value: '2', //weightToString(context, stats.currentDifference),
+    value: weightToString(context, stats.currentDifference),
     valueFlex: 3,
     textColor: Theme.of(context).colorScheme.onTertiaryContainer,
     backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
