@@ -256,19 +256,13 @@ class BentoCard extends StatelessWidget {
   }
 
   Widget _buildTextEmphasized(BuildContext context) {
-    final Widget labelWidget = Expanded(
-      child: Align(
-        alignment: Alignment.center,
-        child: AutoSizeText(
-          _label!,
-          style: Theme.of(context).textTheme.bodyLarge!.onSurface(context),
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        ),
-      ),
+    final Widget labelWidget = AutoSizeText(
+      _label!,
+      style: Theme.of(context).textTheme.bodyLarge!.onSurface(context),
+      maxLines: 2,
+      textAlign: TextAlign.center,
     );
     final Widget valueWidget = Expanded(
-      flex: _valueFlex,
       child: Align(
         alignment: Alignment.center,
         child: AutoSizeText(

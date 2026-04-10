@@ -559,6 +559,10 @@
     "@mean": {
         "description": "The mathematical quantity (arithmetic mean)"
     },
+    "median": "median",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
     "measurementFrequency": "measurement frequency",
     "@measurementFrequency": {
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
@@ -804,5 +808,25 @@
                 "example": "interpolation"
             }
         }
+    },
+    "bmiSevereUnderweight": "Severely underweight",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Underweight",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Normal weight",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Overweight",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Obese",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
     }
 }

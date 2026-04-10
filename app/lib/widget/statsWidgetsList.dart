@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/theme.dart';
@@ -35,6 +34,11 @@ class StatsWidgetsList extends StatelessWidget {
             diffFromTargetCard(context: context, stats: stats),
             calorieDeficitCard(context: context, stats: stats),
             meanWeightCard(
+              context: context,
+              stats: stats,
+              delayInMilliseconds: delay,
+            ),
+            medianWeightCard(
               context: context,
               stats: stats,
               delayInMilliseconds: delay,
@@ -96,21 +100,17 @@ class GlobalStatsWidgetsList extends StatelessWidget {
           ),
           maxStreakCard(context: context, stats: stats),
           measurementFrequencyCard(context: context, stats: stats),
-          BentoCard.shaped(
-            span: 2,
-            m3eShape: Shapes.soft_boom,
-            backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-            rotateDuration: Duration(seconds: 15),
-            child: const SizedBox.shrink(),
+          globalMaxWeightDateCard(
+            context: context,
+            stats: stats,
+            delayInMilliseconds: delay,
+          ),
+          globalMinWeightDateCard(
+            context: context,
+            stats: stats,
+            delayInMilliseconds: delay,
           ),
           timeSinceFirstCard(context: context, stats: stats),
-          BentoCard.shaped(
-            span: 2,
-            m3eShape: Shapes.soft_boom,
-            backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-            rotateDuration: Duration(seconds: 15),
-            child: const SizedBox.shrink(),
-          ),
         ],
       ),
     );
