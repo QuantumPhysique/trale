@@ -786,5 +786,23 @@
     "customDateHint": "Long press a date to unset it. An unset start date means from the first measurement, an unset end date means until today.",
     "@customDateHint": {
         "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Statistics basis",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Interpolated values smooth out daily fluctuations caused by hydration, meal timing, and other factors, giving a clearer picture of your true weight trend. Raw measurements reflect exactly what you recorded but can vary considerably from day to day. Using the interpolated curve helps you track real progress rather than short-term noise.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Statistics are based on {sourceName}. You can change this in the personalization settings.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
     }
 }

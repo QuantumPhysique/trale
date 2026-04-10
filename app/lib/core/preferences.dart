@@ -59,6 +59,9 @@ class Preferences {
   /// default for statsRangeTo
   final DateTime? defaultStatsRangeTo = null;
 
+  /// default for stats use interpolation (true = interpolated, false = raw)
+  final bool defaultStatsUseInterpolation = true;
+
   /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
 
@@ -126,6 +129,9 @@ class Preferences {
 
   /// default show measurement hint banner
   final bool defaultShowMeasurementHintBanner = true;
+
+  /// default show stats hint banner
+  final bool defaultShowStatsHintBanner = true;
 
   /// default show changelog
   final bool defaultShowChangelog = true;
@@ -210,6 +216,13 @@ class Preferences {
     final DateTime parsed = DateTime.parse(raw);
     return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
   }
+
+  /// Get stats use interpolation
+  bool get statsUseInterpolation => prefs.getBool('statsUseInterpolation')!;
+
+  /// Set stats use interpolation
+  set statsUseInterpolation(bool useInterpolation) =>
+      prefs.setBool('statsUseInterpolation', useInterpolation);
 
   /// Get statsRangeFrom
   DateTime? get statsRangeFrom {
@@ -384,6 +397,13 @@ class Preferences {
   set showMeasurementHintBanner(bool show) =>
       prefs.setBool('showMeasurementHintBanner', show);
 
+  /// Get show stats hint banner
+  bool get showStatsHintBanner => prefs.getBool('showStatsHintBanner')!;
+
+  /// Set show stats hint banner
+  set showStatsHintBanner(bool show) =>
+      prefs.setBool('showStatsHintBanner', show);
+
   /// Get show changelog
   bool get showChangelog => prefs.getBool('showChangelog')!;
 
@@ -511,6 +531,9 @@ class Preferences {
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;
     }
+    if (override || !prefs.containsKey('showStatsHintBanner')) {
+      showStatsHintBanner = defaultShowStatsHintBanner;
+    }
     if (override || !prefs.containsKey('showChangelog')) {
       showChangelog = defaultShowChangelog;
     }
@@ -537,6 +560,9 @@ class Preferences {
     }
     if (override || !prefs.containsKey('statsRangeTo')) {
       statsRangeTo = defaultStatsRangeTo;
+    }
+    if (override || !prefs.containsKey('statsUseInterpolation')) {
+      statsUseInterpolation = defaultStatsUseInterpolation;
     }
   }
 

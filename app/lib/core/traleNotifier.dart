@@ -373,6 +373,18 @@ class TraleNotifier with ChangeNotifier {
     }
   }
 
+  /// getter for stats use interpolation
+  bool get statsUseInterpolation => prefs.statsUseInterpolation;
+
+  /// setter for stats use interpolation
+  set statsUseInterpolation(bool useInterpolation) {
+    if (statsUseInterpolation != useInterpolation) {
+      prefs.statsUseInterpolation = useInterpolation;
+      MeasurementStats().reinit();
+      notifyListeners();
+    }
+  }
+
   /// get user height in [cm]
   double? get userHeight => prefs.userHeight;
 
@@ -447,6 +459,17 @@ class TraleNotifier with ChangeNotifier {
   set showMeasurementHintBanner(bool show) {
     if (show != showMeasurementHintBanner) {
       prefs.showMeasurementHintBanner = show;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  bool get showStatsHintBanner => prefs.showStatsHintBanner;
+
+  /// setter
+  set showStatsHintBanner(bool show) {
+    if (show != showStatsHintBanner) {
+      prefs.showStatsHintBanner = show;
       notifyListeners();
     }
   }

@@ -135,6 +135,72 @@ class _PersonalizationSettingsPageState
         ),
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
+      Consumer<TraleNotifier>(
+        builder: (BuildContext context, TraleNotifier notifier, _) {
+          final ColorScheme colorScheme = Theme.of(context).colorScheme;
+          return WidgetGroup(
+            title: AppLocalizations.of(context)!.statsSourceTitle,
+            children: <Widget>[
+              RadioGroup<bool>(
+                groupValue: notifier.statsUseInterpolation,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    notifier.statsUseInterpolation = value;
+                  }
+                },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    GroupedRadioListTile<bool>(
+                      color: notifier.statsUseInterpolation
+                          ? colorScheme.primaryContainer
+                          : colorScheme.surfaceContainerLowest,
+                      shape: notifier.statsUseInterpolation
+                          ? const StadiumBorder()
+                          : null,
+                      value: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: TraleTheme.of(context)!.padding,
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.interpolation.inCaps,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                    GroupedRadioListTile<bool>(
+                      color: !notifier.statsUseInterpolation
+                          ? colorScheme.primaryContainer
+                          : colorScheme.surfaceContainerLowest,
+                      shape: !notifier.statsUseInterpolation
+                          ? const StadiumBorder()
+                          : null,
+                      value: false,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: TraleTheme.of(context)!.padding,
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.measurements.inCaps,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+      SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
+      Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: TraleTheme.of(context)!.padding,
+        ),
+        child: Text(
+          AppLocalizations.of(context)!.statsSourceExplanation,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
+      SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
         title: AppLocalizations.of(context)!.unitTitle,
         children: const <Widget>[
