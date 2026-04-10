@@ -56,7 +56,7 @@ class MeasurementStats {
 
   /// get weights in stats range
   Vector get weights =>
-      _weights ??= ip.measurementsInRange(from: _dates.from, to: _dates.to);
+      _weights ??= ip.weightsInRange(from: _dates.from, to: _dates.to);
 
   /// get toDate, default to now if null
   DateTime get toDate => _dates.to ?? DateTime.now();
