@@ -216,7 +216,7 @@ class MeasurementStats {
     if (db.nMeasurements == 0) {
       return (weight: null, date: null);
     }
-    final Vector weights = ip.measurementsInRange(
+    final Vector weights = ip.weightsInRange(
       from: db.firstDate,
       to: DateTime.now(),
     );
@@ -237,7 +237,7 @@ class MeasurementStats {
     if (db.nMeasurements == 0) {
       return (weight: null, date: null);
     }
-    final Vector weights = ip.measurementsInRange(
+    final Vector weights = ip.weightsInRange(
       from: db.firstDate,
       to: DateTime.now(),
     );
