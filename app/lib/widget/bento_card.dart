@@ -31,13 +31,15 @@ class BentoCard extends StatelessWidget {
     this.backgroundColor,
     this.delayInMilliseconds = 0,
     this.pillShape = false,
+    this.onTap,
     super.key,
   }) : _mode = _BentoCardMode.custom,
        _label = null,
        _value = null,
+       _sublabel = null,
+       _textColor = null,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _valueFlex = 1,
        _reversed = false;
 
   /// Two centered text rows: a small label on top and a bold value below.
@@ -55,11 +57,13 @@ class BentoCard extends StatelessWidget {
     super.key,
   }) : _mode = _BentoCardMode.text,
        child = null,
+       onTap = null,
        _label = label,
        _value = value,
+       _sublabel = null,
+       _textColor = null,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _valueFlex = 1,
        _reversed = false;
 
   /// Vertical card with a small label and a large emphasized value.
@@ -68,12 +72,13 @@ class BentoCard extends StatelessWidget {
   /// matching the min-weight card pattern. With [reversed] = true the value
   /// is on top (like the max-weight card).
   ///
-  /// [valueFlex] controls the space ratio of the value region (default 2).
+  /// An optional [sublabel] is rendered in small text below everything else.
   const BentoCard.textEmphasized({
     required String label,
     required String value,
-    int valueFlex = 2,
+    String? sublabel,
     bool reversed = false,
+    Color? textColor,
     this.columnSpan = 6,
     this.rowSpan = 2,
     this.backgroundColor,
@@ -82,11 +87,13 @@ class BentoCard extends StatelessWidget {
     super.key,
   }) : _mode = _BentoCardMode.textEmphasized,
        child = null,
+       onTap = null,
        _label = label,
        _value = value,
+       _sublabel = sublabel,
+       _textColor = textColor,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _valueFlex = valueFlex,
        _reversed = reversed;
 
   /// Horizontal card with a label and a large value placed side by side.
@@ -99,8 +106,8 @@ class BentoCard extends StatelessWidget {
   const BentoCard.textInline({
     required String label,
     required String value,
-    int valueFlex = 2,
     bool reversed = false,
+    Color? textColor,
     this.columnSpan = 6,
     this.rowSpan = 2,
     this.backgroundColor,
@@ -109,11 +116,13 @@ class BentoCard extends StatelessWidget {
     super.key,
   }) : _mode = _BentoCardMode.textInline,
        child = null,
+       onTap = null,
        _label = label,
        _value = value,
+       _sublabel = null,
+       _textColor = textColor,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _valueFlex = valueFlex,
        _reversed = reversed;
 
   /// Square card ([span] × [span] grid cells) with a custom child, an
@@ -127,17 +136,19 @@ class BentoCard extends StatelessWidget {
     this.backgroundColor,
     this.delayInMilliseconds = 0,
     this.pillShape = false,
+    this.onTap,
     Shapes? m3eShape,
     Duration rotateDuration = Duration.zero,
     super.key,
   }) : _mode = _BentoCardMode.custom,
        _label = null,
        _value = null,
+       _sublabel = null,
+       _textColor = null,
        columnSpan = span,
        rowSpan = span,
        _m3eShape = m3eShape,
        _rotateDuration = rotateDuration,
-       _valueFlex = 1,
        _reversed = false;
 
   /// Large hero number on top with a subtitle below (vertical layout).
@@ -201,8 +212,13 @@ class BentoCard extends StatelessWidget {
   /// Whether to use a pill (stadium) shape instead of the bento border shape.
   final bool pillShape;
 
-  // -- Private fields set by [BentoCard.shaped] (and [BentoCard.hero]) --
+  /// Optional tap callback. When set, the card becomes tappable.
+  final VoidCallback? onTap;
 
+  /// Optional text color override for label and value in [textInline].
+  final Color? _textColor;
+
+  // -- Private fields set by [BentoCard.shaped] (and [BentoCard.hero]) --
   /// Optional Material 3 Expressive shape.
   ///
   /// When set, overrides [pillShape] and the default bento border shape.
@@ -221,7 +237,7 @@ class BentoCard extends StatelessWidget {
   final _BentoCardMode _mode;
   final String? _label;
   final String? _value;
-  final int _valueFlex;
+  final String? _sublabel;
   final bool _reversed;
 
   // -- Build helpers --
@@ -256,53 +272,76 @@ class BentoCard extends StatelessWidget {
   }
 
   Widget _buildTextEmphasized(BuildContext context) {
-    final Widget labelWidget = AutoSizeText(
-      _label!,
-      style: Theme.of(context).textTheme.bodyLarge!.onSurface(context),
-      maxLines: 2,
-      textAlign: TextAlign.center,
+    final double pad = TraleTheme.of(context)!.padding / 2;
+    final Widget labelWidget = Padding(
+      padding: _reversed
+          ? EdgeInsets.only(left: pad, right: pad, bottom: pad)
+          : EdgeInsets.only(left: pad, right: pad, top: pad),
+      child: AutoSizeText(
+        _label!,
+        style: Theme.of(
+          context,
+        ).textTheme.bodyLarge!.onSurface(context).copyWith(color: _textColor),
+        maxLines: 2,
+        textAlign: TextAlign.center,
+      ),
     );
     final Widget valueWidget = Expanded(
-      child: Align(
-        alignment: Alignment.center,
-        child: AutoSizeText(
-          _value!,
-          style: Theme.of(context).textTheme.emphasized.bodyMedium!
-              .onSurface(context)
-              .copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 200,
-                height: 0.7,
-              ),
-          maxLines: 1,
+      child: Padding(
+        padding: _reversed
+            ? EdgeInsets.only(left: pad / 2, right: pad / 2, top: pad / 2)
+            : EdgeInsets.only(left: pad / 2, right: pad / 2, bottom: pad / 2),
+        child: Align(
+          alignment: Alignment.center,
+          child: AutoSizeText(
+            _value!,
+            style: Theme.of(context).textTheme.emphasized.bodyMedium!
+                .onSurface(context)
+                .copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 200,
+                  height: 0.7,
+                  color: _textColor,
+                ),
+            maxLines: 1,
+          ),
         ),
       ),
     );
-    return Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _reversed
-            ? <Widget>[valueWidget, labelWidget]
-            : <Widget>[labelWidget, valueWidget],
-      ),
+    final List<Widget> children = _reversed
+        ? <Widget>[valueWidget, labelWidget]
+        : <Widget>[labelWidget, valueWidget];
+    if (_sublabel != null) {
+      final Widget sublabelWidget = Padding(
+        padding: _reversed
+            ? EdgeInsets.only(left: pad, right: pad, top: pad)
+            : EdgeInsets.only(left: pad, right: pad, bottom: pad),
+        child: AutoSizeText(
+          _sublabel,
+          style: Theme.of(
+            context,
+          ).textTheme.bodySmall!.onSurface(context).copyWith(color: _textColor),
+          maxLines: 1,
+          textAlign: TextAlign.center,
+        ),
+      );
+      if (_reversed) {
+        children.insert(0, sublabelWidget);
+      } else {
+        children.add(sublabelWidget);
+      }
+    }
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: children,
     );
   }
 
   Widget _buildTextInline(BuildContext context) {
-    final Widget labelWidget = Expanded(
-      child: Align(
-        alignment: Alignment.center,
-        child: AutoSizeText(
-          _label!,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(height: 1.0),
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
+    final TraleTheme theme = TraleTheme.of(context)!;
+    final Color labelColor =
+        _textColor ?? Theme.of(context).colorScheme.onSurface;
     final Widget valueWidget = Expanded(
-      flex: _valueFlex,
       child: Align(
         alignment: Alignment.center,
         child: AutoSizeText(
@@ -310,16 +349,35 @@ class BentoCard extends StatelessWidget {
           style: Theme.of(context).textTheme.emphasized.displayLarge!.copyWith(
             fontWeight: FontWeight.w900,
             fontSize: 200,
+            color: _textColor,
           ),
           maxLines: 1,
         ),
       ),
     );
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: _reversed
-          ? <Widget>[valueWidget, labelWidget]
-          : <Widget>[labelWidget, valueWidget],
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final Widget labelWidget = ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: constraints.maxWidth / 2),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: theme.padding),
+            child: AutoSizeText(
+              _label!,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium!.copyWith(height: 1.0, color: labelColor),
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _reversed
+              ? <Widget>[valueWidget, labelWidget]
+              : <Widget>[labelWidget, valueWidget],
+        );
+      },
     );
   }
 
@@ -347,39 +405,42 @@ class BentoCard extends StatelessWidget {
     // Content is constrained to the inscribed square of the circle
     // (side = diameter / √2) so text never reaches the oval edge.
     if (_rotateDuration > Duration.zero && _m3eShape != null) {
-      return AnimateInEffect(
-        delayInMilliseconds: delayInMilliseconds,
-        durationInMilliseconds: theme.transitionDuration.slow.inMilliseconds,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            final double side = constraints.biggest.shortestSide;
-            final double padding = theme.padding / 2;
-            final double diameter = side - padding * 2;
-            final double innerSide = diameter / math.sqrt2;
-            return Center(
-              child: SizedBox(
-                width: diameter,
-                height: diameter,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    _RotatingShape(
-                      shape: _m3eShape,
-                      color: bgColor,
-                      duration: _rotateDuration,
-                    ),
-                    ClipOval(
-                      child: SizedBox(
-                        width: innerSide,
-                        height: innerSide,
-                        child: content,
+      return GestureDetector(
+        onTap: onTap,
+        child: AnimateInEffect(
+          delayInMilliseconds: delayInMilliseconds,
+          durationInMilliseconds: theme.transitionDuration.slow.inMilliseconds,
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              final double side = constraints.biggest.shortestSide;
+              final double padding = theme.padding / 2;
+              final double diameter = side - padding * 2;
+              final double innerSide = diameter / math.sqrt2;
+              return Center(
+                child: SizedBox(
+                  width: diameter,
+                  height: diameter,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: <Widget>[
+                      _RotatingShape(
+                        shape: _m3eShape,
+                        color: bgColor,
+                        duration: _rotateDuration,
                       ),
-                    ),
-                  ],
+                      ClipOval(
+                        child: SizedBox(
+                          width: innerSide,
+                          height: innerSide,
+                          child: content,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       );
     }
@@ -387,12 +448,15 @@ class BentoCard extends StatelessWidget {
     return AnimateInEffect(
       delayInMilliseconds: delayInMilliseconds,
       durationInMilliseconds: theme.transitionDuration.slow.inMilliseconds,
-      child: Card(
-        shape: shape,
-        color: bgColor,
-        margin: EdgeInsets.zero,
-        clipBehavior: Clip.hardEdge,
-        child: content,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Card(
+          shape: shape,
+          color: bgColor,
+          margin: EdgeInsets.zero,
+          clipBehavior: Clip.hardEdge,
+          child: content,
+        ),
       ),
     );
   }
@@ -497,11 +561,15 @@ class _RotatingShapeState extends State<_RotatingShape>
   Widget build(BuildContext context) {
     return RotationTransition(
       turns: _controller,
-      child: SizedBox.expand(
-        child: DecoratedBox(
-          decoration: ShapeDecoration(
-            shape: M3EShapeBorder(shape: widget.shape),
-            color: widget.color,
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        child: SizedBox.expand(
+          key: ValueKey<Shapes>(widget.shape),
+          child: DecoratedBox(
+            decoration: ShapeDecoration(
+              shape: M3EShapeBorder(shape: widget.shape),
+              color: widget.color,
+            ),
           ),
         ),
       ),

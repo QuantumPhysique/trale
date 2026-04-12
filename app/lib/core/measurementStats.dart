@@ -110,6 +110,64 @@ class MeasurementStats {
   /// get min interpolated weight in stats range
   double? get minInterpolatedWeight => weights.min();
 
+  /// get max measured weight with date in stats range
+  ({double? weight, DateTime? date}) get maxWeightDate {
+    if (nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    final ({Vector times, Vector measurements}) data = ip.measured(
+      from: _dates.from,
+      to: _dates.to,
+    );
+    final int maxIndex = data.measurements.argmax();
+    return (
+      weight: data.measurements[maxIndex],
+      date: DateTime.fromMillisecondsSinceEpoch(data.times[maxIndex].round()),
+    );
+  }
+
+  /// get min measured weight with date in stats range
+  ({double? weight, DateTime? date}) get minWeightDate {
+    if (nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    final ({Vector times, Vector measurements}) data = ip.measured(
+      from: _dates.from,
+      to: _dates.to,
+    );
+    final int minIndex = data.measurements.argmin();
+    return (
+      weight: data.measurements[minIndex],
+      date: DateTime.fromMillisecondsSinceEpoch(data.times[minIndex].round()),
+    );
+  }
+
+  /// get max interpolated weight with date in stats range
+  ({double? weight, DateTime? date}) get maxInterpolatedWeightDate {
+    if (nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    final Vector dates = ip.timesInRange(from: _dates.from, to: _dates.to);
+    final int maxIndex = weights.argmax();
+    return (
+      weight: weights[maxIndex],
+      date: DateTime.fromMillisecondsSinceEpoch(dates[maxIndex].round()),
+    );
+  }
+
+  /// get min interpolated weight with date in stats range
+  ({double? weight, DateTime? date}) get minInterpolatedWeightDate {
+    if (nMeasurements == 0) {
+      return (weight: null, date: null);
+    }
+    final Vector dates = ip.timesInRange(from: _dates.from, to: _dates.to);
+    final int minIndex = weights.argmin();
+    return (
+      weight: weights[minIndex],
+      date: DateTime.fromMillisecondsSinceEpoch(dates[minIndex].round()),
+    );
+  }
+
   /// get mean weight
   double? get meanWeight => measurements.mean();
 

@@ -214,18 +214,6 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 // BentoCard-based widget builders
 // ---------------------------------------------------------------------------
 
-/// Brightness-aware primary background color.
-Color _primaryBg(BuildContext context) =>
-    Theme.of(context).brightness == Brightness.light
-    ? Theme.of(context).primaryColor
-    : Theme.of(context).colorScheme.primaryContainer;
-
-/// Brightness-aware primary foreground color.
-Color _primaryFg(BuildContext context) =>
-    Theme.of(context).brightness == Brightness.light
-    ? Theme.of(context).colorScheme.onPrimary
-    : Theme.of(context).colorScheme.onPrimaryContainer;
-
 /// Full-width change-rates card (week / month / year columns).
 BentoCard changeRatesCard({
   required BuildContext context,
@@ -400,15 +388,15 @@ BentoCard reachingTargetWeightCard({
       ? l10n.targetWeightReached
       : '${labels[1]} ${l10n.targetWeightReachedIn}';
 
-  return BentoCard.hero(
-    span: 6,
+  return BentoCard.textInline(
+    columnSpan: 8,
+    rowSpan: 3,
     label: subtext,
     value: labels[0],
-    textColor: _primaryFg(context),
-    backgroundColor: _primaryBg(context),
+    reversed: true,
+    textColor: Theme.of(context).colorScheme.onPrimaryContainer,
+    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
-    m3eShape: Shapes.sunny,
-    rotateDuration: const Duration(seconds: 60),
   );
 }
 
@@ -426,7 +414,6 @@ BentoCard nMeasurementsCard({
     label: '# $measurementsLabel',
     value: '${stats.globalNMeasurements}',
     delayInMilliseconds: delayInMilliseconds,
-    pillShape: true,
   );
 }
 
@@ -441,12 +428,12 @@ BentoCard totalChangeCard({
     listen: false,
   ).unit.name;
   return BentoCard.hero(
-    span: 6,
+    span: 4,
     label: '${AppLocalizations.of(context)!.totalChange}\n($unit)',
     value: weightToString(context, stats.deltaWeight),
     valueFlex: 3,
-    textColor: Theme.of(context).colorScheme.onTertiaryContainer,
-    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+    textColor: Theme.of(context).colorScheme.onSecondaryContainer,
+    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
     delayInMilliseconds: delayInMilliseconds,
   );
 }
@@ -461,12 +448,14 @@ BentoCard timeSinceFirstCard({
   final List<String> parts = durationStr.split(' ');
   final String number = parts[0];
   final String unit = parts.length > 1 ? parts.sublist(1).join(' ') : '';
-  return BentoCard.text(
-    columnSpan: 6,
+  return BentoCard.hero(
+    span: 4,
     value: number,
     label:
         '${AppLocalizations.of(context)!.timeSinceFirstMeasurement}\n($unit)',
     delayInMilliseconds: delayInMilliseconds,
+    textColor: Theme.of(context).colorScheme.onTertiaryContainer,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
   );
 }
 
@@ -484,52 +473,17 @@ BentoCard globalMaxWeightDateCard({
       notifier.statsUseInterpolation
       ? stats.globalMaxInterpolatedWeightDate
       : stats.globalMaxWeightDate;
-  final String weightStr = weightToString(context, record.weight);
   final String dateStr = record.date != null
       ? notifier.dateFormat(context).format(record.date!)
       : '--';
-  final String unit = notifier.unit.name;
   final AppLocalizations l10n = AppLocalizations.of(context)!;
-  return BentoCard(
-    columnSpan: 4,
-    rowSpan: 3,
+  return BentoCard.textInline(
+    columnSpan: 8,
+    rowSpan: 2,
+    label: '${l10n.max} (${notifier.unit.name})\n$dateStr',
+    value: weightToString(context, record.weight),
     delayInMilliseconds: delayInMilliseconds,
-    child: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AutoSizeText(
-            '${l10n.max} ($unit)',
-            style: Theme.of(context).textTheme.bodyLarge!.onSurface(context),
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                weightStr,
-                style: Theme.of(context).textTheme.emphasized.bodyMedium!
-                    .onSurface(context)
-                    .copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                      height: 0.7,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          AutoSizeText(
-            dateStr,
-            style: Theme.of(context).textTheme.bodySmall!.onSurface(context),
-            maxLines: 1,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    ),
+    reversed: true,
   );
 }
 
@@ -547,56 +501,20 @@ BentoCard globalMinWeightDateCard({
       notifier.statsUseInterpolation
       ? stats.globalMinInterpolatedWeightDate
       : stats.globalMinWeightDate;
-  final String weightStr = weightToString(context, record.weight);
   final String dateStr = record.date != null
       ? notifier.dateFormat(context).format(record.date!)
       : '--';
-  final String unit = notifier.unit.name;
   final AppLocalizations l10n = AppLocalizations.of(context)!;
-  return BentoCard(
-    columnSpan: 4,
-    rowSpan: 3,
+  return BentoCard.textInline(
+    columnSpan: 8,
+    rowSpan: 2,
+    label: '${l10n.min} (${notifier.unit.name})\n$dateStr',
+    value: weightToString(context, record.weight),
     delayInMilliseconds: delayInMilliseconds,
-    child: Padding(
-      padding: EdgeInsets.all(TraleTheme.of(context)!.padding / 2),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AutoSizeText(
-            '${l10n.min} ($unit)',
-            style: Theme.of(context).textTheme.bodyLarge!.onSurface(context),
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.center,
-              child: AutoSizeText(
-                weightStr,
-                style: Theme.of(context).textTheme.emphasized.bodyMedium!
-                    .onSurface(context)
-                    .copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                      height: 0.7,
-                    ),
-                maxLines: 1,
-              ),
-            ),
-          ),
-          AutoSizeText(
-            dateStr,
-            style: Theme.of(context).textTheme.bodySmall!.onSurface(context),
-            maxLines: 1,
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    ),
   );
 }
 
-/// Text card: median weight.
+/// Emphasized card: median weight.
 BentoCard medianWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
@@ -609,16 +527,17 @@ BentoCard medianWeightCard({
   final double? weight = notifier.statsUseInterpolation
       ? stats.medianInterpolatedWeight
       : stats.medianWeight;
-  return BentoCard.text(
-    columnSpan: 6,
-    rowSpan: 3,
+  return BentoCard.textInline(
+    columnSpan: 8,
+    rowSpan: 2,
     label: '${AppLocalizations.of(context)!.median} (${notifier.unit.name})',
     value: weightToString(context, weight),
+    reversed: true,
     delayInMilliseconds: delayInMilliseconds,
   );
 }
 
-/// Emphasized-text card: minimum recorded weight (label above, value below).
+/// Emphasized-text card: minimum recorded weight with date (label, value, date).
 BentoCard minWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
@@ -628,32 +547,48 @@ BentoCard minWeightCard({
     context,
     listen: false,
   );
-  final double? weight = notifier.statsUseInterpolation
-      ? stats.minInterpolatedWeight
-      : stats.minWeight;
+  final ({double? weight, DateTime? date}) record =
+      notifier.statsUseInterpolation
+      ? stats.minInterpolatedWeightDate
+      : stats.minWeightDate;
+  final String dateStr = record.date != null
+      ? notifier.dateFormat(context).format(record.date!)
+      : '--';
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
   return BentoCard.textEmphasized(
     columnSpan: 4,
-    rowSpan: 3,
-    label: '${AppLocalizations.of(context)!.min} (${notifier.unit.name})',
-    value: weightToString(context, weight),
-    valueFlex: 2,
+    rowSpan: 4,
+    label: '${l10n.min} (${notifier.unit.name})',
+    value: weightToString(context, record.weight),
+    sublabel: dateStr,
     delayInMilliseconds: delayInMilliseconds,
   );
 }
 
-/// Transparent card: app icon hero.
+/// Transparent card: app icon hero, placed on a given M3 shape.
 BentoCard iconHeroCard({
   required BuildContext context,
+  required Shapes shape,
+  VoidCallback? onTap,
   int delayInMilliseconds = 0,
-}) => BentoCard(
-  columnSpan: 4,
-  rowSpan: 3,
-  backgroundColor: Colors.transparent,
-  delayInMilliseconds: delayInMilliseconds,
-  child: const IconHeroStatScreen(),
-);
+}) {
+  return BentoCard.shaped(
+    span: 4,
+    backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+    delayInMilliseconds: delayInMilliseconds,
+    m3eShape: shape,
+    rotateDuration: const Duration(seconds: 60),
+    onTap: onTap,
+    child: LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) => Padding(
+        padding: EdgeInsets.only(bottom: constraints.maxHeight * 0.1),
+        child: const IconHeroStatScreen(),
+      ),
+    ),
+  );
+}
 
-/// Emphasized-text card: maximum recorded weight (value above, label below).
+/// Emphasized-text card: maximum recorded weight with date (value, label, date).
 BentoCard maxWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
@@ -663,21 +598,25 @@ BentoCard maxWeightCard({
     context,
     listen: false,
   );
-  final double? weight = notifier.statsUseInterpolation
-      ? stats.maxInterpolatedWeight
-      : stats.maxWeight;
+  final ({double? weight, DateTime? date}) record =
+      notifier.statsUseInterpolation
+      ? stats.maxInterpolatedWeightDate
+      : stats.maxWeightDate;
+  final String dateStr = record.date != null
+      ? notifier.dateFormat(context).format(record.date!)
+      : '--';
+  final AppLocalizations l10n = AppLocalizations.of(context)!;
   return BentoCard.textEmphasized(
     columnSpan: 4,
-    rowSpan: 3,
-    reversed: true,
-    label: '${AppLocalizations.of(context)!.max} (${notifier.unit.name})',
-    value: weightToString(context, weight),
-    valueFlex: 2,
+    rowSpan: 4,
+    label: '${l10n.max} (${notifier.unit.name})',
+    value: weightToString(context, record.weight),
+    sublabel: dateStr,
     delayInMilliseconds: delayInMilliseconds,
   );
 }
 
-/// Text card: mean weight.
+/// Emphasized card: mean weight.
 BentoCard meanWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
@@ -690,9 +629,9 @@ BentoCard meanWeightCard({
   final double? weight = notifier.statsUseInterpolation
       ? stats.meanInterpolatedWeight
       : stats.meanWeight;
-  return BentoCard.text(
-    columnSpan: 6,
-    rowSpan: 3,
+  return BentoCard.textInline(
+    columnSpan: 8,
+    rowSpan: 2,
     label: '${AppLocalizations.of(context)!.mean} (${notifier.unit.name})',
     value: weightToString(context, weight),
     delayInMilliseconds: delayInMilliseconds,
@@ -725,8 +664,8 @@ BentoCard currentStreakCard({
       context,
       addLabel: false,
     ),
-    textColor: _primaryFg(context),
-    backgroundColor: _primaryBg(context),
+    textColor: Theme.of(context).colorScheme.onPrimaryContainer,
+    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
     m3eShape: Shapes.c12_sided_cookie,
     rotateDuration: const Duration(seconds: 60),
@@ -844,9 +783,9 @@ BentoCard calorieDeficitCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
-}) => BentoCard.text(
-  columnSpan: 6,
-  rowSpan: 3,
+}) => BentoCard.textInline(
+  columnSpan: 8,
+  rowSpan: 2,
   label: '${AppLocalizations.of(context)!.calorieDeficit}\n(kcal/day)',
   value: '${stats.dailyDeficit}',
   delayInMilliseconds: delayInMilliseconds,
@@ -862,11 +801,11 @@ BentoCard diffFromTargetCard({
     context,
     listen: false,
   ).unit.name;
-  return BentoCard.hero(
-    span: 6,
+  return BentoCard.textEmphasized(
+    columnSpan: 4,
+    rowSpan: 5,
     label: '${AppLocalizations.of(context)!.diffFromTarget} ($unit)',
     value: weightToString(context, stats.currentDifference),
-    valueFlex: 3,
     textColor: Theme.of(context).colorScheme.onTertiaryContainer,
     backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     delayInMilliseconds: delayInMilliseconds,
