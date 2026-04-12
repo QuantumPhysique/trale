@@ -394,8 +394,12 @@ class _CustomLineChartState extends State<CustomLineChart>
           showTitles: true,
           reservedSize: textSize.height * 2,
           interval: 24 * 3600 * 1000, // days
-          getTitlesWidget: (double time, TitleMeta titleMeta) =>
-              time2xtickwidget(time),
+          getTitlesWidget: (double time, TitleMeta titleMeta) {
+            if (time == titleMeta.min || time == titleMeta.max) {
+              return const SizedBox.shrink();
+            }
+            return time2xtickwidget(time);
+          },
         ),
       );
     }
