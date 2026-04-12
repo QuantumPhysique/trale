@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -122,16 +123,81 @@ class CustomLineChart extends StatefulWidget {
   State<CustomLineChart> createState() => _CustomLineChartState();
 }
 
-class _CustomLineChartState extends State<CustomLineChart> {
+class _CustomLineChartState extends State<CustomLineChart>
+    with SingleTickerProviderStateMixin {
+  // Animation targets (where the viewport will end up).
   late double minX;
   late double maxX;
-  bool _isDragging = false;
+
+  // Current animated viewport values – driven by [_viewAnim].
+  // Both the LineChart viewport and the tooltip centre are derived from these,
+  // so they are always in perfect sync with zero double-animation.
+  late double _curMinX;
+  late double _curMaxX;
+  double _fromMinX = 0;
+  double _fromMaxX = 0;
+
+  bool _showTooltip = false;
+  Timer? _tooltipTimer;
+
+  late AnimationController _viewAnim;
+
+  void _onViewAnimTick() {
+    final double t = Curves.easeOut.transform(_viewAnim.value);
+    setState(() {
+      _curMinX = _fromMinX + (minX - _fromMinX) * t;
+      _curMaxX = _fromMaxX + (maxX - _fromMaxX) * t;
+    });
+  }
+
+  /// Animate the viewport from the current visual position to [newMinX]/[newMaxX].
+  void _animateTo(double newMinX, double newMaxX) {
+    _viewAnim.stop();
+    _fromMinX = _curMinX;
+    _fromMaxX = _curMaxX;
+    minX = newMinX;
+    maxX = newMaxX;
+    _viewAnim.forward(from: 0.0);
+  }
+
+  /// Snap the viewport instantly to [newMinX]/[newMaxX] (no animation).
+  void _snapTo(double newMinX, double newMaxX) {
+    _viewAnim.stop();
+    minX = newMinX;
+    maxX = newMaxX;
+    _curMinX = newMinX;
+    _curMaxX = newMaxX;
+    _fromMinX = newMinX;
+    _fromMaxX = newMaxX;
+  }
+
+  @override
+  void dispose() {
+    _tooltipTimer?.cancel();
+    _viewAnim.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
     final Preferences prefs = Preferences();
-    minX = widget.isPreview ? widget.ip.times.first : prefs.zoomLevel.minX;
-    maxX = widget.isPreview ? widget.ip.times.last : prefs.zoomLevel.maxX;
+    final double initMinX = widget.isPreview
+        ? widget.ip.times.first
+        : prefs.zoomLevel.minX;
+    final double initMaxX = widget.isPreview
+        ? widget.ip.times.last
+        : prefs.zoomLevel.maxX;
+    minX = initMinX;
+    maxX = initMaxX;
+    _curMinX = initMinX;
+    _curMaxX = initMaxX;
+    _fromMinX = initMinX;
+    _fromMaxX = initMaxX;
+    _viewAnim = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    )..addListener(_onViewAnimTick);
   }
 
   @override
@@ -139,8 +205,13 @@ class _CustomLineChartState extends State<CustomLineChart> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isPreview != widget.isPreview || oldWidget.ip != widget.ip) {
       final Preferences prefs = Preferences();
-      minX = widget.isPreview ? widget.ip.times.first : prefs.zoomLevel.minX;
-      maxX = widget.isPreview ? widget.ip.times.last : prefs.zoomLevel.maxX;
+      final double newMinX = widget.isPreview
+          ? widget.ip.times.first
+          : prefs.zoomLevel.minX;
+      final double newMaxX = widget.isPreview
+          ? widget.ip.times.last
+          : prefs.zoomLevel.maxX;
+      _snapTo(newMinX, newMaxX);
     }
   }
 
@@ -231,9 +302,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
     );
 
     final int indexFirst = measurements.lastIndexWhere(
-      (FlSpot e) => e.x < minX,
+      (FlSpot e) => e.x < _curMinX,
     );
-    final int indexLast = measurements.indexWhere((FlSpot e) => e.x > maxX) + 1;
+    final int indexLast =
+        measurements.indexWhere((FlSpot e) => e.x > _curMaxX) + 1;
     final List<FlSpot> shownData = measurements.sublist(
       indexFirst == -1 ? 0 : indexFirst,
       (indexLast == -1 ||
@@ -264,50 +336,66 @@ class _CustomLineChartState extends State<CustomLineChart> {
       maxY = (maxY + minY) / 2 + 1;
     }
 
-    /// convert time [ms since Epoch] to xtick label
-    String time2xticklabel(double time) {
+    /// Build the x-tick label widget for a given [time] (ms since epoch).
+    /// For January 1st, shows the month name and the year in bold below it.
+    Widget time2xtickwidget(double time) {
       final DateTime date = DateTime.fromMillisecondsSinceEpoch(time.toInt());
+      final String locale = Localizations.localeOf(context).languageCode;
       final int interval =
-          (max<double>(maxX - minX, 1) / (24 * 3600 * 1000) ~/ 6).toInt();
+          (max<double>(_curMaxX - _curMinX, 1) / (24 * 3600 * 1000) ~/ 6)
+              .toInt();
       if (date.day == 1 && date.month == 1) {
-        return DateFormat(
-          'yy',
-          Localizations.localeOf(context).languageCode,
-        ).format(date);
+        // January 1st: year on top row, month on bottom row
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            AutoSizeText(
+              DateFormat('yyyy', locale).format(date),
+              style: labelTextStyle.copyWith(fontWeight: FontWeight.bold),
+            ),
+            AutoSizeText(
+              DateFormat('MMM', locale).format(date),
+              style: labelTextStyle,
+            ),
+          ],
+        );
       } else if (date.day == 1) {
-        // if tick interval of more than 45 days show only every second tick
-        // starting from the first date of shown range.
+        // First of month – align to bottom to match the 'Jan' row position
         if ((interval <= 45) ||
             (interval > 45 && interval < 75 && date.month % 2 == 1) ||
             (interval >= 75 && interval < 120 && date.month % 3 == 1) ||
             (interval >= 120 && date.month % 6 == 1)) {
-          return DateFormat(
-            'MMM',
-            Localizations.localeOf(context).languageCode,
-          ).format(date);
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: AutoSizeText(
+              DateFormat('MMM', locale).format(date),
+              style: labelTextStyle,
+            ),
+          );
         }
-        return '';
+        return const SizedBox.shrink();
       } else if (date.month !=
               date.add(Duration(days: interval ~/ 1.5)).month ||
-          (maxX - date.millisecondsSinceEpoch <
+          (_curMaxX - date.millisecondsSinceEpoch <
               const Duration(days: 1).inMilliseconds)) {
-        return '';
+        return const SizedBox.shrink();
       } else if (date.day % interval == 0 && date.day - interval ~/ 1.5 > 0) {
-        return date.day.toString();
+        return Align(
+          alignment: Alignment.bottomCenter,
+          child: AutoSizeText(date.day.toString(), style: labelTextStyle),
+        );
       }
-      return '';
+      return const SizedBox.shrink();
     }
 
     AxisTitles bottomTitles() {
       return AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          reservedSize: textSize.height + margin,
+          reservedSize: textSize.height * 2,
           interval: 24 * 3600 * 1000, // days
-          getTitlesWidget: (double time, TitleMeta titleMeta) => Padding(
-            padding: EdgeInsets.only(top: margin),
-            child: AutoSizeText(time2xticklabel(time), style: labelTextStyle),
-          ),
+          getTitlesWidget: (double time, TitleMeta titleMeta) =>
+              time2xtickwidget(time),
         ),
       );
     }
@@ -325,7 +413,8 @@ class _CustomLineChartState extends State<CustomLineChart> {
     }
 
     Widget lineChart(double minX, double maxX, double minY, double maxY) {
-      // Find the interpolation spot whose x is closest to the visible centre.
+      // centerX is derived directly from the animated viewport values, so
+      // the tooltip spot is always in sync with the visible chart centre.
       int centerInterpolIdx = 0;
       if (measurementsInterpol.isNotEmpty) {
         final double centerX = (minX + maxX) / 2;
@@ -349,7 +438,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
         spots: measurementsInterpol,
         showingIndicators:
             (!widget.isPreview &&
-                _isDragging &&
+                _showTooltip &&
                 measurementsInterpol.isNotEmpty)
             ? <int>[centerInterpolIdx]
             : <int>[],
@@ -378,7 +467,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
           maxY: maxY.ceilToDouble(),
           showingTooltipIndicators:
               (!widget.isPreview &&
-                  _isDragging &&
+                  _showTooltip &&
                   measurementsInterpol.isNotEmpty)
               ? <ShowingTooltipIndicators>[
                   ShowingTooltipIndicators(<LineBarSpot>[
@@ -565,7 +654,7 @@ class _CustomLineChartState extends State<CustomLineChart> {
                 ),
           ],
         ),
-        duration: TraleTheme.of(context)!.transitionDuration.slow,
+        duration: Duration.zero,
         curve: Curves.easeOut,
       );
     }
@@ -596,37 +685,31 @@ class _CustomLineChartState extends State<CustomLineChart> {
 
     void dragUpdate(DragUpdateDetails dragUpdDet) {
       if (!widget.isPreview) {
-        setState(() {
-          _isDragging = true;
-          final double primDelta =
-              (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
-
-          final double range = maxX - minX;
-          final double dataMaxX =
-              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
-              ? interpolTimes.last
-              : DateTime.now().millisecondsSinceEpoch.toDouble();
-          // Allow scrolling until the first/last interpolation point is
-          // centred in the visible window.
-          final double allowedMaxX = dataMaxX + range / 2;
-          final double allowedMinX = interpolTimes.first - range / 2;
-          final double newMaxX = (maxX - primDelta).clamp(
-            allowedMinX + range,
-            allowedMaxX,
-          );
-          maxX = newMaxX;
-          minX = newMaxX - range;
-        });
+        _tooltipTimer?.cancel();
+        _showTooltip = true;
+        final double primDelta =
+            (dragUpdDet.primaryDelta ?? 0.0) * (maxX - minX) / 100;
+        final double range = maxX - minX;
+        final double dataMaxX =
+            interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+            ? interpolTimes.last
+            : DateTime.now().millisecondsSinceEpoch.toDouble();
+        // Allow scrolling until the first/last interpolation point is
+        // centred in the visible window.
+        final double allowedMaxX = dataMaxX + range / 2;
+        final double allowedMinX = interpolTimes.first - range / 2;
+        final double newMaxX = (maxX - primDelta).clamp(
+          allowedMinX + range,
+          allowedMaxX,
+        );
+        _animateTo(newMaxX - range, newMaxX);
       }
     }
 
     void doubleTap() {
       if (!widget.isPreview) {
         notifier.nextZoomLevel();
-        setState(() {
-          maxX = notifier.zoomLevel.maxX;
-          minX = notifier.zoomLevel.minX;
-        });
+        _animateTo(notifier.zoomLevel.minX, notifier.zoomLevel.maxX);
       }
     }
 
@@ -648,9 +731,19 @@ class _CustomLineChartState extends State<CustomLineChart> {
               onDoubleTap: doubleTap,
               //onScaleUpdate: scaleUpdate,
               onHorizontalDragUpdate: dragUpdate,
-              onHorizontalDragEnd: (_) => setState(() => _isDragging = false),
-              onHorizontalDragCancel: () => setState(() => _isDragging = false),
-              child: lineChart(minX, maxX, minY, maxY),
+              onHorizontalDragEnd: (_) {
+                _tooltipTimer?.cancel();
+                _tooltipTimer = Timer(const Duration(seconds: 3), () {
+                  if (mounted) setState(() => _showTooltip = false);
+                });
+              },
+              onHorizontalDragCancel: () {
+                _tooltipTimer?.cancel();
+                _tooltipTimer = Timer(const Duration(seconds: 3), () {
+                  if (mounted) setState(() => _showTooltip = false);
+                });
+              },
+              child: lineChart(_curMinX, _curMaxX, minY, maxY),
             ),
           ),
         ),
@@ -671,10 +764,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
                             ? null
                             : () {
                                 notifier.zoomOut();
-                                setState(() {
-                                  maxX = notifier.zoomLevel.maxX;
-                                  minX = notifier.zoomLevel.minX;
-                                });
+                                _animateTo(
+                                  notifier.zoomLevel.minX,
+                                  notifier.zoomLevel.maxX,
+                                );
                               },
                         icon: PPIcon(
                           PhosphorIconsDuotone.magnifyingGlassMinus,
@@ -688,10 +781,10 @@ class _CustomLineChartState extends State<CustomLineChart> {
                             ? null
                             : () {
                                 notifier.zoomIn();
-                                setState(() {
-                                  maxX = notifier.zoomLevel.maxX;
-                                  minX = notifier.zoomLevel.minX;
-                                });
+                                _animateTo(
+                                  notifier.zoomLevel.minX,
+                                  notifier.zoomLevel.maxX,
+                                );
                               },
                         icon: PPIcon(
                           PhosphorIconsDuotone.magnifyingGlassPlus,
