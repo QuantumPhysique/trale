@@ -75,6 +75,10 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
+      - name: Check formatting
+        run: |
+          cd app
+          dart format --set-exit-if-changed .
       - name: Lint dart code
         run: |
           cd app
@@ -87,6 +91,10 @@ jobs:
         run: |
           cd app
           make generate
+      - name: 🧪 Run tests
+        run: |
+          cd app
+          flutter test
       - name: 🤖📦 Create Android release
         run: |
           cd app

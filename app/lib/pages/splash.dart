@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/notificationService.dart';
+import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/notification_service.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/home.dart';
-import 'package:trale/pages/onBoarding.dart';
+import 'package:trale/pages/on_boarding.dart';
 
 /// splash scaffold
 class Splash extends StatefulWidget {

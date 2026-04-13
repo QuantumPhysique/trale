@@ -3,14 +3,14 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/stringExtension.dart';
+import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/customScrollViewSnapping.dart';
-import 'package:trale/widget/ioWidgets.dart';
+import 'package:trale/widget/custom_scroll_view_snapping.dart';
+import 'package:trale/widget/io_widgets.dart';
 import 'package:trale/widget/tile_group.dart';
 
 /// Export settings page.

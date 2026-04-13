@@ -5,11 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/contrast.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/stringExtension.dart';
+import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/customScrollViewSnapping.dart';
+import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/tile_group.dart';
 
 /// ListTile for changing interpolation settings

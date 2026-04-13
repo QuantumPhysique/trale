@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
-import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/core/units.dart';
+import 'package:trale/core/measurement_formatter.dart';
 
 part 'measurement.g.dart';
 
@@ -48,42 +45,32 @@ class Measurement {
 
   /// return weight in active unit
   double inUnit(BuildContext context) =>
-      weight / Provider.of<TraleNotifier>(context, listen: false).unit.scaling;
+      MeasurementFormatter.fromContext(context).inUnit(this);
 
   /// convert to String
-  String weightToString(BuildContext context, {bool showUnit = true}) =>
-      Provider.of<TraleNotifier>(
-        context,
-        listen: false,
-      ).unit.measurementToString(
-        this,
-        Provider.of<TraleNotifier>(context, listen: false).unitPrecision,
-        showUnit: showUnit,
-      );
+  String weightToString(
+    BuildContext context, {
+    bool showUnit = true,
+  }) =>
+      MeasurementFormatter.fromContext(context)
+          .weightToString(this, showUnit: showUnit);
 
-  /// convert date to String
-  String dayToString(BuildContext context) => Provider.of<TraleNotifier>(
-    context,
-    listen: false,
-  ).dayFormat(context).format(date);
+  /// convert date to String (short, no year)
+  String dayToString(BuildContext context) =>
+      MeasurementFormatter.fromContext(context).dayToString(this);
 
-  /// convert date to String
-  String dateToString(BuildContext context) => Provider.of<TraleNotifier>(
-    context,
-    listen: false,
-  ).dateFormat(context).format(date);
+  /// convert date to String (full, with year)
+  String dateToString(BuildContext context) =>
+      MeasurementFormatter.fromContext(context).dateToString(this);
 
-  /// convert date to String
-  String timeToString(BuildContext context) => TimeOfDay.fromDateTime(date)
-      .format(context)
-      .padLeft(
-        DateFormat(
-              'j',
-              Localizations.localeOf(context).toString(),
-            ).pattern!.contains('H')
-            ? 5
-            : 8,
-      );
+  /// convert time to String
+  String timeToString(BuildContext context) {
+    final MeasurementFormatter fmt =
+        MeasurementFormatter.fromContext(context);
+    final String formattedTime =
+        TimeOfDay.fromDateTime(date).format(context);
+    return fmt.timeToString(this, formattedTime: formattedTime);
+  }
 
   /// date followed by weight
   String measureToString(BuildContext context, {int ws = 10}) =>

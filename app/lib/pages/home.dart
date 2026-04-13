@@ -3,17 +3,17 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/pages/measurementScreen.dart';
+import 'package:trale/pages/measurement_screen.dart';
 import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/settingsOverview.dart';
-import 'package:trale/pages/statScreen.dart';
-import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/customSliverAppBar.dart';
-import 'package:trale/widget/floatingActionButton.dart';
-import 'package:trale/widget/userDialog.dart';
+import 'package:trale/pages/settings_overview.dart';
+import 'package:trale/pages/stat_screen.dart';
+import 'package:trale/widget/add_weight_dialog.dart';
+import 'package:trale/widget/custom_sliver_app_bar.dart';
+import 'package:trale/widget/floating_action_button.dart';
+import 'package:trale/widget/user_dialog.dart';
 import 'package:trale/widget/changelog_widget.dart';
 
 /// home scaffold

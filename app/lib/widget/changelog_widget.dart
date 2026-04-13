@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/widget/bulletList.dart';
+import 'package:trale/core/trale_notifier.dart';
+import 'package:trale/widget/bullet_list.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:trale/core/changelog.dart';
 

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/animation_replay_scope.dart';
-import 'package:trale/widget/emptyChart.dart';
-import 'package:trale/widget/ioWidgets.dart';
+import 'package:trale/widget/empty_chart.dart';
+import 'package:trale/widget/io_widgets.dart';
 import 'package:trale/widget/linechart.dart';
-import 'package:trale/widget/statsWidgets.dart';
+import 'package:trale/widget/stats_widgets.dart';
 
 /// Overview screen widget.
 class OverviewScreen extends StatefulWidget {

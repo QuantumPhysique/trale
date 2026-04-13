@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:trale/core/icons.dart';
-import 'package:trale/core/notificationService.dart';
-import 'package:trale/core/stringExtension.dart';
+import 'package:trale/core/notification_service.dart';
+import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/customScrollViewSnapping.dart';
+import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/tile_group.dart';
 
 /// Settings sub-page for configuring weight-logging reminders.

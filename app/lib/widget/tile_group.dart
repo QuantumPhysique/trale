@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
 import 'package:flutter/material.dart';
 import 'package:trale/core/font.dart';
-import 'package:trale/core/stringExtension.dart';
+import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 
 /// A rounded section that groups a list of tiles and draws dividers between

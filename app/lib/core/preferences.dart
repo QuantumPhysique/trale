@@ -1,15 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:trale/core/backupInterval.dart';
+import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/contrast.dart';
-import 'package:trale/core/firstDay.dart';
+import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
-import 'package:trale/core/printFormat.dart';
+import 'package:trale/core/print_format.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/core/zoomLevel.dart';
+import 'package:trale/core/zoom_level.dart';
 
 /// Class to coordinate shared preferences access
 class Preferences {
@@ -19,6 +20,12 @@ class Preferences {
   /// single instance creation
   Preferences._internal() {
     _loaded = loadPreferences();
+  }
+
+  /// Constructor for testing with a pre-configured SharedPreferences.
+  @visibleForTesting
+  Preferences.forTesting(this.prefs) {
+    loadDefaultSettings();
   }
 
   /// load preference
@@ -32,7 +39,17 @@ class Preferences {
   Future<void>? _loaded;
 
   /// singleton instance
-  static final Preferences _instance = Preferences._internal();
+  static Preferences _instance = Preferences._internal();
+
+  /// Replace the singleton instance for testing.
+  @visibleForTesting
+  static set testInstance(Preferences instance) => _instance = instance;
+
+  /// Reset the singleton instance after testing.
+  @visibleForTesting
+  static void resetInstance() {
+    _instance = Preferences._internal();
+  }
 
   /// shared preference instance
   late SharedPreferences prefs;

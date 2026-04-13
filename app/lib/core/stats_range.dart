@@ -45,7 +45,7 @@ extension StatsRangeExtension on StatsRange {
     // StatsRange.custom
 
     final Preferences prefs = Preferences();
-    return (from: prefs.defaultStatsRangeFrom, to: prefs.defaultStatsRangeTo);
+    return (from: prefs.statsRangeFrom, to: prefs.statsRangeTo);
   }
 
   /// get string expression

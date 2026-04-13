@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
+import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/tile_group.dart';
