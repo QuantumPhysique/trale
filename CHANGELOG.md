@@ -15,6 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added Features and Improvements 🙌:
+- Rewrite of stats, and stas page
 - Allow to set a target date
 - Allows selecting 0.05kg/st/lb steps for more precision
 - Major performance improvements by making app async

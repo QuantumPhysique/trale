@@ -706,7 +706,35 @@ class _CustomLineChartState extends State<CustomLineChart>
           allowedMinX + range,
           allowedMaxX,
         );
-        _animateTo(newMaxX - range, newMaxX);
+        _snapTo(newMaxX - range, newMaxX);
+        setState(() {});
+      }
+    }
+
+    void dragEnd(DragEndDetails details) {
+      if (!widget.isPreview) {
+        final double velocity = details.primaryVelocity ?? 0.0;
+        if (velocity.abs() > 50) {
+          final double range = maxX - minX;
+          final double dataMaxX =
+              interpolTimes.last > DateTime.now().millisecondsSinceEpoch
+              ? interpolTimes.last
+              : DateTime.now().millisecondsSinceEpoch.toDouble();
+          final double allowedMaxX = dataMaxX + range / 2;
+          final double allowedMinX = interpolTimes.first - range / 2;
+          // Convert pixel velocity to chart-coordinate fling distance.
+          // Uses the same scale factor as dragUpdate (range / 100 per pixel).
+          final double flingDelta = -velocity * (range / 100) * 0.3;
+          final double newMaxX = (maxX + flingDelta).clamp(
+            allowedMinX + range,
+            allowedMaxX,
+          );
+          _animateTo(newMaxX - range, newMaxX);
+        }
+        _tooltipTimer?.cancel();
+        _tooltipTimer = Timer(const Duration(seconds: 3), () {
+          if (mounted) setState(() => _showTooltip = false);
+        });
       }
     }
 
@@ -735,12 +763,7 @@ class _CustomLineChartState extends State<CustomLineChart>
               onDoubleTap: doubleTap,
               //onScaleUpdate: scaleUpdate,
               onHorizontalDragUpdate: dragUpdate,
-              onHorizontalDragEnd: (_) {
-                _tooltipTimer?.cancel();
-                _tooltipTimer = Timer(const Duration(seconds: 3), () {
-                  if (mounted) setState(() => _showTooltip = false);
-                });
-              },
+              onHorizontalDragEnd: dragEnd,
               onHorizontalDragCancel: () {
                 _tooltipTimer?.cancel();
                 _tooltipTimer = Timer(const Duration(seconds: 3), () {
