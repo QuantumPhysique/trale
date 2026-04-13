@@ -5,6 +5,9 @@ import 'package:trale/core/measurementInterpolation.dart';
 
 /// zoom level for line chart in [month]
 enum ZoomLevel {
+  /// one month.
+  one,
+
   /// Two months.
   two,
 
@@ -29,6 +32,7 @@ extension ZoomLevelExtension on ZoomLevel {
   /// get the window length in month
   double get _rangeInMilliseconds =>
       <ZoomLevel, int>{
+        ZoomLevel.one: 1,
         ZoomLevel.two: 2,
         ZoomLevel.six: 6,
         ZoomLevel.year: 12,
@@ -47,7 +51,7 @@ extension ZoomLevelExtension on ZoomLevel {
   /// get next zoom level
   ZoomLevel get next {
     if (this == ZoomLevel.all) {
-      return ZoomLevel.two;
+      return ZoomLevel.one;
     }
     return zoomOut;
   }
@@ -70,8 +74,8 @@ extension ZoomLevelExtension on ZoomLevel {
   /// zoom in
   ZoomLevel get zoomIn {
     /// if already at all return all
-    if (this == ZoomLevel.two) {
-      return ZoomLevel.two;
+    if (this == ZoomLevel.one) {
+      return ZoomLevel.one;
     }
     final ZoomLevel nextLevel = ZoomLevel.values[index - 1];
 

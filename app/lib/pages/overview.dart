@@ -107,23 +107,18 @@ class _OverviewScreen extends State<OverviewScreen>
       context,
     )!.transitionDuration.slow.inMilliseconds;
 
-    Widget overviewScreen(
-      BuildContext context,
-      AsyncSnapshot<List<Measurement>> snapshot,
-    ) {
-      // Use measurements count as stable key to avoid
-      // recreating widgets on navigation
-      final int measurementCount = snapshot.data?.length ?? 0;
+    Widget overviewScreen(BuildContext context) {
+      final int hash = MeasurementInterpolation().hashCode;
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          AnimatedStatsWidgets(key: ValueKey<int>(measurementCount)),
+          AnimatedStatsWidgets(key: ValueKey<int>(hash)),
           AnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
             child: CustomLineChart(
               loadedFirst: loadedFirst,
               ip: ip,
-              key: ValueKey<int>(measurementCount),
+              key: ValueKey<int>(hash),
             ),
           ),
           const SizedBox(height: 80.0),
@@ -131,15 +126,12 @@ class _OverviewScreen extends State<OverviewScreen>
       );
     }
 
-    Widget overviewScreenWrapper(
-      BuildContext context,
-      AsyncSnapshot<List<Measurement>> snapshot,
-    ) {
-      final MeasurementDatabase database = MeasurementDatabase();
-      final List<SortedMeasurement> measurements = database.sortedMeasurements;
+    Widget overviewScreenWrapper(BuildContext context) {
+      final List<SortedMeasurement> measurements =
+          MeasurementDatabase().sortedMeasurements;
 
       return measurements.isNotEmpty
-          ? overviewScreen(context, snapshot)
+          ? overviewScreen(context)
           : defaultEmptyChart(context: context, overviewScreen: true);
     }
 
@@ -147,12 +139,8 @@ class _OverviewScreen extends State<OverviewScreen>
       controller: _replayController,
       child: StreamBuilder<List<Measurement>>(
         stream: _measurementStream,
-        builder:
-            (BuildContext context, AsyncSnapshot<List<Measurement>> snapshot) =>
-                SafeArea(
-                  key: key,
-                  child: overviewScreenWrapper(context, snapshot),
-                ),
+        builder: (BuildContext context, _) =>
+            SafeArea(key: key, child: overviewScreenWrapper(context)),
       ),
     );
   }

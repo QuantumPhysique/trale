@@ -5,6 +5,7 @@ import 'package:trale/core/firstDay.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/printFormat.dart';
+import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -51,6 +52,15 @@ class Preferences {
 
   /// default for userTargetWeightSetDate (not set)
   final DateTime? defaultUserTargetWeightSetDate = null;
+
+  /// default for statsRangeFrom
+  final DateTime? defaultStatsRangeFrom = null;
+
+  /// default for statsRangeTo
+  final DateTime? defaultStatsRangeTo = null;
+
+  /// default for stats use interpolation (true = interpolated, false = raw)
+  final bool defaultStatsUseInterpolation = true;
 
   /// default for userTargetWeight in kg
   final double defaultUserWeight = 70;
@@ -120,6 +130,9 @@ class Preferences {
   /// default show measurement hint banner
   final bool defaultShowMeasurementHintBanner = true;
 
+  /// default show stats hint banner
+  final bool defaultShowStatsHintBanner = true;
+
   /// default show changelog
   final bool defaultShowChangelog = true;
 
@@ -137,6 +150,9 @@ class Preferences {
 
   /// default reminder minute
   final int defaultReminderMinute = 0;
+
+  /// default stats Range
+  final StatsRange defaultStatsRange = StatsRange.all;
 
   /// getter and setter for all preferences
   /// set user name
@@ -200,6 +216,37 @@ class Preferences {
     final DateTime parsed = DateTime.parse(raw);
     return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
   }
+
+  /// Get stats use interpolation
+  bool get statsUseInterpolation => prefs.getBool('statsUseInterpolation')!;
+
+  /// Set stats use interpolation
+  set statsUseInterpolation(bool useInterpolation) =>
+      prefs.setBool('statsUseInterpolation', useInterpolation);
+
+  /// Get statsRangeFrom
+  DateTime? get statsRangeFrom {
+    final DateTime parsed = DateTime.parse(prefs.getString('statsRangeFrom')!);
+    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
+  }
+
+  /// Set statsRangeFrom
+  set statsRangeFrom(DateTime? date) => prefs.setString(
+    'statsRangeFrom',
+    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
+  );
+
+  /// Get statsRangeTo
+  DateTime? get statsRangeTo {
+    final DateTime parsed = DateTime.parse(prefs.getString('statsRangeTo')!);
+    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
+  }
+
+  /// Set statsRangeTo
+  set statsRangeTo(DateTime? date) => prefs.setString(
+    'statsRangeTo',
+    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
+  );
 
   /// set if onboarding screen is shown
   set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
@@ -350,6 +397,13 @@ class Preferences {
   set showMeasurementHintBanner(bool show) =>
       prefs.setBool('showMeasurementHintBanner', show);
 
+  /// Get show stats hint banner
+  bool get showStatsHintBanner => prefs.getBool('showStatsHintBanner')!;
+
+  /// Set show stats hint banner
+  set showStatsHintBanner(bool show) =>
+      prefs.setBool('showStatsHintBanner', show);
+
   /// Get show changelog
   bool get showChangelog => prefs.getBool('showChangelog')!;
 
@@ -393,6 +447,12 @@ class Preferences {
 
   /// Set reminder minute
   set reminderMinute(int minute) => prefs.setInt('reminderMinute', minute);
+
+  /// Get stats range
+  StatsRange get statsRange => prefs.getString('statsRange')!.toStatsRange()!;
+
+  /// Set stats range
+  set statsRange(StatsRange range) => prefs.setString('statsRange', range.name);
 
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
@@ -471,6 +531,9 @@ class Preferences {
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;
     }
+    if (override || !prefs.containsKey('showStatsHintBanner')) {
+      showStatsHintBanner = defaultShowStatsHintBanner;
+    }
     if (override || !prefs.containsKey('showChangelog')) {
       showChangelog = defaultShowChangelog;
     }
@@ -488,6 +551,18 @@ class Preferences {
     }
     if (override || !prefs.containsKey('reminderMinute')) {
       reminderMinute = defaultReminderMinute;
+    }
+    if (override || !prefs.containsKey('statsRange')) {
+      statsRange = defaultStatsRange;
+    }
+    if (override || !prefs.containsKey('statsRangeFrom')) {
+      statsRangeFrom = defaultStatsRangeFrom;
+    }
+    if (override || !prefs.containsKey('statsRangeTo')) {
+      statsRangeTo = defaultStatsRangeTo;
+    }
+    if (override || !prefs.containsKey('statsUseInterpolation')) {
+      statsUseInterpolation = defaultStatsUseInterpolation;
     }
   }
 

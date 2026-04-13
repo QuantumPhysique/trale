@@ -146,7 +146,7 @@ List<int>? openScaleIndices(List<String?> lines, {String separator = ','}) {
 
 /// Import backup
 Future<bool> importBackup(BuildContext context) async {
-  final FilePickerResult? pickerResult = await FilePicker.platform.pickFiles(
+  final FilePickerResult? pickerResult = await FilePicker.pickFiles(
     type: FileType.custom,
     allowedExtensions: <String>['txt', 'csv'],
   );

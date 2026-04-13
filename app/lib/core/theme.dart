@@ -111,6 +111,9 @@ class TraleTheme {
   /// Get inner border radius
   double get innerBorderRadius => 4;
 
+  /// Get bento border radius
+  double get bentoBorderRadius => 32;
+
   /// Border shape
   final RoundedRectangleBorder borderShape = RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(16),
@@ -121,8 +124,16 @@ class TraleTheme {
     borderRadius: BorderRadius.circular(4),
   );
 
+  /// bento shape
+  final RoundedRectangleBorder bentoBorderShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(32),
+  );
+
   /// Padding value
   final double padding = 16;
+
+  /// Padding bento grid
+  final double bentoPadding = 8;
 
   /// Space value between two elements
   final double space = 2;

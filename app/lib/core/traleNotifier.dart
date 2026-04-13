@@ -9,8 +9,10 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurementDatabase.dart';
 import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurementStats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/printFormat.dart';
+import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -335,6 +337,54 @@ class TraleNotifier with ChangeNotifier {
     return MeasurementInterpolation().measurementForDay(date);
   }
 
+  /// getter for stats range from date used for StatsRange.custom
+  DateTime? get statsRangeFrom => prefs.statsRangeFrom;
+
+  /// setter for stats range from date used for StatsRange.custom
+  set statsRangeFrom(DateTime? newDate) {
+    if (statsRangeFrom != newDate) {
+      prefs.statsRangeFrom = newDate;
+      MeasurementStats().reinit();
+      notifyListeners();
+    }
+  }
+
+  /// getter for stats range to date used for StatsRange.custom
+  DateTime? get statsRangeTo => prefs.statsRangeTo;
+
+  /// setter for stats range to date used for StatsRange.custom
+  set statsRangeTo(DateTime? newDate) {
+    if (statsRangeTo != newDate) {
+      prefs.statsRangeTo = newDate;
+      MeasurementStats().reinit();
+      notifyListeners();
+    }
+  }
+
+  /// getter for stats range mode
+  StatsRange get statsRange => prefs.statsRange;
+
+  /// setter for stats range mode
+  set statsRange(StatsRange newRange) {
+    if (statsRange != newRange) {
+      prefs.statsRange = newRange;
+      MeasurementStats().reinit();
+      notifyListeners();
+    }
+  }
+
+  /// getter for stats use interpolation
+  bool get statsUseInterpolation => prefs.statsUseInterpolation;
+
+  /// setter for stats use interpolation
+  set statsUseInterpolation(bool useInterpolation) {
+    if (statsUseInterpolation != useInterpolation) {
+      prefs.statsUseInterpolation = useInterpolation;
+      MeasurementStats().reinit();
+      notifyListeners();
+    }
+  }
+
   /// get user height in [cm]
   double? get userHeight => prefs.userHeight;
 
@@ -409,6 +459,17 @@ class TraleNotifier with ChangeNotifier {
   set showMeasurementHintBanner(bool show) {
     if (show != showMeasurementHintBanner) {
       prefs.showMeasurementHintBanner = show;
+      notifyListeners();
+    }
+  }
+
+  /// getter
+  bool get showStatsHintBanner => prefs.showStatsHintBanner;
+
+  /// setter
+  set showStatsHintBanner(bool show) {
+    if (show != showStatsHintBanner) {
+      prefs.showStatsHintBanner = show;
       notifyListeners();
     }
   }

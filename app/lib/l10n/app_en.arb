@@ -27,6 +27,27 @@
     "month": "month",
     "years": "years",
     "year": "year",
+    "today": "today",
+    "weightForecast": "forecast",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "all",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "since goal",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "last year",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "custom",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
     "never": "never",
     "@never": {
         "description": "Frequency of backup interval"
@@ -74,6 +95,10 @@
     "stats": "Statistics",
     "@stats": {
         "description": "Header for statistics section"
+    },
+    "allTimeStats": "All-time stats",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
     },
     "trale": "trale",
     "@trale": {
@@ -534,6 +559,10 @@
     "@mean": {
         "description": "The mathematical quantity (arithmetic mean)"
     },
+    "median": "median",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
     "measurementFrequency": "measurement frequency",
     "@measurementFrequency": {
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
@@ -733,5 +762,71 @@
     "reminderNotificationBody": "You haven't logged your weight today yet.",
     "@reminderNotificationBody": {
         "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "calorie deficit",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Diff. from target",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Stats range",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "From",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "To",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Dates",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Long press a date to unset it. An unset start date means from the first measurement, an unset end date means until today.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Statistics basis",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Interpolated values smooth out daily fluctuations caused by hydration, meal timing, and other factors, giving a clearer picture of your true weight trend. Raw measurements reflect exactly what you recorded but can vary considerably from day to day. Using the interpolated curve helps you track real progress rather than short-term noise.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Statistics are based on {sourceName}. You can change this in the personalization settings.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Severely underweight",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Underweight",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Normal weight",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Overweight",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Obese",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
     }
 }
