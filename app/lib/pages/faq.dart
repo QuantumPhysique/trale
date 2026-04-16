@@ -6,7 +6,7 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/pages/on_boarding.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/settings_banner.dart';
@@ -23,7 +23,7 @@ class OnBoardingListTile extends StatelessWidget {
       child: GroupedListTile(
         color: Theme.of(context).colorScheme.primaryContainer,
         title: Text(
-          AppLocalizations.of(context)!.faq_a2_widget,
+          context.l10n.faq_a2_widget,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.onPrimaryContainer,
           ),
@@ -103,21 +103,21 @@ class _FAQ extends State<FAQ> {
     /// list of questions and answers
     final List<FAQEntry> faqEntries = <FAQEntry>[
       FAQEntry(
-        question: AppLocalizations.of(context)!.faq_q1,
-        answer: AppLocalizations.of(context)!.faq_a1,
+        question: context.l10n.faq_q1,
+        answer: context.l10n.faq_a1,
       ),
       // FAQEntry(
-      //   question: AppLocalizations.of(context)!.faq_q2,
-      //   answer: AppLocalizations.of(context)!.faq_a2,
+      //   question: context.l10n.faq_q2,
+      //   answer: context.l10n.faq_a2,
       //   answerWidget: const OnBoardingListTile(),
       // ),
       FAQEntry(
-        question: AppLocalizations.of(context)!.faq_q4,
-        answer: AppLocalizations.of(context)!.faq_a4,
+        question: context.l10n.faq_q4,
+        answer: context.l10n.faq_a4,
       ),
       FAQEntry(
-        question: AppLocalizations.of(context)!.faq_q3,
-        answer: AppLocalizations.of(context)!.faq_a3,
+        question: context.l10n.faq_q3,
+        answer: context.l10n.faq_a3,
       ),
     ];
 
@@ -125,8 +125,8 @@ class _FAQ extends State<FAQ> {
       return <Widget>[
         SettingsBanner(
           leadingIcon: PhosphorIconsBold.githubLogo,
-          title: AppLocalizations.of(context)!.openIssue.allInCaps,
-          subtitle: AppLocalizations.of(context)!.openIssueSubtitle,
+          title: context.l10n.openIssue.allInCaps,
+          subtitle: context.l10n.openIssueSubtitle,
           url: 'https://github.com/quantumphysique/trale/',
         ),
         SizedBox(height: 2 * TraleTheme.of(context)!.padding),
@@ -139,7 +139,7 @@ class _FAQ extends State<FAQ> {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.faq.allInCaps,
+        title: context.l10n.faq.allInCaps,
         sliverlist: faqList(),
       ),
     );

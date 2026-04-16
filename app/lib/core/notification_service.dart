@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:trale/core/logger.dart';
 
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
@@ -54,7 +54,11 @@ class NotificationService {
       tz.setLocalLocation(tz.getLocation(DateTime.now().timeZoneName));
     } catch (e) {
       // Fallback: find a location whose current UTC offset matches the device.
-      debugPrint('Could not resolve timezone name, falling back to offset: $e');
+      AppLogger.warning(
+        'Could not resolve timezone name, falling back to offset',
+        tag: 'Notifications',
+        error: e,
+      );
       final int offsetMs = DateTime.now().timeZoneOffset.inMilliseconds;
       final tz.Location fallback = tz.timeZoneDatabase.locations.values
           .firstWhere(

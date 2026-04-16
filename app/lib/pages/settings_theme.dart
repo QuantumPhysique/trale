@@ -8,7 +8,7 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/tile_group.dart';
 
@@ -33,7 +33,7 @@ class ContrastLevelSetting extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             AutoSizeText(
-              AppLocalizations.of(context)!.highContrast.inCaps,
+              context.l10n.highContrast.inCaps,
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
@@ -72,7 +72,7 @@ class AmoledListTile extends StatelessWidget {
       child: SwitchListTile(
         dense: true,
         title: AutoSizeText(
-          AppLocalizations.of(context)!.amoled,
+          context.l10n.amoled,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
@@ -80,7 +80,7 @@ class AmoledListTile extends StatelessWidget {
           horizontal: TraleTheme.of(context)!.padding,
         ),
         subtitle: AutoSizeText(
-          AppLocalizations.of(context)!.amoledSubtitle,
+          context.l10n.amoledSubtitle,
           style: Theme.of(context).textTheme.labelSmall,
         ),
         value: Provider.of<TraleNotifier>(context).isAmoled,
@@ -109,7 +109,7 @@ class DarkModeListTile extends StatelessWidget {
         0.5 * TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        AppLocalizations.of(context)!.darkmode,
+        context.l10n.darkmode,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
@@ -584,10 +584,10 @@ class ThemeSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Widget> sliverList = <Widget>[
       WidgetGroup(
-        title: AppLocalizations.of(context)!.theme,
+        title: context.l10n.theme,
         children: <Widget>[
           GroupedText(
-            text: Text(AppLocalizations.of(context)!.themeDescription),
+            text: Text(context.l10n.themeDescription),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -597,10 +597,10 @@ class ThemeSettingsPage extends StatelessWidget {
       ),
 
       WidgetGroup(
-        title: AppLocalizations.of(context)!.schemeVariant,
+        title: context.l10n.schemeVariant,
         children: <Widget>[
           GroupedText(
-            text: Text(AppLocalizations.of(context)!.schemeVariantDescription),
+            text: Text(context.l10n.schemeVariantDescription),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -609,7 +609,7 @@ class ThemeSettingsPage extends StatelessWidget {
         ],
       ),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.additionalSettings,
+        title: context.l10n.additionalSettings,
         children: const <Widget>[
           DarkModeListTile(),
           AmoledListTile(),
@@ -620,7 +620,7 @@ class ThemeSettingsPage extends StatelessWidget {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.theme,
+        title: context.l10n.theme,
         sliverlist: sliverList,
       ),
     );

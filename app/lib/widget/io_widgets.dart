@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
+import 'package:trale/core/logger.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,9 +14,10 @@ import 'package:trale/core/font.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/measurement_formatter.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 
 /// Export backup
 Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
@@ -60,7 +62,7 @@ Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
   if (success) {
     sm.showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.backupSuccess),
+        content: Text(context.l10n.backupSuccess),
         behavior: SnackBarBehavior.floating,
         duration: TraleTheme.of(context)!.snackbarDuration,
       ),
@@ -77,7 +79,15 @@ List<Measurement> parseMeasurementsTxt(List<String?> lines) {
   for (final String? line in lines) {
     // parse comments
     if ((line != null) && !line.startsWith('#')) {
-      newMeasurements.add(Measurement.fromString(exportString: line));
+      try {
+        newMeasurements.add(Measurement.fromString(exportString: line));
+      } on FormatException catch (e) {
+        AppLogger.warning(
+          'Skipping invalid measurement line',
+          tag: 'Parser',
+          error: e,
+        );
+      }
     }
   }
   return newMeasurements;
@@ -103,7 +113,11 @@ List<Measurement> parseMeasurementsCSV(
     }
     final List<String> strings = line.split(separator);
     if (strings.length < dateIdx || strings.length < weightIdx) {
-      debugPrint('error with parsing measurement (csv format)!');
+      AppLogger.warning(
+        'Invalid column count in CSV line',
+        tag: 'Parser',
+        error: line,
+      );
       continue;
     }
     // remove all quotes from date String
@@ -116,7 +130,11 @@ List<Measurement> parseMeasurementsCSV(
         Measurement(weight: weight, date: date, isMeasured: true),
       );
     } catch (e) {
-      debugPrint('error with parsing date: $dateString');
+      AppLogger.warning(
+        'Failed to parse CSV date/weight',
+        tag: 'Parser',
+        error: dateString,
+      );
       continue;
     }
   }
@@ -187,7 +205,7 @@ Future<bool> importBackup(BuildContext context) async {
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: Text(
-              AppLocalizations.of(context)!.import,
+              context.l10n.import,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             content: Column(
@@ -209,10 +227,9 @@ Future<bool> importBackup(BuildContext context) async {
                               horizontal: TraleTheme.of(context)!.padding,
                             ),
                             child: AutoSizeText(
-                              newMeasurements[index].measureToString(
+                              MeasurementFormatter.fromContext(
                                 context,
-                                ws: 8,
-                              ),
+                              ).measureToString(newMeasurements[index], ws: 8),
                               style: Theme.of(
                                 context,
                               ).textTheme.monospace.bodyLarge,
@@ -226,7 +243,7 @@ Future<bool> importBackup(BuildContext context) async {
                 ),
                 Divider(height: 2 * TraleTheme.of(context)!.padding),
                 Text(
-                  AppLocalizations.of(context)!.importDialog,
+                  context.l10n.importDialog,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
@@ -244,12 +261,12 @@ Future<bool> importBackup(BuildContext context) async {
                     vertical: TraleTheme.of(context)!.padding / 2,
                     horizontal: TraleTheme.of(context)!.padding,
                   ),
-                  child: Text(AppLocalizations.of(context)!.abort),
+                  child: Text(context.l10n.abort),
                 ),
               ),
               FilledButton.icon(
                 onPressed: () => Navigator.pop(context, true),
-                label: Text(AppLocalizations.of(context)!.yes),
+                label: Text(context.l10n.yes),
                 icon: PPIcon(PhosphorIconsRegular.download, context),
               ),
             ],
@@ -283,7 +300,7 @@ Future<bool> importBackup(BuildContext context) async {
   if (!pickedSuccess || !accepted) {
     sm.showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.importingAbort),
+        content: Text(context.l10n.importingAbort),
         behavior: SnackBarBehavior.floating,
       ),
     );

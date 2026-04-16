@@ -5,7 +5,7 @@ import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/empty_chart.dart';
@@ -74,11 +74,11 @@ class _OverviewScreen extends State<OverviewScreen>
           final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
           sm.showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context)!.backupReminder),
+              content: Text(context.l10n.backupReminder),
               behavior: SnackBarBehavior.fixed,
               duration: TraleTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
-                label: AppLocalizations.of(context)!.backupReminderButton,
+                label: context.l10n.backupReminderButton,
                 onPressed: () => exportBackup(context),
               ),
               persist: false,

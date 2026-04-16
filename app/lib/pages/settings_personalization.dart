@@ -12,7 +12,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/tile_group.dart';
@@ -51,7 +51,7 @@ class _PersonalizationSettingsPageState
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            AppLocalizations.of(context)!.strength.inCaps,
+            context.l10n.strength.inCaps,
             style: Theme.of(context).textTheme.bodyLarge,
             maxLines: 1,
           ),
@@ -81,7 +81,7 @@ class _PersonalizationSettingsPageState
 
     final List<Widget> sliverlist = <Widget>[
       WidgetGroup(
-        title: AppLocalizations.of(context)!.interpolation,
+        title: context.l10n.interpolation,
         children: <Widget>[
           GroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
@@ -105,7 +105,7 @@ class _PersonalizationSettingsPageState
                 horizontal: TraleTheme.of(context)!.padding,
               ),
               title: Text(
-                AppLocalizations.of(context)!.showUserData.inCaps,
+                context.l10n.showUserData.inCaps,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               value: _showUserData,
@@ -127,7 +127,7 @@ class _PersonalizationSettingsPageState
           horizontal: TraleTheme.of(context)!.padding,
         ),
         child: Text(
-          AppLocalizations.of(context)!.interpolationExplanation(
+          context.l10n.interpolationExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
           ),
           style: Theme.of(context).textTheme.bodyMedium,
@@ -138,7 +138,7 @@ class _PersonalizationSettingsPageState
         builder: (BuildContext context, TraleNotifier notifier, _) {
           final ColorScheme colorScheme = Theme.of(context).colorScheme;
           return WidgetGroup(
-            title: AppLocalizations.of(context)!.statsSourceTitle,
+            title: context.l10n.statsSourceTitle,
             children: <Widget>[
               RadioGroup<bool>(
                 groupValue: notifier.statsUseInterpolation,
@@ -162,7 +162,7 @@ class _PersonalizationSettingsPageState
                         horizontal: TraleTheme.of(context)!.padding,
                       ),
                       title: Text(
-                        AppLocalizations.of(context)!.interpolation.inCaps,
+                        context.l10n.interpolation.inCaps,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
@@ -178,7 +178,7 @@ class _PersonalizationSettingsPageState
                         horizontal: TraleTheme.of(context)!.padding,
                       ),
                       title: Text(
-                        AppLocalizations.of(context)!.measurements.inCaps,
+                        context.l10n.measurements.inCaps,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
@@ -195,13 +195,13 @@ class _PersonalizationSettingsPageState
           horizontal: TraleTheme.of(context)!.padding,
         ),
         child: Text(
-          AppLocalizations.of(context)!.statsSourceExplanation,
+          context.l10n.statsSourceExplanation,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.unitTitle,
+        title: context.l10n.unitTitle,
         children: const <Widget>[
           UnitsListTile(),
           UnitPrecisionListTile(),
@@ -209,17 +209,17 @@ class _PersonalizationSettingsPageState
         ],
       ),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.dateSettings,
+        title: context.l10n.dateSettings,
         children: const <Widget>[FirstDayListTile(), DatePrintListTile()],
       ),
       UserDetailsGroup(
-        title: AppLocalizations.of(context)!.user,
+        title: context.l10n.user,
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
         notifier: notifier,
         onRefresh: () => setState(() {}),
       ),
       TargetWeightGroup(
-        title: AppLocalizations.of(context)!.targetWeight,
+        title: context.l10n.targetWeight,
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerLowest,
         notifier: notifier,
         onRefresh: () => setState(() {}),
@@ -228,7 +228,7 @@ class _PersonalizationSettingsPageState
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.personalization,
+        title: context.l10n.personalization,
         sliverlist: sliverlist,
       ),
     );
@@ -249,14 +249,14 @@ class UnitsListTile extends StatelessWidget {
         vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        AppLocalizations.of(context)!.unit,
+        context.l10n.unit,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<TraleUnit>(
         initialSelection: Provider.of<TraleNotifier>(context).unit,
         label: AutoSizeText(
-          AppLocalizations.of(context)!.unit,
+          context.l10n.unit,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
@@ -288,14 +288,14 @@ class UnitPrecisionListTile extends StatelessWidget {
         vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        AppLocalizations.of(context)!.precision.inCaps,
+        context.l10n.precision.inCaps,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<TraleUnitPrecision>(
         initialSelection: Provider.of<TraleNotifier>(context).unitPrecision,
         label: AutoSizeText(
-          AppLocalizations.of(context)!.precision,
+          context.l10n.precision,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
@@ -305,7 +305,7 @@ class UnitPrecisionListTile extends StatelessWidget {
               value: precision,
               label:
                   precision.settingsName ??
-                  AppLocalizations.of(context)!.defaultFormat,
+                  context.l10n.defaultFormat,
             ),
         ],
         onSelected: (TraleUnitPrecision? newPrecision) async {
@@ -338,14 +338,14 @@ class FirstDayListTile extends StatelessWidget {
             vertical: TraleTheme.of(context)!.padding,
           ),
           title: AutoSizeText(
-            AppLocalizations.of(context)!.firstDay,
+            context.l10n.firstDay,
             style: Theme.of(context).textTheme.bodyLarge,
             maxLines: 1,
           ),
           trailing: DropdownMenu<TraleFirstDay>(
             initialSelection: traleNotifier.firstDay,
             label: AutoSizeText(
-              AppLocalizations.of(context)!.firstDay,
+              context.l10n.firstDay,
               style: Theme.of(context).textTheme.bodyLarge,
               maxLines: 1,
             ),
@@ -388,14 +388,14 @@ class DatePrintListTile extends StatelessWidget {
         vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        AppLocalizations.of(context)!.format,
+        context.l10n.format,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<TraleDatePrintFormat>(
         initialSelection: Provider.of<TraleNotifier>(context).datePrintFormat,
         label: AutoSizeText(
-          AppLocalizations.of(context)!.format,
+          context.l10n.format,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
@@ -406,7 +406,7 @@ class DatePrintListTile extends StatelessWidget {
               value: datePrintFormat,
               label:
                   datePrintFormat.pattern ??
-                  AppLocalizations.of(context)!.defaultFormat,
+                  context.l10n.defaultFormat,
             ),
         ],
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
@@ -433,14 +433,14 @@ class HeightUnitListTile extends StatelessWidget {
         vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        AppLocalizations.of(context)!.heightUnit,
+        context.l10n.heightUnit,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<TraleUnitHeight>(
         initialSelection: Provider.of<TraleNotifier>(context).heightUnit,
         label: AutoSizeText(
-          AppLocalizations.of(context)!.heightUnit,
+          context.l10n.heightUnit,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),

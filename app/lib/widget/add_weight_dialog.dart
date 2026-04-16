@@ -11,7 +11,7 @@ import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/dialog.dart';
 import 'package:trale/widget/tile_group.dart';
 import 'package:trale/widget/weight_picker.dart';
@@ -57,7 +57,7 @@ Future<bool> showAddWeightDialog({
               GroupedListTile(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 leading: PPIcon(PhosphorIconsDuotone.calendar, context),
-                title: Text(AppLocalizations.of(context)!.date),
+                title: Text(context.l10n.date),
                 trailing: Text(
                   notifier.dateFormat(context).format(currentDate),
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -108,7 +108,7 @@ Future<bool> showAddWeightDialog({
               ),
               GroupedListTile(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
-                title: Text(AppLocalizations.of(context)!.time),
+                title: Text(context.l10n.time),
                 leading: PPIcon(PhosphorIconsDuotone.clock, context),
                 trailing: Text(
                   DateFormat.Hm().format(currentDate),
@@ -158,7 +158,7 @@ Future<bool> showAddWeightDialog({
         context: context,
         builder: (BuildContext context) {
           return DialogM3E(
-            title: AppLocalizations.of(context)!.addWeight,
+            title: context.l10n.addWeight,
             content: content,
             actions: actions(context, () async {
               final bool wasInserted = await database.insertMeasurement(
@@ -224,7 +224,7 @@ Future<bool> showTargetWeightDialog({
                 child: Padding(
                   padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
                   child: Text(
-                    AppLocalizations.of(context)!.targetWeightMotivation,
+                    context.l10n.targetWeightMotivation,
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
@@ -258,13 +258,13 @@ Future<bool> showTargetWeightDialog({
                 ),
                 title: Text(
                   looseWeight
-                      ? AppLocalizations.of(context)!.looseWeight
-                      : AppLocalizations.of(context)!.gainWeight,
+                      ? context.l10n.looseWeight
+                      : context.l10n.gainWeight,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
                 subtitle: Text(
-                  AppLocalizations.of(context)!.looseWeightSubtitle,
+                  context.l10n.looseWeightSubtitle,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 value: !looseWeight,
@@ -289,7 +289,7 @@ Future<bool> showTargetWeightDialog({
         context: context,
         builder: (BuildContext context) {
           return DialogM3E(
-            title: AppLocalizations.of(context)!.targetWeight,
+            title: context.l10n.targetWeight,
             content: content,
             actions: actions(context, () {
               // In order to make our contribution to prevention, no target
@@ -310,7 +310,7 @@ Future<bool> showTargetWeightDialog({
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      AppLocalizations.of(context)!.target_weight_warning,
+                      context.l10n.target_weight_warning,
                     ),
                     behavior: SnackBarBehavior.floating,
                     duration: const Duration(seconds: 10),
@@ -350,7 +350,7 @@ List<Widget> actions(
       ),
       icon: PPIcon(PhosphorIconsRegular.x, context),
       label: Text(
-        AppLocalizations.of(context)!.abort,
+        context.l10n.abort,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
           color: Theme.of(context).colorScheme.onSurface,
         ),
@@ -361,7 +361,7 @@ List<Widget> actions(
       onPressed: enabled ? () => onPress() : null,
       icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
       label: Text(
-        AppLocalizations.of(context)!.save,
+        context.l10n.save,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
           color: Theme.of(context).colorScheme.onPrimary,
         ),

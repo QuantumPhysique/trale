@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
-
-import 'package:trale/core/measurement_formatter.dart';
 
 part 'measurement.g.dart';
 
@@ -13,7 +10,8 @@ class Measurement {
     required this.weight,
     required this.date,
     this.isMeasured = false,
-  });
+  }) : assert(weight.isFinite, 'weight must be a finite number'),
+       assert(weight > 0, 'weight must be positive');
 
   /// weight of measurement
   @HiveField(0)
@@ -43,40 +41,6 @@ class Measurement {
       (weight == other.weight) &&
       (date.difference(other.date).inMinutes.abs() <= 1);
 
-  /// return weight in active unit
-  double inUnit(BuildContext context) =>
-      MeasurementFormatter.fromContext(context).inUnit(this);
-
-  /// convert to String
-  String weightToString(
-    BuildContext context, {
-    bool showUnit = true,
-  }) =>
-      MeasurementFormatter.fromContext(context)
-          .weightToString(this, showUnit: showUnit);
-
-  /// convert date to String (short, no year)
-  String dayToString(BuildContext context) =>
-      MeasurementFormatter.fromContext(context).dayToString(this);
-
-  /// convert date to String (full, with year)
-  String dateToString(BuildContext context) =>
-      MeasurementFormatter.fromContext(context).dateToString(this);
-
-  /// convert time to String
-  String timeToString(BuildContext context) {
-    final MeasurementFormatter fmt =
-        MeasurementFormatter.fromContext(context);
-    final String formattedTime =
-        TimeOfDay.fromDateTime(date).format(context);
-    return fmt.timeToString(this, formattedTime: formattedTime);
-  }
-
-  /// date followed by weight
-  String measureToString(BuildContext context, {int ws = 10}) =>
-      '${dayToString(context)} ${timeToString(context)} '
-      '${weightToString(context).padLeft(ws)}';
-
   /// return day in milliseconds since epoch neglecting the hours, minutes
   int get dayInMs => DateTime(
     date.year,
@@ -92,19 +56,27 @@ class Measurement {
   String get exportString =>
       '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
 
-  /// copy with applying change
+  /// Parses a [Measurement] from an [exportString] produced by [exportString].
+  ///
+  /// Throws a [FormatException] if the string is malformed or contains
+  /// an invalid weight or date.
   static Measurement fromString({required String exportString}) {
-    final List<String> strings = exportString.split(' ');
-
-    if (strings.length != 2) {
-      debugPrint('error with parsing measurement!');
+    final List<String> parts = exportString.split(' ');
+    if (parts.length != 2) {
+      throw FormatException(
+        'Invalid measurement format (expected "<date> <weight>"): '
+        '$exportString',
+      );
     }
-
-    return Measurement(
-      weight: double.parse(strings[1]),
-      date: DateTime.parse(strings[0]),
-      isMeasured: true,
-    );
+    final DateTime? date = DateTime.tryParse(parts[0]);
+    if (date == null) {
+      throw FormatException('Invalid date in measurement: ${parts[0]}');
+    }
+    final double? weight = double.tryParse(parts[1]);
+    if (weight == null || !weight.isFinite || weight <= 0) {
+      throw FormatException('Invalid weight in measurement: ${parts[1]}');
+    }
+    return Measurement(weight: weight, date: date, isMeasured: true);
   }
 
   /// compare method to use default sort method on list

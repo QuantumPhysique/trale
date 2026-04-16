@@ -6,7 +6,7 @@ import 'package:trale/core/notification_service.dart';
 import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/tile_group.dart';
 
@@ -22,7 +22,7 @@ class ReminderSettingsPage extends StatefulWidget {
 class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
   /// Reschedule notifications based on current notifier state.
   Future<void> _applySchedule(TraleNotifier notifier) async {
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
+    final AppLocalizations l10n = context.l10n;
     final NotificationService ns = NotificationService();
 
     if (notifier.reminderEnabled && notifier.reminderDays.isNotEmpty) {
@@ -38,7 +38,7 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
   @override
   Widget build(BuildContext context) {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-    final AppLocalizations l10n = AppLocalizations.of(context)!;
+    final AppLocalizations l10n = context.l10n;
 
     // Day labels – use DateFormat.E() for locale-aware short names
     // (Mon, Tue… / Mo, Di…).

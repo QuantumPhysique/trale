@@ -3,7 +3,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settings_personalization.dart';
@@ -26,19 +26,19 @@ class SettingsOverviewPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.handHeart,
-        title: AppLocalizations.of(context)!.donation,
-        subtitle: AppLocalizations.of(context)!.donationSubtitle,
+        title: context.l10n.donation,
+        subtitle: context.l10n.donationSubtitle,
         url: 'https://ko-fi.com/quantumphysique',
         // TODO(gwosd): Update URL to donation page
       ),
       const SineWave(),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.customization,
+        title: context.l10n.customization,
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.faders,
-            title: AppLocalizations.of(context)!.personalizationTitle,
-            subtitle: AppLocalizations.of(context)!.personalizationSubtitle,
+            title: context.l10n.personalizationTitle,
+            subtitle: context.l10n.personalizationSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) =>
@@ -48,8 +48,8 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.palette,
-            title: AppLocalizations.of(context)!.theme,
-            subtitle: AppLocalizations.of(context)!.themeSubtitle,
+            title: context.l10n.theme,
+            subtitle: context.l10n.themeSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) => const ThemeSettingsPage(),
@@ -58,8 +58,8 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.globe,
-            title: AppLocalizations.of(context)!.language,
-            subtitle: AppLocalizations.of(context)!.languageSubtitle,
+            title: context.l10n.language,
+            subtitle: context.l10n.languageSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) => const LanguageSettingsPage(),
@@ -69,12 +69,12 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.notifications,
+        title: context.l10n.notifications,
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.bellRinging,
-            title: AppLocalizations.of(context)!.reminderTitle,
-            subtitle: AppLocalizations.of(context)!.reminderSubtitle,
+            title: context.l10n.reminderTitle,
+            subtitle: context.l10n.reminderSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) => const ReminderSettingsPage(),
@@ -84,12 +84,12 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.dataSettings,
+        title: context.l10n.dataSettings,
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.database,
-            title: AppLocalizations.of(context)!.importAndExport,
-            subtitle: AppLocalizations.of(context)!.importAndExportSubtitle,
+            title: context.l10n.importAndExport,
+            subtitle: context.l10n.importAndExportSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) => const ExportSettingsPage(),
@@ -99,12 +99,12 @@ class SettingsOverviewPage extends StatelessWidget {
         ],
       ),
       WidgetGroup(
-        title: AppLocalizations.of(context)!.aboutTheApp,
+        title: context.l10n.aboutTheApp,
         children: <Widget>[
           _SettingsTile(
             icon: PhosphorIconsDuotone.question,
-            title: AppLocalizations.of(context)!.faq,
-            subtitle: AppLocalizations.of(context)!.faqSubtitle,
+            title: context.l10n.faq,
+            subtitle: context.l10n.faqSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) => const FAQ(),
@@ -113,8 +113,8 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
           _SettingsTile(
             icon: PhosphorIconsDuotone.info,
-            title: AppLocalizations.of(context)!.about,
-            subtitle: AppLocalizations.of(context)!.aboutSubtitle,
+            title: context.l10n.about,
+            subtitle: context.l10n.aboutSubtitle,
             onTap: () => Navigator.of(context).push<dynamic>(
               MaterialPageRoute<Widget>(
                 builder: (BuildContext context) => const About(),
@@ -127,7 +127,7 @@ class SettingsOverviewPage extends StatelessWidget {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.settings,
+        title: context.l10n.settings,
         sliverlist: sliverlist,
       ),
     );

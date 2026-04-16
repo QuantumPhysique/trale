@@ -5,7 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/icon_hero.dart';
 import 'package:trale/widget/sinewave.dart';
@@ -278,9 +278,9 @@ class _About extends State<About> {
           children: <Widget>[
             GroupedText(
               text: Text(
-                '${AppLocalizations.of(context)!.aboutDescription1}\n\n'
-                '${AppLocalizations.of(context)!.aboutDescription2}\n\n'
-                '${AppLocalizations.of(context)!.aboutDescription3}',
+                '${context.l10n.aboutDescription1}\n\n'
+                '${context.l10n.aboutDescription2}\n\n'
+                '${context.l10n.aboutDescription3}',
               ),
             ),
           ],
@@ -292,7 +292,7 @@ class _About extends State<About> {
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
-                AppLocalizations.of(context)!.version.allInCaps,
+                context.l10n.version.allInCaps,
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 1,
               ),
@@ -303,7 +303,7 @@ class _About extends State<About> {
                         Text(
                           snapshot.hasData
                               ? snapshot.data!
-                              : '${AppLocalizations.of(context)!.loading} ...',
+                              : '${context.l10n.loading} ...',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
               ),
@@ -312,7 +312,7 @@ class _About extends State<About> {
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
-                AppLocalizations.of(context)!.changelog.allInCaps,
+                context.l10n.changelog.allInCaps,
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 1,
               ),
@@ -323,7 +323,7 @@ class _About extends State<About> {
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
-                AppLocalizations.of(context)!.sourcecode.allInCaps,
+                context.l10n.sourcecode.allInCaps,
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 1,
               ),
@@ -335,7 +335,7 @@ class _About extends State<About> {
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               dense: true,
               title: AutoSizeText(
-                AppLocalizations.of(context)!.licence.allInCaps,
+                context.l10n.licence.allInCaps,
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 1,
               ),
@@ -352,19 +352,19 @@ class _About extends State<About> {
         ),
         const SineWave(),
         Text(
-          AppLocalizations.of(context)!.tpl.allInCaps,
+          context.l10n.tpl.allInCaps,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         WidgetGroup(
-          title: AppLocalizations.of(context)!.assets.allInCaps,
+          title: context.l10n.assets.allInCaps,
           children: <Widget>[
             for (final ThirdPartyLicence tpl in tplsAssets)
               tpl.toListTile(context),
           ],
         ),
         WidgetGroup(
-          title: AppLocalizations.of(context)!.packages.allInCaps,
+          title: context.l10n.packages.allInCaps,
           children: <Widget>[
             for (final ThirdPartyLicence tpl in tpls) tpl.toListTile(context),
           ],
@@ -374,7 +374,7 @@ class _About extends State<About> {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.about.allInCaps,
+        title: context.l10n.about.allInCaps,
         sliverlist: aboutList(),
       ),
     );

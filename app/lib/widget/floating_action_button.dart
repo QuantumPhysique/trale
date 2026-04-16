@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/theme.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 
 /// m3 floating action button
 class FAB extends StatefulWidget {
@@ -33,7 +33,7 @@ class _FABState extends State<FAB> {
       child: M3EFloatingActionButton.medium(
         elevation: 0,
         onPressed: widget.onPressed,
-        tooltip: AppLocalizations.of(context)!.addWeight,
+        tooltip: context.l10n.addWeight,
       ),
     );
   }

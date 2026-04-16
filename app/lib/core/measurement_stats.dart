@@ -19,15 +19,25 @@ class MeasurementStats {
   factory MeasurementStats() => _instance;
 
   /// single instance creation
-  MeasurementStats._internal();
+  MeasurementStats._internal() : _testDb = null, _testIp = null;
+
+  /// Constructor for testing with injected dependencies.
+  @visibleForTesting
+  MeasurementStats.forTesting({
+    MeasurementDatabaseBaseclass? db,
+    MeasurementInterpolation? ip,
+  }) : _testDb = db,
+       _testIp = ip;
+
+  final MeasurementDatabaseBaseclass? _testDb;
+  final MeasurementInterpolation? _testIp;
 
   /// singleton instance
   static MeasurementStats _instance = MeasurementStats._internal();
 
   /// Replace the singleton instance for testing.
   @visibleForTesting
-  static set testInstance(MeasurementStats instance) =>
-      _instance = instance;
+  static set testInstance(MeasurementStats instance) => _instance = instance;
 
   /// Reset the singleton instance after testing.
   @visibleForTesting
@@ -36,10 +46,10 @@ class MeasurementStats {
   }
 
   /// get measurementbase
-  MeasurementDatabase get db => MeasurementDatabase();
+  MeasurementDatabaseBaseclass get db => _testDb ?? MeasurementDatabase();
 
   /// get interpolation
-  MeasurementInterpolation get ip => MeasurementInterpolation();
+  MeasurementInterpolation get ip => _testIp ?? MeasurementInterpolation();
 
   /// get stats range setting
   StatsRange get _statsRange => Preferences().statsRange;

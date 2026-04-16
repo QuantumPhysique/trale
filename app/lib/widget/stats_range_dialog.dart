@@ -9,7 +9,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/dialog.dart';
 import 'package:trale/widget/tile_group.dart';
 
@@ -49,7 +49,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           WidgetGroup(
-            title: AppLocalizations.of(context)!.statsRange,
+            title: context.l10n.statsRange,
             children: <Widget>[
               RadioGroup<StatsRange>(
                 groupValue: selectedRange,
@@ -74,13 +74,13 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
           ),
           SizedBox(height: padding),
           WidgetGroup(
-            title: AppLocalizations.of(context)!.dates,
+            title: context.l10n.dates,
             children: <Widget>[
               if (isCustom)
                 GroupedText(
                   color: tileColor,
                   text: Text(
-                    AppLocalizations.of(context)!.customDateHint,
+                    context.l10n.customDateHint,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -90,7 +90,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                 color: tileColor,
                 enabled: isCustom,
                 leading: PPIcon(PhosphorIconsDuotone.calendar, context),
-                title: Text(AppLocalizations.of(context)!.from),
+                title: Text(context.l10n.from),
                 trailing: Text(
                   fromStr,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -122,7 +122,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                 color: tileColor,
                 enabled: isCustom,
                 leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
-                title: Text(AppLocalizations.of(context)!.to),
+                title: Text(context.l10n.to),
                 trailing: Text(
                   toStr,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -163,7 +163,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
         context: context,
         builder: (BuildContext context) {
           return DialogM3E(
-            title: AppLocalizations.of(context)!.statsRange,
+            title: context.l10n.statsRange,
             content: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: content,
@@ -179,7 +179,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                 ),
                 icon: PPIcon(PhosphorIconsRegular.x, context),
                 label: Text(
-                  AppLocalizations.of(context)!.abort,
+                  context.l10n.abort,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
@@ -198,7 +198,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                 },
                 icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
                 label: Text(
-                  AppLocalizations.of(context)!.save,
+                  context.l10n.save,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),

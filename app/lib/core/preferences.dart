@@ -12,6 +12,15 @@ import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoom_level.dart';
 
+part 'preferences/user_prefs.dart';
+part 'preferences/stats_prefs.dart';
+part 'preferences/theme_prefs.dart';
+part 'preferences/unit_prefs.dart';
+part 'preferences/backup_prefs.dart';
+part 'preferences/display_prefs.dart';
+part 'preferences/ui_prefs.dart';
+part 'preferences/reminder_prefs.dart';
+
 /// Class to coordinate shared preferences access
 class Preferences {
   /// singleton constructor
@@ -62,7 +71,7 @@ class Preferences {
   final bool defaultTargetWeightEnabled = false;
 
   /// default for userTargetWeight in kg
-  final double defaultUserTargetWeight = -1;
+  final double? defaultUserTargetWeight = null;
 
   /// default for userTargetWeightDate (not set)
   final DateTime? defaultUserTargetWeightDate = null;
@@ -83,7 +92,7 @@ class Preferences {
   final double defaultUserWeight = 70;
 
   /// default for userHeight in m
-  final double defaultUserHeight = -1;
+  final double? defaultUserHeight = null;
 
   /// default for show onboarding screen
   final bool defaultShowOnboarding = true;
@@ -172,305 +181,6 @@ class Preferences {
   final StatsRange defaultStatsRange = StatsRange.all;
 
   /// getter and setter for all preferences
-  /// set user name
-  set userName(String name) => prefs.setString('userName', name);
-
-  /// get user name
-  String get userName => prefs.getString('userName')!;
-
-  /// set user height in cm
-  set userHeight(double? height) => prefs.setDouble('userHeight', height ?? -1);
-
-  /// get user height in cm
-  double? get userHeight => prefs.getDouble('userHeight')! > 0
-      ? prefs.getDouble('userHeight')!
-      : null;
-
-  /// Get target weight enabled
-  bool get targetWeightEnabled => prefs.getBool('targetWeightEnabled')!;
-
-  /// Set target weight enabled
-  set targetWeightEnabled(bool enabled) =>
-      prefs.setBool('targetWeightEnabled', enabled);
-
-  /// set user target weight
-  set userTargetWeight(double? weight) =>
-      prefs.setDouble('userTargetWeight', weight ?? -1);
-
-  /// get user target weight
-  double? get userTargetWeight => prefs.getDouble('userTargetWeight')! > 0
-      ? prefs.getDouble('userTargetWeight')!
-      : null;
-
-  /// set user target weight date (when to reach target)
-  set userTargetWeightDate(DateTime? date) => prefs.setString(
-    'userTargetWeightDate',
-    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
-  );
-
-  /// get user target weight date
-  DateTime? get userTargetWeightDate {
-    final String raw = prefs.getString('userTargetWeightDate') ?? '';
-    if (raw.isEmpty) {
-      return null;
-    }
-    final DateTime parsed = DateTime.parse(raw);
-    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
-  }
-
-  /// set date when user set the target weight
-  set userTargetWeightSetDate(DateTime? date) => prefs.setString(
-    'userTargetWeightSetDate',
-    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
-  );
-
-  /// get date when user set the target weight
-  DateTime? get userTargetWeightSetDate {
-    final String raw = prefs.getString('userTargetWeightSetDate') ?? '';
-    if (raw.isEmpty) {
-      return null;
-    }
-    final DateTime parsed = DateTime.parse(raw);
-    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
-  }
-
-  /// Get stats use interpolation
-  bool get statsUseInterpolation => prefs.getBool('statsUseInterpolation')!;
-
-  /// Set stats use interpolation
-  set statsUseInterpolation(bool useInterpolation) =>
-      prefs.setBool('statsUseInterpolation', useInterpolation);
-
-  /// Get statsRangeFrom
-  DateTime? get statsRangeFrom {
-    final DateTime parsed = DateTime.parse(prefs.getString('statsRangeFrom')!);
-    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
-  }
-
-  /// Set statsRangeFrom
-  set statsRangeFrom(DateTime? date) => prefs.setString(
-    'statsRangeFrom',
-    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
-  );
-
-  /// Get statsRangeTo
-  DateTime? get statsRangeTo {
-    final DateTime parsed = DateTime.parse(prefs.getString('statsRangeTo')!);
-    return parsed.millisecondsSinceEpoch == 0 ? null : parsed;
-  }
-
-  /// Set statsRangeTo
-  set statsRangeTo(DateTime? date) => prefs.setString(
-    'statsRangeTo',
-    (date ?? DateTime.fromMillisecondsSinceEpoch(0)).toIso8601String(),
-  );
-
-  /// set if onboarding screen is shown
-  set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
-
-  /// get if onboarding screen is shown
-  //bool get showOnBoarding => prefs.getBool('showOnBoarding')!;
-  bool get showOnBoarding => false;
-
-  /// get night mode value
-  String get nightMode => prefs.getString('nightMode')!;
-
-  /// set night mode value
-  set nightMode(String nightMode) => prefs.setString('nightMode', nightMode);
-
-  /// get isAmoled value
-  bool get isAmoled => prefs.getBool('isAmoled')!;
-
-  /// set isAmoled value
-  set isAmoled(bool isAmoled) => prefs.setBool('isAmoled', isAmoled);
-
-  /// get language value
-  Language get language => prefs.getString('language')!.toLanguage();
-
-  /// set language value
-  set language(Language language) =>
-      prefs.setString('language', language.language);
-
-  /// get theme mode
-  String get theme => prefs.getString('theme')!;
-
-  /// set theme mode
-  set theme(String theme) => prefs.setString('theme', theme);
-
-  /// get scheme variant
-  String get schemeVariant => prefs.getString('schemeVariant')!;
-
-  /// set scheme variant
-  set schemeVariant(String variant) =>
-      prefs.setString('schemeVariant', variant);
-
-  /// get contrast level
-  ContrastLevel get contrastLevel =>
-      prefs.getString('contrastLevel')!.toContrastLevel()!;
-
-  /// set contrast level
-  set contrastLevel(ContrastLevel level) =>
-      prefs.setString('contrastLevel', level.name);
-
-  /// get unit mode
-  TraleUnit get unit => prefs.getString('unit')!.toTraleUnit()!;
-
-  /// set unit mode
-  set unit(TraleUnit unit) => prefs.setString('unit', unit.name);
-
-  /// get unit precision
-  TraleUnitPrecision get unitPrecision =>
-      prefs.getString('unitPrecision')!.toTraleUnitPrecision()!;
-
-  /// set unit mode
-  set unitPrecision(TraleUnitPrecision precision) =>
-      prefs.setString('unitPrecision', precision.name);
-
-  /// get height unit mode
-  TraleUnitHeight get heightUnit =>
-      prefs.getString('heightUnit')!.toTraleUnitHeight()!;
-
-  /// set height unit mode
-  set heightUnit(TraleUnitHeight heightUnit) =>
-      prefs.setString('heightUnit', heightUnit.name);
-
-  /// get interpolation strength mode
-  InterpolStrength get interpolStrength =>
-      prefs.getString('interpolStrength')!.toInterpolStrength()!;
-
-  /// set interpolation strength mode
-  set interpolStrength(InterpolStrength strength) =>
-      prefs.setString('interpolStrength', strength.name);
-
-  /// get backup frequency
-  BackupInterval get backupInterval =>
-      prefs.getString('backupInterval')!.toBackupInterval()!;
-
-  /// set backup frequency
-  set backupInterval(BackupInterval interval) =>
-      prefs.setString('backupInterval', interval.name);
-
-  /// get last backup date
-  DateTime? get latestBackupDate {
-    final DateTime latestBackup = DateTime.parse(
-      prefs.getString('latestBackupDate')!,
-    );
-    return latestBackup == defaultLatestBackupDate ? null : latestBackup;
-  }
-
-  /// set latest backup date
-  set latestBackupDate(DateTime? date) => prefs.setString(
-    'latestBackupDate',
-    (date ?? defaultLatestBackupDate).toString(),
-  );
-
-  /// get last backup date
-  DateTime? get latestBackupReminderDate {
-    final DateTime latestBackupReminder = DateTime.parse(
-      prefs.getString('latestBackupReminderDate')!,
-    );
-    return latestBackupReminder == defaultLatestBackupReminderDate
-        ? null
-        : latestBackupReminder;
-  }
-
-  /// set latest backup date
-  set latestBackupReminderDate(DateTime? date) => prefs.setString(
-    'latestBackupReminderDate',
-    (date ?? defaultLatestBackupReminderDate).toString(),
-  );
-
-  /// get zoom level
-  ZoomLevel get zoomLevel => prefs.getInt('zoomLevel')!.toZoomLevel()!;
-
-  /// set zoom Level
-  set zoomLevel(ZoomLevel level) => prefs.setInt('zoomLevel', level.index);
-
-  /// get first day
-  TraleFirstDay get firstDay => prefs.getString('firstDay')!.toTraleFirstDay()!;
-
-  /// set first day
-  set firstDay(TraleFirstDay day) => prefs.setString('firstDay', day.name);
-
-  /// Get date format
-  TraleDatePrintFormat get datePrintFormat =>
-      prefs.getString('dateFormat')!.toTraleDateFormat()!;
-
-  /// Set date format
-  set datePrintFormat(TraleDatePrintFormat format) =>
-      prefs.setString('dateFormat', format.name);
-
-  /// Get loose mode
-  bool get looseWeight => prefs.getBool('looseWeight')!;
-
-  /// Set loose mode
-  set looseWeight(bool loose) => prefs.setBool('looseWeight', loose);
-
-  /// Get show measurement hint banner
-  bool get showMeasurementHintBanner =>
-      prefs.getBool('showMeasurementHintBanner')!;
-
-  /// Set show measurement hint banner
-  set showMeasurementHintBanner(bool show) =>
-      prefs.setBool('showMeasurementHintBanner', show);
-
-  /// Get show stats hint banner
-  bool get showStatsHintBanner => prefs.getBool('showStatsHintBanner')!;
-
-  /// Set show stats hint banner
-  set showStatsHintBanner(bool show) =>
-      prefs.setBool('showStatsHintBanner', show);
-
-  /// Get show changelog
-  bool get showChangelog => prefs.getBool('showChangelog')!;
-
-  /// Set show changelog
-  set showChangelog(bool show) => prefs.setBool('showChangelog', show);
-
-  /// Get build number
-  int get lastBuildNumber => prefs.getInt('lastBuildNumber') ?? 0;
-
-  /// Set build number
-  set lastBuildNumber(int number) => prefs.setInt('lastBuildNumber', number);
-
-  /// Get reminder enabled
-  bool get reminderEnabled => prefs.getBool('reminderEnabled')!;
-
-  /// Set reminder enabled
-  set reminderEnabled(bool enabled) =>
-      prefs.setBool('reminderEnabled', enabled);
-
-  /// Get reminder days (ISO weekday: 1=Mon … 7=Sun)
-  List<int> get reminderDays {
-    final String raw = prefs.getString('reminderDays')!;
-    if (raw.isEmpty) {
-      return <int>[];
-    }
-    return raw.split(',').map(int.parse).toList();
-  }
-
-  /// Set reminder days
-  set reminderDays(List<int> days) =>
-      prefs.setString('reminderDays', days.join(','));
-
-  /// Get reminder hour
-  int get reminderHour => prefs.getInt('reminderHour')!;
-
-  /// Set reminder hour
-  set reminderHour(int hour) => prefs.setInt('reminderHour', hour);
-
-  /// Get reminder minute
-  int get reminderMinute => prefs.getInt('reminderMinute')!;
-
-  /// Set reminder minute
-  set reminderMinute(int minute) => prefs.setInt('reminderMinute', minute);
-
-  /// Get stats range
-  StatsRange get statsRange => prefs.getString('statsRange')!.toStatsRange()!;
-
-  /// Set stats range
-  set statsRange(StatsRange range) => prefs.setString('statsRange', range.name);
-
   /// set default settings /or reset to default
   void loadDefaultSettings({bool override = false}) {
     if (override || !prefs.containsKey('nightMode')) {

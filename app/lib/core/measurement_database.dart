@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:trale/core/logger.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 
 import 'package:trale/core/measurement.dart';
@@ -126,8 +127,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// Replace the singleton instance for testing.
   @visibleForTesting
-  static set testInstance(MeasurementDatabase instance) =>
-      _instance = instance;
+  static set testInstance(MeasurementDatabase instance) => _instance = instance;
 
   /// Reset the singleton instance after testing.
   @visibleForTesting
@@ -138,14 +138,11 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   static const String _boxName = measurementBoxName;
 
   /// get box
-  Box<Measurement> get box =>
-      _testBox ?? Hive.box<Measurement>(_boxName);
+  Box<Measurement> get box => _testBox ?? Hive.box<Measurement>(_boxName);
 
   /// check if measurement exists
   bool containsMeasurement(Measurement m) =>
-      measurements.any(
-        (Measurement measurement) => measurement.isIdentical(m),
-      );
+      measurements.any((Measurement measurement) => measurement.isIdentical(m));
 
   /// check if measurement exists on date
   bool existsMeasurementOnDate(DateTime date) =>
@@ -165,7 +162,16 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   Future<bool> insertMeasurement(Measurement m) async {
     final bool isContained = containsMeasurement(m);
     if (!isContained) {
-      box.add(m);
+      try {
+        await box.add(m);
+      } catch (e) {
+        AppLogger.error(
+          'Failed to insert measurement',
+          tag: 'Database',
+          error: e,
+        );
+        return false;
+      }
       await reinit();
       // Cancel today's reminder notification since
       // we just logged a measurement.
@@ -180,8 +186,16 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     for (final Measurement m in ms) {
       final bool isContained = containsMeasurement(m);
       if (!isContained) {
-        box.add(m);
-        count++;
+        try {
+          await box.add(m);
+          count++;
+        } catch (e) {
+          AppLogger.error(
+            'Failed to insert measurement in batch',
+            tag: 'Database',
+            error: e,
+          );
+        }
       }
     }
     if (count > 0) {
@@ -192,14 +206,31 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
 
   /// delete Measurements from box
   Future<void> deleteMeasurement(SortedMeasurement m) async {
-    box.delete(m.key);
+    try {
+      await box.delete(m.key);
+    } catch (e) {
+      AppLogger.error(
+        'Failed to delete measurement',
+        tag: 'Database',
+        error: e,
+      );
+      return;
+    }
     await reinit();
   }
 
   /// delete all Measurements from box
   Future<void> deleteAllMeasurements() async {
     for (final SortedMeasurement m in sortedMeasurements) {
-      await box.delete(m.key);
+      try {
+        await box.delete(m.key);
+      } catch (e) {
+        AppLogger.error(
+          'Failed to delete measurement during deleteAll',
+          tag: 'Database',
+          error: e,
+        );
+      }
     }
     await reinit();
   }
@@ -272,9 +303,18 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     final List<String> lines = const LineSplitter().convert(exportString);
     lines.removeWhere((String element) => element.startsWith('#'));
 
-    return <Measurement>[
-      for (final String line in lines)
-        Measurement.fromString(exportString: line),
-    ];
+    final List<Measurement> results = <Measurement>[];
+    for (final String line in lines) {
+      try {
+        results.add(Measurement.fromString(exportString: line));
+      } on FormatException catch (e) {
+        AppLogger.warning(
+          'Skipping invalid measurement line',
+          tag: 'Database',
+          error: e,
+        );
+      }
+    }
+    return results;
   }
 }

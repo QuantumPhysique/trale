@@ -4,9 +4,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/font.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/measurement_formatter.dart';
 import 'package:trale/core/text_size.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 
 /// A dismissible list tile displaying a single weight measurement.
@@ -92,7 +93,9 @@ class _WeightListTileState extends State<WeightListTile>
           width: MediaQuery.of(context).size.width,
           height: height,
           child: AutoSizeText(
-            widget.measurement.measurement.measureToString(context, ws: 11),
+            MeasurementFormatter.fromContext(
+              context,
+            ).measureToString(widget.measurement.measurement, ws: 11),
             style: Theme.of(context).textTheme.monospace.bodyLarge!,
           ),
         ),
@@ -148,7 +151,7 @@ class _WeightListTileState extends State<WeightListTile>
       final SortedMeasurement deletedSortedMeasurement = widget.measurement;
       database.deleteMeasurement(widget.measurement); // fire-and-forget
       final SnackBar snackBar = SnackBar(
-        content: Text(AppLocalizations.of(context)!.measurementDeleted),
+        content: Text(context.l10n.measurementDeleted),
         behavior: SnackBarBehavior.floating,
         width: MediaQuery.of(context).size.width / 3 * 2,
         persist: false,
@@ -158,7 +161,7 @@ class _WeightListTileState extends State<WeightListTile>
           ),
         ),
         action: SnackBarAction(
-          label: AppLocalizations.of(context)!.undo,
+          label: context.l10n.undo,
           onPressed: () {
             setState(() {
               reverse = false;

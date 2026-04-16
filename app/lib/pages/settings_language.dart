@@ -6,7 +6,7 @@ import 'package:trale/core/language.dart';
 import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/settings_banner.dart';
 import 'package:trale/widget/tile_group.dart';
@@ -25,8 +25,8 @@ class LanguageSettingsPage extends StatelessWidget {
     final List<Widget> sliverlist = <Widget>[
       SettingsBanner(
         leadingIcon: PhosphorIconsBold.translate,
-        title: '${AppLocalizations.of(context)!.translate} trale'.inCaps,
-        subtitle: AppLocalizations.of(context)!.translateSubtitle.inCaps,
+        title: '${context.l10n.translate} trale'.inCaps,
+        subtitle: context.l10n.translateSubtitle.inCaps,
         url: 'https://hosted.weblate.org/engage/trale/',
       ),
       SizedBox(height: 2 * TraleTheme.of(context)!.padding),
@@ -48,7 +48,7 @@ class LanguageSettingsPage extends StatelessWidget {
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.language,
+        title: context.l10n.language,
         sliverlist: sliverlist,
       ),
     );

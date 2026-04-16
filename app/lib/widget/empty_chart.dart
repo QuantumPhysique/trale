@@ -3,7 +3,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import 'package:trale/core/icons.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/widget/fade_in_effect.dart';
 
@@ -58,16 +58,16 @@ Widget defaultEmptyChart({
   List<InlineSpan> inlineSpan;
   if (overviewScreen) {
     inlineSpan = <InlineSpan>[
-      TextSpan(text: AppLocalizations.of(context)!.intro1),
+      TextSpan(text: context.l10n.intro1),
       WidgetSpan(
         child: PPIcon(PhosphorIconsDuotone.plusCircle, context),
         alignment: PlaceholderAlignment.middle,
       ),
-      TextSpan(text: AppLocalizations.of(context)!.intro2),
+      TextSpan(text: context.l10n.intro2),
     ];
   } else {
     inlineSpan = <InlineSpan>[
-      TextSpan(text: AppLocalizations.of(context)!.intro3),
+      TextSpan(text: context.l10n.intro3),
       const TextSpan(text: '\n\n😃'),
     ];
   }

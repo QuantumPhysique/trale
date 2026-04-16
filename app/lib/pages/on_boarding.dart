@@ -46,8 +46,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     //   final List<PageViewModel> pageViewModels = <PageViewModel>[
     //     PageViewModel(
-    //       title: '${AppLocalizations.of(context)!.welcome.inCaps} 😃',
-    //       body: AppLocalizations.of(context)!.onBoarding1,
+    //       title: '${context.l10n.welcome.inCaps} 😃',
+    //       body: context.l10n.onBoarding1,
     //       image: SizedBox(
     //           width: 0.75 * MediaQuery.of(context).size.width,
     //           height: 0.15 * MediaQuery.of(context).size.height,
@@ -56,14 +56,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     //       decoration: pageDecoration
     //     ),
     //     PageViewModel(
-    //       title: '${AppLocalizations.of(context)!.onBoarding2Title} \u{1F60E}',
+    //       title: '${context.l10n.onBoarding2Title} \u{1F60E}',
     //       bodyWidget: Column(
     //         children: <Widget>[
     //           Padding(
     //             padding: EdgeInsets.symmetric(
     //                 horizontal: 2 * TraleTheme.of(context)!.padding),
     //             child: Text(
-    //               AppLocalizations.of(context)!.onBoarding2,
+    //               context.l10n.onBoarding2,
     //               style: Theme.of(context).textTheme.bodyLarge!,
     //               textAlign: TextAlign.center,
     //             ),
@@ -84,14 +84,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     //       ),
     //     ),
     //     PageViewModel(
-    //       title: '${AppLocalizations.of(context)!.onBoarding3Title} 🔒',
+    //       title: '${context.l10n.onBoarding3Title} 🔒',
     //       bodyWidget: Column(
     //         children: <Widget>[
     //           Padding(
     //             padding: EdgeInsets.symmetric(
     //                 horizontal: 2 * TraleTheme.of(context)!.padding),
     //             child: Text(
-    //               AppLocalizations.of(context)!.onBoarding3,
+    //               context.l10n.onBoarding3,
     //               style: Theme.of(context).textTheme.bodyLarge!,
     //               textAlign: TextAlign.center,
     //             ),
@@ -116,13 +116,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     //     showSkipButton: true,
     //     nextFlex: 1,
     //     skip: Text(
-    //       AppLocalizations.of(context)!.skip,
+    //       context.l10n.skip,
     //       style: Theme.of(context).textTheme.bodyLarge!,
     //       overflow: TextOverflow.ellipsis,
     //     ),
     //     next: PPIcon( PhosphorIconsDuotone.caretDoubleRight, context),
     //     done: Text(
-    //       AppLocalizations.of(context)!.startApp,
+    //       context.l10n.startApp,
     //       style: Theme.of(context).textTheme.bodyLarge!,
     //       overflow: TextOverflow.ellipsis,
     //     ),

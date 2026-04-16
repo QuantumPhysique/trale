@@ -62,6 +62,11 @@ format:
 format-check:
 	dart format --set-exit-if-changed .
 
+.PHONY: install-hooks
+install-hooks:
+	git -C .. config core.hooksPath .githooks
+	@echo "Pre-commit hooks installed (using ../.githooks)."
+
 .PHONY: clean
 clean:
 	flutter clean
@@ -77,6 +82,7 @@ help:
 	@echo "  make coverage   – generate + flutter test --coverage"
 	@echo "  make format     – dart format ."
 	@echo "  make format-check – dart format --set-exit-if-changed"
+	@echo "  make install-hooks – install git pre-commit hooks"
 	@echo "  make generate   – run all code generators"
 	@echo "  make hive       – regenerate Hive adapters"
 	@echo "  make clean      – flutter clean"

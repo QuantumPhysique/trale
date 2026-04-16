@@ -5,7 +5,7 @@ import 'package:trale/core/icons.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/pages/measurement_screen.dart';
 import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/settings_overview.dart';
@@ -123,17 +123,17 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
         selectedIcon: PPIcon(PhosphorIconsFill.lineSegments, context),
-        label: AppLocalizations.of(context)!.home,
+        label: context.l10n.home,
       ),
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.trophy, context),
         selectedIcon: PPIcon(PhosphorIconsFill.trophy, context),
-        label: AppLocalizations.of(context)!.achievements,
+        label: context.l10n.achievements,
       ),
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.archive, context),
         selectedIcon: PPIcon(PhosphorIconsFill.archive, context),
-        label: AppLocalizations.of(context)!.measurements,
+        label: context.l10n.measurements,
       ),
     ];
 

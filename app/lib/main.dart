@@ -9,6 +9,7 @@ import 'package:trale/core/first_day_localizations_delegate.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/notification_service.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/logger.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
@@ -33,14 +34,18 @@ Future<void> main() async {
   try {
     await notificationService.init();
   } catch (e) {
-    debugPrint('NotificationService init failed: $e');
+    AppLogger.error('NotificationService init failed', tag: 'Main', error: e);
   }
   //
   final PackageInfo info = await PackageInfo.fromPlatform();
   // try parsing build number
   final int? buildNumber = int.tryParse(info.buildNumber);
   if (buildNumber == null) {
-    debugPrint('Failed to parse build number: ${info.buildNumber}');
+    AppLogger.warning(
+      'Failed to parse build number',
+      tag: 'Main',
+      error: info.buildNumber,
+    );
   } else if (buildNumber > prefs.lastBuildNumber) {
     // App has been updated since last run.
     traleNotifier.showChangelog = true;

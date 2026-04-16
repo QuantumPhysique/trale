@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:trale/core/font.dart';
 
 import 'package:trale/core/measurement.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/animate_in_effect.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_stats.dart';
@@ -147,7 +147,7 @@ class _StatsScreen extends State<StatsScreen>
       final int animationDurationInMilliseconds = TraleTheme.of(
         context,
       )!.transitionDuration.slow.inMilliseconds;
-      final AppLocalizations l10n = AppLocalizations.of(context)!;
+      final AppLocalizations l10n = context.l10n;
 
       return CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
