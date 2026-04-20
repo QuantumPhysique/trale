@@ -1,104 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/string_extension.dart';
-import 'package:trale/core/theme.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/changelog.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/icon_hero.dart';
 import 'package:trale/widget/sinewave.dart';
-import 'package:trale/widget/tile_group.dart';
-import 'package:trale/widget/changelog_widget.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
-/// get version number
-Future<String> _getVersionNumber() async {
-  final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-  return packageInfo.version;
-}
-
-/// launch url
-Future<void> _launchURL(String url) async {
-  if (await canLaunchUrlString(url)) {
-    await launchUrlString(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
-/// class for listing 3rd party licences
-class ThirdPartyLicence {
-  /// constructor
-  ThirdPartyLicence({
-    required this.name,
-    required this.url,
-    required this.licence,
-    required this.author,
-    required this.years,
-  });
-
-  /// get list representation of tpl
-  ListTile toListTile(BuildContext context) => GroupedListTile(
-    dense: true,
-    color: Theme.of(context).colorScheme.surfaceContainerLowest,
-    title: AutoSizeText(
-      name.inCaps,
-      style: Theme.of(context).textTheme.bodyLarge,
-    ),
-    subtitle: AutoSizeText(
-      AppLocalizations.of(
-        context,
-      )!.undertpl(years: years, author: author, licence: licence),
-      style: Theme.of(context).textTheme.bodySmall,
-      maxLines: 2,
-    ),
-    isThreeLine: false,
-    onTap: () => _launchURL(url),
-  );
-
-  /// name of package
-  final String name;
-
-  /// name of url
-  final String url;
-
-  /// license
-  final String licence;
-
-  /// name of author
-  final String author;
-
-  /// year
-  final String years;
-}
-
-/// list of third party licences
-final List<ThirdPartyLicence> tplsAssets =
-    <ThirdPartyLicence>[
-      // ThirdPartyLicence(
-      //     name: 'unDraw',
-      //     url: 'https://undraw.co/',
-      //     licence: 'unDraw',
-      //     author: 'Katerina Limpitsouni',
-      //     years: '2021',
-      // ),
-      ThirdPartyLicence(
+/// list of third party licences (assets: fonts, icons)
+final List<QPThirdPartyLicence> tplsAssets =
+    <QPThirdPartyLicence>[
+      const QPThirdPartyLicence(
         name: 'Roboto Flex',
         url: 'https://github.com/TypeNetwork/Roboto-Flex',
         licence: 'SIL Open Font',
         author: 'Roboto Flex Project Authors',
         years: '2017',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'Roboto Mono',
         url: 'https://github.com/googlefonts/RobotoMono',
         licence: 'SIL Open Font',
         author: 'Roboto Mono Project Authors',
         years: '2007',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'Phosphor Icons',
         url: 'https://phosphoricons.com/',
         licence: 'MIT',
@@ -106,21 +30,14 @@ final List<ThirdPartyLicence> tplsAssets =
         years: '2020',
       ),
     ]..sort(
-      (ThirdPartyLicence tpl1, ThirdPartyLicence tpl2) =>
-          tpl1.name.toLowerCase().compareTo(tpl2.name.toLowerCase()),
+      (QPThirdPartyLicence a, QPThirdPartyLicence b) =>
+          a.name.toLowerCase().compareTo(b.name.toLowerCase()),
     );
 
-/// list of third party licences
-final List<ThirdPartyLicence> tpls =
-    <ThirdPartyLicence>[
-      // ThirdPartyLicence(
-      //     name: 'animations',
-      //     url: 'https://github.com/flutter/packages/tree/master/packages/animations',
-      //     licence: 'BSD',
-      //     author: 'Flutter authors',
-      //     years: '2019',
-      // ),
-      ThirdPartyLicence(
+/// list of third party licences (packages)
+final List<QPThirdPartyLicence> tpls =
+    <QPThirdPartyLicence>[
+      const QPThirdPartyLicence(
         name: 'dynamic color',
         url:
             'https://github.com/material-foundation/flutter-packages/tree/main/packages/dynamic_color',
@@ -128,28 +45,28 @@ final List<ThirdPartyLicence> tpls =
         author: 'Material Foundation',
         years: '2023',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'file picker',
         url: 'https://github.com/miguelpruivo/flutter_file_picker',
         licence: 'MIT',
         author: 'Miguel Ruivo',
         years: '2018',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'fl chart',
         url: 'https://github.com/imaNNeoFighT/fl_chart',
         licence: 'BSD 3',
         author: 'Iman Khoshabi',
         years: '2019',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'flutter auto size text',
         url: 'https://github.com/FaFre/auto_size_text',
         licence: 'MIT',
         author: 'Simon Leier',
         years: '2018',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'flutter svg',
         url:
             'https://github.com/dnfield/flutter_svg/tree/master/packages/flutter_svg',
@@ -157,42 +74,42 @@ final List<ThirdPartyLicence> tpls =
         author: 'Dan Field',
         years: '2018',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'font awesome flutter',
         url: 'https://github.com/fluttercommunity/font_awesome_flutter',
         licence: 'MIT',
         author: 'Brian Egan',
         years: '2017',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'hive',
         url: 'https://github.com/hivedb/hive/',
         licence: 'Apache',
         author: 'Simon Leier',
         years: '2019',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'hive flutter',
         url: 'https://github.com/hivedb/hive_flutter/',
         licence: 'Apache',
         author: 'Simon Leier',
         years: '2019',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'intl',
         url: 'https://github.com/dart-lang/intl',
         licence: 'BSD',
         author: 'Dart project authors',
         years: '2013',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'introduction screen',
         url: 'https://github.com/pyozer/introduction_screen',
         licence: 'MIT',
         author: 'Jean-Charles Moussé',
         years: '2019',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'package info plus',
         url:
             'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus/package_info_plus',
@@ -200,7 +117,7 @@ final List<ThirdPartyLicence> tpls =
         author: 'Chromium authors',
         years: '2017',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'path provider',
         url:
             'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider',
@@ -208,14 +125,14 @@ final List<ThirdPartyLicence> tpls =
         author: 'Flutter authors',
         years: '2013',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'provider',
         url: 'https://github.com/rrousselGit/provider',
         licence: 'MIT',
         author: 'Remi Rousselet',
         years: '2019',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'shared preferences',
         url:
             'https://github.com/flutter/plugins/tree/master/packages/shared_preferences/shared_preferences',
@@ -223,7 +140,7 @@ final List<ThirdPartyLicence> tpls =
         author: 'Flutter authors',
         years: '2013',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'share plus',
         url:
             'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus',
@@ -231,7 +148,7 @@ final List<ThirdPartyLicence> tpls =
         author: 'Flutter authors',
         years: '2017',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'url launcher',
         url:
             'https://github.com/flutter/plugins/tree/master/packages/url_launcher/url_launcher',
@@ -239,144 +156,42 @@ final List<ThirdPartyLicence> tpls =
         author: 'Flutter authors',
         years: '2013',
       ),
-      ThirdPartyLicence(
+      const QPThirdPartyLicence(
         name: 'Flutter Launcher Icon',
         url: 'https://github.com/fluttercommunity/flutter_launcher_icons',
         licence: 'MIT',
-        author: 'Mark O\'Sullivan',
+        author: "Mark O'Sullivan",
         years: '2019',
       ),
     ]..sort(
-      (ThirdPartyLicence tpl1, ThirdPartyLicence tpl2) =>
-          tpl1.name.toLowerCase().compareTo(tpl2.name.toLowerCase()),
+      (QPThirdPartyLicence a, QPThirdPartyLicence b) =>
+          a.name.toLowerCase().compareTo(b.name.toLowerCase()),
     );
 
 /// About page widget.
-class About extends StatefulWidget {
+class About extends StatelessWidget {
   /// Constructor.
   const About({super.key});
 
   @override
-  State<About> createState() => _About();
-}
-
-class _About extends State<About> {
-  @override
   Widget build(BuildContext context) {
-    List<Widget> aboutList() {
-      return <Widget>[
-        Padding(
-          padding: EdgeInsets.fromLTRB(
-            TraleTheme.of(context)!.padding,
-            0,
-            TraleTheme.of(context)!.padding,
-            2 * TraleTheme.of(context)!.padding,
-          ),
-          child: const IconHero(),
+    return QPAboutPage(
+      aboutStrings: qpAboutStringsFromL10n(context.l10n),
+      descriptionWidget: QPGroupedText(
+        text: Text(
+          '${context.l10n.aboutDescription1}\n\n'
+          '${context.l10n.aboutDescription2}\n\n'
+          '${context.l10n.aboutDescription3}',
         ),
-        WidgetGroup(
-          children: <Widget>[
-            GroupedText(
-              text: Text(
-                '${context.l10n.aboutDescription1}\n\n'
-                '${context.l10n.aboutDescription2}\n\n'
-                '${context.l10n.aboutDescription3}',
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: TraleTheme.of(context)!.padding),
-        WidgetGroup(
-          children: <Widget>[
-            GroupedListTile(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              dense: true,
-              title: AutoSizeText(
-                context.l10n.version.allInCaps,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              trailing: FutureBuilder<String>(
-                future: _getVersionNumber(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) =>
-                        Text(
-                          snapshot.hasData
-                              ? snapshot.data!
-                              : '${context.l10n.loading} ...',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-              ),
-            ),
-            GroupedListTile(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              dense: true,
-              title: AutoSizeText(
-                context.l10n.changelog.allInCaps,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              trailing: PPIcon(PhosphorIconsDuotone.bookOpenText, context),
-              onTap: () => showChangelog(context),
-            ),
-            GroupedListTile(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              dense: true,
-              title: AutoSizeText(
-                context.l10n.sourcecode.allInCaps,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              trailing: PPIcon(PhosphorIconsDuotone.githubLogo, context),
-              onTap: () =>
-                  _launchURL('https://github.com/quantumphysique/trale'),
-            ),
-            GroupedListTile(
-              color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              dense: true,
-              title: AutoSizeText(
-                context.l10n.licence.allInCaps,
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              trailing: AutoSizeText(
-                'GNU AGPLv3+',
-                style: Theme.of(context).textTheme.bodyLarge,
-                maxLines: 1,
-              ),
-              onTap: () => _launchURL(
-                'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
-              ),
-            ),
-          ],
-        ),
-        const SineWave(),
-        Text(
-          context.l10n.tpl.allInCaps,
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        WidgetGroup(
-          title: context.l10n.assets.allInCaps,
-          children: <Widget>[
-            for (final ThirdPartyLicence tpl in tplsAssets)
-              tpl.toListTile(context),
-          ],
-        ),
-        WidgetGroup(
-          title: context.l10n.packages.allInCaps,
-          children: <Widget>[
-            for (final ThirdPartyLicence tpl in tpls) tpl.toListTile(context),
-          ],
-        ),
-      ];
-    }
-
-    return Scaffold(
-      body: SliverAppBarSnap(
-        title: context.l10n.about.allInCaps,
-        sliverlist: aboutList(),
       ),
+      heroWidget: const IconHero(),
+      changelog: changelog,
+      decorationWidget: const SineWave(),
+      sourceCodeUrl: 'https://github.com/quantumphysique/trale',
+      licenceName: 'GNU AGPLv3+',
+      licenceUrl: 'https://github.com/QuantumPhysique/trale/blob/main/LICENSE',
+      tpls: tpls,
+      tplAssets: tplsAssets,
     );
   }
 }

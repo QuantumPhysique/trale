@@ -22,16 +22,4 @@ extension UiPrefsExtension on Preferences {
   /// Set show stats hint banner
   set showStatsHintBanner(bool show) =>
       prefs.setBool('showStatsHintBanner', show);
-
-  /// Get show changelog
-  bool get showChangelog => prefs.getBool('showChangelog')!;
-
-  /// Set show changelog
-  set showChangelog(bool show) => prefs.setBool('showChangelog', show);
-
-  /// Get build number
-  int get lastBuildNumber => prefs.getInt('lastBuildNumber') ?? 0;
-
-  /// Set build number
-  set lastBuildNumber(int number) => prefs.setInt('lastBuildNumber', number);
 }

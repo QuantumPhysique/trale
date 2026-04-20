@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/font.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/string_extension.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/pages/on_boarding.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
-import 'package:trale/widget/settings_banner.dart';
-import 'package:trale/widget/tile_group.dart';
 
 /// ListTile for changing Amoled settings
 class OnBoardingListTile extends StatelessWidget {
@@ -20,7 +16,7 @@ class OnBoardingListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: GroupedListTile(
+      child: QPGroupedListTile(
         color: Theme.of(context).colorScheme.primaryContainer,
         title: Text(
           context.l10n.faq_a2_widget,
@@ -51,9 +47,9 @@ class FAQEntry {
   FAQEntry({required this.question, required this.answer, this.answerWidget});
 
   /// get list representation of tpl
-  Widget toWidget(BuildContext context) => WidgetGroup(
+  Widget toWidget(BuildContext context) => QPWidgetGroup(
     children: <Widget>[
-      GroupedListTile(
+      QPGroupedListTile(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
         leading: PPIcon(PhosphorIconsDuotone.question, context),
         title: Text(
@@ -63,7 +59,7 @@ class FAQEntry {
           ),
         ),
       ),
-      GroupedListTile(
+      QPGroupedListTile(
         color: Theme.of(context).colorScheme.surfaceContainerLowest,
         leading: PPIcon(PhosphorIconsDuotone.chatCircleDots, context),
         title: Text(
@@ -102,28 +98,19 @@ class _FAQ extends State<FAQ> {
   Widget build(BuildContext context) {
     /// list of questions and answers
     final List<FAQEntry> faqEntries = <FAQEntry>[
-      FAQEntry(
-        question: context.l10n.faq_q1,
-        answer: context.l10n.faq_a1,
-      ),
+      FAQEntry(question: context.l10n.faq_q1, answer: context.l10n.faq_a1),
       // FAQEntry(
       //   question: context.l10n.faq_q2,
       //   answer: context.l10n.faq_a2,
       //   answerWidget: const OnBoardingListTile(),
       // ),
-      FAQEntry(
-        question: context.l10n.faq_q4,
-        answer: context.l10n.faq_a4,
-      ),
-      FAQEntry(
-        question: context.l10n.faq_q3,
-        answer: context.l10n.faq_a3,
-      ),
+      FAQEntry(question: context.l10n.faq_q4, answer: context.l10n.faq_a4),
+      FAQEntry(question: context.l10n.faq_q3, answer: context.l10n.faq_a3),
     ];
 
     List<Widget> faqList() {
       return <Widget>[
-        SettingsBanner(
+        QPSettingsBanner(
           leadingIcon: PhosphorIconsBold.githubLogo,
           title: context.l10n.openIssue.allInCaps,
           subtitle: context.l10n.openIssueSubtitle,

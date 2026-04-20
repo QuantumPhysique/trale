@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import 'package:trale/core/icons.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/changelog.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/pages/measurement_screen.dart';
 import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/settings_overview.dart';
@@ -14,7 +14,6 @@ import 'package:trale/widget/add_weight_dialog.dart';
 import 'package:trale/widget/custom_sliver_app_bar.dart';
 import 'package:trale/widget/floating_action_button.dart';
 import 'package:trale/widget/user_dialog.dart';
-import 'package:trale/widget/changelog_widget.dart';
 
 /// home scaffold
 class Home extends StatefulWidget {
@@ -57,7 +56,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         // Show changelog on first launch after update
         if (Preferences().showChangelog) {
           Preferences().showChangelog = false;
-          showChangelog(context);
+          showQPChangelog(context, changelog);
         }
       }
     });

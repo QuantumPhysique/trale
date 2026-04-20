@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/empty_chart.dart';
 import 'package:trale/widget/weight_list.dart';
 
@@ -23,8 +22,8 @@ class _MeasurementScreen extends State<MeasurementScreen>
   final ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> key = GlobalKey();
   late final Stream<List<Measurement>> _measurementStream;
-  final AnimationReplayController _replayController =
-      AnimationReplayController();
+  final QPAnimationReplayController _replayController =
+      QPAnimationReplayController();
 
   /// Whether this tab is currently the nearest visible tab.
   bool _isActive = false;
@@ -88,7 +87,7 @@ class _MeasurementScreen extends State<MeasurementScreen>
           : defaultEmptyChart(context: context);
     }
 
-    return AnimationReplayScope(
+    return QPAnimationReplayScope(
       controller: _replayController,
       child: StreamBuilder<List<Measurement>>(
         stream: _measurementStream,

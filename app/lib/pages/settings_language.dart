@@ -1,89 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:provider/provider.dart';
-
-import 'package:trale/core/language.dart';
-import 'package:trale/core/string_extension.dart';
-import 'package:trale/core/theme.dart';
-import 'package:trale/core/trale_notifier.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/custom_scroll_view_snapping.dart';
-import 'package:trale/widget/settings_banner.dart';
-import 'package:trale/widget/tile_group.dart';
 
-/// Language settings page.
+/// Trale language settings page.
+///
+/// Thin wrapper around [QPLanguageSettingsPage] that supplies trale-specific
+/// strings, app name, and translation URL.
 class LanguageSettingsPage extends StatelessWidget {
   /// Constructor.
   const LanguageSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
-
-    // Build list of sliver children: translate pill +
-    // radio list + bottom spacer
-    final List<Widget> sliverlist = <Widget>[
-      SettingsBanner(
-        leadingIcon: PhosphorIconsBold.translate,
-        title: '${context.l10n.translate} trale'.inCaps,
-        subtitle: context.l10n.translateSubtitle.inCaps,
-        url: 'https://hosted.weblate.org/engage/trale/',
-      ),
-      SizedBox(height: 2 * TraleTheme.of(context)!.padding),
-      // RadioGroup wrapping the language tiles (replaces per-tile groupValue)
-      RadioGroup<String>(
-        groupValue: notifier.language.language,
-        onChanged: (String? newLang) {
-          if (newLang != null && notifier.language.language != newLang) {
-            notifier.language = newLang.toLanguage();
-          }
-        },
-        child: WidgetGroup(
-          children: Language.supportedLanguages
-              .map((Language lang) => _LanguageRadioTile(language: lang))
-              .toList(),
-        ),
-      ),
-    ];
-
-    return Scaffold(
-      body: SliverAppBarSnap(
-        title: context.l10n.language,
-        sliverlist: sliverlist,
-      ),
-    );
-  }
-}
-
-class _LanguageRadioTile extends StatelessWidget {
-  const _LanguageRadioTile({required this.language});
-
-  final Language language;
-
-  @override
-  Widget build(BuildContext context) {
-    final String selectedLanguage = context.select<TraleNotifier, String>(
-      (TraleNotifier notifier) => notifier.language.language,
-    );
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final bool isSelected = selectedLanguage == language.language;
-    return GroupedRadioListTile<String>(
-      color: isSelected
-          ? colorScheme.secondaryContainer
-          : colorScheme.surfaceContainerLowest,
-      shape: isSelected ? const StadiumBorder() : null,
-      // groupValue omitted (deprecated) — RadioGroup
-      // ancestor supplies selection
-      value: language.language,
-      // onChanged omitted; RadioGroup handles it
-      title: Text(
-        language.languageLong(context),
-        style: Theme.of(context).textTheme.titleMedium?.apply(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
+    return QPLanguageSettingsPage(
+      strings: qpStringsFromL10n(context.l10n),
+      appName: 'trale',
+      translationUrl: 'https://hosted.weblate.org/engage/trale/',
     );
   }
 }

@@ -36,11 +36,11 @@ class TargetWeightGroup extends StatelessWidget {
 
     final bool canEnable = !db.isEmpty;
 
-    return WidgetGroup(
+    return QPWidgetGroup(
       title: title,
       children: <Widget>[
         // ── Enable / disable toggle ─────────────────────────────────
-        GroupedListTile(
+        QPGroupedListTile(
           color: tileColor,
           contentPadding: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding,
@@ -117,7 +117,6 @@ class TargetWeightGroup extends StatelessWidget {
     );
   }
 }
-
 
 /// Shows a dialog to set the target date via synced rate, target date,
 /// and start date fields.
@@ -231,9 +230,9 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           // ── Advice text ─────────────────────────────────────────
-          WidgetGroup(
+          QPWidgetGroup(
             children: <Widget>[
-              GroupedWidget(
+              QPGroupedWidget(
                 color: tileColor,
                 child: Padding(
                   padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -246,7 +245,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   ),
                 ),
               ),
-              GroupedListTile(
+              QPGroupedListTile(
                 color: tileColor,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: TraleTheme.of(context)!.padding,
@@ -273,9 +272,9 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
           ),
           if (targetDateEnabled) ...<Widget>[
             SizedBox(height: TraleTheme.of(context)!.padding),
-            WidgetGroup(
+            QPWidgetGroup(
               children: <Widget>[
-                GroupedWidget(
+                QPGroupedWidget(
                   color: Theme.of(context).colorScheme.secondary,
                   child: Container(
                     alignment: Alignment.bottomCenter,
@@ -297,7 +296,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     ),
                   ),
                 ),
-                GroupedWidget(
+                QPGroupedWidget(
                   color: tileColor,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
@@ -381,7 +380,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     ),
                   ),
                 ),
-                GroupedListTile(
+                QPGroupedListTile(
                   color: tileColor,
                   leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
                   title: Text(context.l10n.targetWeightDate),
@@ -406,7 +405,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     }
                   },
                 ),
-                GroupedListTile(
+                QPGroupedListTile(
                   color: tileColor,
                   leading: PPIcon(PhosphorIconsDuotone.calendar, context),
                   title: Text(context.l10n.startDate),
@@ -447,7 +446,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
-          return DialogM3E(
+          return QPDialog(
             title: context.l10n.targetWeightDate,
             content: content,
             actions: _dialogActions(context, () {
@@ -469,8 +468,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   return accepted;
 }
 
-// TODO: this is a copy of addWeightDialog actions, should be refactored to
-// avoid duplication
+// TODO(trale): this is a copy of addWeightDialog actions, should be refactored
+// to avoid duplication
 /// Generate action buttons for M3E dialog
 List<Widget> _dialogActions(
   BuildContext context,

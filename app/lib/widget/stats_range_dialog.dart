@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-
-import 'package:trale/core/icons.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/dialog.dart';
-import 'package:trale/widget/tile_group.dart';
 
 /// Shows a dialog to select the stats range and optional custom dates.
 Future<bool> showStatsRangeDialog({required BuildContext context}) async {
@@ -48,7 +45,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          WidgetGroup(
+          QPWidgetGroup(
             title: context.l10n.statsRange,
             children: <Widget>[
               RadioGroup<StatsRange>(
@@ -62,7 +59,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     for (final StatsRange range in StatsRange.values)
-                      GroupedRadioListTile<StatsRange>(
+                      QPGroupedRadioListTile<StatsRange>(
                         color: tileColor,
                         title: Text(range.nameLong(context)),
                         value: range,
@@ -73,11 +70,11 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
             ],
           ),
           SizedBox(height: padding),
-          WidgetGroup(
+          QPWidgetGroup(
             title: context.l10n.dates,
             children: <Widget>[
               if (isCustom)
-                GroupedText(
+                QPGroupedText(
                   color: tileColor,
                   text: Text(
                     context.l10n.customDateHint,
@@ -86,7 +83,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                     ),
                   ),
                 ),
-              GroupedListTile(
+              QPGroupedListTile(
                 color: tileColor,
                 enabled: isCustom,
                 leading: PPIcon(PhosphorIconsDuotone.calendar, context),
@@ -118,7 +115,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                     ? () => setState(() => customFrom = null)
                     : null,
               ),
-              GroupedListTile(
+              QPGroupedListTile(
                 color: tileColor,
                 enabled: isCustom,
                 leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
@@ -162,7 +159,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
-          return DialogM3E(
+          return QPDialog(
             title: context.l10n.statsRange,
             content: SizedBox(
               width: MediaQuery.of(context).size.width,

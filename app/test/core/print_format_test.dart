@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/print_format.dart';
 
 void main() {
@@ -42,8 +43,10 @@ void main() {
 
   group('TraleDateFormatParsing', () {
     test('valid string converts to TraleDatePrintFormat', () {
-      expect('systemDefault'.toTraleDateFormat(),
-          TraleDatePrintFormat.systemDefault);
+      expect(
+        'systemDefault'.toTraleDateFormat(),
+        TraleDatePrintFormat.systemDefault,
+      );
       expect('iso8601'.toTraleDateFormat(), TraleDatePrintFormat.iso8601);
       expect('ddMMyyyy'.toTraleDateFormat(), TraleDatePrintFormat.ddMMyyyy);
     });

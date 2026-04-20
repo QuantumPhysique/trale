@@ -1,5 +1,7 @@
 part of '../weight_picker.dart';
 
+/// Custom scroll physics for snapping the ruler picker to discrete intervals.
+
 class MultiItemSnapScrollPhysics extends ScrollPhysics {
   /// Creates snap-based scroll physics.
   const MultiItemSnapScrollPhysics({
@@ -182,4 +184,3 @@ class _SliderMarker extends StatelessWidget {
     );
   }
 }
-

@@ -14,6 +14,7 @@ make analyze                         # static analysis
 make test                            # tests
 make hive                            # regenerate Hive type adapters (if models change)
 make clean                           # clean build artifacts
+make install-hooks                   # install git pre-commit hooks (run once after clone)
 ```
 
 ## Coding Conventions

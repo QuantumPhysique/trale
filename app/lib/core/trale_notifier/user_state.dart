@@ -1,84 +1,103 @@
 part of '../trale_notifier.dart';
 
 /// Extension on [TraleNotifier] holding user body and weight state.
+///
+/// [firstDay] is delegated to [QPDisplayStateExtension] on [QPNotifier].
+/// [looseWeight] has been moved to [UiStateExtension].
 extension UserStateExtension on TraleNotifier {
+  // ── Delegate to QPDisplayStateExtension ───────────────────────────────────
+
+  /// Current first day of week preference.
+  TraleFirstDay get firstDay {
+    final QPNotifier n = this;
+    return n.firstDay;
+  }
+
+  /// Sets the first day of week.
+  set firstDay(TraleFirstDay value) {
+    final QPNotifier n = this;
+    n.firstDay = value;
+  }
+
+  // ── Trale-specific user state ─────────────────────────────────────────────
+
   /// getter
-  TraleUnit get unit => prefs.unit;
+  TraleUnit get unit => _prefs.unit;
 
   /// setter
   set unit(TraleUnit newUnit) {
     if (unit != newUnit) {
-      prefs.unit = newUnit;
+      _prefs.unit = newUnit;
       notify;
     }
   }
 
   /// getter
-  TraleUnitHeight get heightUnit => prefs.heightUnit;
+  TraleUnitHeight get heightUnit => _prefs.heightUnit;
 
   /// setter
   set heightUnit(TraleUnitHeight newHeightUnit) {
     if (heightUnit != newHeightUnit) {
-      prefs.heightUnit = newHeightUnit;
+      _prefs.heightUnit = newHeightUnit;
       notify;
     }
   }
 
   /// getter
-  TraleUnitPrecision get unitPrecision => prefs.unitPrecision;
+  TraleUnitPrecision get unitPrecision => _prefs.unitPrecision;
 
   /// setter
   set unitPrecision(TraleUnitPrecision newPrecision) {
     if (unitPrecision != newPrecision) {
-      prefs.unitPrecision = newPrecision;
+      _prefs.unitPrecision = newPrecision;
       notify;
     }
   }
 
   /// getter
-  String get userName => prefs.userName;
+  String get userName => _prefs.userName;
 
   /// setter
   set userName(String newName) {
     if (userName != newName) {
-      prefs.userName = newName;
+      _prefs.userName = newName;
       notify;
     }
   }
 
   /// getter for target weight enabled
-  bool get targetWeightEnabled => prefs.targetWeightEnabled;
+  bool get targetWeightEnabled => _prefs.targetWeightEnabled;
 
   /// setter for target weight enabled
   set targetWeightEnabled(bool enabled) {
     if (enabled != targetWeightEnabled) {
-      prefs.targetWeightEnabled = enabled;
+      _prefs.targetWeightEnabled = enabled;
       notify;
     }
   }
 
   /// getter – returns target weight only when the feature is enabled
   double? get effectiveTargetWeight =>
-      targetWeightEnabled ? prefs.userTargetWeight : null;
+      targetWeightEnabled ? _prefs.userTargetWeight : null;
 
   /// getter
-  double? get userTargetWeight => prefs.userTargetWeight;
+  double? get userTargetWeight => _prefs.userTargetWeight;
 
   /// setter
   set userTargetWeight(double? newWeight) {
     if (userTargetWeight != newWeight) {
-      prefs.userTargetWeight = newWeight;
+      _prefs.userTargetWeight = newWeight;
       notify;
     }
   }
 
   /// getter for target weight date
-  DateTime? get userTargetWeightDate => prefs.userTargetWeightDate;
+  DateTime? get userTargetWeightDate => _prefs.userTargetWeightDate;
 
   /// setter for target weight date
   set userTargetWeightDate(DateTime? newDate) {
     if (userTargetWeightDate != newDate) {
-      prefs.userTargetWeightDate = newDate;
+      _prefs.userTargetWeightDate = newDate;
       notify;
     }
   }
@@ -86,7 +105,7 @@ extension UserStateExtension on TraleNotifier {
   /// getter for date when target weight was set.
   /// Returns null if the stored date has no measurement (e.g. it was deleted).
   DateTime? get userTargetWeightSetDate {
-    final DateTime? date = prefs.userTargetWeightSetDate;
+    final DateTime? date = _prefs.userTargetWeightSetDate;
     if (date == null) {
       return null;
     }
@@ -96,7 +115,7 @@ extension UserStateExtension on TraleNotifier {
   /// setter for date when target weight was set
   set userTargetWeightSetDate(DateTime? newDate) {
     if (userTargetWeightSetDate != newDate) {
-      prefs.userTargetWeightSetDate = newDate;
+      _prefs.userTargetWeightSetDate = newDate;
       notify;
     }
   }
@@ -113,46 +132,24 @@ extension UserStateExtension on TraleNotifier {
   }
 
   /// get user height in [cm]
-  double? get userHeight => prefs.userHeight;
+  double? get userHeight => _prefs.userHeight;
 
   /// set user height in [cm]
   set userHeight(double? newHeight) {
     if (userHeight != newHeight) {
-      prefs.userHeight = newHeight;
+      _prefs.userHeight = newHeight;
       notify;
     }
   }
 
   /// getter
-  InterpolStrength get interpolStrength => prefs.interpolStrength;
+  InterpolStrength get interpolStrength => _prefs.interpolStrength;
 
   /// setter
   set interpolStrength(InterpolStrength strength) {
     if (interpolStrength != strength) {
-      prefs.interpolStrength = strength;
+      _prefs.interpolStrength = strength;
       MeasurementDatabase().reinit();
-      notify;
-    }
-  }
-
-  /// getter
-  TraleFirstDay get firstDay => prefs.firstDay;
-
-  /// setter
-  set firstDay(TraleFirstDay newFirstDay) {
-    if (firstDay != newFirstDay) {
-      prefs.firstDay = newFirstDay;
-      notify;
-    }
-  }
-
-  /// getter
-  bool get looseWeight => prefs.looseWeight;
-
-  /// setter
-  set looseWeight(bool loose) {
-    if (loose != looseWeight) {
-      prefs.looseWeight = loose;
       notify;
     }
   }

@@ -5,11 +5,10 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/contrast.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/main.dart';
 
 /// get color (black or white) with maximal constrast or minimal (inverse=false)
 Color getFontColor(Color color, {bool inverse = true}) {
@@ -88,12 +87,19 @@ class TraleTheme {
 
   /// Get current AdonisTheme
   static TraleTheme? of(BuildContext context) {
-    final TraleApp? result = context.findAncestorWidgetOfExactType<TraleApp>();
-    return Theme.of(context).brightness == Brightness.light
-        ? result?.traleNotifier.theme.light(context)
-        : (result != null && result.traleNotifier.isAmoled)
-        ? result.traleNotifier.theme.amoled(context)
-        : result?.traleNotifier.theme.dark(context);
+    final TraleNotifier? notifier = Provider.of<TraleNotifier?>(
+      context,
+      listen: false,
+    );
+    if (notifier == null) {
+      return null;
+    }
+    final bool isLight = Theme.of(context).brightness == Brightness.light;
+    return isLight
+        ? notifier.theme.light(context)
+        : notifier.isAmoled
+        ? notifier.theme.amoled(context)
+        : notifier.theme.dark(context);
   }
 
   /// seed color
@@ -318,6 +324,25 @@ enum TraleCustomTheme {
 
 /// extend adonisThemes with adding AdonisTheme attributes
 extension TraleCustomThemeExtension on TraleCustomTheme {
+  /// Static seed color without context.
+  ///
+  /// For [TraleCustomTheme.system] returns [Colors.black]; the actual system
+  /// color is supplied at runtime via [TraleNotifier.seedColor] which checks
+  /// [QPNotifier.systemSeedColor].
+  Color get seed => <TraleCustomTheme, Color>{
+    TraleCustomTheme.system: Colors.black,
+    TraleCustomTheme.fire: const Color(0xFFb52528),
+    TraleCustomTheme.lemon: const Color(0xFF626200),
+    TraleCustomTheme.sand: const Color(0xFF7e5700),
+    TraleCustomTheme.water: const Color(0xFF0161a3),
+    TraleCustomTheme.forest: const Color(0xFF006e11),
+    TraleCustomTheme.berry: const Color(0xff8b4463),
+    TraleCustomTheme.plum: const Color(0xff8e4585),
+    TraleCustomTheme.teal: const Color(0xff008080),
+    TraleCustomTheme.coffee: const Color(0xff6F4E37),
+    TraleCustomTheme.amber: const Color(0xffFFBF00),
+  }[this]!;
+
   /// get seed color of theme
   Color seedColor(BuildContext context) => <TraleCustomTheme, Color>{
     TraleCustomTheme.system:
@@ -465,72 +490,21 @@ class TraleThemeExtension extends ThemeExtension<TraleThemeExtension> {
   }
 }
 
-/// extension of theme
-extension ColorTextThemeExtension on TextStyle {
-  /// Apply [onSecondaryContainer] color to this text style.
-  TextStyle onSecondaryContainer(BuildContext context) =>
-      copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer);
+/// Backward-compat alias: [TraleSchemeVariant] is now [QPSchemeVariant].
+typedef TraleSchemeVariant = QPSchemeVariant;
 
-  /// Apply [onSurface] color to this text style.
-  TextStyle onSurface(BuildContext context) =>
-      copyWith(color: Theme.of(context).colorScheme.onSurface);
-
-  /// Apply [onSurfaceVariant] color to this text style.
-  TextStyle onSurfaceVariant(BuildContext context) =>
-      copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
+/// Shim: preserve the legacy [TraleSchemeVariant.schemeVariant] getter name
+/// (was [TraleSchemeVariantExtension.schemeVariant]; now delegates to
+/// [QPSchemeVariantExtension.toDynamicSchemeVariant]).
+extension TraleSchemeVariantShim on TraleSchemeVariant {
+  /// Returns the [DynamicSchemeVariant] for this entry.
+  DynamicSchemeVariant get schemeVariant => toDynamicSchemeVariant;
 }
 
-/// enum of all DynamicSchemeVariants
-enum TraleSchemeVariant {
-  /// expressive colors
-  expressive,
-
-  /// material
-  material,
-
-  /// neutral colors
-  neutral,
-
-  /// vibrant colors
-  vibrant,
-
-  /// monochrome
-  monochrome,
-
-  /// content similar to fidelity but matches seed color
-  seed,
-
-  /// material2 colors
-  material2,
-}
-
-/// extend adonisThemes with adding AdonisTheme attributes
-extension TraleSchemeVariantExtension on TraleSchemeVariant {
-  /// get seed color of theme
-  DynamicSchemeVariant get schemeVariant =>
-      <TraleSchemeVariant, DynamicSchemeVariant>{
-        TraleSchemeVariant.material: DynamicSchemeVariant.tonalSpot,
-        TraleSchemeVariant.material2: DynamicSchemeVariant.fidelity,
-        TraleSchemeVariant.neutral: DynamicSchemeVariant.neutral,
-        TraleSchemeVariant.vibrant: DynamicSchemeVariant.vibrant,
-        TraleSchemeVariant.expressive: DynamicSchemeVariant.expressive,
-        TraleSchemeVariant.monochrome: DynamicSchemeVariant.monochrome,
-        TraleSchemeVariant.seed: DynamicSchemeVariant.content,
-      }[this]!;
-
-  /// get string expression
-  String get name => toString().split('.').last;
-}
-
-/// convert string to type
+/// Bridge: convert a stored [String] to [TraleSchemeVariant]
+/// (= [QPSchemeVariant]).
 extension TraleSchemeVariantParsing on String {
-  /// convert string to trale scheme variant
-  TraleSchemeVariant? toTraleSchemeVariant() {
-    for (final TraleSchemeVariant variant in TraleSchemeVariant.values) {
-      if (this == variant.name) {
-        return variant;
-      }
-    }
-    return null;
-  }
+  /// Convert a serialised name to [TraleSchemeVariant],
+  /// or `null` if unrecognised.
+  TraleSchemeVariant? toTraleSchemeVariant() => toQPSchemeVariant();
 }

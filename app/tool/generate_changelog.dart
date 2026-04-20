@@ -77,7 +77,9 @@ void main() {
     final String line = lines[i];
 
     // ── version header ──
-    final versionMatch = parseVersionHeader(line);
+    final ({String version, String? date})? versionMatch = parseVersionHeader(
+      line,
+    );
     if (versionMatch != null) {
       insideEntries = true;
       trailingLinks = false;
@@ -157,7 +159,13 @@ void main() {
     ..writeln('/// The full parsed changelog from CHANGELOG.md.')
     ..writeln('const Changelog changelog = Changelog(<ChangelogEntry>[');
 
-  for (final entry in entries) {
+  for (final ({
+        String version,
+        String? date,
+        Map<String, List<String>> sections,
+      })
+      entry
+      in entries) {
     buf.writeln('  ChangelogEntry(');
     buf.writeln("    version: '${_escape(entry.version)}',");
     if (entry.date != null) {
@@ -185,7 +193,7 @@ void main() {
   if (unparsedLines.isNotEmpty) {
     print('');
     print('WARNING: ${unparsedLines.length} line(s) could not be parsed:');
-    for (final line in unparsedLines) {
+    for (final ({int lineNumber, String text}) line in unparsedLines) {
       print('  L${line.lineNumber}: ${line.text}');
     }
   }

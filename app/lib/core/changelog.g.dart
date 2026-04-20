@@ -20,9 +20,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Add changelog to app',
         'Add tooltip when scrolling the linechart',
       ],
-      ChangelogSection.otherChanges: <String>[
-        'Using the latest flutter 3.41',
-      ],
+      ChangelogSection.otherChanges: <String>['Using the latest flutter 3.41'],
       ChangelogSection.bugfix: <String>[
         'Fix broken calendar when choosing custom first Day of week option, #417 #418',
         'Fix persisting popup on deleting measurements',
@@ -99,9 +97,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.13.1',
     dateString: '2025-09-10',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.bugfix: <String>[
-        'Fix Fdroid build, #342',
-      ],
+      ChangelogSection.bugfix: <String>['Fix Fdroid build, #342'],
     },
   ),
   ChangelogEntry(
@@ -117,18 +113,14 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Using the latest flutter 3.35 with upgraded deps',
         'Improved translation',
       ],
-      ChangelogSection.bugfix: <String>[
-        'Fix typo in about screen, #328',
-      ],
+      ChangelogSection.bugfix: <String>['Fix typo in about screen, #328'],
     },
   ),
   ChangelogEntry(
     version: '0.12.1',
     dateString: '2025-08-13',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.bugfix: <String>[
-        'Fix Fdroid build, #312',
-      ],
+      ChangelogSection.bugfix: <String>['Fix Fdroid build, #312'],
     },
   ),
   ChangelogEntry(
@@ -219,9 +211,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Hello World! Thx to the community, the app is now available in Russian and Vietnamese 🎉',
         'Reworked import/export: Allowing now to save to files and import from openScale and Withings',
       ],
-      ChangelogSection.otherChanges: <String>[
-        'Minor speed improvements',
-      ],
+      ChangelogSection.otherChanges: <String>['Minor speed improvements'],
       ChangelogSection.bugfix: <String>[
         'Make label of gain weight mode more clear',
         'Fix label for Dutch language',
@@ -286,9 +276,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.8.1',
     dateString: '2024-11-14',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.bugfix: <String>[
-        'Remove DependencyInfoBlock',
-      ],
+      ChangelogSection.bugfix: <String>['Remove DependencyInfoBlock'],
     },
   ),
   ChangelogEntry(
@@ -350,9 +338,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Hello World! Thx to the community, the app is now available in French, Finnish, and Italian 🎉',
         'Using the latest flutter 3.22 with upgraded deps',
       ],
-      ChangelogSection.otherChanges: <String>[
-        'Improved translations',
-      ],
+      ChangelogSection.otherChanges: <String>['Improved translations'],
     },
   ),
   ChangelogEntry(
@@ -398,9 +384,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.4.7',
     dateString: '2024-01-18',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.addedFeatures: <String>[
-        'Accelerated import',
-      ],
+      ChangelogSection.addedFeatures: <String>['Accelerated import'],
       ChangelogSection.bugfix: <String>[
         'Fix bug, that allowed target weights below 50 kg',
       ],
@@ -410,9 +394,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.4.6',
     dateString: '2024-01-08',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.bugfix: <String>[
-        'Fix bug, when using lb and st units',
-      ],
+      ChangelogSection.bugfix: <String>['Fix bug, when using lb and st units'],
       ChangelogSection.otherChanges: <String>[
         'Fix version error in 0.4.5',
         'Fix f-droid metadata',
@@ -423,9 +405,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.4.6',
     dateString: '2024-01-08',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.bugfix: <String>[
-        'Fix bug, when using lb and st units',
-      ],
+      ChangelogSection.bugfix: <String>['Fix bug, when using lb and st units'],
       ChangelogSection.otherChanges: <String>[
         'Fix version error in 0.4.5',
         'Fix f-droid metadata',
@@ -439,9 +419,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.bugfix: <String>[
         'Fix bug, which prevented loading the app without measurements',
       ],
-      ChangelogSection.otherChanges: <String>[
-        'Upgrade dependencies',
-      ],
+      ChangelogSection.otherChanges: <String>['Upgrade dependencies'],
     },
   ),
   ChangelogEntry(
@@ -484,9 +462,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.apiChanges: <String>[
         'App id changed to `de.quantumphysique.trale`, upgrading is not possible!',
       ],
-      ChangelogSection.addedFeatures: <String>[
-        'Prepare F-Droid launch',
-      ],
+      ChangelogSection.addedFeatures: <String>['Prepare F-Droid launch'],
       ChangelogSection.otherChanges: <String>[
         'Add github actions',
         'Upgrade dependencies',
@@ -502,9 +478,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.3.1',
     dateString: '2023-09-08',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.addedFeatures: <String>[
-        'Add basic animation',
-      ],
+      ChangelogSection.addedFeatures: <String>['Add basic animation'],
       ChangelogSection.bugfix: <String>[
         'Overview screen now updates upon adding first measurement',
       ],
@@ -520,9 +494,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Update measurement list',
         'Add import and export feature',
       ],
-      ChangelogSection.bugfix: <String>[
-        'Fix broken theme selection',
-      ],
+      ChangelogSection.bugfix: <String>['Fix broken theme selection'],
     },
   ),
   ChangelogEntry(
@@ -568,18 +540,14 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Improved prediction based on weighted linear regression',
         'Many new themes, improved zoom levels, many fixed bugs and so much more.',
       ],
-      ChangelogSection.otherChanges: <String>[
-        'Added fastlane to publish app',
-      ],
+      ChangelogSection.otherChanges: <String>['Added fastlane to publish app'],
     },
   ),
   ChangelogEntry(
     version: '0.1.0',
     dateString: '2022-03-01',
     sections: <ChangelogSection, List<String>>{
-      ChangelogSection.addedFeatures: <String>[
-        'initial release',
-      ],
+      ChangelogSection.addedFeatures: <String>['initial release'],
     },
   ),
 ]);

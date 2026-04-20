@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/icons.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/dialog.dart';
-import 'package:trale/widget/tile_group.dart';
 import 'package:trale/widget/weight_picker.dart';
 
 ///
@@ -52,9 +50,9 @@ Future<bool> showAddWeightDialog({
                 textAlign: TextAlign.justify,
               ),
             ),
-          WidgetGroup(
+          QPWidgetGroup(
             children: <Widget>[
-              GroupedListTile(
+              QPGroupedListTile(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 leading: PPIcon(PhosphorIconsDuotone.calendar, context),
                 title: Text(context.l10n.date),
@@ -106,7 +104,7 @@ Future<bool> showAddWeightDialog({
                   setState(() {});
                 },
               ),
-              GroupedListTile(
+              QPGroupedListTile(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 title: Text(context.l10n.time),
                 leading: PPIcon(PhosphorIconsDuotone.clock, context),
@@ -157,7 +155,7 @@ Future<bool> showAddWeightDialog({
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
-          return DialogM3E(
+          return QPDialog(
             title: context.l10n.addWeight,
             content: content,
             actions: actions(context, () async {
@@ -217,9 +215,9 @@ Future<bool> showTargetWeightDialog({
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          WidgetGroup(
+          QPWidgetGroup(
             children: <Widget>[
-              GroupedWidget(
+              QPGroupedWidget(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 child: Padding(
                   padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -245,9 +243,9 @@ Future<bool> showTargetWeightDialog({
             ticksPerStep: notifier.unit.ticksPerStep,
           ),
           SizedBox(height: TraleTheme.of(context)!.padding),
-          WidgetGroup(
+          QPWidgetGroup(
             children: <Widget>[
-              GroupedSwitchListTile(
+              QPGroupedSwitchListTile(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 dense: true,
                 leading: PPIcon(
@@ -288,7 +286,7 @@ Future<bool> showTargetWeightDialog({
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
-          return DialogM3E(
+          return QPDialog(
             title: context.l10n.targetWeight,
             content: content,
             actions: actions(context, () {
@@ -309,9 +307,7 @@ Future<bool> showTargetWeightDialog({
               if (currentSliderValue * notifier.unit.scaling < minWeight) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(
-                      context.l10n.target_weight_warning,
-                    ),
+                    content: Text(context.l10n.target_weight_warning),
                     behavior: SnackBarBehavior.floating,
                     duration: const Duration(seconds: 10),
                   ),

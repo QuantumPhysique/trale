@@ -56,10 +56,7 @@ class MeasurementFormatter {
   double inUnit(Measurement m) => m.weight / unit.scaling;
 
   /// Format [m]'s weight as a string.
-  String weightToString(
-    Measurement m, {
-    bool showUnit = true,
-  }) =>
+  String weightToString(Measurement m, {bool showUnit = true}) =>
       unit.measurementToString(m, unitPrecision, showUnit: showUnit);
 
   /// Format [m]'s date (short, no year).
@@ -69,8 +66,7 @@ class MeasurementFormatter {
   String dateToString(Measurement m) => dateFormat.format(m.date);
 
   /// Whether the locale uses 24-hour time format.
-  bool get is24Hour =>
-      (DateFormat('j', locale).pattern ?? '').contains('H');
+  bool get is24Hour => (DateFormat('j', locale).pattern ?? '').contains('H');
 
   /// Format [m]'s time of day.
   ///
@@ -79,8 +75,7 @@ class MeasurementFormatter {
   /// back to DateFormat-based formatting.
   String timeToString(Measurement m, {String? formattedTime}) {
     final int padWidth = is24Hour ? 5 : 8;
-    final String time =
-        formattedTime ?? DateFormat.jm(locale).format(m.date);
+    final String time = formattedTime ?? DateFormat.jm(locale).format(m.date);
     return time.padLeft(padWidth);
   }
 

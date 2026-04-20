@@ -1,13 +1,13 @@
 part of '../stats_widgets.dart';
 
 /// Transparent card: app icon hero, placed on a given M3 shape.
-BentoCard iconHeroCard({
+QPBentoCard iconHeroCard({
   required BuildContext context,
   required Shapes shape,
   VoidCallback? onTap,
   int delayInMilliseconds = 0,
 }) {
-  return BentoCard.shaped(
+  return QPBentoCard.shaped(
     span: 4,
     backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
     delayInMilliseconds: delayInMilliseconds,
@@ -22,7 +22,6 @@ BentoCard iconHeroCard({
     ),
   );
 }
-
 
 /// Returns the BMI range string and category label for a given [bmi] value.
 ({String range, String category}) _bmiCategory(
@@ -43,7 +42,7 @@ BentoCard iconHeroCard({
 }
 
 /// Card: current BMI with value, range, and category.
-BentoCard bmiCard({
+QPBentoCard bmiCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -54,7 +53,7 @@ BentoCard bmiCard({
   final ({String range, String category}) info = bmi != null
       ? _bmiCategory(bmi, l10n)
       : (range: '--', category: '--');
-  return BentoCard(
+  return QPBentoCard(
     columnSpan: 12,
     rowSpan: 3,
     delayInMilliseconds: delayInMilliseconds,
@@ -116,11 +115,11 @@ BentoCard bmiCard({
 }
 
 /// Text card: estimated daily calorie deficit.
-BentoCard calorieDeficitCard({
+QPBentoCard calorieDeficitCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
-}) => BentoCard.textInline(
+}) => QPBentoCard.textInline(
   columnSpan: 8,
   rowSpan: 2,
   label: '${context.l10n.calorieDeficit}\n(kcal/day)',
@@ -129,7 +128,7 @@ BentoCard calorieDeficitCard({
 );
 
 /// Text card: difference from target weight.
-BentoCard diffFromTargetCard({
+QPBentoCard diffFromTargetCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -138,7 +137,7 @@ BentoCard diffFromTargetCard({
     context,
     listen: false,
   ).unit.name;
-  return BentoCard.textEmphasized(
+  return QPBentoCard.textEmphasized(
     columnSpan: 4,
     rowSpan: 5,
     label: '${context.l10n.diffFromTarget} ($unit)',
@@ -148,4 +147,3 @@ BentoCard diffFromTargetCard({
     delayInMilliseconds: delayInMilliseconds,
   );
 }
-

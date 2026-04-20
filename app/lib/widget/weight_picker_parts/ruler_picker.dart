@@ -1,5 +1,7 @@
 part of '../weight_picker.dart';
 
+/// A ruler-style picker widget for selecting weight values.
+
 class RulerPickerController extends ValueNotifier<double> {
   /// Creates a controller with the given initial [value].
   RulerPickerController({double value = 0.0}) : super(value);
@@ -132,13 +134,13 @@ class RulerPickerState extends State<RulerPicker> {
 
     final double newValue = nearestIndex / widget.ticksPerStep;
 
-    return WidgetGroup(
+    return QPWidgetGroup(
       children: <Widget>[
-        GroupedWidget(
+        QPGroupedWidget(
           color: colorScheme.secondary,
           child: _weightLabelWidget(context, newValue, colorScheme.onSecondary),
         ),
-        GroupedWidget(
+        QPGroupedWidget(
           color: colorScheme.secondaryContainer,
           child: SizedBox(
             height: widget.height,
@@ -159,4 +161,3 @@ class RulerPickerState extends State<RulerPicker> {
     );
   }
 }
-

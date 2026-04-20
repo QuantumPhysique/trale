@@ -1,133 +1,46 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
-import 'package:trale/core/first_day_localizations_delegate.dart';
+import 'package:trale/core/l10n_extension.dart';
+import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/notification_service.dart';
-import 'package:trale/core/preferences.dart';
-import 'package:trale/core/logger.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/splash.dart';
 
 /// Hive box name for persisted measurements.
 const String measurementBoxName = 'measurements';
 
 Future<void> main() async {
-  // load singleton
   WidgetsFlutterBinding.ensureInitialized();
-  final Preferences prefs = Preferences();
-  await prefs.loaded;
-  final TraleNotifier traleNotifier = TraleNotifier();
 
-  await Hive.initFlutter();
-  Hive.registerAdapter<Measurement>(MeasurementAdapter());
-  await Hive.openBox<Measurement>(measurementBoxName);
+  // Populate QPLanguage.supportedLanguages from AppLocalizations.
+  initLanguages();
 
-  // Initialise the notification service.
-  final NotificationService notificationService = NotificationService();
-  try {
-    await notificationService.init();
-  } catch (e) {
-    AppLogger.error('NotificationService init failed', tag: 'Main', error: e);
-  }
-  //
-  final PackageInfo info = await PackageInfo.fromPlatform();
-  // try parsing build number
-  final int? buildNumber = int.tryParse(info.buildNumber);
-  if (buildNumber == null) {
-    AppLogger.warning(
-      'Failed to parse build number',
-      tag: 'Main',
-      error: info.buildNumber,
-    );
-  } else if (buildNumber > prefs.lastBuildNumber) {
-    // App has been updated since last run.
-    traleNotifier.showChangelog = true;
-    prefs.lastBuildNumber = buildNumber;
-  }
-
-  return runApp(
-    ChangeNotifierProvider<TraleNotifier>.value(
-      value: traleNotifier,
-      child: const TraleMainApp(),
+  runApp(
+    QPApp<TraleNotifier>(
+      notifier: TraleNotifier(),
+      onExtraInit: () async {
+        await Hive.initFlutter();
+        Hive.registerAdapter<Measurement>(MeasurementAdapter());
+        await Hive.openBox<Measurement>(measurementBoxName);
+        try {
+          await NotificationService().init();
+        } catch (e) {
+          QPAppLogger.error(
+            'NotificationService init failed',
+            tag: 'Main',
+            error: e,
+          );
+        }
+      },
+      buildRoutes: () => <String, WidgetBuilder>{'/': (_) => const Splash()},
+      buildStrings: (BuildContext ctx) => qpStringsFromL10n(ctx.l10n),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      //onboardingBuilder: (_) => const OnBoardingPage(),
+      onGenerateTitle: (BuildContext ctx) => ctx.l10n.trale,
     ),
   );
-}
-
-/// MaterialApp with AdonisTheme
-class TraleApp extends MaterialApp {
-  /// Constructor
-  TraleApp({
-    super.key,
-    required this.traleNotifier,
-    super.routes,
-    required this.light,
-    required this.dark,
-    required this.amoled,
-  }) : super(
-         theme: light.themeData,
-         darkTheme: traleNotifier.isAmoled ? amoled.themeData : dark.themeData,
-         themeMode: traleNotifier.themeMode,
-         localizationsDelegates: <LocalizationsDelegate<dynamic>>[
-           AppLocalizations.delegate,
-           FirstDayMaterialLocalizationsDelegate(
-             firstDay: traleNotifier.firstDay,
-           ),
-           GlobalWidgetsLocalizations.delegate,
-           GlobalCupertinoLocalizations.delegate,
-         ],
-         supportedLocales: AppLocalizations.supportedLocales,
-         locale: traleNotifier.locale,
-       );
-
-  /// themeNotifier for interactive change of theme
-  final TraleNotifier traleNotifier;
-
-  /// Light theme.
-  final TraleTheme light;
-
-  /// Dark theme.
-  final TraleTheme dark;
-
-  /// AMOLED theme.
-  final TraleTheme amoled;
-}
-
-/// Root widget of the trale application.
-class TraleMainApp extends StatelessWidget {
-  /// Creates the root [TraleMainApp] widget.
-  const TraleMainApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
-
-    /// shared preferences instance
-    // ignore: unused_local_variable
-    final Preferences prefs = Preferences();
-
-    return DynamicColorBuilder(
-      builder: (ColorScheme? systemLight, ColorScheme? systemDark) {
-        traleNotifier.setColorScheme(systemLight, systemDark);
-        return TraleApp(
-          traleNotifier: traleNotifier,
-          routes: <String, Widget Function(BuildContext)>{
-            '/': (BuildContext context) {
-              return const Splash();
-            },
-          },
-          light: traleNotifier.theme.light(context),
-          dark: traleNotifier.theme.dark(context),
-          amoled: traleNotifier.theme.amoled(context),
-        );
-      },
-    );
-  }
 }

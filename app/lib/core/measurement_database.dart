@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
-import 'package:trale/core/logger.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_interpolation.dart';
@@ -165,7 +165,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
       try {
         await box.add(m);
       } catch (e) {
-        AppLogger.error(
+        QPAppLogger.error(
           'Failed to insert measurement',
           tag: 'Database',
           error: e,
@@ -190,7 +190,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
           await box.add(m);
           count++;
         } catch (e) {
-          AppLogger.error(
+          QPAppLogger.error(
             'Failed to insert measurement in batch',
             tag: 'Database',
             error: e,
@@ -209,7 +209,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     try {
       await box.delete(m.key);
     } catch (e) {
-      AppLogger.error(
+      QPAppLogger.error(
         'Failed to delete measurement',
         tag: 'Database',
         error: e,
@@ -225,7 +225,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
       try {
         await box.delete(m.key);
       } catch (e) {
-        AppLogger.error(
+        QPAppLogger.error(
           'Failed to delete measurement during deleteAll',
           tag: 'Database',
           error: e,
@@ -308,7 +308,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
       try {
         results.add(Measurement.fromString(exportString: line));
       } on FormatException catch (e) {
-        AppLogger.warning(
+        QPAppLogger.warning(
           'Skipping invalid measurement line',
           tag: 'Database',
           error: e,

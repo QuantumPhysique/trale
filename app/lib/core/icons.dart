@@ -16,7 +16,8 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+export 'package:quantumphysique/quantumphysique.dart' show PPIcon;
 
 /// Class for custom icons
 class CustomIcons {
@@ -46,29 +47,4 @@ class CustomIcons {
   /// Icon for weak interpolation strength.
   // ignore: constant_identifier_names
   static const IconData interpol_weak = IconData(0xe815, fontFamily: _kFontFam);
-}
-
-/// A themed [PhosphorIcon] wrapper with duotone secondary color.
-class PPIcon extends PhosphorIcon {
-  /// Creates a [PPIcon] with themed duotone secondary color.
-  PPIcon(
-    super.icon,
-    BuildContext context, {
-    super.key,
-    super.size,
-    super.fill,
-    super.weight,
-    super.grade,
-    super.opticalSize,
-    super.color,
-    super.shadows,
-    super.semanticLabel,
-    super.textDirection,
-    Color? duotoneSecondaryColor,
-  }) : super(
-         duotoneSecondaryOpacity: 1.0,
-         duotoneSecondaryColor:
-             duotoneSecondaryColor ??
-             Theme.of(context).colorScheme.secondaryContainer,
-       );
 }

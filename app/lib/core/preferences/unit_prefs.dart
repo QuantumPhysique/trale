@@ -31,5 +31,4 @@ extension UnitPrefsExtension on Preferences {
   /// set interpolation strength mode
   set interpolStrength(InterpolStrength strength) =>
       prefs.setString('interpolStrength', strength.name);
-
 }

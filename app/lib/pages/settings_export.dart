@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/backup_interval.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/string_extension.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/io_widgets.dart';
-import 'package:trale/widget/tile_group.dart';
 
 /// Export settings page.
 class ExportSettingsPage extends StatefulWidget {
@@ -40,12 +37,12 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
           ).dateFormat(context).format(date);
 
     final List<Widget> sliverList = <Widget>[
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.export,
         children: <Widget>[
           const ExportListTile(),
           const BackupIntervalListTile(),
-          GroupedListTile(
+          QPGroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +59,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
               ],
             ),
           ),
-          GroupedListTile(
+          QPGroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,11 +78,11 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
           ),
         ],
       ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.import,
         children: const <Widget>[ImportListTile()],
       ),
-      GroupedText(
+      QPGroupedText(
         text: Text(
           context.l10n.importLongDescription,
           style: Theme.of(context).textTheme.bodyMedium,
@@ -96,13 +93,13 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
         padding: EdgeInsets.symmetric(
           horizontal: TraleTheme.of(context)!.padding,
         ),
-        child: WidgetGroup(
-          children: <GroupedText>[
+        child: QPWidgetGroup(
+          children: <QPGroupedText>[
             for (final String fmt in <String>[
               '2025-12-24T16:00 67.9',
               '2025-12-24 67.9',
             ])
-              GroupedText(
+              QPGroupedText(
                 color: Theme.of(context).colorScheme.surfaceContainerLowest,
                 text: Text(
                   fmt,
@@ -113,7 +110,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
           ],
         ),
       ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.dangerzone,
         children: const <Widget>[ResetListTile()],
       ),
@@ -135,7 +132,7 @@ class BackupIntervalListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
@@ -178,7 +175,7 @@ class ExportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       title: AutoSizeText(
         context.l10n.export,
@@ -216,7 +213,7 @@ class ImportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       title: AutoSizeText(
         context.l10n.import,
@@ -252,7 +249,7 @@ class ResetListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.errorContainer,
       title: AutoSizeText(
         context.l10n.factoryReset,

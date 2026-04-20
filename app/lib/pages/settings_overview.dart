@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/string_extension.dart';
-import 'package:trale/core/theme.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
+import 'package:trale/core/theme.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
-import 'package:trale/pages/settings_personalization.dart';
 import 'package:trale/pages/settings_export.dart';
 import 'package:trale/pages/settings_language.dart';
+import 'package:trale/pages/settings_personalization.dart';
 import 'package:trale/pages/settings_reminder.dart';
 import 'package:trale/pages/settings_theme.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
-import 'package:trale/widget/settings_banner.dart';
 import 'package:trale/widget/sinewave.dart';
-import 'package:trale/widget/tile_group.dart';
 
 /// Settings overview page.
 class SettingsOverviewPage extends StatelessWidget {
@@ -24,7 +21,7 @@ class SettingsOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Widget> sliverlist = <Widget>[
-      SettingsBanner(
+      QPSettingsBanner(
         leadingIcon: PhosphorIconsBold.handHeart,
         title: context.l10n.donation,
         subtitle: context.l10n.donationSubtitle,
@@ -32,7 +29,7 @@ class SettingsOverviewPage extends StatelessWidget {
         // TODO(gwosd): Update URL to donation page
       ),
       const SineWave(),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.customization,
         children: <Widget>[
           _SettingsTile(
@@ -68,7 +65,7 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
         ],
       ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.notifications,
         children: <Widget>[
           _SettingsTile(
@@ -83,7 +80,7 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
         ],
       ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.dataSettings,
         children: <Widget>[
           _SettingsTile(
@@ -98,7 +95,7 @@ class SettingsOverviewPage extends StatelessWidget {
           ),
         ],
       ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.aboutTheApp,
         children: <Widget>[
           _SettingsTile(
@@ -152,7 +149,7 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       // Remove inner padding so content spans full width
       contentPadding: EdgeInsets.symmetric(

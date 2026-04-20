@@ -1,5 +1,6 @@
 part of '../linechart.dart';
 
+/// Custom line chart widget for trale.
 class CustomLineChart extends StatefulWidget {
   /// Constructor.
   const CustomLineChart({
@@ -488,8 +489,10 @@ class _CustomLineChartState extends State<CustomLineChart>
                             textAlign: TextAlign.center,
                             children: <TextSpan>[
                               TextSpan(
-                                text:
-                                    '\n${notifier.unit.weightToString(spot.y * unitScaling, notifier.unitPrecision)}',
+                                text: '\n${notifier.unit.weightToString(
+                                  spot.y * unitScaling,
+                                  notifier.unitPrecision,
+                                )}',
                                 style: theme.textTheme.bodySmall!.copyWith(
                                   color: colorScheme.onSurface,
                                   fontWeight: FontWeight.bold,
@@ -686,7 +689,9 @@ class _CustomLineChartState extends State<CustomLineChart>
         }
         _tooltipTimer?.cancel();
         _tooltipTimer = Timer(const Duration(seconds: 3), () {
-          if (mounted) setState(() => _showTooltip = false);
+          if (mounted) {
+            setState(() => _showTooltip = false);
+          }
         });
       }
     }
@@ -720,7 +725,9 @@ class _CustomLineChartState extends State<CustomLineChart>
               onHorizontalDragCancel: () {
                 _tooltipTimer?.cancel();
                 _tooltipTimer = Timer(const Duration(seconds: 3), () {
-                  if (mounted) setState(() => _showTooltip = false);
+                  if (mounted) {
+                    setState(() => _showTooltip = false);
+                  }
                 });
               },
               child: lineChart(_curMinX, _curMaxX, minY, maxY),
@@ -735,10 +742,10 @@ class _CustomLineChartState extends State<CustomLineChart>
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                WidgetGroup(
+                QPWidgetGroup(
                   direction: Axis.horizontal,
                   children: <Widget>[
-                    GroupedWidget(
+                    QPGroupedWidget(
                       child: IconButton(
                         onPressed: notifier.zoomLevel == ZoomLevel.all
                             ? null
@@ -755,7 +762,7 @@ class _CustomLineChartState extends State<CustomLineChart>
                         ),
                       ),
                     ),
-                    GroupedWidget(
+                    QPGroupedWidget(
                       child: IconButton(
                         onPressed: notifier.zoomLevel == ZoomLevel.one
                             ? null

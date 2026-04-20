@@ -13,8 +13,7 @@ part 'interpolation_compute.dart';
 part 'interpolation_base.dart';
 
 /// class providing an API to handle interpolation of measurements
-class MeasurementInterpolation
-    extends MeasurementInterpolationBaseclass {
+class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   /// singleton constructor
   factory MeasurementInterpolation() => _instance;
 
@@ -78,8 +77,7 @@ class MeasurementInterpolation
   /// restored.
   bool _loadFromCache() {
     try {
-      final String? cached =
-          Preferences().prefs.getString(_cacheKey);
+      final String? cached = Preferences().prefs.getString(_cacheKey);
       if (cached == null) {
         return false;
       }
@@ -102,12 +100,10 @@ class MeasurementInterpolation
         return false;
       }
 
-      if (map['firstDateMs'] !=
-          db.firstDate.millisecondsSinceEpoch) {
+      if (map['firstDateMs'] != db.firstDate.millisecondsSinceEpoch) {
         return false;
       }
-      if (map['lastDateMs'] !=
-          db.lastDate.millisecondsSinceEpoch) {
+      if (map['lastDateMs'] != db.lastDate.millisecondsSinceEpoch) {
         return false;
       }
 
@@ -115,40 +111,27 @@ class MeasurementInterpolation
       __dateTimes = (map['dateTimes'] as List<dynamic>)
           .map(
             (dynamic ms) =>
-                DateTime.fromMillisecondsSinceEpoch(
-                  (ms as num).toInt(),
-                ),
+                DateTime.fromMillisecondsSinceEpoch((ms as num).toInt()),
           )
           .toList();
       __times = _vectorFromJson(map['times']);
-      __isExtrapolated =
-          _vectorFromJson(map['isExtrapolated']);
+      __isExtrapolated = _vectorFromJson(map['isExtrapolated']);
       __weights = _vectorFromJson(map['weights']);
-      __isMeasurement =
-          _vectorFromJson(map['isMeasurement']);
-      __idxsMeasurements =
-          (map['idxsMeasurements'] as List<dynamic>)
-              .map((dynamic e) => (e as num).toInt())
-              .toList();
-      __timesMeasured =
-          _vectorFromJson(map['timesMeasured']);
-      __weightsMeasured =
-          _vectorFromJson(map['weightsMeasured']);
-      __weightsSmoothed =
-          _vectorFromJson(map['weightsSmoothed']);
-      __weightsLinExtrapol =
-          _vectorFromJson(map['weightsLinExtrapol']);
+      __isMeasurement = _vectorFromJson(map['isMeasurement']);
+      __idxsMeasurements = (map['idxsMeasurements'] as List<dynamic>)
+          .map((dynamic e) => (e as num).toInt())
+          .toList();
+      __timesMeasured = _vectorFromJson(map['timesMeasured']);
+      __weightsMeasured = _vectorFromJson(map['weightsMeasured']);
+      __weightsSmoothed = _vectorFromJson(map['weightsSmoothed']);
+      __weightsLinExtrapol = _vectorFromJson(map['weightsLinExtrapol']);
       __weightsGaussianExtrapol = _vectorFromJson(
         map['weightsGaussianExtrapol'],
       );
-      _weightsDisplay =
-          _vectorFromJson(map['weightsDisplay']);
-      _measurementsDisplay =
-          _vectorFromJson(map['measurementsDisplay']);
-      _isMeasurementDisplay =
-          _vectorFromJson(map['isMeasurementDisplay']);
-      _timesDisplay =
-          _vectorFromJson(map['timesDisplay']);
+      _weightsDisplay = _vectorFromJson(map['weightsDisplay']);
+      _measurementsDisplay = _vectorFromJson(map['measurementsDisplay']);
+      _isMeasurementDisplay = _vectorFromJson(map['isMeasurementDisplay']);
+      _timesDisplay = _vectorFromJson(map['timesDisplay']);
 
       return true;
     } catch (e) {
@@ -171,14 +154,10 @@ class MeasurementInterpolation
         'version': _cacheVersion,
         'nMeasurements': db.nMeasurements,
         'interpolStrength': interpolStrength.name,
-        'firstDateMs':
-            db.firstDate.millisecondsSinceEpoch,
-        'lastDateMs':
-            db.lastDate.millisecondsSinceEpoch,
+        'firstDateMs': db.firstDate.millisecondsSinceEpoch,
+        'lastDateMs': db.lastDate.millisecondsSinceEpoch,
         'dateTimes': _dateTimes
-            .map(
-              (DateTime dt) => dt.millisecondsSinceEpoch,
-            )
+            .map((DateTime dt) => dt.millisecondsSinceEpoch)
             .toList(),
         'times': _times.toList(),
         'isExtrapolated': _isExtrapolated.toList(),
@@ -188,19 +167,14 @@ class MeasurementInterpolation
         'timesMeasured': _timesMeasured.toList(),
         'weightsMeasured': _weightsMeasured.toList(),
         'weightsSmoothed': _weightsSmoothed.toList(),
-        'weightsLinExtrapol':
-            _weightsLinExtrapol.toList(),
-        'weightsGaussianExtrapol':
-            _weightsGaussianExtrapol.toList(),
+        'weightsLinExtrapol': _weightsLinExtrapol.toList(),
+        'weightsGaussianExtrapol': _weightsGaussianExtrapol.toList(),
         'weightsDisplay': weights.toList(),
         'measurementsDisplay': measurements.toList(),
         'isMeasurementDisplay': isMeasurement.toList(),
         'timesDisplay': times.toList(),
       };
-      Preferences().prefs.setString(
-        _cacheKey,
-        jsonEncode(map),
-      );
+      Preferences().prefs.setString(_cacheKey, jsonEncode(map));
     } catch (e) {
       // Cache save failure is non-critical
     }
@@ -216,10 +190,6 @@ class MeasurementInterpolation
         .toList();
     return list.isEmpty
         ? Vector.empty()
-        : Vector.fromList(
-            list,
-            dtype:
-                MeasurementInterpolationBaseclass.dtype,
-          );
+        : Vector.fromList(list, dtype: MeasurementInterpolationBaseclass.dtype);
   }
 }

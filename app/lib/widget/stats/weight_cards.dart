@@ -1,7 +1,7 @@
 part of '../stats_widgets.dart';
 
 /// Hero card: days until target weight is reached (with rotating M3E shape).
-BentoCard reachingTargetWeightCard({
+QPBentoCard reachingTargetWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -22,7 +22,7 @@ BentoCard reachingTargetWeightCard({
       ? l10n.targetWeightReached
       : '${labels[1]} ${l10n.targetWeightReachedIn}';
 
-  return BentoCard.textInline(
+  return QPBentoCard.textInline(
     columnSpan: 8,
     rowSpan: 3,
     label: subtext,
@@ -35,7 +35,7 @@ BentoCard reachingTargetWeightCard({
 }
 
 /// Text card: number of total measurements (pill shape).
-BentoCard nMeasurementsCard({
+QPBentoCard nMeasurementsCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -43,7 +43,7 @@ BentoCard nMeasurementsCard({
   final String measurementsLabel = AppLocalizations.of(
     context,
   )!.measurements.toLowerCase();
-  return BentoCard.text(
+  return QPBentoCard.text(
     columnSpan: 6,
     label: '# $measurementsLabel',
     value: '${stats.globalNMeasurements}',
@@ -52,7 +52,7 @@ BentoCard nMeasurementsCard({
 }
 
 /// Hero card: total weight change.
-BentoCard totalChangeCard({
+QPBentoCard totalChangeCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -61,7 +61,7 @@ BentoCard totalChangeCard({
     context,
     listen: false,
   ).unit.name;
-  return BentoCard.hero(
+  return QPBentoCard.hero(
     span: 4,
     label: '${context.l10n.totalChange}\n($unit)',
     value: weightToString(context, stats.deltaWeight),
@@ -73,7 +73,7 @@ BentoCard totalChangeCard({
 }
 
 /// Inline card: time since first measurement (number on left, label on right).
-BentoCard timeSinceFirstCard({
+QPBentoCard timeSinceFirstCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -82,11 +82,10 @@ BentoCard timeSinceFirstCard({
   final List<String> parts = durationStr.split(' ');
   final String number = parts[0];
   final String unit = parts.length > 1 ? parts.sublist(1).join(' ') : '';
-  return BentoCard.hero(
+  return QPBentoCard.hero(
     span: 4,
     value: number,
-    label:
-        '${context.l10n.timeSinceFirstMeasurement}\n($unit)',
+    label: '${context.l10n.timeSinceFirstMeasurement}\n($unit)',
     delayInMilliseconds: delayInMilliseconds,
     textColor: Theme.of(context).colorScheme.onTertiaryContainer,
     backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
@@ -94,7 +93,7 @@ BentoCard timeSinceFirstCard({
 }
 
 /// Emphasized 4×4 card: all-time weight maximum with the date it was recorded.
-BentoCard globalMaxWeightDateCard({
+QPBentoCard globalMaxWeightDateCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -111,7 +110,7 @@ BentoCard globalMaxWeightDateCard({
       ? notifier.dateFormat(context).format(record.date!)
       : '--';
   final AppLocalizations l10n = context.l10n;
-  return BentoCard.textInline(
+  return QPBentoCard.textInline(
     columnSpan: 8,
     rowSpan: 2,
     label: '${l10n.max} (${notifier.unit.name})\n$dateStr',
@@ -122,7 +121,7 @@ BentoCard globalMaxWeightDateCard({
 }
 
 /// Emphasized 4×4 card: all-time weight minimum with the date it was recorded.
-BentoCard globalMinWeightDateCard({
+QPBentoCard globalMinWeightDateCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -139,7 +138,7 @@ BentoCard globalMinWeightDateCard({
       ? notifier.dateFormat(context).format(record.date!)
       : '--';
   final AppLocalizations l10n = context.l10n;
-  return BentoCard.textInline(
+  return QPBentoCard.textInline(
     columnSpan: 8,
     rowSpan: 2,
     label: '${l10n.min} (${notifier.unit.name})\n$dateStr',
@@ -149,7 +148,7 @@ BentoCard globalMinWeightDateCard({
 }
 
 /// Emphasized card: median weight.
-BentoCard medianWeightCard({
+QPBentoCard medianWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -161,7 +160,7 @@ BentoCard medianWeightCard({
   final double? weight = notifier.statsUseInterpolation
       ? stats.medianInterpolatedWeight
       : stats.medianWeight;
-  return BentoCard.textInline(
+  return QPBentoCard.textInline(
     columnSpan: 8,
     rowSpan: 2,
     label: '${context.l10n.median} (${notifier.unit.name})',
@@ -171,8 +170,9 @@ BentoCard medianWeightCard({
   );
 }
 
-/// Emphasized-text card: minimum recorded weight with date (label, value, date).
-BentoCard minWeightCard({
+/// Emphasized-text card: minimum recorded weight with date
+/// (label, value, date).
+QPBentoCard minWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -189,7 +189,7 @@ BentoCard minWeightCard({
       ? notifier.dateFormat(context).format(record.date!)
       : '--';
   final AppLocalizations l10n = context.l10n;
-  return BentoCard.textEmphasized(
+  return QPBentoCard.textEmphasized(
     columnSpan: 4,
     rowSpan: 4,
     label: '${l10n.min} (${notifier.unit.name})',
@@ -199,9 +199,9 @@ BentoCard minWeightCard({
   );
 }
 
-
-/// Emphasized-text card: maximum recorded weight with date (value, label, date).
-BentoCard maxWeightCard({
+/// Emphasized-text card: maximum recorded weight with date
+/// (value, label, date).
+QPBentoCard maxWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -218,7 +218,7 @@ BentoCard maxWeightCard({
       ? notifier.dateFormat(context).format(record.date!)
       : '--';
   final AppLocalizations l10n = context.l10n;
-  return BentoCard.textEmphasized(
+  return QPBentoCard.textEmphasized(
     columnSpan: 4,
     rowSpan: 4,
     label: '${l10n.max} (${notifier.unit.name})',
@@ -229,7 +229,7 @@ BentoCard maxWeightCard({
 }
 
 /// Emphasized card: mean weight.
-BentoCard meanWeightCard({
+QPBentoCard meanWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -241,7 +241,7 @@ BentoCard meanWeightCard({
   final double? weight = notifier.statsUseInterpolation
       ? stats.meanInterpolatedWeight
       : stats.meanWeight;
-  return BentoCard.textInline(
+  return QPBentoCard.textInline(
     columnSpan: 8,
     rowSpan: 2,
     label: '${context.l10n.mean} (${notifier.unit.name})',
@@ -249,4 +249,3 @@ BentoCard meanWeightCard({
     delayInMilliseconds: delayInMilliseconds,
   );
 }
-

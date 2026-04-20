@@ -1,51 +1,16 @@
 part of '../preferences.dart';
 
-/// Extension grouping theme_prefs settings on [Preferences].
+/// Language bridge: exposes [Language] (= [QPLanguage]) type while routing
+/// storage through the QP-managed [qp_language] key for consistency with
+/// [QPThemePrefsExtension].
+///
+/// All other theme prefs (nightMode, isAmoled, theme, schemeVariant,
+/// contrastLevel, showOnBoarding) are now handled by [QPThemePrefsExtension]
+/// on [QPPreferences] and do not need to be re-declared here.
 extension ThemePrefsExtension on Preferences {
-  /// set if onboarding screen is shown
-  set showOnBoarding(bool show) => prefs.setBool('showOnBoarding', show);
+  /// Get language preference as trale's [Language] (= [QPLanguage]).
+  Language get language => Language(prefs.getString('qp_language')!);
 
-  /// get if onboarding screen is shown
-  //bool get showOnBoarding => prefs.getBool('showOnBoarding')!;
-  bool get showOnBoarding => false;
-
-  /// get night mode value
-  String get nightMode => prefs.getString('nightMode')!;
-
-  /// set night mode value
-  set nightMode(String nightMode) => prefs.setString('nightMode', nightMode);
-
-  /// get isAmoled value
-  bool get isAmoled => prefs.getBool('isAmoled')!;
-
-  /// set isAmoled value
-  set isAmoled(bool isAmoled) => prefs.setBool('isAmoled', isAmoled);
-
-  /// get language value
-  Language get language => prefs.getString('language')!.toLanguage();
-
-  /// set language value
-  set language(Language language) =>
-      prefs.setString('language', language.language);
-
-  /// get theme mode
-  String get theme => prefs.getString('theme')!;
-
-  /// set theme mode
-  set theme(String theme) => prefs.setString('theme', theme);
-
-  /// get scheme variant
-  String get schemeVariant => prefs.getString('schemeVariant')!;
-
-  /// set scheme variant
-  set schemeVariant(String variant) =>
-      prefs.setString('schemeVariant', variant);
-
-  /// get contrast level
-  ContrastLevel get contrastLevel =>
-      prefs.getString('contrastLevel')!.toContrastLevel()!;
-
-  /// set contrast level
-  set contrastLevel(ContrastLevel level) =>
-      prefs.setString('contrastLevel', level.name);
+  /// Set language preference (writes through to the [qp_language] key).
+  set language(Language lang) => prefs.setString('qp_language', lang.language);
 }

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:introduction_screen/introduction_screen.dart';
-import 'package:trale/core/preferences.dart';
-import 'package:trale/core/units.dart';
 
 /// Page shown on the very first opening of the app
 class OnBoardingPage extends StatefulWidget {
@@ -13,13 +10,6 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
-  /// shared preferences instance
-  final Preferences prefs = Preferences();
-
-  List<bool> unitIsSelected = TraleUnit.values
-      .map((TraleUnit unit) => unit == TraleUnit.kg)
-      .toList();
-
   @override
   Widget build(BuildContext context) {
     //   final PageDecoration pageDecoration = PageDecoration(
@@ -141,6 +131,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     //       activeColor: Theme.of(context).colorScheme.primary,
     //     ),
     //   );
-    return IntroductionScreen();
+    return const SizedBox.shrink();
   }
 }

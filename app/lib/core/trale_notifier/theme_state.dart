@@ -1,92 +1,49 @@
 part of '../trale_notifier.dart';
 
 /// Extension on [TraleNotifier] holding theme and visual display state.
+///
+/// [themeMode], [isAmoled], [contrastLevel], [schemeVariant] are now inherited
+/// from [QPNotifier] / [QPThemeStateExtension].
 extension ThemeStateExtension on TraleNotifier {
-  /// getter
-  ThemeMode get themeMode => prefs.nightMode.toThemeMode();
-
-  /// setter
-  set themeMode(ThemeMode mode) {
-    if (mode != themeMode) {
-      prefs.nightMode = mode.toCustomString();
-      notify;
-    }
-  }
-
-  /// get contrast level
-  ContrastLevel get contrastLevel => prefs.contrastLevel;
-
-  /// set contrast level
-  set contrastLevel(ContrastLevel level) {
-    if (level != contrastLevel) {
-      prefs.contrastLevel = level;
-      notify;
-    }
-  }
-
-  /// getter
-  bool get isAmoled => prefs.isAmoled;
-
-  /// setter
-  set isAmoled(bool amoled) {
-    if (amoled != isAmoled) {
-      prefs.isAmoled = amoled;
-      notify;
-    }
-  }
-
-  /// getter
+  /// Current active [TraleCustomTheme].
   TraleCustomTheme get theme =>
-      prefs.theme.toTraleCustomTheme() ??
-      prefs.defaultTheme.toTraleCustomTheme()!;
+      _prefs.themeName.toTraleCustomTheme() ??
+      _prefs.defaultThemeName.toTraleCustomTheme()!;
 
-  /// setter
+  /// Sets the active palette theme.
   set theme(TraleCustomTheme newTheme) {
     if (newTheme != theme) {
-      prefs.theme = newTheme.name;
+      _prefs.themeName = newTheme.name;
       notify;
     }
   }
 
-  /// getter
-  TraleSchemeVariant get schemeVariant =>
-      prefs.schemeVariant.toTraleSchemeVariant() ??
-      prefs.defaultSchemeVariant.toTraleSchemeVariant()!;
+  /// Current zoom level.
+  ZoomLevel get zoomLevel => _prefs.zoomLevel;
 
-  /// setter
-  set schemeVariant(TraleSchemeVariant newVariant) {
-    if (newVariant != schemeVariant) {
-      prefs.schemeVariant = newVariant.name;
-      notify;
-    }
-  }
-
-  /// get zoom level
-  ZoomLevel get zoomLevel => prefs.zoomLevel;
-
-  /// choose next zoom level
+  /// Advance to the next zoom level.
   void nextZoomLevel() {
-    final ZoomLevel newLevel = prefs.zoomLevel.next;
-    if (newLevel != prefs.zoomLevel) {
-      prefs.zoomLevel = newLevel;
+    final ZoomLevel newLevel = _prefs.zoomLevel.next;
+    if (newLevel != _prefs.zoomLevel) {
+      _prefs.zoomLevel = newLevel;
       notify;
     }
   }
 
-  /// zoomOut
+  /// Zoom out one step.
   void zoomOut() {
-    final ZoomLevel newLevel = prefs.zoomLevel.zoomOut;
-    if (newLevel != prefs.zoomLevel) {
-      prefs.zoomLevel = newLevel;
+    final ZoomLevel newLevel = _prefs.zoomLevel.zoomOut;
+    if (newLevel != _prefs.zoomLevel) {
+      _prefs.zoomLevel = newLevel;
       notify;
     }
   }
 
-  /// zoomIn
+  /// Zoom in one step.
   void zoomIn() {
-    final ZoomLevel newLevel = prefs.zoomLevel.zoomIn;
-    if (newLevel != prefs.zoomLevel) {
-      prefs.zoomLevel = newLevel;
+    final ZoomLevel newLevel = _prefs.zoomLevel.zoomIn;
+    if (newLevel != _prefs.zoomLevel) {
+      _prefs.zoomLevel = newLevel;
       notify;
     }
   }

@@ -2,12 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
-import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/widget/bento_card.dart';
-import 'package:trale/widget/bento_grid.dart';
 import 'package:trale/widget/stats_widgets.dart';
 
 /// Shapes used for the trale icon card — cycled on tap.
@@ -47,10 +44,6 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
   @override
   Widget build(BuildContext context) {
     final MeasurementStats stats = MeasurementStats();
-    final TraleNotifier notifier = Provider.of<TraleNotifier>(
-      context,
-      listen: false,
-    );
     final int delay = TraleTheme.of(
       context,
     )!.transitionDuration.normal.inMilliseconds;
@@ -59,8 +52,8 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
     return Column(
       children: <Widget>[
         SizedBox(height: padding),
-        BentoGrid(
-          children: <BentoCard>[
+        QPBentoGrid(
+          children: <QPBentoCard>[
             changeRatesCard(context: context, stats: stats),
             diffFromTargetCard(context: context, stats: stats),
             calorieDeficitCard(context: context, stats: stats),
@@ -117,8 +110,8 @@ class GlobalStatsWidgetsList extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(bottom: padding),
-      child: BentoGrid(
-        children: <BentoCard>[
+      child: QPBentoGrid(
+        children: <QPBentoCard>[
           nMeasurementsCard(
             context: context,
             stats: stats,

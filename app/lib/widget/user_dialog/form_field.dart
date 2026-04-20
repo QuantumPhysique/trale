@@ -35,7 +35,7 @@ class _GroupedFormFieldTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextStyle textStyle = Theme.of(context).textTheme.titleSmall!
         .copyWith(color: Theme.of(context).colorScheme.onSurface);
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: color,
       dense: false,
       leading: PPIcon(icon, context),
@@ -63,4 +63,3 @@ class _GroupedFormFieldTile extends StatelessWidget {
     );
   }
 }
-

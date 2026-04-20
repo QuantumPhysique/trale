@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:trale/core/font.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_formatter.dart';
 import 'package:trale/core/text_size.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 
 /// A dismissible list tile displaying a single weight measurement.

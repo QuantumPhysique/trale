@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_time_patterns.dart';
 import 'package:intl/intl.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/backup_interval.dart';
-import 'package:trale/core/contrast.dart';
 import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
-import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
@@ -24,43 +22,24 @@ part 'trale_notifier/backup_state.dart';
 part 'trale_notifier/reminder_state.dart';
 part 'trale_notifier/ui_state.dart';
 
-/// Class to dynamically change themeMode, isAmoled and language within app
-class TraleNotifier with ChangeNotifier {
-  /// empty constructor, in main.dart load preferences is called first.
-  TraleNotifier();
+/// App-level ChangeNotifier extending [QPNotifier] with trale-specific state.
+class TraleNotifier extends QPNotifier {
+  /// Creates the notifier, initialising [QPNotifier] with [Preferences].
+  TraleNotifier() : super(Preferences());
 
-  /// call notifier
-  void get notify => notifyListeners();
+  /// Typed access to trale's own [Preferences] subclass.
+  Preferences get _prefs => prefs as Preferences;
 
-  /// shared preferences instance
-  final Preferences prefs = Preferences();
-
-  ColorScheme? _systemLightDynamic;
-  ColorScheme? _systemDarkDynamic;
-
-  /// The system seed color if available, otherwise black.
-  Color get systemSeedColor =>
-      systemColorsAvailable ? _systemLightDynamic!.primary : Colors.black;
-
-  /// set system color accent
-  void setColorScheme(ColorScheme? systemLight, ColorScheme? systemDark) {
-    _systemDarkDynamic = systemDark;
-    _systemLightDynamic = systemLight;
+  @override
+  Color get seedColor {
+    final TraleCustomTheme t =
+        _prefs.themeName.toTraleCustomTheme() ?? TraleCustomTheme.water;
+    return t == TraleCustomTheme.system ? systemSeedColor : t.seed;
   }
 
-  /// If system accent color is available (Android OS 12+)
-  bool get systemColorsAvailable =>
-      _systemDarkDynamic != null && _systemLightDynamic != null;
-
-  /// get locale
-  Locale? get locale => language.compareTo(Language.system())
-      ? null // defaults to systems default
-      : language.locale;
-
-  /// factory reset
+  @override
   Future<void> factoryReset() async {
-    prefs.resetSettings();
+    await super.factoryReset();
     await MeasurementDatabase().deleteAllMeasurements();
-    notifyListeners();
   }
 }

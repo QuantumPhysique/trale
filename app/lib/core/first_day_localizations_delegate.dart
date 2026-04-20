@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 import 'package:trale/core/first_day.dart';
 

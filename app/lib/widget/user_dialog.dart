@@ -4,28 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-
-import 'package:trale/core/font.dart';
-import 'package:trale/core/icons.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
-import 'package:trale/widget/dialog.dart';
-import 'package:trale/widget/tile_group.dart';
-
-///
 
 part 'user_dialog/form_field.dart';
 part 'user_dialog/user_details.dart';
 part 'user_dialog/target_weight.dart';
 
+/// Shows the user dialog.
 Future<bool> showUserDialog({required BuildContext context}) async {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(
     context,
@@ -73,7 +67,7 @@ Future<bool> showUserDialog({required BuildContext context}) async {
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
-          return DialogM3E(
+          return QPDialog(
             title: context.l10n.userDialogTitle,
             content: SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -88,4 +82,3 @@ Future<bool> showUserDialog({required BuildContext context}) async {
       false;
   return accepted;
 }
-

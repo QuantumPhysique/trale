@@ -3,21 +3,19 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
-import 'package:trale/core/logger.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:trale/core/font.dart';
-import 'package:trale/core/icons.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_formatter.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/core/l10n_extension.dart';
 
 /// Export backup
 Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
@@ -82,7 +80,7 @@ List<Measurement> parseMeasurementsTxt(List<String?> lines) {
       try {
         newMeasurements.add(Measurement.fromString(exportString: line));
       } on FormatException catch (e) {
-        AppLogger.warning(
+        QPAppLogger.warning(
           'Skipping invalid measurement line',
           tag: 'Parser',
           error: e,
@@ -113,7 +111,7 @@ List<Measurement> parseMeasurementsCSV(
     }
     final List<String> strings = line.split(separator);
     if (strings.length < dateIdx || strings.length < weightIdx) {
-      AppLogger.warning(
+      QPAppLogger.warning(
         'Invalid column count in CSV line',
         tag: 'Parser',
         error: line,
@@ -130,7 +128,7 @@ List<Measurement> parseMeasurementsCSV(
         Measurement(weight: weight, date: date, isMeasured: true),
       );
     } catch (e) {
-      AppLogger.warning(
+      QPAppLogger.warning(
         'Failed to parse CSV date/weight',
         tag: 'Parser',
         error: dateString,

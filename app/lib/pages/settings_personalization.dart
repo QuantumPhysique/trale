@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolation_preview.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/print_format.dart';
-import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/linechart.dart';
-import 'package:trale/widget/tile_group.dart';
 import 'package:trale/widget/user_dialog.dart';
 
 /// Settings personalization page.
@@ -80,10 +79,10 @@ class _PersonalizationSettingsPageState
     final bool useUserData = _showUserData && hasEnoughData;
 
     final List<Widget> sliverlist = <Widget>[
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.interpolation,
         children: <Widget>[
-          GroupedWidget(
+          QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: CustomLineChart(
               loadedFirst: false,
@@ -99,7 +98,7 @@ class _PersonalizationSettingsPageState
             ),
           ),
           if (hasEnoughData)
-            GroupedSwitchListTile(
+            QPGroupedSwitchListTile(
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: TraleTheme.of(context)!.padding,
@@ -115,7 +114,7 @@ class _PersonalizationSettingsPageState
                 });
               },
             ),
-          GroupedWidget(
+          QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,
           ),
@@ -137,7 +136,7 @@ class _PersonalizationSettingsPageState
       Consumer<TraleNotifier>(
         builder: (BuildContext context, TraleNotifier notifier, _) {
           final ColorScheme colorScheme = Theme.of(context).colorScheme;
-          return WidgetGroup(
+          return QPWidgetGroup(
             title: context.l10n.statsSourceTitle,
             children: <Widget>[
               RadioGroup<bool>(
@@ -150,7 +149,7 @@ class _PersonalizationSettingsPageState
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    GroupedRadioListTile<bool>(
+                    QPGroupedRadioListTile<bool>(
                       color: notifier.statsUseInterpolation
                           ? colorScheme.primaryContainer
                           : colorScheme.surfaceContainerLowest,
@@ -166,7 +165,7 @@ class _PersonalizationSettingsPageState
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
-                    GroupedRadioListTile<bool>(
+                    QPGroupedRadioListTile<bool>(
                       color: !notifier.statsUseInterpolation
                           ? colorScheme.primaryContainer
                           : colorScheme.surfaceContainerLowest,
@@ -200,7 +199,7 @@ class _PersonalizationSettingsPageState
         ),
       ),
       SizedBox(height: TraleTheme.of(context)!.padding),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.unitTitle,
         children: const <Widget>[
           UnitsListTile(),
@@ -208,7 +207,7 @@ class _PersonalizationSettingsPageState
           HeightUnitListTile(),
         ],
       ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: context.l10n.dateSettings,
         children: const <Widget>[FirstDayListTile(), DatePrintListTile()],
       ),
@@ -242,7 +241,7 @@ class UnitsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
@@ -281,7 +280,7 @@ class UnitPrecisionListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
@@ -303,9 +302,7 @@ class UnitPrecisionListTile extends StatelessWidget {
           for (final TraleUnitPrecision precision in TraleUnitPrecision.values)
             DropdownMenuEntry<TraleUnitPrecision>(
               value: precision,
-              label:
-                  precision.settingsName ??
-                  context.l10n.defaultFormat,
+              label: precision.settingsName ?? context.l10n.defaultFormat,
             ),
         ],
         onSelected: (TraleUnitPrecision? newPrecision) async {
@@ -331,7 +328,7 @@ class FirstDayListTile extends StatelessWidget {
     return FutureBuilder<void>(
       future: TraleFirstDayExtension.loadLocalizedNames(locale),
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        return GroupedListTile(
+        return QPGroupedListTile(
           color: Theme.of(context).colorScheme.surfaceContainerLowest,
           contentPadding: EdgeInsets.symmetric(
             horizontal: TraleTheme.of(context)!.padding,
@@ -381,7 +378,7 @@ class DatePrintListTile extends StatelessWidget {
     // Fetch the current date print format from the provider
     final TraleNotifier traleNotifier = Provider.of<TraleNotifier>(context);
 
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
@@ -404,9 +401,7 @@ class DatePrintListTile extends StatelessWidget {
               in TraleDatePrintFormat.values)
             DropdownMenuEntry<TraleDatePrintFormat>(
               value: datePrintFormat,
-              label:
-                  datePrintFormat.pattern ??
-                  context.l10n.defaultFormat,
+              label: datePrintFormat.pattern ?? context.l10n.defaultFormat,
             ),
         ],
         onSelected: (TraleDatePrintFormat? newDatePrintFormat) async {
@@ -426,7 +421,7 @@ class HeightUnitListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,

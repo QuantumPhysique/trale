@@ -3,16 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/font.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
-import 'package:trale/core/measurement.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/widget/animation_replay_scope.dart';
 import 'package:trale/widget/empty_chart.dart';
 import 'package:trale/widget/stats_range_dialog.dart';
 import 'package:trale/widget/stats_widgets_list.dart';
@@ -33,8 +31,8 @@ class _StatsScreen extends State<StatsScreen>
   final ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> key = GlobalKey();
   late final Stream<List<Measurement>> _measurementStream;
-  final AnimationReplayController _replayController =
-      AnimationReplayController();
+  final QPAnimationReplayController _replayController =
+      QPAnimationReplayController();
 
   Timer? _bannerTimer;
   late final AnimationController _bannerController;
@@ -97,8 +95,9 @@ class _StatsScreen extends State<StatsScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bannerController.duration =
-        TraleTheme.of(context)!.transitionDuration.normal;
+    _bannerController.duration = TraleTheme.of(
+      context,
+    )!.transitionDuration.normal;
   }
 
   @override
@@ -155,11 +154,7 @@ class _StatsScreen extends State<StatsScreen>
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Consumer<TraleNotifier>(
-              builder: (
-                BuildContext ctx,
-                TraleNotifier n,
-                Widget? _,
-              ) {
+              builder: (BuildContext ctx, TraleNotifier n, Widget? _) {
                 final String sourceName = n.statsUseInterpolation
                     ? l10n.interpolation
                     : l10n.measurements;
@@ -187,9 +182,7 @@ class _StatsScreen extends State<StatsScreen>
                             child: Material(
                               elevation: 0,
                               borderRadius: BorderRadius.circular(4),
-                              color: Theme.of(
-                                ctx,
-                              ).colorScheme.inverseSurface,
+                              color: Theme.of(ctx).colorScheme.inverseSurface,
                               child: Padding(
                                 padding: EdgeInsets.all(
                                   TraleTheme.of(ctx)!.padding,
@@ -198,9 +191,9 @@ class _StatsScreen extends State<StatsScreen>
                                   children: <Widget>[
                                     Icon(
                                       PhosphorIconsBold.info,
-                                      color: Theme.of(ctx)
-                                          .colorScheme
-                                          .onInverseSurface,
+                                      color: Theme.of(
+                                        ctx,
+                                      ).colorScheme.onInverseSurface,
                                       size: 20,
                                     ),
                                     SizedBox(
@@ -215,9 +208,9 @@ class _StatsScreen extends State<StatsScreen>
                                             .textTheme
                                             .bodyMedium!
                                             .copyWith(
-                                              color: Theme.of(ctx)
-                                                  .colorScheme
-                                                  .onInverseSurface,
+                                              color: Theme.of(
+                                                ctx,
+                                              ).colorScheme.onInverseSurface,
                                             ),
                                       ),
                                     ),
@@ -232,7 +225,7 @@ class _StatsScreen extends State<StatsScreen>
             ),
           ),
           SliverToBoxAdapter(
-            child: AnimateInEffect(
+            child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: Padding(
                 padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -247,7 +240,7 @@ class _StatsScreen extends State<StatsScreen>
             ),
           ),
           SliverToBoxAdapter(
-            child: AnimateInEffect(
+            child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: InkWell(
                 onTap: () => showStatsRangeDialog(context: context),
@@ -290,7 +283,7 @@ class _StatsScreen extends State<StatsScreen>
             child: const StatsWidgetsList(),
           ),
           SliverToBoxAdapter(
-            child: AnimateInEffect(
+            child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: Padding(
                 padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
@@ -318,7 +311,7 @@ class _StatsScreen extends State<StatsScreen>
           : statsScreen(context);
     }
 
-    return AnimationReplayScope(
+    return QPAnimationReplayScope(
       controller: _replayController,
       child: StreamBuilder<List<Measurement>>(
         stream: _measurementStream,

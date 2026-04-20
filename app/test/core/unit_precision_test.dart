@@ -30,8 +30,10 @@ void main() {
 
   group('TralUnitPrecisionParsing', () {
     test('valid string converts to TraleUnitPrecision', () {
-      expect('unitDefault'.toTraleUnitPrecision(),
-          TraleUnitPrecision.unitDefault);
+      expect(
+        'unitDefault'.toTraleUnitPrecision(),
+        TraleUnitPrecision.unitDefault,
+      );
       expect('single'.toTraleUnitPrecision(), TraleUnitPrecision.single);
       expect('double'.toTraleUnitPrecision(), TraleUnitPrecision.double);
     });

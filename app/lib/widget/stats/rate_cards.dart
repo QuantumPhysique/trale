@@ -1,7 +1,7 @@
 part of '../stats_widgets.dart';
 
 /// Full-width change-rates card (week / month / year columns).
-BentoCard changeRatesCard({
+QPBentoCard changeRatesCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -11,7 +11,7 @@ BentoCard changeRatesCard({
     listen: false,
   ).unit.name;
   final AppLocalizations l10n = context.l10n;
-  return BentoCard(
+  return QPBentoCard(
     columnSpan: 12,
     rowSpan: 2,
     delayInMilliseconds: delayInMilliseconds,
@@ -77,7 +77,7 @@ BentoCard changeRatesCard({
 }
 
 /// Full-width weight forecast card (today / +1 week / +1 month).
-BentoCard weightForecastCard({
+QPBentoCard weightForecastCard({
   required BuildContext context,
   required MeasurementStats stats,
   int delayInMilliseconds = 0,
@@ -87,7 +87,7 @@ BentoCard weightForecastCard({
     listen: false,
   ).unit.name;
   final AppLocalizations l10n = context.l10n;
-  return BentoCard(
+  return QPBentoCard(
     columnSpan: 12,
     rowSpan: 2,
     delayInMilliseconds: delayInMilliseconds,
@@ -151,4 +151,3 @@ BentoCard weightForecastCard({
     ),
   );
 }
-

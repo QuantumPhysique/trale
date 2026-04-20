@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/contrast.dart';
 
 void main() {

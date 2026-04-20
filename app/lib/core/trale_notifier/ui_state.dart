@@ -1,69 +1,39 @@
 part of '../trale_notifier.dart';
 
-/// Extension on [TraleNotifier] holding UI hint and app-lifecycle state.
+/// Extension on [TraleNotifier] holding trale-specific UI hint state.
+///
+/// [language], [showOnBoarding], [showChangelog], [lastBuildNumber] are now
+/// inherited from [QPNotifier] / [QPUiStateExtension].
 extension UiStateExtension on TraleNotifier {
-  /// getter
-  Language get language => prefs.language;
+  /// Whether to show the measurement hint banner.
+  bool get showMeasurementHintBanner => _prefs.showMeasurementHintBanner;
 
-  /// setter
-  set language(Language newLanguage) {
-    if (language != newLanguage) {
-      prefs.language = newLanguage;
-      notify;
-    }
-  }
-
-  /// getter
-  bool get showOnBoarding => prefs.showOnBoarding;
-
-  /// setter
-  set showOnBoarding(bool onBoarding) {
-    if (onBoarding != showOnBoarding) {
-      prefs.showOnBoarding = onBoarding;
-      notify;
-    }
-  }
-
-  /// getter
-  bool get showMeasurementHintBanner => prefs.showMeasurementHintBanner;
-
-  /// setter
+  /// Sets the measurement hint banner flag.
   set showMeasurementHintBanner(bool show) {
     if (show != showMeasurementHintBanner) {
-      prefs.showMeasurementHintBanner = show;
+      _prefs.showMeasurementHintBanner = show;
       notify;
     }
   }
 
-  /// getter
-  bool get showStatsHintBanner => prefs.showStatsHintBanner;
+  /// Whether to show the stats hint banner.
+  bool get showStatsHintBanner => _prefs.showStatsHintBanner;
 
-  /// setter
+  /// Sets the stats hint banner flag.
   set showStatsHintBanner(bool show) {
     if (show != showStatsHintBanner) {
-      prefs.showStatsHintBanner = show;
+      _prefs.showStatsHintBanner = show;
       notify;
     }
   }
 
-  /// getter
-  bool get showChangelog => prefs.showChangelog;
+  /// Whether to use loose interpolation mode.
+  bool get looseWeight => _prefs.looseWeight;
 
-  /// setter
-  set showChangelog(bool show) {
-    if (show != showChangelog) {
-      prefs.showChangelog = show;
-      notify;
-    }
-  }
-
-  /// getter
-  int get lastBuildNumber => prefs.lastBuildNumber;
-
-  /// setter
-  set lastBuildNumber(int number) {
-    if (number != lastBuildNumber) {
-      prefs.lastBuildNumber = number;
+  /// Sets the loose interpolation mode flag.
+  set looseWeight(bool loose) {
+    if (loose != looseWeight) {
+      _prefs.looseWeight = loose;
       notify;
     }
   }

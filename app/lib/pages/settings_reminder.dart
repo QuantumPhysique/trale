@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/icons.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/notification_service.dart';
-import 'package:trale/core/string_extension.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
-import 'package:trale/widget/tile_group.dart';
 
 /// Settings sub-page for configuring weight-logging reminders.
 class ReminderSettingsPage extends StatefulWidget {
@@ -65,10 +63,10 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
 
     final List<Widget> sliverList = <Widget>[
       // ── Enable / disable toggle ──────────────────────────────────────
-      WidgetGroup(
+      QPWidgetGroup(
         title: l10n.reminderTitle,
         children: <Widget>[
-          GroupedListTile(
+          QPGroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             contentPadding: EdgeInsets.symmetric(
               horizontal: TraleTheme.of(context)!.padding,
@@ -103,13 +101,13 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
 
       // ── Day picker + time picker (only when enabled) ─────────────────
       if (notifier.reminderEnabled) ...<Widget>[
-        WidgetGroup(
+        QPWidgetGroup(
           title: l10n.reminderDaysTitle,
           direction: Axis.horizontal,
           scrollable: true,
           children: <Widget>[
             for (final int day in orderedDays)
-              GroupedChip(
+              QPGroupedChip(
                 color: Theme.of(context).colorScheme.surfaceContainerLowest,
                 selected: selectedDays.contains(day),
                 onSelected: (bool selected) {
@@ -137,10 +135,10 @@ class _ReminderSettingsPageState extends State<ReminderSettingsPage> {
               ),
           ],
         ),
-        WidgetGroup(
+        QPWidgetGroup(
           title: l10n.reminderTimeTitle,
           children: <Widget>[
-            GroupedListTile(
+            QPGroupedListTile(
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               contentPadding: EdgeInsets.symmetric(
                 horizontal: TraleTheme.of(context)!.padding,

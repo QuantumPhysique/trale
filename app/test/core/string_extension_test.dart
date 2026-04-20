@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trale/core/string_extension.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 void main() {
   group('CapExtension', () {

@@ -46,8 +46,7 @@ void main() {
         weight: 75.0,
         date: DateTime(2024, 1, 1),
       );
-      final List<Measurement> result =
-          db.averageMeasurements(<Measurement>[m]);
+      final List<Measurement> result = db.averageMeasurements(<Measurement>[m]);
       expect(result.length, 1);
       expect(result.first.weight, 75.0);
     });

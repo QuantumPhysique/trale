@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/theme.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/animate_in_effect.dart';
+import 'package:trale/core/theme.dart';
 import 'package:trale/widget/fade_in_effect.dart';
 
 /// Define empty Chart, which is used in case there are no measurements yet
@@ -16,7 +14,7 @@ Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
     context,
   )!.transitionDuration.normal.inMilliseconds;
 
-  return AnimateInEffect(
+  return QPAnimateInEffect(
     durationInMilliseconds: animationDurationInMilliseconds,
     delayInMilliseconds: firstDelayInMilliseconds,
     child: SizedBox(

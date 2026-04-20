@@ -156,8 +156,9 @@ void main() {
         weight: 75.5,
         date: DateTime(2024, 1, 15, 10, 30),
       );
-      final Measurement parsed =
-          Measurement.fromString(exportString: original.exportString);
+      final Measurement parsed = Measurement.fromString(
+        exportString: original.exportString,
+      );
       expect(parsed.weight, closeTo(original.weight, 0.0001));
       expect(parsed.date.year, original.date.year);
       expect(parsed.date.month, original.date.month);

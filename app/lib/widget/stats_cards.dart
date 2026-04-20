@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
-import 'package:trale/core/font.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/widget/animate_in_effect.dart';
 
 /// Stat card widget.
 class StatCard extends StatefulWidget {
@@ -76,7 +75,7 @@ class _StatCardState extends State<StatCard> {
       child: SizedBox(height: height, width: width, child: widget.childWidget),
     );
 
-    return AnimateInEffect(
+    return QPAnimateInEffect(
       delayInMilliseconds: widget.delayInMilliseconds ?? 0,
       durationInMilliseconds: animationDurationInMilliseconds,
       child: card,
@@ -137,7 +136,7 @@ class _OneThirdStatCardState extends State<OneThirdStatCard> {
       child: SizedBox(height: height, width: width, child: widget.childWidget),
     );
 
-    return AnimateInEffect(
+    return QPAnimateInEffect(
       delayInMilliseconds: widget.delayInMilliseconds ?? 0,
       durationInMilliseconds: animationDurationInMilliseconds,
       child: card,
@@ -210,7 +209,7 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
       ),
     );
 
-    return AnimateInEffect(
+    return QPAnimateInEffect(
       delayInMilliseconds: widget.delayInMilliseconds ?? 0,
       durationInMilliseconds: animationDurationInMilliseconds,
       child: card,

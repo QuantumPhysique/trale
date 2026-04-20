@@ -27,7 +27,7 @@ class UserDetailsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color tileColor =
         backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerLow;
-    return WidgetGroup(
+    return QPWidgetGroup(
       title: title,
       children: <Widget>[
         _GroupedFormFieldTile(

@@ -6,19 +6,16 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/duration_extension.dart';
-import 'package:trale/core/font.dart';
 import 'package:trale/core/gap.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/text_size.dart';
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/widget/animate_in_effect.dart';
-import 'package:trale/widget/bento_card.dart';
 import 'package:trale/widget/icon_hero.dart';
-
 
 part 'stats/rate_cards.dart';
 part 'stats/weight_cards.dart';
@@ -191,7 +188,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
             <Widget>[
               if (userTargetWeight != null)
                 Expanded(
-                  child: AnimateInEffect(
+                  child: QPAnimateInEffect(
                     durationInMilliseconds: TraleTheme.of(
                       context,
                     )!.transitionDuration.slow.inMilliseconds,
@@ -200,7 +197,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
                 ),
               if (nMeasured >= 2 && _showWeightLostCard)
                 Expanded(
-                  child: AnimateInEffect(
+                  child: QPAnimateInEffect(
                     durationInMilliseconds: TraleTheme.of(
                       context,
                     )!.transitionDuration.slow.inMilliseconds,
@@ -219,4 +216,3 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 // ---------------------------------------------------------------------------
 // BentoCard-based widget builders
 // ---------------------------------------------------------------------------
-

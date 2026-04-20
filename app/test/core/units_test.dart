@@ -33,14 +33,8 @@ void main() {
     test('rounds to unit default ticks', () {
       // kg: ticksPerStep = 10, so rounds to 0.1
       const TraleUnitPrecision p = TraleUnitPrecision.unitDefault;
-      expect(
-        TraleUnit.kg.doubleToPrecision(70.15, p),
-        closeTo(70.2, 0.001),
-      );
-      expect(
-        TraleUnit.kg.doubleToPrecision(70.14, p),
-        closeTo(70.1, 0.001),
-      );
+      expect(TraleUnit.kg.doubleToPrecision(70.15, p), closeTo(70.2, 0.001));
+      expect(TraleUnit.kg.doubleToPrecision(70.14, p), closeTo(70.1, 0.001));
     });
 
     test('rounds with single precision (0.1)', () {
@@ -52,41 +46,44 @@ void main() {
 
     test('rounds with double precision (0.05)', () {
       const TraleUnitPrecision p = TraleUnitPrecision.double;
-      expect(
-        TraleUnit.kg.doubleToPrecision(70.13, p),
-        closeTo(70.15, 0.001),
-      );
-      expect(
-        TraleUnit.kg.doubleToPrecision(70.12, p),
-        closeTo(70.10, 0.001),
-      );
+      expect(TraleUnit.kg.doubleToPrecision(70.13, p), closeTo(70.15, 0.001));
+      expect(TraleUnit.kg.doubleToPrecision(70.12, p), closeTo(70.10, 0.001));
     });
   });
 
   group('TraleUnit.weightToString', () {
     test('kg weight with unit suffix', () {
-      final String result =
-          TraleUnit.kg.weightToString(70.0, TraleUnitPrecision.unitDefault);
+      final String result = TraleUnit.kg.weightToString(
+        70.0,
+        TraleUnitPrecision.unitDefault,
+      );
       expect(result, '70.0 kg');
     });
 
     test('kg weight without unit suffix', () {
-      final String result = TraleUnit.kg
-          .weightToString(70.0, TraleUnitPrecision.unitDefault, showUnit: false);
+      final String result = TraleUnit.kg.weightToString(
+        70.0,
+        TraleUnitPrecision.unitDefault,
+        showUnit: false,
+      );
       expect(result, '70.0');
     });
 
     test('converts kg to lb', () {
       // 1 lb = 0.45359237 kg, so 45.359237 kg = 100 lb
-      final String result = TraleUnit.lb
-          .weightToString(45.359237, TraleUnitPrecision.unitDefault);
+      final String result = TraleUnit.lb.weightToString(
+        45.359237,
+        TraleUnitPrecision.unitDefault,
+      );
       expect(result, '100.0 lb');
     });
 
     test('converts kg to st', () {
       // 1 st = 6.35029318 kg, so 63.5029318 kg = 10 st
-      final String result = TraleUnit.st
-          .weightToString(63.5029318, TraleUnitPrecision.unitDefault);
+      final String result = TraleUnit.st.weightToString(
+        63.5029318,
+        TraleUnitPrecision.unitDefault,
+      );
       expect(result, '10.00 st');
     });
   });
@@ -181,17 +178,18 @@ void main() {
   group('round-trip conversions', () {
     test('kg weight converts and parses back', () {
       const double originalKg = 75.5;
-      final String asString = TraleUnit.kg
-          .weightToString(originalKg, TraleUnitPrecision.unitDefault,
-              showUnit: false);
+      final String asString = TraleUnit.kg.weightToString(
+        originalKg,
+        TraleUnitPrecision.unitDefault,
+        showUnit: false,
+      );
       final double parsed = double.parse(asString);
       expect(parsed, closeTo(originalKg, 0.1));
     });
 
     test('metric height round-trips', () {
       const double originalCm = 175.0;
-      final String asString =
-          TraleUnitHeight.metric.heightToString(originalCm);
+      final String asString = TraleUnitHeight.metric.heightToString(originalCm);
       final double? parsed = TraleUnitHeight.metric.parseHeight(asString);
       expect(parsed, originalCm);
     });

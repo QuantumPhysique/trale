@@ -89,7 +89,13 @@ class MeasurementStats {
   int get nMeasurements => measurements.length;
 
   /// Content-based hash combining date range and interpolation state.
+  @override
   int get hashCode => Object.hash(toDate, fromDate, ip.hashCode);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MeasurementStats && hashCode == other.hashCode;
 
   /// re initialize database
   void reinit() {

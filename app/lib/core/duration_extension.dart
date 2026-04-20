@@ -23,6 +23,7 @@ extension StringExtension on Duration {
     }
   }
 
+  /// Converts duration to a streak string with optional label.
   String streakToStringDays(BuildContext context, {bool addLabel = true}) {
     final int days = inDays;
     if (!addLabel) {

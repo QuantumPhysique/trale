@@ -39,5 +39,4 @@ extension BackupPrefsExtension on Preferences {
     'latestBackupReminderDate',
     (date ?? defaultLatestBackupReminderDate).toString(),
   );
-
 }

@@ -2,13 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:trale/core/font.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
-import 'package:trale/widget/tile_group.dart';
 
 /// Custom scroll physics that snaps to multiples of [snapSize].
 

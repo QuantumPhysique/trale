@@ -104,8 +104,7 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
       final double s = sigma[j];
       final double diff = p.timesData[j] - tRef;
       final double gaussVal =
-          math.exp(-diff * diff / (2 * s * s)) /
-          (s * math.sqrt(2 * math.pi));
+          math.exp(-diff * diff / (2 * s * s)) / (s * math.sqrt(2 * math.pi));
       final double val =
           gaussVal *
           (p.isMeasurementData[j] * p.interpolWeight +
@@ -137,11 +136,9 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
     double numChange = 0, denChange = 0;
     for (int j = 0; j < p.n; j++) {
       numChange += gw[j] * (w[j] - meanW) * p.timesData[j];
-      denChange +=
-          gw[j] * (p.timesData[j] - meanT) * p.timesData[j];
+      denChange += gw[j] * (p.timesData[j] - meanT) * p.timesData[j];
     }
-    final double meanChange =
-        denChange != 0 ? numChange / denChange : 0;
+    final double meanChange = denChange != 0 ? numChange / denChange : 0;
     final double intercept = meanW - meanChange * meanT;
     final int count = endIdx - startIdx;
     return List<double>.generate(count, (int i) {
@@ -193,8 +190,7 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
         final double s = sigma[j];
         final double diff = p.timesData[j] - t;
         final double gaussVal =
-            math.exp(-diff * diff / (2 * s * s)) /
-            (s * math.sqrt(2 * math.pi));
+            math.exp(-diff * diff / (2 * s * s)) / (s * math.sqrt(2 * math.pi));
         final double val =
             gaussVal *
             (p.isMeasurementData[j] * p.interpolWeight +
@@ -208,11 +204,9 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
   }
 
   // ---- Pass 1: weightsSmoothed ----
-  final List<double> linInterp =
-      linearInterpolation(p.weightsData);
+  final List<double> linInterp = linearInterpolation(p.weightsData);
   final List<double> linExtrapol = linearExtrapolation(linInterp);
-  final List<double> smoothedRaw =
-      gaussianInterpolation(linExtrapol);
+  final List<double> smoothedRaw = gaussianInterpolation(linExtrapol);
   // Zero out non-measurements
   final List<double> weightsSmoothed = List<double>.generate(
     p.n,
@@ -220,12 +214,11 @@ _InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
   );
 
   // ---- Pass 2: weightsGaussianExtrapol ----
-  final List<double> linInterp2 =
-      linearInterpolation(weightsSmoothed);
-  final List<double> weightsLinExtrapol =
-      linearExtrapolation(linInterp2);
-  final List<double> weightsGaussianExtrapol =
-      gaussianInterpolation(weightsLinExtrapol);
+  final List<double> linInterp2 = linearInterpolation(weightsSmoothed);
+  final List<double> weightsLinExtrapol = linearExtrapolation(linInterp2);
+  final List<double> weightsGaussianExtrapol = gaussianInterpolation(
+    weightsLinExtrapol,
+  );
 
   // ---- weightsDisplay ----
   List<double> weightsDisplay;
