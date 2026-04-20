@@ -490,6 +490,7 @@ class _CustomLineChartState extends State<CustomLineChart>
                             children: <TextSpan>[
                               TextSpan(
                                 text:
+                                    // ignore: lines_longer_than_80_chars
                                     '\n${notifier.unit.weightToString(spot.y * unitScaling, notifier.unitPrecision)}',
                                 style: theme.textTheme.bodySmall!.copyWith(
                                   color: colorScheme.onSurface,
