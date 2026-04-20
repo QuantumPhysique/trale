@@ -11,8 +11,8 @@ CHANGELOG_GEN := lib/core/changelog.g.dart
 # ── Code generation ───────────────────────────────────────────────────
 
 ## Regenerate changelog.g.dart from ../CHANGELOG.md
-$(CHANGELOG_GEN): $(CHANGELOG_SRC) tool/generate_changelog.dart lib/core/changelog.dart
-	dart run tool/generate_changelog.dart
+$(CHANGELOG_GEN): $(CHANGELOG_SRC) ../quantumphysique/bin/generate_changelog.dart lib/core/changelog.dart
+	dart run quantumphysique:generate_changelog
 
 ## Regenerate Hive type adapters
 .PHONY: hive
@@ -56,7 +56,7 @@ coverage: $(CHANGELOG_GEN)
 
 .PHONY: format
 format:
-	dart format .
+	find lib test -name '*.dart' ! -name '*.g.dart' | xargs dart format
 
 .PHONY: format-check
 format-check:

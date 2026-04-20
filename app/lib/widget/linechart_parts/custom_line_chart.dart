@@ -489,10 +489,8 @@ class _CustomLineChartState extends State<CustomLineChart>
                             textAlign: TextAlign.center,
                             children: <TextSpan>[
                               TextSpan(
-                                text: '\n${notifier.unit.weightToString(
-                                  spot.y * unitScaling,
-                                  notifier.unitPrecision,
-                                )}',
+                                text:
+                                    '\n${notifier.unit.weightToString(spot.y * unitScaling, notifier.unitPrecision)}',
                                 style: theme.textTheme.bodySmall!.copyWith(
                                   color: colorScheme.onSurface,
                                   fontWeight: FontWeight.bold,

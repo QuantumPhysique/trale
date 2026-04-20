@@ -1,28 +1,34 @@
-/// Parses ../CHANGELOG.md and generates lib/core/changelog.g.dart
+/// Parses a CHANGELOG.md and generates a Dart part file with changelog data.
 ///
-/// Run with: dart run tool/generate_changelog.dart
+/// Usage (from the app package root):
+///   dart run quantumphysique:generate_changelog [options]
+///
+/// Options:
+///   --changelog <path>   Path to CHANGELOG.md (default: ../CHANGELOG.md)
+///   --output <path>      Output .dart file path (default: lib/core/changelog.g.dart)
+///   --part-of <name>     Library name for the `part of` directive
+///                        (default: changelog.dart)
 // ignore_for_file: avoid_print
 library;
 
 import 'dart:io';
 
-/// Section header patterns mapped to enum names.
-const Map<String, String> sectionMap = <String, String>{
+/// Section header patterns mapped to [ChangelogSection] enum accessors.
+const Map<String, String> _sectionMap = <String, String>{
   'API changes warning': 'ChangelogSection.apiChanges',
   'Added Features and Improvements': 'ChangelogSection.addedFeatures',
   'Bugfix': 'ChangelogSection.bugfix',
   'Other changes': 'ChangelogSection.otherChanges',
 };
 
-/// Try to match a `### ...` header to one of our known sections.
-String? matchSection(String line) {
+/// Try to match a `### ...` header to one of the known sections.
+String? _matchSection(String line) {
   final String trimmed = line.trim();
   if (!trimmed.startsWith('### ')) {
     return null;
   }
-  // Remove leading "### " and trailing ":"
   final String header = trimmed.substring(4).replaceAll(RegExp(r':$'), '');
-  for (final MapEntry<String, String> entry in sectionMap.entries) {
+  for (final MapEntry<String, String> entry in _sectionMap.entries) {
     if (header.contains(entry.key)) {
       return entry.value;
     }
@@ -32,7 +38,7 @@ String? matchSection(String line) {
 
 /// Parse a version header line like `## [0.15.1] - 2026-02-03` or
 /// `## [Unreleased]`.
-({String version, String? date})? parseVersionHeader(String line) {
+({String version, String? date})? _parseVersionHeader(String line) {
   final RegExp re = RegExp(
     r'^##\s+\[([^\]]+)\](?:\s*-\s*(\d{4}-\d{2}-\d{2}))?',
   );
@@ -43,12 +49,39 @@ String? matchSection(String line) {
   return (version: m.group(1)!, date: m.group(2));
 }
 
-void main() {
-  // Resolve paths relative to the current working directory (the app/ root).
-  // CHANGELOG.md lives in the parent (repo root) directory.
-  final Directory packageRoot = Directory.current;
-  final File changelogFile = File('${packageRoot.parent.path}/CHANGELOG.md');
-  final File outputFile = File('${packageRoot.path}/lib/core/changelog.g.dart');
+/// Escape single quotes and backslashes for Dart string literals.
+String _escape(String s) =>
+    s.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
+
+/// Parse a simple `--key value` or `--key=value` argument list.
+Map<String, String> _parseArgs(List<String> args) {
+  final Map<String, String> result = <String, String>{};
+  for (int i = 0; i < args.length; i++) {
+    final String arg = args[i];
+    if (arg.startsWith('--')) {
+      final int eq = arg.indexOf('=');
+      if (eq != -1) {
+        result[arg.substring(2, eq)] = arg.substring(eq + 1);
+      } else if (i + 1 < args.length && !args[i + 1].startsWith('--')) {
+        result[arg.substring(2)] = args[++i];
+      }
+    }
+  }
+  return result;
+}
+
+void main(List<String> args) {
+  final Map<String, String> opts = _parseArgs(args);
+
+  final String changelogPath =
+      opts['changelog'] ?? '../CHANGELOG.md';
+  final String outputPath =
+      opts['output'] ?? 'lib/core/changelog.g.dart';
+  final String partOf =
+      opts['part-of'] ?? 'changelog.dart';
+
+  final File changelogFile = File(changelogPath);
+  final File outputFile = File(outputPath);
 
   if (!changelogFile.existsSync()) {
     stderr.writeln('ERROR: ${changelogFile.path} not found.');
@@ -57,9 +90,8 @@ void main() {
 
   final List<String> lines = changelogFile.readAsLinesSync();
 
-  // ── Parse ──────────────────────────────────────────────────────────────
+  // ── Parse ───────────────────────────────────────────────────────────────
 
-  // Each entry: version, date?, sections (enum->bullet list)
   final List<
     ({String version, String? date, Map<String, List<String>> sections})
   >
@@ -77,9 +109,8 @@ void main() {
     final String line = lines[i];
 
     // ── version header ──
-    final ({String version, String? date})? versionMatch = parseVersionHeader(
-      line,
-    );
+    final ({String version, String? date})? versionMatch =
+        _parseVersionHeader(line);
     if (versionMatch != null) {
       insideEntries = true;
       trailingLinks = false;
@@ -93,7 +124,6 @@ void main() {
       continue;
     }
 
-    // Skip everything before the first version header.
     if (!insideEntries) {
       continue;
     }
@@ -105,12 +135,11 @@ void main() {
       continue;
     }
     if (trailingLinks) {
-      // Once we're in the trailing links block, skip remaining lines.
       continue;
     }
 
     // ── section header ──
-    final String? sec = matchSection(line);
+    final String? sec = _matchSection(line);
     if (sec != null) {
       currentSection = sec;
       currentSections?.putIfAbsent(sec, () => <String>[]);
@@ -132,29 +161,29 @@ void main() {
         currentSection != null &&
         currentSections != null &&
         currentSections[currentSection]!.isNotEmpty) {
-      // Append to the previous bullet.
       currentSections[currentSection]!.last += ' $trimmed';
       continue;
     }
 
-    // ── empty lines are expected separators ──
     if (trimmed.isEmpty) {
       continue;
     }
 
-    // ── unparsed line ──
     unparsedLines.add((lineNumber: i + 1, text: line));
   }
 
-  // ── Generate Dart source ───────────────────────────────────────────────
+  // ── Generate Dart source ─────────────────────────────────────────────────
 
   final StringBuffer buf = StringBuffer()
     ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
-    ..writeln('// Generated by: dart run tool/generate_changelog.dart')
+    ..writeln(
+      '// Generated by: dart run quantumphysique:generate_changelog',
+    )
+    ..writeln('// dart format off')
     ..writeln('// ignore_for_file: public_member_api_docs')
     ..writeln('// ignore_for_file: lines_longer_than_80_chars')
     ..writeln()
-    ..writeln("part of 'changelog.dart';")
+    ..writeln("part of '$partOf';")
     ..writeln()
     ..writeln('/// The full parsed changelog from CHANGELOG.md.')
     ..writeln('const Changelog changelog = Changelog(<ChangelogEntry>[');
@@ -173,7 +202,8 @@ void main() {
     }
     if (entry.sections.isNotEmpty) {
       buf.writeln('    sections: <ChangelogSection, List<String>>{');
-      for (final MapEntry<String, List<String>> sec in entry.sections.entries) {
+      for (final MapEntry<String, List<String>> sec
+          in entry.sections.entries) {
         buf.writeln('      ${sec.key}: <String>[');
         for (final String item in sec.value) {
           buf.writeln("        '${_escape(item)}',");
@@ -187,17 +217,17 @@ void main() {
 
   buf.writeln(']);');
 
+  outputFile.parent.createSync(recursive: true);
   outputFile.writeAsStringSync(buf.toString());
   print('Generated ${outputFile.path} with ${entries.length} entries.');
 
   if (unparsedLines.isNotEmpty) {
     print('');
-    print('WARNING: ${unparsedLines.length} line(s) could not be parsed:');
+    print(
+      'WARNING: ${unparsedLines.length} line(s) could not be parsed:',
+    );
     for (final ({int lineNumber, String text}) line in unparsedLines) {
       print('  L${line.lineNumber}: ${line.text}');
     }
   }
 }
-
-/// Escape single quotes and backslashes for Dart string literals.
-String _escape(String s) => s.replaceAll(r'\', r'\\').replaceAll("'", r"\'");
