@@ -40,4 +40,28 @@ extension QPThemePrefsExtension on QPPreferences {
   /// Set contrast level.
   set contrastLevel(QPContrast value) =>
       prefs.setString('qp_contrastLevel', value.name);
+
+  /// Writes theme-related defaults for missing keys.
+  ///
+  /// Called by [QPPreferences.loadDefaultSettings].
+  void _loadThemeDefaults({bool override = false}) {
+    if (override || !prefs.containsKey('qp_nightMode')) {
+      nightMode = defaultNightMode;
+    }
+    if (override || !prefs.containsKey('qp_isAmoled')) {
+      isAmoled = defaultIsAmoled;
+    }
+    if (override || !prefs.containsKey('qp_language')) {
+      language = defaultLanguage;
+    }
+    if (override || !prefs.containsKey('qp_theme')) {
+      themeName = defaultThemeName;
+    }
+    if (override || !prefs.containsKey('qp_schemeVariant')) {
+      schemeVariant = defaultSchemeVariant;
+    }
+    if (override || !prefs.containsKey('qp_contrastLevel')) {
+      contrastLevel = defaultContrastLevel;
+    }
+  }
 }

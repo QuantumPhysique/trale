@@ -43,4 +43,22 @@ extension QPReminderPrefsExtension on QPPreferences {
     assert(value >= 0 && value <= 59, 'reminderMinute must be 0–59');
     prefs.setInt('qp_reminderMinute', value);
   }
+
+  /// Writes reminder defaults for missing keys.
+  ///
+  /// Called by [QPPreferences.loadDefaultSettings].
+  void _loadReminderDefaults({bool override = false}) {
+    if (override || !prefs.containsKey('qp_reminderEnabled')) {
+      reminderEnabled = defaultReminderEnabled;
+    }
+    if (override || !prefs.containsKey('qp_reminderDays')) {
+      reminderDays = defaultReminderDays;
+    }
+    if (override || !prefs.containsKey('qp_reminderHour')) {
+      reminderHour = defaultReminderHour;
+    }
+    if (override || !prefs.containsKey('qp_reminderMinute')) {
+      reminderMinute = defaultReminderMinute;
+    }
+  }
 }

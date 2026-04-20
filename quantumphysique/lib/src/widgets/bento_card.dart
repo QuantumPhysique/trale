@@ -6,13 +6,13 @@ import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/widgets/animate_in_effect.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
 
-/// The internal layout mode selected by each [BentoCard] constructor.
+/// The internal layout mode selected by each [QPBentoCard] constructor.
 enum _BentoCardMode { custom, text, textEmphasized, textInline }
 
 /// A card widget for use within a [BentoGrid].
-class BentoCard extends StatelessWidget {
+class QPBentoCard extends StatelessWidget {
   /// Default constructor with a custom child widget.
-  const BentoCard({
+  const QPBentoCard({
     required Widget this.child,
     this.columnSpan = 6,
     this.rowSpan = 2,
@@ -31,7 +31,7 @@ class BentoCard extends StatelessWidget {
        _reversed = false;
 
   /// Two centered text rows: a small label on top and a bold value below.
-  const BentoCard.text({
+  const QPBentoCard.text({
     required String label,
     required String value,
     this.columnSpan = 6,
@@ -52,7 +52,7 @@ class BentoCard extends StatelessWidget {
        _reversed = false;
 
   /// Vertical card with a small label and a large emphasized value.
-  const BentoCard.textEmphasized({
+  const QPBentoCard.textEmphasized({
     required String label,
     required String value,
     String? sublabel,
@@ -76,7 +76,7 @@ class BentoCard extends StatelessWidget {
        _reversed = reversed;
 
   /// Horizontal card with a label and a large value placed side by side.
-  const BentoCard.textInline({
+  const QPBentoCard.textInline({
     required String label,
     required String value,
     bool reversed = false,
@@ -100,7 +100,7 @@ class BentoCard extends StatelessWidget {
 
   /// Square card with a custom child, optional M3E shape background,
   /// and optional continuous rotation.
-  const BentoCard.shaped({
+  const QPBentoCard.shaped({
     required Widget this.child,
     int span = 6,
     this.backgroundColor,
@@ -122,7 +122,7 @@ class BentoCard extends StatelessWidget {
        _reversed = false;
 
   /// Large hero number on top with a subtitle below.
-  factory BentoCard.hero({
+  factory QPBentoCard.hero({
     required String label,
     required String value,
     Color? textColor,
@@ -136,7 +136,7 @@ class BentoCard extends StatelessWidget {
     Duration rotateDuration = Duration.zero,
     Key? key,
   }) {
-    return BentoCard.shaped(
+    return QPBentoCard.shaped(
       span: span,
       backgroundColor: backgroundColor,
       delayInMilliseconds: delayInMilliseconds,

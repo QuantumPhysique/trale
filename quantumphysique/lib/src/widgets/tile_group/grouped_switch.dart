@@ -1,8 +1,8 @@
 part of 'tile_group.dart';
 
-/// A [SwitchListTile] wrapped in a [GroupedWidget].
-class GroupedSwitchListTile extends StatelessWidget {
-  const GroupedSwitchListTile({
+/// A [SwitchListTile] wrapped in a [QPGroupedWidget].
+class QPGroupedSwitchListTile extends StatelessWidget {
+  const QPGroupedSwitchListTile({
     super.key,
     required this.value,
     required this.onChanged,
@@ -81,7 +81,7 @@ class GroupedSwitchListTile extends StatelessWidget {
         : contentPadding ??
               ListTileTheme.of(context).contentPadding ??
               const EdgeInsets.symmetric(horizontal: 16.0);
-    return GroupedWidget(
+    return QPGroupedWidget(
       color: color ?? Theme.of(context).colorScheme.surfaceContainer,
       child: SwitchListTile(
         value: value,

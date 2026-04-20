@@ -16,6 +16,7 @@ export 'src/types/font.dart';
 export 'src/types/icons.dart';
 export 'src/types/strings.dart';
 export 'src/types/string_extension.dart';
+export 'src/types/about_strings.dart';
 
 // Changelog
 export 'src/changelog/changelog.dart';
@@ -32,6 +33,8 @@ export 'src/app/qp_notification_service.dart';
 
 // Widgets
 export 'src/widgets/qp_layout.dart';
+export 'src/widgets/colored_container.dart';
+export 'src/widgets/fade_in_effect.dart';
 export 'src/widgets/tile_group/tile_group.dart';
 export 'src/widgets/dialog.dart';
 export 'src/widgets/bullet_list.dart';
@@ -43,9 +46,11 @@ export 'src/widgets/settings_banner.dart';
 export 'src/widgets/changelog_widget.dart';
 export 'src/widgets/sliver_app_bar_snap.dart';
 export 'src/widgets/selection_carousel.dart';
+export 'src/widgets/third_party_licence.dart';
 
 // Pages
 export 'src/pages/qp_theme_settings_page.dart';
 export 'src/pages/qp_language_settings_page.dart';
 export 'src/pages/qp_notifications_settings_page.dart';
 export 'src/pages/qp_settings_overview_page.dart';
+export 'src/pages/qp_about_page.dart';

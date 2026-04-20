@@ -3,10 +3,10 @@ import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
 
 /// A Material 3–styled wrapper around [AlertDialog] used across QP apps.
-class DialogM3E extends StatelessWidget {
+class QPDialog extends StatelessWidget {
   /// Creates a M3 dialog with a centered [title], custom [content],
   /// and [actions] laid out with spaceBetween.
-  const DialogM3E({
+  const QPDialog({
     super.key,
     required this.content,
     required this.actions,

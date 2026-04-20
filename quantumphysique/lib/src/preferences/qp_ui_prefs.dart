@@ -19,4 +19,19 @@ extension QPUiPrefsExtension on QPPreferences {
 
   /// Set last-seen build number.
   set lastBuildNumber(int value) => prefs.setInt('qp_lastBuildNumber', value);
+
+  /// Writes UI defaults for missing keys.
+  ///
+  /// Called by [QPPreferences.loadDefaultSettings].
+  void _loadUiDefaults({bool override = false}) {
+    if (override || !prefs.containsKey('qp_showOnBoarding')) {
+      showOnBoarding = defaultShowOnboarding;
+    }
+    if (override || !prefs.containsKey('qp_showChangelog')) {
+      showChangelog = defaultShowChangelog;
+    }
+    if (override || !prefs.containsKey('qp_lastBuildNumber')) {
+      lastBuildNumber = defaultLastBuildNumber;
+    }
+  }
 }

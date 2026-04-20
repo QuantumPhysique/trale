@@ -5,9 +5,9 @@ import 'package:quantumphysique/src/widgets/qp_layout.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 /// Banner widget for settings pages.
-class SettingsBanner extends StatelessWidget {
+class QPSettingsBanner extends StatelessWidget {
   /// Constructor.
-  const SettingsBanner({
+  const QPSettingsBanner({
     required this.leadingIcon,
     this.trailingIcon,
     required this.title,

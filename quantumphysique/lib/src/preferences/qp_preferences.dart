@@ -107,52 +107,15 @@ abstract class QPPreferences {
   /// Writes defaults for any QP key that has no stored value.
   ///
   /// Pass [override] = `true` to reset every QP key to its default.
+  ///
+  /// Each module's defaults are applied by a dedicated private helper defined
+  /// in its own part file: [_loadThemeDefaults], [_loadUiDefaults],
+  /// [_loadReminderDefaults], and [_loadDisplayDefaults].
   void loadDefaultSettings({bool override = false}) {
-    if (override || !prefs.containsKey('qp_nightMode')) {
-      nightMode = defaultNightMode;
-    }
-    if (override || !prefs.containsKey('qp_isAmoled')) {
-      isAmoled = defaultIsAmoled;
-    }
-    if (override || !prefs.containsKey('qp_language')) {
-      language = defaultLanguage;
-    }
-    if (override || !prefs.containsKey('qp_theme')) {
-      themeName = defaultThemeName;
-    }
-    if (override || !prefs.containsKey('qp_schemeVariant')) {
-      schemeVariant = defaultSchemeVariant;
-    }
-    if (override || !prefs.containsKey('qp_contrastLevel')) {
-      contrastLevel = defaultContrastLevel;
-    }
-    if (override || !prefs.containsKey('qp_showOnBoarding')) {
-      showOnBoarding = defaultShowOnboarding;
-    }
-    if (override || !prefs.containsKey('qp_showChangelog')) {
-      showChangelog = defaultShowChangelog;
-    }
-    if (override || !prefs.containsKey('qp_lastBuildNumber')) {
-      lastBuildNumber = defaultLastBuildNumber;
-    }
-    if (override || !prefs.containsKey('qp_reminderEnabled')) {
-      reminderEnabled = defaultReminderEnabled;
-    }
-    if (override || !prefs.containsKey('qp_reminderDays')) {
-      reminderDays = defaultReminderDays;
-    }
-    if (override || !prefs.containsKey('qp_reminderHour')) {
-      reminderHour = defaultReminderHour;
-    }
-    if (override || !prefs.containsKey('qp_reminderMinute')) {
-      reminderMinute = defaultReminderMinute;
-    }
-    if (override || !prefs.containsKey('qp_firstDay')) {
-      firstDay = defaultFirstDay;
-    }
-    if (override || !prefs.containsKey('qp_dateFormat')) {
-      datePrintFormat = defaultDatePrintFormat;
-    }
+    _loadThemeDefaults(override: override);
+    _loadUiDefaults(override: override);
+    _loadReminderDefaults(override: override);
+    _loadDisplayDefaults(override: override);
   }
 
   /// Resets all QP settings to their default values.

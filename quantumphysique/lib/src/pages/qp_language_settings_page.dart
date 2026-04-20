@@ -13,25 +13,45 @@ import 'package:quantumphysique/src/widgets/tile_group/tile_group.dart';
 ///
 /// Reads [QPLanguage.supportedLanguages] (which the app populates at startup)
 /// to build the radio list.
+///
+/// When [translationUrl] is provided a [QPSettingsBanner] is shown at the
+/// top inviting users to contribute translations.  [appName] is appended to
+/// the banner title (e.g. "translate trale").
 class QPLanguageSettingsPage extends StatelessWidget {
   /// Creates a [QPLanguageSettingsPage].
-  const QPLanguageSettingsPage({required this.strings, super.key});
+  const QPLanguageSettingsPage({
+    required this.strings,
+    this.translationUrl,
+    this.appName,
+    super.key,
+  });
 
   /// Localised strings.
   final QPStrings strings;
 
+  /// URL to the translation platform (e.g. Weblate).  When `null` no banner
+  /// is shown.
+  final String? translationUrl;
+
+  /// App name appended to the banner translate title.
+  final String? appName;
+
   @override
   Widget build(BuildContext context) {
     final QPNotifier notifier = Provider.of<QPNotifier>(context);
+    final String bannerTitle = appName != null
+        ? '${strings.translate} $appName'.inCaps
+        : strings.translate.inCaps;
 
     final List<Widget> sliverList = <Widget>[
-      SettingsBanner(
-        leadingIcon: PhosphorIconsBold.translate,
-        title: '${strings.translate} trale'.inCaps,
-        subtitle: strings.translateSubtitle.inCaps,
-        url: 'https://hosted.weblate.org/engage/trale/',
-      ),
-      const SizedBox(height: 2 * 16),
+      if (translationUrl != null)
+        QPSettingsBanner(
+          leadingIcon: PhosphorIconsBold.translate,
+          title: bannerTitle,
+          subtitle: strings.translateSubtitle.inCaps,
+          url: translationUrl!,
+        ),
+      if (translationUrl != null) const SizedBox(height: 2 * 16),
       RadioGroup<String>(
         groupValue: notifier.language.language,
         onChanged: (String? newLang) {
@@ -39,7 +59,7 @@ class QPLanguageSettingsPage extends StatelessWidget {
             notifier.language = newLang.toQPLanguage();
           }
         },
-        child: WidgetGroup(
+        child: QPWidgetGroup(
           children: QPLanguage.supportedLanguages
               .map(
                 (QPLanguage lang) => _QPLanguageRadioTile(
@@ -74,7 +94,7 @@ class _QPLanguageRadioTile extends StatelessWidget {
     );
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final bool isSelected = selectedLanguage == language.language;
-    return GroupedRadioListTile<String>(
+    return QPGroupedRadioListTile<String>(
       color: isSelected
           ? colorScheme.secondaryContainer
           : colorScheme.surfaceContainerLowest,

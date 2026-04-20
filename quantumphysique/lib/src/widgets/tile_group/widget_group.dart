@@ -1,8 +1,8 @@
 part of 'tile_group.dart';
 
-/// A titled group of [GroupedWidget] tiles separated by thin gaps.
-class WidgetGroup extends StatelessWidget {
-  const WidgetGroup({
+/// A titled group of [QPGroupedWidget] tiles separated by thin gaps.
+class QPWidgetGroup extends StatelessWidget {
+  const QPWidgetGroup({
     super.key,
     required this.children,
     this.title,
@@ -12,7 +12,7 @@ class WidgetGroup extends StatelessWidget {
   }) : itemBuilder = null,
        itemCount = null;
 
-  const WidgetGroup.builder({
+  const QPWidgetGroup.builder({
     super.key,
     required this.itemBuilder,
     required this.itemCount,

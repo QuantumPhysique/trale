@@ -1,8 +1,13 @@
 part of 'tile_group.dart';
 
 /// A card-style container that wraps a single widget.
-class GroupedWidget extends StatelessWidget {
-  const GroupedWidget({super.key, required this.child, this.color, this.shape});
+class QPGroupedWidget extends StatelessWidget {
+  const QPGroupedWidget({
+    super.key,
+    required this.child,
+    this.color,
+    this.shape,
+  });
 
   final Widget child;
   final Color? color;
@@ -19,9 +24,9 @@ class GroupedWidget extends StatelessWidget {
   }
 }
 
-/// [ListTile] wrapped in a [GroupedWidget].
-class GroupedListTile extends ListTile {
-  const GroupedListTile({
+/// [ListTile] wrapped in a [QPGroupedWidget].
+class QPGroupedListTile extends ListTile {
+  const QPGroupedListTile({
     super.key,
     super.leading,
     super.title,
@@ -69,7 +74,7 @@ class GroupedListTile extends ListTile {
     final ShapeBorder fallbackShape = QPLayout.innerBorderShape;
     return ListTileTheme(
       shape: shape ?? fallbackShape,
-      child: GroupedWidget(
+      child: QPGroupedWidget(
         shape: shape ?? fallbackShape,
         color: color ?? Theme.of(context).colorScheme.surfaceContainer,
         child: Builder(

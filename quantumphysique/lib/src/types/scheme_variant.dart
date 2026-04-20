@@ -1,7 +1,6 @@
 /// Color scheme variant enum for [QPPreferences] / [QPNotifier].
 library;
 
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 /// All available dynamic color scheme variants.

@@ -1,8 +1,8 @@
 part of 'tile_group.dart';
 
-/// A [RadioListTile] wrapped in a [GroupedWidget].
-class GroupedRadioListTile<T> extends StatelessWidget {
-  const GroupedRadioListTile({
+/// A [RadioListTile] wrapped in a [QPGroupedWidget].
+class QPGroupedRadioListTile<T> extends StatelessWidget {
+  const QPGroupedRadioListTile({
     super.key,
     required this.value,
     this.mouseCursor,
@@ -76,7 +76,7 @@ class GroupedRadioListTile<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ShapeBorder fallbackShape = QPLayout.innerBorderShape;
-    return GroupedWidget(
+    return QPGroupedWidget(
       shape: shape ?? fallbackShape,
       color: color ?? Theme.of(context).colorScheme.surfaceContainer,
       child: RadioListTile<T>(
@@ -117,8 +117,8 @@ class GroupedRadioListTile<T> extends StatelessWidget {
 }
 
 /// A grouped text widget with a styled background.
-class GroupedText extends StatelessWidget {
-  const GroupedText({super.key, required this.text, this.color});
+class QPGroupedText extends StatelessWidget {
+  const QPGroupedText({super.key, required this.text, this.color});
 
   /// Background color of the grouped text widget.
   final Color? color;
@@ -128,7 +128,7 @@ class GroupedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedWidget(
+    return QPGroupedWidget(
       color: color,
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -142,12 +142,12 @@ class GroupedText extends StatelessWidget {
   }
 }
 
-/// A squared selectable chip for use inside a horizontal [WidgetGroup].
+/// A squared selectable chip for use inside a horizontal [QPWidgetGroup].
 ///
 /// Unselected: rounded-rectangle shape.
 /// Selected: circle shape with the primary colour.
-class GroupedChip extends StatelessWidget {
-  const GroupedChip({
+class QPGroupedChip extends StatelessWidget {
+  const QPGroupedChip({
     super.key,
     required this.selected,
     required this.onSelected,

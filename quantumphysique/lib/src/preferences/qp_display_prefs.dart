@@ -15,4 +15,16 @@ extension QPDisplayPrefsExtension on QPPreferences {
   /// Set date format.
   set datePrintFormat(QPDateFormat value) =>
       prefs.setString('qp_dateFormat', value.name);
+
+  /// Writes display defaults for missing keys.
+  ///
+  /// Called by [QPPreferences.loadDefaultSettings].
+  void _loadDisplayDefaults({bool override = false}) {
+    if (override || !prefs.containsKey('qp_firstDay')) {
+      firstDay = defaultFirstDay;
+    }
+    if (override || !prefs.containsKey('qp_dateFormat')) {
+      datePrintFormat = defaultDatePrintFormat;
+    }
+  }
 }

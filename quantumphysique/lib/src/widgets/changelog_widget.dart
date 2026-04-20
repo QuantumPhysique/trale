@@ -114,14 +114,14 @@ class _QPChangelogContentState extends State<QPChangelogContent>
           itemCount: entries.length,
           itemBuilder: (_, int i) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: padding),
-            child: WidgetGroup(
+            child: QPWidgetGroup(
               title: getTitle(entries[i]),
               children: entries[i].sections.entries.map((
                 MapEntry<ChangelogSection, List<String>> section,
               ) {
                 final String label =
                     widget.sectionLabels?[section.key] ?? section.key.label;
-                return GroupedText(
+                return QPGroupedText(
                   color: Theme.of(context).colorScheme.surfaceContainerLowest,
                   text: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -5,7 +5,6 @@ import 'package:quantumphysique/src/notifier/qp_notifier.dart';
 import 'package:quantumphysique/src/notifier/qp_theme_builder.dart';
 import 'package:quantumphysique/src/preferences/qp_preferences.dart';
 import 'package:quantumphysique/src/types/contrast.dart';
-import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 import 'package:quantumphysique/src/types/strings.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
@@ -19,8 +18,9 @@ typedef QPPalette = ({String name, Color seed});
 /// Settings page for theme appearance.
 ///
 /// Provides:
-/// - Palette (colour) selection carousel parameterised by [palettes].
-/// - Scheme-variant selection carousel.
+/// - Palette (colour) selection carousel parameterised by [palettes],
+///   or a fully custom [paletteSection] widget when provided.
+/// - Scheme-variant selection carousel, or a custom [schemeVariantSection].
 /// - Dark mode selector (light / system / dark).
 /// - AMOLED pure-black toggle.
 /// - Contrast slider.
@@ -29,6 +29,8 @@ class QPThemeSettingsPage extends StatelessWidget {
   const QPThemeSettingsPage({
     required this.strings,
     required this.palettes,
+    this.paletteSection,
+    this.schemeVariantSection,
     super.key,
   });
 
@@ -37,7 +39,20 @@ class QPThemeSettingsPage extends StatelessWidget {
 
   /// App-supplied palette list. Each entry carries a display [name] and a
   /// seed [Color] used for previewing and storing the selection.
+  ///
+  /// Ignored when [paletteSection] is provided.
   final List<QPPalette> palettes;
+
+  /// Optional widget that completely replaces the default palette-carousel
+  /// section (the [QPWidgetGroup] titled [QPStrings.themePalette]).
+  ///
+  /// Use this when the app has a richer palette preview (e.g. a custom
+  /// colour-swatch carousel) that cannot be expressed as [QPPalette] entries.
+  final Widget? paletteSection;
+
+  /// Optional widget that completely replaces the default scheme-variant
+  /// carousel section.
+  final Widget? schemeVariantSection;
 
   @override
   Widget build(BuildContext context) {
@@ -48,29 +63,34 @@ class QPThemeSettingsPage extends StatelessWidget {
             Theme.of(context).brightness == Brightness.dark);
 
     final List<Widget> sliverList = <Widget>[
-      WidgetGroup(
-        title: strings.themePalette,
-        children: <Widget>[
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: _PaletteCarousel(
-              palettes: palettes,
-              notifier: notifier,
-              isDark: isDark,
-            ),
+      paletteSection ??
+          QPWidgetGroup(
+            title: strings.themePalette,
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: _PaletteCarousel(
+                  palettes: palettes,
+                  notifier: notifier,
+                  isDark: isDark,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      WidgetGroup(
-        title: strings.schemeVariant,
-        children: <Widget>[
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: _SchemeVariantCarousel(notifier: notifier, isDark: isDark),
+      schemeVariantSection ??
+          QPWidgetGroup(
+            title: strings.schemeVariant,
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: _SchemeVariantCarousel(
+                  notifier: notifier,
+                  isDark: isDark,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      WidgetGroup(
+      QPWidgetGroup(
         title: strings.theme,
         children: <Widget>[
           _DarkModeListTile(strings: strings),
@@ -123,7 +143,7 @@ class _DarkModeListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double halfPad = QPLayout.padding / 2;
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: const EdgeInsets.fromLTRB(
         QPLayout.padding,
@@ -172,7 +192,7 @@ class _AmoledListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedWidget(
+    return QPGroupedWidget(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       child: SwitchListTile(
         dense: true,
@@ -210,7 +230,7 @@ class _ContrastLevelSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     const double halfPad = QPLayout.padding / 2;
     final QPNotifier notifier = Provider.of<QPNotifier>(context);
-    return GroupedWidget(
+    return QPGroupedWidget(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(

@@ -130,7 +130,7 @@ class _QPSelectionCarouselState<T> extends State<QPSelectionCarousel<T>> {
         children: List<Widget>.generate(items.length, (int index) {
           final T item = items[index];
           final bool isSelected = widget.isSelected(item);
-          return GroupedWidget(
+          return QPGroupedWidget(
             key: ValueKey<T>(item),
             shape: shapeFn(context, index, items.length, isSelected),
             color: isSelected

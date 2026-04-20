@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quantumphysique/src/widgets/bento_card.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
 
-/// Computed position and size for a single [BentoCard] within the grid.
+/// Computed position and size for a single [QPBentoCard] within the grid.
 class _BentoPlacement {
   _BentoPlacement({
     required this.card,
@@ -10,18 +10,18 @@ class _BentoPlacement {
     required this.row,
   });
 
-  final BentoCard card;
+  final QPBentoCard card;
   final int column;
   final int row;
 }
 
-/// A bento-style grid layout that auto-arranges [BentoCard] children.
-class BentoGrid extends StatelessWidget {
+/// A bento-style grid layout that auto-arranges [QPBentoCard] children.
+class QPBentoGrid extends StatelessWidget {
   /// Constructor.
-  const BentoGrid({required this.children, this.columns = 12, super.key});
+  const QPBentoGrid({required this.children, this.columns = 12, super.key});
 
   /// Cards to lay out.
-  final List<BentoCard> children;
+  final List<QPBentoCard> children;
 
   /// Total number of columns in the grid.
   final int columns;
@@ -36,7 +36,7 @@ class BentoGrid extends StatelessWidget {
 
     final List<_BentoPlacement> placements = <_BentoPlacement>[];
 
-    for (final BentoCard card in children) {
+    for (final QPBentoCard card in children) {
       final int colSpan = card.columnSpan.clamp(1, columns);
       final int rowSpan = card.rowSpan.clamp(1, 100);
 

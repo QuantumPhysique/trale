@@ -72,7 +72,7 @@ class QPSettingsOverviewPage extends StatelessWidget {
     final List<Widget> sliverList = <Widget>[
       if (headerWidget != null) headerWidget!,
       for (final QPSettingsGroup group in groups)
-        WidgetGroup(
+        QPWidgetGroup(
           title: group.title,
           children: group.tiles
               .map((QPSettingsTile tile) => _SettingsTile(tile: tile))
@@ -94,7 +94,7 @@ class _SettingsTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
       leading: PPIcon(tile.icon, context),

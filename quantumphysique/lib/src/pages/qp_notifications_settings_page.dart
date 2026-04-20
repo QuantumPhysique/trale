@@ -68,10 +68,10 @@ class _QPNotificationsSettingsPageState
     final List<int> selectedDays = notifier.reminderDays;
 
     final List<Widget> sliverList = <Widget>[
-      WidgetGroup(
+      QPWidgetGroup(
         title: widget.strings.reminderTitle,
         children: <Widget>[
-          GroupedListTile(
+          QPGroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: QPLayout.padding,
@@ -104,13 +104,13 @@ class _QPNotificationsSettingsPageState
         ],
       ),
       if (notifier.reminderEnabled) ...<Widget>[
-        WidgetGroup(
+        QPWidgetGroup(
           title: widget.strings.reminderDays,
           direction: Axis.horizontal,
           scrollable: true,
           children: <Widget>[
             for (final int day in orderedDays)
-              GroupedChip(
+              QPGroupedChip(
                 color: Theme.of(context).colorScheme.surfaceContainerLowest,
                 selected: selectedDays.contains(day),
                 onSelected: (bool selected) {
@@ -138,10 +138,10 @@ class _QPNotificationsSettingsPageState
               ),
           ],
         ),
-        WidgetGroup(
+        QPWidgetGroup(
           title: widget.strings.reminderTime,
           children: <Widget>[
-            GroupedListTile(
+            QPGroupedListTile(
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: QPLayout.padding,

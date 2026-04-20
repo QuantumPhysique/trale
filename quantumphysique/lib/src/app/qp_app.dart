@@ -144,8 +144,15 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
       return const SizedBox.shrink();
     }
 
-    return ChangeNotifierProvider<N>.value(
-      value: widget.notifier,
+    // Expose the notifier as both the concrete subtype N and as QPNotifier so
+    // that QP pages (which use Provider.of<QPNotifier>) work out-of-the-box
+    // when an app uses a QPNotifier subclass.  Both providers point to the
+    // same object so state is always consistent.
+    return MultiProvider(
+      providers: <ChangeNotifierProvider<ChangeNotifier>>[
+        ChangeNotifierProvider<N>.value(value: widget.notifier),
+        ChangeNotifierProvider<QPNotifier>.value(value: widget.notifier),
+      ],
       child: Consumer<N>(
         builder: (BuildContext ctx, N notifier, _) {
           return DynamicColorBuilder(
