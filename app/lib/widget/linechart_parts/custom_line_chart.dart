@@ -125,6 +125,24 @@ class _CustomLineChartState extends State<CustomLineChart>
     _fromMaxX = newMaxX;
   }
 
+  ({double minX, double maxX}) _resolveViewport(Preferences prefs) {
+    if (widget.isPreview) {
+      final ml.Vector times = widget.ip.times;
+      if (times.isNotEmpty) {
+        return (minX: times.first, maxX: times.last);
+      }
+    }
+
+    final double newMinX = prefs.zoomLevel.minX;
+    final double newMaxX = prefs.zoomLevel.maxX;
+    if (newMinX <= newMaxX) {
+      return (minX: newMinX, maxX: newMaxX);
+    }
+
+    final double now = DateTime.now().millisecondsSinceEpoch.toDouble();
+    return (minX: now, maxX: now);
+  }
+
   @override
   void dispose() {
     _tooltipTimer?.cancel();
@@ -136,12 +154,9 @@ class _CustomLineChartState extends State<CustomLineChart>
   void initState() {
     super.initState();
     final Preferences prefs = Preferences();
-    final double initMinX = widget.isPreview
-        ? widget.ip.times.first
-        : prefs.zoomLevel.minX;
-    final double initMaxX = widget.isPreview
-        ? widget.ip.times.last
-        : prefs.zoomLevel.maxX;
+    final ({double minX, double maxX}) viewport = _resolveViewport(prefs);
+    final double initMinX = viewport.minX;
+    final double initMaxX = viewport.maxX;
     minX = initMinX;
     maxX = initMaxX;
     _curMinX = initMinX;
@@ -159,12 +174,9 @@ class _CustomLineChartState extends State<CustomLineChart>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.isPreview != widget.isPreview || oldWidget.ip != widget.ip) {
       final Preferences prefs = Preferences();
-      final double newMinX = widget.isPreview
-          ? widget.ip.times.first
-          : prefs.zoomLevel.minX;
-      final double newMaxX = widget.isPreview
-          ? widget.ip.times.last
-          : prefs.zoomLevel.maxX;
+      final ({double minX, double maxX}) viewport = _resolveViewport(prefs);
+      final double newMinX = viewport.minX;
+      final double newMaxX = viewport.maxX;
       _snapTo(newMinX, newMaxX);
     }
   }

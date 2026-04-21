@@ -3,39 +3,43 @@ part of 'qp_preferences.dart';
 /// Theme-related preferences for [QPPreferences].
 extension QPThemePrefsExtension on QPPreferences {
   /// Get night mode value. One of `'auto'`, `'light'`, `'dark'`.
-  String get nightMode => prefs.getString('qp_nightMode')!;
+  String get nightMode => prefs.getString('qp_nightMode') ?? defaultNightMode;
 
   /// Set night mode value.
   set nightMode(String value) => prefs.setString('qp_nightMode', value);
 
   /// Get AMOLED pure-black flag.
-  bool get isAmoled => prefs.getBool('qp_isAmoled')!;
+  bool get isAmoled => prefs.getBool('qp_isAmoled') ?? defaultIsAmoled;
 
   /// Set AMOLED pure-black flag.
   set isAmoled(bool value) => prefs.setBool('qp_isAmoled', value);
 
   /// Get language preference.
-  QPLanguage get language => prefs.getString('qp_language')!.toQPLanguage();
+  QPLanguage get language =>
+      (prefs.getString('qp_language') ?? defaultLanguage.language)
+          .toQPLanguage();
 
   /// Set language preference.
   set language(QPLanguage value) =>
       prefs.setString('qp_language', value.language);
 
   /// Get theme name (app-defined palette key).
-  String get themeName => prefs.getString('qp_theme')!;
+  String get themeName => prefs.getString('qp_theme') ?? defaultThemeName;
 
   /// Set theme name.
   set themeName(String value) => prefs.setString('qp_theme', value);
 
   /// Get scheme variant name.
-  String get schemeVariant => prefs.getString('qp_schemeVariant')!;
+  String get schemeVariant =>
+      prefs.getString('qp_schemeVariant') ?? defaultSchemeVariant;
 
   /// Set scheme variant name.
   set schemeVariant(String value) => prefs.setString('qp_schemeVariant', value);
 
   /// Get contrast level.
   QPContrast get contrastLevel =>
-      prefs.getString('qp_contrastLevel')!.toQPContrast()!;
+      prefs.getString('qp_contrastLevel')?.toQPContrast() ??
+      defaultContrastLevel;
 
   /// Set contrast level.
   set contrastLevel(QPContrast value) =>

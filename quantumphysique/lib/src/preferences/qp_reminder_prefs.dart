@@ -3,18 +3,23 @@ part of 'qp_preferences.dart';
 /// Reminder / notification preferences for [QPPreferences].
 extension QPReminderPrefsExtension on QPPreferences {
   /// Get reminder-enabled flag.
-  bool get reminderEnabled => prefs.getBool('qp_reminderEnabled')!;
+  bool get reminderEnabled =>
+      prefs.getBool('qp_reminderEnabled') ?? defaultReminderEnabled;
 
   /// Set reminder-enabled flag.
   set reminderEnabled(bool value) => prefs.setBool('qp_reminderEnabled', value);
 
   /// Get reminder days (ISO weekday: 1=Mon … 7=Sun).
   List<int> get reminderDays {
-    final String raw = prefs.getString('qp_reminderDays')!;
+    final String raw = prefs.getString('qp_reminderDays') ?? '';
     if (raw.isEmpty) {
       return <int>[];
     }
-    return raw.split(',').map(int.parse).toList();
+    try {
+      return raw.split(',').map(int.parse).toList();
+    } on FormatException {
+      return <int>[];
+    }
   }
 
   /// Set reminder days.
@@ -27,7 +32,8 @@ extension QPReminderPrefsExtension on QPPreferences {
   }
 
   /// Get reminder hour (0–23).
-  int get reminderHour => prefs.getInt('qp_reminderHour')!;
+  int get reminderHour =>
+      prefs.getInt('qp_reminderHour') ?? defaultReminderHour;
 
   /// Set reminder hour.
   set reminderHour(int value) {
@@ -36,7 +42,8 @@ extension QPReminderPrefsExtension on QPPreferences {
   }
 
   /// Get reminder minute (0–59).
-  int get reminderMinute => prefs.getInt('qp_reminderMinute')!;
+  int get reminderMinute =>
+      prefs.getInt('qp_reminderMinute') ?? defaultReminderMinute;
 
   /// Set reminder minute.
   set reminderMinute(int value) {

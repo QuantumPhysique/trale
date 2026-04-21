@@ -173,8 +173,10 @@ class _DarkModeListTile extends StatelessWidget {
             ),
         ],
         onSelectionChanged: (Set<ThemeMode> selected) {
-          Provider.of<QPNotifier>(context, listen: false).themeMode =
-              selected.first;
+          if (selected.isNotEmpty) {
+            Provider.of<QPNotifier>(context, listen: false).themeMode =
+                selected.first;
+          }
         },
       ),
     );

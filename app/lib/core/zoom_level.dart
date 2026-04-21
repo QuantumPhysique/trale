@@ -97,7 +97,14 @@ extension ZoomLevelExtension on ZoomLevel {
   }
 
   /// get measurements to estimate range, maxX, and minX
-  Vector get _times => MeasurementInterpolation().times;
+  Vector get _times {
+    final Vector times = MeasurementInterpolation().times;
+    if (times.isEmpty) {
+      final double now = DateTime.now().millisecondsSinceEpoch.toDouble();
+      return Vector.fromList(<double>[now]);
+    }
+    return times;
+  }
 
   /// get string expression
   String get name => toString().split('.').last;

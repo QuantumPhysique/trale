@@ -117,7 +117,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final bool showFAB = !popupShown & (_selectedIndex == 0);
+    final bool showFAB = !popupShown && (_selectedIndex == 0);
     final List<Widget> destinations = <Widget>[
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),

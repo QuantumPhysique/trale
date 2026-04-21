@@ -40,7 +40,17 @@ class ChangelogEntry {
   final String? dateString;
 
   /// Parsed release date.
-  DateTime? get date => dateString != null ? DateTime.parse(dateString!) : null;
+  DateTime? get date {
+    final String? value = dateString;
+    if (value == null) {
+      return null;
+    }
+    try {
+      return DateTime.parse(value);
+    } on FormatException {
+      return null;
+    }
+  }
 
   /// Mapping of section type to its list of bullet items.
   final Map<ChangelogSection, List<String>> sections;
