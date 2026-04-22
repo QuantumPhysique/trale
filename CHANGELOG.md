@@ -29,6 +29,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Using the latest flutter 3.41
 
 ### Bugfix 🐛:
+- Fix silent import failure when the selected file cannot be read (e.g. from cloud storage on Android 16) — now shows a descriptive error message (#452)
+- Fix "0 measurements added" when importing OpenScales CSV — column-name detection is now case-insensitive and bounds checking is correct (#452, #455)
+- Show a clear error when a file is imported but contains no valid measurements, instead of an empty confirmation dialog (#452, #455)
+
+### Bugfix 🐛:
 - Fix broken calendar when choosing custom first Day of week option, #417 #418
 - Fix persisting popup on deleting measurements
 - Fix updating target weight in user dialog

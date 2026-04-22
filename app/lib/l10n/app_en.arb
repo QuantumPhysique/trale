@@ -233,6 +233,24 @@
     "@importingAbort": {
         "description": "Import aborted."
     },
+    "importSuccess": "{count} measurements added",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Could not read the selected file. Please try again or use a different file.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "No valid measurements found in the selected file. Please check the file format.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
     "importDialog": "Import all measurements to the current database. This can not be undone!",
     "@importDialog": {
         "description": "Include all measurements to the current database. This can not be undone!"

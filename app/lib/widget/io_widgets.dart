@@ -110,7 +110,7 @@ List<Measurement> parseMeasurementsCSV(
       continue;
     }
     final List<String> strings = line.split(separator);
-    if (strings.length < dateIdx || strings.length < weightIdx) {
+    if (strings.length <= dateIdx || strings.length <= weightIdx) {
       QPAppLogger.warning(
         'Invalid column count in CSV line',
         tag: 'Parser',
@@ -118,10 +118,10 @@ List<Measurement> parseMeasurementsCSV(
       );
       continue;
     }
-    // remove all quotes from date String
-    final String dateString = strings[dateIdx].replaceAll('"', '');
-    // catch date parsing error
+    // catch date and weight parsing errors, including out-of-bounds access
     try {
+      // remove all quotes from date String
+      final String dateString = strings[dateIdx].replaceAll('"', '');
       final DateTime date = format.parse(dateString);
       final double weight = double.parse(strings[weightIdx]);
       newMeasurements.add(
@@ -131,7 +131,7 @@ List<Measurement> parseMeasurementsCSV(
       QPAppLogger.warning(
         'Failed to parse CSV date/weight',
         tag: 'Parser',
-        error: dateString,
+        error: line,
       );
       continue;
     }
@@ -146,12 +146,12 @@ List<int>? openScaleIndices(List<String?> lines, {String separator = ','}) {
     return null;
   }
   final List<String> names = lines[0]!.split(separator);
-  // return idx of value "weight" in names
+  // return idx of value "weight" in names (case-insensitive, trim whitespace)
   final int weightIdx = names.indexWhere(
-    (String name) => name.contains('weight'),
+    (String name) => name.trim().toLowerCase().contains('weight'),
   );
   final int dateIdx = names.indexWhere(
-    (String name) => name.contains('dateTime'),
+    (String name) => name.trim().toLowerCase().contains('datetime'),
   );
   if (weightIdx == -1 || dateIdx == -1) {
     return null;
@@ -179,7 +179,23 @@ Future<bool> importBackup(BuildContext context) async {
     // get file extension of the file
     final String ext = pickerResult.names.single!.split('.').last;
     final File file = File(pickerResult.files.single.path!);
-    final List<String> lines = file.readAsLinesSync();
+    final List<String> lines;
+    try {
+      lines = file.readAsLinesSync();
+    } on Exception catch (e) {
+      QPAppLogger.warning(
+        'Failed to read import file',
+        tag: 'Import',
+        error: e,
+      );
+      sm.showSnackBar(
+        SnackBar(
+          content: Text(context.l10n.importFileError),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return false;
+    }
 
     final List<Measurement> newMeasurements = <Measurement>[];
     if (ext == 'txt') {
@@ -197,7 +213,18 @@ Future<bool> importBackup(BuildContext context) async {
       }
     }
 
-    // show loaded measurments
+    // guard: nothing was parsed — show descriptive error and bail out
+    if (newMeasurements.isEmpty) {
+      sm.showSnackBar(
+        SnackBar(
+          content: Text(context.l10n.importNoMeasurements),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return false;
+    }
+
+    // show loaded measurements
     accepted =
         await showDialog<bool>(
           context: context,
@@ -284,7 +311,7 @@ Future<bool> importBackup(BuildContext context) async {
       }
       sm.showSnackBar(
         SnackBar(
-          content: Text('$measurementCounts measurements added'),
+          content: Text(context.l10n.importSuccess(count: measurementCounts)),
           behavior: SnackBarBehavior.floating,
           duration: TraleTheme.of(context)!.snackbarDuration,
         ),
