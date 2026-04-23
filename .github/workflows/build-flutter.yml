@@ -115,8 +115,14 @@ jobs:
   integrationTest:
     name: 🤖 Integration tests (Android emulator)
     runs-on: ubuntu-latest
-    # Only run on the main branch and on PRs targeting main to save CI time.
-    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    # Run on main, on any PR, and on any branch that starts with feat/ so that
+    # feature branches can be validated before merging.
+    if: >-
+      github.ref == 'refs/heads/main' ||
+      github.event_name == 'pull_request' ||
+      startsWith(github.ref, 'refs/heads/feat/')
+    # # Only run on the main branch and on PRs targeting main to save CI time.
+    # if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v6
