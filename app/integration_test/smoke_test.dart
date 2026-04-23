@@ -33,18 +33,24 @@ void main() {
   // Helpers
   // -------------------------------------------------------------------------
 
-  /// Waits for the app to fully settle after launch (Hive open, splash
-  /// animations, first-frame build).
+  /// Waits for the app to fully reach the Home screen (NavigationBar visible).
   ///
-  /// `pumpAndSettle()` in integration tests operates on real wall-clock time.
-  /// Its `duration` argument is the inter-pump interval (default 100 ms); the
-  /// `timeout` argument caps the total wait.  We use default 100 ms interval
-  /// with an 8-second hard cap.
-  Future<void> waitForApp(WidgetTester tester) => tester.pumpAndSettle(
-    const Duration(milliseconds: 100),
-    EnginePhase.sendSemanticsUpdate,
-    const Duration(seconds: 8),
-  );
+  /// `pumpAndSettle()` alone is insufficient here because the Splash screen
+  /// awaits Hive I/O on a platform channel.  While that I/O is in flight the
+  /// Flutter frame pipeline is idle, so `pumpAndSettle` returns "settled"
+  /// before the navigation to Home has occurred.  Instead we poll by pumping
+  /// small increments and checking for the NavigationBar on each iteration.
+  Future<void> waitForApp(WidgetTester tester) async {
+    const Duration pollInterval = Duration(milliseconds: 200);
+    const Duration timeout = Duration(seconds: 30);
+    final DateTime deadline = DateTime.now().add(timeout);
+    while (DateTime.now().isBefore(deadline)) {
+      await tester.pump(pollInterval);
+      if (find.byType(NavigationBar).evaluate().isNotEmpty) {
+        return;
+      }
+    }
+  }
 
   /// Takes a named PNG screenshot via the test driver.
   Future<void> screenshot(String name) => binding.takeScreenshot(name);
