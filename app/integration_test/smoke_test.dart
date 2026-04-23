@@ -81,6 +81,19 @@ void main() {
     ) async {
       app.main();
       await waitForApp(tester);
+      // Allow addPostFrameCallback in Home.initState to fire.  That callback
+      // shows the first-launch changelog ModalBottomSheet when the app was
+      // freshly installed (lastBuildNumber == 0 on a clean CI emulator).
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pumpAndSettle();
+
+      // Dismiss the changelog bottom sheet if it was shown on first launch.
+      // The sheet snaps to 50 % of screen height, so tapping at y=50 hits
+      // the modal barrier above it and closes the sheet.
+      if (find.byType(BottomSheet).evaluate().isNotEmpty) {
+        await tester.tapAt(const Offset(200, 50));
+        await tester.pumpAndSettle();
+      }
 
       // ── 1. Home screen ─────────────────────────────────────────────────
       // The NavigationBar at the bottom is the structural landmark we key on.
