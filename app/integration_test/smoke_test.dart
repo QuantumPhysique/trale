@@ -53,14 +53,7 @@ void main() {
   }
 
   /// Takes a named PNG screenshot via the test driver.
-  ///
-  /// [convertFlutterSurfaceToImage] must be called once before the first
-  /// screenshot when running under `flutter drive`.
-  Future<void> screenshot(WidgetTester tester, String name) async {
-    await binding.convertFlutterSurfaceToImage();
-    await tester.pump();
-    await binding.takeScreenshot(name);
-  }
+  Future<void> screenshot(String name) => binding.takeScreenshot(name);
 
   // -------------------------------------------------------------------------
   // Tests
@@ -80,7 +73,7 @@ void main() {
       // ── 1. Home screen ─────────────────────────────────────────────────
       // The NavigationBar at the bottom is the structural landmark we key on.
       expect(find.byType(NavigationBar), findsOneWidget);
-      await screenshot(tester, '01_home_screen');
+      await screenshot('01_home_screen');
 
       // ── 2. Count measurements before adding ─────────────────────────────
       // Navigate to Measurements tab to capture the current count so we can
@@ -88,7 +81,7 @@ void main() {
       await tester.tap(find.text('Measurements'));
       await tester.pumpAndSettle();
       final int countBefore = find.byType(WeightListTile).evaluate().length;
-      await screenshot(tester, '02_measurements_before');
+      await screenshot('02_measurements_before');
 
       // Return to Home before opening the FAB dialog.
       await tester.tap(find.text('Home'));
@@ -100,7 +93,7 @@ void main() {
       expect(fab, findsOneWidget);
       await tester.tap(fab);
       await tester.pumpAndSettle();
-      await screenshot(tester, '03_add_weight_dialog');
+      await screenshot('03_add_weight_dialog');
 
       // Verify the dialog opened: title and Save button visible.
       expect(find.text('Enter your weight'), findsAtLeastNWidgets(1));
@@ -111,14 +104,14 @@ void main() {
       // (Navigator.pop(context, wasInserted) is always called).
       await tester.tap(find.text('Save'));
       await tester.pumpAndSettle();
-      await screenshot(tester, '04_home_after_save');
+      await screenshot('04_home_after_save');
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
       // ── 5. Verify measurement appeared in the list ──────────────────────
       await tester.tap(find.text('Measurements'));
       await tester.pumpAndSettle();
-      await screenshot(tester, '05_measurements_after');
+      await screenshot('05_measurements_after');
 
       // The list must have grown by exactly one entry.
       expect(
@@ -132,7 +125,7 @@ void main() {
       // ── 6. Navigate to Achievements tab ─────────────────────────────────
       await tester.tap(find.text('Achievements'));
       await tester.pumpAndSettle();
-      await screenshot(tester, '06_achievements_tab');
+      await screenshot('06_achievements_tab');
 
       expect(find.byType(NavigationBar), findsOneWidget);
     });
