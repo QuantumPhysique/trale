@@ -181,8 +181,7 @@ jobs:
           emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect
           disable-animations: true
           script: |
-            cd app
-            flutter drive \
+            cd app && flutter drive \
               --driver=test_driver/integration_test.dart \
               --target=integration_test/smoke_test.dart \
               --device-id=emulator-5554
