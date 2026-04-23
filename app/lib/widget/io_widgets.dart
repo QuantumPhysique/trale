@@ -159,6 +159,104 @@ List<int>? openScaleIndices(List<String?> lines, {String separator = ','}) {
   return <int>[dateIdx, weightIdx];
 }
 
+/// Parses an OpenScale CSV export, supporting both formats:
+///
+/// * **Legacy** – a single combined `dateTime` column
+///   (`dateTime,weight,fat,…`)
+/// * **New** – separate `DATE` and `TIME` columns
+///   (`DATE,TIME,…,WEIGHT,…`)
+///
+/// Column matching is case-insensitive and whitespace-tolerant.
+/// Returns `null` when the header cannot be identified as an OpenScale export,
+/// so the caller can fall through to another parser (e.g. Withings).
+List<Measurement>? parseOpenScaleCSV(
+  List<String?> lines, {
+  String separator = ',',
+}) {
+  if (lines.isEmpty || lines[0] == null) {
+    return null;
+  }
+  final List<String> names = lines[0]!
+      .split(separator)
+      .map((String n) => n.trim().toLowerCase())
+      .toList();
+
+  final int weightIdx = names.indexWhere((String n) => n == 'weight');
+  if (weightIdx == -1) {
+    return null;
+  }
+
+  // New format: separate DATE and TIME columns.
+  final int dateColIdx = names.indexWhere((String n) => n == 'date');
+  final int timeColIdx = names.indexWhere((String n) => n == 'time');
+  if (dateColIdx != -1 && timeColIdx != -1) {
+    return _parseOpenScaleSplitDatetime(
+      lines,
+      dateColIdx: dateColIdx,
+      timeColIdx: timeColIdx,
+      weightIdx: weightIdx,
+      separator: separator,
+    );
+  }
+
+  // Legacy format: combined dateTime column.
+  final int dateTimeIdx = names.indexWhere(
+    (String n) => n.contains('datetime'),
+  );
+  if (dateTimeIdx != -1) {
+    // parseMeasurementsCSV mutates the list via removeAt(0) — pass a copy.
+    return parseMeasurementsCSV(
+      List<String?>.from(lines),
+      dateTimeIdx,
+      weightIdx,
+      separator: separator,
+    );
+  }
+
+  return null;
+}
+
+// Parses the new OpenScale format where date and time are in separate columns.
+// DATE: "2026-04-23", TIME: "20:30:13.974"
+// Combined into ISO-8601 "2026-04-23T20:30:13.974", parsed by DateTime.parse.
+List<Measurement> _parseOpenScaleSplitDatetime(
+  List<String?> lines, {
+  required int dateColIdx,
+  required int timeColIdx,
+  required int weightIdx,
+  String separator = ',',
+}) {
+  final List<Measurement> result = <Measurement>[];
+  // Row 0 is the header; data starts at row 1.
+  for (int i = 1; i < lines.length; i++) {
+    final String? line = lines[i];
+    if (line == null) {
+      continue;
+    }
+    final List<String> cols = line.split(separator);
+    if (cols.length <= dateColIdx ||
+        cols.length <= timeColIdx ||
+        cols.length <= weightIdx) {
+      continue;
+    }
+    try {
+      // Build ISO-8601: "2026-04-23T20:30:13.974"
+      final String iso =
+          '${cols[dateColIdx].trim()}T${cols[timeColIdx].trim()}';
+      final DateTime date = DateTime.parse(iso);
+      final double weight = double.parse(cols[weightIdx].trim());
+      result.add(Measurement(weight: weight, date: date, isMeasured: true));
+    } catch (e) {
+      QPAppLogger.warning(
+        'Failed to parse OpenScale split-datetime row',
+        tag: 'Parser',
+        error: line,
+      );
+    }
+  }
+  return result;
+}
+
 /// Import backup
 Future<bool> importBackup(BuildContext context) async {
   final FilePickerResult? pickerResult = await FilePicker.pickFiles(
@@ -201,14 +299,14 @@ Future<bool> importBackup(BuildContext context) async {
     if (ext == 'txt') {
       newMeasurements.addAll(parseMeasurementsTxt(lines));
     } else if (ext == 'csv') {
-      // check if openScale format
-      final List<int>? indices = openScaleIndices(lines);
-      if (indices != null) {
-        newMeasurements.addAll(
-          parseMeasurementsCSV(lines, indices[0], indices[1]),
-        );
+      // Try OpenScale format first (both legacy dateTime and new DATE+TIME).
+      final List<Measurement>? openScaleMeasurements = parseOpenScaleCSV(
+        List<String?>.from(lines),
+      );
+      if (openScaleMeasurements != null) {
+        newMeasurements.addAll(openScaleMeasurements);
       } else {
-        // try Withings format
+        // Fall back to Withings CSV format.
         newMeasurements.addAll(parseMeasurementsCSV(lines, 0, 1));
       }
     }

@@ -253,4 +253,117 @@ void main() {
       expect(result[0].weight, closeTo(75.4, 0.0001));
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // parseOpenScaleCSV
+  // ---------------------------------------------------------------------------
+  group('parseOpenScaleCSV', () {
+    // New format: separate DATE + TIME + uppercase WEIGHT columns
+    test('parses new OpenScale export format (DATE, TIME, WEIGHT columns)', () {
+      final List<String?> lines = <String?>[
+        'DATE,TIME,BICEPS,BMI,BMR,BODY_FAT,BONE,CALIPER,CALIPER_1,CALIPER_2,'
+            'CALIPER_3,CALORIES,CHEST,COMMENT,HEART_RATE,HIPS,LBM,MUSCLE,NECK,'
+            'TDEE,THIGH,VISCERAL_FAT,WAIST,WATER,WEIGHT,WHR,WHTR',
+        '2026-04-23,20:30:13.974,,5.32,3383.75,,,,,,,,,,,,,,,4060.5,,,,,90.0,,',
+      ];
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
+      expect(result, isNotNull);
+      expect(result!.length, 1);
+      expect(result[0].weight, closeTo(90.0, 0.0001));
+      expect(result[0].date.year, 2026);
+      expect(result[0].date.month, 4);
+      expect(result[0].date.day, 23);
+      expect(result[0].date.hour, 20);
+      expect(result[0].date.minute, 30);
+    });
+
+    test('parses multiple rows in new format', () {
+      final List<String?> lines = <String?>[
+        'DATE,TIME,WEIGHT',
+        '2026-04-01,08:00:00.000,,',
+        '2026-04-02,09:30:00.000,,',
+      ];
+      // WEIGHT column not present at index 2 — re-test with a proper header
+      final List<String?> lines2 = <String?>[
+        'DATE,TIME,WEIGHT',
+        '2026-04-01,08:00:00,75.4',
+        '2026-04-02,09:30:00,76.0',
+      ];
+      final List<Measurement>? result = parseOpenScaleCSV(lines2);
+      expect(result, isNotNull);
+      expect(result!.length, 2);
+      expect(result[0].weight, closeTo(75.4, 0.0001));
+      expect(result[1].weight, closeTo(76.0, 0.0001));
+    });
+
+    test('parses legacy OpenScale format (combined dateTime column)', () {
+      final List<String?> lines = <String?>[
+        'dateTime,weight,fat,water,muscle,bone,visceralFat',
+        '2024-03-01 08:00,75.4,,,,',
+        '2024-03-02 09:30,76.0,,,,',
+      ];
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
+      expect(result, isNotNull);
+      expect(result!.length, 2);
+      expect(result[0].weight, closeTo(75.4, 0.0001));
+      expect(result[0].date.day, 1);
+      expect(result[1].weight, closeTo(76.0, 0.0001));
+    });
+
+    test('returns null when header is not an OpenScale format', () {
+      final List<String?> lines = <String?>[
+        'Date,Weight,Height',
+        '2024-03-01,75.4,180',
+      ];
+      // "Weight" with capital W matches neither exact "weight" nor "datetime"
+      // — wait, our matcher lowercases, so "Weight" -> "weight" == "weight" ✓.
+      // But "Date" != "date" after lowercase → no "date" exact match.
+      // And "Date" doesn't contain "datetime". So this should return null.
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
+      expect(result, isNull);
+    });
+
+    test('returns null for empty input', () {
+      expect(parseOpenScaleCSV(<String?>[]), isNull);
+    });
+
+    test('returns null when null first line', () {
+      expect(parseOpenScaleCSV(<String?>[null]), isNull);
+    });
+
+    test('skips rows with too few columns without throwing', () {
+      final List<String?> lines = <String?>[
+        'DATE,TIME,WEIGHT',
+        'short', // only 1 column — all indices are out of bounds
+        '2026-04-01,08:00:00,75.4',
+      ];
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
+      expect(result, isNotNull);
+      expect(result!.length, 1);
+    });
+
+    test('skips rows with invalid weight value', () {
+      final List<String?> lines = <String?>[
+        'DATE,TIME,WEIGHT',
+        '2026-04-01,08:00:00,not-a-number',
+        '2026-04-02,09:00:00,76.0',
+      ];
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
+      expect(result, isNotNull);
+      expect(result!.length, 1);
+      expect(result[0].weight, closeTo(76.0, 0.0001));
+    });
+
+    test('skips rows with invalid date value', () {
+      final List<String?> lines = <String?>[
+        'DATE,TIME,WEIGHT',
+        'not-a-date,08:00:00,75.4',
+        '2026-04-02,09:00:00,76.0',
+      ];
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
+      expect(result, isNotNull);
+      expect(result!.length, 1);
+      expect(result[0].weight, closeTo(76.0, 0.0001));
+    });
+  });
 }
