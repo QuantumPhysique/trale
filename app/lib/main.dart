@@ -39,7 +39,6 @@ Future<void> main() async {
       buildStrings: (BuildContext ctx) => qpStringsFromL10n(ctx.l10n),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      //onboardingBuilder: (_) => const OnBoardingPage(),
       onGenerateTitle: (BuildContext ctx) => ctx.l10n.trale,
     ),
   );

@@ -69,7 +69,10 @@ class SchemeVariantSelection extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 0.5 * QPLayout.padding),
-            BurgerTheme(theme: themed, isSelected: isSelected),
+            QPBurgerTheme(
+              colorScheme: themed.themeData.colorScheme,
+              isSelected: isSelected,
+            ),
           ],
         ),
       );
@@ -122,7 +125,10 @@ class ThemeSelection extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 0.5 * QPLayout.padding),
-            BurgerTheme(theme: theme, isSelected: isSelected),
+            QPBurgerTheme(
+              colorScheme: theme.themeData.colorScheme,
+              isSelected: isSelected,
+            ),
           ],
         ),
       );
@@ -134,89 +140,6 @@ class ThemeSelection extends StatelessWidget {
       onSelected: (TraleCustomTheme t) => notifier.theme = t,
       previewBuilder: previewBuilder,
       shapeBuilder: themeItemShapeDefault,
-    );
-  }
-}
-
-/// Burger-style colour-swatch preview used by [ThemeSelection] and
-/// [SchemeVariantSelection].
-class BurgerTheme extends StatelessWidget {
-  /// Constructor.
-  const BurgerTheme({super.key, required this.theme, required this.isSelected});
-
-  /// Theme to preview.
-  final TraleTheme theme;
-
-  /// Whether this theme is currently selected.
-  final bool isSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    final ColorScheme colorScheme = theme.themeData.colorScheme;
-    return Expanded(
-      child: Card(
-        margin: EdgeInsets.zero,
-        color: Colors.transparent,
-        shape: QPLayout.borderShape,
-        clipBehavior: Clip.antiAlias,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            final bool compact =
-                constraints.maxWidth < (3 + 4 * 2) * QPLayout.space;
-            final List<Color> middleRowColors = compact
-                ? <Color>[
-                    colorScheme.secondaryContainer,
-                    colorScheme.tertiaryContainer,
-                  ]
-                : <Color>[
-                    colorScheme.secondary,
-                    colorScheme.secondaryContainer,
-                    colorScheme.tertiary,
-                    colorScheme.tertiaryContainer,
-                  ];
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: QPLayout.space,
-              children: <Widget>[
-                Expanded(
-                  child: QPGroupedWidget(
-                    color: colorScheme.primary,
-                    child: const SizedBox.expand(),
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: middleRowColors
-                        .map(
-                          (Color color) => Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: QPLayout.space / 2,
-                              ),
-                              child: QPGroupedWidget(
-                                color: color,
-                                child: const SizedBox.expand(),
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                Expanded(
-                  child: QPGroupedWidget(
-                    color: isSelected
-                        ? colorScheme.primary
-                        : colorScheme.primaryContainer,
-                    child: const SizedBox.expand(),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
     );
   }
 }

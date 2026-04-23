@@ -4,6 +4,9 @@
 /// patterns, bento widgets, and the changelog system.
 library;
 
+// Utils
+export 'src/utils/qp_color_utils.dart';
+
 // Types
 export 'src/types/contrast.dart';
 export 'src/types/scheme_variant.dart';
@@ -33,6 +36,7 @@ export 'src/app/qp_notification_service.dart';
 
 // Widgets
 export 'src/widgets/qp_layout.dart';
+export 'src/widgets/burger_theme.dart';
 export 'src/widgets/colored_container.dart';
 export 'src/widgets/fade_in_effect.dart';
 export 'src/widgets/tile_group/tile_group.dart';
@@ -54,3 +58,4 @@ export 'src/pages/qp_language_settings_page.dart';
 export 'src/pages/qp_notifications_settings_page.dart';
 export 'src/pages/qp_settings_overview_page.dart';
 export 'src/pages/qp_about_page.dart';
+export 'src/pages/qp_faq_page.dart';

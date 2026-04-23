@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:dynamic_color/dynamic_color.dart';
@@ -9,53 +8,6 @@ import 'package:quantumphysique/quantumphysique.dart';
 
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-
-/// get color (black or white) with maximal constrast or minimal (inverse=false)
-Color getFontColor(Color color, {bool inverse = true}) {
-  return isDarkColor(color) == inverse ? Colors.white : Colors.black;
-}
-
-/// check if color is closer to black or white
-bool isDarkColor(Color color) {
-  final double luminance =
-      0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b;
-  return luminance < 140;
-}
-
-/// return opacity corresponding to elevation
-/// https://material.io/design/color/dark-theme.html
-double overlayOpacity(double elevation) =>
-    (4.5 * math.log(elevation + 1) + 2) / 100.0;
-
-/// overlay color with elevation
-Color colorElevated(Color color, double elevation) => Color.alphaBlend(
-  getFontColor(color).withValues(alpha: overlayOpacity(elevation)),
-  color,
-);
-
-/// Class holding three different transition durations
-class TransitionDuration {
-  /// constructor
-  TransitionDuration(this._fast, this._normal, this._slow);
-
-  /// get duration of fast transition
-  Duration get fast => Duration(milliseconds: _fast);
-
-  /// get duration of normal transition
-  Duration get normal => Duration(milliseconds: _normal);
-
-  /// get duration of slow transition
-  Duration get slow => Duration(milliseconds: _slow);
-
-  /// length of durations in ms
-  final int _fast;
-
-  /// length of durations in ms
-  final int _normal;
-
-  /// length of durations in ms
-  final int _slow;
-}
 
 /// Theme class for Adonify app
 class TraleTheme {
@@ -151,7 +103,7 @@ class TraleTheme {
   late double contrast;
 
   /// get transition durations
-  final TransitionDuration transitionDuration = TransitionDuration(
+  final QPTransitionDuration transitionDuration = const QPTransitionDuration(
     100,
     200,
     500,
@@ -172,7 +124,7 @@ class TraleTheme {
 
   /// get elevated shade of clr
   Color colorOfElevation(double elevation, Color clr) => Color.alphaBlend(
-    getFontColor(clr).withValues(alpha: overlayOpacity(elevation)),
+    qpFontColor(clr).withValues(alpha: qpOverlayOpacity(elevation)),
     clr,
   );
 
@@ -194,7 +146,7 @@ class TraleTheme {
 
   /// get header color of dialog
   Color? get dialogHeaderColor => isDark
-      ? colorElevated(
+      ? qpColorElevated(
           themeData.dialogTheme.backgroundColor!,
           themeData.dialogTheme.elevation!,
         )
@@ -202,7 +154,7 @@ class TraleTheme {
 
   /// get background color of dialog
   Color get dialogColor => isDark
-      ? colorElevated(
+      ? qpColorElevated(
           themeData.dialogTheme.backgroundColor!,
           themeData.dialogTheme.elevation! / 4,
         )

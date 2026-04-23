@@ -21,6 +21,7 @@ class QPNotificationsSettingsPage extends StatefulWidget {
     this.onScheduleChanged,
     this.onRequestPermission,
     this.onRequestExactAlarmPermission,
+    this.footerWidget,
     super.key,
   });
 
@@ -36,6 +37,10 @@ class QPNotificationsSettingsPage extends StatefulWidget {
 
   /// Called to request exact-alarm permission. Returns `true` if granted.
   final Future<bool> Function()? onRequestExactAlarmPermission;
+
+  /// Optional widget shown at the bottom of the page (e.g. an explanatory
+  /// text paragraph).
+  final Widget? footerWidget;
 
   @override
   State<QPNotificationsSettingsPage> createState() =>
@@ -105,7 +110,6 @@ class _QPNotificationsSettingsPageState
       ),
       if (notifier.reminderEnabled) ...<Widget>[
         QPWidgetGroup(
-          title: widget.strings.reminderDays,
           direction: Axis.horizontal,
           scrollable: true,
           children: <Widget>[
@@ -172,6 +176,7 @@ class _QPNotificationsSettingsPageState
           ],
         ),
       ],
+      if (widget.footerWidget != null) widget.footerWidget!,
     ];
 
     return Scaffold(

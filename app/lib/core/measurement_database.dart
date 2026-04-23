@@ -120,6 +120,24 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
   @visibleForTesting
   MeasurementDatabase.forTesting(this._testBox);
 
+  /// Constructor for testing with an in-memory list of [Measurement]s.
+  ///
+  /// Bypasses Hive entirely: [measurements] and [sortedMeasurements] are
+  /// pre-populated from [items] so no box access ever occurs.  Pass an empty
+  /// list (or omit the argument) for an empty database.
+  @visibleForTesting
+  MeasurementDatabase.forTestingWithData([
+    List<Measurement> items = const <Measurement>[],
+  ]) : _testBox = null {
+    final List<Measurement> sorted = List<Measurement>.from(items)
+      ..sort((Measurement a, Measurement b) => b.compareTo(a));
+    _measurements = sorted;
+    _sortedMeasurements = <SortedMeasurement>[
+      for (int i = 0; i < sorted.length; i++)
+        SortedMeasurement(key: i, measurement: sorted[i]),
+    ];
+  }
+
   Box<Measurement>? _testBox;
 
   /// singleton instance
