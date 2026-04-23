@@ -1,0 +1,127 @@
+// Integration tests: smoke flow on a real Android device or emulator.
+//
+// Run via flutter drive (from app/):
+//   flutter drive \
+//     --driver=test_driver/integration_test.dart \
+//     --target=integration_test/smoke_test.dart \
+//     --device-id=<device-id>
+//
+// Screenshots are saved to app/screenshots/ by the driver and uploaded as
+// CI artifacts so they can be inspected after each run.
+//
+// In CI the emulator is started by reactivecircus/android-emulator-runner with
+// a fresh data partition, so Hive contains no prior measurements.
+//
+// NOTE ON REPRODUCIBILITY:
+//   The "add measurement" test inserts a record with DateTime.now().  On the
+//   CI emulator this is always a clean state.  The test does NOT mock the clock
+//   because (a) integration tests run against the real app binary, and (b) each
+//   CI run starts with a wiped emulator.  If you re-run on a real device with
+//   existing data the test still passes: a new timestamp is used every time.
+
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+import 'package:trale/main.dart' as app;
+import 'package:trale/widget/weight_list_tile.dart';
+
+void main() {
+  final IntegrationTestWidgetsFlutterBinding binding =
+      IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  // -------------------------------------------------------------------------
+  // Helpers
+  // -------------------------------------------------------------------------
+
+  /// Waits for the app to fully settle after launch (Hive open, splash
+  /// animations, first-frame build).
+  ///
+  /// `pumpAndSettle()` in integration tests operates on real wall-clock time.
+  /// Its `duration` argument is the inter-pump interval (default 100 ms); the
+  /// `timeout` argument caps the total wait.  We use default 100 ms interval
+  /// with an 8-second hard cap.
+  Future<void> waitForApp(WidgetTester tester) => tester.pumpAndSettle(
+    const Duration(milliseconds: 100),
+    EnginePhase.sendSemanticsUpdate,
+    const Duration(seconds: 8),
+  );
+
+  /// Takes a named PNG screenshot via the test driver.
+  Future<void> screenshot(String name) => binding.takeScreenshot(name);
+
+  // -------------------------------------------------------------------------
+  // Tests
+  // -------------------------------------------------------------------------
+
+  group('Smoke flow', () {
+    // Each testWidgets in an integration test runs in the same isolate. Hive
+    // is opened once by app.main() in the first test; subsequent tests reuse
+    // the already-open box.  Therefore we run all steps in a single test to
+    // keep the flow sequential and the state predictable.
+    testWidgets('launch → add measurement → verify in list → navigate tabs', (
+      WidgetTester tester,
+    ) async {
+      app.main();
+      await waitForApp(tester);
+
+      // ── 1. Home screen ─────────────────────────────────────────────────
+      // The NavigationBar at the bottom is the structural landmark we key on.
+      expect(find.byType(NavigationBar), findsOneWidget);
+      await screenshot('01_home_screen');
+
+      // ── 2. Count measurements before adding ─────────────────────────────
+      // Navigate to Measurements tab to capture the current count so we can
+      // verify +1 after the insert.
+      await tester.tap(find.text('Measurements'));
+      await tester.pumpAndSettle();
+      final int countBefore = find.byType(WeightListTile).evaluate().length;
+      await screenshot('02_measurements_before');
+
+      // Return to Home before opening the FAB dialog.
+      await tester.tap(find.text('Home'));
+      await tester.pumpAndSettle();
+
+      // ── 3. Open the add-weight dialog ───────────────────────────────────
+      // The FAB tooltip matches l10n.addWeight ("Enter your weight" in EN).
+      final Finder fab = find.byTooltip('Enter your weight');
+      expect(fab, findsOneWidget);
+      await tester.tap(fab);
+      await tester.pumpAndSettle();
+      await screenshot('03_add_weight_dialog');
+
+      // Verify the dialog opened: title and Save button visible.
+      expect(find.text('Enter your weight'), findsAtLeastNWidgets(1));
+      expect(find.text('Save'), findsOneWidget);
+
+      // ── 4. Save the default weight ──────────────────────────────────────
+      // Tapping Save inserts a measurement and always closes the dialog
+      // (Navigator.pop(context, wasInserted) is always called).
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+      await screenshot('04_home_after_save');
+
+      expect(find.byType(NavigationBar), findsOneWidget);
+
+      // ── 5. Verify measurement appeared in the list ──────────────────────
+      await tester.tap(find.text('Measurements'));
+      await tester.pumpAndSettle();
+      await screenshot('05_measurements_after');
+
+      // The list must have grown by exactly one entry.
+      expect(
+        find.byType(WeightListTile),
+        findsNWidgets(countBefore + 1),
+        reason:
+            'A new WeightListTile should appear after inserting a '
+            'measurement.',
+      );
+
+      // ── 6. Navigate to Achievements tab ─────────────────────────────────
+      await tester.tap(find.text('Achievements'));
+      await tester.pumpAndSettle();
+      await screenshot('06_achievements_tab');
+
+      expect(find.byType(NavigationBar), findsOneWidget);
+    });
+  });
+}
