@@ -84,15 +84,16 @@ void main() {
       // Allow addPostFrameCallback in Home.initState to fire.  That callback
       // shows the first-launch changelog ModalBottomSheet when the app was
       // freshly installed (lastBuildNumber == 0 on a clean CI emulator).
-      await tester.pump(const Duration(milliseconds: 100));
-      await tester.pumpAndSettle();
+      // Use a bounded pump instead of pumpAndSettle: the home screen has
+      // ongoing animations (chart, etc.) that never fully settle.
+      await tester.pump(const Duration(milliseconds: 500));
 
       // Dismiss the changelog bottom sheet if it was shown on first launch.
       // The sheet snaps to 50 % of screen height, so tapping at y=50 hits
       // the modal barrier above it and closes the sheet.
       if (find.byType(BottomSheet).evaluate().isNotEmpty) {
         await tester.tapAt(const Offset(200, 50));
-        await tester.pumpAndSettle();
+        await tester.pump(const Duration(milliseconds: 500));
       }
 
       // ── 1. Home screen ─────────────────────────────────────────────────
@@ -103,19 +104,19 @@ void main() {
       // Navigate to Measurements tab to capture the current count so we can
       // verify +1 after the insert.
       await tester.tap(find.text('Measurements'));
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
       final int countBefore = find.byType(WeightListTile).evaluate().length;
 
       // Return to Home before opening the FAB dialog.
       await tester.tap(find.text('Home'));
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
 
       // ── 3. Open the add-weight dialog ───────────────────────────────────
       // The FAB tooltip matches l10n.addWeight ("Enter your weight" in EN).
       final Finder fab = find.byTooltip('Enter your weight');
       expect(fab, findsOneWidget);
       await tester.tap(fab);
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
 
       // Verify the dialog opened: title and Save button visible.
       expect(find.text('Enter your weight'), findsAtLeastNWidgets(1));
@@ -125,13 +126,13 @@ void main() {
       // Tapping Save inserts a measurement and always closes the dialog
       // (Navigator.pop(context, wasInserted) is always called).
       await tester.tap(find.text('Save'));
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
       // ── 5. Verify measurement appeared in the list ──────────────────────
       await tester.tap(find.text('Measurements'));
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
 
       // The list must have grown by exactly one entry.
       expect(
@@ -144,7 +145,7 @@ void main() {
 
       // ── 6. Navigate to Achievements tab ─────────────────────────────────
       await tester.tap(find.text('Achievements'));
-      await tester.pumpAndSettle();
+      await tester.pump(const Duration(milliseconds: 500));
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
