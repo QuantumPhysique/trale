@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import 'package:trale/core/icons.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/changelog.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
+import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/pages/measurementScreen.dart';
+import 'package:trale/pages/measurement_screen.dart';
 import 'package:trale/pages/overview.dart';
-import 'package:trale/pages/settingsOverview.dart';
-import 'package:trale/pages/statScreen.dart';
-import 'package:trale/widget/addWeightDialog.dart';
-import 'package:trale/widget/customSliverAppBar.dart';
-import 'package:trale/widget/floatingActionButton.dart';
-import 'package:trale/widget/userDialog.dart';
-import 'package:trale/widget/changelog_widget.dart';
+import 'package:trale/pages/settings_overview.dart';
+import 'package:trale/pages/stat_screen.dart';
+import 'package:trale/widget/add_weight_dialog.dart';
+import 'package:trale/widget/custom_sliver_app_bar.dart';
+import 'package:trale/widget/floating_action_button.dart';
+import 'package:trale/widget/user_dialog.dart';
 
 /// home scaffold
 class Home extends StatefulWidget {
@@ -57,7 +56,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         // Show changelog on first launch after update
         if (Preferences().showChangelog) {
           Preferences().showChangelog = false;
-          showChangelog(context);
+          showQPChangelog(context, changelog);
         }
       }
     });
@@ -118,22 +117,22 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final bool showFAB = !popupShown & (_selectedIndex == 0);
+    final bool showFAB = !popupShown && (_selectedIndex == 0);
     final List<Widget> destinations = <Widget>[
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
         selectedIcon: PPIcon(PhosphorIconsFill.lineSegments, context),
-        label: AppLocalizations.of(context)!.home,
+        label: context.l10n.home,
       ),
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.trophy, context),
         selectedIcon: PPIcon(PhosphorIconsFill.trophy, context),
-        label: AppLocalizations.of(context)!.achievements,
+        label: context.l10n.achievements,
       ),
       NavigationDestination(
         icon: PPIcon(PhosphorIconsDuotone.archive, context),
         selectedIcon: PPIcon(PhosphorIconsFill.archive, context),
-        label: AppLocalizations.of(context)!.measurements,
+        label: context.l10n.measurements,
       ),
     ];
 

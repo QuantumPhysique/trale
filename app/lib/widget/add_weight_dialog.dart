@@ -1,0 +1,368 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
+import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/theme.dart';
+import 'package:trale/core/trale_notifier.dart';
+import 'package:trale/core/unit_precision.dart';
+import 'package:trale/core/units.dart';
+import 'package:trale/widget/weight_picker.dart';
+
+///
+Future<bool> showAddWeightDialog({
+  required BuildContext context,
+  required double weight,
+  required DateTime date,
+  bool editMode = false,
+  String? message,
+  void Function(DateTime date, double weight)? onSaved,
+}) async {
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  );
+
+  final double initialSliderValue = weight.toDouble() / notifier.unit.scaling;
+  double currentSliderValue = initialSliderValue;
+  final DateTime initialDate = date;
+  DateTime currentDate = initialDate;
+  final MeasurementDatabase database = MeasurementDatabase();
+
+  final Widget content = StatefulBuilder(
+    builder: (BuildContext context, StateSetter setState) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          if (message != null)
+            Padding(
+              padding: EdgeInsets.only(bottom: TraleTheme.of(context)!.padding),
+              child: Text(
+                message,
+                style: Theme.of(context).textTheme.bodyMedium!.apply(
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.justify,
+              ),
+            ),
+          QPWidgetGroup(
+            children: <Widget>[
+              QPGroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
+                leading: PPIcon(PhosphorIconsDuotone.calendar, context),
+                title: Text(context.l10n.date),
+                trailing: Text(
+                  notifier.dateFormat(context).format(currentDate),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                onTap: () async {
+                  final TimeOfDay currentTime = TimeOfDay.fromDateTime(
+                    currentDate,
+                  );
+                  final DateTime? selectedDate = await showDatePicker(
+                    context: context,
+                    initialDate: currentDate,
+                    firstDate: DateTime.fromMillisecondsSinceEpoch(0),
+                    lastDate: DateTime.now(),
+                  );
+
+                  if (selectedDate == null) {
+                    return;
+                  }
+
+                  currentDate = DateTime(
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                    currentTime.hour,
+                    currentTime.minute,
+                  );
+
+                  if (!context.mounted) {
+                    return;
+                  }
+                  final TimeOfDay? time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(currentDate),
+                  );
+
+                  if (time == null) {
+                    return;
+                  }
+                  currentDate = DateTime(
+                    currentDate.year,
+                    currentDate.month,
+                    currentDate.day,
+                    time.hour,
+                    time.minute,
+                  );
+                  setState(() {});
+                },
+              ),
+              QPGroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
+                title: Text(context.l10n.time),
+                leading: PPIcon(PhosphorIconsDuotone.clock, context),
+                trailing: Text(
+                  DateFormat.Hm().format(currentDate),
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                onTap: () async {
+                  final TimeOfDay? time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.fromDateTime(currentDate),
+                  );
+
+                  if (time == null) {
+                    return;
+                  }
+                  currentDate = DateTime(
+                    currentDate.year,
+                    currentDate.month,
+                    currentDate.day,
+                    time.hour,
+                    time.minute,
+                  );
+                  setState(() {});
+                },
+              ),
+            ],
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          RulerPicker(
+            onValueChange: (num newValue) {
+              currentSliderValue = newValue.toDouble();
+              setState(() {});
+            },
+            height: 0.15 * MediaQuery.of(context).size.height,
+            value: currentSliderValue,
+            ticksPerStep:
+                notifier.unitPrecision.ticksPerStep ??
+                notifier.unit.ticksPerStep,
+          ),
+        ],
+      );
+    },
+  );
+
+  final bool accepted =
+      await showDialog<bool>(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return QPDialog(
+            title: context.l10n.addWeight,
+            content: content,
+            actions: actions(context, () async {
+              final bool wasInserted = await database.insertMeasurement(
+                Measurement(
+                  weight: currentSliderValue * notifier.unit.scaling,
+                  date: currentDate,
+                ),
+              );
+              if (!context.mounted) {
+                return;
+              }
+              if (!wasInserted &&
+                  !(editMode &&
+                      currentDate == initialDate &&
+                      currentSliderValue == initialSliderValue)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Adding measurement was skipped. '
+                      'Measurement exists already.',
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              }
+              if (wasInserted && onSaved != null) {
+                onSaved(
+                  currentDate,
+                  currentSliderValue * notifier.unit.scaling,
+                );
+              }
+              Navigator.pop(context, wasInserted);
+            }, enabled: true),
+          );
+        },
+      ) ??
+      false;
+  return accepted;
+}
+
+///
+Future<bool> showTargetWeightDialog({
+  required BuildContext context,
+  required double weight,
+}) async {
+  final TraleNotifier notifier = Provider.of<TraleNotifier>(
+    context,
+    listen: false,
+  );
+
+  double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
+  bool looseWeight = notifier.looseWeight;
+
+  final Widget content = StatefulBuilder(
+    builder: (BuildContext context, StateSetter setState) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          QPWidgetGroup(
+            children: <Widget>[
+              QPGroupedWidget(
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
+                child: Padding(
+                  padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                  child: Text(
+                    context.l10n.targetWeightMotivation,
+                    style: Theme.of(context).textTheme.bodyMedium!.apply(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          RulerPicker(
+            onValueChange: (num newValue) {
+              currentSliderValue = newValue.toDouble();
+              setState(() {});
+            },
+            height: 0.15 * MediaQuery.of(context).size.height,
+            value: currentSliderValue,
+            ticksPerStep: notifier.unit.ticksPerStep,
+          ),
+          SizedBox(height: TraleTheme.of(context)!.padding),
+          QPWidgetGroup(
+            children: <Widget>[
+              QPGroupedSwitchListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLow,
+                dense: true,
+                leading: PPIcon(
+                  looseWeight
+                      ? PhosphorIconsDuotone.trendDown
+                      : PhosphorIconsDuotone.trendUp,
+                  context,
+                ),
+                title: Text(
+                  looseWeight
+                      ? context.l10n.looseWeight
+                      : context.l10n.gainWeight,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  maxLines: 1,
+                ),
+                subtitle: Text(
+                  context.l10n.looseWeightSubtitle,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                value: !looseWeight,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    setState(() {
+                      looseWeight = !value;
+                    });
+                  }
+                },
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+
+  final bool accepted =
+      await showDialog<bool>(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return QPDialog(
+            title: context.l10n.targetWeight,
+            content: content,
+            actions: actions(context, () {
+              // In order to make our contribution to prevention, no target
+              // weight below 50 kg / 110 lb / 7.9 st is possible.
+
+              double minWeight;
+              if (notifier.userHeight != null) {
+                // /100 is to convert userHeight from cm to m
+                // Here, the minWeight corresponds to BMI=18.5
+                minWeight =
+                    18.5 *
+                    (notifier.userHeight! / 100) *
+                    (notifier.userHeight! / 100);
+              } else {
+                minWeight = 50;
+              }
+              if (currentSliderValue * notifier.unit.scaling < minWeight) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(context.l10n.target_weight_warning),
+                    behavior: SnackBarBehavior.floating,
+                    duration: const Duration(seconds: 10),
+                  ),
+                );
+              } else {
+                notifier.userTargetWeight =
+                    currentSliderValue * notifier.unit.scaling;
+                notifier.looseWeight = looseWeight;
+                // Save the date when the target was set
+                final DateTime now = DateTime.now();
+                notifier.userTargetWeightSetDate = now;
+              }
+              // force rebuilding linechart and widgets
+              MeasurementDatabase().fireStream();
+              Navigator.pop(context, true);
+            }),
+          );
+        },
+      ) ??
+      false;
+  return accepted;
+}
+
+///
+List<Widget> actions(
+  BuildContext context,
+  Function onPress, {
+  bool enabled = true,
+}) {
+  return <Widget>[
+    FilledButton.icon(
+      onPressed: () => Navigator.pop(context, false),
+      style: FilledButton.styleFrom(
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
+      ),
+      icon: PPIcon(PhosphorIconsRegular.x, context),
+      label: Text(
+        context.l10n.abort,
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: Theme.of(context).colorScheme.onSurface,
+        ),
+        textAlign: TextAlign.end,
+      ),
+    ),
+    FilledButton.icon(
+      onPressed: enabled ? () => onPress() : null,
+      icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
+      label: Text(
+        context.l10n.save,
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+        textAlign: TextAlign.end,
+      ),
+    ),
+  ];
+}

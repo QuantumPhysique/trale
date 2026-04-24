@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trale/widget/animation_replay_scope.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 /// Text size animation effect widget.
 class TextSizeInEffect extends StatefulWidget {
@@ -36,7 +36,7 @@ class _TextSizeInEffectState extends State<TextSizeInEffect>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late final AnimationController animationController;
   late final Animation<double> sizeAnimation;
-  AnimationReplayController? _replayController;
+  QPAnimationReplayController? _replayController;
 
   @override
   void initState() {
@@ -70,9 +70,8 @@ class _TextSizeInEffectState extends State<TextSizeInEffect>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final AnimationReplayController? newController = AnimationReplayScope.of(
-      context,
-    );
+    final QPAnimationReplayController? newController =
+        QPAnimationReplayScope.of(context);
     if (newController != _replayController) {
       _replayController?.removeListener(_onReplay);
       _replayController = newController;

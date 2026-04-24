@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/notificationService.dart';
-import 'package:trale/core/preferences.dart';
+import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/notification_service.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/pages/home.dart';
-import 'package:trale/pages/onBoarding.dart';
 
 /// splash scaffold
 class Splash extends StatefulWidget {
@@ -62,12 +60,10 @@ class _SplashState extends State<Splash> {
             body: l10n.reminderNotificationBody,
           );
         }
-        final Preferences prefs = Preferences();
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute<Scaffold>(
-            builder: (BuildContext context) =>
-                prefs.showOnBoarding ? const OnBoardingPage() : const Home(),
+            builder: (BuildContext context) => const Home(),
           ),
         );
       });

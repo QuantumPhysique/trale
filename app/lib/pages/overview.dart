@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurementDatabase.dart';
-import 'package:trale/core/measurementInterpolation.dart';
+import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/animate_in_effect.dart';
-import 'package:trale/widget/animation_replay_scope.dart';
-import 'package:trale/widget/emptyChart.dart';
-import 'package:trale/widget/ioWidgets.dart';
+import 'package:trale/core/trale_notifier.dart';
+import 'package:trale/widget/empty_chart.dart';
+import 'package:trale/widget/io_widgets.dart';
 import 'package:trale/widget/linechart.dart';
-import 'package:trale/widget/statsWidgets.dart';
+import 'package:trale/widget/stats_widgets.dart';
 
 /// Overview screen widget.
 class OverviewScreen extends StatefulWidget {
@@ -31,8 +30,8 @@ class _OverviewScreen extends State<OverviewScreen>
   bool popupShown = false;
   late bool loadedFirst;
   late final Stream<List<Measurement>> _measurementStream;
-  final AnimationReplayController _replayController =
-      AnimationReplayController();
+  final QPAnimationReplayController _replayController =
+      QPAnimationReplayController();
 
   /// Whether this tab is currently the nearest visible tab.
   bool _isActive = true;
@@ -74,11 +73,11 @@ class _OverviewScreen extends State<OverviewScreen>
           final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
           sm.showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context)!.backupReminder),
+              content: Text(context.l10n.backupReminder),
               behavior: SnackBarBehavior.fixed,
               duration: TraleTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
-                label: AppLocalizations.of(context)!.backupReminderButton,
+                label: context.l10n.backupReminderButton,
                 onPressed: () => exportBackup(context),
               ),
               persist: false,
@@ -113,7 +112,7 @@ class _OverviewScreen extends State<OverviewScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           AnimatedStatsWidgets(key: ValueKey<int>(hash)),
-          AnimateInEffect(
+          QPAnimateInEffect(
             durationInMilliseconds: animationDurationInMilliseconds,
             child: CustomLineChart(
               loadedFirst: loadedFirst,
@@ -135,7 +134,7 @@ class _OverviewScreen extends State<OverviewScreen>
           : defaultEmptyChart(context: context, overviewScreen: true);
     }
 
-    return AnimationReplayScope(
+    return QPAnimationReplayScope(
       controller: _replayController,
       child: StreamBuilder<List<Measurement>>(
         stream: _measurementStream,

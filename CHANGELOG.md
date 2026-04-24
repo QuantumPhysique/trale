@@ -7,36 +7,38 @@ The format is inspired by [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 [//]: # (Available sections in changelog)
-[//]: # (### API changes warning ⚠️:)
+[//]: # (### API Changes Warning ⚠️:)
 [//]: # (### Added Features and Improvements 🙌:)
 [//]: # (### Bugfix 🐛:)
-[//]: # (### Other changes:)
+[//]: # (### Other Changes:)
 
 ## [Unreleased]
 
 ### Added Features and Improvements 🙌:
-- Rewrite of stats, and stas page
-- Allow to set a target date
-- Allows selecting 0.05kg/st/lb steps for more precision
-- Major performance improvements by making app async
-- Allow using imperial units for entering height
-- Add reminder notifications to prompt daily weight logging
-- Add option to preview interpolation on own data
-- Add changelog to app
-- Add tooltip when scrolling the linechart
+- A brand-new stats page with lots of new stats widgets
+- Set a target date for your weight goal
+- Reminder notifications for daily weight logging
+- Major performance improvements throughout the app
+- 0.05 kg/st/lb entry steps for finer control
+- Height can now be entered in imperial units
+- Preview the interpolation on your own data
+- Changelog now viewable in the app
+- Tooltip shown while scrolling the chart
 
-### Other changes:
-- Using the latest flutter 3.41
+### Other Changes:
+- Shared app framework extracted into the 'quantumphysique' package
+- Use the latest Flutter (3.41)
 
 ### Bugfix 🐛:
-- Fix broken calendar when choosing custom first Day of week option, #417 #418
-- Fix persisting popup on deleting measurements
-- Fix updating target weight in user dialog
+- Fixed a broken import when importing OpenScales CSV and made the import function more robust (#452, #455)
+- Fixed broken calendar when choosing the 'Custom first day of week' option (#417, #418)
+- Fix persisting pop-up when deleting measurements
+- Fix for updating target weight in the user dialogue
 
 
 ## [0.15.1] - 2026-02-03
 
-### Other changes:
+### Other Changes:
 - Improved translation
 - Remove white matte in app icon
 
@@ -47,7 +49,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - New app icon 🐺
 - All new F-droid store page with Material You Expressive (ready) Design 🎉
 
-### Other changes:
+### Other Changes:
 - Improved chart animation
 - Improved translation
 
@@ -68,7 +70,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Redesigned, more responsive weight picker
 - Improved and all new Settings pages
 
-### Other changes:
+### Other Changes:
 - Using the latest flutter 3.38
 - New font family: RobotoFlex
 - All new animations to align with M3E design guidelines
@@ -81,7 +83,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 
 
 ## [0.13.2] - 2025-09-14
-### Other changes:
+### Other Changes:
 - Added larger zoom levels for longtime users
 
 ### Bugfix 🐛:
@@ -100,7 +102,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Added zoom buttons, identical to double-tap
 - Added iso8601 date format, #325
 
-### Other changes:
+### Other Changes:
 - Target Android 16 (SDK 36)
 - Using the latest flutter 3.35 with upgraded deps
 - Improved translation
@@ -119,7 +121,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - 3 brand new color themes
 - Trale offers now 7 color scheme variants. Check out the settings page 🎉
 
-### Other changes:
+### Other Changes:
 - Upgrade dependencies
 - Upgrade building envs (Kotlin, Gradle, Android Application, and NDK)
 
@@ -134,7 +136,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Using the latest flutter 3.32 with upgraded deps
 - Add a BMI widget, #239
 
-### Other changes:
+### Other Changes:
 - Improve change icon on measurement screen, #263
 - Add a hint that the user's height is in centimeters
 
@@ -147,7 +149,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Thx to the community, many translations have been improved 🎉
 - Improved material you design
 
-### Other changes:
+### Other Changes:
 - Using the latest flutter 3.29.3 with upgraded deps
 
 
@@ -158,7 +160,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Incorporate user height to calculate BMI-based minimum target weight, replacing the predefined value.
 - Added experimental high contrast mode
 
-### Other changes:
+### Other Changes:
 - Update translations
 - Minor improvements
 
@@ -179,7 +181,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Hello World! Thx to the community, the app is now available in Russian and Vietnamese 🎉
 - Reworked import/export: Allowing now to save to files and import from openScale and Withings
 
-### Other changes:
+### Other Changes:
 - Minor speed improvements
 
 ### Bugfix 🐛:
@@ -203,7 +205,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 
 
 ## [0.9.1] - 2025-01-31
-### Other changes:
+### Other Changes:
 - Target SDK35 and use gradle 8.10
 - Design improvements
 - Thx to the community, added localizations for Italian, Estonian, and Chinese
@@ -218,7 +220,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Allow setting the first day of the week, thx to @olker159
 - Using the latest flutter 3.27 with upgraded deps
 
-### Other changes:
+### Other Changes:
 - Improved and restructured settings page
 
 ### Bugfix 🐛:
@@ -234,7 +236,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Added Features and Improvements 🙌:
 - Extensively revised UI with lots of statistics to keep you engaged in achieving your dream weight 🎉
 
-### Other changes:
+### Other Changes:
 - Changed font and icons to improve overall accessibility
 - Thx to the community, Spanish and French translation were improved
 - Add backup reminder, see settings for more options
@@ -258,7 +260,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Added Features and Improvements 🙌:
 - Hello World! Thx to the community, the app is now available in Turkish 🎉
 
-### Other changes:
+### Other Changes:
 - Upgraded dependencies
 - Improve readability of target weight label
 
@@ -274,7 +276,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Hello World! Thx to the community, the app is now available in French, Finnish, and Italian 🎉
 - Using the latest flutter 3.22 with upgraded deps
 
-### Other changes:
+### Other Changes:
 - Improved translations
 
 
@@ -293,7 +295,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Fix bug, when reloading theme
 - Fix bug that the interpolation was not shown for disabled smoothing, #25
 
-### Other changes:
+### Other Changes:
 - Disabling interpolation, will now use sigma=2days for extrapolation prediction
 - Removed v0.6.0 due to critical bug when user target weight was set.
 
@@ -316,7 +318,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Bugfix 🐛:
 - Fix bug, when using lb and st units
 
-### Other changes:
+### Other Changes:
 - Fix version error in 0.4.5
 - Fix f-droid metadata
 
@@ -325,7 +327,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Bugfix 🐛:
 - Fix bug, when using lb and st units
 
-### Other changes:
+### Other Changes:
 - Fix version error in 0.4.5
 - Fix f-droid metadata
 
@@ -334,7 +336,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Bugfix 🐛:
 - Fix bug, which prevented loading the app without measurements
 
-### Other changes:
+### Other Changes:
 - Upgrade dependencies
 
 
@@ -342,31 +344,31 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Added Features and Improvements 🙌:
 - Using the latest flutter 3.16 with upgraded deps
 
-### Other changes:
+### Other Changes:
 - Prepare for predictive back gesture
 - Removed splash animation to fix adding to f-droid, see #1
 - Fixed list of used dependencies in about screen
 
 
 ## [0.4.2] - 2023-11-14
-### Other changes:
+### Other Changes:
 - Remove build-id from rive to enable reproducible builds
 
 
 ## [0.4.1] - 2023-10-30
-### Other changes:
+### Other Changes:
 - Upgrade dependencies
 - Setup Proguard optimization
 
 
 ## [0.4.0] - 2023-10-25
-### API changes warning ⚠️:
+### API Changes Warning ⚠️:
 - App id changed to `de.quantumphysique.trale`, upgrading is not possible!
 
 ### Added Features and Improvements 🙌:
 - Prepare F-Droid launch
 
-### Other changes:
+### Other Changes:
 - Add github actions
 - Upgrade dependencies
 - Minor UI improvements
@@ -402,7 +404,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Bugfix 🐛:
 - Show current slope on start screen widget instead of 30 days average
 
-### Other changes:
+### Other Changes:
 - Added linear regression for history prediction
 
 
@@ -415,7 +417,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 ### Bugfix 🐛:
 - Fix showing date labels for ranges larger than 7 months
 
-### Other changes:
+### Other Changes:
 - Improve text on onboarding screen
 - Add German meta data
 - Remove unused files
@@ -427,7 +429,7 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - Improved prediction based on weighted linear regression
 - Many new themes, improved zoom levels, many fixed bugs and so much more.
 
-### Other changes:
+### Other Changes:
 - Added fastlane to publish app
 
 

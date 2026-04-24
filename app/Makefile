@@ -11,8 +11,8 @@ CHANGELOG_GEN := lib/core/changelog.g.dart
 # ── Code generation ───────────────────────────────────────────────────
 
 ## Regenerate changelog.g.dart from ../CHANGELOG.md
-$(CHANGELOG_GEN): $(CHANGELOG_SRC) tool/generate_changelog.dart lib/core/changelog.dart
-	dart run tool/generate_changelog.dart
+$(CHANGELOG_GEN): $(CHANGELOG_SRC) ../quantumphysique/bin/generate_changelog.dart lib/core/changelog.dart
+	dart run quantumphysique:generate_changelog
 
 ## Regenerate Hive type adapters
 .PHONY: hive
@@ -45,6 +45,28 @@ analyze: $(CHANGELOG_GEN)
 test: $(CHANGELOG_GEN)
 	flutter test
 
+.PHONY: coverage
+coverage: $(CHANGELOG_GEN)
+	flutter test --coverage
+	@echo "Coverage data written to coverage/lcov.info"
+	@command -v genhtml >/dev/null 2>&1 && \
+		genhtml coverage/lcov.info -o coverage/html && \
+		echo "HTML report: coverage/html/index.html" || \
+		echo "(install lcov for HTML report)"
+
+.PHONY: format
+format:
+	find lib test -name '*.dart' ! -name '*.g.dart' | xargs dart format
+
+.PHONY: format-check
+format-check:
+	dart format --set-exit-if-changed .
+
+.PHONY: install-hooks
+install-hooks:
+	git -C .. config core.hooksPath .githooks
+	@echo "Pre-commit hooks installed (using ../.githooks)."
+
 .PHONY: clean
 clean:
 	flutter clean
@@ -57,6 +79,10 @@ help:
 	@echo "  make build-aab  – generate + flutter build appbundle"
 	@echo "  make analyze    – generate + flutter analyze"
 	@echo "  make test       – generate + flutter test"
+	@echo "  make coverage   – generate + flutter test --coverage"
+	@echo "  make format     – dart format ."
+	@echo "  make format-check – dart format --set-exit-if-changed"
+	@echo "  make install-hooks – install git pre-commit hooks"
 	@echo "  make generate   – run all code generators"
 	@echo "  make hive       – regenerate Hive adapters"
 	@echo "  make clean      – flutter clean"

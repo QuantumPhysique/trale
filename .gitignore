@@ -21,6 +21,8 @@ app/.buildlog/
 app/.history
 app/.svn/
 app/untraslatedMessages.txt
+app/*.apks
+app/*.aab
 
 # IntelliJ related
 app/*.ipr

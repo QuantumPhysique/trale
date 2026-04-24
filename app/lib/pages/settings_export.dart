@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
-
-import 'package:trale/core/backupInterval.dart';
-import 'package:trale/core/icons.dart';
-import 'package:trale/core/stringExtension.dart';
+import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/backup_interval.dart';
+import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/theme.dart';
-import 'package:trale/core/traleNotifier.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
-import 'package:trale/widget/customScrollViewSnapping.dart';
-import 'package:trale/widget/ioWidgets.dart';
-import 'package:trale/widget/tile_group.dart';
+import 'package:trale/core/trale_notifier.dart';
+import 'package:trale/widget/custom_scroll_view_snapping.dart';
+import 'package:trale/widget/io_widgets.dart';
 
 /// Export settings page.
 class ExportSettingsPage extends StatefulWidget {
@@ -33,25 +30,25 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
     ).latestBackupDate;
 
     String date2string(DateTime? date) => date == null
-        ? AppLocalizations.of(context)!.never
+        ? context.l10n.never
         : Provider.of<TraleNotifier>(
             context,
             listen: false,
           ).dateFormat(context).format(date);
 
     final List<Widget> sliverList = <Widget>[
-      WidgetGroup(
-        title: AppLocalizations.of(context)!.export,
+      QPWidgetGroup(
+        title: context.l10n.export,
         children: <Widget>[
           const ExportListTile(),
           const BackupIntervalListTile(),
-          GroupedListTile(
+          QPGroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 AutoSizeText(
-                  AppLocalizations.of(context)!.lastBackup.inCaps,
+                  context.l10n.lastBackup.inCaps,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
@@ -62,13 +59,13 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
               ],
             ),
           ),
-          GroupedListTile(
+          QPGroupedListTile(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 AutoSizeText(
-                  AppLocalizations.of(context)!.nextBackup.inCaps,
+                  context.l10n.nextBackup.inCaps,
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
@@ -81,13 +78,13 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
           ),
         ],
       ),
-      WidgetGroup(
-        title: AppLocalizations.of(context)!.import,
+      QPWidgetGroup(
+        title: context.l10n.import,
         children: const <Widget>[ImportListTile()],
       ),
-      GroupedText(
+      QPGroupedText(
         text: Text(
-          AppLocalizations.of(context)!.importLongDescription,
+          context.l10n.importLongDescription,
           style: Theme.of(context).textTheme.bodyMedium,
           textAlign: TextAlign.justify,
         ),
@@ -96,13 +93,13 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
         padding: EdgeInsets.symmetric(
           horizontal: TraleTheme.of(context)!.padding,
         ),
-        child: WidgetGroup(
-          children: <GroupedText>[
+        child: QPWidgetGroup(
+          children: <QPGroupedText>[
             for (final String fmt in <String>[
               '2025-12-24T16:00 67.9',
               '2025-12-24 67.9',
             ])
-              GroupedText(
+              QPGroupedText(
                 color: Theme.of(context).colorScheme.surfaceContainerLowest,
                 text: Text(
                   fmt,
@@ -113,15 +110,15 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
           ],
         ),
       ),
-      WidgetGroup(
-        title: AppLocalizations.of(context)!.dangerzone,
+      QPWidgetGroup(
+        title: context.l10n.dangerzone,
         children: const <Widget>[ResetListTile()],
       ),
     ];
 
     return Scaffold(
       body: SliverAppBarSnap(
-        title: AppLocalizations.of(context)!.importAndExport,
+        title: context.l10n.importAndExport,
         sliverlist: sliverList,
       ),
     );
@@ -135,21 +132,21 @@ class BackupIntervalListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
         horizontal: TraleTheme.of(context)!.padding,
         vertical: TraleTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
-        AppLocalizations.of(context)!.backupInterval,
+        context.l10n.backupInterval,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
       trailing: DropdownMenu<BackupInterval>(
         initialSelection: Provider.of<TraleNotifier>(context).backupInterval,
         label: AutoSizeText(
-          AppLocalizations.of(context)!.backupInterval,
+          context.l10n.backupInterval,
           style: Theme.of(context).textTheme.bodyLarge,
           maxLines: 1,
         ),
@@ -178,10 +175,10 @@ class ExportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       title: AutoSizeText(
-        AppLocalizations.of(context)!.export,
+        context.l10n.export,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
@@ -189,7 +186,7 @@ class ExportListTile extends StatelessWidget {
         horizontal: TraleTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
-        AppLocalizations.of(context)!.exportSubtitle,
+        context.l10n.exportSubtitle,
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: Row(
@@ -216,10 +213,10 @@ class ImportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       title: AutoSizeText(
-        AppLocalizations.of(context)!.import,
+        context.l10n.import,
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
@@ -227,7 +224,7 @@ class ImportListTile extends StatelessWidget {
         horizontal: TraleTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
-        AppLocalizations.of(context)!.importSubtitle,
+        context.l10n.importSubtitle,
         style: Theme.of(context).textTheme.labelSmall,
       ),
       trailing: IconButton(
@@ -252,10 +249,10 @@ class ResetListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GroupedListTile(
+    return QPGroupedListTile(
       color: Theme.of(context).colorScheme.errorContainer,
       title: AutoSizeText(
-        AppLocalizations.of(context)!.factoryReset,
+        context.l10n.factoryReset,
         style: Theme.of(context).textTheme.bodyLarge!.apply(
           color: Theme.of(context).colorScheme.onErrorContainer,
         ),
@@ -265,7 +262,7 @@ class ResetListTile extends StatelessWidget {
         horizontal: TraleTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
-        AppLocalizations.of(context)!.factoryResetSubtitle,
+        context.l10n.factoryResetSubtitle,
         style: Theme.of(context).textTheme.labelSmall!.apply(
           color: Theme.of(context).colorScheme.onErrorContainer,
         ),
@@ -282,11 +279,11 @@ class ResetListTile extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: Text(
-                    AppLocalizations.of(context)!.factoryReset,
+                    context.l10n.factoryReset,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   content: Text(
-                    AppLocalizations.of(context)!.factoryResetDialog,
+                    context.l10n.factoryResetDialog,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   actions: <Widget>[
@@ -302,12 +299,12 @@ class ResetListTile extends StatelessWidget {
                           vertical: TraleTheme.of(context)!.padding / 2,
                           horizontal: TraleTheme.of(context)!.padding,
                         ),
-                        child: Text(AppLocalizations.of(context)!.abort),
+                        child: Text(context.l10n.abort),
                       ),
                     ),
                     FilledButton.icon(
                       onPressed: () => Navigator.pop(context, true),
-                      label: Text(AppLocalizations.of(context)!.yes),
+                      label: Text(context.l10n.yes),
                       icon: PPIcon(PhosphorIconsRegular.trash, context),
                     ),
                   ],
