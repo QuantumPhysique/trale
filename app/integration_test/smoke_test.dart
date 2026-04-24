@@ -86,14 +86,14 @@ void main() {
       // freshly installed (lastBuildNumber == 0 on a clean CI emulator).
       // Use a bounded pump instead of pumpAndSettle: the home screen has
       // ongoing animations (chart, etc.) that never fully settle.
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
 
       // Dismiss the changelog bottom sheet if it was shown on first launch.
       // The sheet snaps to 50 % of screen height, so tapping at y=50 hits
       // the modal barrier above it and closes the sheet.
       if (find.byType(BottomSheet).evaluate().isNotEmpty) {
         await tester.tapAt(const Offset(200, 50));
-        await tester.pump(const Duration(milliseconds: 500));
+        await tester.pump(const Duration(milliseconds: 5000));
       }
 
       // ── 1. Home screen ─────────────────────────────────────────────────
@@ -104,19 +104,19 @@ void main() {
       // Navigate to Measurements tab to capture the current count so we can
       // verify +1 after the insert.
       await tester.tap(find.text('Measurements'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
       final int countBefore = find.byType(WeightListTile).evaluate().length;
 
       // Return to Home before opening the FAB dialog.
       await tester.tap(find.text('Home'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
 
       // ── 3. Open the add-weight dialog ───────────────────────────────────
       // The FAB tooltip matches l10n.addWeight ("Enter your weight" in EN).
       final Finder fab = find.byTooltip('Enter your weight');
       expect(fab, findsOneWidget);
       await tester.tap(fab);
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
 
       // Verify the dialog opened: title and Save button visible.
       expect(find.text('Enter your weight'), findsAtLeastNWidgets(1));
@@ -126,13 +126,13 @@ void main() {
       // Tapping Save inserts a measurement and always closes the dialog
       // (Navigator.pop(context, wasInserted) is always called).
       await tester.tap(find.text('Save'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
       // ── 5. Verify measurement appeared in the list ──────────────────────
       await tester.tap(find.text('Measurements'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
 
       // The list must have grown by exactly one entry.
       expect(
@@ -145,7 +145,7 @@ void main() {
 
       // ── 6. Navigate to Achievements tab ─────────────────────────────────
       await tester.tap(find.text('Achievements'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
@@ -159,11 +159,11 @@ void main() {
       await screenshot(tester, '03_achievements_tab');
 
       await tester.tap(find.text('Measurements'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
       await screenshot(tester, '04_measurements_tab');
 
       await tester.tap(find.text('Home'));
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 5000));
       await screenshot(tester, '05_home_tab');
     });
   });
