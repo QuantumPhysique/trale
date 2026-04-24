@@ -143,18 +143,31 @@ void main() {
             'measurement.',
       );
 
-      // ── 6. Navigate to Achievements tab ─────────────────────────────────
+      // ── 6. Navigate through remaining tabs ──────────────────────────────
       await tester.tap(find.text('Achievements'));
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
+      // ── 7. Re-open the add-weight dialog for a screenshot ───────────────
+      // Navigate back to Home and open the FAB dialog a second time.
+      // We deliberately do NOT call screenshot() before this point because
+      // convertFlutterSurfaceToImage() inserts an IgnorePointer over the
+      // entire widget tree, making all subsequent tester.tap() calls miss.
+      // All navigation taps must therefore precede the first screenshot call.
+      await tester.tap(find.text('Home'));
+      await tester.pump(const Duration(milliseconds: 500));
+
+      await tester.tap(find.byTooltip('Enter your weight'));
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(find.text('Enter your weight'), findsAtLeastNWidgets(1));
+
       // ── Screenshots ────────────────────────────────────────────────────
-      // IMPORTANT: convertFlutterSurfaceToImage() (called on the first
-      // screenshot) adds an IgnorePointer to the root widget tree, which
-      // breaks all subsequent pointer events.  Screenshots must therefore be
-      // taken AFTER all interactions and assertions are complete.
-      await screenshot(tester, '06_achievements_tab');
+      // convertFlutterSurfaceToImage() is called here (inside screenshot()).
+      // No tester.tap() calls may follow — they will silently miss due to
+      // the IgnorePointer wrapper that is inserted at this point.
+      await screenshot(tester, '01_add_weight_dialog');
     });
   });
 }
