@@ -827,5 +827,135 @@
     "bmiObese": "Rasvunud",
     "@bmiObese": {
         "description": "BMI category label for BMI > 30"
+    },
+    "importSuccess": "{count} mõõdistust lisatud",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Valitud faili lugemine ei õnnestu. Palun proovi uuesti või kasuta muud faili.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Valitud failis ei leidu korrektseid mõõdistusi. Palun kontrolli, kas faili vorming on õige.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "qp_defaultLangLabel": "Süsteemi keel",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "Keel",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "Vali liidese keel",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "Tõlgi",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "Aita rakendust tõlkida muudesse keeltesse",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "Kujundus",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "Kasutatav värvipalett",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "Tume kujundus",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "Automaatne kujundus",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "Hele kujundus",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "Alati tume kujundus",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "Süsimust kujundus",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Kasuta tumedas kujunduses süsimusta tausta",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "Kontrastsus",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "Värvipalett",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Värvikombinatsiooni variant",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "Meeldetuletused",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "Igapäevased kaalumõõtmise meeldetuletused",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "Kasuta meeldetuletusi",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "Meeldetuletuse päevad",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "Meeldetuletuse aeg",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "Nädala esimene päev",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "Vaikimisi (lokaadi alusel)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Kuupäeva vorming",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Mida on meil uut",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "Seadistused",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "Kohandamine",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Teavitused",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
     }
 }
