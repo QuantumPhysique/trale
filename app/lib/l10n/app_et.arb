@@ -692,5 +692,270 @@
     "changelog": "Muudatuste logi",
     "@changelog": {
         "description": "changelog"
+    },
+    "targetWeightEnabled": "Kaalueesmärk",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Sisesta oma kaalueesmärk ja jälgi edenemist.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Soovitud kuupäev",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Sisesta oma kuupäeva eesmärk ja jälgi edenemist.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Sisesta kuupäeva eesmärk",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Edenemistempo",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "today": "täna",
+    "weightForecast": "ennustus",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "kõik",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "alates eesmärgi lisamisest",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "eelmisel aastal",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "kohandatud",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "allTimeStats": "Statistika läbi aegade",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "perWeek": "/nädalas",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "startDate": "Alguskuupäev",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "targetWeightPrompt": "Eesmärgi kuupäeva ja -kiiruse arvutamiseks on vaja praegust kehakaalu. Võid valida ka varasema kuupäeva, et alustada sihtjoone arvestamist sellest hetkest.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Vali mõõdukas kiirus. Kui see on liiga madal, on edusamme raske märgata; kui see on liiga kõrge, on oht, et kaotad rasva asemel lihasmassi.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "median": "aritmeetiline keskmine",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "calorieDeficit": "kaloripuudus",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Erinevus eesmärgist",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Statistikavahemik",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "Alates",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "Kuni",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Kuupäevad",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Kuupäeva tühistamiseks vajuta tal pikalt. Kui alguskuupäev on tühistatud, tähendab see, et arvestus algab esimesest mõõtmisest; kui lõppkuupäev on tühistatud, tähendab see, et arvestus kestab tänaseni.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Statistiline alus",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Interpoleeritud väärtused tasandavad vedeliku tarbimise, söögiaegade ja muude tegurite põhjustatud päevaseid kõikumisi, andes selgema ülevaate sinu tegelikust kaalutrendist. Töötlemata mõõtmistulemused kajastavad täpselt seda, mida sa oled registreerinud, kuid võivad päevast päeva märkimisväärselt erineda. Interpoleeritud kõvera kasutamine aitab sul jälgida tegelikku edasiminekut, mitte lühiajalisi kõikumisi.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Statistika põhineb {sourceName} andmetel. Seda saab muuta isikupärastamise seadistustest.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Tõsine alakaal",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Alakaal",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Normaalkaal",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Ülekaal",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Rasvunud",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "importSuccess": "{count} mõõdistust lisatud",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Valitud faili lugemine ei õnnestu. Palun proovi uuesti või kasuta muud faili.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Valitud failis ei leidu korrektseid mõõdistusi. Palun kontrolli, kas faili vorming on õige.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "qp_defaultLangLabel": "Süsteemi keel",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "Keel",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "Vali liidese keel",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "Tõlgi",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "Aita rakendust tõlkida muudesse keeltesse",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "Kujundus",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "Kasutatav värvipalett",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "Tume kujundus",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "Automaatne kujundus",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "Hele kujundus",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "Alati tume kujundus",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "Süsimust kujundus",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Kasuta tumedas kujunduses süsimusta tausta",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "Kontrastsus",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "Värvipalett",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Värvikombinatsiooni variant",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "Meeldetuletused",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "Igapäevased kaalumõõtmise meeldetuletused",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "Kasuta meeldetuletusi",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "Meeldetuletuse päevad",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "Meeldetuletuse aeg",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "Nädala esimene päev",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "Vaikimisi (lokaadi alusel)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Kuupäeva vorming",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Mida on meil uut",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "Seadistused",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "Kohandamine",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Teavitused",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
     }
 }
