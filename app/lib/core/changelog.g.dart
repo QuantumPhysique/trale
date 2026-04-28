@@ -12,23 +12,25 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Rewrite of stats, and stas page',
-        'Allow to set a target date',
-        'Allows selecting 0.05kg/st/lb steps for more precision',
-        'Major performance improvements by making app async',
-        'Allow using imperial units for entering height',
-        'Add reminder notifications to prompt daily weight logging',
-        'Add option to preview interpolation on own data',
-        'Add changelog to app',
-        'Add tooltip when scrolling the linechart',
+        'A brand-new stats page with lots of new stats widgets',
+        'Set a target date for your weight goal',
+        'Reminder notifications for daily weight logging',
+        'Major performance improvements throughout the app',
+        '0.05 kg/st/lb entry steps for finer control',
+        'Height can now be entered in imperial units',
+        'Preview the interpolation on your own data',
+        'Changelog now viewable in the app',
+        'Tooltip shown while scrolling the chart',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Using the latest flutter 3.41',
+        'Shared app framework extracted into the \'quantumphysique\' package',
+        'Use the latest Flutter (3.41)',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix broken calendar when choosing custom first Day of week option, #417 #418',
-        'Fix persisting popup on deleting measurements',
-        'Fix updating target weight in user dialog',
+        'Fixed a broken import when importing OpenScales CSV and made the import function more robust (#452, #455)',
+        'Fixed broken calendar when choosing the \'Custom first day of week\' option (#417, #418)',
+        'Fix persisting pop-up when deleting measurements',
+        'Fix for updating target weight in the user dialogue',
       ],
     },
   ),
@@ -64,6 +66,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: '0.14.0',
     dateString: '2026-01-06',
+    summary: 'Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆\\\nThis release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Material You Expressive (ready) Design throughout the whole app 🎉',

@@ -116,25 +116,38 @@ class _QPChangelogContentState extends State<QPChangelogContent>
             padding: const EdgeInsets.symmetric(horizontal: padding),
             child: QPWidgetGroup(
               title: getTitle(entries[i]),
-              children: entries[i].sections.entries.map((
-                MapEntry<ChangelogSection, List<String>> section,
-              ) {
-                final String label =
-                    widget.sectionLabels?[section.key] ?? section.key.label;
-                return QPGroupedText(
-                  color: Theme.of(context).colorScheme.surfaceContainerLowest,
-                  text: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        label,
-                        style: Theme.of(context).textTheme.titleMedium,
+              children: <Widget>[
+                if (entries[i].summary != null &&
+                    entries[i].summary!.isNotEmpty)
+                  QPGroupedText(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    text: Text(
+                      entries[i].summary!,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
-                      QPBulletList(section.value),
-                    ],
+                    ),
                   ),
-                );
-              }).toList(),
+                ...entries[i].sections.entries.map((
+                  MapEntry<ChangelogSection, List<String>> section,
+                ) {
+                  final String label =
+                      widget.sectionLabels?[section.key] ?? section.key.label;
+                  return QPGroupedText(
+                    color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                    text: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          label,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        QPBulletList(section.value),
+                      ],
+                    ),
+                  );
+                }),
+              ],
             ),
           ),
         ),

@@ -29,7 +29,7 @@ String? _matchSection(String line) {
   }
   final String header = trimmed.substring(4).replaceAll(RegExp(r':$'), '');
   for (final MapEntry<String, String> entry in _sectionMap.entries) {
-    if (header.contains(entry.key)) {
+    if (header.toLowerCase().contains(entry.key.toLowerCase())) {
       return entry.value;
     }
   }
@@ -93,10 +93,10 @@ void main(List<String> args) {
   // ── Parse ───────────────────────────────────────────────────────────────
 
   final List<
-    ({String version, String? date, Map<String, List<String>> sections})
+    ({String version, String? date, String? summary, Map<String, List<String>> sections})
   >
   entries =
-      <({String version, String? date, Map<String, List<String>> sections})>[];
+      <({String version, String? date, String? summary, Map<String, List<String>> sections})>[];
 
   String? currentSection;
   Map<String, List<String>>? currentSections;
@@ -119,6 +119,7 @@ void main(List<String> args) {
       entries.add((
         version: versionMatch.version,
         date: versionMatch.date,
+        summary: null,
         sections: currentSections,
       ));
       continue;
@@ -169,6 +170,25 @@ void main(List<String> args) {
       continue;
     }
 
+    // ── summary text before any section ──
+    if (trimmed.isNotEmpty &&
+        !trimmed.startsWith('#') &&
+        !trimmed.startsWith('[') &&
+        currentSection == null) {
+      final int lastIndex = entries.length - 1;
+      final currentEntry = entries[lastIndex];
+      final String newSummary = currentEntry.summary == null
+          ? trimmed
+          : '${currentEntry.summary}\\n$trimmed';
+      entries[lastIndex] = (
+        version: currentEntry.version,
+        date: currentEntry.date,
+        summary: newSummary,
+        sections: currentEntry.sections,
+      );
+      continue;
+    }
+
     unparsedLines.add((lineNumber: i + 1, text: line));
   }
 
@@ -191,6 +211,7 @@ void main(List<String> args) {
   for (final ({
         String version,
         String? date,
+        String? summary,
         Map<String, List<String>> sections,
       })
       entry
@@ -199,6 +220,9 @@ void main(List<String> args) {
     buf.writeln("    version: '${_escape(entry.version)}',");
     if (entry.date != null) {
       buf.writeln("    dateString: '${entry.date}',");
+    }
+    if (entry.summary != null) {
+      buf.writeln("    summary: '${_escape(entry.summary!).replaceAll('\\n', r'\\n')}',");
     }
     if (entry.sections.isNotEmpty) {
       buf.writeln('    sections: <ChangelogSection, List<String>>{');

@@ -30,6 +30,7 @@ class ChangelogEntry {
   const ChangelogEntry({
     required this.version,
     this.dateString,
+    this.summary,
     this.sections = const <ChangelogSection, List<String>>{},
   });
 
@@ -38,6 +39,9 @@ class ChangelogEntry {
 
   /// Release date as ISO-8601 string (null for unreleased).
   final String? dateString;
+
+  /// Optional summary text between version header and first section.
+  final String? summary;
 
   /// Parsed release date.
   DateTime? get date {
