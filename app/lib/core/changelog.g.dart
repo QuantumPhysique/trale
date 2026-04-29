@@ -14,7 +14,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: '1.0.0',
     dateString: '2026-04-29',
-    summary: 'Dear Tralers,\nthe day has finally come: trale 1.0 is out now! We are super excited and hope you are, too!🎉\nSeeing so many of you use Trale makes us incredibly happy, and knowing you\'re out there is what helped us stick to it. We want to thank every single user for being part of this journey.\nWe want to give a massive shout-out to our sponsors: Ko-fi Supporter(s), gh.com/lquenti, George, franciscoteca, ghStzyxh, Toasty2004, Peppin, Billy and "Somebody".\nYour financial support has been tremendous and is the main reason we were able to make so much progress over the last few months.\nWe also owe a huge thanks to every single contributor and anyone who ever submitted feedback. Every single commit, translation, bug report, and idea mattered.\nThanks so much, and we really hope you enjoy 1.0!',
+    summary: 'Dear Tralers🐺,\ntrale v1.0 is out now, and we couldn\'t be more excited!🎉\nA huge thank you to every user, contributor, and translator: every commit, bug report, and idea mattered. A special shout-out to our Ko-fi sponsors: gh.com/lquenti, George, franciscoteca, ghStzyxh, Toasty2004, Peppin, Billy, and all anonymous donors. Knowing you\'re out there kept us motivated throughout the entire journey.\nWe can\'t wait to continue this journey with you.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'A brand-new stats page with lots of new stats widgets',
