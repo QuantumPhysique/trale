@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.0.0',
+    dateString: '2026-04-29',
+    summary: 'Dear Tralers,\nthe day has finally come: trale 1.0 is out now! We are super excited and hope you are, too!🎉\nSeeing so many of you use Trale makes us incredibly happy, and knowing you\'re out there is what helped us stick to it. We want to thank every single user for being part of this journey.\nWe want to give a massive shout-out to our sponsors. Your financial support has been tremendous and is the main reason we were able to make so much progress over the last few months.\nWe also owe a huge thanks to every single contributor and anyone who ever submitted feedback. Every single commit, translation, bug report, and idea mattered.\nThanks so much, and we really hope you enjoy 1.0!',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'A brand-new stats page with lots of new stats widgets',
@@ -66,7 +71,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: '0.14.0',
     dateString: '2026-01-06',
-    summary: 'Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆\\\nThis release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.',
+    summary: 'Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆\nThis release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Material You Expressive (ready) Design throughout the whole app 🎉',
