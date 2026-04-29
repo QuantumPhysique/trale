@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>trale – Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 740px;
+      margin: 48px auto;
+      padding: 0 24px;
+      color: #1a1a1a;
+      line-height: 1.7;
+    }
+    h1 { font-size: 1.8rem; margin-bottom: 0.2rem; }
+    h2 { font-size: 1.15rem; margin-top: 2rem; }
+    p, ul { margin: 0.6rem 0; }
+    ul { padding-left: 1.4rem; }
+    a { color: #1976d2; }
+    footer { margin-top: 3rem; font-size: 0.85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>trale – Privacy Policy</h1>
+  <p><em>Last updated: April 29, 2026</em></p>
+
+  <p>
+    trale is a body-weight diary app developed by QuantumPhysique. This privacy policy
+    describes how trale handles your data.
+  </p>
+
+  <h2>Data collection and storage</h2>
+  <p>
+    <strong>trale does not collect, transmit, or share any personal data.</strong>
+    All data you enter in the app — including body-weight measurements, your goal, and
+    app settings — is stored exclusively on your device using the Android operating
+    system's local storage mechanisms. Nothing is ever sent to our servers or any
+    third-party service.
+  </p>
+
+  <h2>Internet access</h2>
+  <p>
+    trale does not connect to the internet for any purpose. The internet permission
+    declared in the app manifest is required solely by the Flutter development tooling
+    (e.g. hot-reload) and is never used in production builds.
+  </p>
+
+  <h2>Notifications</h2>
+  <p>
+    If you enable the optional reminder notifications, trale schedules local
+    notifications entirely on your device using Android's alarm APIs
+    (<code>SCHEDULE_EXACT_ALARM</code>, <code>RECEIVE_BOOT_COMPLETED</code>).
+    No notification content is transmitted off-device.
+  </p>
+
+  <h2>Import and export</h2>
+  <p>
+    trale lets you import and export your measurement data as a file. This operation
+    is performed locally on your device. You choose where to save or load the file
+    using Android's file picker — trale does not access any other files on your device.
+  </p>
+
+  <h2>Third-party services</h2>
+  <p>trale does not use any analytics, advertising, crash-reporting, or other
+  third-party SDKs that could collect user data.</p>
+
+  <h2>Children's privacy</h2>
+  <p>
+    trale does not knowingly collect any information from anyone, including children
+    under the age of 13.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    If this policy changes, the updated version will be published at this URL with a
+    revised date at the top.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    If you have any questions about this privacy policy, please open an issue on our
+    <a href="https://github.com/QuantumPhysique/trale">GitHub repository</a>.
+  </p>
+
+  <footer>
+    &copy; 2026 QuantumPhysique &mdash; trale is open-source software licensed under the
+    <a href="https://github.com/QuantumPhysique/trale/blob/main/LICENSE">GPL-3.0 license</a>.
+  </footer>
+</body>
+</html>

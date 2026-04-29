@@ -11,8 +11,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Added Features and Improvements 🙌:)
 [//]: # (### Bugfix 🐛:)
 [//]: # (### Other Changes:)
-
 ## [Unreleased]
+
+## [1.0.0] - 2026-04-29
+
+Dear Tralers🐺,
+
+trale v1.0 is out now, and we couldn't be more excited!🎉
+
+A huge thank you to every user, contributor, and translator: every commit, bug report, and idea mattered. A special shout-out to our Ko-fi sponsors: gh.com/lquenti, George, franciscoteca, ghStzyxh, Toasty2004, Peppin, Billy, and all anonymous donors. Knowing you're out there kept us motivated throughout the entire journey.
+
+We can't wait to continue this journey with you.
 
 ### Added Features and Improvements 🙌:
 - A brand-new stats page with lots of new stats widgets
@@ -438,7 +447,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v0.15.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.0.0...main
+[1.0.0]: https://github.com/quantumphysique/trale/compare/v0.15.1...v1.0.0
 [0.15.1]: https://github.com/quantumphysique/trale/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/quantumphysique/trale/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/quantumphysique/trale/compare/v0.13.2...v0.14.0

@@ -126,6 +126,7 @@ class _QPChangelogContentState extends State<QPChangelogContent>
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
+                      textAlign: TextAlign.justify,
                     ),
                   ),
                 ...entries[i].sections.entries.map((

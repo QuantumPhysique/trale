@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.0.0',
+    dateString: '2026-04-29',
+    summary: 'Dear Tralers🐺,\ntrale v1.0 is out now, and we couldn\'t be more excited!🎉\nA huge thank you to every user, contributor, and translator: every commit, bug report, and idea mattered. A special shout-out to our Ko-fi sponsors: gh.com/lquenti, George, franciscoteca, ghStzyxh, Toasty2004, Peppin, Billy, and all anonymous donors. Knowing you\'re out there kept us motivated throughout the entire journey.\nWe can\'t wait to continue this journey with you.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'A brand-new stats page with lots of new stats widgets',
@@ -66,7 +71,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: '0.14.0',
     dateString: '2026-01-06',
-    summary: 'Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆\\\nThis release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.',
+    summary: 'Welcome 2026! To help you shed those extra pounds gained over Christmas, we have completely revamped the app 🎆\nThis release is the foundation for the upcoming version 1.0. Now that the UI has been redesigned, we will focus again on new functionality in the next releases.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Material You Expressive (ready) Design throughout the whole app 🎉',
