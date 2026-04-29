@@ -21,7 +21,7 @@ the day has finally come: trale 1.0 is out now! We are super excited and hope yo
 
 Seeing so many of you use Trale makes us incredibly happy, and knowing you're out there is what helped us stick to it. We want to thank every single user for being part of this journey.
 
-We want to give a massive shout-out to our sponsors: gh.com/lquenti, ghStzyxh, Toasty2004, franciscoteca, Peppin, Billy, Ko-fi Supporter, George and "Somebody".
+We want to give a massive shout-out to our sponsors: Ko-fi Supporter(s), gh.com/lquenti, George, franciscoteca, ghStzyxh, Toasty2004, Peppin, Billy and "Somebody".
 Your financial support has been tremendous and is the main reason we were able to make so much progress over the last few months.
 
 We also owe a huge thanks to every single contributor and anyone who ever submitted feedback. Every single commit, translation, bug report, and idea mattered.
