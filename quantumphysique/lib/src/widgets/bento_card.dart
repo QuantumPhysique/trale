@@ -197,7 +197,7 @@ class QPBentoCard extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               color: Theme.of(context).colorScheme.onSurface,
             ),
-            maxLines: 2,
+            maxLines: 3,
             textAlign: TextAlign.center,
           ),
           AutoSizeText(
@@ -224,7 +224,7 @@ class QPBentoCard extends StatelessWidget {
         style: Theme.of(
           context,
         ).textTheme.bodyLarge!.onSurface(context).copyWith(color: _textColor),
-        maxLines: 2,
+        maxLines: 3,
         textAlign: TextAlign.center,
       ),
     );
@@ -311,7 +311,7 @@ class QPBentoCard extends StatelessWidget {
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.copyWith(height: 1.0, color: labelColor),
-              maxLines: 2,
+              maxLines: 3,
               textAlign: TextAlign.center,
             ),
           ),
