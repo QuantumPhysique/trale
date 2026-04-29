@@ -11,8 +11,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Added Features and Improvements 🙌:)
 [//]: # (### Bugfix 🐛:)
 [//]: # (### Other Changes:)
-
 ## [Unreleased]
+
+## [1.0.0] - 2026-04-29
+
+Dear Tralers,
+
+the day has finally come: trale 1.0 is out now! We are super excited and hope you are, too!🎉
+
+Seeing so many of you use Trale makes us incredibly happy, and knowing you're out there is what helped us stick to it. We want to thank every single user for being part of this journey.
+
+We want to give a massive shout-out to our sponsors. Your financial support has been tremendous and is the main reason we were able to make so much progress over the last few months.
+
+We also owe a huge thanks to every single contributor and anyone who ever submitted feedback. Every single commit, translation, bug report, and idea mattered.
+
+Thanks so much, and we really hope you enjoy 1.0!
 
 ### Added Features and Improvements 🙌:
 - A brand-new stats page with lots of new stats widgets
