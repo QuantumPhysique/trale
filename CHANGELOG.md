@@ -13,7 +13,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Other Changes:)
 ## [Unreleased]
 
-## [1.0.1] - 2026-05-02
+## [1.0.2] - 2026-05-02
 
 ### Bugfix 🐛:
 - Fix f-droid pipeline
@@ -453,8 +453,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.0.1...main
-[1.0.1]: https://github.com/quantumphysique/trale/compare/v1.0.0...v1.0.1
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.0.2...main
+[1.0.2]: https://github.com/quantumphysique/trale/compare/v1.0.0...v1.0.2
 [1.0.0]: https://github.com/quantumphysique/trale/compare/v0.15.1...v1.0.0
 [0.15.1]: https://github.com/quantumphysique/trale/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/quantumphysique/trale/compare/v0.14.0...v0.15.0
