@@ -3,24 +3,24 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/src/notifier/qp_notifier.dart';
 import 'package:quantumphysique/src/notifier/qp_theme_builder.dart';
-import 'package:quantumphysique/src/preferences/qp_preferences.dart';
+import 'package:quantumphysique/src/theme/qp_theme.dart';
 import 'package:quantumphysique/src/types/contrast.dart';
+import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 import 'package:quantumphysique/src/types/strings.dart';
+import 'package:quantumphysique/src/widgets/burger_theme.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
 import 'package:quantumphysique/src/widgets/selection_carousel.dart';
 import 'package:quantumphysique/src/widgets/sliver_app_bar_snap.dart';
 import 'package:quantumphysique/src/widgets/tile_group/tile_group.dart';
 
-/// Named-record describing a single selectable palette entry.
-typedef QPPalette = ({String name, Color seed});
-
 /// Settings page for theme appearance.
 ///
 /// Provides:
-/// - Palette (colour) selection carousel parameterised by [palettes],
+/// - [QPCustomTheme] palette selection carousel with [QPBurgerTheme] previews,
 ///   or a fully custom [paletteSection] widget when provided.
-/// - Scheme-variant selection carousel, or a custom [schemeVariantSection].
+/// - Scheme-variant selection carousel with [QPBurgerTheme] previews, or a
+///   custom [schemeVariantSection].
 /// - Dark mode selector (light / system / dark).
 /// - AMOLED pure-black toggle.
 /// - Contrast slider.
@@ -28,7 +28,6 @@ class QPThemeSettingsPage extends StatelessWidget {
   /// Creates a [QPThemeSettingsPage].
   const QPThemeSettingsPage({
     required this.strings,
-    required this.palettes,
     this.paletteSection,
     this.schemeVariantSection,
     super.key,
@@ -37,17 +36,11 @@ class QPThemeSettingsPage extends StatelessWidget {
   /// Localised strings.
   final QPStrings strings;
 
-  /// App-supplied palette list. Each entry carries a display [name] and a
-  /// seed [Color] used for previewing and storing the selection.
-  ///
-  /// Ignored when [paletteSection] is provided.
-  final List<QPPalette> palettes;
-
   /// Optional widget that completely replaces the default palette-carousel
   /// section (the [QPWidgetGroup] titled [QPStrings.themePalette]).
   ///
-  /// Use this when the app has a richer palette preview (e.g. a custom
-  /// colour-swatch carousel) that cannot be expressed as [QPPalette] entries.
+  /// When omitted, shows a [QPCustomTheme] carousel with [QPBurgerTheme]
+  /// colour previews.
   final Widget? paletteSection;
 
   /// Optional widget that completely replaces the default scheme-variant
@@ -69,11 +62,7 @@ class QPThemeSettingsPage extends StatelessWidget {
             children: <Widget>[
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                child: _PaletteCarousel(
-                  palettes: palettes,
-                  notifier: notifier,
-                  isDark: isDark,
-                ),
+                child: _PaletteCarousel(notifier: notifier, isDark: isDark),
               ),
             ],
           ),
@@ -272,43 +261,44 @@ class _ContrastLevelSetting extends StatelessWidget {
 // ---------------------------------------------------------------------------
 
 class _PaletteCarousel extends StatelessWidget {
-  const _PaletteCarousel({
-    required this.palettes,
-    required this.notifier,
-    required this.isDark,
-  });
+  const _PaletteCarousel({required this.notifier, required this.isDark});
 
-  final List<QPPalette> palettes;
   final QPNotifier notifier;
   final bool isDark;
 
   @override
   Widget build(BuildContext context) {
-    return QPSelectionCarousel<QPPalette>(
-      items: palettes,
-      isSelected: (QPPalette p) => p.name == notifier.prefs.themeName,
-      onSelected: (QPPalette p) => notifier.prefs.themeName = p.name,
-      previewBuilder: (BuildContext ctx, QPPalette palette) {
-        final bool isSelected = palette.name == notifier.prefs.themeName;
-        final ColorScheme cs = ColorScheme.fromSeed(
-          seedColor: palette.seed,
-          brightness: isDark ? Brightness.dark : Brightness.light,
-        );
+    final List<QPCustomTheme> themes = QPCustomTheme.values.toList();
+    if (!notifier.systemColorsAvailable) {
+      themes.remove(QPCustomTheme.system);
+    }
+    return QPSelectionCarousel<QPCustomTheme>(
+      items: themes,
+      isSelected: (QPCustomTheme t) => t == notifier.theme,
+      onSelected: (QPCustomTheme t) => notifier.theme = t,
+      previewBuilder: (BuildContext ctx, QPCustomTheme ctheme) {
+        final QPTheme qpTheme = isDark ? ctheme.dark(ctx) : ctheme.light(ctx);
+        final bool isSelected = ctheme == notifier.theme;
         return Padding(
           padding: const EdgeInsets.all(0.5 * QPLayout.padding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               AutoSizeText(
-                palette.name,
-                style: Theme.of(ctx).textTheme.labelMedium?.copyWith(
-                  color: isSelected ? cs.onPrimaryContainer : cs.onSurface,
+                ctheme.name,
+                style: Theme.of(ctx).textTheme.emphasized.labelMedium?.apply(
+                  color: isSelected
+                      ? qpTheme.themeData.colorScheme.onPrimaryContainer
+                      : qpTheme.themeData.colorScheme.onSurface,
                 ),
                 maxLines: 1,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 0.5 * QPLayout.padding),
-              Expanded(child: _ColorSwatchPreview(colorScheme: cs)),
+              QPBurgerTheme(
+                colorScheme: qpTheme.themeData.colorScheme,
+                isSelected: isSelected,
+              ),
             ],
           ),
         );
@@ -357,54 +347,14 @@ class _SchemeVariantCarousel extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 0.5 * QPLayout.padding),
-              Expanded(child: _ColorSwatchPreview(colorScheme: td.colorScheme)),
+              QPBurgerTheme(
+                colorScheme: td.colorScheme,
+                isSelected: isSelected,
+              ),
             ],
           ),
         );
       },
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Simple 4-color swatch used in both carousels
-// ---------------------------------------------------------------------------
-
-class _ColorSwatchPreview extends StatelessWidget {
-  const _ColorSwatchPreview({required this.colorScheme});
-
-  final ColorScheme colorScheme;
-
-  @override
-  Widget build(BuildContext context) {
-    final List<Color> colors = <Color>[
-      colorScheme.primaryContainer,
-      colorScheme.secondaryContainer,
-      colorScheme.tertiaryContainer,
-      colorScheme.surface,
-    ];
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(QPLayout.innerBorderRadius),
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(child: ColoredBox(color: colors[0])),
-                Expanded(child: ColoredBox(color: colors[1])),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(child: ColoredBox(color: colors[2])),
-                Expanded(child: ColoredBox(color: colors[3])),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

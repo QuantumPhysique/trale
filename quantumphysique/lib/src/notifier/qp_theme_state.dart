@@ -57,6 +57,19 @@ extension QPThemeStateExtension on QPNotifier {
     }
   }
 
+  /// Current active palette theme.
+  QPCustomTheme get theme =>
+      prefs.themeName.toQPCustomTheme() ??
+      prefs.defaultThemeName.toQPCustomTheme()!;
+
+  /// Sets the active palette theme.
+  set theme(QPCustomTheme newTheme) {
+    if (newTheme != theme) {
+      prefs.themeName = newTheme.name;
+      notify;
+    }
+  }
+
   /// Light [ThemeData] built from current settings.
   ThemeData get lightTheme => buildQPThemeData(
     seedColor: seedColor,
