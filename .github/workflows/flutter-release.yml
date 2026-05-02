@@ -54,10 +54,6 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
-      - name: Generate code-gen
-        run: |
-          cd app
-          make generate
       - name: 🤖📦 Create Android release
         run: |
           cd app
