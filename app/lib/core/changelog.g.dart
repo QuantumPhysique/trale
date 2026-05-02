@@ -12,6 +12,15 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
   ),
   ChangelogEntry(
+    version: '1.0.1',
+    dateString: '2026-05-02',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fix f-droid pipeline',
+      ],
+    },
+  ),
+  ChangelogEntry(
     version: '1.0.0',
     dateString: '2026-04-29',
     summary: 'Dear Tralers🐺,\ntrale v1.0 is out now, and we couldn\'t be more excited!🎉\nA huge thank you to every user, contributor, and translator: every commit, bug report, and idea mattered. A special shout-out to our Ko-fi sponsors: gh.com/lquenti, George, franciscoteca, ghStzyxh, Toasty2004, Peppin, Billy, and all anonymous donors. Knowing you\'re out there kept us motivated throughout the entire journey.\nWe can\'t wait to continue this journey with you.',
