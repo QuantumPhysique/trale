@@ -53,6 +53,8 @@ dependencies:
 
 #dependency_overrides:
 #  intl: ^0.20.2
+dependency_overrides:
+  path_provider_android: 2.2.23
 
 dev_dependencies:
   build_runner: ^2.13.1
