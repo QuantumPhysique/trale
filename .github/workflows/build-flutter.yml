@@ -87,10 +87,10 @@ jobs:
         run: |
           cd app
           dart run dependency_validator
-      - name: Generate code-gen
+      - name: Check changelog is up-to-date
         run: |
           cd app
-          make generate
+          dart run quantumphysique:generate_changelog --check
       - name: 🧪 Run tests
         run: |
           cd app

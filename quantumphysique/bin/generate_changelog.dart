@@ -8,6 +8,8 @@
 ///   --output <path>      Output .dart file path (default: lib/core/changelog.g.dart)
 ///   --part-of <name>     Library name for the `part of` directive
 ///                        (default: changelog.dart)
+///   --check              Check mode: exit(1) if the output file would change
+///                        instead of writing it. Useful in CI.
 // ignore_for_file: avoid_print
 library;
 
@@ -70,6 +72,7 @@ Map<String, String> _parseArgs(List<String> args) {
 }
 
 void main(List<String> args) {
+  final bool checkMode = args.contains('--check');
   final Map<String, String> opts = _parseArgs(args);
 
   final String changelogPath = opts['changelog'] ?? '../CHANGELOG.md';
@@ -249,9 +252,28 @@ void main(List<String> args) {
 
   buf.writeln(']);');
 
-  outputFile.parent.createSync(recursive: true);
-  outputFile.writeAsStringSync(buf.toString());
-  print('Generated ${outputFile.path} with ${entries.length} entries.');
+  final String generated = buf.toString();
+
+  if (checkMode) {
+    if (!outputFile.existsSync()) {
+      stderr.writeln(
+        'ERROR: ${outputFile.path} does not exist. Run `make generate` first.',
+      );
+      exit(1);
+    }
+    final String existing = outputFile.readAsStringSync();
+    if (existing != generated) {
+      stderr.writeln(
+        'ERROR: ${outputFile.path} is out of date. Run `make generate`.',
+      );
+      exit(1);
+    }
+    print('OK: ${outputFile.path} is up-to-date (${entries.length} entries).');
+  } else {
+    outputFile.parent.createSync(recursive: true);
+    outputFile.writeAsStringSync(generated);
+    print('Generated ${outputFile.path} with ${entries.length} entries.');
+  }
 
   if (unparsedLines.isNotEmpty) {
     print('');
