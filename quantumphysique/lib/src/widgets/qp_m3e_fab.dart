@@ -1,46 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/core/theme.dart';
 
-/// m3 floating action button
-class FAB extends StatefulWidget {
-  /// Constructor.
-  const FAB({required this.show, required this.onPressed, super.key});
-
-  /// show FAB
-  final bool show;
-
-  /// onPressed
-  final void Function() onPressed;
-
-  @override
-  State<FAB> createState() => _FABState();
-}
-
-class _FABState extends State<FAB> {
-  @override
-  Widget build(BuildContext context) {
-    const double buttonHeight = 80;
-
-    /// The new m3e size for a medium FAB
-    return AnimatedContainer(
-      alignment: Alignment.center,
-      height: widget.show ? buttonHeight : 0,
-      width: buttonHeight,
-      duration: TraleTheme.of(context)!.transitionDuration.normal,
-      child: M3EFloatingActionButton.medium(
-        elevation: 0,
-        onPressed: widget.onPressed,
-        tooltip: context.l10n.addWeight,
-      ),
-    );
-  }
-}
-
-/// Material3-style FloatingActionButton with a `.medium` constructor.
+/// A Material 3 medium floating action button (80×80, corner radius 20).
+///
+/// Extracted from app code so it can be reused by any QP-based app.
 class M3EFloatingActionButton extends StatelessWidget {
-  /// Medium FAB: 80x80, icon size 28, corner radius 20.
+  /// Medium FAB: 80×80, icon size 34, corner radius 20.
   const M3EFloatingActionButton.medium({
     super.key,
     required this.onPressed,
@@ -52,36 +17,30 @@ class M3EFloatingActionButton extends StatelessWidget {
     this.enableFeedback = true,
   });
 
-  /// Callback when button is pressed.
+  /// Callback invoked when the button is tapped.
   final VoidCallback onPressed;
 
-  /// Icon widget.
+  /// Icon displayed in the button centre. Defaults to a plus icon.
   final Widget? icon;
 
-  /// Tooltip text.
+  /// Optional tooltip text.
   final String? tooltip;
 
-  /// Background color.
+  /// Button background color. Defaults to [ColorScheme.primaryContainer].
   final Color? backgroundColor;
 
-  /// Foreground color.
+  /// Icon / foreground color. Defaults to [ColorScheme.onPrimaryContainer].
   final Color? foregroundColor;
 
-  /// Elevation of the button.
+  /// Elevation of the button surface.
   final double elevation;
 
-  /// Whether to enable haptic feedback.
+  /// Whether to enable haptic / audio feedback.
   final bool enableFeedback;
 
-  /// Size of the button.
-  double get _size => 80.0;
-
-  /// Icon size.
-  // 28 is material spec, but icon has unwanted padding
-  double get _iconSize => 34.0;
-
-  /// Border radius.
-  double get _borderRadius => 20.0;
+  static const double _size = 80.0;
+  static const double _iconSize = 34.0;
+  static const double _borderRadius = 20.0;
 
   @override
   Widget build(BuildContext context) {

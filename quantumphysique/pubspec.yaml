@@ -29,3 +29,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+
+flutter:
+  fonts:
+    - family: RobotoFlex
+      fonts:
+        - asset: fonts/RobotoFlex-VariableFont_wght.ttf
+    - family: RobotoMono
+      fonts:
+        - asset: fonts/RobotoMono-VariableFont_wght.ttf
+        - asset: fonts/RobotoMono-Italic-VariableFont_wght.ttf
+          style: italic

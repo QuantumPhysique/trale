@@ -111,14 +111,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: RobotoFlex
-      fonts:
-        - asset: fonts/RobotoFlex-VariableFont_wght.ttf
-    - family: RobotoMono
-      fonts:
-        - asset: fonts/RobotoMono-VariableFont_wght.ttf
-        - asset: fonts/RobotoMono-Italic-VariableFont_wght.ttf
-          style: italic
     - family: CustomIcons
       fonts:
         - asset: fonts/CustomIcons.ttf
