@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/widget/fade_in_effect.dart';
 
 /// Define empty Chart, which is used in case there are no measurements yet
 Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
-  final int animationDurationInMilliseconds = TraleTheme.of(
+  final int animationDurationInMilliseconds = QPTheme.of(
     context,
   )!.transitionDuration.slow.inMilliseconds;
-  final int firstDelayInMilliseconds = TraleTheme.of(
+  final int firstDelayInMilliseconds = QPTheme.of(
     context,
   )!.transitionDuration.normal.inMilliseconds;
 
@@ -21,12 +20,12 @@ Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
       height: MediaQuery.of(context).size.height / 2,
       width: MediaQuery.of(context).size.width,
       child: Card(
-        shape: TraleTheme.of(context)!.borderShape,
+        shape: QPTheme.of(context)!.borderShape,
         margin: EdgeInsets.fromLTRB(
-          TraleTheme.of(context)!.padding,
+          QPTheme.of(context)!.padding,
           0,
-          TraleTheme.of(context)!.padding,
-          TraleTheme.of(context)!.padding,
+          QPTheme.of(context)!.padding,
+          QPTheme.of(context)!.padding,
         ),
         child: FadeInEffect(
           durationInMilliseconds: animationDurationInMilliseconds,

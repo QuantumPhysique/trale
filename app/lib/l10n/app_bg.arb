@@ -23,10 +23,6 @@
     "@targetWeightMotivation": {
         "description": "Explanation to clarify the importance of a target weight."
     },
-    "lightmode": "Светла",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
     "backupReminder": "Редовно правете резервно копие",
     "@backupReminder": {
         "description": "Please remember to back up your data regularly."
@@ -118,14 +114,6 @@
     "theme": "Tema",
     "@theme": {
         "description": "Theme menu item."
-    },
-    "darkmode": "Тъмна",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "systemmode": "Системна",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "export": "Изнасяне на измерванията",
     "@export": {

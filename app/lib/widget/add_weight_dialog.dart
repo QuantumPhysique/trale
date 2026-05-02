@@ -8,7 +8,6 @@ import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -41,7 +40,7 @@ Future<bool> showAddWeightDialog({
         children: <Widget>[
           if (message != null)
             Padding(
-              padding: EdgeInsets.only(bottom: TraleTheme.of(context)!.padding),
+              padding: EdgeInsets.only(bottom: QPTheme.of(context)!.padding),
               child: Text(
                 message,
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -133,7 +132,7 @@ Future<bool> showAddWeightDialog({
               ),
             ],
           ),
-          SizedBox(height: TraleTheme.of(context)!.padding),
+          SizedBox(height: QPTheme.of(context)!.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -220,7 +219,7 @@ Future<bool> showTargetWeightDialog({
               QPGroupedWidget(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 child: Padding(
-                  padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                  padding: EdgeInsets.all(QPTheme.of(context)!.padding),
                   child: Text(
                     context.l10n.targetWeightMotivation,
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -232,7 +231,7 @@ Future<bool> showTargetWeightDialog({
               ),
             ],
           ),
-          SizedBox(height: TraleTheme.of(context)!.padding),
+          SizedBox(height: QPTheme.of(context)!.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -242,7 +241,7 @@ Future<bool> showTargetWeightDialog({
             value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
           ),
-          SizedBox(height: TraleTheme.of(context)!.padding),
+          SizedBox(height: QPTheme.of(context)!.padding),
           QPWidgetGroup(
             children: <Widget>[
               QPGroupedSwitchListTile(

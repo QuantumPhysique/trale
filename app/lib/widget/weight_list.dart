@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 import 'package:trale/widget/stats_cards.dart';
@@ -93,7 +92,7 @@ class _WeightList extends State<WeightList> {
           updateActiveState: updateActiveListTile,
           activeKey: activeListTile,
           offset: Offset(-MediaQuery.of(context).size.width / 2, 0),
-          durationInMilliseconds: TraleTheme.of(
+          durationInMilliseconds: QPTheme.of(
             context,
           )!.transitionDuration.slow.inMilliseconds,
         ),
@@ -189,9 +188,7 @@ class _TotalWeightList extends State<TotalWeightList>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bannerController.duration = TraleTheme.of(
-      context,
-    )!.transitionDuration.normal;
+    _bannerController.duration = QPTheme.of(context)!.transitionDuration.normal;
   }
 
   @override
@@ -244,9 +241,9 @@ class _TotalWeightList extends State<TotalWeightList>
                 ? const SizedBox.shrink()
                 : Padding(
                     padding: EdgeInsets.fromLTRB(
-                      TraleTheme.of(context)!.padding,
-                      TraleTheme.of(context)!.padding,
-                      TraleTheme.of(context)!.padding,
+                      QPTheme.of(context)!.padding,
+                      QPTheme.of(context)!.padding,
+                      QPTheme.of(context)!.padding,
                       0,
                     ),
                     child: Dismissible(
@@ -260,9 +257,7 @@ class _TotalWeightList extends State<TotalWeightList>
                         borderRadius: BorderRadius.circular(4),
                         color: Theme.of(context).colorScheme.inverseSurface,
                         child: Padding(
-                          padding: EdgeInsets.all(
-                            TraleTheme.of(context)!.padding,
-                          ),
+                          padding: EdgeInsets.all(QPTheme.of(context)!.padding),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -272,7 +267,7 @@ class _TotalWeightList extends State<TotalWeightList>
                                 ).colorScheme.onInverseSurface,
                                 size: 20,
                               ),
-                              SizedBox(width: TraleTheme.of(context)!.padding),
+                              SizedBox(width: QPTheme.of(context)!.padding),
                               Expanded(
                                 child: Text(
                                   AppLocalizations.of(
@@ -307,7 +302,7 @@ class _TotalWeightList extends State<TotalWeightList>
               tabController: widget.tabController,
             ),
             SliverToBoxAdapter(
-              child: SizedBox(height: TraleTheme.of(context)!.padding),
+              child: SizedBox(height: QPTheme.of(context)!.padding),
             ),
           ],
         ],
@@ -323,7 +318,7 @@ Widget getYearWidget({
   int? delayInMilliseconds,
 }) {
   return Padding(
-    padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+    padding: EdgeInsets.all(QPTheme.of(context)!.padding),
     child: StatCard(
       pillShape: true,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,

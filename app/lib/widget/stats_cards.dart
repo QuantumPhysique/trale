@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:quantumphysique/quantumphysique.dart';
-import 'package:trale/core/theme.dart';
 
 /// Stat card widget.
 class StatCard extends StatefulWidget {
@@ -41,7 +40,7 @@ class StatCard extends StatefulWidget {
 class _StatCardState extends State<StatCard> {
   @override
   Widget build(BuildContext context) {
-    final int animationDurationInMilliseconds = TraleTheme.of(
+    final int animationDurationInMilliseconds = QPTheme.of(
       context,
     )!.transitionDuration.slow.inMilliseconds;
 
@@ -49,23 +48,20 @@ class _StatCardState extends State<StatCard> {
         widget.backgroundColor ??
         Theme.of(context).colorScheme.surfaceContainer;
     final double xWidth =
-        (MediaQuery.sizeOf(context).width -
-            3 * TraleTheme.of(context)!.padding) /
+        (MediaQuery.sizeOf(context).width - 3 * QPTheme.of(context)!.padding) /
         2;
-    final double yWidth = (xWidth - TraleTheme.of(context)!.padding) / 2;
+    final double yWidth = (xWidth - QPTheme.of(context)!.padding) / 2;
 
     final double height = widget.ny == 1
         ? yWidth * widget.ny
-        : yWidth * widget.ny +
-              (widget.ny - 1) * TraleTheme.of(context)!.padding;
+        : yWidth * widget.ny + (widget.ny - 1) * QPTheme.of(context)!.padding;
     final double width = widget.nx == 1
         ? xWidth * widget.nx
-        : xWidth * widget.nx +
-              (widget.nx - 1) * TraleTheme.of(context)!.padding;
+        : xWidth * widget.nx + (widget.nx - 1) * QPTheme.of(context)!.padding;
 
     final ShapeBorder shape = widget.pillShape
         ? const StadiumBorder()
-        : TraleTheme.of(context)!.borderShape;
+        : QPTheme.of(context)!.borderShape;
 
     final Card card = Card(
       shape: shape,
@@ -109,24 +105,23 @@ class OneThirdStatCard extends StatefulWidget {
 class _OneThirdStatCardState extends State<OneThirdStatCard> {
   @override
   Widget build(BuildContext context) {
-    final int animationDurationInMilliseconds = TraleTheme.of(
+    final int animationDurationInMilliseconds = QPTheme.of(
       context,
     )!.transitionDuration.slow.inMilliseconds;
 
     final double xWidth =
-        (MediaQuery.sizeOf(context).width -
-            3 * TraleTheme.of(context)!.padding) /
+        (MediaQuery.sizeOf(context).width - 3 * QPTheme.of(context)!.padding) /
         2;
-    final double height = (xWidth - TraleTheme.of(context)!.padding) / 2;
+    final double height = (xWidth - QPTheme.of(context)!.padding) / 2;
     final double width =
         (MediaQuery.sizeOf(context).width -
-            4 * TraleTheme.of(context)!.padding -
+            4 * QPTheme.of(context)!.padding -
             height) /
         2;
 
     final ShapeBorder shape = widget.pillShape
         ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(999))
-        : TraleTheme.of(context)!.borderShape;
+        : QPTheme.of(context)!.borderShape;
 
     final Card card = Card(
       shape: shape,
@@ -174,7 +169,7 @@ class DefaultStatCard extends StatefulWidget {
 class _DefaultStatCardState extends State<DefaultStatCard> {
   @override
   Widget build(BuildContext context) {
-    final int animationDurationInMilliseconds = TraleTheme.of(
+    final int animationDurationInMilliseconds = QPTheme.of(
       context,
     )!.transitionDuration.slow.inMilliseconds;
 
@@ -182,7 +177,7 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
       pillShape: widget.pillShape,
       childWidget: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding / 2,
+          horizontal: QPTheme.of(context)!.padding / 2,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement_stats.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/widget/stats_widgets.dart';
 
 /// Shapes used for the trale icon card — cycled on tap.
@@ -44,10 +43,10 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
   @override
   Widget build(BuildContext context) {
     final MeasurementStats stats = MeasurementStats();
-    final int delay = TraleTheme.of(
+    final int delay = QPTheme.of(
       context,
     )!.transitionDuration.normal.inMilliseconds;
-    final double padding = TraleTheme.of(context)!.padding;
+    final double padding = QPTheme.of(context)!.padding;
 
     return Column(
       children: <Widget>[
@@ -103,10 +102,10 @@ class GlobalStatsWidgetsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MeasurementStats stats = MeasurementStats();
-    final int delay = TraleTheme.of(
+    final int delay = QPTheme.of(
       context,
     )!.transitionDuration.normal.inMilliseconds;
-    final double padding = TraleTheme.of(context)!.padding;
+    final double padding = QPTheme.of(context)!.padding;
 
     return Padding(
       padding: EdgeInsets.only(bottom: padding),

@@ -5,7 +5,6 @@ import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/stats_range.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoom_level.dart';
@@ -48,7 +47,7 @@ class Preferences extends QPPreferences {
   // ---------------------------------------------------------------------------
 
   @override
-  String get defaultThemeName => TraleCustomTheme.water.name;
+  String get defaultThemeName => QPCustomTheme.water.name;
 
   // ---------------------------------------------------------------------------
   // Trale-specific default values

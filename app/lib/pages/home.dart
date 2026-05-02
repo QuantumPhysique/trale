@@ -11,8 +11,6 @@ import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/settings_overview.dart';
 import 'package:trale/pages/stat_screen.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
-import 'package:trale/widget/custom_sliver_app_bar.dart';
-import 'package:trale/widget/floating_action_button.dart';
 import 'package:trale/widget/user_dialog.dart';
 
 /// home scaffold
@@ -24,80 +22,14 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> key = GlobalKey();
-  final Duration animationDuration = const Duration(milliseconds: 500);
-  bool popupShown = false;
-  late bool loadedFirst;
-  final double minHeight = 45.0;
+class _HomeState extends State<Home> {
+  bool _popupShown = false;
 
-  @override
-  void initState() {
-    super.initState();
-    loadedFirst = true;
-
-    _selectedTab = TabController(
-      vsync: this,
-      length: 3,
-      initialIndex: _selectedIndex,
-    );
-    _selectedTab.addListener(_onSlideTab);
-
-    // Cache tab content widgets so they are not recreated on every rebuild
-    _activeTabs = <Widget>[
-      OverviewScreen(tabController: _selectedTab),
-      StatsScreen(tabController: _selectedTab),
-      MeasurementScreen(tabController: _selectedTab),
-    ];
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (loadedFirst && mounted) {
-        loadedFirst = false;
-        // Show changelog on first launch after update
-        if (Preferences().showChangelog) {
-          Preferences().showChangelog = false;
-          showQPChangelog(context, changelog);
-        }
-      }
-    });
-  }
-
-  /// Starts home with category all
-  static int _selectedIndex = 0;
-  // controller for selected category
-  late TabController _selectedTab;
-  // scrolling controller
-  final ScrollController _scrollController = ScrollController();
-  // cached tab content widgets
-  late final List<Widget> _activeTabs;
-  void _onItemTapped(int index) {
-    if (index == _selectedTab.length) {
-      onFABpress();
-    } else {
-      _selectedIndex = index;
-      _selectedTab.index = _selectedIndex;
-      _scrollController.animateTo(
-        0,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOutExpo,
-      );
-      setState(() {});
-    }
-  }
-
-  void _onSlideTab() {
-    final int index = _selectedTab.index;
-    if (index != _selectedIndex) {
-      _onItemTapped(index);
-    }
-  }
-
-  /// on pressing FAB button
-  Future<void> onFABpress() async {
+  Future<void> _onFABPressed() async {
     final MeasurementDatabase database = MeasurementDatabase();
     final List<SortedMeasurement> measurements = database.sortedMeasurements;
     setState(() {
-      popupShown = true;
+      _popupShown = true;
     });
     await showAddWeightDialog(
       context: context,
@@ -107,75 +39,47 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       date: DateTime.now(),
     );
     setState(() {
-      popupShown = false;
+      _popupShown = false;
     });
   }
 
-  void handlePageChanged(int selectedPage) {
-    setState(() {});
+  void _onPostInit(BuildContext ctx) {
+    if (Preferences().showChangelog) {
+      Preferences().showChangelog = false;
+      showQPChangelog(ctx, changelog);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool showFAB = !popupShown && (_selectedIndex == 0);
-    final List<Widget> destinations = <Widget>[
-      NavigationDestination(
-        icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
-        selectedIcon: PPIcon(PhosphorIconsFill.lineSegments, context),
-        label: context.l10n.home,
-      ),
-      NavigationDestination(
-        icon: PPIcon(PhosphorIconsDuotone.trophy, context),
-        selectedIcon: PPIcon(PhosphorIconsFill.trophy, context),
-        label: context.l10n.achievements,
-      ),
-      NavigationDestination(
-        icon: PPIcon(PhosphorIconsDuotone.archive, context),
-        selectedIcon: PPIcon(PhosphorIconsFill.archive, context),
-        label: context.l10n.measurements,
-      ),
-    ];
-
-    return Scaffold(
-      key: key,
-      //appBar: appBar,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _onItemTapped,
-        destinations: destinations,
-      ),
-      body: NestedScrollView(
-        controller: _scrollController,
-        headerSliverBuilder: (BuildContext context, bool _) {
-          return <Widget>[
-            CustomSliverAppBar(
-              leading: IconButton(
-                icon: PPIcon(PhosphorIconsDuotone.gear, context),
-                //onPressed: () => key.currentState!.openDrawer(),
-                onPressed: () {
-                  Navigator.of(context).push<dynamic>(
-                    MaterialPageRoute<Widget>(
-                      builder: (BuildContext context) =>
-                          const SettingsOverviewPage(),
-                    ),
-                  );
-                },
-              ),
-              actions: <Widget>[
-                IconButton(
-                  icon: PPIcon(PhosphorIconsDuotone.userCircle, context),
-                  onPressed: () {
-                    showUserDialog(context: context);
-                  },
-                ),
-              ],
-            ),
-          ];
-        },
-        body: TabBarView(controller: _selectedTab, children: _activeTabs),
-      ),
-      floatingActionButton: FAB(onPressed: onFABpress, show: showFAB),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    return QPHomePage(
+      tabs: <QPHomeTab>[
+        QPHomeTab(
+          icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),
+          selectedIcon: PPIcon(PhosphorIconsFill.lineSegments, context),
+          label: context.l10n.home,
+          buildContent: (TabController tc) => OverviewScreen(tabController: tc),
+        ),
+        QPHomeTab(
+          icon: PPIcon(PhosphorIconsDuotone.trophy, context),
+          selectedIcon: PPIcon(PhosphorIconsFill.trophy, context),
+          label: context.l10n.achievements,
+          buildContent: (TabController tc) => StatsScreen(tabController: tc),
+        ),
+        QPHomeTab(
+          icon: PPIcon(PhosphorIconsDuotone.archive, context),
+          selectedIcon: PPIcon(PhosphorIconsFill.archive, context),
+          label: context.l10n.measurements,
+          buildContent: (TabController tc) =>
+              MeasurementScreen(tabController: tc),
+        ),
+      ],
+      settingsPageBuilder: (_) => const SettingsOverviewPage(),
+      onUserPressed: () => showUserDialog(context: context),
+      onFABPressed: _popupShown ? null : _onFABPressed,
+      fabOnFirstTabOnly: true,
+      fabTooltip: context.l10n.addWeight,
+      onPostInit: _onPostInit,
     );
   }
 }

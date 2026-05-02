@@ -32,14 +32,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "Tmavý",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "systemmode": "Systém",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Exportovat všechna měření",
     "@export": {
         "description": "Export all measurements"
@@ -99,10 +91,6 @@
     "defaultLang": "Výchozí nastavení systému",
     "@defaultLang": {
         "description": "System default language."
-    },
-    "lightmode": "Světlý",
-    "@lightmode": {
-        "description": "Light mode menu item."
     },
     "exportDialog": "Tím se všechna měření vyexportují do externího úložiště. Vyžaduje oprávnění k zápisu.",
     "@exportDialog": {

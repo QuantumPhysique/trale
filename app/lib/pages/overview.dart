@@ -5,7 +5,6 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/widget/empty_chart.dart';
 import 'package:trale/widget/io_widgets.dart';
@@ -75,7 +74,7 @@ class _OverviewScreen extends State<OverviewScreen>
             SnackBar(
               content: Text(context.l10n.backupReminder),
               behavior: SnackBarBehavior.fixed,
-              duration: TraleTheme.of(context)!.snackbarDuration,
+              duration: QPTheme.of(context)!.snackbarDuration,
               action: SnackBarAction(
                 label: context.l10n.backupReminderButton,
                 onPressed: () => exportBackup(context),
@@ -102,7 +101,7 @@ class _OverviewScreen extends State<OverviewScreen>
     super.build(context);
     final MeasurementInterpolation ip = MeasurementInterpolation();
 
-    final int animationDurationInMilliseconds = TraleTheme.of(
+    final int animationDurationInMilliseconds = QPTheme.of(
       context,
     )!.transitionDuration.slow.inMilliseconds;
 

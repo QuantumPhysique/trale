@@ -10,7 +10,6 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
@@ -51,7 +50,7 @@ Future<bool> showUserDialog({required BuildContext context}) async {
             onRefresh: () => setState(() {}),
             title: AppLocalizations.of(innerContext)!.user,
           ),
-          SizedBox(height: TraleTheme.of(innerContext)!.padding),
+          SizedBox(height: QPTheme.of(innerContext)!.padding),
           TargetWeightGroup(
             notifier: notifier,
             onRefresh: () => setState(() {}),

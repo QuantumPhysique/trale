@@ -10,7 +10,6 @@ import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/print_format.dart';
 import 'package:trale/core/stats_range.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoom_level.dart';
@@ -29,13 +28,6 @@ class TraleNotifier extends QPNotifier {
 
   /// Typed access to trale's own [Preferences] subclass.
   Preferences get _prefs => prefs as Preferences;
-
-  @override
-  Color get seedColor {
-    final TraleCustomTheme t =
-        _prefs.themeName.toTraleCustomTheme() ?? TraleCustomTheme.water;
-    return t == TraleCustomTheme.system ? systemSeedColor : t.seed;
-  }
 
   @override
   Future<void> factoryReset() async {

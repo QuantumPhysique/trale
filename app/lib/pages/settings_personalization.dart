@@ -9,7 +9,6 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/print_format.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -41,10 +40,10 @@ class _PersonalizationSettingsPageState
 
     final Widget sliderTile = Container(
       padding: EdgeInsets.fromLTRB(
-        TraleTheme.of(context)!.padding,
-        0.5 * TraleTheme.of(context)!.padding,
-        TraleTheme.of(context)!.padding,
-        0.5 * TraleTheme.of(context)!.padding,
+        QPTheme.of(context)!.padding,
+        0.5 * QPTheme.of(context)!.padding,
+        QPTheme.of(context)!.padding,
+        0.5 * QPTheme.of(context)!.padding,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +100,7 @@ class _PersonalizationSettingsPageState
             QPGroupedSwitchListTile(
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
               contentPadding: EdgeInsets.symmetric(
-                horizontal: TraleTheme.of(context)!.padding,
+                horizontal: QPTheme.of(context)!.padding,
               ),
               title: Text(
                 context.l10n.showUserData.inCaps,
@@ -120,11 +119,9 @@ class _PersonalizationSettingsPageState
           ),
         ],
       ),
-      SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
+      SizedBox(height: 0.5 * QPTheme.of(context)!.padding),
       Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
         child: Text(
           context.l10n.interpolationExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
@@ -132,7 +129,7 @@ class _PersonalizationSettingsPageState
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
+      SizedBox(height: QPTheme.of(context)!.padding),
       Consumer<TraleNotifier>(
         builder: (BuildContext context, TraleNotifier notifier, _) {
           final ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -158,7 +155,7 @@ class _PersonalizationSettingsPageState
                           : null,
                       value: true,
                       contentPadding: EdgeInsets.symmetric(
-                        horizontal: TraleTheme.of(context)!.padding,
+                        horizontal: QPTheme.of(context)!.padding,
                       ),
                       title: Text(
                         context.l10n.interpolation.inCaps,
@@ -174,7 +171,7 @@ class _PersonalizationSettingsPageState
                           : null,
                       value: false,
                       contentPadding: EdgeInsets.symmetric(
-                        horizontal: TraleTheme.of(context)!.padding,
+                        horizontal: QPTheme.of(context)!.padding,
                       ),
                       title: Text(
                         context.l10n.measurements.inCaps,
@@ -188,17 +185,15 @@ class _PersonalizationSettingsPageState
           );
         },
       ),
-      SizedBox(height: 0.5 * TraleTheme.of(context)!.padding),
+      SizedBox(height: 0.5 * QPTheme.of(context)!.padding),
       Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
         child: Text(
           context.l10n.statsSourceExplanation,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
-      SizedBox(height: TraleTheme.of(context)!.padding),
+      SizedBox(height: QPTheme.of(context)!.padding),
       QPWidgetGroup(
         title: context.l10n.unitTitle,
         children: const <Widget>[
@@ -244,8 +239,8 @@ class UnitsListTile extends StatelessWidget {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
+        vertical: QPTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         context.l10n.unit,
@@ -283,8 +278,8 @@ class UnitPrecisionListTile extends StatelessWidget {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
+        vertical: QPTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         context.l10n.precision.inCaps,
@@ -331,8 +326,8 @@ class FirstDayListTile extends StatelessWidget {
         return QPGroupedListTile(
           color: Theme.of(context).colorScheme.surfaceContainerLowest,
           contentPadding: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
-            vertical: TraleTheme.of(context)!.padding,
+            horizontal: QPTheme.of(context)!.padding,
+            vertical: QPTheme.of(context)!.padding,
           ),
           title: AutoSizeText(
             context.l10n.firstDay,
@@ -381,8 +376,8 @@ class DatePrintListTile extends StatelessWidget {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
+        vertical: QPTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         context.l10n.format,
@@ -424,8 +419,8 @@ class HeightUnitListTile extends StatelessWidget {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
+        vertical: QPTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         context.l10n.heightUnit,

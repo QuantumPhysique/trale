@@ -8,10 +8,6 @@
     "@settings": {
         "description": "Name of settings menu"
     },
-    "darkmode": "இருண்ட",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
     "open": "திற",
     "@open": {
         "description": "Open (file)."
@@ -190,14 +186,6 @@
     "theme": "கருப்பொருள்",
     "@theme": {
         "description": "Theme menu item."
-    },
-    "lightmode": "ஒளி",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "கணினி",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "export": "அனைத்து அளவீடுகளையும் ஏற்றுமதி செய்",
     "@export": {

@@ -22,7 +22,6 @@ environment:
   flutter: ">=3.41.7"
 
 dependencies:
-  dynamic_color: ^1.8.1
   file_picker: ^11.0.2
   file_saver: ^0.3.1
   fl_chart: ^1.2.0
@@ -112,19 +111,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: RobotoFlex
-      fonts:
-        - asset: fonts/RobotoFlex-VariableFont_wght.ttf
-    - family: RobotoMono
-      fonts:
-        - asset: fonts/RobotoMono-VariableFont_wght.ttf
-        - asset: fonts/RobotoMono-Italic-VariableFont_wght.ttf
-          style: italic
-    - family: CustomIcons
-      fonts:
-        - asset: fonts/CustomIcons.ttf
-
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

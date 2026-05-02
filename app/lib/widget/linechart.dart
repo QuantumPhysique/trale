@@ -13,7 +13,6 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/text_size.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoom_level.dart';

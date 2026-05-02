@@ -161,18 +161,6 @@
     "@translateSubtitle": {
         "description": "translate subtitle"
     },
-    "darkmode": "Dark",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Light",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "System",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Export all measurements",
     "@export": {
         "description": "Export all measurements"
