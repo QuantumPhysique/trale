@@ -53,6 +53,7 @@ export 'src/widgets/selection_carousel.dart';
 export 'src/widgets/third_party_licence.dart';
 
 // Pages
+export 'src/pages/qp_splash_page.dart';
 export 'src/pages/qp_theme_settings_page.dart';
 export 'src/pages/qp_language_settings_page.dart';
 export 'src/pages/qp_notifications_settings_page.dart';
