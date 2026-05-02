@@ -89,9 +89,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
         ),
       ),
       Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: QPTheme.of(context)!.padding,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
         child: QPWidgetGroup(
           children: <QPGroupedText>[
             for (final String fmt in <String>[

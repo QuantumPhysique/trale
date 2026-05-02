@@ -94,9 +94,7 @@ class _StatsScreen extends State<StatsScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bannerController.duration = QPTheme.of(
-      context,
-    )!.transitionDuration.normal;
+    _bannerController.duration = QPTheme.of(context)!.transitionDuration.normal;
   }
 
   @override
@@ -195,9 +193,7 @@ class _StatsScreen extends State<StatsScreen>
                                       ).colorScheme.onInverseSurface,
                                       size: 20,
                                     ),
-                                    SizedBox(
-                                      width: QPTheme.of(ctx)!.padding,
-                                    ),
+                                    SizedBox(width: QPTheme.of(ctx)!.padding),
                                     Expanded(
                                       child: Text(
                                         l10n.statsHintBanner(

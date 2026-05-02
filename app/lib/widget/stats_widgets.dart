@@ -56,8 +56,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     _weightLostDelayTimer = Timer(
       Duration(
         milliseconds:
-            (QPTheme.of(context)!.transitionDuration.normal.inMilliseconds /
-                    2)
+            (QPTheme.of(context)!.transitionDuration.normal.inMilliseconds / 2)
                 .toInt(),
       ),
       () {

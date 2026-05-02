@@ -121,9 +121,7 @@ class _PersonalizationSettingsPageState
       ),
       SizedBox(height: 0.5 * QPTheme.of(context)!.padding),
       Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: QPTheme.of(context)!.padding,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
         child: Text(
           context.l10n.interpolationExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
@@ -189,9 +187,7 @@ class _PersonalizationSettingsPageState
       ),
       SizedBox(height: 0.5 * QPTheme.of(context)!.padding),
       Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: QPTheme.of(context)!.padding,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
         child: Text(
           context.l10n.statsSourceExplanation,
           style: Theme.of(context).textTheme.bodyMedium,

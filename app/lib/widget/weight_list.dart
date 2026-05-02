@@ -188,9 +188,7 @@ class _TotalWeightList extends State<TotalWeightList>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bannerController.duration = QPTheme.of(
-      context,
-    )!.transitionDuration.normal;
+    _bannerController.duration = QPTheme.of(context)!.transitionDuration.normal;
   }
 
   @override
@@ -259,9 +257,7 @@ class _TotalWeightList extends State<TotalWeightList>
                         borderRadius: BorderRadius.circular(4),
                         color: Theme.of(context).colorScheme.inverseSurface,
                         child: Padding(
-                          padding: EdgeInsets.all(
-                            QPTheme.of(context)!.padding,
-                          ),
+                          padding: EdgeInsets.all(QPTheme.of(context)!.padding),
                           child: Row(
                             children: <Widget>[
                               Icon(
