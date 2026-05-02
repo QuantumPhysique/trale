@@ -12,7 +12,6 @@ import 'package:trale/core/gap.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/text_size.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/icon_hero.dart';
@@ -57,7 +56,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     _weightLostDelayTimer = Timer(
       Duration(
         milliseconds:
-            (TraleTheme.of(context)!.transitionDuration.normal.inMilliseconds /
+            (QPTheme.of(context)!.transitionDuration.normal.inMilliseconds /
                     2)
                 .toInt(),
       ),
@@ -94,9 +93,9 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     Card userTargetWeightCard(double utw) => Card(
       shape: const StadiumBorder(),
       color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
+      margin: EdgeInsets.symmetric(vertical: QPTheme.of(context)!.padding),
       child: Padding(
-        padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+        padding: EdgeInsets.all(QPTheme.of(context)!.padding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -125,10 +124,10 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 
       return Card(
         shape: const StadiumBorder(),
-        margin: EdgeInsets.symmetric(vertical: TraleTheme.of(context)!.padding),
+        margin: EdgeInsets.symmetric(vertical: QPTheme.of(context)!.padding),
         color: Theme.of(context).colorScheme.secondaryContainer,
         child: Padding(
-          padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+          padding: EdgeInsets.all(QPTheme.of(context)!.padding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,7 +188,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
               if (userTargetWeight != null)
                 Expanded(
                   child: QPAnimateInEffect(
-                    durationInMilliseconds: TraleTheme.of(
+                    durationInMilliseconds: QPTheme.of(
                       context,
                     )!.transitionDuration.slow.inMilliseconds,
                     child: userTargetWeightCard(userTargetWeight),
@@ -198,14 +197,14 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
               if (nMeasured >= 2 && _showWeightLostCard)
                 Expanded(
                   child: QPAnimateInEffect(
-                    durationInMilliseconds: TraleTheme.of(
+                    durationInMilliseconds: QPTheme.of(
                       context,
                     )!.transitionDuration.slow.inMilliseconds,
                     child: userWeightLostCard(),
                   ),
                 ),
             ].addGap(
-              padding: TraleTheme.of(context)!.padding,
+              padding: QPTheme.of(context)!.padding,
               direction: Axis.horizontal,
             ),
       ),

@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/io_widgets.dart';
@@ -91,7 +90,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
       ),
       Container(
         padding: EdgeInsets.symmetric(
-          horizontal: TraleTheme.of(context)!.padding,
+          horizontal: QPTheme.of(context)!.padding,
         ),
         child: QPWidgetGroup(
           children: <QPGroupedText>[
@@ -135,8 +134,8 @@ class BackupIntervalListTile extends StatelessWidget {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
-        vertical: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
+        vertical: QPTheme.of(context)!.padding,
       ),
       title: AutoSizeText(
         context.l10n.backupInterval,
@@ -183,7 +182,7 @@ class ExportListTile extends StatelessWidget {
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
         context.l10n.exportSubtitle,
@@ -221,7 +220,7 @@ class ImportListTile extends StatelessWidget {
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
         context.l10n.importSubtitle,
@@ -259,7 +258,7 @@ class ResetListTile extends StatelessWidget {
         maxLines: 1,
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: TraleTheme.of(context)!.padding,
+        horizontal: QPTheme.of(context)!.padding,
       ),
       subtitle: AutoSizeText(
         context.l10n.factoryResetSubtitle,
@@ -296,8 +295,8 @@ class ResetListTile extends StatelessWidget {
                       onPressed: () => Navigator.pop(context, false),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                          vertical: TraleTheme.of(context)!.padding / 2,
-                          horizontal: TraleTheme.of(context)!.padding,
+                          vertical: QPTheme.of(context)!.padding / 2,
+                          horizontal: QPTheme.of(context)!.padding,
                         ),
                         child: Text(context.l10n.abort),
                       ),

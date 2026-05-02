@@ -36,18 +36,6 @@
     "@language": {
         "description": "Language menu item."
     },
-    "darkmode": "Sombre",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Lumineux",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Système",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "userSettings": "Paramètres utilisateur",
     "@userSettings": {
         "description": "Settings to customize user experience"

@@ -40,14 +40,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "暗色模式",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "亮色模式",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
     "export": "备份数据",
     "@export": {
         "description": "Export all measurements"
@@ -63,10 +55,6 @@
     "weight": "重量",
     "@weight": {
         "description": "weight"
-    },
-    "systemmode": "跟随系统",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "licence": "许可证",
     "@licence": {

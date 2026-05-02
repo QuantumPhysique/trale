@@ -27,6 +27,9 @@ export 'src/changelog/changelog.dart';
 // Preferences
 export 'src/preferences/qp_preferences.dart';
 
+// Theme
+export 'src/theme/qp_theme.dart';
+
 // Notifier
 export 'src/notifier/qp_notifier.dart';
 

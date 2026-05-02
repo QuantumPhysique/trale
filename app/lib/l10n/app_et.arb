@@ -73,18 +73,6 @@
     "@about": {
         "description": "Name of about menu section"
     },
-    "darkmode": "Tume kujundus",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Hele kujundus",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Süsteemikohane",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Ekspordi kõik andmed",
     "@export": {
         "description": "Export all measurements"

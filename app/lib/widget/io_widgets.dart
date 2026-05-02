@@ -14,7 +14,6 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_formatter.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 
 /// Export backup
@@ -62,7 +61,7 @@ Future<bool> exportBackup(BuildContext context, {bool share = false}) async {
       SnackBar(
         content: Text(context.l10n.backupSuccess),
         behavior: SnackBarBehavior.floating,
-        duration: TraleTheme.of(context)!.snackbarDuration,
+        duration: QPTheme.of(context)!.snackbarDuration,
       ),
     );
     // set latest backup date
@@ -347,7 +346,7 @@ Future<bool> importBackup(BuildContext context) async {
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 2,
-                              horizontal: TraleTheme.of(context)!.padding,
+                              horizontal: QPTheme.of(context)!.padding,
                             ),
                             child: AutoSizeText(
                               MeasurementFormatter.fromContext(
@@ -364,7 +363,7 @@ Future<bool> importBackup(BuildContext context) async {
                     ),
                   ),
                 ),
-                Divider(height: 2 * TraleTheme.of(context)!.padding),
+                Divider(height: 2 * QPTheme.of(context)!.padding),
                 Text(
                   context.l10n.importDialog,
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -381,8 +380,8 @@ Future<bool> importBackup(BuildContext context) async {
                 onPressed: () => Navigator.pop(context, false),
                 child: Container(
                   padding: EdgeInsets.symmetric(
-                    vertical: TraleTheme.of(context)!.padding / 2,
-                    horizontal: TraleTheme.of(context)!.padding,
+                    vertical: QPTheme.of(context)!.padding / 2,
+                    horizontal: QPTheme.of(context)!.padding,
                   ),
                   child: Text(context.l10n.abort),
                 ),
@@ -411,7 +410,7 @@ Future<bool> importBackup(BuildContext context) async {
         SnackBar(
           content: Text(context.l10n.importSuccess(count: measurementCounts)),
           behavior: SnackBarBehavior.floating,
-          duration: TraleTheme.of(context)!.snackbarDuration,
+          duration: QPTheme.of(context)!.snackbarDuration,
         ),
       );
     }

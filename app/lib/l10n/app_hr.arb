@@ -24,18 +24,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "Tamno",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Svijetlo",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Uređaj",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Izvoz svih mjerenja",
     "@export": {
         "description": "Export all measurements"

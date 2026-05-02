@@ -25,7 +25,7 @@ class _WeightSliderState extends State<_WeightSlider> {
   final double widthLargeTick = 10.0;
   @override
   Widget build(BuildContext context) {
-    final double padding = TraleTheme.of(context)!.padding;
+    final double padding = QPTheme.of(context)!.padding;
     final double width = widget.constraints.maxWidth;
     final double height = widget.constraints.maxHeight - 1.5 * padding;
     final ScrollController scrollController = widget.scrollController;

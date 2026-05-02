@@ -7,18 +7,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "Oscuro",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Claro",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Sistema",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Exportar todas las mediciones",
     "@export": {
         "description": "Export all measurements"

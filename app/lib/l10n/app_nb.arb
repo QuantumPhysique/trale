@@ -28,10 +28,6 @@
     "@weight": {
         "description": "weight"
     },
-    "systemmode": "System",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Eksporter alle målinger",
     "@export": {
         "description": "Export all measurements"
@@ -39,10 +35,6 @@
     "user": "Brukerprofil",
     "@user": {
         "description": "Name of user menu"
-    },
-    "lightmode": "Lys",
-    "@lightmode": {
-        "description": "Light mode menu item."
     },
     "userSettings": "Brukerinnstillinger",
     "@userSettings": {
@@ -67,10 +59,6 @@
     "about": "Om",
     "@about": {
         "description": "Name of about menu section"
-    },
-    "darkmode": "Mørk",
-    "@darkmode": {
-        "description": "Dark mode menu item."
     },
     "ok": "OK",
     "@ok": {

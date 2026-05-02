@@ -3,7 +3,6 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 
 /// Default carousel shape: Stadium on selected, asymmetric rounded rectangle
@@ -31,7 +30,7 @@ ShapeBorder themeItemShapeDefault(
   );
 }
 
-/// Carousel picker for selecting a [TraleSchemeVariant] (= [QPSchemeVariant]).
+/// Carousel picker for selecting a [QPSchemeVariant] (= [QPSchemeVariant]).
 class SchemeVariantSelection extends StatelessWidget {
   /// Constructor.
   const SchemeVariantSelection({super.key});
@@ -44,12 +43,12 @@ class SchemeVariantSelection extends StatelessWidget {
         (notifier.themeMode == ThemeMode.system &&
             Theme.of(context).brightness == Brightness.dark);
 
-    Widget previewBuilder(BuildContext ctx, TraleSchemeVariant variant) {
-      final TraleTheme baseTheme = isDark
+    Widget previewBuilder(BuildContext ctx, QPSchemeVariant variant) {
+      final QPTheme baseTheme = isDark
           ? notifier.theme.dark(ctx)
           : notifier.theme.light(ctx);
-      final DynamicSchemeVariant dynVariant = variant.schemeVariant;
-      final TraleTheme themed = baseTheme.copyWith(schemeVariant: dynVariant);
+      final DynamicSchemeVariant dynVariant = variant.toDynamicSchemeVariant;
+      final QPTheme themed = baseTheme.copyWith(schemeVariant: dynVariant);
       final bool isSelected = variant == notifier.schemeVariant;
 
       return Padding(
@@ -78,17 +77,17 @@ class SchemeVariantSelection extends StatelessWidget {
       );
     }
 
-    return QPSelectionCarousel<TraleSchemeVariant>(
-      items: TraleSchemeVariant.values,
-      isSelected: (TraleSchemeVariant v) => v == notifier.schemeVariant,
-      onSelected: (TraleSchemeVariant v) => notifier.schemeVariant = v,
+    return QPSelectionCarousel<QPSchemeVariant>(
+      items: QPSchemeVariant.values,
+      isSelected: (QPSchemeVariant v) => v == notifier.schemeVariant,
+      onSelected: (QPSchemeVariant v) => notifier.schemeVariant = v,
       previewBuilder: previewBuilder,
       shapeBuilder: themeItemShapeDefault,
     );
   }
 }
 
-/// Carousel picker for selecting a [TraleCustomTheme].
+/// Carousel picker for selecting a [QPCustomTheme].
 class ThemeSelection extends StatelessWidget {
   /// Constructor.
   const ThemeSelection({super.key});
@@ -101,13 +100,13 @@ class ThemeSelection extends StatelessWidget {
         (notifier.themeMode == ThemeMode.system &&
             Theme.of(context).brightness == Brightness.dark);
 
-    final List<TraleCustomTheme> cthemes = TraleCustomTheme.values.toList();
+    final List<QPCustomTheme> cthemes = QPCustomTheme.values.toList();
     if (!notifier.systemColorsAvailable) {
-      cthemes.remove(TraleCustomTheme.system);
+      cthemes.remove(QPCustomTheme.system);
     }
 
-    Widget previewBuilder(BuildContext ctx, TraleCustomTheme ctheme) {
-      final TraleTheme theme = isDark ? ctheme.dark(ctx) : ctheme.light(ctx);
+    Widget previewBuilder(BuildContext ctx, QPCustomTheme ctheme) {
+      final QPTheme theme = isDark ? ctheme.dark(ctx) : ctheme.light(ctx);
       final bool isSelected = ctheme == notifier.theme;
       return Padding(
         padding: const EdgeInsets.all(0.5 * QPLayout.padding),
@@ -134,10 +133,10 @@ class ThemeSelection extends StatelessWidget {
       );
     }
 
-    return QPSelectionCarousel<TraleCustomTheme>(
+    return QPSelectionCarousel<QPCustomTheme>(
       items: cthemes,
-      isSelected: (TraleCustomTheme t) => t == notifier.theme,
-      onSelected: (TraleCustomTheme t) => notifier.theme = t,
+      isSelected: (QPCustomTheme t) => t == notifier.theme,
+      onSelected: (QPCustomTheme t) => notifier.theme = t,
       previewBuilder: previewBuilder,
       shapeBuilder: themeItemShapeDefault,
     );

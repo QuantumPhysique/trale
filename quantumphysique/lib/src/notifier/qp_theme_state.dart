@@ -1,23 +1,5 @@
 part of 'qp_notifier.dart';
 
-/// convert stored string to ThemeMode
-extension _QPThemeModeParsing on String {
-  ThemeMode _toThemeMode() => <String, ThemeMode>{
-    'on': ThemeMode.dark,
-    'off': ThemeMode.light,
-    'auto': ThemeMode.system,
-  }[this]!;
-}
-
-/// convert ThemeMode to storage string
-extension _QPThemeModeEncoding on ThemeMode {
-  String _toStorageString() => <ThemeMode, String>{
-    ThemeMode.dark: 'on',
-    ThemeMode.light: 'off',
-    ThemeMode.system: 'auto',
-  }[this]!;
-}
-
 /// Extension on [QPNotifier] holding theme and visual state.
 extension QPThemeStateExtension on QPNotifier {
   /// Whether the seed color is a shade of grey (triggers monochrome scheme).
@@ -30,12 +12,12 @@ extension QPThemeStateExtension on QPNotifier {
   }
 
   /// Current theme mode.
-  ThemeMode get themeMode => prefs.nightMode._toThemeMode();
+  ThemeMode get themeMode => prefs.nightMode.toThemeMode();
 
   /// Sets the theme mode.
   set themeMode(ThemeMode mode) {
     if (mode != themeMode) {
-      prefs.nightMode = mode._toStorageString();
+      prefs.nightMode = mode.toStorageString();
       notify;
     }
   }

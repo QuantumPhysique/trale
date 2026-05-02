@@ -79,7 +79,7 @@ class RulerPickerState extends State<RulerPicker> {
       _scrollController.animateTo(
         targetIndex * tickWidth,
         duration:
-            TraleTheme.of(context)?.transitionDuration.normal ??
+            QPTheme.of(context)?.transitionDuration.normal ??
             const Duration(milliseconds: 250),
         curve: Curves.easeOutCubic,
       );
@@ -107,7 +107,7 @@ class RulerPickerState extends State<RulerPicker> {
       ).textTheme.emphasized.monospace.headlineLarge?.apply(color: color),
     );
 
-    final double padding = TraleTheme.of(context)!.padding;
+    final double padding = QPTheme.of(context)!.padding;
     return Container(
       alignment: Alignment.bottomCenter,
       padding: EdgeInsets.only(top: 0.75 * padding, bottom: 0.5 * padding),

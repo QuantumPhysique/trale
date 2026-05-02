@@ -115,18 +115,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "暗黑模式",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "亮光模式",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "系統",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "輸出測量資料",
     "@export": {
         "description": "Export all measurements"
