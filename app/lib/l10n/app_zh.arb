@@ -48,7 +48,7 @@
     "@lightmode": {
         "description": "Light mode menu item."
     },
-    "export": "备份数据",
+    "export": "导出数据",
     "@export": {
         "description": "Export all measurements"
     },
@@ -138,11 +138,11 @@
     "@none": {
         "description": "no interpolation"
     },
-    "exportSubtitle": "导出所有测量数据。",
+    "exportSubtitle": "导出数据后，本机所有其他应用都能读取、访问你的全部测量数据。",
     "@exportSubtitle": {
         "description": "This exposes all measurements to all apps."
     },
-    "exportDialog": "这将把所有测量数据导出到外部存储设备，此操作需要您授予存储权限。",
+    "exportDialog": "将导出所有测量数据到外部存储，需要写入权限。",
     "@exportDialog": {
         "description": "This will export all measurements to the external storage. Writing permissions are needed."
     },
@@ -174,7 +174,7 @@
     "@faq_a1": {
         "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
     },
-    "target_weight_warning": "厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重以及身体质量指数（BMI）低于18.5。",
+    "target_weight_warning": "厌食症是严重病症，愈发成为社会性问题，社交媒体不良风气是重要诱因。为了支持预防工作，不允许目标体重低于 50公斤/110磅/7.9英石和身体质量指数（BMI）低于18.5。",
     "@target_weight_warning": {
         "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. As part of our contribution to prevention, no target weight below 50kg / 110 lb / 7.9 st is possible."
     },
@@ -278,7 +278,7 @@
     "@time": {
         "description": "time"
     },
-    "assets": "资产项",
+    "assets": "资源",
     "@assets": {
         "description": "assets"
     },
@@ -322,11 +322,11 @@
     "@faq_q2": {
         "description": "Can I see once again the intro/onboarding screen?"
     },
-    "faq_a2": "当然可以！只需点击下面这个按钮。",
+    "faq_a2": "当然可以！只需点击下方图标。",
     "@faq_a2": {
         "description": "Yes for sure! Simple press the icon below."
     },
-    "faq_a2_widget": "返回起始页",
+    "faq_a2_widget": "返回新手引导页",
     "@faq_a2_widget": {
         "description": "Return to onboarding screen"
     },
@@ -365,7 +365,7 @@
         "description": "Back successfully exported"
     },
     "months": "个月",
-    "backupInterval": "自动备份",
+    "backupInterval": "备份周期",
     "@backupInterval": {
         "description": "Frequency of backup interval"
     },
@@ -465,7 +465,7 @@
     "@addHeight": {
         "description": "Enter your height"
     },
-    "faq_a4": "是的，但需要提供您的身高。\n\n厌食症是一种严重疾病，由于社交媒体上存在大量不良示范，正日益成为影响整个社会的问题。为支持预防工作，我们不允许设定低于 50公斤/110磅/7.9英石 的目标体重。通过输入身高，我们将根据身体质量指数（BMI）18.5为您计算最低目标体重。",
+    "faq_a4": "是的，但需要提供您的身高。\n\n厌食症是严重病症，愈发成为社会性问题，社交媒体不良风气是重要诱因。为了支持预防工作，不允许目标体重低于 50公斤/110磅/7.9英石。输入身高后，我们将根据身体质量指数（BMI）18.5为您计算最低目标体重。",
     "@faq_a4": {
         "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
     },
@@ -519,7 +519,7 @@
     "@userDialogTitle": {
         "description": "User settings"
     },
-    "importLongDescription": "支持导入历史测量数据。现有数据不会被删除，重复记录将自动忽略。支持 trale 的 txt 文件和 OpenScales 的 csv 文件。csv 文件需包含 weight 与 datetime 字段。",
+    "importLongDescription": "支持导入历史测量数据。现有数据不会被删除，重复记录将自动忽略。支持 trale 的 txt 文件和 OpenScales 的 csv 文件。csv 文件需包含 weight 与 datetime 列，否则第一列将被解析为日期，第二列将被解析为体重。若使用自定义的txt文件，需采用以下任一格式：",
     "@importLongDescription": {
         "description": "Explanation of which files are supported by import."
     },
@@ -575,7 +575,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "数据平滑通过高斯滤波减少短期波动，以呈现更清晰的长期趋势。较高强度会削弱日内变化，但可能掩盖短期调整。选择'{noneInterpol}'可查看原始数据。",
+    "interpolationExplanation": "插值功能采用先进的高斯滤波算法平滑体重曲线，呈现更清晰的变化趋势。强度等级越高，日常数据波动越小，但可能掩盖短期数值变化。选择'{noneInterpol}'可查看原始测量数据，不过外推计算仍会采用柔和平滑处理。",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {
@@ -605,15 +605,15 @@
     "@openIssueSubtitle": {
         "description": "Open issue subtitle for feedback"
     },
-    "aboutDescription1": "一款专注于体重趋势分析的健康管理应用。",
+    "aboutDescription1": "一款带短期趋势预估功能的简易体重记录工具。",
     "@aboutDescription1": {
         "description": "About page first paragraph"
     },
-    "aboutDescription2": "尊重用户隐私，不包含广告或数据上传机制。",
+    "aboutDescription2": "我们尊重您的隐私。本应用无任何盈利，也不会发送错误日志。若遇到问题，欢迎提交问题反馈。",
     "@aboutDescription2": {
         "description": "About page second paragraph"
     },
-    "aboutDescription3": "由开发者在业余时间维护，欢迎贡献或支持。",
+    "aboutDescription3": "由两位开发者在业余时间维护，欢迎贡献或支持。",
     "@aboutDescription3": {
         "description": "About page third paragraph"
     },
@@ -629,8 +629,333 @@
     "@measurementHintTitle": {
         "description": "Title for measurement hint banner"
     },
-    "measurementHintSubtitle": "长按测量记录以编辑或删除，滑动即可关闭提示。",
+    "measurementHintSubtitle": "长按测量记录来编辑或删除。滑动关闭这条提示。",
     "@measurementHintSubtitle": {
         "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "today": "今日",
+    "weightForecast": "预测",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "全部",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "设定目标后",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "过去一年",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "自定义",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "allTimeStats": "历史数据统计",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "precision": "精确度",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "importSuccess": "{count} 个测量项添加成功",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "无法读取所选文件，请重试或更换其他文件。",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "所选文件未找到有效测量数据，请检查文件格式。",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "changelog": "更新日志",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "showUserData": "显示我的数据",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "targetWeightEnabled": "目标体重",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "设定目标体重并追踪你的进度。",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "目标日期",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "设定目标日期或速度，以便按时达成目标。",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "设置目标日期",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "减（增）重幅度",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "每周",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "需要输入当前体重数值，才能计算目标日期和减重速率。你也可以选择一个过往日期，从该时间点开始绘制目标趋势线。",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "选择适中的速率。速率过低，很难察觉到变化进度；速率过高，则可能减掉肌肉而非脂肪。",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "开始日期",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "median": "中",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "heightUnit": "高度单位",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "通知",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "提醒",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "记录体重提醒",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "开启提醒",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "接收体重记录通知",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "日",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeLabel": "提醒时间",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "在设定时间收到通知，仅你当天未记录数据时生效。",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "该称重了！",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "你今天还没有记录体重。",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "热量缺口",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "距目标差距",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "统计范围",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "从",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "到",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "日期",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "长按某个日期即可取消设置。不设置起始日期则从第一条测量数据开始，不设置结束日期则截止到今日。",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "统计依据",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "插值数值可以减少由水分摄入、用餐时间及其他因素引发的每日体重波动，让你更清晰地了解自身真实的体重变化趋势。原始测量数据会精准还原你的每次记录结果，但每日数值之间可能存在较大差异。使用插值曲线能够帮助你追踪真实的体重变化进展，而非被短期数据波动干扰。",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "统计数据基于 {sourceName}。你可以在个性化设置中更改此项。",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "极瘦",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "偏瘦",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "正常体重",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "超重",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "极胖",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_defaultLangLabel": "系统默认",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "语言",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "选择显示语言",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "协助翻译",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "帮助我们将 trale 翻译成更多语言",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "主题",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "主题配色与界面风格",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "深色模式",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "跟随系统",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "浅色",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "深色",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "纯黑背景",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "深色模式使用纯黑色背景",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "对比度",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "主题配色",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "主题配色备选",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "提醒",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "每日体重记录提醒",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "开启提醒",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "提醒日期",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "提醒时间",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "一周起始日",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "默认（区域设置）",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "日期格式",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "更新内容",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "设置",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "自定义",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "通知",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
+    },
+    "reminderTimeTitle": "时间",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
     }
 }
