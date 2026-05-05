@@ -461,7 +461,7 @@
     "@faq_q4": {
         "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
     },
-    "addHeight": "输入您的身高(cm)",
+    "addHeight": "输入您的身高",
     "@addHeight": {
         "description": "Enter your height"
     },
