@@ -8,7 +8,6 @@
         "description": "Name of app: trale"
     },
     "unit": "단위",
-    "@unit": {},
     "date": "날짜",
     "@date": {
         "description": "Date"
