@@ -1,6 +1,6 @@
 {
     "@@locale": "en",
-    "achievements": "Achievements",
+    "achievements": "Achievements \t",
     "@achievements": {
         "description": "achievements"
     },
