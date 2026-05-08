@@ -1,5 +1,5 @@
 {
-    "achievements": "Постижения",
+    "achievements": "Постижения \t",
     "@achievements": {
         "description": "achievements"
     },
@@ -477,5 +477,14 @@
     "schemeVariant": "вариант на схема",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
+    },
+    "today": "днес",
+    "weightForecast": "прогноза",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "всичко",
+    "@all": {
+        "description": "Stats range: use all data"
     }
 }
