@@ -25,7 +25,7 @@
     "faq_a1": "Wir warten die App in unserer Freizeit und versuchen sie simple und funktional zu halten. Wir glauben, dass zu viele Funktionen die App unhandlich machen. Falls du glaubst, dass eine Hauptfunktionalität fehlt, kannst du gerne ein Ticket auf Github eröffnen.",
     "faq_a2": "Ja klar! Klick einfach das folgende Icon.",
     "faq_a2_widget": "Zum Introscreen zurück kehren",
-    "faq_a3": "Es zeigt einen heulenden Wolf der auf dem Buchstaben 'r' sitzt und sein Schwanz ist vom Buchstaben 't' teils verdeckt.",
+    "faq_a3": "Ein heulender Wolf, sitzend, sein Schwanz teilweise von den Buchstaben „t“ und „r“ verdeckt.",
     "faq_q1": "Die Funktion X fehlt. Wann wird diese hinzugefügt?",
     "faq_q2": "Ist es möglich zum Introscreen zurück zukehren?",
     "faq_q3": "Was ist auf dem Appicon zu sehen?",
@@ -45,7 +45,7 @@
     "licence": "Lizenz",
     "lightmode": "Tagmodus",
     "loading": "lädt",
-    "medium": "mittel",
+    "medium": "Mittelstarke Interpolation",
     "measurements": "Messwerte",
     "none": "ohne",
     "ok": "OK",
@@ -70,7 +70,7 @@
     "targetWeight": "Zielgewicht",
     "targetWeightMotivation": "Sich ein Zielgewicht zu setzen ist sehr wichtig und ein Schritt in die richtige Richtung. Denn ein Ziel vor Augen zu haben motiviert, mehr dafür zu tun.",
     "targetWeightShort": "Ziel",
-    "theme": "Thema",
+    "theme": "Design",
     "time": "Uhrzeit",
     "tpl": "Drittanbieterlizenz",
     "undertpl": "© {years} von {author} unter {licence} Lizenz",
@@ -91,7 +91,7 @@
     "@looseWeightSubtitle": {
         "description": "Switching between loosing or gaining weight."
     },
-    "backupInterval": "Intervall",
+    "backupInterval": "Sicherungsintervall",
     "@backupInterval": {
         "description": "Frequency of backup interval"
     },
@@ -260,7 +260,7 @@
     "@userDialogTitle": {
         "description": "User settings"
     },
-    "importLongDescription": "Du kannst Messwerte importieren. Das löscht existierende Messwerte nicht und doppelte Einträge werden ignoriert. \".txt\"-Dateien von trale und \".csv\"-Dateien von OpenScales werden unterstützt. In \".csv\"-Dateien müssen die Spalten als \"weight\" und \"datetime\" benannt sein. Andernfalls wird die erste Spalte als Zeitpunkt und die Zweite als Gewicht interpretiert. Eine \".txt\"-Datei sollte eines der folgenden Formate verwenden:",
+    "importLongDescription": "Du kannst Messwerte importieren. Das löscht existierende Messwerte nicht und doppelte Einträge werden ignoriert. „.txt“-Dateien von trale und „.csv“-Dateien von OpenScales werden unterstützt. In „.csv“-Dateien müssen die Spalten als „weight“ und „datetime“ benannt sein. Andernfalls wird die erste Spalte als Zeitpunkt und die Zweite als Gewicht interpretiert. Eine „.txt“-Datei sollte eines der folgenden Formate verwenden:",
     "@importLongDescription": {
         "description": "Explanation of which files are supported by import."
     },
@@ -316,7 +316,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation verwendet einen Gauß-Filter, um die Gewichtskurve zu glätten und einen Trend erkennbar zu machen. Ein stärkerer Filter reduziert tägliche Sprünge aber versteckt eventuell kurzweilige Änderungen. Wähle \"{noneInterpol}\", um die rohen Messwerte zu sehen. Extrapolierte Werte werden dann trotzdem noch leicht geglättet.",
+    "interpolationExplanation": "Interpolation verwendet einen Gauß-Filter, um die Gewichtskurve zu glätten und einen Trend erkennbar zu machen. Ein stärkerer Filter reduziert tägliche Sprünge aber versteckt eventuell kurzweilige Änderungen. Wähle „{noneInterpol}“, um die rohen Messwerte zu sehen. Extrapolierte Werte werden dann trotzdem noch leicht geglättet.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {
@@ -373,5 +373,330 @@
     "measurementHintSubtitle": "Tippe einen Messewert länger an, um ihn zu bearbeiten oder zu löschen. Streiche diese Nachricht zur Seite, um sie zu verwerfen.",
     "@measurementHintSubtitle": {
         "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "today": "heute",
+    "weightForecast": "Vorhersage",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "Gesamter Zeitraum",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "Seit Ziel",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "Vergangenes Jahr",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "Eigener Zeitraum",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "allTimeStats": "Gesamtstatistik",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "precision": "Präzision",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "importSuccess": "{count} Messwerte hinzugefügt",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Die gewählte Datei konnte nicht gelesen werden. Bitte versuche es erneut oder wähle eine andere Datei.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Keine Messwerte in der gewählten Datei gefunden. Bitte überprüfe das Dateiformat.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "changelog": "Versionshinweise",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "showUserData": "Zeige meine Messwerte",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "targetWeightEnabled": "Zielgewicht",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Lege ein Zielgewicht fest und verfolge Deinen Fortschritt.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Angestrebtes Datum",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Lege eine Rate oder ein Datum, an dem du Dein Ziel erreichen möchtest, fest.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Angestrebtes Datum festlegen",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Rate",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/Woche",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "Ein aktueller Messwert wird benötigt, um das angestrebte Datum und die Rate zu errechnen. Du kannst auch ein Datum in der Vergangenheit wählen, um die Berechnung ab dann zu beginnen.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Wähle eine moderate Rate. Zu niedrig, und Dein Fortschritt wird schwer zu bemerken sein. Zu hoch, und Du riskierts es, Muskelmasse statt Fett zu verlieren.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "Startdatum",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "median": "Median",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "heightUnit": "Größeneinheit",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "Benachrichtigungen",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Erinnerung",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Erinnere dich daran, dein Gewicht einzutragen",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Erinnerung einschalten",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Werde daran erinnert, Dein Gewicht einzutragen",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Tage",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Tageszeit",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Tageszeit der Erinnerung",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "Du wirst an den ausgewählten Tagen zur ausgewählten Tageszeit eine Benachrichtigung erhalten, falls Du an diesem Tag noch keinen Messwert eingetragen hast.",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "Zeit zum Wiegen!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "Du hast heute Dein Gewicht noch nicht eingetragen.",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "Kaloriendefizit",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Diff. zum Ziel",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Statistikzeitraum",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "Von",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "Bis",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Zeitraum",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Halte ein Datum lange gedrückt, um es abzuwählen. Ein abgewähltes Startdatum lässt die Statistik vom frühesten Messwert an beginnen. Ein abgewähltes Enddatum lässt sie bis heute laufen.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Datenbasis der Statistik",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Interpolierte Werte gleichen tägliche Schwankungen durch Flüssigkeitszunahme, Nahrungsaufnahme und andere Faktoren aus und geben ein klareres Bild der Entwicklung Deines Gewichts wieder. Rohe Messwerte geben exakt wieder, was Du eingetragen hast, können aber erheblich von Tag zu Tag schwanken. Interpolierte Werte helfen Dir, Deinen wahren Fortschritt zu verfolgen, anstatt von kurzzeitigen Schwankungen abgelenkt zu werden.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Statistiken basieren auf {sourceName}. Du kannst das in den Einstellungen ändern.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Stark untergewichtig",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Untergewichtig",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Normalgewichtig",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Übergewichtig",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Adipös",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_defaultLangLabel": "Systemstandard",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "Sprache",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "Anzeigesprache wählen",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "Übersetzen",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "Hilf uns, trale in weitere Sprachen zu übersetzen",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "Design",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "Farbpalette und -schema",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "Dunkles Design",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "Automatisch",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "Hell",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "Dunkel",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "Reines Schwarz",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Nutze reines Schwarz als Hintergrund für das dunkle Design",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "Kontrast",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "Farbpalette",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Variante des Farbschemas",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "Erinnerungen",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "Tägliche Wiege-Erinnerungen",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "Erinnerungen einschalten",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "Tage, an denen erinnert wird",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "Tageszeit, zu der erinnert wird",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "Erster Tag der Woche",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "Standard (Gebietsschema)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Datumsformat",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Was gibt's Neues",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "Einstellungen",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "Personalisierung",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Benachrichtigungen",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
     }
 }
