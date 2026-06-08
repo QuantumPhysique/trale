@@ -12,7 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
   ),
   ChangelogEntry(
-    version: '1.0.1',
+    version: '1.0.3',
     dateString: '2026-05-02',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
