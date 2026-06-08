@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trale/core/theme.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/widget/text_size_in_effect.dart';
 
 /// Custom sliver persistent header delegate.
@@ -27,7 +27,7 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     final EdgeInsets padding = EdgeInsets.symmetric(
-      horizontal: TraleTheme.of(context)!.padding,
+      horizontal: QPTheme.of(context)!.padding,
     );
     return Align(
       child: Container(

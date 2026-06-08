@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:quantumphysique/src/theme/qp_theme.dart';
 import 'package:quantumphysique/src/types/contrast.dart';
 import 'package:quantumphysique/src/types/date_format.dart';
 import 'package:quantumphysique/src/types/first_day.dart';
@@ -90,8 +91,11 @@ abstract class QPPreferences {
   /// Default date format.
   final QPDateFormat defaultDatePrintFormat = QPDateFormat.systemDefault;
 
-  /// App-supplied default theme name written during [loadDefaultSettings].
-  String get defaultThemeName;
+  /// Default theme name used during [loadDefaultSettings].
+  ///
+  /// Override in subclasses to change the palette that is persisted on first
+  /// run. Defaults to [QPCustomTheme.water].
+  String get defaultThemeName => QPCustomTheme.water.name;
 
   // ---------------------------------------------------------------------------
   // Load / reset

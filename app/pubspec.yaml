@@ -3,7 +3,7 @@ description: trale - privacy-respecting body weight-diary
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,10 +19,9 @@ version: 1.0.3+41
 
 environment:
   sdk: ">=3.11.0 <4.0.0"
-  flutter: ">=3.41.7"
+  flutter: ">=3.44.1"
 
 dependencies:
-  dynamic_color: ^1.8.1
   file_picker: ^11.0.2
   file_saver: ^0.3.1
   fl_chart: ^1.2.0
@@ -55,6 +54,10 @@ dependencies:
 #  intl: ^0.20.2
 dependency_overrides:
   path_provider_android: 2.2.23
+  phosphor_flutter:
+    git:
+      url: https://github.com/subarnaPdl/phosphor_icons.git
+      ref: 514f0a883571c4453dbd6ee3041d1dcba4fb8fc7
 
 dev_dependencies:
   build_runner: ^2.13.1
@@ -84,7 +87,6 @@ flutter_launcher_icons:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -112,19 +114,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: RobotoFlex
-      fonts:
-        - asset: fonts/RobotoFlex-VariableFont_wght.ttf
-    - family: RobotoMono
-      fonts:
-        - asset: fonts/RobotoMono-VariableFont_wght.ttf
-        - asset: fonts/RobotoMono-Italic-VariableFont_wght.ttf
-          style: italic
-    - family: CustomIcons
-      fonts:
-        - asset: fonts/CustomIcons.ttf
-
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

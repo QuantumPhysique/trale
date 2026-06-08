@@ -27,14 +27,6 @@
     "@about": {
         "description": "Name of about menu section"
     },
-    "darkmode": "Tumma",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "systemmode": "Järjestelmä",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "exportSubtitle": "Tämä paljastaa kaikki mittaukset kaikille sovelluksille.",
     "@exportSubtitle": {
         "description": "This exposes all measurements to all apps."
@@ -209,10 +201,6 @@
     "theme": "Teema",
     "@theme": {
         "description": "Theme menu item."
-    },
-    "lightmode": "Vaalea",
-    "@lightmode": {
-        "description": "Light mode menu item."
     },
     "export": "Vie kaikki mittaukset",
     "@export": {

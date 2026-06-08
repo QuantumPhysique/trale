@@ -87,14 +87,6 @@
     "@language": {
         "description": "Language menu item."
     },
-    "darkmode": "Tối",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "systemmode": "Hệ thống",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Xuất tất cả các phép đo",
     "@export": {
         "description": "Export all measurements"
@@ -154,10 +146,6 @@
     "exportSubtitle": "Thao tác này sẽ hiển thị tất cả các phép đo cho tất cả ứng dụng.",
     "@exportSubtitle": {
         "description": "This exposes all measurements to all apps."
-    },
-    "lightmode": "Sáng",
-    "@lightmode": {
-        "description": "Light mode menu item."
     },
     "faq_a1": "Ứng dụng được bảo trì trong thời gian rảnh rỗi của chúng tôi và chúng tôi cố gắng giữ cho ứng dụng gọn gàng và đơn giản. Chúng tôi tin rằng việc thêm quá nhiều tính năng sẽ khiến ứng dụng kém hữu ích hơn. Nếu bạn tin rằng chúng tôi đang thiếu một tính năng chính, hãy thoải mái mở một vấn đề hoặc yêu cầu hợp nhất.",
     "@faq_a1": {

@@ -9,7 +9,6 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_stats.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/widget/empty_chart.dart';
 import 'package:trale/widget/stats_range_dialog.dart';
@@ -95,9 +94,7 @@ class _StatsScreen extends State<StatsScreen>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _bannerController.duration = TraleTheme.of(
-      context,
-    )!.transitionDuration.normal;
+    _bannerController.duration = QPTheme.of(context)!.transitionDuration.normal;
   }
 
   @override
@@ -143,7 +140,7 @@ class _StatsScreen extends State<StatsScreen>
           .clamp(0, maxVal.toInt())
           .toDouble();
 
-      final int animationDurationInMilliseconds = TraleTheme.of(
+      final int animationDurationInMilliseconds = QPTheme.of(
         context,
       )!.transitionDuration.slow.inMilliseconds;
       final AppLocalizations l10n = context.l10n;
@@ -168,9 +165,9 @@ class _StatsScreen extends State<StatsScreen>
                       ? const SizedBox.shrink()
                       : Padding(
                           padding: EdgeInsets.fromLTRB(
-                            TraleTheme.of(ctx)!.padding,
-                            TraleTheme.of(ctx)!.padding,
-                            TraleTheme.of(ctx)!.padding,
+                            QPTheme.of(ctx)!.padding,
+                            QPTheme.of(ctx)!.padding,
+                            QPTheme.of(ctx)!.padding,
                             0,
                           ),
                           child: Dismissible(
@@ -185,7 +182,7 @@ class _StatsScreen extends State<StatsScreen>
                               color: Theme.of(ctx).colorScheme.inverseSurface,
                               child: Padding(
                                 padding: EdgeInsets.all(
-                                  TraleTheme.of(ctx)!.padding,
+                                  QPTheme.of(ctx)!.padding,
                                 ),
                                 child: Row(
                                   children: <Widget>[
@@ -196,9 +193,7 @@ class _StatsScreen extends State<StatsScreen>
                                       ).colorScheme.onInverseSurface,
                                       size: 20,
                                     ),
-                                    SizedBox(
-                                      width: TraleTheme.of(ctx)!.padding,
-                                    ),
+                                    SizedBox(width: QPTheme.of(ctx)!.padding),
                                     Expanded(
                                       child: Text(
                                         l10n.statsHintBanner(
@@ -228,7 +223,7 @@ class _StatsScreen extends State<StatsScreen>
             child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: Padding(
-                padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                padding: EdgeInsets.all(QPTheme.of(context)!.padding),
                 child: Center(
                   child: Text(
                     l10n.stats,
@@ -245,11 +240,11 @@ class _StatsScreen extends State<StatsScreen>
               child: InkWell(
                 onTap: () => showStatsRangeDialog(context: context),
                 borderRadius: BorderRadius.circular(
-                  TraleTheme.of(context)!.padding,
+                  QPTheme.of(context)!.padding,
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 3 * TraleTheme.of(context)!.padding,
+                    horizontal: 3 * QPTheme.of(context)!.padding,
                   ),
                   child: Row(
                     children: <Widget>[
@@ -286,7 +281,7 @@ class _StatsScreen extends State<StatsScreen>
             child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: Padding(
-                padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                padding: EdgeInsets.all(QPTheme.of(context)!.padding),
                 child: Center(
                   child: Text(
                     l10n.allTimeStats,

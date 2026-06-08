@@ -27,6 +27,9 @@ export 'src/changelog/changelog.dart';
 // Preferences
 export 'src/preferences/qp_preferences.dart';
 
+// Theme
+export 'src/theme/qp_theme.dart';
+
 // Notifier
 export 'src/notifier/qp_notifier.dart';
 
@@ -51,8 +54,11 @@ export 'src/widgets/changelog_widget.dart';
 export 'src/widgets/sliver_app_bar_snap.dart';
 export 'src/widgets/selection_carousel.dart';
 export 'src/widgets/third_party_licence.dart';
+export 'src/widgets/qp_m3e_fab.dart';
 
 // Pages
+export 'src/pages/qp_home_page.dart';
+export 'src/pages/qp_splash_page.dart';
 export 'src/pages/qp_theme_settings_page.dart';
 export 'src/pages/qp_language_settings_page.dart';
 export 'src/pages/qp_notifications_settings_page.dart';

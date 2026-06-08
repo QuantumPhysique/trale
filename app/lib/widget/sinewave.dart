@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:trale/core/theme.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 
 /// Animated sine wave widget.
 class SineWave extends StatefulWidget {
@@ -82,8 +82,8 @@ class _SineWaveState extends State<SineWave>
     final double height =
         widget.amplitude +
         widget.strokeWidth +
-        4 * TraleTheme.of(context)!.padding;
-    final double pad = TraleTheme.of(context)!.padding;
+        4 * QPTheme.of(context)!.padding;
+    final double pad = QPTheme.of(context)!.padding;
     return SizedBox(
       width: double.infinity,
       height: height,

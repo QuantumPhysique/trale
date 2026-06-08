@@ -43,7 +43,7 @@ class TargetWeightGroup extends StatelessWidget {
         QPGroupedListTile(
           color: tileColor,
           contentPadding: EdgeInsets.symmetric(
-            horizontal: TraleTheme.of(context)!.padding,
+            horizontal: QPTheme.of(context)!.padding,
           ),
           leading: PPIcon(PhosphorIconsDuotone.target, context),
           title: Text(
@@ -235,7 +235,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
               QPGroupedWidget(
                 color: tileColor,
                 child: Padding(
-                  padding: EdgeInsets.all(TraleTheme.of(context)!.padding),
+                  padding: EdgeInsets.all(QPTheme.of(context)!.padding),
                   child: Text(
                     context.l10n.targetWeightRateAdvice,
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -248,7 +248,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
               QPGroupedListTile(
                 color: tileColor,
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: TraleTheme.of(context)!.padding,
+                  horizontal: QPTheme.of(context)!.padding,
                 ),
                 leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
                 title: Text(
@@ -271,7 +271,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
             ],
           ),
           if (targetDateEnabled) ...<Widget>[
-            SizedBox(height: TraleTheme.of(context)!.padding),
+            SizedBox(height: QPTheme.of(context)!.padding),
             QPWidgetGroup(
               children: <Widget>[
                 QPGroupedWidget(
@@ -279,8 +279,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     padding: EdgeInsets.only(
-                      top: 0.75 * TraleTheme.of(context)!.padding,
-                      bottom: 0.5 * TraleTheme.of(context)!.padding,
+                      top: 0.75 * QPTheme.of(context)!.padding,
+                      bottom: 0.5 * QPTheme.of(context)!.padding,
                     ),
                     child: Text(
                       '${context.l10n.targetWeightRate} '
@@ -300,12 +300,12 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   color: tileColor,
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                      vertical: TraleTheme.of(context)!.padding,
-                      horizontal: TraleTheme.of(context)!.padding,
+                      vertical: QPTheme.of(context)!.padding,
+                      horizontal: QPTheme.of(context)!.padding,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: TraleTheme.of(context)!.padding,
+                      spacing: QPTheme.of(context)!.padding,
                       children: <Widget>[
                         IconButton.filledTonal(
                           onPressed: () {
@@ -342,14 +342,14 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                               // ).colorScheme.secondaryContainer,
                               // border: OutlineInputBorder(
                               //   borderRadius: BorderRadius.circular(
-                              //     TraleTheme.of(context)!.borderRadius,
+                              //     QPTheme.of(context)!.borderRadius,
                               //   ),
                               //   borderSide: BorderSide.none,
                               // ),
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
-                                horizontal: TraleTheme.of(context)!.padding / 2,
-                                vertical: TraleTheme.of(context)!.padding / 2,
+                                horizontal: QPTheme.of(context)!.padding / 2,
+                                vertical: QPTheme.of(context)!.padding / 2,
                               ),
                             ),
                             onChanged: (String value) {

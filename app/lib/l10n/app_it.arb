@@ -24,14 +24,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "lightmode": "Chiaro",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Sistema",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Esporta Dati",
     "@export": {
         "description": "Export all measurements"
@@ -191,10 +183,6 @@
     "language": "Lingua",
     "@language": {
         "description": "Language menu item."
-    },
-    "darkmode": "Scuro",
-    "@darkmode": {
-        "description": "Dark mode menu item."
     },
     "open": "Apri",
     "@open": {

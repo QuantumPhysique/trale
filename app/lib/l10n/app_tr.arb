@@ -1,17 +1,5 @@
 {
     "unit": "Birimler",
-    "systemmode": "Sistem",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
-    "darkmode": "Koyu",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Açık",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
     "abort": "İptal et",
     "@abort": {
         "description": "Abort (action)."

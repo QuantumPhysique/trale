@@ -111,14 +111,6 @@
     "@defaultLang": {
         "description": "System default language."
     },
-    "darkmode": "Donker",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Licht",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
     "export": "Exporteer alle metingen",
     "@export": {
         "description": "Export all measurements"
@@ -420,10 +412,6 @@
     "timeSinceFirstMeasurement": "Tijd sinds eerste meting",
     "@timeSinceFirstMeasurement": {
         "description": "A brief sentence describing the duration from the first measurement to the present"
-    },
-    "systemmode": "Systeem",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "factoryResetDialog": "Weet je zeker dat je de standaardinstellingen wilt instellen? Hierdoor zullen alle instellingen en metingen verloren gaan en dit kan niet ongedaan gemaakt worden.",
     "@factoryResetDialog": {

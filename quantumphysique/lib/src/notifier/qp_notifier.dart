@@ -8,6 +8,7 @@ import 'package:quantumphysique/src/types/first_day.dart';
 import 'package:quantumphysique/src/types/language.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 import 'package:quantumphysique/src/notifier/qp_theme_builder.dart';
+import 'package:quantumphysique/src/theme/qp_theme.dart';
 
 part 'qp_theme_state.dart';
 part 'qp_ui_state.dart';
@@ -16,9 +17,10 @@ part 'qp_display_state.dart';
 
 /// Base ChangeNotifier for all quantumphysique-based apps.
 ///
-/// Subclasses must implement [seedColor]. They may override [factoryReset] to
-/// add app-specific teardown (e.g. clearing a local database).
-abstract class QPNotifier with ChangeNotifier {
+/// Can be used directly — [seedColor] defaults to [QPCustomTheme.water].
+/// Subclasses may override [seedColor] and [factoryReset] to add
+/// app-specific behaviour (e.g. a user-selectable palette or database teardown).
+class QPNotifier with ChangeNotifier {
   /// Constructor. Pass the app's [QPPreferences] subclass instance.
   QPNotifier(this.prefs);
 
@@ -48,9 +50,15 @@ abstract class QPNotifier with ChangeNotifier {
 
   /// The seed color for this app's palette.
   ///
-  /// Override to return the current palette's seed colour, potentially
-  /// incorporating [systemSeedColor] for the "system" palette entry.
-  Color get seedColor;
+  /// Reads the persisted [QPPreferences.themeName], resolving
+  /// [QPCustomTheme.system] to [systemSeedColor] at runtime.
+  /// Override if your app uses a different palette mechanism.
+  Color get seedColor {
+    final QPCustomTheme theme =
+        prefs.themeName.toQPCustomTheme() ??
+        prefs.defaultThemeName.toQPCustomTheme()!;
+    return theme == QPCustomTheme.system ? systemSeedColor : theme.seed;
+  }
 
   /// The locale to use for the app, or `null` for the system default.
   Locale? get locale =>

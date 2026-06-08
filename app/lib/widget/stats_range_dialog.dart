@@ -7,7 +7,6 @@ import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stats_range.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/core/trale_notifier.dart';
 
 /// Shows a dialog to select the stats range and optional custom dates.
@@ -25,7 +24,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final double padding = TraleTheme.of(context)!.padding;
+      final double padding = QPTheme.of(context)!.padding;
       final Color tileColor = Theme.of(context).colorScheme.surfaceContainerLow;
       final bool isCustom = selectedRange == StatsRange.custom;
 

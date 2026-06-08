@@ -216,7 +216,7 @@ class _CustomLineChartState extends State<CustomLineChart>
       context: context,
       style: labelTextStyle,
     );
-    final double margin = TraleTheme.of(context)!.padding;
+    final double margin = QPTheme.of(context)!.padding;
 
     List<FlSpot> vectorsToFlSpot(ml.Vector times, ml.Vector weights) {
       return <FlSpot>[
@@ -718,10 +718,10 @@ class _CustomLineChartState extends State<CustomLineChart>
       children: <Widget>[
         Card(
           color: widget.backgroundColor,
-          shape: TraleTheme.of(context)!.borderShape,
+          shape: QPTheme.of(context)!.borderShape,
           margin:
               widget.chartMargin ??
-              EdgeInsets.symmetric(horizontal: TraleTheme.of(context)!.padding),
+              EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
           child: Container(
             height: MediaQuery.of(context).size.height * widget.relativeHeight,
             width: MediaQuery.of(context).size.width,
@@ -748,7 +748,7 @@ class _CustomLineChartState extends State<CustomLineChart>
         if (!widget.isPreview)
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: TraleTheme.of(context)!.padding,
+              horizontal: QPTheme.of(context)!.padding,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,

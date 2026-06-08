@@ -7,7 +7,6 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_formatter.dart';
 import 'package:trale/core/text_size.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 
 /// A dismissible list tile displaying a single weight measurement.
@@ -116,7 +115,7 @@ class _WeightListTileState extends State<WeightListTile>
         width: MediaQuery.of(context).size.width / 6,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
-            reverse ? TraleTheme.of(context)!.borderRadius : 0,
+            reverse ? QPTheme.of(context)!.borderRadius : 0,
           ),
           color: containerColor,
         ),
@@ -157,7 +156,7 @@ class _WeightListTileState extends State<WeightListTile>
         persist: false,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(TraleTheme.of(context)!.borderRadius),
+            Radius.circular(QPTheme.of(context)!.borderRadius),
           ),
         ),
         action: SnackBarAction(
@@ -205,9 +204,9 @@ class _WeightListTileState extends State<WeightListTile>
                 height: reverse ? 2 * height : 0,
                 width: MediaQuery.of(context).size.width / 2,
                 padding: EdgeInsets.only(
-                  top: TraleTheme.of(context)!.padding,
-                  right: TraleTheme.of(context)!.padding,
-                  bottom: TraleTheme.of(context)!.padding,
+                  top: QPTheme.of(context)!.padding,
+                  right: QPTheme.of(context)!.padding,
+                  bottom: QPTheme.of(context)!.padding,
                 ),
                 alignment: Alignment.center,
                 child: AnimatedOpacity(
@@ -221,21 +220,21 @@ class _WeightListTileState extends State<WeightListTile>
                       children: <Widget>[
                         actionButton(
                           PhosphorIconsFill.trash,
-                          TraleTheme.of(
+                          QPTheme.of(
                             context,
                           )!.themeData.colorScheme.onTertiaryContainer,
-                          TraleTheme.of(
+                          QPTheme.of(
                             context,
                           )!.themeData.colorScheme.tertiaryContainer,
                           delete,
                         ),
-                        SizedBox(width: TraleTheme.of(context)!.padding),
+                        SizedBox(width: QPTheme.of(context)!.padding),
                         actionButton(
                           PhosphorIconsFill.pencilSimple,
-                          TraleTheme.of(
+                          QPTheme.of(
                             context,
                           )!.themeData.colorScheme.onSecondaryContainer,
-                          TraleTheme.of(
+                          QPTheme.of(
                             context,
                           )!.themeData.colorScheme.secondaryContainer,
                           edit,
