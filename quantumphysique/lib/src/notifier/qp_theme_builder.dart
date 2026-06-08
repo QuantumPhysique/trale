@@ -31,7 +31,7 @@ ThemeData buildQPThemeData({
 
   final TextTheme txtTheme = ThemeData.from(colorScheme: colorScheme).textTheme
       .apply(
-        fontFamily: 'RobotoFlex',
+        fontFamily: 'packages/quantumphysique/RobotoFlex',
         fontFamilyFallback: <String>['Roboto', 'Noto Sans'],
       );
 

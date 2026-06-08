@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 /// Returns a copy of this [TextTheme] with the RobotoMono font family.
 extension MonospaceExtension on TextTheme {
   /// A monospace variant of this text theme.
-  TextTheme get monospace => apply(fontFamily: 'RobotoMono');
+  TextTheme get monospace =>
+      apply(fontFamily: 'packages/quantumphysique/RobotoMono');
 }
 
 extension _TextThemeMap on TextTheme {
