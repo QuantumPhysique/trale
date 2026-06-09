@@ -440,5 +440,510 @@
     "medium": "Gemiddeld",
     "@medium": {
         "description": "medium interpolation"
+    },
+    "gainWeight": "Aankomen",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "today": "vandaag",
+    "weightForecast": "voorspelling",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "alles",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "sinds doel",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "afgelopen jaar",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "aangepast",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "allTimeStats": "Statistieken aller tijden",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "precision": "Precisie",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "translate": "vertalen",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Help de app te vertalen",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "importSuccess": "{count} metingen toegevoegd",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Kan het geselecteerde bestand niet lezen. Probeer het opnieuw of gebruik een ander bestand.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Geen geldige metingen gevonden in het geselecteerde bestand. Controleer de bestandsindeling.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "changelog": "Wijzigingslogboek",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "addHeight": "Voer je lengte in",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "lengte",
+    "@height": {
+        "description": "height"
+    },
+    "target": "doel",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "showUserData": "mijn gegevens tonen",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "personalisatie",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "naam",
+    "@name": {
+        "description": "Name"
+    },
+    "targetWeightEnabled": "Streefgewicht",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Stel een streefgewicht in en volg je voortgang.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Streefdatum",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Stel een streefdatum of tempo in om je doel op tijd te bereiken.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Streefdatum instellen",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Tempo",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/week",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "Een actuele gewichtsmeting is nodig om de streefdatum en het tempo te berekenen. Je kunt ook een oudere datum kiezen om de streeflijn vanaf dat punt te laten beginnen.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Kies een gematigd tempo. Te laag en de voortgang is moeilijk te merken; te hoog en je riskeert spiermassa te verliezen in plaats van vet.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "Startdatum",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "faq_q4": "Kan ik een streefgewicht onder 50 kg / 110 lb / 7,9 st invoeren?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "Ja, door je lengte op te geven.\n\nAnorexia is een ernstige ziekte die steeds meer een probleem voor de hele samenleving wordt, mede door de vele negatieve voorbeelden op sociale media. Om preventie te ondersteunen, staan we geen streefgewichten onder 50 kg / 110 lb / 7,9 st toe. Door je lengte in te voeren kunnen we een minimaal streefgewicht berekenen dat overeenkomt met een BMI van 18,5.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "schemeVariant": "Schemavariant",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "Kies een variant om te bepalen hoe het kleurenschema wordt gemaakt op basis van de gekozen basiskleur.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Kies een basiskleur om het kleurenschema te bepalen.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "aanvullende instellingen",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "median": "mediaan",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "highContrast": "Hoog contrast",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "BMI",
+    "back": "terug",
+    "userDialogTitle": "Gebruikersinstellingen",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Je kunt gegevens importeren. Dit verwijdert je bestaande gegevens niet en eventuele dubbele vermeldingen worden genegeerd. 'txt'-bestanden van trale en 'csv'-bestanden van OpenScales worden ondersteund. In 'csv'-bestanden moeten de kolommen 'weight' en 'datetime' heten; anders wordt de eerste kolom als datum en de tweede als gewicht gelezen. Als je een aangepast 'txt'-bestand gebruikt, moet het een van de volgende indelingen hebben:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Donatie",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Steun de ontwikkeling van trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Aanpassing",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalisatie",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Pas je ervaring aan",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Stel het kleurenschema in",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Stel de taal in",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Gegevensinstellingen",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Importeren en exporteren",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Bewaar en laad je gegevens",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "Over de app",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Vind antwoorden op veelgestelde vragen",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Versie- en licentie-informatie",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolatie gebruikt geavanceerde Gaussische filtering om je gewichtscurve glad te strijken en een duidelijkere trend te creëren. Hogere sterktes verminderen dagelijkse schommelingen, maar kunnen kortetermijnveranderingen verbergen. Kies '{noneInterpol}' om je ruwe metingen te zien, hoewel extrapolatie nog steeds lichte gladstrijking gebruikt.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "Eenheid",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Datuminstellingen",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Notatie",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Standaard",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Help de app te verbeteren door feedback te geven.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Een eenvoudig gewichtslogboek met kortetermijnextrapolatie.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Je privacy wordt gerespecteerd. Geen inkomstenbronnen in de app en er worden geen foutlogboeken verzonden. Open een issue als je problemen hebt.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Gemaakt door twee ontwikkelaars met weinig vrije tijd. Overweeg om bij te dragen of te doneren.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Meting is verwijderd.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Ongedaan maken",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Metingen bewerken",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Houd een meting ingedrukt om deze te bewerken of te verwijderen. Veeg dit bericht weg om het te sluiten.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "heightUnit": "Lengte-eenheid",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "Meldingen",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Herinnering",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Herinner jezelf eraan je gewicht te noteren",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Herinnering inschakelen",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Ontvang een melding om je gewicht te noteren",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Dagen",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Tijd",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Herinneringstijd",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "Je ontvangt een melding op de geselecteerde dagen op het gekozen tijdstip, maar alleen als je die dag nog geen meting hebt genoteerd.",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "Tijd om te wegen!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "Je hebt je gewicht vandaag nog niet genoteerd.",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "calorietekort",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Versch. met doel",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Statistiekbereik",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "Van",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "Tot",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Datums",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Houd een datum ingedrukt om deze te wissen. Een niet-ingestelde startdatum betekent vanaf de eerste meting, een niet-ingestelde einddatum betekent tot vandaag.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Statistiekbasis",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Geïnterpoleerde waarden vlakken dagelijkse schommelingen af die worden veroorzaakt door hydratatie, maaltijdtijden en andere factoren, en geven zo een duidelijker beeld van je werkelijke gewichtstrend. Ruwe metingen weerspiegelen precies wat je hebt vastgelegd, maar kunnen van dag tot dag aanzienlijk variëren. Het gebruik van de geïnterpoleerde curve helpt je echte voortgang te volgen in plaats van kortetermijnruis.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Statistieken zijn gebaseerd op {sourceName}. Je kunt dit wijzigen in de personalisatie-instellingen.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Ernstig ondergewicht",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Ondergewicht",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Normaal gewicht",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Overgewicht",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Obesitas",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_defaultLangLabel": "Systeemstandaard",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "Taal",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "Selecteer de weergavetaal",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "Vertalen",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "Help ons trale in meer talen te vertalen",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "Thema",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "Kleurenpalet en -schema",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "Donkere modus",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "Automatisch",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "Licht",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "Donker",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "Diepzwart",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Gebruik een puur zwarte achtergrond in donkere modus",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "Contrast",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "Kleurenpalet",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Kleurenschemavariant",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "Herinneringen",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "Dagelijkse herinneringen om je gewicht te noteren",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "Herinneringen inschakelen",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "Herinneringsdagen",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "Herinneringstijd",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "Eerste dag van de week",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "Standaard (regio)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Datumnotatie",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Wat is er nieuw",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "Instellingen",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "Aanpassing",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Meldingen",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
     }
 }

@@ -859,5 +859,91 @@
     "qp_firstDayOfWeek": "Premier jour de la semaine",
     "@qp_firstDayOfWeek": {
         "description": "First day of week setting label"
+    },
+    "customDateHint": "Appuyez longuement sur une date pour la réinitialiser. Une date de début non définie correspond à la première mesure, une date de fin non définie correspond à aujourd'hui.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Base des statistiques",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Les valeurs interpolées lissent les fluctuations quotidiennes dues à l'hydratation, aux horaires des repas et à d'autres facteurs, offrant une image plus claire de votre véritable tendance de poids. Les mesures brutes reflètent exactement ce que vous avez enregistré, mais peuvent varier considérablement d'un jour à l'autre. Utiliser la courbe interpolée vous aide à suivre vos progrès réels plutôt que les variations à court terme.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Les statistiques sont basées sur {sourceName}. Vous pouvez modifier ce paramètre dans les options de personnalisation.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Insuffisance pondérale sévère",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Insuffisance pondérale",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Poids normal",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Surpoids",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Obésité",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_themeSubtitle": "Palette et schéma de couleurs",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_amoled": "Noir intégral",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Utiliser un fond noir pur en mode sombre",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_themePalette": "Palette de couleurs",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Variante du schéma de couleurs",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderSubtitle": "Rappels quotidiens de pesée",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_firstDayDefault": "Par défaut (régional)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Format de date",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Nouveautés",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_customization": "Personnalisation",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Notifications",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
     }
 }
