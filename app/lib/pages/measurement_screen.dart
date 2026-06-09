@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
-import 'package:trale/core/theme.dart';
 import 'package:trale/widget/empty_chart.dart';
 import 'package:trale/widget/weight_list.dart';
 
@@ -61,7 +60,7 @@ class _MeasurementScreen extends State<MeasurementScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    final int animationDurationInMilliseconds = TraleTheme.of(
+    final int animationDurationInMilliseconds = QPTheme.of(
       context,
     )!.transitionDuration.slow.inMilliseconds;
     Widget measurementScreen(BuildContext context) {

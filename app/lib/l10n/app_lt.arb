@@ -40,14 +40,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "Tamsus",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Šviesus",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
     "export": "Eksportuoti visus matavimus",
     "@export": {
         "description": "Export all measurements"
@@ -247,10 +239,6 @@
     "faq": "DUK",
     "@faq": {
         "description": "Frequently ask questions"
-    },
-    "systemmode": "Sistema",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "exportDialog": "Taip visi matavimai bus eksportuoti į išorinę saugyklą. Reikalingos įrašymo teisės.",
     "@exportDialog": {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trale/core/icons.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Enum with all available interpolation functions
@@ -43,14 +42,6 @@ extension InterpolStrengthExtension on InterpolStrength {
 
   /// get string expression
   String get name => toString().split('.').last;
-
-  /// get icon
-  IconData get icon => <InterpolStrength, IconData>{
-    InterpolStrength.none: CustomIcons.interpol_none,
-    InterpolStrength.soft: CustomIcons.interpol_weak,
-    InterpolStrength.medium: CustomIcons.interpol_medium,
-    InterpolStrength.strong: CustomIcons.interpol_strong,
-  }[this]!;
 
   /// Index of this interpolation strength in the enum values.
   int get idx {

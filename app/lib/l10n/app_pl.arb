@@ -44,10 +44,6 @@
     "@language": {
         "description": "Language menu item."
     },
-    "darkmode": "Ciemny",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
     "export": "Wyeksportuj wszystkie pomiary",
     "@export": {
         "description": "Export all measurements"
@@ -131,14 +127,6 @@
     "user": "Profil użytkownika",
     "@user": {
         "description": "Name of user menu"
-    },
-    "lightmode": "Jasny",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Systemowy",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "abort": "Przerwij",
     "@abort": {

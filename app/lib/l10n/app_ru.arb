@@ -89,21 +89,9 @@
     "@language": {
         "description": "Language menu item."
     },
-    "darkmode": "Тёмная",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Светлая",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
     "defaultLang": "Системный",
     "@defaultLang": {
         "description": "System default language."
-    },
-    "systemmode": "Системная",
-    "@systemmode": {
-        "description": "System mode menu item."
     },
     "export": "Экспортировать все измерения",
     "@export": {

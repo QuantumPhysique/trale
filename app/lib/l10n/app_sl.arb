@@ -47,18 +47,6 @@
     "@theme": {
         "description": "Theme menu item."
     },
-    "darkmode": "Temna",
-    "@darkmode": {
-        "description": "Dark mode menu item."
-    },
-    "lightmode": "Svetla",
-    "@lightmode": {
-        "description": "Light mode menu item."
-    },
-    "systemmode": "Sistem",
-    "@systemmode": {
-        "description": "System mode menu item."
-    },
     "export": "Izvozi vse meritve",
     "@export": {
         "description": "Export all measurements"

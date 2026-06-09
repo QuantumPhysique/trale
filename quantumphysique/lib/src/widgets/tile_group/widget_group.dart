@@ -7,6 +7,7 @@ class QPWidgetGroup extends StatelessWidget {
     required this.children,
     this.title,
     this.titleStyle,
+    this.titleTrailing,
     this.direction = Axis.vertical,
     this.scrollable = false,
   }) : itemBuilder = null,
@@ -18,6 +19,7 @@ class QPWidgetGroup extends StatelessWidget {
     required this.itemCount,
     this.title,
     this.titleStyle,
+    this.titleTrailing,
     this.direction = Axis.vertical,
     this.scrollable = false,
   }) : children = const <Widget>[];
@@ -30,6 +32,10 @@ class QPWidgetGroup extends StatelessWidget {
 
   /// TextStyle for the title.
   final TextStyle? titleStyle;
+
+  /// Optional widget rendered at the top-right of the title row, e.g. a compact
+  /// "+" add button. When set, the title row is shown even if [title] is null.
+  final Widget? titleTrailing;
 
   /// Number of items for the builder variant.
   final int? itemCount;
@@ -61,22 +67,31 @@ class QPWidgetGroup extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (title != null)
+          if (title != null || titleTrailing != null)
             Padding(
               padding: EdgeInsets.only(
                 top: 0.5 * padding,
                 bottom: 0.5 * padding,
                 left: 0.5 * padding,
               ),
-              child: Text(
-                _inCaps(title!),
-                style:
-                    titleStyle ??
-                    Theme.of(
-                      context,
-                    ).textTheme.emphasized.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
+              child: Row(
+                children: <Widget>[
+                  if (title != null)
+                    Text(
+                      _inCaps(title!),
+                      style:
+                          titleStyle ??
+                          Theme.of(
+                            context,
+                          ).textTheme.emphasized.titleMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                     ),
+                  if (titleTrailing != null) ...<Widget>[
+                    const Spacer(),
+                    titleTrailing!,
+                  ],
+                ],
               ),
             ),
           Card(
