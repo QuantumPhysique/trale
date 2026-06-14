@@ -11,7 +11,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [//]: # (### Added Features and Improvements 🙌:)
 [//]: # (### Bugfix 🐛:)
 [//]: # (### Other Changes:)
+
 ## [Unreleased]
+
+### Added Features and Improvements 🙌:
+- Përshëndetje botë! Thx to the community, the app is now available in Albanian 🎉
+- Thx to the community, many translations have been improved 🎉
+
+### Other Changes:
+- Internal reworks to improve maintainability
+- Use the latest Flutter (3.44)
+
 
 ## [1.0.3] - 2026-05-02
 
