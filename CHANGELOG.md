@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-06-14
+
 ### Added Features and Improvements 🙌:
 - Përshëndetje botë! Thx to the community, the app is now available in Albanian 🎉
 - Thx to the community, many translations have been improved 🎉
@@ -463,7 +465,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.0.3...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.1.0...main
+[1.1.0]: https://github.com/quantumphysique/trale/compare/v1.0.3...v1.1.0
 [1.0.2]: https://github.com/quantumphysique/trale/compare/v1.0.0...v1.0.3
 [1.0.0]: https://github.com/quantumphysique/trale/compare/v0.15.1...v1.0.0
 [0.15.1]: https://github.com/quantumphysique/trale/compare/v0.15.0...v0.15.1

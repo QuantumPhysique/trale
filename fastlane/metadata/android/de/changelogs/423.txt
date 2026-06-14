@@ -1,0 +1,4 @@
+- Përshëndetje botë! Danke der Community ist die App jetzt auf Albanisch verfügbar 🎉
+- Verbesserte Übersetzungen in mehreren Sprachen
+- Interne Umstrukturierungen zur Verbesserung der Wartbarkeit
+- Aktualisierung auf die neueste Flutterversion 3.44
