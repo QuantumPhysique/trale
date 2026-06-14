@@ -40,6 +40,7 @@ class QPLanguage {
     final Map<String, String> namesByBase = <String, String>{
       systemDefault: defaultLabel,
       'bg': 'български език',
+      'ca': 'Català',
       'cs': 'Čeština',
       'de': 'Deutsch',
       'en': 'English',
@@ -58,6 +59,7 @@ class QPLanguage {
       'ru': 'Русский',
       'sk': 'Slovenčina',
       'sl': 'Slovenščina',
+      'sq': 'Shqip',
       'ta': 'தமிழ்',
       'tr': 'Türkçe',
       'uk': 'Українська мова',

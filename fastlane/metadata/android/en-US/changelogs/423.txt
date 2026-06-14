@@ -1,0 +1,4 @@
+- Përshëndetje botë! Thx to the community is the app now available in Albanian 🎉
+- Improved translations across multiple languages
+- Internal reworks to improve maintainability
+- Updated to the latest Flutter (3.44)

@@ -12,6 +12,20 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
   ),
   ChangelogEntry(
+    version: '1.1.0',
+    dateString: '2026-06-14',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'Përshëndetje botë! Thx to the community, the app is now available in Albanian 🎉',
+        'Thx to the community, many translations have been improved 🎉',
+      ],
+      ChangelogSection.otherChanges: <String>[
+        'Internal reworks to improve maintainability',
+        'Use the latest Flutter (3.44)',
+      ],
+    },
+  ),
+  ChangelogEntry(
     version: '1.0.3',
     dateString: '2026-05-02',
     sections: <ChangelogSection, List<String>>{
