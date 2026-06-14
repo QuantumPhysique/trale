@@ -1,0 +1,949 @@
+{
+    "achievements": "Arritjet \t",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "karakteristika eksperimentale",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "Humb peshë",
+    "@looseWeight": {
+        "description": "Lose weight switch label (label name loose is a typo!)."
+    },
+    "gainWeight": "Shtoj në peshë",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "looseWeightSubtitle": "Kalimi midis humbjes ose shtimit në peshë.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between losing or gaining weight."
+    },
+    "days": "ditë",
+    "weeks": "javë",
+    "week": "javë",
+    "months": "muaj",
+    "month": "muaj",
+    "years": "vite",
+    "year": "vite",
+    "today": "sot",
+    "weightForecast": "parashikim",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "gjithë",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "që nga goli",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "vitin e kaluar",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "porosi",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "never": "kurrë",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "javore",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "dyjavor",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "mujore",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "tremujor",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "Ju lutemi bëni kopje rezervë rregullisht",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "rezervë",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "Rezerva rezervë u eksportua me sukses",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "Intervali i rezervimit",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "rezervimi i fundit",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "kopje rezervë e radhës",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "stats": "Statistikë",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "allTimeStats": "Statistikat e të gjitha kohërave",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "Njësitë",
+    "precision": "Saktësi",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "date": "Datë",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "Peshë",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "Profili i përdoruesit",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "Cilësimet e përdoruesit",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "Zona e rrezikut",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "Cilësimet",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "FAQ",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "Rreth",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "Parazgjedhja e sistemit",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "Gjuha",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "Tema",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "translate": "përkthej",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Ndihmoni në përkthimin e aplikacionit",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "export": "Eksporto të gjitha matjet",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "Kjo i ekspozon të gjitha matjet në të gjitha aplikacionet.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "Kjo do të eksportojë të gjitha matjet në memorien e jashtme. Nevojiten leje shkrimi.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "open": "Hap",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "Anuloj",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Importo kopjen rezervë",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "Importoni matjet nga një kopje rezervë .txt ose një skedar .csv.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup or .csv file."
+    },
+    "amoled": "E zezë",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "Ndrysho ngjyrën e sfondit në të zezë të vërtetë për modalitetin e errët.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "reset": "Rivendos aplikacionin",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "Rivendosja në gjendje fabrike është e rivendosur",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Rivendos të gjitha cilësimet dhe fshi të gjitha matjet.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "Të rivendoset aplikacioni në cilësimet fillestare? Kjo do të fshijë të gjitha cilësimet dhe matjet e shtuara. Kjo nuk mund të zhbëhet.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "Fshij",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "Importi u anulua.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importSuccess": "{count} matje të shtuara",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Nuk mundi të lexonte skedarin e zgjedhur. Ju lutemi provoni përsëri ose përdorni një skedar tjetër.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Nuk u gjetën matje të vlefshme në skedarin e zgjedhur. Ju lutemi kontrolloni formatin e skedarit.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "importDialog": "Importo të gjitha matjet në bazën aktuale të të dhënave. Kjo nuk mund të zhbëhet!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "Shtëpi",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "Po",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "OK",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "Ruaj",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "Modifiko",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "Rezervë",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "Orë",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "asetet",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "paketa",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "Duke u ngarkuar",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Matjet",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "Versioni",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "Licencat e palëve të treta",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "Licencë",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "Kodi burimor",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "changelog": "Regjistri i ndryshimeve",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "openIssue": "Hap një çështje",
+    "@openIssue": {
+        "description": "open an issue"
+    },
+    "undertpl": "© {years} nga {author} sipas licencës {licence}",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "Fut peshën tënde",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "addHeight": "Fut gjatësinë tënde",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "gjatësi",
+    "@height": {
+        "description": "height"
+    },
+    "target": "objektiv",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "interpolation": "interpolim",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "showUserData": "trego të dhënat e mia",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "personalizim",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "strength": "fuqi",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "Asnjë",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "I butë",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "Interpolim i mesëm",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "I fortë",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "Mirë se vini",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "Ky aplikacion i thjeshtë Material-You-design ju ndihmon të arrini peshën e ëndrrave tuaja! Nëse doni të shtoni në peshë, të humbni peshë apo thjesht të ruani peshën tuaj: Parashikimet e besueshme të peshës dhe statistikat e gjithanshme ju ndihmojnë të qëndroni në rrugën e duhur.\n\nBashkohuni me komunitetin tonë sot për të gjurmuar veten.\n\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "Zgjidh një nga gjashtë temat për të personalizuar aplikacionin tënd. Cila prej tyre i shpreh më së miri ndjenjat e tua?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "Faleminderit që e provuat aplikacionin tonë. 🙂\n\nNëse ju pëlqen aplikacioni, do të ishim shumë të lumtur për reagimet tuaja, një kontribut në Github ose një kafe. Në këmbim, ju kursejmë reklama bezdisëse dhe kritike për privatësinë.",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "Stil",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "Privatësia",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "Kaloj",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "Filloj",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "Pesha e synuar",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "Vendosja e një peshe të synuar është shumë e rëndësishme dhe një hap në drejtimin e duhur. Të kesh një qëllim në mendje të motivon të bësh më shumë për ta arritur atë.",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "Objektiv",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "Si do të të thërrasim?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "name": "emër",
+    "@name": {
+        "description": "Name"
+    },
+    "addTargetWeight": "Shto peshën e synuar",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "targetWeightEnabled": "Pesha e synuar",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Vendosni një peshë të synuar dhe ndiqni progresin tuaj.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Data e synuar",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Vendosni një datë ose tarifë të synuar për të arritur qëllimin tuaj në kohë.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Cakto datën e synuar",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Vlerëso",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/javë",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "Një matje aktuale e peshës është e nevojshme për të llogaritur datën dhe tarifën e synuar. Gjithashtu mund të zgjidhni një datë më të vjetër për të filluar vijën e synuar nga ajo pikë.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Zgjidhni një shpejtësi të moderuar. Nëse është shumë e ulët, përparimi do të jetë i vështirë për t’u vënë re; nëse është shumë e lartë, rrezikoni të humbni masë muskulore në vend të dhjamit.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "Data e fillimit",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "intro1": "Shtyp",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "për të filluar",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "Sot është një ditë e mirë për të filluar me matjen tuaj të parë!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "Këtu gjeni përgjigje për disa nga pyetjet më të shpeshta. Nëse keni ndonjë pyetje tjetër, mos ngurroni të hapni një çështje në repozitorin github.",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "Mungon veçoria/funksioni X. Kur do të zbatohet?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_q2": "A mund ta shoh përsëri ekranin hyrës/të konfigurimit?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "Po, sigurisht! Thjesht shtypni ikonën më poshtë.",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "Kthehu te ekrani i integrimit",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "Çfarë tregon ikona e aplikacionit?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "Një ujk që ulërin i ulur, bishti i të cilit është fshehur pjesërisht nga shkronja 't' dhe shkronja 'r'.",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "faq_q4": "A mund të fus një peshë objektiv nën 50 kg / 110 lb / 7.9 st?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "Po, duke dhënë gjatësinë tuaj.\n\nAnoreksia është një sëmundje serioze që po bëhet gjithnjë e më shumë problem për shoqërinë në tërësi, pjesërisht për shkak të shumë shembujve negativë në mediat sociale. Për të mbështetur përpjekjet parandaluese, ne nuk lejojmë pesha të synuara nën 50 kg / 110 lb / 7.9 st. Futja e gjatësisë suaj na lejon të llogarisim një peshë minimale të synuar që korrespondon me një BMI prej 18.5.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "target_weight_warning": "Anoreksia është një sëmundje serioze që po bëhet gjithnjë e më shumë problem për shoqërinë në tërësi, pjesërisht për shkak të shumë shembujve negativë në mediat sociale. Për të mbështetur përpjekjet parandaluese, ne nuk lejojmë pesha të synuara nën 50 kg / 110 lb / 7.9 st dhe BMI nën 18.5.",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
+    },
+    "max": "max",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "min",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "ndryshoj",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "ndryshim total",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "schemeVariant": "Varianti i skemës",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "Zgjidhni një variant për të përcaktuar se si krijohet skema e ngjyrave nga ngjyra e zgjedhur e farës.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Zgjedhni një variant për t'u përdorur si krijohet skema e ngjyrave të ngjyrave të zgjedhura të farës.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "cilësime shtesë",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "mean": "mesatare",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "median": "mesatare",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "measurementFrequency": "frekuenca e matjes",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "Ke arritur peshën tënde të synuar!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "mbetur për të arritur peshën e synuar",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "seria më e gjatë",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "seria aktuale",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "koha që nga matja e parë",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "faq_a1": "Aplikacioni mirëmbahet në kohën tonë të lirë dhe ne përpiqemi ta mbajmë atë elegant dhe të thjeshtë. Ne besojmë se shtimi i shumë veçorive e bën aplikacionin më pak të përdorshëm. Nëse mendoni se na mungon një veçori kyçe, mos ngurroni të hapni një çështje ose një kërkesë për bashkim.",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "firstDay": "Dita e parë",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "bmi": "BMI",
+    "back": "mbrapa",
+    "userDialogTitle": "Cilësimet e përdoruesit",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Mund të importoni të dhëna. Kjo nuk do t'i fshijë të dhënat tuaja ekzistuese dhe çdo hyrje e dyfishtë do të injorohet. Mbështeten skedarët 'txt' nga trale dhe skedarët 'csv' nga OpenScales. Në skedarët 'csv', kolonat duhet të emërtohen 'pesha' dhe 'dataora'; përndryshe, kolona e parë do të analizohet si datë dhe e dyta si peshë. Nëse po përdorni një skedar 'txt' të personalizuar, ai duhet të ketë një nga formatet e mëposhtme:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Donacion",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Mbështetni zhvillimin e trale-s",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Përshtatje",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalizimi",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Personalizo përvojën tënde",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Vendos skemën e ngjyrave",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Vendos gjuhën",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Cilësimet e të dhënave",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Importi dhe eksporti",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Ruani dhe ngarkoni të dhënat tuaja",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "Rreth aplikacionit",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Gjeni përgjigje për pyetje të zakonshme",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Informacion mbi versionin dhe licencën",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolimi përdor filtrimin Gaussian të teknologjisë së fundit për të zbutur kurbën e peshës dhe për të krijuar një trend më të qartë. Nivelet më të larta të forcës zvogëlojnë luhatjet ditore, por mund të fshehin ndryshimet afatshkurtra. Zgjidhni '{noneInterpol}' për të parë matjet tuaja të papërpunuara, megjithëse ekstrapolimi do të përdorë ende zbutje të butë.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "Njësia",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Cilësimet e datës",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Formati",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Parazgjedhur",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Ndihmoni në përmirësimin e aplikacionit duke dhënë reagime.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Një regjistër i thjeshtë peshe me ekstrapolim afatshkurtër.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Privatësia juaj respektohet. Nuk ka burime të ardhurash në aplikacion dhe as regjistra gabimesh të dërguara. Ju lutemi hapni një çështje nëse keni probleme.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Krijuar nga dy zhvillues me pak kohë të lirë. Konsideroni të kontribuoni ose të dhuroni.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Matja u fshi.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Zhbëj",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Modifiko matjet",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Shtypni gjatë mbi një matje për ta modifikuar ose fshirë atë. Rrëshqisni këtë mesazh për ta shpërfillur.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "heightUnit": "Njësia e lartësisë",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "Njoftime",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Kujtesë",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Kujtojuni vetes të regjistroni peshën tuaj",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Aktivizo përkujtuesin",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Merr njoftime për të regjistruar peshën tënde",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Ditët",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Orë",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Ora e kujtesës",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "Do të merrni një njoftim në ditët e zgjedhura në kohën e zgjedhur, por vetëm nëse nuk keni regjistruar ende një matje atë ditë.",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "Koha për të peshuar!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "Nuk e ke regjistruar ende peshën tënde sot.",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "deficit kalorish",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Diferencë nga objektivi",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Diapazoni i statistikave",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "Nga",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "Për",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Datat",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Shtypni gjatë një datë për ta çaktivizuar atë. Një datë fillimi e pacaktuar do të thotë që nga matja e parë, një datë mbarimi e pacaktuar do të thotë deri më sot.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Baza e statistikave",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Vlerat e interpoluara zbutin luhatjet ditore të shkaktuara nga hidratimi, koha e vakteve dhe faktorë të tjerë, duke dhënë një pamje më të qartë të trendit tuaj të vërtetë të peshës. Matjet bruto pasqyrojnë saktësisht atë që keni regjistruar, por mund të ndryshojnë ndjeshëm nga dita në ditë. Përdorimi i kurbës së interpoluar ju ndihmon të gjurmoni progresin e vërtetë në vend të zhurmës afatshkurtër.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Statistikat bazohen në {sourceName}. Mund ta ndryshoni këtë në cilësimet e personalizimit.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Shumë nënpeshë",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Nënpeshë",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Pesha normale",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Mbipeshë",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Obez",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_defaultLangLabel": "Parazgjedhja e sistemit",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "Gjuha",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "Zgjidhni gjuhën e shfaqjes",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "Përkthej",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "Na ndihmoni të përkthejmë trale në më shumë gjuhë",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "Tema",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "Paleta dhe skema e ngjyrave",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "Modaliteti i errët",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "Auto",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "Dritë",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "E errët",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "E zezë e vërtetë",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Përdorni sfond të zi të pastër në modalitetin e errët",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "Kontrast",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "Paleta e ngjyrave",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Varianti i skemës së ngjyrave",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "Kujtesa",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "Kujtesa për regjistrimin e peshës çdo ditë",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "Aktivizo rikujtuesit",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "Ditët e kujtesës",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "Ora e kujtesës",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "Dita e parë e javës",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "Parazgjedhur (lokalizimi)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Formati i datës",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Çfarë ka të re",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "Cilësimet",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "Përshtatje",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Njoftime",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
+    },
+    "highContrast": "Kontrast i lartë",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    }
+}
