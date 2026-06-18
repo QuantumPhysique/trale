@@ -165,23 +165,12 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
               child: content,
             ),
             actions: <Widget>[
-              FilledButton.icon(
+              QPDialogAction(
                 onPressed: () => Navigator.pop(context, false),
-                style: FilledButton.styleFrom(
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerLow,
-                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                ),
-                icon: PPIcon(PhosphorIconsRegular.x, context),
-                label: Text(
-                  context.l10n.abort,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
+                icon: PhosphorIconsRegular.x,
+                label: context.l10n.abort,
               ),
-              FilledButton.icon(
+              QPDialogAction(
                 onPressed: () {
                   prefs.statsRange = selectedRange;
                   if (selectedRange == StatsRange.custom) {
@@ -192,13 +181,9 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
                   MeasurementDatabase().fireStream();
                   Navigator.pop(context, true);
                 },
-                icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
-                label: Text(
-                  context.l10n.save,
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
+                icon: PhosphorIconsFill.floppyDiskBack,
+                label: context.l10n.save,
+                isPrimary: true,
               ),
             ],
           );
