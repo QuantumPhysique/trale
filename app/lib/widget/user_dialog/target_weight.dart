@@ -479,4 +479,3 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   rateController.dispose();
   return accepted;
 }
-
