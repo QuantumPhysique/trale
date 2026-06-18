@@ -105,9 +105,17 @@ class QPDialogAction extends StatelessWidget {
 
     return FilledButton.icon(
       onPressed: onPressed,
-      style: FilledButton.styleFrom(backgroundColor: bg, foregroundColor: fg),
+      style: FilledButton.styleFrom(
+        backgroundColor: bg,
+        foregroundColor: fg,
+      ),
       icon: Icon(icon, size: 18),
-      label: Text(label, maxLines: 2, overflow: TextOverflow.ellipsis),
+      label: Text(
+        label,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }
+
