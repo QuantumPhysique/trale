@@ -449,17 +449,29 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
           return QPDialog(
             title: context.l10n.targetWeightDate,
             content: content,
-            actions: _dialogActions(context, () {
-              if (targetDateEnabled && targetDate != null) {
-                notifier.userTargetWeightDate = targetDate;
-                notifier.userTargetWeightSetDate = initDate;
-              } else {
-                notifier.userTargetWeightDate = null;
-                notifier.userTargetWeightSetDate = null;
-              }
-              MeasurementDatabase().fireStream();
-              Navigator.pop(context, true);
-            }),
+            actions: <Widget>[
+              QPDialogAction(
+                onPressed: () => Navigator.pop(context, false),
+                icon: PhosphorIconsRegular.x,
+                label: context.l10n.abort,
+              ),
+              QPDialogAction(
+                onPressed: () {
+                  if (targetDateEnabled && targetDate != null) {
+                    notifier.userTargetWeightDate = targetDate;
+                    notifier.userTargetWeightSetDate = initDate;
+                  } else {
+                    notifier.userTargetWeightDate = null;
+                    notifier.userTargetWeightSetDate = null;
+                  }
+                  MeasurementDatabase().fireStream();
+                  Navigator.pop(context, true);
+                },
+                icon: PhosphorIconsFill.floppyDiskBack,
+                label: context.l10n.save,
+                isPrimary: true,
+              ),
+            ],
           );
         },
       ) ??
@@ -468,40 +480,4 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   return accepted;
 }
 
-// TODO(trale): this is a copy of addWeightDialog actions, should be refactored
-// to avoid duplication
-/// Generate action buttons for M3E dialog
-List<Widget> _dialogActions(
-  BuildContext context,
-  Function onPress, {
-  bool enabled = true,
-}) {
-  return <Widget>[
-    FilledButton.icon(
-      onPressed: () => Navigator.pop(context, false),
-      style: FilledButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
-        foregroundColor: Theme.of(context).colorScheme.onSurface,
-      ),
-      icon: PPIcon(PhosphorIconsRegular.x, context),
-      label: Text(
-        context.l10n.abort,
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        textAlign: TextAlign.end,
-      ),
-    ),
-    FilledButton.icon(
-      onPressed: enabled ? () => onPress() : null,
-      icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
-      label: Text(
-        context.l10n.save,
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        textAlign: TextAlign.end,
-      ),
-    ),
-  ];
-}
+

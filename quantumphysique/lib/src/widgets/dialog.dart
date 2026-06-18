@@ -49,3 +49,73 @@ class QPDialog extends StatelessWidget {
     );
   }
 }
+
+/// A standardised dialog action button for [QPDialog].
+///
+/// Encapsulates three visual variants:
+/// - **Default** (dismiss / cancel): `surfaceContainerLow` bg.
+/// - **Primary** (save / confirm): `primary` bg.
+/// - **Destructive** (delete): `errorContainer` bg.
+///
+/// Rendered as a [FilledButton.icon] matching the original default button style
+/// (preserving padding and shapes) to maintain visual consistency.
+class QPDialogAction extends StatelessWidget {
+  /// Creates a dialog action button.
+  const QPDialogAction({
+    super.key,
+    required this.onPressed,
+    required this.icon,
+    required this.label,
+    this.isPrimary = false,
+    this.isDestructive = false,
+  });
+
+  /// Callback when the button is pressed; `null` disables the button.
+  final VoidCallback? onPressed;
+
+  /// Leading icon displayed before the [label].
+  final IconData icon;
+
+  /// Text label for the button.
+  final String label;
+
+  /// When `true`, uses `primary` / `onPrimary`.
+  final bool isPrimary;
+
+  /// When `true`, uses `errorContainer` / `onErrorContainer`.
+  /// Takes precedence over [isPrimary].
+  final bool isDestructive;
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme cs = Theme.of(context).colorScheme;
+
+    final Color bg;
+    final Color fg;
+    if (isDestructive) {
+      bg = cs.errorContainer;
+      fg = cs.onErrorContainer;
+    } else if (isPrimary) {
+      bg = cs.primary;
+      fg = cs.onPrimary;
+    } else {
+      bg = cs.surfaceContainerLow;
+      fg = cs.onSurface;
+    }
+
+    return FilledButton.icon(
+      onPressed: onPressed,
+      style: FilledButton.styleFrom(
+        backgroundColor: bg,
+        foregroundColor: fg,
+      ),
+      icon: Icon(icon, size: 18),
+      label: Text(
+        label,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+      ),
+    );
+  }
+}
+

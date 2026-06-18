@@ -325,11 +325,8 @@ Future<bool> importBackup(BuildContext context) async {
     accepted =
         await showDialog<bool>(
           context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text(
-              context.l10n.import,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+          builder: (BuildContext context) => QPDialog(
+            title: context.l10n.import,
             content: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -371,25 +368,16 @@ Future<bool> importBackup(BuildContext context) async {
               ],
             ),
             actions: <Widget>[
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor: WidgetStateProperty.all<Color>(
-                    Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
+              QPDialogAction(
                 onPressed: () => Navigator.pop(context, false),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    vertical: QPTheme.of(context)!.padding / 2,
-                    horizontal: QPTheme.of(context)!.padding,
-                  ),
-                  child: Text(context.l10n.abort),
-                ),
+                icon: PhosphorIconsRegular.x,
+                label: context.l10n.abort,
               ),
-              FilledButton.icon(
+              QPDialogAction(
                 onPressed: () => Navigator.pop(context, true),
-                label: Text(context.l10n.yes),
-                icon: PPIcon(PhosphorIconsRegular.download, context),
+                icon: PhosphorIconsRegular.download,
+                label: context.l10n.yes,
+                isPrimary: true,
               ),
             ],
           ),

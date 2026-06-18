@@ -337,31 +337,17 @@ List<Widget> actions(
   bool enabled = true,
 }) {
   return <Widget>[
-    FilledButton.icon(
+    QPDialogAction(
       onPressed: () => Navigator.pop(context, false),
-      style: FilledButton.styleFrom(
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
-        foregroundColor: Theme.of(context).colorScheme.onSurface,
-      ),
-      icon: PPIcon(PhosphorIconsRegular.x, context),
-      label: Text(
-        context.l10n.abort,
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        textAlign: TextAlign.end,
-      ),
+      icon: PhosphorIconsRegular.x,
+      label: context.l10n.abort,
     ),
-    FilledButton.icon(
+    QPDialogAction(
       onPressed: enabled ? () => onPress() : null,
-      icon: PPIcon(PhosphorIconsFill.floppyDiskBack, context),
-      label: Text(
-        context.l10n.save,
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        textAlign: TextAlign.end,
-      ),
+      icon: PhosphorIconsFill.floppyDiskBack,
+      label: context.l10n.save,
+      isPrimary: true,
     ),
   ];
 }
+
