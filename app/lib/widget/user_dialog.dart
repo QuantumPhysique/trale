@@ -32,10 +32,11 @@ Future<bool> showUserDialog({required BuildContext context}) async {
     bool enabled = true,
   }) {
     return <Widget>[
-      FilledButton.icon(
+      QPDialogAction(
         onPressed: enabled ? () => onPress() : null,
-        icon: PPIcon(PhosphorIconsRegular.arrowLeft, context),
-        label: Text(context.l10n.back),
+        icon: PhosphorIconsRegular.arrowLeft,
+        label: context.l10n.back,
+        isPrimary: true,
       ),
     ];
   }
