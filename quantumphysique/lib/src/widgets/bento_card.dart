@@ -188,7 +188,7 @@ class QPBentoCard extends StatelessWidget {
 
   Widget _buildText(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding / 2),
+      padding: const EdgeInsets.symmetric(horizontal: QPLayout.smallPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -214,7 +214,7 @@ class QPBentoCard extends StatelessWidget {
   }
 
   Widget _buildTextEmphasized(BuildContext context) {
-    const double pad = QPLayout.padding / 2;
+    const double pad = QPLayout.smallPadding;
     final Widget labelWidget = Padding(
       padding: _reversed
           ? const EdgeInsets.only(left: pad, right: pad, bottom: pad)
@@ -353,7 +353,7 @@ class QPBentoCard extends StatelessWidget {
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
               final double side = constraints.biggest.shortestSide;
-              const double padding = QPLayout.padding / 2;
+              const double padding = QPLayout.smallPadding;
               final double diameter = side - padding * 2;
               final double innerSide = diameter / math.sqrt2;
               return Center(
@@ -423,7 +423,7 @@ class _HeroContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = textColor ?? Theme.of(context).colorScheme.onSurface;
     return Padding(
-      padding: const EdgeInsets.all(QPLayout.padding / 2),
+      padding: const EdgeInsets.all(QPLayout.smallPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

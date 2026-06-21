@@ -122,7 +122,7 @@ class QPFilterChipBar extends StatelessWidget {
       clipBehavior: Clip.none,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        spacing: QPLayout.bentoPadding,
+        spacing: QPLayout.smallPadding,
         children: children,
       ),
     );

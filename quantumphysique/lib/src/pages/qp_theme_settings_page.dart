@@ -132,7 +132,7 @@ class _DarkModeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double halfPad = QPLayout.padding / 2;
+    const double halfPad = QPLayout.smallPadding;
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: const EdgeInsets.fromLTRB(
@@ -209,7 +209,7 @@ class _ContrastLevelSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double halfPad = QPLayout.padding / 2;
+    const double halfPad = QPLayout.smallPadding;
     final QPNotifier notifier = Provider.of<QPNotifier>(context);
     return QPGroupedWidget(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,

@@ -12,8 +12,19 @@ import 'package:flutter/material.dart';
 class QPLayout {
   QPLayout._();
 
+  /// Larger spacing (32 dp), i.e. twice [padding].
+  ///
+  /// Use for generous gaps between major sections.
+  static const double largePadding = 32;
+
   /// Default screen / card padding (16 dp).
   static const double padding = 16;
+
+  /// Smaller spacing between elements (8 dp), i.e. half of [padding].
+  ///
+  /// Use for general gaps between stacked or inline widgets where the full
+  /// [padding] is too large.
+  static const double smallPadding = 8;
 
   /// Gap between bento grid cells (8 dp).
   static const double bentoPadding = 8;

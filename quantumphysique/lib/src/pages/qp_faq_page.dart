@@ -59,7 +59,7 @@ class QPFAQPage extends StatelessWidget {
         sliverlist: <Widget>[
           if (headerWidget != null) ...<Widget>[
             headerWidget!,
-            const SizedBox(height: 2 * QPLayout.padding),
+            const SizedBox(height: QPLayout.largePadding),
           ],
           for (final QPFAQEntry entry in entries)
             _QPFAQEntryWidget(entry: entry),
