@@ -80,10 +80,8 @@ class _SineWaveState extends State<SineWave>
   @override
   Widget build(BuildContext context) {
     final double height =
-        widget.amplitude +
-        widget.strokeWidth +
-        4 * QPTheme.of(context)!.padding;
-    final double pad = QPTheme.of(context)!.padding;
+        widget.amplitude + widget.strokeWidth + 4 * QPLayout.padding;
+    const double pad = QPLayout.padding;
     return SizedBox(
       width: double.infinity,
       height: height,
@@ -91,7 +89,7 @@ class _SineWaveState extends State<SineWave>
         maxWidth: MediaQuery.of(context).size.width + 2 * pad,
         alignment: Alignment.centerLeft,
         child: Transform.translate(
-          offset: Offset(-2 * pad, 0),
+          offset: const Offset(-2 * pad, 0),
           child: SizedBox(
             height: height,
             width: MediaQuery.of(context).size.width * 2 * pad,

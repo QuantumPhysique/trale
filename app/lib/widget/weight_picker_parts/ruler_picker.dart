@@ -107,10 +107,12 @@ class RulerPickerState extends State<RulerPicker> {
       ).textTheme.emphasized.monospace.headlineLarge?.apply(color: color),
     );
 
-    final double padding = QPTheme.of(context)!.padding;
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: EdgeInsets.only(top: 0.75 * padding, bottom: 0.5 * padding),
+      padding: const EdgeInsets.only(
+        top: (QPLayout.padding + QPLayout.smallPadding) / 2,
+        bottom: QPLayout.smallPadding,
+      ),
       child: valueLabel,
     );
   }

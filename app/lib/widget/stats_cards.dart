@@ -48,16 +48,15 @@ class _StatCardState extends State<StatCard> {
         widget.backgroundColor ??
         Theme.of(context).colorScheme.surfaceContainer;
     final double xWidth =
-        (MediaQuery.sizeOf(context).width - 3 * QPTheme.of(context)!.padding) /
-        2;
-    final double yWidth = (xWidth - QPTheme.of(context)!.padding) / 2;
+        (MediaQuery.sizeOf(context).width - 3 * QPLayout.padding) / 2;
+    final double yWidth = (xWidth - QPLayout.padding) / 2;
 
     final double height = widget.ny == 1
         ? yWidth * widget.ny
-        : yWidth * widget.ny + (widget.ny - 1) * QPTheme.of(context)!.padding;
+        : yWidth * widget.ny + (widget.ny - 1) * QPLayout.padding;
     final double width = widget.nx == 1
         ? xWidth * widget.nx
-        : xWidth * widget.nx + (widget.nx - 1) * QPTheme.of(context)!.padding;
+        : xWidth * widget.nx + (widget.nx - 1) * QPLayout.padding;
 
     final ShapeBorder shape = widget.pillShape
         ? const StadiumBorder()
@@ -110,14 +109,10 @@ class _OneThirdStatCardState extends State<OneThirdStatCard> {
     )!.transitionDuration.slow.inMilliseconds;
 
     final double xWidth =
-        (MediaQuery.sizeOf(context).width - 3 * QPTheme.of(context)!.padding) /
-        2;
-    final double height = (xWidth - QPTheme.of(context)!.padding) / 2;
+        (MediaQuery.sizeOf(context).width - 3 * QPLayout.padding) / 2;
+    final double height = (xWidth - QPLayout.padding) / 2;
     final double width =
-        (MediaQuery.sizeOf(context).width -
-            4 * QPTheme.of(context)!.padding -
-            height) /
-        2;
+        (MediaQuery.sizeOf(context).width - 4 * QPLayout.padding - height) / 2;
 
     final ShapeBorder shape = widget.pillShape
         ? RoundedRectangleBorder(borderRadius: BorderRadius.circular(999))
@@ -176,9 +171,7 @@ class _DefaultStatCardState extends State<DefaultStatCard> {
     final StatCard card = StatCard(
       pillShape: widget.pillShape,
       childWidget: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: QPTheme.of(context)!.padding / 2,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.smallPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

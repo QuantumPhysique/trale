@@ -223,7 +223,7 @@ class _StatsScreen extends State<StatsScreen>
             child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: Padding(
-                padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+                padding: const EdgeInsets.all(QPLayout.padding),
                 child: Center(
                   child: Text(
                     l10n.stats,
@@ -239,12 +239,10 @@ class _StatsScreen extends State<StatsScreen>
               durationInMilliseconds: animationDurationInMilliseconds,
               child: InkWell(
                 onTap: () => showStatsRangeDialog(context: context),
-                borderRadius: BorderRadius.circular(
-                  QPTheme.of(context)!.padding,
-                ),
+                borderRadius: BorderRadius.circular(QPLayout.padding),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 3 * QPTheme.of(context)!.padding,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 3 * QPLayout.padding,
                   ),
                   child: Row(
                     children: <Widget>[
@@ -281,7 +279,7 @@ class _StatsScreen extends State<StatsScreen>
             child: QPAnimateInEffect(
               durationInMilliseconds: animationDurationInMilliseconds,
               child: Padding(
-                padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+                padding: const EdgeInsets.all(QPLayout.padding),
                 child: Center(
                   child: Text(
                     l10n.allTimeStats,

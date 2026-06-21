@@ -40,7 +40,7 @@ Future<bool> showAddWeightDialog({
         children: <Widget>[
           if (message != null)
             Padding(
-              padding: EdgeInsets.only(bottom: QPTheme.of(context)!.padding),
+              padding: const EdgeInsets.only(bottom: QPLayout.padding),
               child: Text(
                 message,
                 style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -132,7 +132,7 @@ Future<bool> showAddWeightDialog({
               ),
             ],
           ),
-          SizedBox(height: QPTheme.of(context)!.padding),
+          const SizedBox(height: QPLayout.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -219,7 +219,7 @@ Future<bool> showTargetWeightDialog({
               QPGroupedWidget(
                 color: Theme.of(context).colorScheme.surfaceContainerLow,
                 child: Padding(
-                  padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+                  padding: const EdgeInsets.all(QPLayout.padding),
                   child: Text(
                     context.l10n.targetWeightMotivation,
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -231,7 +231,7 @@ Future<bool> showTargetWeightDialog({
               ),
             ],
           ),
-          SizedBox(height: QPTheme.of(context)!.padding),
+          const SizedBox(height: QPLayout.padding),
           RulerPicker(
             onValueChange: (num newValue) {
               currentSliderValue = newValue.toDouble();
@@ -241,7 +241,7 @@ Future<bool> showTargetWeightDialog({
             value: currentSliderValue,
             ticksPerStep: notifier.unit.ticksPerStep,
           ),
-          SizedBox(height: QPTheme.of(context)!.padding),
+          const SizedBox(height: QPLayout.padding),
           QPWidgetGroup(
             children: <Widget>[
               QPGroupedSwitchListTile(

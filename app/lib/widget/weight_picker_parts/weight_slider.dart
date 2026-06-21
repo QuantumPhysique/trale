@@ -25,7 +25,7 @@ class _WeightSliderState extends State<_WeightSlider> {
   final double widthLargeTick = 10.0;
   @override
   Widget build(BuildContext context) {
-    final double padding = QPTheme.of(context)!.padding;
+    const double padding = QPLayout.padding;
     final double width = widget.constraints.maxWidth;
     final double height = widget.constraints.maxHeight - 1.5 * padding;
     final ScrollController scrollController = widget.scrollController;
@@ -49,7 +49,7 @@ class _WeightSliderState extends State<_WeightSlider> {
     return Container(
       width: width,
       height: height + 1.5 * padding,
-      padding: EdgeInsets.only(bottom: 0.5 * padding, top: padding),
+      padding: const EdgeInsets.only(bottom: 0.5 * padding, top: padding),
       child: Listener(
         onPointerDown: (_) => FocusScope.of(context).requestFocus(FocusNode()),
         child: AnimatedBuilder(
