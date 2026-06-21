@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.otherChanges: <String>[
+        'Introduce new M3E ButtonGroups Widget',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.1.0',
