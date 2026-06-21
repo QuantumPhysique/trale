@@ -19,6 +19,9 @@ class QPButtonGroup<T> extends StatelessWidget {
     required this.selected,
     required this.onSelected,
     required this.labelBuilder,
+    this.tooltipBuilder,
+    this.expanded = false,
+    this.color,
   });
 
   /// Ordered values rendered as segments, left to right.
@@ -31,7 +34,30 @@ class QPButtonGroup<T> extends StatelessWidget {
   final ValueChanged<T> onSelected;
 
   /// Builds the label widget shown inside the segment for [value].
-  final Widget Function(BuildContext context, T value) labelBuilder;
+  ///
+  /// [selected] reports whether [value] is the currently selected segment, so
+  /// the label can adapt (e.g. swap an outlined icon for a filled one).
+  final Widget Function(BuildContext context, T value, bool selected)
+  labelBuilder;
+
+  /// Optional builder for the long-press / hover tooltip of a segment.
+  ///
+  /// When it returns `null` (or is itself omitted) no tooltip is shown.
+  final String? Function(T value)? tooltipBuilder;
+
+  /// Whether segments share the available width equally ([Expanded]).
+  ///
+  /// Defaults to `true`, which fills the parent's width — ideal when the group
+  /// is given a bounded width (e.g. a full-width row). Set to `false` to shrink
+  /// to the segments' intrinsic size, which is required when placed in an
+  /// unbounded-width slot such as a [ListTile.trailing].
+  final bool expanded;
+
+  /// Background color of the unselected segments.
+  ///
+  /// Defaults to [ColorScheme.surfaceContainerLowest] when omitted. The
+  /// selected segment always uses [ColorScheme.secondaryContainer].
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +67,18 @@ class QPButtonGroup<T> extends StatelessWidget {
       shape: QPLayout.borderShape,
       clipBehavior: Clip.antiAlias,
       child: Row(
+        mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
         children: <Widget>[
           for (int i = 0; i < items.length; i++) ...<Widget>[
             if (i > 0) const SizedBox(width: QPLayout.space),
-            Expanded(
-              child: _QPButtonGroupSegment<T>(
+            _maybeExpanded(
+              _QPButtonGroupSegment<T>(
                 value: items[i],
                 selected: items[i] == selected,
                 onSelected: onSelected,
-                label: labelBuilder(context, items[i]),
+                tooltip: tooltipBuilder?.call(items[i]),
+                unselectedColor: color,
+                label: labelBuilder(context, items[i], items[i] == selected),
               ),
             ),
           ],
@@ -57,6 +86,9 @@ class QPButtonGroup<T> extends StatelessWidget {
       ),
     );
   }
+
+  Widget _maybeExpanded(Widget child) =>
+      expanded ? Expanded(child: child) : child;
 }
 
 /// A single tappable segment of a [QPButtonGroup].
@@ -66,12 +98,16 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
     required this.selected,
     required this.onSelected,
     required this.label,
+    this.tooltip,
+    this.unselectedColor,
   });
 
   final T value;
   final bool selected;
   final ValueChanged<T> onSelected;
   final Widget label;
+  final String? tooltip;
+  final Color? unselectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +116,7 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
 
     final Color background = selected
         ? cs.secondaryContainer
-        : cs.surfaceContainerLowest;
+        : unselectedColor ?? cs.surfaceContainerLowest;
     final Color foreground = selected
         ? cs.onSecondaryContainer
         : cs.onSurfaceVariant;
@@ -88,33 +124,35 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
         ? const StadiumBorder()
         : QPLayout.innerBorderShape;
 
+    final Widget inkWell = InkWell(
+      onTap: () => onSelected(value),
+      customBorder: shape,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
+        child: Center(
+          child: DefaultTextStyle.merge(
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: tt.titleMedium?.copyWith(color: foreground),
+            child: IconTheme.merge(
+              data: IconThemeData(color: foreground),
+              child: label,
+            ),
+          ),
+        ),
+      ),
+    );
+
     return AnimatedContainer(
       duration: QPLayout.transitionFast,
       curve: Curves.easeInOut,
       decoration: ShapeDecoration(color: background, shape: shape),
       clipBehavior: Clip.antiAlias,
       height: QPLayout.controlHeight,
-      child: InkWell(
-        onTap: () => onSelected(value),
-        customBorder: shape,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: QPLayout.bentoPadding,
-          ),
-          child: Center(
-            child: DefaultTextStyle.merge(
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: tt.titleMedium?.copyWith(color: foreground),
-              child: IconTheme.merge(
-                data: IconThemeData(color: foreground),
-                child: label,
-              ),
-            ),
-          ),
-        ),
-      ),
+      child: tooltip == null
+          ? inkWell
+          : Tooltip(message: tooltip!, child: inkWell),
     );
   }
 }
