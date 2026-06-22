@@ -20,6 +20,7 @@ class QPButtonGroup<T> extends StatelessWidget {
     required this.onSelected,
     required this.labelBuilder,
     this.tooltipBuilder,
+    this.isItemEnabled,
     this.expanded = false,
     this.color,
   });
@@ -44,6 +45,12 @@ class QPButtonGroup<T> extends StatelessWidget {
   ///
   /// When it returns `null` (or is itself omitted) no tooltip is shown.
   final String? Function(T value)? tooltipBuilder;
+
+  /// Whether the segment for [value] is selectable.
+  ///
+  /// When it returns `false` the segment is rendered greyed-out and ignores
+  /// taps. When omitted, every segment is enabled.
+  final bool Function(T value)? isItemEnabled;
 
   /// Whether segments share the available width equally ([Expanded]).
   ///
@@ -75,6 +82,7 @@ class QPButtonGroup<T> extends StatelessWidget {
               _QPButtonGroupSegment<T>(
                 value: items[i],
                 selected: items[i] == selected,
+                enabled: isItemEnabled?.call(items[i]) ?? true,
                 onSelected: onSelected,
                 tooltip: tooltipBuilder?.call(items[i]),
                 unselectedColor: color,
@@ -96,6 +104,7 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
   const _QPButtonGroupSegment({
     required this.value,
     required this.selected,
+    required this.enabled,
     required this.onSelected,
     required this.label,
     this.tooltip,
@@ -104,6 +113,7 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
 
   final T value;
   final bool selected;
+  final bool enabled;
   final ValueChanged<T> onSelected;
   final Widget label;
   final String? tooltip;
@@ -117,7 +127,9 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
     final Color background = selected
         ? cs.secondaryContainer
         : unselectedColor ?? cs.surfaceContainerLowest;
-    final Color foreground = selected
+    final Color foreground = !enabled
+        ? cs.onSurface.withValues(alpha: 0.38)
+        : selected
         ? cs.onSecondaryContainer
         : cs.onSurfaceVariant;
     final ShapeBorder shape = selected
@@ -125,7 +137,7 @@ class _QPButtonGroupSegment<T> extends StatelessWidget {
         : QPLayout.innerBorderShape;
 
     final Widget inkWell = InkWell(
-      onTap: () => onSelected(value),
+      onTap: enabled ? () => onSelected(value) : null,
       customBorder: shape,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
