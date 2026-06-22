@@ -54,10 +54,10 @@ class QPButtonGroup<T> extends StatelessWidget {
 
   /// Whether segments share the available width equally ([Expanded]).
   ///
-  /// Defaults to `true`, which fills the parent's width — ideal when the group
-  /// is given a bounded width (e.g. a full-width row). Set to `false` to shrink
-  /// to the segments' intrinsic size, which is required when placed in an
-  /// unbounded-width slot such as a [ListTile.trailing].
+  /// Defaults to `false`, which shrinks to the segments' intrinsic size — this
+  /// is required when placed in an unbounded-width slot such as a
+  /// [ListTile.trailing]. Set to `true` to fill the parent's width, which is
+  /// ideal when the group is given a bounded width (e.g. a full-width row).
   final bool expanded;
 
   /// Background color of the unselected segments.
