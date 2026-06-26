@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/changelog.dart';
+import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
@@ -23,12 +24,13 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   bool _popupShown = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     // Open the add-weight dialog when launched via the home-screen shortcut.
     // Handles the warm-start case (app already running) and flushes any
     // pending request stored during cold start.
@@ -37,8 +39,21 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     QuickActionsService().unregisterHandler();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      // Check if Health Connect integration is enabled and trigger
+      // a 30-day sync on app resume.
+      if (Preferences().healthConnectEnabled &&
+          Preferences().healthConnectImportEnabled) {
+        HealthConnectService().importMeasurements(days: 30);
+      }
+    }
   }
 
   void _onShortcut() {
