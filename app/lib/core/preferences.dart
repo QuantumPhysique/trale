@@ -17,6 +17,7 @@ part 'preferences/backup_prefs.dart';
 part 'preferences/display_prefs.dart';
 part 'preferences/ui_prefs.dart';
 part 'preferences/reminder_prefs.dart';
+part 'preferences/health_connect_prefs.dart';
 
 /// Trale's preferences, extending [QPPreferences] with app-specific keys.
 class Preferences extends QPPreferences {
@@ -123,6 +124,15 @@ class Preferences extends QPPreferences {
   /// Default stats range.
   final StatsRange defaultStatsRange = StatsRange.all;
 
+  /// Default for healthConnectEnabled.
+  final bool defaultHealthConnectEnabled = false;
+
+  /// Default for healthConnectImportEnabled.
+  final bool defaultHealthConnectImportEnabled = false;
+
+  /// Default for healthConnectExportEnabled.
+  final bool defaultHealthConnectExportEnabled = false;
+
   // ---------------------------------------------------------------------------
   // loadDefaultSettings override
   // ---------------------------------------------------------------------------
@@ -195,6 +205,15 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('statsUseInterpolation')) {
       statsUseInterpolation = defaultStatsUseInterpolation;
+    }
+    if (override || !prefs.containsKey('healthConnectEnabled')) {
+      healthConnectEnabled = defaultHealthConnectEnabled;
+    }
+    if (override || !prefs.containsKey('healthConnectImportEnabled')) {
+      healthConnectImportEnabled = defaultHealthConnectImportEnabled;
+    }
+    if (override || !prefs.containsKey('healthConnectExportEnabled')) {
+      healthConnectExportEnabled = defaultHealthConnectExportEnabled;
     }
   }
 }
