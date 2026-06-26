@@ -5,11 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:quantumphysique/quantumphysique.dart';
-
+import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/notification_service.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/main.dart';
 
 /// Extend DateTime for faster comparison
@@ -194,6 +195,12 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
       // Cancel today's reminder notification since
       // we just logged a measurement.
       NotificationService().cancelTodayIfMeasured();
+
+      // Auto-export to Health Connect if enabled
+      if (Preferences().healthConnectEnabled &&
+          Preferences().healthConnectExportEnabled) {
+        unawaited(HealthConnectService().exportMeasurement(m));
+      }
     }
     return !isContained;
   }
