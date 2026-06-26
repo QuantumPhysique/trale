@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added Features and Improvements 🙌:
+- Added quick action to direclty launch app for adding a new weight
+
 ## [1.1.0] - 2026-06-14
 
 ### Added Features and Improvements 🙌:

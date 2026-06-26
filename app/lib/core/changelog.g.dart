@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'Added quick action to direclty launch app for adding a new weight',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.1.0',

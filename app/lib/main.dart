@@ -6,6 +6,7 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/notification_service.dart';
+import 'package:trale/core/quick_actions_service.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/pages/splash.dart';
 
@@ -17,6 +18,9 @@ Future<void> main() async {
 
   // Populate QPLanguage.supportedLanguages from AppLocalizations.
   initLanguages();
+
+  // Register the home-screen app shortcut callback (long-press launcher icon).
+  QuickActionsService().init();
 
   runApp(
     QPApp<TraleNotifier>(

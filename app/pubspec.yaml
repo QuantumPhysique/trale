@@ -42,6 +42,7 @@ dependencies:
   provider: ^6.1.5+1
   quantumphysique:
     path: ../quantumphysique
+  quick_actions: ^1.1.0
   share_plus: ^12.0.2
   shared_preferences: ^2.5.5
   timezone: ^0.11.0
