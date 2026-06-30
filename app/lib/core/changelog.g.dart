@@ -12,6 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
+        'Added Health Connect integration to synchronize weight measurements on Android',
         'Added quick action to direclty launch app for adding a new weight',
       ],
     },
