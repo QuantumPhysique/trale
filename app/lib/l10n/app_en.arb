@@ -959,7 +959,7 @@
     "@healthConnectWarningTitle": {
         "description": "Title of the privacy advisory card"
     },
-    "healthConnectWarningText": "By default, Trale saves all weight data locally on your device in a private database. Enabling Health Connect means sharing your body weight measurements with the Android system, Google, and other authorized apps on your device. If you prioritize maximum privacy, we recommend keeping this disabled or using a secondary/dedicated Google account.",
+    "healthConnectWarningText": "Enabling Health Connect gives other authorized apps on your device access to your weight data. Please check these apps before enabling the setting.",
     "@healthConnectWarningText": {
         "description": "Text warning the user about privacy implications of sharing data with Health Connect"
     },
