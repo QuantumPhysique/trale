@@ -945,5 +945,95 @@
     "qp_notifications": "Notifiche",
     "@qp_notifications": {
         "description": "Notifications settings group title"
+    },
+    "healthConnect": "Health Connect",
+    "@healthConnect": {
+        "description": "Title of the Health Connect page and tile"
+    },
+    "healthConnectSubtitle": "Sincronizza le misurazioni con Health Connect",
+    "@healthConnectSubtitle": {
+        "description": "Subtitle of the Health Connect settings option"
+    },
+    "healthConnectWarningTitle": "Informativa sulla privacy",
+    "@healthConnectWarningTitle": {
+        "description": "Title of the privacy advisory card"
+    },
+    "healthConnectWarningText": "L'abilitazione di Health Connect consente ad altre app autorizzate sul dispositivo di accedere ai dati sul peso. Controlla queste app prima di abilitare l'impostazione.",
+    "@healthConnectWarningText": {
+        "description": "Text warning the user about privacy implications of sharing data with Health Connect"
+    },
+    "healthConnectEnable": "Abilita Health Connect",
+    "@healthConnectEnable": {
+        "description": "Label for the master toggle to enable/disable Health Connect integration"
+    },
+    "healthConnectImport": "Importa dati sul peso",
+    "@healthConnectImport": {
+        "description": "Label for importing weight data from Health Connect"
+    },
+    "healthConnectImportDesc": "Importa automaticamente i dati sul peso registrati in Health Connect",
+    "@healthConnectImportDesc": {
+        "description": "Description for the import toggle"
+    },
+    "healthConnectExport": "Esporta dati sul peso",
+    "@healthConnectExport": {
+        "description": "Label for exporting weight data to Health Connect"
+    },
+    "healthConnectExportDesc": "Scrivi automaticamente i pesi registrati in Trale su Health Connect",
+    "@healthConnectExportDesc": {
+        "description": "Description for the export toggle"
+    },
+    "healthConnectSyncNow": "Sincronizza ora",
+    "@healthConnectSyncNow": {
+        "description": "Label for manual sync trigger button"
+    },
+    "healthConnectImportHistory": "Importa tutta la cronologia",
+    "@healthConnectImportHistory": {
+        "description": "Label for button to import all historical measurements"
+    },
+    "healthConnectExportHistory": "Esporta tutta la cronologia",
+    "@healthConnectExportHistory": {
+        "description": "Label for button to export all historical measurements"
+    },
+    "healthConnectNotAvailable": "Health Connect non è supportato o non è installato su questo dispositivo.",
+    "@healthConnectNotAvailable": {
+        "description": "Error message when Health Connect is not available on the device"
+    },
+    "healthConnectSyncSuccess": "{importCount, plural, =1{Importata 1 misurazione} other{Importate {importCount} misurazioni}} e {exportCount, plural, =1{esportata 1 misurazione} other{esportate {exportCount} misurazioni}}.",
+    "@healthConnectSyncSuccess": {
+        "description": "Success message after a sync session",
+        "placeholders": {
+            "importCount": {
+                "type": "int"
+            },
+            "exportCount": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectImportSuccess": "{count, plural, =1{Importata 1 misurazione.} other{Importate {count} misurazioni.}}",
+    "@healthConnectImportSuccess": {
+        "description": "Success message after importing measurements from Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectExportSuccess": "{count, plural, =1{Esportata 1 misurazione.} other{Esportate {count} misurazioni.}}",
+    "@healthConnectExportSuccess": {
+        "description": "Success message after exporting measurements to Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncError": "Impossibile sincronizzare con Health Connect.",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "Le autorizzazioni sono necessarie per la sincronizzazione. Si prega di abilitarle.",
+    "@healthConnectPermissionsRequired": {
+        "description": "Warning message when required permissions are not granted"
     }
 }

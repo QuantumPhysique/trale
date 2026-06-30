@@ -142,5 +142,92 @@
     "exportSubtitle": "Això fa accessibles totes les mesures a qualsevol aplicació.",
     "@exportSubtitle": {
         "description": "This exposes all measurements to all apps."
-    }
+    },
+    "healthConnect": "Health Connect",
+    "@healthConnect": {
+        "description": "Title of the Health Connect page and tile"
+    },
+    "healthConnectSubtitle": "Sincronitza les mesures amb Health Connect",
+    "@healthConnectSubtitle": {
+        "description": "Subtitle of the Health Connect settings option"
+    },
+    "healthConnectWarningTitle": "Avís de privadesa",
+    "@healthConnectWarningTitle": {
+        "description": "Title of the privacy advisory card"
+    },
+    "healthConnectWarningText": "Si actives Health Connect, permets que altres aplicacions autoritzades del teu dispositiu accedeixin a les teves dades de pes. Comprova aquestes aplicacions abans d'activar el paràmetre.",
+    "@healthConnectWarningText": {
+        "description": "Text warning the user about privacy implications of sharing data with Health Connect"
+    },
+    "healthConnectEnable": "Activa Health Connect",
+    "@healthConnectEnable": {
+        "description": "Label for the master toggle to enable/disable Health Connect integration"
+    },
+    "healthConnectImport": "Importa dades de pes",
+    "@healthConnectImport": {
+        "description": "Label for importing weight data from Health Connect"
+    },
+    "healthConnectImportDesc": "Importa automàticament els registres de pes de Health Connect",
+    "@healthConnectImportDesc": {
+        "description": "Description for the import toggle"
+    },
+    "healthConnectExport": "Exporta dades de pes",
+    "@healthConnectExport": {
+        "description": "Label for exporting weight data to Health Connect"
+    },
+    "healthConnectExportDesc": "Escriu automàticament els pesos registrats a Trale a Health Connect",
+    "@healthConnectExportDesc": {
+        "description": "Description for the export toggle"
+    },
+    "healthConnectSyncNow": "Sincronitza ara",
+    "@healthConnectSyncNow": {
+        "description": "Label for manual sync trigger button"
+    },
+    "healthConnectImportHistory": "Importa tot l'historial",
+    "@healthConnectImportHistory": {
+        "description": "Label for button to import all historical measurements"
+    },
+    "healthConnectExportHistory": "Exporta tot l'historial",
+    "@healthConnectExportHistory": {
+        "description": "Label for button to export all historical measurements"
+    },
+    "healthConnectNotAvailable": "Health Connect no és compatible o no és instal·lat en aquest dispositiu.",
+    "@healthConnectNotAvailable": {
+        "description": "Error message when Health Connect is not available on the device"
+    },
+    "healthConnectSyncSuccess": "{importCount, plural, =1{S'ha importat 1 mesura} other{S'han importat {importCount} mesures}} i {exportCount, plural, =1{s'ha exportat 1 mesura} other{s'han exportat {exportCount} mesures}}.",
+    "@healthConnectSyncSuccess": {
+        "description": "Success message after a sync session",
+        "placeholders": {
+            "importCount": {
+                "type": "int"
+            },
+            "exportCount": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectImportSuccess": "{count, plural, =1{S'ha importat 1 mesura.} other{S'han importat {count} mesures.}}",
+    "@healthConnectImportSuccess": {
+        "description": "Success message after importing measurements from Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectExportSuccess": "{count, plural, =1{S'ha exportat 1 mesura.} other{S'han exportat {count} mesures.}}",
+    "@healthConnectExportSuccess": {
+        "description": "Success message after exporting measurements to Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncError": "No s'ha pogut sincronitzar amb Health Connect.",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "Es requereixen permisos per a la sincronització. Si us plau, activa'ls."
 }

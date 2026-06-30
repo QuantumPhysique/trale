@@ -951,7 +951,7 @@
     "@healthConnect": {
         "description": "Title of the Health Connect page and tile"
     },
-    "healthConnectSubtitle": "Sync measurements with Google Health Connect",
+    "healthConnectSubtitle": "Sync measurements with Health Connect",
     "@healthConnectSubtitle": {
         "description": "Subtitle of the Health Connect settings option"
     },
@@ -963,7 +963,7 @@
     "@healthConnectWarningText": {
         "description": "Text warning the user about privacy implications of sharing data with Health Connect"
     },
-    "healthConnectEnable": "Enable Health Connect Integration",
+    "healthConnectEnable": "Enable Health Connect",
     "@healthConnectEnable": {
         "description": "Label for the master toggle to enable/disable Health Connect integration"
     },
@@ -971,7 +971,7 @@
     "@healthConnectImport": {
         "description": "Label for importing weight data from Health Connect"
     },
-    "healthConnectImportDesc": "Automatically import weight records logged in other apps",
+    "healthConnectImportDesc": "Automatically import weight records logged in Health Connect",
     "@healthConnectImportDesc": {
         "description": "Description for the import toggle"
     },
@@ -999,7 +999,7 @@
     "@healthConnectNotAvailable": {
         "description": "Error message when Health Connect is not available on the device"
     },
-    "healthConnectSyncSuccess": "Imported {importCount} and exported {exportCount} measurements.",
+    "healthConnectSyncSuccess": "Imported {importCount, plural, =1{1 measurement} other{{importCount} measurements}} and exported {exportCount, plural, =1{1 measurement} other{{exportCount} measurements}}.",
     "@healthConnectSyncSuccess": {
         "description": "Success message after a sync session",
         "placeholders": {
@@ -1011,7 +1011,7 @@
             }
         }
     },
-    "healthConnectImportSuccess": "Imported {count} measurements.",
+    "healthConnectImportSuccess": "{count, plural, =1{Imported 1 measurement.} other{Imported {count} measurements.}}",
     "@healthConnectImportSuccess": {
         "description": "Success message after importing measurements from Health Connect",
         "placeholders": {
@@ -1020,7 +1020,7 @@
             }
         }
     },
-    "healthConnectExportSuccess": "Exported {count} measurements.",
+    "healthConnectExportSuccess": "{count, plural, =1{Exported 1 measurement.} other{Exported {count} measurements.}}",
     "@healthConnectExportSuccess": {
         "description": "Success message after exporting measurements to Health Connect",
         "placeholders": {
