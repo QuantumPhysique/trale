@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/first_day.dart';
+import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';

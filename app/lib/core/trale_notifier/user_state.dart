@@ -153,4 +153,41 @@ extension UserStateExtension on TraleNotifier {
       notify;
     }
   }
+
+  /// getter
+  bool get healthConnectEnabled => _prefs.healthConnectEnabled;
+
+  /// setter
+  set healthConnectEnabled(bool enabled) {
+    if (healthConnectEnabled != enabled) {
+      _prefs.healthConnectEnabled = enabled;
+      notify;
+    }
+  }
+
+  /// getter
+  bool get healthConnectImportEnabled => _prefs.healthConnectImportEnabled;
+
+  /// setter
+  set healthConnectImportEnabled(bool enabled) {
+    if (healthConnectImportEnabled != enabled) {
+      _prefs.healthConnectImportEnabled = enabled;
+      if (enabled && healthConnectEnabled) {
+        // Trigger a full sync (all history) on toggle on
+        unawaited(HealthConnectService().importMeasurements());
+      }
+      notify;
+    }
+  }
+
+  /// getter
+  bool get healthConnectExportEnabled => _prefs.healthConnectExportEnabled;
+
+  /// setter
+  set healthConnectExportEnabled(bool enabled) {
+    if (healthConnectExportEnabled != enabled) {
+      _prefs.healthConnectExportEnabled = enabled;
+      notify;
+    }
+  }
 }

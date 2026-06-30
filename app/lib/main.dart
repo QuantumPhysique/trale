@@ -1,11 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:quantumphysique/quantumphysique.dart';
-
+import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/notification_service.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/quick_actions_service.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/pages/splash.dart';
@@ -34,6 +37,19 @@ Future<void> main() async {
         } catch (e) {
           QPAppLogger.error(
             'NotificationService init failed',
+            tag: 'Main',
+            error: e,
+          );
+        }
+        try {
+          await HealthConnectService().init();
+          if (Preferences().healthConnectEnabled &&
+              Preferences().healthConnectImportEnabled) {
+            unawaited(HealthConnectService().importMeasurements(days: 30));
+          }
+        } catch (e) {
+          QPAppLogger.error(
+            'HealthConnectService init failed',
             tag: 'Main',
             error: e,
           );

@@ -945,5 +945,95 @@
     "qp_notifications": "Meldingen",
     "@qp_notifications": {
         "description": "Notifications settings group title"
+    },
+    "healthConnect": "Health Connect",
+    "@healthConnect": {
+        "description": "Title of the Health Connect page and tile"
+    },
+    "healthConnectSubtitle": "Metingen synchroniseren met Health Connect",
+    "@healthConnectSubtitle": {
+        "description": "Subtitle of the Health Connect settings option"
+    },
+    "healthConnectWarningTitle": "Privacywaarschuwing",
+    "@healthConnectWarningTitle": {
+        "description": "Title of the privacy advisory card"
+    },
+    "healthConnectWarningText": "Door Health Connect in te schakelen, geef je andere geautoriseerde apps op je apparaat toegang tot je gewichtsgegevens. Controleer deze apps voordat je de instelling inschakelt.",
+    "@healthConnectWarningText": {
+        "description": "Text warning the user about privacy implications of sharing data with Health Connect"
+    },
+    "healthConnectEnable": "Health Connect inschakelen",
+    "@healthConnectEnable": {
+        "description": "Label for the master toggle to enable/disable Health Connect integration"
+    },
+    "healthConnectImport": "Gewichtsgegevens importeren",
+    "@healthConnectImport": {
+        "description": "Label for importing weight data from Health Connect"
+    },
+    "healthConnectImportDesc": "Automatisch gewichtsgegevens importeren die zijn opgeslagen in Health Connect",
+    "@healthConnectImportDesc": {
+        "description": "Description for the import toggle"
+    },
+    "healthConnectExport": "Gewichtsgegevens exporteren",
+    "@healthConnectExport": {
+        "description": "Label for exporting weight data to Health Connect"
+    },
+    "healthConnectExportDesc": "Automatisch in Trale opgeslagen gewichten naar Health Connect schrijven",
+    "@healthConnectExportDesc": {
+        "description": "Description for the export toggle"
+    },
+    "healthConnectSyncNow": "Nu synchroniseren",
+    "@healthConnectSyncNow": {
+        "description": "Label for manual sync trigger button"
+    },
+    "healthConnectImportHistory": "Volledige geschiedenis importeren",
+    "@healthConnectImportHistory": {
+        "description": "Label for button to import all historical measurements"
+    },
+    "healthConnectExportHistory": "Volledige geschiedenis exporteren",
+    "@healthConnectExportHistory": {
+        "description": "Label for button to export all historical measurements"
+    },
+    "healthConnectNotAvailable": "Health Connect wordt niet ondersteund of is niet geïnstalleerd op dit apparaat.",
+    "@healthConnectNotAvailable": {
+        "description": "Error message when Health Connect is not available on the device"
+    },
+    "healthConnectSyncSuccess": "{importCount, plural, =1{1 meting geïmporteerd} other{{importCount} metingen geïmporteerd}} en {exportCount, plural, =1{1 meting geëxporteerd} other{{exportCount} metingen geëxporteerd}}.",
+    "@healthConnectSyncSuccess": {
+        "description": "Success message after a sync session",
+        "placeholders": {
+            "importCount": {
+                "type": "int"
+            },
+            "exportCount": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectImportSuccess": "{count, plural, =1{1 meting geïmporteerd.} other{{count} metingen geïmporteerd.}}",
+    "@healthConnectImportSuccess": {
+        "description": "Success message after importing measurements from Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectExportSuccess": "{count, plural, =1{1 meting geëxporteerd.} other{{count} metingen geëxporteerd.}}",
+    "@healthConnectExportSuccess": {
+        "description": "Success message after exporting measurements to Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncError": "Synchronisatie met Health Connect mislukt.",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "Machtigingen zijn vereist om te synchroniseren. Schakel deze in.",
+    "@healthConnectPermissionsRequired": {
+        "description": "Warning message when required permissions are not granted"
     }
 }
