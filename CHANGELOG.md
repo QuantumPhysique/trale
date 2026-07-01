@@ -14,12 +14,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+## [1.2.0] - 2026-07-01
+
 ### Added Features and Improvements 🙌:
 - Added Health Connect integration to synchronize weight measurements on Android
-- Added quick action to direclty launch app for adding a new weight
+- Added quick action to add a new weight even faster
 
 ### Other Changes:
 - Introduce new M3E ButtonGroups Widget
+- Improved translation
 
 
 ## [1.1.0] - 2026-06-14
@@ -473,7 +477,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.1.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.2.0...main
+[1.2.0]: https://github.com/quantumphysique/trale/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/quantumphysique/trale/compare/v1.0.3...v1.1.0
 [1.0.2]: https://github.com/quantumphysique/trale/compare/v1.0.0...v1.0.3
 [1.0.0]: https://github.com/quantumphysique/trale/compare/v0.15.1...v1.0.0

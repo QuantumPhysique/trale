@@ -1,0 +1,4 @@
+- Added Health Connect integration to synchronize weight measurements on Android
+- Added a quick action to add a new weight even faster
+- Design improvements
+- Improved translation

@@ -1,0 +1,4 @@
+- Integration von Health Connect hinzugefügt, um Gewichtsmessungen auf Android-Geräten zu synchronisieren
+- Schnellaktion hinzugefügt, um noch schneller ein neues Gewicht hinzuzufügen
+- Designverbesserungen
+- Verbesserte Übersetzung
