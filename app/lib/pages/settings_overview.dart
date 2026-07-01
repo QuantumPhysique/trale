@@ -5,6 +5,7 @@ import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/pages/about.dart';
 import 'package:trale/pages/faq.dart';
 import 'package:trale/pages/settings_export.dart';
+import 'package:trale/pages/settings_health_connect.dart';
 import 'package:trale/pages/settings_language.dart';
 import 'package:trale/pages/settings_personalization.dart';
 import 'package:trale/pages/settings_reminder.dart';
@@ -80,6 +81,12 @@ class SettingsOverviewPage extends StatelessWidget {
               title: l10n.importAndExport,
               subtitle: l10n.importAndExportSubtitle,
               onTap: () => push(const ExportSettingsPage()),
+            ),
+            QPSettingsTile(
+              icon: PhosphorIconsDuotone.heartbeat,
+              title: l10n.healthConnect,
+              subtitle: l10n.healthConnectSubtitle,
+              onTap: () => push(const HealthConnectSettingsPage()),
             ),
           ],
         ),
