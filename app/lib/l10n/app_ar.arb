@@ -1,0 +1,18 @@
+{
+    "achievements": "الإنجازات",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "الميزات التجريبية",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "إنقاص الوزن",
+    "@looseWeight": {
+        "description": "Lose weight switch label (label name loose is a typo!)."
+    },
+    "gainWeight": "زيادة الوزن",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    }
+}
