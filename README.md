@@ -33,10 +33,6 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 - **Privacy**: No permissions and we do not collect any data
 - **<a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Copylefted libre software</a>**: Our words are not just empty promises
 
-## Upcoming features 🚀
-- [ ] Achievements and motivational messages
-- [ ] Add to Google Play store
-
 ## Screenshots
 <div align="center">
     <img width="250" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" />
@@ -74,7 +70,6 @@ Anorexia is a serious disease.
 Especially due to the many negative examples on social media, anorexia is increasingly becoming a problem for society as a whole.
 As part of our contribution to prevention, no target weight below 50 kg / 110 lb / 7.9 st is possible.
 
-This app is still in <b>beta</b> stage and may contain bugs.
 If you encounter a bug or if you are missing a feature, please <a href="https://github.com/QuantumPhysique/trale/issues">open a new issue</a>.
 
 ## Contributors
