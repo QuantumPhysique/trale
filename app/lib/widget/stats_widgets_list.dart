@@ -46,11 +46,11 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
     final int delay = QPTheme.of(
       context,
     )!.transitionDuration.normal.inMilliseconds;
-    final double padding = QPTheme.of(context)!.padding;
+    const double padding = QPLayout.padding;
 
     return Column(
       children: <Widget>[
-        SizedBox(height: padding),
+        const SizedBox(height: padding),
         QPBentoGrid(
           children: <QPBentoCard>[
             changeRatesCard(context: context, stats: stats),
@@ -88,7 +88,7 @@ class _StatsWidgetsListState extends State<StatsWidgetsList> {
             bmiCard(context: context, stats: stats),
           ],
         ),
-        SizedBox(height: padding),
+        const SizedBox(height: padding),
       ],
     );
   }
@@ -105,10 +105,10 @@ class GlobalStatsWidgetsList extends StatelessWidget {
     final int delay = QPTheme.of(
       context,
     )!.transitionDuration.normal.inMilliseconds;
-    final double padding = QPTheme.of(context)!.padding;
+    const double padding = QPLayout.padding;
 
     return Padding(
-      padding: EdgeInsets.only(bottom: padding),
+      padding: const EdgeInsets.only(bottom: padding),
       child: QPBentoGrid(
         children: <QPBentoCard>[
           nMeasurementsCard(

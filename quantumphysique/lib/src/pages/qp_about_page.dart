@@ -93,7 +93,7 @@ class QPAboutPage extends StatelessWidget {
             QPLayout.padding,
             0,
             QPLayout.padding,
-            2 * QPLayout.padding,
+            QPLayout.largePadding,
           ),
           child: heroWidget,
         ),

@@ -203,10 +203,10 @@ class _WeightListTileState extends State<WeightListTile>
                 duration: Duration(milliseconds: widget.durationInMilliseconds),
                 height: reverse ? 2 * height : 0,
                 width: MediaQuery.of(context).size.width / 2,
-                padding: EdgeInsets.only(
-                  top: QPTheme.of(context)!.padding,
-                  right: QPTheme.of(context)!.padding,
-                  bottom: QPTheme.of(context)!.padding,
+                padding: const EdgeInsets.only(
+                  top: QPLayout.padding,
+                  right: QPLayout.padding,
+                  bottom: QPLayout.padding,
                 ),
                 alignment: Alignment.center,
                 child: AnimatedOpacity(
@@ -228,7 +228,7 @@ class _WeightListTileState extends State<WeightListTile>
                           )!.themeData.colorScheme.tertiaryContainer,
                           delete,
                         ),
-                        SizedBox(width: QPTheme.of(context)!.padding),
+                        const SizedBox(width: QPLayout.padding),
                         actionButton(
                           PhosphorIconsFill.pencilSimple,
                           QPTheme.of(

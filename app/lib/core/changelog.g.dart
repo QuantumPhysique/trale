@@ -15,6 +15,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Added Health Connect integration to synchronize weight measurements on Android',
         'Added quick action to direclty launch app for adding a new weight',
       ],
+      ChangelogSection.otherChanges: <String>[
+        'Introduce new M3E ButtonGroups Widget',
+      ],
     },
   ),
   ChangelogEntry(

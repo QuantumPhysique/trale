@@ -26,8 +26,8 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final EdgeInsets padding = EdgeInsets.symmetric(
-      horizontal: QPTheme.of(context)!.padding,
+    const EdgeInsets padding = EdgeInsets.symmetric(
+      horizontal: QPLayout.padding,
     );
     return Align(
       child: Container(

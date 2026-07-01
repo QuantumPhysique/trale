@@ -92,9 +92,9 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     Card userTargetWeightCard(double utw) => Card(
       shape: const StadiumBorder(),
       color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: EdgeInsets.symmetric(vertical: QPTheme.of(context)!.padding),
+      margin: const EdgeInsets.symmetric(vertical: QPLayout.padding),
       child: Padding(
-        padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+        padding: const EdgeInsets.all(QPLayout.padding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,10 +123,10 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
 
       return Card(
         shape: const StadiumBorder(),
-        margin: EdgeInsets.symmetric(vertical: QPTheme.of(context)!.padding),
+        margin: const EdgeInsets.symmetric(vertical: QPLayout.padding),
         color: Theme.of(context).colorScheme.secondaryContainer,
         child: Padding(
-          padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+          padding: const EdgeInsets.all(QPLayout.padding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -182,30 +182,26 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
       widthFactor: (userTargetWeight == null || nMeasured < 2) ? 0.5 : 1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:
-            <Widget>[
-              if (userTargetWeight != null)
-                Expanded(
-                  child: QPAnimateInEffect(
-                    durationInMilliseconds: QPTheme.of(
-                      context,
-                    )!.transitionDuration.slow.inMilliseconds,
-                    child: userTargetWeightCard(userTargetWeight),
-                  ),
-                ),
-              if (nMeasured >= 2 && _showWeightLostCard)
-                Expanded(
-                  child: QPAnimateInEffect(
-                    durationInMilliseconds: QPTheme.of(
-                      context,
-                    )!.transitionDuration.slow.inMilliseconds,
-                    child: userWeightLostCard(),
-                  ),
-                ),
-            ].addGap(
-              padding: QPTheme.of(context)!.padding,
-              direction: Axis.horizontal,
+        children: <Widget>[
+          if (userTargetWeight != null)
+            Expanded(
+              child: QPAnimateInEffect(
+                durationInMilliseconds: QPTheme.of(
+                  context,
+                )!.transitionDuration.slow.inMilliseconds,
+                child: userTargetWeightCard(userTargetWeight),
+              ),
             ),
+          if (nMeasured >= 2 && _showWeightLostCard)
+            Expanded(
+              child: QPAnimateInEffect(
+                durationInMilliseconds: QPTheme.of(
+                  context,
+                )!.transitionDuration.slow.inMilliseconds,
+                child: userWeightLostCard(),
+              ),
+            ),
+        ].addGap(padding: QPLayout.padding, direction: Axis.horizontal),
       ),
     );
   }

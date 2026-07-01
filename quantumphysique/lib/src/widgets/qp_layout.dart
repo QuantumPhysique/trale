@@ -12,8 +12,19 @@ import 'package:flutter/material.dart';
 class QPLayout {
   QPLayout._();
 
+  /// Larger spacing (32 dp), i.e. twice [padding].
+  ///
+  /// Use for generous gaps between major sections.
+  static const double largePadding = 32;
+
   /// Default screen / card padding (16 dp).
   static const double padding = 16;
+
+  /// Smaller spacing between elements (8 dp), i.e. half of [padding].
+  ///
+  /// Use for general gaps between stacked or inline widgets where the full
+  /// [padding] is too large.
+  static const double smallPadding = 8;
 
   /// Gap between bento grid cells (8 dp).
   static const double bentoPadding = 8;
@@ -23,6 +34,22 @@ class QPLayout {
 
   /// Card corner radius (16 dp).
   static const double borderRadius = 16;
+
+  /// Standard height of compact interactive controls — chips, steppers,
+  /// segmented bars (40 dp).
+  static const double controlHeight = 40;
+
+  /// Height of a filter chip (32 dp), per the Material 3
+  /// [chip spec](https://m3.material.io/components/chips/specs).
+  static const double chipHeight = 32;
+
+  /// Horizontal inset between a filter chip's edge and its content (16 dp),
+  /// per the Material 3 [chip spec](https://m3.material.io/components/chips/specs).
+  ///
+  /// Half of this ([chipPadding] / 2 = 8 dp) is used for the tighter inset on
+  /// the leading edge when a chip shows its check icon, and for the gap between
+  /// that icon and the label.
+  static const double chipPadding = 16;
 
   /// Tile / chip inner corner radius (4 dp).
   static const double innerBorderRadius = 4;

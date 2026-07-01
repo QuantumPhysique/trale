@@ -216,7 +216,7 @@ class _CustomLineChartState extends State<CustomLineChart>
       context: context,
       style: labelTextStyle,
     );
-    final double margin = QPTheme.of(context)!.padding;
+    const double margin = QPLayout.padding;
 
     List<FlSpot> vectorsToFlSpot(ml.Vector times, ml.Vector weights) {
       return <FlSpot>[
@@ -721,13 +721,13 @@ class _CustomLineChartState extends State<CustomLineChart>
           shape: QPTheme.of(context)!.borderShape,
           margin:
               widget.chartMargin ??
-              EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
+              const EdgeInsets.symmetric(horizontal: QPLayout.padding),
           child: Container(
             height: MediaQuery.of(context).size.height * widget.relativeHeight,
             width: MediaQuery.of(context).size.width,
             padding:
                 widget.chartPadding ??
-                EdgeInsets.fromLTRB(margin, 2 * margin, margin, margin),
+                const EdgeInsets.fromLTRB(margin, 2 * margin, margin, margin),
             child: GestureDetector(
               onDoubleTap: doubleTap,
               //onScaleUpdate: scaleUpdate,
@@ -747,9 +747,7 @@ class _CustomLineChartState extends State<CustomLineChart>
         ),
         if (!widget.isPreview)
           Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: QPTheme.of(context)!.padding,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[

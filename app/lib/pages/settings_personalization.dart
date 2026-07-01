@@ -39,11 +39,11 @@ class _PersonalizationSettingsPageState
     );
 
     final Widget sliderTile = Container(
-      padding: EdgeInsets.fromLTRB(
-        QPTheme.of(context)!.padding,
-        0.5 * QPTheme.of(context)!.padding,
-        QPTheme.of(context)!.padding,
-        0.5 * QPTheme.of(context)!.padding,
+      padding: const EdgeInsets.fromLTRB(
+        QPLayout.padding,
+        QPLayout.smallPadding,
+        QPLayout.padding,
+        QPLayout.smallPadding,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,8 +99,8 @@ class _PersonalizationSettingsPageState
           if (hasEnoughData)
             QPGroupedSwitchListTile(
               color: Theme.of(context).colorScheme.surfaceContainerLowest,
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: QPTheme.of(context)!.padding,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: QPLayout.padding,
               ),
               title: Text(
                 context.l10n.showUserData.inCaps,
@@ -119,9 +119,9 @@ class _PersonalizationSettingsPageState
           ),
         ],
       ),
-      SizedBox(height: 0.5 * QPTheme.of(context)!.padding),
+      const SizedBox(height: QPLayout.smallPadding),
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
         child: Text(
           context.l10n.interpolationExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
@@ -129,7 +129,7 @@ class _PersonalizationSettingsPageState
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
-      SizedBox(height: QPTheme.of(context)!.padding),
+      const SizedBox(height: QPLayout.padding),
       Consumer<TraleNotifier>(
         builder: (BuildContext context, TraleNotifier notifier, _) {
           final ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -154,8 +154,8 @@ class _PersonalizationSettingsPageState
                           ? const StadiumBorder()
                           : null,
                       value: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: QPTheme.of(context)!.padding,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: QPLayout.padding,
                       ),
                       title: Text(
                         context.l10n.interpolation.inCaps,
@@ -170,8 +170,8 @@ class _PersonalizationSettingsPageState
                           ? const StadiumBorder()
                           : null,
                       value: false,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: QPTheme.of(context)!.padding,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: QPLayout.padding,
                       ),
                       title: Text(
                         context.l10n.measurements.inCaps,
@@ -185,15 +185,15 @@ class _PersonalizationSettingsPageState
           );
         },
       ),
-      SizedBox(height: 0.5 * QPTheme.of(context)!.padding),
+      const SizedBox(height: QPLayout.smallPadding),
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
         child: Text(
           context.l10n.statsSourceExplanation,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),
-      SizedBox(height: QPTheme.of(context)!.padding),
+      const SizedBox(height: QPLayout.padding),
       QPWidgetGroup(
         title: context.l10n.unitTitle,
         children: const <Widget>[
@@ -238,9 +238,9 @@ class UnitsListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-        vertical: QPTheme.of(context)!.padding,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: QPLayout.padding,
+        vertical: QPLayout.padding,
       ),
       title: AutoSizeText(
         context.l10n.unit,
@@ -277,9 +277,9 @@ class UnitPrecisionListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-        vertical: QPTheme.of(context)!.padding,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: QPLayout.padding,
+        vertical: QPLayout.padding,
       ),
       title: AutoSizeText(
         context.l10n.precision.inCaps,
@@ -325,9 +325,9 @@ class FirstDayListTile extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         return QPGroupedListTile(
           color: Theme.of(context).colorScheme.surfaceContainerLowest,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: QPTheme.of(context)!.padding,
-            vertical: QPTheme.of(context)!.padding,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: QPLayout.padding,
+            vertical: QPLayout.padding,
           ),
           title: AutoSizeText(
             context.l10n.firstDay,
@@ -375,9 +375,9 @@ class DatePrintListTile extends StatelessWidget {
 
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-        vertical: QPTheme.of(context)!.padding,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: QPLayout.padding,
+        vertical: QPLayout.padding,
       ),
       title: AutoSizeText(
         context.l10n.format,
@@ -418,9 +418,9 @@ class HeightUnitListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-        vertical: QPTheme.of(context)!.padding,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: QPLayout.padding,
+        vertical: QPLayout.padding,
       ),
       title: AutoSizeText(
         context.l10n.heightUnit,

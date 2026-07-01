@@ -24,7 +24,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final double padding = QPTheme.of(context)!.padding;
+      const double padding = QPLayout.padding;
       final Color tileColor = Theme.of(context).colorScheme.surfaceContainerLow;
       final bool isCustom = selectedRange == StatsRange.custom;
 
@@ -68,7 +68,7 @@ Future<bool> showStatsRangeDialog({required BuildContext context}) async {
               ),
             ],
           ),
-          SizedBox(height: padding),
+          const SizedBox(height: padding),
           QPWidgetGroup(
             title: context.l10n.dates,
             children: <Widget>[

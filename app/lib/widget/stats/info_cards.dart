@@ -58,9 +58,9 @@ QPBentoCard bmiCard({
     rowSpan: 3,
     delayInMilliseconds: delayInMilliseconds,
     child: Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-        vertical: QPTheme.of(context)!.padding / 2,
+      padding: const EdgeInsets.symmetric(
+        horizontal: QPLayout.padding,
+        vertical: QPLayout.smallPadding,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

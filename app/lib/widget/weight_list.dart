@@ -240,10 +240,10 @@ class _TotalWeightList extends State<TotalWeightList>
             child: !showBanner
                 ? const SizedBox.shrink()
                 : Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      QPTheme.of(context)!.padding,
-                      QPTheme.of(context)!.padding,
-                      QPTheme.of(context)!.padding,
+                    padding: const EdgeInsets.fromLTRB(
+                      QPLayout.padding,
+                      QPLayout.padding,
+                      QPLayout.padding,
                       0,
                     ),
                     child: Dismissible(
@@ -257,7 +257,7 @@ class _TotalWeightList extends State<TotalWeightList>
                         borderRadius: BorderRadius.circular(4),
                         color: Theme.of(context).colorScheme.inverseSurface,
                         child: Padding(
-                          padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+                          padding: const EdgeInsets.all(QPLayout.padding),
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -267,7 +267,7 @@ class _TotalWeightList extends State<TotalWeightList>
                                 ).colorScheme.onInverseSurface,
                                 size: 20,
                               ),
-                              SizedBox(width: QPTheme.of(context)!.padding),
+                              const SizedBox(width: QPLayout.padding),
                               Expanded(
                                 child: Text(
                                   AppLocalizations.of(
@@ -301,9 +301,7 @@ class _TotalWeightList extends State<TotalWeightList>
               scrollController: widget.scrollController,
               tabController: widget.tabController,
             ),
-            SliverToBoxAdapter(
-              child: SizedBox(height: QPTheme.of(context)!.padding),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: QPLayout.padding)),
           ],
         ],
       ],
@@ -318,7 +316,7 @@ Widget getYearWidget({
   int? delayInMilliseconds,
 }) {
   return Padding(
-    padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+    padding: const EdgeInsets.all(QPLayout.padding),
     child: StatCard(
       pillShape: true,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,

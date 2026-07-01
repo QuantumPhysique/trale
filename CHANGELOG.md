@@ -18,6 +18,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added Health Connect integration to synchronize weight measurements on Android
 - Added quick action to direclty launch app for adding a new weight
 
+### Other Changes:
+- Introduce new M3E ButtonGroups Widget
+
+
 ## [1.1.0] - 2026-06-14
 
 ### Added Features and Improvements 🙌:

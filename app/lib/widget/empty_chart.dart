@@ -21,11 +21,11 @@ Widget emptyChart(BuildContext context, List<InlineSpan> inlineSpan) {
       width: MediaQuery.of(context).size.width,
       child: Card(
         shape: QPTheme.of(context)!.borderShape,
-        margin: EdgeInsets.fromLTRB(
-          QPTheme.of(context)!.padding,
+        margin: const EdgeInsets.fromLTRB(
+          QPLayout.padding,
           0,
-          QPTheme.of(context)!.padding,
-          QPTheme.of(context)!.padding,
+          QPLayout.padding,
+          QPLayout.padding,
         ),
         child: FadeInEffect(
           durationInMilliseconds: animationDurationInMilliseconds,

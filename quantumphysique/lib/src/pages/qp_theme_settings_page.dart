@@ -9,6 +9,7 @@ import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 import 'package:quantumphysique/src/types/strings.dart';
 import 'package:quantumphysique/src/widgets/burger_theme.dart';
+import 'package:quantumphysique/src/widgets/qp_button_group.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
 import 'package:quantumphysique/src/widgets/selection_carousel.dart';
 import 'package:quantumphysique/src/widgets/sliver_app_bar_snap.dart';
@@ -131,7 +132,7 @@ class _DarkModeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double halfPad = QPLayout.padding / 2;
+    const double halfPad = QPLayout.smallPadding;
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
       contentPadding: const EdgeInsets.fromLTRB(
@@ -145,27 +146,16 @@ class _DarkModeListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
-      trailing: SegmentedButton<ThemeMode>(
-        selected: <ThemeMode>{Provider.of<QPNotifier>(context).themeMode},
-        showSelectedIcon: false,
-        segments: <ButtonSegment<ThemeMode>>[
-          for (final ThemeMode mode in _orderedThemeModes)
-            ButtonSegment<ThemeMode>(
-              value: mode,
-              tooltip: _modeName(mode),
-              icon: Icon(
-                _themeModeIcon(
-                  mode,
-                  active: Provider.of<QPNotifier>(context).themeMode == mode,
-                ),
-              ),
-            ),
-        ],
-        onSelectionChanged: (Set<ThemeMode> selected) {
-          if (selected.isNotEmpty) {
-            Provider.of<QPNotifier>(context, listen: false).themeMode =
-                selected.first;
-          }
+      trailing: QPButtonGroup<ThemeMode>(
+        expanded: false,
+        items: _orderedThemeModes,
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        selected: Provider.of<QPNotifier>(context).themeMode,
+        tooltipBuilder: _modeName,
+        labelBuilder: (BuildContext context, ThemeMode mode, bool selected) =>
+            Icon(_themeModeIcon(mode, active: selected)),
+        onSelected: (ThemeMode mode) {
+          Provider.of<QPNotifier>(context, listen: false).themeMode = mode;
         },
       ),
     );
@@ -219,7 +209,7 @@ class _ContrastLevelSetting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double halfPad = QPLayout.padding / 2;
+    const double halfPad = QPLayout.smallPadding;
     final QPNotifier notifier = Provider.of<QPNotifier>(context);
     return QPGroupedWidget(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,

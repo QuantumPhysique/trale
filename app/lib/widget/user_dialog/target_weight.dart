@@ -42,8 +42,8 @@ class TargetWeightGroup extends StatelessWidget {
         // ── Enable / disable toggle ─────────────────────────────────
         QPGroupedListTile(
           color: tileColor,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: QPTheme.of(context)!.padding,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: QPLayout.padding,
           ),
           leading: PPIcon(PhosphorIconsDuotone.target, context),
           title: Text(
@@ -235,7 +235,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
               QPGroupedWidget(
                 color: tileColor,
                 child: Padding(
-                  padding: EdgeInsets.all(QPTheme.of(context)!.padding),
+                  padding: const EdgeInsets.all(QPLayout.padding),
                   child: Text(
                     context.l10n.targetWeightRateAdvice,
                     style: Theme.of(context).textTheme.bodyMedium!.apply(
@@ -247,8 +247,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
               ),
               QPGroupedListTile(
                 color: tileColor,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: QPTheme.of(context)!.padding,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: QPLayout.padding,
                 ),
                 leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
                 title: Text(
@@ -271,16 +271,16 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
             ],
           ),
           if (targetDateEnabled) ...<Widget>[
-            SizedBox(height: QPTheme.of(context)!.padding),
+            const SizedBox(height: QPLayout.padding),
             QPWidgetGroup(
               children: <Widget>[
                 QPGroupedWidget(
                   color: Theme.of(context).colorScheme.secondary,
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    padding: EdgeInsets.only(
-                      top: 0.75 * QPTheme.of(context)!.padding,
-                      bottom: 0.5 * QPTheme.of(context)!.padding,
+                    padding: const EdgeInsets.only(
+                      top: (QPLayout.padding + QPLayout.smallPadding) / 2,
+                      bottom: QPLayout.smallPadding,
                     ),
                     child: Text(
                       '${context.l10n.targetWeightRate} '
@@ -299,13 +299,13 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                 QPGroupedWidget(
                   color: tileColor,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: QPTheme.of(context)!.padding,
-                      horizontal: QPTheme.of(context)!.padding,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: QPLayout.padding,
+                      horizontal: QPLayout.padding,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: QPTheme.of(context)!.padding,
+                      spacing: QPLayout.padding,
                       children: <Widget>[
                         IconButton.filledTonal(
                           onPressed: () {
@@ -335,7 +335,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                             style: Theme.of(
                               context,
                             ).textTheme.monospace.titleLarge,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               // filled: true,
                               // fillColor: Theme.of(
                               //   context,
@@ -348,8 +348,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                               // ),
                               border: InputBorder.none,
                               contentPadding: EdgeInsets.symmetric(
-                                horizontal: QPTheme.of(context)!.padding / 2,
-                                vertical: QPTheme.of(context)!.padding / 2,
+                                horizontal: QPLayout.smallPadding,
+                                vertical: QPLayout.smallPadding,
                               ),
                             ),
                             onChanged: (String value) {

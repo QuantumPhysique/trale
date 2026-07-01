@@ -341,9 +341,9 @@ Future<bool> importBackup(BuildContext context) async {
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 2,
-                              horizontal: QPTheme.of(context)!.padding,
+                              horizontal: QPLayout.padding,
                             ),
                             child: AutoSizeText(
                               MeasurementFormatter.fromContext(
@@ -360,7 +360,7 @@ Future<bool> importBackup(BuildContext context) async {
                     ),
                   ),
                 ),
-                Divider(height: 2 * QPTheme.of(context)!.padding),
+                const Divider(height: 2 * QPLayout.padding),
                 Text(
                   context.l10n.importDialog,
                   style: Theme.of(context).textTheme.bodyLarge,

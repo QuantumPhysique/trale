@@ -89,7 +89,7 @@ class _ExportSettingsPageState extends State<ExportSettingsPage> {
         ),
       ),
       Container(
-        padding: EdgeInsets.symmetric(horizontal: QPTheme.of(context)!.padding),
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
         child: QPWidgetGroup(
           children: <QPGroupedText>[
             for (final String fmt in <String>[
@@ -131,9 +131,9 @@ class BackupIntervalListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return QPGroupedListTile(
       color: Theme.of(context).colorScheme.surfaceContainerLowest,
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-        vertical: QPTheme.of(context)!.padding,
+      contentPadding: const EdgeInsets.symmetric(
+        horizontal: QPLayout.padding,
+        vertical: QPLayout.padding,
       ),
       title: AutoSizeText(
         context.l10n.backupInterval,
@@ -179,9 +179,7 @@ class ExportListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
       subtitle: AutoSizeText(
         context.l10n.exportSubtitle,
         style: Theme.of(context).textTheme.labelSmall,
@@ -217,9 +215,7 @@ class ImportListTile extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyLarge,
         maxLines: 1,
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
       subtitle: AutoSizeText(
         context.l10n.importSubtitle,
         style: Theme.of(context).textTheme.labelSmall,
@@ -255,9 +251,7 @@ class ResetListTile extends StatelessWidget {
         ),
         maxLines: 1,
       ),
-      contentPadding: EdgeInsets.symmetric(
-        horizontal: QPTheme.of(context)!.padding,
-      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
       subtitle: AutoSizeText(
         context.l10n.factoryResetSubtitle,
         style: Theme.of(context).textTheme.labelSmall!.apply(
