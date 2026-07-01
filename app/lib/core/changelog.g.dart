@@ -10,13 +10,18 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.2.0',
+    dateString: '2026-07-01',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Added Health Connect integration to synchronize weight measurements on Android',
-        'Added quick action to direclty launch app for adding a new weight',
+        'Added quick action to add a new weight even faster',
       ],
       ChangelogSection.otherChanges: <String>[
         'Introduce new M3E ButtonGroups Widget',
+        'Improved translation',
       ],
     },
   ),
