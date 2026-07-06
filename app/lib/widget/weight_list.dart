@@ -187,10 +187,12 @@ class _TotalWeightList extends State<TotalWeightList>
     for (final SortedMeasurement m in measurements) {
       final DateTime date = m.measurement.date;
       final _YearMonth key = (date.year, date.month);
-      measurementsPerMonth.putIfAbsent(key, () {
-        monthKeys.add(key);
-        return <SortedMeasurement>[];
-      }).add(m);
+      measurementsPerMonth
+          .putIfAbsent(key, () {
+            monthKeys.add(key);
+            return <SortedMeasurement>[];
+          })
+          .add(m);
     }
 
     final List<_YearMonth> visibleKeys = <_YearMonth>[
