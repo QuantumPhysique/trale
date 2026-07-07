@@ -51,11 +51,11 @@ class _TotalWeightList extends State<TotalWeightList>
   Timer? _bannerTimer;
   late final AnimationController _bannerController;
 
-  /// Currently selected year filter, or null for all years.
-  int? _selectedYear;
+  /// Currently selected year filters; empty means all years.
+  final Set<int> _selectedYears = <int>{};
 
-  /// Currently selected month (1-12) filter, or null for all months.
-  int? _selectedMonth;
+  /// Currently selected month (1-12) filters; empty means all months.
+  final Set<int> _selectedMonths = <int>{};
 
   void onTabChangeEvent() => WeightListTile.collapseOpen();
 
@@ -104,12 +104,19 @@ class _TotalWeightList extends State<TotalWeightList>
     super.dispose();
   }
 
-  /// Whether any measured month matches [year] and [month] filters.
-  bool _hasMatch(List<_YearMonth> monthKeys, int? year, int? month) =>
-      monthKeys.any(
-        (_YearMonth k) =>
-            (year == null || k.$1 == year) && (month == null || k.$2 == month),
-      );
+  /// Whether [month] occurs in any measured month matching the selected
+  /// years (all years if none is selected).
+  bool _hasMatch(List<_YearMonth> monthKeys, int month) => monthKeys.any(
+    (_YearMonth k) =>
+        (_selectedYears.isEmpty || _selectedYears.contains(k.$1)) &&
+        k.$2 == month,
+  );
+
+  /// Whether [key] passes the selected year and month filters; an empty
+  /// selection matches everything.
+  bool _isVisible(_YearMonth key) =>
+      (_selectedYears.isEmpty || _selectedYears.contains(key.$1)) &&
+      (_selectedMonths.isEmpty || _selectedMonths.contains(key.$2));
 
   Widget _buildFilterChips(BuildContext context, List<_YearMonth> monthKeys) {
     final String locale = Localizations.localeOf(context).toString();
@@ -123,7 +130,7 @@ class _TotalWeightList extends State<TotalWeightList>
 
     final List<int> availableMonths = <int>[
       for (int month = 1; month <= 12; month++)
-        if (_hasMatch(monthKeys, _selectedYear, month)) month,
+        if (_hasMatch(monthKeys, month)) month,
     ];
 
     return Padding(
@@ -142,13 +149,14 @@ class _TotalWeightList extends State<TotalWeightList>
               for (final int year in years)
                 QPFilterChip(
                   label: '$year',
-                  selected: _selectedYear == year,
+                  selected: _selectedYears.contains(year),
                   onTap: () => setState(() {
-                    _selectedYear = _selectedYear == year ? null : year;
-                    if (_selectedMonth != null &&
-                        !_hasMatch(monthKeys, _selectedYear, _selectedMonth)) {
-                      _selectedMonth = null;
+                    if (!_selectedYears.remove(year)) {
+                      _selectedYears.add(year);
                     }
+                    _selectedMonths.removeWhere(
+                      (int month) => !_hasMatch(monthKeys, month),
+                    );
                   }),
                 ),
             ],
@@ -160,9 +168,11 @@ class _TotalWeightList extends State<TotalWeightList>
               for (final int month in availableMonths)
                 QPFilterChip(
                   label: _monthName(locale, month),
-                  selected: _selectedMonth == month,
+                  selected: _selectedMonths.contains(month),
                   onTap: () => setState(() {
-                    _selectedMonth = _selectedMonth == month ? null : month;
+                    if (!_selectedMonths.remove(month)) {
+                      _selectedMonths.add(month);
+                    }
                   }),
                 ),
             ],
@@ -197,9 +207,7 @@ class _TotalWeightList extends State<TotalWeightList>
 
     final List<_YearMonth> visibleKeys = <_YearMonth>[
       for (final _YearMonth key in monthKeys)
-        if ((_selectedYear == null || key.$1 == _selectedYear) &&
-            (_selectedMonth == null || key.$2 == _selectedMonth))
-          key,
+        if (_isVisible(key)) key,
     ];
 
     return CustomScrollView(
