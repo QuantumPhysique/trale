@@ -106,6 +106,10 @@ app/lib/l10n-gen
 # Coverage
 coverage/
 
+# Screenshots captured by the default integration-test driver.
+# The curated marketing shots in /screenshots/ are tracked on purpose.
+app/screenshots/
+
 # Submodules
 pubspec.lock
 packages//pubspec.lock
