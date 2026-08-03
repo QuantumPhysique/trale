@@ -190,7 +190,7 @@
     "@weight": {
         "description": "weight"
     },
-    "defaultLang": "Järjestelmäoletus",
+    "defaultLang": "Järjestelmän oletus",
     "@defaultLang": {
         "description": "System default language."
     },
