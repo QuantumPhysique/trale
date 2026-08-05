@@ -380,10 +380,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_m3shapes_extended
-      sha256: "93258d82efcc72c249f69b0fd991b535d5a2da99a5dd1aa77af07a6b4f86600f"
+      sha256: "35d650d68f9f6c5997f237bd55b64e77de5346ade25835210381e94fddfc3e0c"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
