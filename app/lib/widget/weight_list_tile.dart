@@ -45,7 +45,7 @@ class _WeightListTileState extends State<WeightListTile>
   static const Cubic _kExpressive = Cubic(0.39, 1.21, 0.22, 1.0);
 
   late final AnimationController _ctrl;
-  late final Animation<double> _reveal;
+  late final CurvedAnimation _reveal;
 
   // Cached tear-off so the registry can compare collapse callbacks by
   // identity.
@@ -53,6 +53,9 @@ class _WeightListTileState extends State<WeightListTile>
 
   // The scroll view this tile lives in; scrolling it collapses the reveal.
   ScrollPosition? _scrollPosition;
+
+  // Whether _onScroll is currently subscribed to _scrollPosition.
+  bool _listeningToScroll = false;
 
   final MeasurementDatabase database = MeasurementDatabase();
 
@@ -74,30 +77,51 @@ class _WeightListTileState extends State<WeightListTile>
     super.didChangeDependencies();
     final ScrollPosition? pos = Scrollable.maybeOf(context)?.position;
     if (pos != _scrollPosition) {
-      _scrollPosition?.isScrollingNotifier.removeListener(_onScroll);
+      final bool wasListening = _listeningToScroll;
+      _setScrollListening(false);
       _scrollPosition = pos;
-      _scrollPosition?.isScrollingNotifier.addListener(_onScroll);
+      _setScrollListening(wasListening);
     }
   }
 
   @override
   void dispose() {
-    _scrollPosition?.isScrollingNotifier.removeListener(_onScroll);
+    _setScrollListening(false);
     _ctrl.removeStatusListener(_onStatus);
     _RevealRegistry.instance.unregister(_collapse);
+    _reveal.dispose();
     _ctrl.dispose();
     super.dispose();
   }
 
-  // Keeps the global registry in sync with this tile's reveal state, so that
-  // opening another tile collapses this one (and vice versa).
+  // Only the revealed tile reacts to scrolling, so the subscription follows
+  // the reveal rather than the tile's lifetime — every built tile shares one
+  // ScrollPosition, and a whole month of always-subscribed tiles would fire
+  // a no-op callback each on every scroll start and stop.
+  void _setScrollListening(bool listening) {
+    if (listening == _listeningToScroll) {
+      return;
+    }
+    _listeningToScroll = listening;
+    if (listening) {
+      _scrollPosition?.isScrollingNotifier.addListener(_onScroll);
+    } else {
+      _scrollPosition?.isScrollingNotifier.removeListener(_onScroll);
+    }
+  }
+
+  // Keeps the global registry and the scroll subscription in sync with this
+  // tile's reveal state, so that opening another tile collapses this one
+  // (and vice versa).
   void _onStatus(AnimationStatus status) {
     switch (status) {
       case AnimationStatus.forward:
       case AnimationStatus.completed:
         _RevealRegistry.instance.register(_collapse);
+        _setScrollListening(true);
       case AnimationStatus.dismissed:
         _RevealRegistry.instance.unregister(_collapse);
+        _setScrollListening(false);
       case AnimationStatus.reverse:
         break;
     }
@@ -194,6 +218,7 @@ class _WeightListTileState extends State<WeightListTile>
                           Expanded(
                             child: _ActionButton(
                               icon: PhosphorIconsFill.trash,
+                              label: context.l10n.delete,
                               onTap: _delete,
                               color: cs.tertiaryContainer,
                               iconColor: cs.onTertiaryContainer,
@@ -203,6 +228,7 @@ class _WeightListTileState extends State<WeightListTile>
                           Expanded(
                             child: _ActionButton(
                               icon: PhosphorIconsFill.pencilSimple,
+                              label: context.l10n.edit,
                               onTap: _edit,
                               color: cs.secondaryContainer,
                               iconColor: cs.onSecondaryContainer,
@@ -278,27 +304,38 @@ class _RevealRegistry {
   }
 }
 
-/// A tonal pill with an icon shown when a tile's actions are revealed.
+/// A tonal circular icon button shown when a tile's actions are revealed.
 class _ActionButton extends StatelessWidget {
   const _ActionButton({
     required this.icon,
+    required this.label,
     required this.onTap,
     required this.color,
     required this.iconColor,
   });
 
   final IconData icon;
+
+  /// Describes the action for screen readers and the long-press tooltip;
+  /// the button itself is icon-only.
+  final String label;
+
   final VoidCallback onTap;
   final Color color;
   final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        child: Center(child: Icon(icon, color: iconColor)),
+    return Tooltip(
+      message: label,
+      child: Material(
+        color: color,
+        shape: const CircleBorder(),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Center(child: Icon(icon, color: iconColor)),
+        ),
       ),
     );
   }

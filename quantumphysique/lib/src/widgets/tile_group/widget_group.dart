@@ -122,5 +122,113 @@ class QPWidgetGroup extends StatelessWidget {
   }
 }
 
+/// Lazy sliver equivalent of [QPWidgetGroup].
+///
+/// [QPWidgetGroup] materialises every child up front, which is wasteful for
+/// long groups inside a [CustomScrollView]. This builds its tiles on demand
+/// through [itemBuilder], so only the tiles the viewport (and cache extent)
+/// actually needs are built.
+///
+/// The result is visually identical: the outer corners of the first and last
+/// tile are rounded to [QPLayout.borderRadius] — matching the clip
+/// [QPWidgetGroup] gets from its enclosing [Card] — while inner corners stay
+/// at [QPLayout.innerBorderRadius] and tiles are separated by [QPLayout.space].
+class QPSliverWidgetGroup extends StatelessWidget {
+  /// Creates a [QPSliverWidgetGroup].
+  const QPSliverWidgetGroup({
+    super.key,
+    required this.itemBuilder,
+    required this.itemCount,
+    this.title,
+    this.titleStyle,
+    this.titleTrailing,
+  });
+
+  /// Builds the tile at a given index.
+  final IndexedWidgetBuilder itemBuilder;
+
+  /// Number of tiles in the group.
+  final int itemCount;
+
+  /// Optional title shown above the group.
+  final String? title;
+
+  /// TextStyle for the title.
+  final TextStyle? titleStyle;
+
+  /// Optional widget rendered at the top-right of the title row. When set,
+  /// the title row is shown even if [title] is null.
+  final Widget? titleTrailing;
+
+  @override
+  Widget build(BuildContext context) {
+    const double padding = QPLayout.padding;
+
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(vertical: 0.5 * padding),
+      sliver: SliverMainAxisGroup(
+        slivers: <Widget>[
+          if (title != null || titleTrailing != null)
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 0.5 * padding,
+                  bottom: 0.5 * padding,
+                  left: 0.5 * padding,
+                ),
+                child: Row(
+                  children: <Widget>[
+                    if (title != null)
+                      Text(
+                        _inCaps(title!),
+                        style:
+                            titleStyle ??
+                            Theme.of(
+                              context,
+                            ).textTheme.emphasized.titleMedium?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                    if (titleTrailing != null) ...<Widget>[
+                      const Spacer(),
+                      titleTrailing!,
+                    ],
+                  ],
+                ),
+              ),
+            ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((
+              BuildContext context,
+              int index,
+            ) {
+              final bool isFirst = index == 0;
+              final bool isLast = index == itemCount - 1;
+              return Padding(
+                padding: EdgeInsets.only(bottom: isLast ? 0 : QPLayout.space),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(
+                      isFirst
+                          ? QPLayout.borderRadius
+                          : QPLayout.innerBorderRadius,
+                    ),
+                    bottom: Radius.circular(
+                      isLast
+                          ? QPLayout.borderRadius
+                          : QPLayout.innerBorderRadius,
+                    ),
+                  ),
+                  child: itemBuilder(context, index),
+                ),
+              );
+            }, childCount: itemCount),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 String _inCaps(String s) =>
     s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : s;

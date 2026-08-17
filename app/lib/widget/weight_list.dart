@@ -118,7 +118,17 @@ class _TotalWeightList extends State<TotalWeightList>
       (_selectedYears.isEmpty || _selectedYears.contains(key.$1)) &&
       (_selectedMonths.isEmpty || _selectedMonths.contains(key.$2));
 
-  Widget _buildFilterChips(BuildContext context, List<_YearMonth> monthKeys) {
+  /// Two rows of year and month filter chips.
+  ///
+  /// The rows carry no titles on purpose: four-digit years and month names
+  /// are self-describing, and a title here would be styled exactly like the
+  /// [QPWidgetGroup] month headings below, making controls and content
+  /// indistinguishable. Hidden entirely while there is nothing to filter.
+  Widget _buildFilterBar(BuildContext context, List<_YearMonth> monthKeys) {
+    if (monthKeys.length < 2) {
+      return const SizedBox.shrink();
+    }
+
     final String locale = Localizations.localeOf(context).toString();
 
     final List<int> years = <int>[];
@@ -143,27 +153,28 @@ class _TotalWeightList extends State<TotalWeightList>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          // A lone year chip filters nothing — every measurement is in it.
+          if (years.length > 1) ...<Widget>[
+            QPFilterChipBar(
+              children: <Widget>[
+                for (final int year in years)
+                  QPFilterChip(
+                    label: '$year',
+                    selected: _selectedYears.contains(year),
+                    onTap: () => setState(() {
+                      if (!_selectedYears.remove(year)) {
+                        _selectedYears.add(year);
+                      }
+                      _selectedMonths.removeWhere(
+                        (int month) => !_hasMatch(monthKeys, month),
+                      );
+                    }),
+                  ),
+              ],
+            ),
+            const SizedBox(height: QPLayout.smallPadding),
+          ],
           QPFilterChipBar(
-            title: context.l10n.years,
-            children: <Widget>[
-              for (final int year in years)
-                QPFilterChip(
-                  label: '$year',
-                  selected: _selectedYears.contains(year),
-                  onTap: () => setState(() {
-                    if (!_selectedYears.remove(year)) {
-                      _selectedYears.add(year);
-                    }
-                    _selectedMonths.removeWhere(
-                      (int month) => !_hasMatch(monthKeys, month),
-                    );
-                  }),
-                ),
-            ],
-          ),
-          const SizedBox(height: QPLayout.smallPadding),
-          QPFilterChipBar(
-            title: context.l10n.months,
             children: <Widget>[
               for (final int month in availableMonths)
                 QPFilterChip(
@@ -204,6 +215,15 @@ class _TotalWeightList extends State<TotalWeightList>
           })
           .add(m);
     }
+
+    // Drop selections whose data no longer exists — deleting the last
+    // measurement of a selected year removes its chip, which would otherwise
+    // leave a filter active with nothing left to switch it off. Years first,
+    // since _hasMatch reads the year selection.
+    _selectedYears.retainWhere(
+      (int year) => monthKeys.any((_YearMonth k) => k.$1 == year),
+    );
+    _selectedMonths.retainWhere((int m) => _hasMatch(monthKeys, m));
 
     final List<_YearMonth> visibleKeys = <_YearMonth>[
       for (final _YearMonth key in monthKeys)
@@ -288,21 +308,23 @@ class _TotalWeightList extends State<TotalWeightList>
                   ),
           ),
         ),
-        SliverToBoxAdapter(child: _buildFilterChips(context, monthKeys)),
+        SliverToBoxAdapter(child: _buildFilterBar(context, monthKeys)),
         for (final _YearMonth key in visibleKeys)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
-              child: QPWidgetGroup(
-                title: '${key.$1} - ${_monthName(locale, key.$2)}',
-                children: <Widget>[
-                  for (final SortedMeasurement m in measurementsPerMonth[key]!)
-                    WeightListTile(
-                      key: ValueKey<Object?>(m.key),
-                      measurement: m,
-                    ),
-                ],
-              ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
+            // Sliver rather than box group: a month holds up to ~31 tiles and
+            // there is one group per month, so building them all up front
+            // would materialise the entire history on every rebuild.
+            sliver: QPSliverWidgetGroup(
+              title: '${key.$1} - ${_monthName(locale, key.$2)}',
+              itemCount: measurementsPerMonth[key]!.length,
+              itemBuilder: (BuildContext context, int index) {
+                final SortedMeasurement m = measurementsPerMonth[key]![index];
+                return WeightListTile(
+                  key: ValueKey<Object?>(m.key),
+                  measurement: m,
+                );
+              },
             ),
           ),
         const SliverToBoxAdapter(child: SizedBox(height: QPLayout.padding)),
