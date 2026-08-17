@@ -50,18 +50,18 @@ void main() {
     expect(clips.length, 3);
     const Radius outer = Radius.circular(QPLayout.borderRadius);
     const Radius inner = Radius.circular(QPLayout.innerBorderRadius);
-    expect(clips.first.borderRadius, const BorderRadius.vertical(
-      top: outer,
-      bottom: inner,
-    ));
-    expect(clips[1].borderRadius, const BorderRadius.vertical(
-      top: inner,
-      bottom: inner,
-    ));
-    expect(clips.last.borderRadius, const BorderRadius.vertical(
-      top: inner,
-      bottom: outer,
-    ));
+    expect(
+      clips.first.borderRadius,
+      const BorderRadius.vertical(top: outer, bottom: inner),
+    );
+    expect(
+      clips[1].borderRadius,
+      const BorderRadius.vertical(top: inner, bottom: inner),
+    );
+    expect(
+      clips.last.borderRadius,
+      const BorderRadius.vertical(top: inner, bottom: outer),
+    );
   });
 
   testWidgets('single tile is rounded on all corners', (
