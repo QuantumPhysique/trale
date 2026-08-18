@@ -53,8 +53,17 @@ class Measurement {
   int get dateInMs => date.millisecondsSinceEpoch;
 
   /// return string for export
-  String get exportString =>
-      '${date.toIso8601String()} ${weight.toStringAsFixed(10)}';
+  ///
+  /// The date is truncated to millisecond precision so that exports always
+  /// use the same number of fractional digits.
+  String get exportString {
+    final DateTime truncatedDate = DateTime.fromMillisecondsSinceEpoch(
+      date.millisecondsSinceEpoch,
+      isUtc: date.isUtc,
+    );
+    return '${truncatedDate.toIso8601String()} '
+        '${weight.toStringAsFixed(10)}';
+  }
 
   /// Parses a [Measurement] from an [exportString] produced by [exportString].
   ///
