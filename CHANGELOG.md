@@ -18,6 +18,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Reworked the measurement list: entries are now grouped by month and can be
   filtered by year and month
 
+### Bugfix 🐛:
+- Fixed export writing microseconds in the timestamp of the latest measurement
+
 
 ## [1.2.0] - 2026-07-01
 
