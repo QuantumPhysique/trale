@@ -14,6 +14,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'Reworked the measurement list: entries are now grouped by month and can be filtered by year and month',
       ],
+      ChangelogSection.bugfix: <String>[
+        'Fixed export writing microseconds in the timestamp of the latest measurement',
+      ],
     },
   ),
   ChangelogEntry(

@@ -148,6 +148,14 @@ void main() {
       final List<String> parts = export.split(' ');
       expect(parts.length, 2);
     });
+
+    test('truncates microseconds to millisecond precision', () {
+      final Measurement m = Measurement(
+        weight: 73.8,
+        date: DateTime(2026, 7, 15, 12, 13, 59, 170, 608),
+      );
+      expect(m.exportString, '2026-07-15T12:13:59.170 73.8000000000');
+    });
   });
 
   group('Measurement.fromString', () {
