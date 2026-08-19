@@ -25,6 +25,16 @@ dependencies:
   timezone: ^0.11.0
   url_launcher: ^6.3.2
 
+# Development-only (consumers ignore dependency_overrides): phosphor_flutter
+# 2.1.0 as published does not compile against the current Flutter, which
+# otherwise breaks `flutter test` in this package. Consumers such as adonify
+# already carry the same override.
+dependency_overrides:
+  phosphor_flutter:
+    git:
+      url: https://github.com/subarnaPdl/phosphor_icons.git
+      ref: 514f0a883571c4453dbd6ee3041d1dcba4fb8fc7
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
