@@ -50,22 +50,12 @@ abstract class QPNotificationService {
 
     // Timezone setup.
     tz.initializeTimeZones();
-    try {
-      tz.setLocalLocation(tz.getLocation(DateTime.now().timeZoneName));
-    } catch (e) {
-      QPAppLogger.warning(
-        'Could not resolve timezone name, falling back to offset',
-        tag: 'QPNotifications',
-        error: e,
-      );
-      final int offsetMs = DateTime.now().timeZoneOffset.inMilliseconds;
-      final tz.Location fallback = tz.timeZoneDatabase.locations.values
-          .firstWhere(
-            (tz.Location l) => l.currentTimeZone.offset == offsetMs,
-            orElse: () => tz.UTC,
-          );
-      tz.setLocalLocation(fallback);
-    }
+    final tz.Location localLocation = resolveLocalLocation(DateTime.now());
+    tz.setLocalLocation(localLocation);
+    QPAppLogger.debug(
+      'Local time zone resolved to "${localLocation.name}"',
+      tag: 'QPNotifications',
+    );
 
     final AndroidInitializationSettings androidInit =
         AndroidInitializationSettings(androidIconName);
@@ -82,6 +72,141 @@ abstract class QPNotificationService {
     await _plugin.getNotificationAppLaunchDetails();
 
     _initialised = true;
+  }
+
+  /// Number of days probed when matching the device time zone against the
+  /// IANA database. Spans more than a year so that every daylight saving
+  /// transition the device observes is covered.
+  static const int _timeZoneProbeDays = 400;
+
+  /// Interval between probes, in hours. Daylight saving transitions happen
+  /// at different hours in different regions, so sub-day resolution is
+  /// needed to tell otherwise similar zones apart.
+  static const int _timeZoneProbeIntervalHours = 6;
+
+  /// Resolves the [tz.Location] to use as the device's local time zone.
+  ///
+  /// `DateTime.timeZoneName` reports an abbreviation on most platforms
+  /// (`CEST`, `PST`, …) rather than an IANA identifier, so it cannot simply
+  /// be handed to [tz.getLocation]. A few abbreviations *are* database
+  /// entries but carry different rules — `EST` is a fixed UTC-5 zone that
+  /// never observes daylight saving — so even a name that does resolve has
+  /// to be verified before it is trusted.
+  ///
+  /// Candidates are therefore checked against the UTC offsets Dart itself
+  /// reports for the coming [_timeZoneProbeDays] days: the first location
+  /// that agrees on all of them keeps the same wall clock as the device, so
+  /// scheduling against it lands on the intended minute. The chosen name may
+  /// differ from the device's own (`Africa/Ceuta` rather than
+  /// `Europe/Berlin`, say) — only the offsets and transition instants matter
+  /// here.
+  ///
+  /// Falls back to the closest partial match and finally to a synthetic
+  /// fixed-offset zone, so the result is never silently UTC.
+  ///
+  /// Exposed for apps that manage their own notification plugin rather than
+  /// subclassing this service.
+  static tz.Location resolveLocalLocation(DateTime now) {
+    final List<int> probeAt = <int>[];
+    final List<int> probeOffsetMs = <int>[];
+    const Duration step = Duration(hours: _timeZoneProbeIntervalHours);
+    final int probeCount =
+        _timeZoneProbeDays * 24 ~/ _timeZoneProbeIntervalHours;
+    DateTime probe = now;
+    for (int i = 0; i <= probeCount; i++) {
+      probeAt.add(probe.millisecondsSinceEpoch);
+      probeOffsetMs.add(probe.timeZoneOffset.inMilliseconds);
+      probe = probe.add(step);
+    }
+
+    int matchingProbes(tz.Location location) {
+      int matches = 0;
+      for (int i = 0; i < probeAt.length; i++) {
+        if (location.timeZone(probeAt[i]).offset.inMilliseconds ==
+            probeOffsetMs[i]) {
+          matches++;
+        }
+      }
+      return matches;
+    }
+
+    tz.Location? best;
+    int bestMatches = 0;
+
+    // Platforms that do report an IANA identifier keep their own name, as
+    // long as it actually behaves like the device's zone.
+    try {
+      final tz.Location named = tz.getLocation(now.timeZoneName);
+      final int matches = matchingProbes(named);
+      if (matches == probeAt.length) {
+        return named;
+      }
+      best = named;
+      bestMatches = matches;
+    } on tz.LocationNotFoundException {
+      // Expected whenever the platform reports an abbreviation.
+    }
+
+    for (final tz.Location candidate in tz.timeZoneDatabase.locations.values) {
+      // Skip the ~95% of zones that do not even agree on the current
+      // offset before paying for a full probe sweep.
+      if (candidate.timeZone(probeAt.first).offset.inMilliseconds !=
+          probeOffsetMs.first) {
+        continue;
+      }
+      final int matches = matchingProbes(candidate);
+      if (matches > bestMatches) {
+        best = candidate;
+        bestMatches = matches;
+        if (matches == probeAt.length) {
+          break;
+        }
+      }
+    }
+
+    if (best != null && bestMatches > 0) {
+      if (bestMatches < probeAt.length) {
+        QPAppLogger.warning(
+          'No exact time zone match for "${now.timeZoneName}"; using '
+          '"${best.name}" ($bestMatches/${probeAt.length} probes)',
+          tag: 'QPNotifications',
+        );
+      }
+      return best;
+    }
+
+    QPAppLogger.warning(
+      'Could not match "${now.timeZoneName}" against the time zone '
+      'database; falling back to a fixed offset',
+      tag: 'QPNotifications',
+    );
+    return _fixedOffsetLocation(now.timeZoneOffset);
+  }
+
+  /// Builds a [tz.Location] with a constant [offset] and no daylight saving.
+  ///
+  /// Last resort for devices whose zone is missing from the bundled
+  /// database: reminders stay correct until the next transition instead of
+  /// being scheduled against UTC.
+  static tz.Location _fixedOffsetLocation(Duration offset) {
+    final String name = _fixedOffsetName(offset);
+    return tz.Location(name, <int>[tz.minTime], <int>[0], <tz.TimeZone>[
+      tz.TimeZone(offset, isDst: false, abbreviation: name),
+    ]);
+  }
+
+  /// Formats [offset] as a zone name such as `UTC+02:00`.
+  static String _fixedOffsetName(Duration offset) {
+    if (offset == Duration.zero) {
+      return 'UTC';
+    }
+    final Duration magnitude = offset.abs();
+    final String sign = offset.isNegative ? '-' : '+';
+    final String hours = magnitude.inHours.toString().padLeft(2, '0');
+    final String minutes = (magnitude.inMinutes % Duration.minutesPerHour)
+        .toString()
+        .padLeft(2, '0');
+    return 'UTC$sign$hours:$minutes';
   }
 
   // ---------------------------------------------------------------------------

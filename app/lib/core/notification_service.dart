@@ -47,27 +47,18 @@ class NotificationService {
       return;
     }
 
-    // Timezone setup.
+    // Timezone setup. `DateTime.timeZoneName` reports an abbreviation
+    // ("CEST"), not an IANA identifier, and a few abbreviations that do
+    // resolve carry the wrong rules, so let quantumphysique match the zone
+    // by the offsets Dart itself reports.
     tz.initializeTimeZones();
-    try {
-      // On Android, timeZoneName returns IANA identifiers (e.g. "Europe/Berlin").
-      tz.setLocalLocation(tz.getLocation(DateTime.now().timeZoneName));
-    } catch (e) {
-      // Fallback: find a location whose current UTC offset matches the device.
-      QPAppLogger.warning(
-        'Could not resolve timezone name, falling back to offset',
-        tag: 'Notifications',
-        error: e,
-      );
-      final int offsetMs = DateTime.now().timeZoneOffset.inMilliseconds;
-      final tz.Location fallback = tz.timeZoneDatabase.locations.values
-          .firstWhere(
-            (tz.Location l) =>
-                l.currentTimeZone.offset.inMilliseconds == offsetMs,
-            orElse: () => tz.UTC,
-          );
-      tz.setLocalLocation(fallback);
-    }
+    final tz.Location localLocation =
+        QPNotificationService.resolveLocalLocation(DateTime.now());
+    tz.setLocalLocation(localLocation);
+    QPAppLogger.debug(
+      'Local time zone resolved to "${localLocation.name}"',
+      tag: 'Notifications',
+    );
 
     // Plugin setup – use the monochrome trale icon for the notification tray.
     const AndroidInitializationSettings androidInit =

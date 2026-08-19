@@ -22,6 +22,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Bugfix 🐛:
 - Fixed export writing microseconds in the timestamp of the latest measurement
+- Fixed reminders firing at the wrong hour: the device time zone was matched
+  against the time zone database by its abbreviation, which either failed
+  outright or picked a zone with the wrong daylight saving rules
 
 
 ## [1.2.0] - 2026-07-01

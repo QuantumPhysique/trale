@@ -9,12 +9,12 @@ import 'package:trale/widget/stats_widgets.dart';
 /// Shapes used for the trale icon card — cycled on tap.
 const List<Shapes> _iconHeroShapes = <Shapes>[
   Shapes.sunny,
-  Shapes.c4_sided_cookie,
-  Shapes.c6_sided_cookie,
-  Shapes.c7_sided_cookie,
-  Shapes.c9_sided_cookie,
-  Shapes.c12_sided_cookie,
-  Shapes.l4_leaf_clover,
+  Shapes.c4SidedCookie,
+  Shapes.c6SidedCookie,
+  Shapes.c7SidedCookie,
+  Shapes.c9SidedCookie,
+  Shapes.c12SidedCookie,
+  Shapes.l4LeafClover,
   Shapes.gem,
 ];
 

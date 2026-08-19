@@ -29,7 +29,7 @@ QPBentoCard currentStreakCard({
     textColor: Theme.of(context).colorScheme.onPrimaryContainer,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
-    m3eShape: Shapes.c12_sided_cookie,
+    m3eShape: Shapes.c12SidedCookie,
     rotateDuration: const Duration(seconds: 60),
   );
 }

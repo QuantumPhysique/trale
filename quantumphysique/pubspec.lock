@@ -328,10 +328,11 @@ packages:
   phosphor_flutter:
     dependency: "direct main"
     description:
-      name: phosphor_flutter
-      sha256: "8a14f238f28a0b54842c5a4dc20676598dd4811fcba284ed828bd5a262c11fde"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: "514f0a883571c4453dbd6ee3041d1dcba4fb8fc7"
+      resolved-ref: "514f0a883571c4453dbd6ee3041d1dcba4fb8fc7"
+      url: "https://github.com/subarnaPdl/phosphor_icons.git"
+    source: git
     version: "2.1.0"
   platform:
     dependency: transitive
