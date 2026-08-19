@@ -103,7 +103,9 @@ abstract class QPNotificationService {
   ///
   /// Falls back to the closest partial match and finally to a synthetic
   /// fixed-offset zone, so the result is never silently UTC.
-  @visibleForTesting
+  ///
+  /// Exposed for apps that manage their own notification plugin rather than
+  /// subclassing this service.
   static tz.Location resolveLocalLocation(DateTime now) {
     final List<int> probeAt = <int>[];
     final List<int> probeOffsetMs = <int>[];

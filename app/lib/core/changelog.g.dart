@@ -16,6 +16,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ],
       ChangelogSection.bugfix: <String>[
         'Fixed export writing microseconds in the timestamp of the latest measurement',
+        'Fixed reminders firing at the wrong hour: the device time zone was matched against the time zone database by its abbreviation, which either failed outright or picked a zone with the wrong daylight saving rules',
       ],
     },
   ),
