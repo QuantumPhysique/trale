@@ -156,7 +156,7 @@ Future<bool> showAddWeightDialog({
         builder: (BuildContext context) {
           return QPDialog(
             title: context.l10n.addWeight,
-            content: content,
+            content: SingleChildScrollView(child: content),
             actions: actions(context, () async {
               final bool wasInserted = await database.insertMeasurement(
                 Measurement(
@@ -287,7 +287,7 @@ Future<bool> showTargetWeightDialog({
         builder: (BuildContext context) {
           return QPDialog(
             title: context.l10n.targetWeight,
-            content: content,
+            content: SingleChildScrollView(child: content),
             actions: actions(context, () {
               // In order to make our contribution to prevention, no target
               // weight below 50 kg / 110 lb / 7.9 st is possible.

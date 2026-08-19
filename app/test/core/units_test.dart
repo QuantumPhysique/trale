@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:trale/core/constants.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 
@@ -192,6 +193,60 @@ void main() {
       final String asString = TraleUnitHeight.metric.heightToString(originalCm);
       final double? parsed = TraleUnitHeight.metric.parseHeight(asString);
       expect(parsed, originalCm);
+    });
+  });
+
+  group('TraleUnit.parseWeight', () {
+    const TraleUnitPrecision p = TraleUnitPrecision.unitDefault;
+
+    test('parses a plain decimal', () {
+      expect(TraleUnit.kg.parseWeight('75.4', p), closeTo(75.4, 0.001));
+    });
+
+    test('accepts comma as decimal separator', () {
+      expect(TraleUnit.kg.parseWeight('75,4', p), closeTo(75.4, 0.001));
+    });
+
+    test('ignores surrounding whitespace', () {
+      expect(TraleUnit.kg.parseWeight('  75.4 ', p), closeTo(75.4, 0.001));
+    });
+
+    test('returns null for non numeric input', () {
+      expect(TraleUnit.kg.parseWeight('', p), isNull);
+      expect(TraleUnit.kg.parseWeight('abc', p), isNull);
+      expect(TraleUnit.kg.parseWeight('.', p), isNull);
+    });
+
+    test('snaps onto the tick grid of the unit', () {
+      // kg: ticksPerStep = 10, so 0.1 steps
+      expect(TraleUnit.kg.parseWeight('75.44', p), closeTo(75.4, 0.001));
+      // st: ticksPerStep = 20, so 0.05 steps
+      expect(TraleUnit.st.parseWeight('12.53', p), closeTo(12.55, 0.001));
+    });
+
+    test('snaps with an explicit precision setting', () {
+      expect(
+        TraleUnit.kg.parseWeight('75.13', TraleUnitPrecision.double),
+        closeTo(75.15, 0.001),
+      );
+    });
+
+    test('snaps onto an explicit ruler grid', () {
+      // A ruler with 0.1 steps cannot show 75.15, so it must not be returned
+      // even when the precision setting would allow two decimals.
+      expect(
+        TraleUnit.kg.parseWeight('75.15', TraleUnitPrecision.double, grid: 10),
+        closeTo(75.2, 0.001),
+      );
+    });
+
+    test('clamps out of range input in every unit', () {
+      expect(TraleUnit.kg.parseWeight('9999', p), closeTo(maxWeightKg, 0.001));
+      expect(TraleUnit.kg.parseWeight('0', p), closeTo(minWeightKg, 0.001));
+      expect(
+        TraleUnit.lb.parseWeight('9999', p),
+        closeTo(maxWeightKg / TraleUnit.lb.scaling, 0.1),
+      );
     });
   });
 }

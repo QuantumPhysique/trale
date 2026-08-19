@@ -333,6 +333,10 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Tap to type the weight",
+    "@enterWeightManually": {
+        "description": "Accessibility label of the weight bar in the add weight dialog, which turns into a text field when tapped."
+    },
     "addHeight": "Enter your height",
     "@addHeight": {
         "description": "Enter your height"
