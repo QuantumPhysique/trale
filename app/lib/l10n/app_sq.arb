@@ -1027,5 +1027,13 @@
                 "type": "int"
             }
         }
+    },
+    "healthConnectSyncError": "Sinkronizimi me Health Connect dështoi.",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "Kërkohen leje për sinkronizimin. Të lutem aktivizoji.",
+    "@healthConnectPermissionsRequired": {
+        "description": "Warning message when required permissions are not granted"
     }
 }
