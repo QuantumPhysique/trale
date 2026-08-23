@@ -10,6 +10,7 @@ class QPWidgetGroup extends StatelessWidget {
     this.titleTrailing,
     this.direction = Axis.vertical,
     this.scrollable = false,
+    this.padding,
   }) : itemBuilder = null,
        itemCount = null;
 
@@ -22,6 +23,7 @@ class QPWidgetGroup extends StatelessWidget {
     this.titleTrailing,
     this.direction = Axis.vertical,
     this.scrollable = false,
+    this.padding,
   }) : children = const <Widget>[];
 
   /// List of children to display in the group.
@@ -49,9 +51,12 @@ class QPWidgetGroup extends StatelessWidget {
   /// Whether the content should be scrollable along [direction].
   final bool scrollable;
 
+  /// Overrides the default vertical margin around the group.
+  final EdgeInsets? padding;
+
   @override
   Widget build(BuildContext context) {
-    const double padding = QPLayout.padding;
+    const double unitPadding = QPLayout.padding;
     const double gap = QPLayout.space;
 
     final List<Widget> effectiveChildren = children.isNotEmpty
@@ -62,7 +67,7 @@ class QPWidgetGroup extends StatelessWidget {
           );
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 0.5 * padding),
+      padding: padding ?? EdgeInsets.symmetric(vertical: 0.5 * unitPadding),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,9 +75,9 @@ class QPWidgetGroup extends StatelessWidget {
           if (title != null || titleTrailing != null)
             Padding(
               padding: EdgeInsets.only(
-                top: 0.5 * padding,
-                bottom: 0.5 * padding,
-                left: 0.5 * padding,
+                top: 0.5 * unitPadding,
+                bottom: 0.5 * unitPadding,
+                left: 0.5 * unitPadding,
               ),
               child: Row(
                 children: <Widget>[
