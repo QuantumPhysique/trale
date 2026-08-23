@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
@@ -32,6 +33,14 @@ void main() {
   ShapeBorder? barShape(WidgetTester tester) =>
       tester.widget<QPGroupedWidget>(find.byType(QPGroupedWidget).first).shape;
 
+  // The ruler collapses first, the stepper row below it second.
+  double rulerFactor(WidgetTester tester) => tester
+      .widget<SizeTransition>(find.byType(SizeTransition).first)
+      .sizeFactor
+      .value;
+
+  Finder stepper(IconData icon) => find.widgetWithIcon(IconButton, icon);
+
   Future<void> startTyping(WidgetTester tester) async {
     await tester.tap(find.text('80.0 kg'));
     await tester.pump();
@@ -59,10 +68,7 @@ void main() {
     // The ruler stays in the tree but is clipped away, freeing the space
     // the software keyboard needs.
     await tester.pumpAndSettle();
-    final SizeTransition ruler = tester.widget<SizeTransition>(
-      find.byType(SizeTransition),
-    );
-    expect(ruler.sizeFactor.value, 0);
+    expect(rulerFactor(tester), 0);
     expect(find.byType(ListView), findsOneWidget);
   });
 
@@ -135,10 +141,85 @@ void main() {
 
     expect(find.byType(TextField), findsNothing);
     expect(find.text('75.4 kg'), findsOneWidget);
-    final SizeTransition ruler = tester.widget<SizeTransition>(
-      find.byType(SizeTransition),
+    expect(rulerFactor(tester), 1);
+  });
+
+  testWidgets('closing the keyboard commits and restores the ruler', (
+    WidgetTester tester,
+  ) async {
+    addTearDown(tester.view.reset);
+
+    await tester.pumpWidget(host());
+    await tester.pump();
+    await startTyping(tester);
+
+    // The keyboard coming up is all Flutter sees of the back button that
+    // closes it again, so both steps are faked through the view insets.
+    tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+    await tester.pump();
+    await tester.enterText(find.byType(TextField), '75.4');
+    await tester.pump();
+
+    tester.view.viewInsets = FakeViewPadding.zero;
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TextField), findsNothing);
+    expect(find.text('75.4 kg'), findsOneWidget);
+    expect(rulerFactor(tester), 1);
+  });
+
+  testWidgets('the steppers move the value by a single tick', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(host());
+    await tester.pump();
+
+    await tester.tap(stepper(PhosphorIconsRegular.plus));
+    await tester.pumpAndSettle();
+
+    expect(find.text('80.1 kg'), findsOneWidget);
+    expect(reported.last, closeTo(80.1, 0.001));
+
+    await tester.tap(stepper(PhosphorIconsRegular.minus));
+    await tester.tap(stepper(PhosphorIconsRegular.minus));
+    await tester.pumpAndSettle();
+
+    // Taps faster than the scroll animation still add up exactly.
+    expect(find.text('79.9 kg'), findsOneWidget);
+    expect(reported.last, closeTo(79.9, 0.001));
+  });
+
+  testWidgets('the steppers collapse together with the ruler', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(host());
+    await tester.pump();
+
+    expect(stepper(PhosphorIconsRegular.plus), findsOneWidget);
+
+    await startTyping(tester);
+    await tester.pumpAndSettle();
+
+    final SizeTransition steppers = tester.widget<SizeTransition>(
+      find.byType(SizeTransition).last,
     );
-    expect(ruler.sizeFactor.value, 1);
+    expect(steppers.sizeFactor.value, 0);
+  });
+
+  testWidgets('the minus stepper stops at the lower end of the ruler', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(host(value: 0));
+    await tester.pump();
+
+    expect(
+      tester.widget<IconButton>(stepper(PhosphorIconsRegular.minus)).onPressed,
+      isNull,
+    );
+    expect(
+      tester.widget<IconButton>(stepper(PhosphorIconsRegular.plus)).onPressed,
+      isNotNull,
+    );
   });
 
   testWidgets('the bar morphs into a pill while typing and back after', (

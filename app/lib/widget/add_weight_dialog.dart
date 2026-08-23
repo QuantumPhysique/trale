@@ -157,6 +157,23 @@ Future<bool> showAddWeightDialog({
           return QPDialog(
             title: context.l10n.addWeight,
             content: SingleChildScrollView(child: content),
+            // The ruler's stepper buttons already sit their usual
+            // QPLayout.smallPadding away from the ruler above; without this
+            // override the dialog's own contentPadding and actionsPadding
+            // would stack on top of that, so the total gap below the
+            // steppers would be more than double the QPLayout.padding used
+            // as inner padding elsewhere, e.g. on the stats screen.
+            contentPadding: const EdgeInsets.only(
+              left: QPLayout.padding,
+              top: QPLayout.padding,
+              right: QPLayout.padding,
+              bottom: QPLayout.smallPadding,
+            ),
+            actionsPadding: const EdgeInsets.only(
+              left: QPLayout.padding,
+              right: QPLayout.padding,
+              bottom: QPLayout.padding - 4,
+            ),
             actions: actions(context, () async {
               final bool wasInserted = await database.insertMeasurement(
                 Measurement(

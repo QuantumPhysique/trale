@@ -66,13 +66,24 @@ class _WeightValueField extends StatefulWidget {
   State<_WeightValueField> createState() => _WeightValueFieldState();
 }
 
-class _WeightValueFieldState extends State<_WeightValueField> {
+class _WeightValueFieldState extends State<_WeightValueField>
+    with WidgetsBindingObserver {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
+
+  /// Whether the software keyboard has been seen open since typing started.
+  ///
+  /// Android closes the keyboard on a back press without routing that press
+  /// through Flutter, so the field keeps its focus and nothing commits. The
+  /// bottom view inset dropping back to zero is the only hint left — but it
+  /// only means the keyboard was dismissed once it has actually been up,
+  /// which is what this flag records.
+  bool _keyboardWasOpen = false;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _focusNode.addListener(_onFocusChanged);
   }
 
@@ -88,6 +99,7 @@ class _WeightValueFieldState extends State<_WeightValueField> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _focusNode.removeListener(_onFocusChanged);
     _focusNode.dispose();
     _controller.dispose();
@@ -106,6 +118,7 @@ class _WeightValueFieldState extends State<_WeightValueField> {
       (maxWeightKg / _notifier.unit.scaling).floor().toString().length;
 
   void _prefillAndFocus() {
+    _keyboardWasOpen = false;
     _controller.text = widget.value.toStringAsFixed(_decimals);
     // Select everything so that the first keystroke replaces the old value.
     _controller.selection = TextSelection(
@@ -118,6 +131,21 @@ class _WeightValueFieldState extends State<_WeightValueField> {
   // Losing focus commits, e.g. when the ruler below is touched.
   void _onFocusChanged() {
     if (!_focusNode.hasFocus && widget.editing) {
+      _commit();
+    }
+  }
+
+  // Dismissing the keyboard commits as well, e.g. with the back button, which
+  // leaves the field focused and would otherwise strand the collapsed ruler.
+  @override
+  void didChangeMetrics() {
+    if (!mounted || !widget.editing) {
+      return;
+    }
+    if (View.of(context).viewInsets.bottom > 0) {
+      _keyboardWasOpen = true;
+    } else if (_keyboardWasOpen) {
+      _keyboardWasOpen = false;
       _commit();
     }
   }

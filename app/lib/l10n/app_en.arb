@@ -337,6 +337,14 @@
     "@enterWeightManually": {
         "description": "Accessibility label of the weight bar in the add weight dialog, which turns into a text field when tapped."
     },
+    "decreaseWeight": "Decrease weight",
+    "@decreaseWeight": {
+        "description": "Accessibility label of the minus button below the weight ruler, which lowers the weight by one tick."
+    },
+    "increaseWeight": "Increase weight",
+    "@increaseWeight": {
+        "description": "Accessibility label of the plus button below the weight ruler, which raises the weight by one tick."
+    },
     "addHeight": "Enter your height",
     "@addHeight": {
         "description": "Enter your height"
