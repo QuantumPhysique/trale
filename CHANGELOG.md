@@ -22,6 +22,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `-` and `+` buttons below the ruler to adjust the weight one step at
   a time
 
+### Other Changes:
+- Improved translation
+
 ### Bugfix 🐛:
 - Fixed export writing microseconds in the timestamp of the latest measurement
 - Fixed reminders firing at the wrong hour: the device time zone was matched

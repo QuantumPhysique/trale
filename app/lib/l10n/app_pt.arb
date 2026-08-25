@@ -199,6 +199,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Toque para digitar o peso",
+    "decreaseWeight": "Diminuir peso",
+    "increaseWeight": "Aumentar peso",
     "undertpl": "© {years} por {author} sob licença {licence}",
     "@undertpl": {
         "description": "String to show third-party license.",
