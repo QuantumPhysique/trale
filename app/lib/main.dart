@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/l10n_extension.dart';
@@ -57,7 +57,14 @@ Future<void> main() async {
       },
       buildRoutes: () => <String, WidgetBuilder>{'/': (_) => const Splash()},
       buildStrings: (BuildContext ctx) => qpStringsFromL10n(ctx.l10n),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      // AppLocalizations.localizationsDelegates is generated against
+      // flutter_localizations, whose delegates provide the legacy
+      // MaterialLocalizations type. material_ui's MaterialApp needs its own,
+      // so pair the generated app delegate with material_ui's delegates.
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        AppLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
+      ],
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateTitle: (BuildContext ctx) => ctx.l10n.trale,
     ),

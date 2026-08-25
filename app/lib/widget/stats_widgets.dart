@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
@@ -16,11 +16,11 @@ import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/icon_hero.dart';
 
-part 'stats/rate_cards.dart';
-part 'stats/weight_cards.dart';
-part 'stats/streak_cards.dart';
 part 'stats/info_cards.dart';
+part 'stats/rate_cards.dart';
+part 'stats/streak_cards.dart';
 part 'stats/utils.dart';
+part 'stats/weight_cards.dart';
 
 /// Animated statistics widgets container.
 class AnimatedStatsWidgets extends StatefulWidget {

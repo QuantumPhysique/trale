@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Extension for converting [Duration] to human-readable strings.

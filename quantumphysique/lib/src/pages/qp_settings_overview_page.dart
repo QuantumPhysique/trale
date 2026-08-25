@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/src/types/icons.dart';
 import 'package:quantumphysique/src/types/string_extension.dart';
 import 'package:quantumphysique/src/types/strings.dart';

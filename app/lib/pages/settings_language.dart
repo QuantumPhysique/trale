@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
 

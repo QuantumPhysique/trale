@@ -1,7 +1,7 @@
 /// BCP-47 language wrapper used by QP apps.
 library;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/widgets.dart';
 
 /// Wrapper around a [Locale] representing a user-selectable language.

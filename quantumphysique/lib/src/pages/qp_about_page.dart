@@ -1,7 +1,7 @@
 /// About page for QP-based apps.
 library;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:quantumphysique/src/types/about_strings.dart';

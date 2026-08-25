@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/first_day.dart';

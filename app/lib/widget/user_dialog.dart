@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
@@ -15,8 +15,8 @@ import 'package:trale/core/units.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 
 part 'user_dialog/form_field.dart';
-part 'user_dialog/user_details.dart';
 part 'user_dialog/target_weight.dart';
+part 'user_dialog/user_details.dart';
 
 /// Shows the user dialog.
 Future<bool> showUserDialog({required BuildContext context}) async {

@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
 
