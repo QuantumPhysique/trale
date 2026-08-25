@@ -32,14 +32,25 @@ void main() {
   testWidgets('overview is not squeezed by the software keyboard', (
     WidgetTester tester,
   ) async {
-    // Collect layout errors instead of failing on the first one: at test
-    // font metrics the stats cards wobble a little horizontally, which is
-    // unrelated to what this test guards.
-    final List<String> errors = <String>[];
+    // At test font metrics the stats cards wobble a few pixels horizontally,
+    // which has nothing to do with what this test guards. Tolerate exactly
+    // that and keep failing on everything else, rather than swallowing every
+    // error the frame produces.
+    final List<FlutterErrorDetails> caught = <FlutterErrorDetails>[];
     final FlutterExceptionHandler? previousOnError = FlutterError.onError;
-    FlutterError.onError = (FlutterErrorDetails details) =>
-        errors.add(details.exceptionAsString());
+    FlutterError.onError = caught.add;
     addTearDown(() => FlutterError.onError = previousOnError);
+
+    bool isHorizontalOverflow(FlutterErrorDetails details) {
+      final String message = details.exceptionAsString();
+      return message.contains('overflowed') &&
+          (message.contains('on the right') || message.contains('on the left'));
+    }
+
+    List<String> unexpectedErrors() => caught
+        .where((FlutterErrorDetails d) => !isHorizontalOverflow(d))
+        .map((FlutterErrorDetails d) => d.exceptionAsString())
+        .toList();
 
     tester.view.devicePixelRatio = 3.0;
     tester.view.physicalSize = const Size(360 * 3, 780 * 3);
@@ -62,13 +73,22 @@ void main() {
       ),
     );
     await pumpUntilSettled(tester);
-    expect(errors.where((String e) => e.contains('on the bottom')), isEmpty);
+    expect(unexpectedErrors(), isEmpty);
+
+    final double heightWithoutKeyboard = tester
+        .getSize(find.byType(OverviewScreen))
+        .height;
 
     tester.view.viewInsets = const FakeViewPadding(bottom: 300 * 3);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
-    // A shrinking body used to overflow the overview column vertically.
-    expect(errors.where((String e) => e.contains('on the bottom')), isEmpty);
+    // The invariant: the keyboard must not take any height away from the
+    // body. A shrinking body used to overflow the overview column instead.
+    expect(
+      tester.getSize(find.byType(OverviewScreen)).height,
+      heightWithoutKeyboard,
+    );
+    expect(unexpectedErrors(), isEmpty);
   });
 }
