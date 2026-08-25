@@ -240,13 +240,16 @@ void main() {
       );
     });
 
-    test('clamps out of range input in every unit', () {
-      expect(TraleUnit.kg.parseWeight('9999', p), closeTo(maxWeightKg, 0.001));
+    test('holds input at the bottom of the ruler', () {
       expect(TraleUnit.kg.parseWeight('0', p), closeTo(minWeightKg, 0.001));
-      expect(
-        TraleUnit.lb.parseWeight('9999', p),
-        closeTo(maxWeightKg / TraleUnit.lb.scaling, 0.1),
-      );
+      expect(TraleUnit.lb.parseWeight('0', p), closeTo(minWeightKg, 0.001));
+    });
+
+    test('keeps values above the field width, as the ruler has no top', () {
+      // The ruler scrolls past any weight, so typing must reach there too;
+      // only the number of digits the field holds limits what can be typed.
+      expect(TraleUnit.kg.parseWeight('9999', p), closeTo(9999, 0.001));
+      expect(TraleUnit.lb.parseWeight('9999', p), closeTo(9999, 0.001));
     });
   });
 }

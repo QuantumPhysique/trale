@@ -19,11 +19,11 @@ void main() {
 
   tearDown(resetWidgetTestDependencies);
 
-  Widget host({double value = 80.0}) => buildTestApp(
+  Widget host({double value = 80.0, int? ticksPerStep}) => buildTestApp(
     notifier: notifier,
     child: RulerPicker(
       onValueChange: (num newValue) => reported.add(newValue.toDouble()),
-      ticksPerStep: notifier.unit.ticksPerStep,
+      ticksPerStep: ticksPerStep ?? notifier.unit.ticksPerStep,
       value: value,
       height: 120,
     ),
@@ -41,10 +41,26 @@ void main() {
 
   Finder stepper(IconData icon) => find.widgetWithIcon(IconButton, icon);
 
-  Future<void> startTyping(WidgetTester tester) async {
-    await tester.tap(find.text('80.0 kg'));
+  Future<void> startTyping(
+    WidgetTester tester, {
+    String label = '80.0 kg',
+  }) async {
+    await tester.tap(find.text(label));
     await tester.pump();
   }
+
+  /// The colour an [Icon] actually paints with, wherever it came from.
+  ///
+  /// Reading it off the rendered glyph rather than off the [PPIcon] widget is
+  /// what makes this catch an explicit colour shadowing the [IconTheme] that
+  /// [IconButton] uses to express its disabled state.
+  Color glyphColor(WidgetTester tester, IconData icon) => tester
+      .widget<RichText>(
+        find.descendant(of: stepper(icon), matching: find.byType(RichText)),
+      )
+      .text
+      .style!
+      .color!;
 
   testWidgets('shows the value and no text field by default', (
     WidgetTester tester,
@@ -93,20 +109,33 @@ void main() {
     expect(reported.last, closeTo(75.4, 0.001));
   });
 
-  testWidgets('input is clamped and snapped onto the tick grid', (
+  testWidgets('input above the field width is kept, not capped', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(host());
     await tester.pump();
     await startTyping(tester);
 
-    // 3 digits is all the formatter allows for kg, the rest is clamped.
+    // The ruler scrolls past any weight, so typing is only limited by the
+    // three integer digits the kg field holds — not by a value ceiling.
     await tester.enterText(find.byType(TextField), '999');
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
 
-    expect(reported.last, closeTo(500, 0.001));
-    expect(find.text('500.0 kg'), findsOneWidget);
+    expect(reported.last, closeTo(999, 0.001));
+    expect(find.text('999.0 kg'), findsOneWidget);
+  });
+
+  testWidgets('the plus stepper never runs out of ruler', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(host(value: 999));
+    await tester.pump();
+
+    expect(
+      tester.widget<IconButton>(stepper(PhosphorIconsRegular.plus)).onPressed,
+      isNotNull,
+    );
   });
 
   testWidgets('more decimals than the unit allows are rejected', (
@@ -220,6 +249,39 @@ void main() {
       tester.widget<IconButton>(stepper(PhosphorIconsRegular.plus)).onPressed,
       isNotNull,
     );
+  });
+
+  testWidgets('the disabled stepper is dimmed, not just inert', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(host(value: 0));
+    await tester.pump();
+
+    final Color minus = glyphColor(tester, PhosphorIconsRegular.minus);
+    final Color plus = glyphColor(tester, PhosphorIconsRegular.plus);
+
+    expect(
+      tester.widget<IconButton>(stepper(PhosphorIconsRegular.minus)).onPressed,
+      isNull,
+    );
+    expect(minus.a, lessThan(plus.a));
+  });
+
+  testWidgets('a finer ruler grid accepts a second decimal', (
+    WidgetTester tester,
+  ) async {
+    // 0.05 steps: the field must offer exactly the precision the ruler can
+    // show, not the one the unit defaults to.
+    await tester.pumpWidget(host(ticksPerStep: 20));
+    await tester.pump();
+    await startTyping(tester, label: '80.00 kg');
+
+    await tester.enterText(find.byType(TextField), '75.15');
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    expect(reported.last, closeTo(75.15, 0.001));
+    expect(find.text('75.15 kg'), findsOneWidget);
   });
 
   testWidgets('the bar morphs into a pill while typing and back after', (

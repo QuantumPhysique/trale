@@ -111,7 +111,18 @@ class _WeightValueFieldState extends State<_WeightValueField>
 
   TraleUnitPrecision get _precision => _notifier.unitPrecision;
 
-  int get _decimals => _notifier.unit.decimals(_precision);
+  /// Decimals the ruler below can actually represent.
+  ///
+  /// Derived from its tick grid rather than from the precision setting: the
+  /// two disagree whenever a caller passes a grid of its own, and offering a
+  /// digit the ruler cannot show would silently round the typed value.
+  int get _decimals {
+    int decimals = 0;
+    for (int scale = 1; scale < widget.ticksPerStep; scale *= 10) {
+      decimals++;
+    }
+    return decimals;
+  }
 
   /// Digits before the decimal separator needed for [maxWeightKg].
   int get _integerDigits =>
@@ -153,7 +164,12 @@ class _WeightValueFieldState extends State<_WeightValueField>
   double? _parse(String value) =>
       _notifier.unit.parseWeight(value, _precision, grid: widget.ticksPerStep);
 
-  void _commit() => widget.onCommitted(_parse(_controller.text));
+  void _commit() {
+    if (!mounted) {
+      return;
+    }
+    widget.onCommitted(_parse(_controller.text));
+  }
 
   void _onChanged(String value) {
     final double? draft = _parse(value);
@@ -172,35 +188,43 @@ class _WeightValueFieldState extends State<_WeightValueField>
         .headlineLarge!
         .apply(color: colorScheme.onSecondary);
 
-    return Semantics(
-      button: !widget.editing,
-      label: context.l10n.enterWeightManually,
-      child: Material(
-        type: MaterialType.transparency,
-        shape: widget.shape,
-        clipBehavior: Clip.antiAlias,
-        child: InkWell(
-          onTap: widget.editing ? null : widget.onEditingStarted,
-          customBorder: widget.shape,
-          splashColor: colorScheme.onSecondary.withValues(alpha: 0.12),
-          highlightColor: colorScheme.onSecondary.withValues(alpha: 0.1),
-          hoverColor: colorScheme.onSecondary.withValues(alpha: 0.08),
-          child: Container(
-            alignment: Alignment.bottomCenter,
-            padding: const EdgeInsets.only(
-              top: (QPLayout.padding + QPLayout.smallPadding) / 2,
-              bottom: QPLayout.smallPadding,
-            ),
-            child: widget.editing
-                ? _input(context, colorScheme, valueStyle)
-                : Text(
-                    '${widget.value.toStringAsFixed(_decimals)} '
-                    '${_notifier.unit.name}',
-                    style: valueStyle,
-                  ),
+    final Widget bar = Material(
+      type: MaterialType.transparency,
+      shape: widget.shape,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: widget.editing ? null : widget.onEditingStarted,
+        customBorder: widget.shape,
+        splashColor: colorScheme.onSecondary.withValues(alpha: 0.12),
+        highlightColor: colorScheme.onSecondary.withValues(alpha: 0.1),
+        hoverColor: colorScheme.onSecondary.withValues(alpha: 0.08),
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          padding: const EdgeInsets.only(
+            top: (QPLayout.padding + QPLayout.smallPadding) / 2,
+            bottom: QPLayout.smallPadding,
           ),
+          child: widget.editing
+              ? _input(context, colorScheme, valueStyle)
+              : Text(
+                  '${widget.value.toStringAsFixed(_decimals)} '
+                  '${_notifier.unit.name}',
+                  style: valueStyle,
+                ),
         ),
       ),
+    );
+
+    if (widget.editing) {
+      // The text field brings its own semantics; folding it into a single
+      // node would take the editing affordances away from a screen reader.
+      return bar;
+    }
+    // One node for the whole bar: the [InkWell] contributes the button flag
+    // and the label below it the current weight, so both are announced
+    // together with the hint that tapping starts typing.
+    return MergeSemantics(
+      child: Semantics(label: context.l10n.enterWeightManually, child: bar),
     );
   }
 

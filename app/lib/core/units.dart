@@ -55,7 +55,7 @@ extension TraleUnitExtension on TraleUnit {
     // get unit precision from context
     final String suffix = showUnit ? ' $name' : '';
     final double scaledVal = doubleToPrecision(weight / scaling, tup);
-    return '${scaledVal.toStringAsFixed(tup.precision ?? precision)}'
+    return '${scaledVal.toStringAsFixed(decimals(tup))}'
         '$suffix';
   }
 
@@ -71,20 +71,22 @@ extension TraleUnitExtension on TraleUnit {
   /// parse manually typed input into a weight in this unit
   ///
   /// Returns `null` for input that is not a number. Accepts both `.` and `,`
-  /// as decimal separator, clamps the result to [minWeightKg]..[maxWeightKg]
-  /// and snaps it onto a tick grid, so that every accepted value can also be
-  /// reached by scrolling. [grid] overrides the number of ticks per step
-  /// derived from [tup] and should be set to the `ticksPerStep` of the ruler
-  /// the input belongs to.
+  /// as decimal separator and snaps the result onto a tick grid, so that
+  /// every accepted value can also be reached by scrolling. [grid] overrides
+  /// the number of ticks per step derived from [tup] and should be set to the
+  /// `ticksPerStep` of the ruler the input belongs to.
+  ///
+  /// Only [minWeightKg] is enforced, because that is where the ruler starts.
+  /// There is deliberately no upper limit: the ruler has none either, and
+  /// typing is meant to reach exactly the same values as scrolling.
   double? parseWeight(String value, TraleUnitPrecision tup, {int? grid}) {
     final double? parsed = double.tryParse(value.trim().replaceAll(',', '.'));
     if (parsed == null) {
       return null;
     }
-    final double clamped = parsed.clamp(
-      minWeightKg / scaling,
-      maxWeightKg / scaling,
-    );
+    final double clamped = parsed < minWeightKg / scaling
+        ? minWeightKg / scaling
+        : parsed;
     if (grid == null) {
       return doubleToPrecision(clamped, tup);
     }

@@ -6,10 +6,14 @@ const double kcalPerKg = 7700;
 
 /// Lowest weight in kg accepted by manual keyboard entry.
 ///
-/// This is a typo guard for the numeric input field (e.g. a stray extra
-/// digit), not a health policy — the target weight dialog applies its own,
-/// stricter BMI based limit.
-const double minWeightKg = 1;
+/// Manual entry is an alternative to scrolling the ruler, so it spans the
+/// same range: the ruler starts at zero, and so does typing.
+const double minWeightKg = 0;
 
-/// Highest weight in kg accepted by manual keyboard entry.
+/// Widest weight in kg the manual entry field reserves room for.
+///
+/// The ruler has no upper end, so neither has typing: this is not a limit on
+/// the value but the digit budget of the input field, which needs a fixed
+/// width so it does not resize with every keystroke. It caps typed input
+/// only in the sense that no more digits than these fit.
 const double maxWeightKg = 500;

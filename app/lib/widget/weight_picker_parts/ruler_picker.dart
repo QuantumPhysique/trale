@@ -13,16 +13,16 @@ typedef ValueChangedCallback = void Function(num value);
 /// A horizontal ruler-style picker for selecting numeric values.
 class RulerPicker extends StatefulWidget {
   /// Creates a [RulerPicker].
-  RulerPicker({
+  const RulerPicker({
     required this.onValueChange,
     required this.ticksPerStep,
     required this.value,
     this.marker,
     this.height = 90,
     this.backgroundColor = Colors.white,
-    RulerPickerController? controller,
+    this.controller,
     super.key,
-  }) : controller = controller ?? RulerPickerController(value: value);
+  });
 
   /// Callback invoked on value change.
   final ValueChangedCallback onValueChange;
@@ -43,7 +43,12 @@ class RulerPicker extends StatefulWidget {
   final double value;
 
   /// Controller for external value changes.
-  final RulerPickerController controller;
+  ///
+  /// When omitted the picker creates and disposes one of its own. Creating it
+  /// here rather than in the constructor matters: the enclosing dialogs
+  /// rebuild the picker on every value change, and a controller built in the
+  /// constructor would be re-allocated — and leaked — on every one of them.
+  final RulerPickerController? controller;
 
   @override
   State<StatefulWidget> createState() => RulerPickerState();
@@ -54,13 +59,16 @@ class RulerPickerState extends State<RulerPicker>
     with SingleTickerProviderStateMixin {
   late final ScrollController _scrollController;
 
+  /// The controller in use, either [RulerPicker.controller] or our own.
+  late RulerPickerController _controller;
+
   /// Drives the collapse of the ruler while the weight is typed.
   ///
   /// 1 means fully expanded, 0 fully collapsed. The ruler stays in the tree
   /// while collapsed ([SizeTransition] only clips it) so that the scroll
   /// position survives and can be animated to the typed value.
   late final AnimationController _collapseController;
-  late final Animation<double> _collapse;
+  late final CurvedAnimation _collapse;
 
   /// Scroll distances longer than this many ticks are jumped, not animated.
   ///
@@ -71,9 +79,6 @@ class RulerPickerState extends State<RulerPicker>
   /// Width in logical pixels of each ruler tick.
   // Tick visuals
   final double tickWidth = 10.0;
-
-  /// Current weight value selected by the picker.
-  late num weightValue = widget.value;
 
   /// Whether the value is currently being typed instead of scrolled to.
   bool _editing = false;
@@ -98,37 +103,49 @@ class RulerPickerState extends State<RulerPicker>
     );
 
     // External commands to jump/change value
-    widget.controller.addListener(_onControllerChanged);
+    _controller =
+        widget.controller ?? RulerPickerController(value: widget.value);
+    _controller.addListener(_onControllerChanged);
   }
 
   @override
   void didUpdateWidget(covariant RulerPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // The default controller is rebuilt with the widget, so the listener has
-    // to follow it — otherwise external value changes stop working after the
-    // first rebuild of the enclosing dialog.
+    // Swapping the controller out is rare, but the listener has to follow it.
     if (oldWidget.controller != widget.controller) {
-      oldWidget.controller.removeListener(_onControllerChanged);
-      widget.controller.addListener(_onControllerChanged);
+      _controller.removeListener(_onControllerChanged);
+      if (oldWidget.controller == null) {
+        _controller.dispose();
+      }
+      _controller =
+          widget.controller ?? RulerPickerController(value: widget.value);
+      _controller.addListener(_onControllerChanged);
     }
   }
 
   @override
   void dispose() {
-    widget.controller.removeListener(_onControllerChanged);
+    _controller.removeListener(_onControllerChanged);
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
+    _collapse.dispose();
     _collapseController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
 
-  void _onControllerChanged() => _scrollToValue(widget.controller.value);
+  void _onControllerChanged() => _scrollToValue(_controller.value);
 
   /// Value the ruler currently points at.
+  ///
+  /// Before the first layout there is no scroll offset to read yet, and the
+  /// value the picker was given is the one it is about to scroll to.
   double get _scrolledValue {
-    final double offset = _scrollController.hasClients
-        ? _scrollController.offset
-        : 0.0;
-    return (offset / tickWidth).round() / widget.ticksPerStep;
+    if (!_scrollController.hasClients) {
+      return widget.value;
+    }
+    return (_scrollController.offset / tickWidth).round() / widget.ticksPerStep;
   }
 
   /// Moves the ruler onto [value], animating short distances only.
@@ -145,20 +162,13 @@ class RulerPickerState extends State<RulerPicker>
     }
     return _scrollController.animateTo(
       target,
-      duration:
-          QPTheme.of(context)?.transitionDuration.normal ??
-          QPLayout.transitionNormal,
+      duration: QPLayout.transitionNormal,
       curve: Curves.easeOutCubic,
     );
   }
 
   /// Weight change of a single stepper tap, in the currently selected unit.
   double get _stepSize => 1 / widget.ticksPerStep;
-
-  /// Highest value the ruler may be stepped to, in the selected unit.
-  double get _maxValue =>
-      maxWeightKg /
-      Provider.of<TraleNotifier>(context, listen: false).unit.scaling;
 
   /// Value the pending stepper animation is heading for.
   ///
@@ -168,15 +178,17 @@ class RulerPickerState extends State<RulerPicker>
   double? _stepTarget;
 
   /// Whether the value can still be moved by [steps] ticks.
-  bool _canStep(int steps) {
-    final double value = _stepTarget ?? _scrolledValue;
-    return steps < 0 ? value > 0 : value < _maxValue;
-  }
+  ///
+  /// The ruler runs from zero upwards without an end, so only stepping down
+  /// can ever run out of room.
+  bool _canStep(int steps) => steps >= 0 || (_stepTarget ?? _scrolledValue) > 0;
 
   /// Moves the value by [steps] ticks, just like scrolling there would.
   Future<void> _stepBy(int steps) async {
-    final double target = ((_stepTarget ?? _scrolledValue) + steps * _stepSize)
-        .clamp(0.0, _maxValue);
+    final double target = max(
+      0.0,
+      (_stepTarget ?? _scrolledValue) + steps * _stepSize,
+    );
     _stepTarget = target;
     await _scrollToValue(target);
     // A drag interrupting the animation completes it too, so the target is
@@ -192,6 +204,12 @@ class RulerPickerState extends State<RulerPicker>
   }
 
   void _commitEditing(double? value) {
+    // Dismissing the dialog with the keyboard open releases the focus, which
+    // commits — by then neither this state nor the dialog around it is still
+    // there to be told about a new value.
+    if (!mounted) {
+      return;
+    }
     setState(() => _editing = false);
     _collapseController.forward();
     if (value == null) {
@@ -206,9 +224,8 @@ class RulerPickerState extends State<RulerPicker>
 
   void _updateWeightValue(num newValue) {
     widget.onValueChange(newValue);
-    setState(() {
-      weightValue = newValue;
-    });
+    // Rebuild so the value bar and the steppers follow the ruler.
+    setState(() {});
   }
 
   @override
@@ -334,7 +351,10 @@ class RulerPickerState extends State<RulerPicker>
       color: colorScheme.onSecondaryContainer,
       disabledColor: colorScheme.onSecondaryContainer.withValues(alpha: 0.38),
       tooltip: tooltip,
-      icon: PPIcon(icon, context, color: colorScheme.onSecondaryContainer),
+      // No explicit colour: an [Icon] prefers its own over the [IconTheme],
+      // so setting one here would hide the disabled tint at the ends of the
+      // ruler and the button would keep looking pressable.
+      icon: PPIcon(icon, context),
     ),
   );
 }
