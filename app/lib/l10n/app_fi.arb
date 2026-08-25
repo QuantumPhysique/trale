@@ -19,7 +19,7 @@
     "@settings": {
         "description": "Name of settings menu"
     },
-    "faq": "FAQ",
+    "faq": "UKK",
     "@faq": {
         "description": "Frequently ask questions"
     },
@@ -59,7 +59,7 @@
     "@importingAbort": {
         "description": "Import aborted."
     },
-    "importDialog": "Sisällytä kaikki mittaukset nykyiseen tietokantaan. Tätä ei voi kumota!",
+    "importDialog": "Tuo kaikki mittaukset nykyiseen tietokantaan. Tätä ei voi kumota!",
     "@importDialog": {
         "description": "Include all measurements to the current database. This can not be undone!"
     },
@@ -95,7 +95,7 @@
     "@openIssue": {
         "description": "open issue"
     },
-    "undertpl": "© {years} by {author} under {licence} licence",
+    "undertpl": "© {years} tekijä {author} lisenssin {licence} alla",
     "@undertpl": {
         "description": "String to show third-party license.",
         "placeholders": {
@@ -117,7 +117,7 @@
     "@soft": {
         "description": "soft interpolation"
     },
-    "medium": "Keskisuuri",
+    "medium": "Keskisuuri interpolaatio",
     "@medium": {
         "description": "medium interpolation"
     },
@@ -190,7 +190,7 @@
     "@weight": {
         "description": "weight"
     },
-    "defaultLang": "Järjestelmäoletus",
+    "defaultLang": "Järjestelmän oletus",
     "@defaultLang": {
         "description": "System default language."
     },
@@ -214,7 +214,7 @@
     "@open": {
         "description": "Open (file)."
     },
-    "importSubtitle": "Tuo mittaukset .txt varmuuskopiotiedostosta.",
+    "importSubtitle": "Tuo mittaukset .txt tai .csv varmuuskopiotiedostosta.",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -222,7 +222,7 @@
     "@amoled": {
         "description": "AMOLED"
     },
-    "factoryResetDialog": "Asetetaanko sovellus alkutilaan? Tämä poistaa kaikki asetukset ja lisätyt mittaukset. Tätä ei voi kumota.",
+    "factoryResetDialog": "Nollataanko sovellus? Tämä poistaa kaikki asetukset ja lisätyt mittaukset. Tätä ei voi kumota.",
     "@factoryResetDialog": {
         "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
     },
@@ -278,11 +278,11 @@
     "@welcome": {
         "description": "welcome"
     },
-    "onBoarding1": "Tämä yksinkertainen Material-You-design-sovellus auttaa sinua saavuttamaan unelmapainosi! Halusitpa sitten lihoa, laihtua tai vain säilyttää painosi: Luotettavat painoennusteet ja monipuoliset tilastot auttavat sinua pysymään raiteilla.\n\n Liity yhteisöömme tänään seurataksesi itseäsi. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "onBoarding1": "Tämä yksinkertainen Material-You-design-sovellus auttaa sinua saavuttamaan unelmapainosi! Halusitpa sitten lihoa, laihtua tai vain säilyttää painosi: Luotettavat painoennusteet ja monipuoliset tilastot auttavat sinua pysymään raiteilla. \n\n Liity yhteisöömme tänään seurataksesi itseäsi. \n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
     "@onBoarding1": {
         "description": "Text of 1st onBoarding screen."
     },
-    "onBoarding3": "Kiitos, että kokeilet sovellustamme. 🙂\n\n Jos pidät sovelluksesta, olisimme erittäin iloisia palautteestasi, lahjoituksestasi Githubista tai kahvista. Vastineeksi säästämme sinut ärsyttäviltä ja tietosuojaasi mainoksilta.",
+    "onBoarding3": "Kiitos, että kokeilet sovellustamme. 🙂\n\n Jos pidät sovelluksesta, olisimme erittäin iloisia palautteestasi, kontribuutiosta Githubista tai kahvista. Vastineeksi säästämme sinut ärsyttäviltä ja tietosuojaasi uhkaavilta mainoksilta.",
     "@onBoarding3": {
         "description": "Text of 3rd onBoarding screen."
     },
@@ -329,5 +329,711 @@
     "firstDay": "Ensimmäinen päivä",
     "@firstDay": {
         "description": "First displayed day of the week"
+    },
+    "experimentalFeatures": "kokeelliset ominaisuudet",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "Pudota painoa",
+    "@looseWeight": {
+        "description": "Lose weight switch label (label name loose is a typo!)."
+    },
+    "gainWeight": "Lisää painoa",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "looseWeightSubtitle": "Vaihda painon pudotuksen ja lisäämisen välillä.",
+    "@looseWeightSubtitle": {
+        "description": "Switching between losing or gaining weight."
+    },
+    "days": "päivää",
+    "weeks": "viikkoa",
+    "week": "viikko",
+    "months": "kuukautta",
+    "month": "kuukausi",
+    "years": "vuotta",
+    "year": "vuosi",
+    "today": "tänään",
+    "weightForecast": "ennuste",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "kaikki",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "tavoitteesta lähtien",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "viime vuosi",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "mukautettu",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "never": "ei koskaan",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "viikottain",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "joka toinen viikko",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "kuukausittain",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "neljännesvuosittain",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminderButton": "varmuuskopioi",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "Varmuuskopio viety onnistuneesti",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "Varmuuskopion aikaväli",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "viimeinen varmuuskopio",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "seuraava varmuuskopio",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "allTimeStats": "Tilastot kaikilta ajoilta",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "precision": "Tarkkuus",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "translate": "käännä",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Auta kääntämään sovellusta",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "importSuccess": "{count} mittausta lisätty",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Ei voitu lukea valittua tiedostoa. Yritä uudelleen tai käytä toista tiedostoa.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Valitusta tiedostosta ei löytynyt sopivia mittauksia. Tarkista tiedoston formaatti.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "changelog": "Muutosloki",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "addHeight": "Syötä pituutesi",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "pituus",
+    "@height": {
+        "description": "height"
+    },
+    "target": "tavoite",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "showUserData": "näytä datani",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "personalisaatio",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "strength": "voima",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "name": "nimi",
+    "@name": {
+        "description": "Name"
+    },
+    "targetWeightEnabled": "Tavoitepaino",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Aseta tavoitepaino ja seuraa edistystä.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Tavoite päivämäärä",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Aseta tavoitepäivämäärä tai tahdin, jotta saavutat tavoitteesi ajoissa.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Aseta tavoitepäivämäärä",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Tahti",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/viikko",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "Nykyinen painon mittaus vaaditaan tavoitepäivämäärän ja tahdin laskemiseen. Voit myös valita vanhemman päivämäärän aloittaaksesi tavoitelinjan siitä pisteestä.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Valitse kohtuullinen tahti. Jos se on liian pieni, edistymistä on vaikea nähdä; jos liian korkea, vaarannat lihasmassan hävittämistä rasvan sijaan.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "Aloituspäivämäärä",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "backupReminder": "Varmuuskopioi säännöllisesti",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "faq_q4": "Voinko syöttää tavoitepainon alle 50kg / 110 lb / 7.9 st?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "Kyllä, antamalla pituuden.\n\nAnoreksia on vakava sairaus, josta on tullut yhä suurempi ongelma yhteiskunnalle, osittain johtuen monista negatiivisista esimerkeistä sosiaalisessa mediassa. Ennaltaehkäisytoimien tukemiseksi emme salli tavoitepainon asettamista alle 50 kg / 110 lb / 7.9 st. Syöttämällä pituuden pystymme laskemaan alhaisimman tavoitepainon, joka vastaa BMI:n lukemaa 18.5.",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "max": "maks.",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "min",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "ero",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "kokonainen ero",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "schemeVariant": "Rakennevaihtoehto",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "Valitse vaihtoehto määrittääksesi, miten värirakenne muodostuu valitusta pohjaväristä.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Valitse pohjaväri määrittääksesi värirakenteen.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "lisäasetukset",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "mean": "keskiarvo",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "median": "mediaani",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "measurementFrequency": "mittauksien frekvenssi",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "saavutit tavoitepainosi!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "jäljellä tavoitepainon saavuttamiseen",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "pisin putki",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "nykyinen putki",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "aikaa ensimmäisestä mittauksesta",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "highContrast": "Suuri kontrasti",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "BMI",
+    "back": "takaisin",
+    "userDialogTitle": "Käyttäjäasetukset",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Voit tuoda dataa. Tämä ei poista olemassaolevaa dataa ja toistuvat merkinnät jätetään huomioimatta. 'txt' tiedostot trale:sta ja 'csv' tiedostot OpenScale:sta ovat tuettuja. 'csv' tiedostoissa, sarakkeet täytyvät olla nimittynä 'weight' ja 'datetime', muuten ensimmäinen sarake jäsennetään päivämääränä ja toinen painona. Jos käytät mukautettua 'txt' tiedostoa, sen pitää olla yksi näistä formaateista:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Lahjoitus",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Tue trale:n kehitystä",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Mukauttaminen",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personointi",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Mukauta käyttökokemustasi",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Aseta värirakenne",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Aseta kieli",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Data-asetukset",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Tuo ja vie",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Tallenna ja lataa datasi",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "Tietoja sovelluksesta",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Löydä vastauksia yleisiin kysymyksiin",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Versio- ja lisenssitietoja",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolointi käyttää huipputason Gaussin suodatusta tasoittaakseen painokäyrän ja luodakseen selkeämmän trendin. Korkeammat voimakkuudet vähentävät päivittäisiä vaihteluita, mutta voivat peittää lyhytaikaiset muutokset. Valitse '{noneInterpol}' nähdäksesi raakamittasi, mutta ekstrapolointi käyttää silti pehmeää tasoitusta.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "Yksikkö",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Päivämäärän asetukset",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Formaatti",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Oletus",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Auta parantamaan sovellusta antamalla palautetta.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Yksinkertainen painonmittaustyökalu lyhytaikasella ekstrapolaatiolla.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Yksityisyyttäsi arvostetaan. Sovelluksessa ei ole voittoa tavottelevia lähteitä, eikä kaatumislokeja lähtetä. Avaa ongelma, jos sinulla on ongelmia.",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Kaksi kehittäjää, joilla on vähän ylimääräistä aikaa. Harkitse osallistumista tai lahjoittamista.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Mittaus poistettiin.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Palauta",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Muuta mittauksia",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Poista tai muuta mittausta painamalla sitä pitkään. Hylkää tämä viesti pyyhkäisemällä.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "heightUnit": "Pituusyksikkö",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "Ilmoitukset",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Muistutus",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Muistuta minua kirjaamaan painoni",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Ota käyttöön muistutus",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Saat ilmoituksen, jotta voit kirjata painosi",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Päivät",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Aika",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Muistutuksen aika",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "Saat ilmoituksen valittuina päivinä ja aikana, mutta vain jos et ole kirjannut mittausta kyseisenä päivänä.",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "Aika punnita!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "Et ole vielä kirjannut painoa tänään.",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "kalorivaje",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "Ero tavoitteesta",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "Tilastojen aikaväli",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "Päivästä",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "Päivään",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "Päivämäärät",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "Nollaa päivämäärä painamalla pitkään. Nollattu aloituspäivämäärä tarkoittaa ensimmäisestä mittauksesta, nollattu loppumispäivämäärä tarkoittaa tähän päivään.",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "Tilastojen perusta",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "Interpoloidut arvot tasoittavat päivittäisiä vaihteluita, jotka johtuvat nesteytyksestä, aterioiden ajoituksesta ja muista tekijöistä, antaen selkeämmän kuvan todellisesta painotrendistäsi. Raakamittaukset heijastavat täsmälleen sitä, mitä olet tallentanut, mutta voivat vaihdella huomattavasti päivästä toiseen. Interpoloidun käyrän avulla voit seurata todellista edistymistä lyhyen aikavälin kohinan sijaan.",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "Tilastot perustuvat {sourceName} -tietoon. Voit vaihtaa tämän personointiasetuksissa.",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "Vakava alipaino",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "Alipaino",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "Normaali paino",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "Ylipaino",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "Lihava",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_defaultLangLabel": "Järjestelmän oletus",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "Kieli",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "Valitse näyttökieli",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "Käännä",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_translateSubtitle": "Auta meitä kääntämään trale useammalle kielelle",
+    "@qp_translateSubtitle": {
+        "description": "Banner subtitle for translation call-to-action"
+    },
+    "qp_theme": "Teema",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "Väripaletti ja -rakenne",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "Tumma tila",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "Auto",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "Vaalea",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "Tumma",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "Aidosti musta",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "Käytä täysin mustaa taustaa tummassa tilassa",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "Kontrasti",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "Väripaletti",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "Värirakenne vaihtehto",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "Muistutukset",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderSubtitle": "Päivittäiset painonkirjausmuistutukset",
+    "@qp_reminderSubtitle": {
+        "description": "Reminder settings subtitle shown in the overview"
+    },
+    "qp_reminderEnabled": "Laita päälle muistutukset",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "Muistutuksen päivät",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "Muistutuksen aika",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "Ensimmäinen viikonpäivä",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "Oletus (paikallinen)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "Päivämäärän formaatti",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "Mitä uutta",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "Asetukset",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "Mukauttaminen",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "Ilmoitukset",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
+    },
+    "healthConnect": "Health Connect",
+    "@healthConnect": {
+        "description": "Title of the Health Connect page and tile"
+    },
+    "healthConnectSubtitle": "Synkronoi mittaukset Health Connectilla",
+    "@healthConnectSubtitle": {
+        "description": "Subtitle of the Health Connect settings option"
+    },
+    "healthConnectWarningTitle": "Tietosuojatiedote",
+    "@healthConnectWarningTitle": {
+        "description": "Title of the privacy advisory card"
+    },
+    "healthConnectWarningText": "Laittamalla Health Connect päälle, muut yhdistetyt sovellukset saavat pääsyn painodataasi. Tarkista nämä sovellukset ennen asetuksen käyttämistä.",
+    "@healthConnectWarningText": {
+        "description": "Text warning the user about privacy implications of sharing data with Health Connect"
+    },
+    "healthConnectEnable": "Laita päälle Health Connect",
+    "@healthConnectEnable": {
+        "description": "Label for the master toggle to enable/disable Health Connect integration"
+    },
+    "healthConnectImport": "Tuo painodataa",
+    "@healthConnectImport": {
+        "description": "Label for importing weight data from Health Connect"
+    },
+    "healthConnectImportDesc": "Tuo automaattisesti Health Connectiin tallennetut painotiedot",
+    "@healthConnectImportDesc": {
+        "description": "Description for the import toggle"
+    },
+    "healthConnectExport": "Vie painodata",
+    "@healthConnectExport": {
+        "description": "Label for exporting weight data to Health Connect"
+    },
+    "healthConnectExportDesc": "Automaattisesti kirjaa trale:ssa kirjattu paino Health Connect:iin",
+    "@healthConnectExportDesc": {
+        "description": "Description for the export toggle"
+    },
+    "healthConnectSyncNow": "Synkronoi nyt",
+    "@healthConnectSyncNow": {
+        "description": "Label for manual sync trigger button"
+    },
+    "healthConnectImportHistory": "Tuo koko historia",
+    "@healthConnectImportHistory": {
+        "description": "Label for button to import all historical measurements"
+    },
+    "healthConnectExportHistory": "Vie koko historia",
+    "@healthConnectExportHistory": {
+        "description": "Label for button to export all historical measurements"
+    },
+    "healthConnectNotAvailable": "Health Connect ei ole tuettu tai asennettu tällä laitteella.",
+    "@healthConnectNotAvailable": {
+        "description": "Error message when Health Connect is not available on the device"
+    },
+    "healthConnectSyncSuccess": "Imported {importCount, plural, =1{1 mittaus} other{{importCount} mittausta}} and exported {exportCount, plural, =1{1 mittaus} other{{exportCount} mittausta}}.",
+    "@healthConnectSyncSuccess": {
+        "description": "Success message after a sync session",
+        "placeholders": {
+            "importCount": {
+                "type": "int"
+            },
+            "exportCount": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectImportSuccess": "{count, plural, =1{Tuotu 1 mittaus.} other{Tuotu {count} mittausta.}}",
+    "@healthConnectImportSuccess": {
+        "description": "Success message after importing measurements from Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectExportSuccess": "{count, plural, =1{Viety 1 mittaus.} other{Viety {count} mittausta.}}",
+    "@healthConnectExportSuccess": {
+        "description": "Success message after exporting measurements to Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncError": "Health Connect synkronointi epäonnistui.",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "Synkronointiin vaaditaan oikeuksia. Myönnä ne.",
+    "@healthConnectPermissionsRequired": {
+        "description": "Warning message when required permissions are not granted"
     }
 }

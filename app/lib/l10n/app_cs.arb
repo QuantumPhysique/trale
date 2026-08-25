@@ -96,7 +96,7 @@
     "@exportDialog": {
         "description": "This will export all measurements to the external storage. Writing permissions are needed."
     },
-    "importSubtitle": "Import měření ze souboru zálohy .txt.",
+    "importSubtitle": "Importujte měření ze zálohy .txt nebo souboru .csv.",
     "@importSubtitle": {
         "description": "Import measurements from txt backup file."
     },
@@ -152,7 +152,7 @@
     "@importingAbort": {
         "description": "Import aborted."
     },
-    "importDialog": "Zahrnout všechna měření do aktuální databáze. Tato akce je nevratná!",
+    "importDialog": "Importovat všechna měření do aktuální databáze. Tuto akci nelze vrátit zpět!",
     "@importDialog": {
         "description": "Include all measurements to the current database. This can not be undone!"
     },
@@ -357,7 +357,7 @@
     "@nextBackup": {
         "description": "Time of last backup"
     },
-    "medium": "Střední",
+    "medium": "Střední interpolace",
     "@medium": {
         "description": "medium interpolation"
     },
@@ -373,7 +373,7 @@
     "@backupReminderButton": {
         "description": "Back up now"
     },
-    "backupInterval": "Interval",
+    "backupInterval": "Interval zálohování",
     "@backupInterval": {
         "description": "Frequency of backup interval"
     },
@@ -462,8 +462,298 @@
         "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
     },
     "bmi": "BMI",
-    "schemeVariant": "varianta režimu",
+    "schemeVariant": "Varianta schématu",
     "@schemeVariant": {
         "description": "(Color) scheme variant label."
+    },
+    "today": "dnes",
+    "weightForecast": "předpověď",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "všechny",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "od gólu",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "minulý rok",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "vlastní",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "allTimeStats": "Historické statistiky",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "precision": "Přesnost",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "translate": "přeložit",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "Pomozte s překladem aplikace",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "importSuccess": "Přidáno {count} měření",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "Vybraný soubor se nepodařilo přečíst. Zkuste to prosím znovu nebo použijte jiný soubor.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "Ve vybraném souboru nebyly nalezeny žádné platné rozměry. Zkontrolujte prosím formát souboru.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "changelog": "Seznam změn",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "height": "výška",
+    "@height": {
+        "description": "height"
+    },
+    "target": "cíl",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "showUserData": "zobrazit moje data",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "personalizace",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "name": "jméno",
+    "@name": {
+        "description": "Name"
+    },
+    "targetWeightEnabled": "Cílová výška",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "Nastavte si cílovou váhu a sledujte svůj pokrok.",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "Cílové datum",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "Nastavte si cílové datum nebo sazbu, abyste svého cíle dosáhli včas.",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "Nastavte cílové datum",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "Rychlost",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/týden",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "Pro výpočet cílového data a sazby je potřeba aktuální měření hmotnosti. Také si můžete vybrat starší datum pro zahájení cílové čáry od tamtoho bodu.",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "Zvolte mírné tempo. Příliš nízké tempo a pokrok bude těžko poznatelný; příliš vysoké a riskujete ztrátu svalové hmoty místo tuku.",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "Datum zahájení",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "schemeVariantDescription": "Vyberte variantu, která určí, jak se barevné schéma vytvoří z vybrané základní barvy.",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "Vyberte základní barvu, která určí barevné schéma.",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "další nastavení",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "median": "medián",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "back": "zpět",
+    "userDialogTitle": "Uživatelské nastavení",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "Můžete importovat data. Tímto se vaše stávající data nesmažou a všechny duplicitní položky budou ignorovány. Jsou podporovány soubory „txt“ z trale a soubory „csv“ z OpenScales. V souborech „csv“ musí být sloupce pojmenovány „weight“ a „datetime“; jinak bude první sloupec analyzován jako datum a druhý jako váha. Pokud používáte vlastní soubor „txt“, měl by mít jeden z následujících formátů:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "Dary",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "Podpořit vývoj trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "Přizpůsobení",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "Personalizace",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "Přizpůsobte si zážitek",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "Nastavení barevného schématu",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "Nastavit jazyk",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "Nastavení dat",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "Importovat a exportovat",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "Uložit a načíst vaše data",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "O aplikaci",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "Najděte odpovědi na časté otázky",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "Informace o verzi a licenci",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "Interpolace využívá nejmodernější Gaussovo filtrování k vyhlazení váhové křivky a vytvoření jasnějšího trendu. Vyšší úrovně intenzity filtrování snižují denní výkyvy, ale mohou skrýt krátkodobé změny. Zvolte „{noneInterpol}“ pro zobrazení nezpracovaných měření, extrapolace však bude i nadále používat jemné vyhlazení.",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "Jednotka",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "Nastavení data",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "Formát",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "Výchozí",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "Pomozte nám vylepšit aplikaci poskytnutím zpětné vazby.",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "aboutDescription1": "Jednoduchý záznam hmotnosti s krátkodobou extrapolací.",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "Vaše soukromí je respektováno. V aplikaci nejsou zaznamenávány žádné zdroje příjmů ani se neodesílají záznami chyb. V případě problémů prosím otevřete",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "Vytvořili dva vývojáři s minimem volného času. Zvažte přispění nebo darování.",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "Měření bylo smazáno.",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "Zpět",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "Upravit měření",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "Dlouhým stisknutím měření jej upravíte nebo smažete. Přejetím prstu tuto zprávu zavřete.",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "heightUnit": "Výšková jednotka",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "Oznámení",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "Připomínka",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "Připomeňte si, že si máte zaznamenávat svou váhu",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "Zapnout připomenutí",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "Dostávejte upozornění k zaznamenání vaší hmotnosti",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "Dny",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "Čas",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "Čas připomenutí",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
     }
 }
