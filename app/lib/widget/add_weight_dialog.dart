@@ -13,6 +13,31 @@ import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/weight_picker.dart';
 
+/// Content padding shared by the two weight dialogs.
+///
+/// The ruler's stepper buttons already sit their usual
+/// [QPLayout.smallPadding] away from the ruler above, so the dialog
+/// contributes only the other half of the [QPLayout.padding] used as inner
+/// padding elsewhere, e.g. on the stats screen. Without the override the two
+/// would stack and the gap below the ruler would be more than twice as wide
+/// as everywhere else.
+const EdgeInsets _weightDialogContentPadding = EdgeInsets.only(
+  left: QPLayout.padding,
+  top: QPLayout.padding,
+  right: QPLayout.padding,
+  bottom: QPLayout.smallPadding,
+);
+
+/// Actions padding shared by the two weight dialogs.
+///
+/// Repeats [QPDialog]'s own default, which the content override above would
+/// otherwise leave looking lopsided.
+const EdgeInsets _weightDialogActionsPadding = EdgeInsets.only(
+  left: QPLayout.padding,
+  right: QPLayout.padding,
+  bottom: QPLayout.padding - QPLayout.smallPadding / 2,
+);
+
 ///
 Future<bool> showAddWeightDialog({
   required BuildContext context,
@@ -157,23 +182,8 @@ Future<bool> showAddWeightDialog({
           return QPDialog(
             title: context.l10n.addWeight,
             content: SingleChildScrollView(child: content),
-            // The ruler's stepper buttons already sit their usual
-            // QPLayout.smallPadding away from the ruler above; without this
-            // override the dialog's own contentPadding and actionsPadding
-            // would stack on top of that, so the total gap below the
-            // steppers would be more than double the QPLayout.padding used
-            // as inner padding elsewhere, e.g. on the stats screen.
-            contentPadding: const EdgeInsets.only(
-              left: QPLayout.padding,
-              top: QPLayout.padding,
-              right: QPLayout.padding,
-              bottom: QPLayout.smallPadding,
-            ),
-            actionsPadding: const EdgeInsets.only(
-              left: QPLayout.padding,
-              right: QPLayout.padding,
-              bottom: QPLayout.padding - 4,
-            ),
+            contentPadding: _weightDialogContentPadding,
+            actionsPadding: _weightDialogActionsPadding,
             actions: actions(context, () async {
               final bool wasInserted = await database.insertMeasurement(
                 Measurement(
@@ -256,9 +266,15 @@ Future<bool> showTargetWeightDialog({
             },
             height: 0.15 * MediaQuery.of(context).size.height,
             value: currentSliderValue,
-            ticksPerStep: notifier.unit.ticksPerStep,
+            // Same grid as the add weight dialog, so that the precision
+            // setting reaches both rulers and the typed value can always be
+            // shown by the ruler it is entered on.
+            ticksPerStep:
+                notifier.unitPrecision.ticksPerStep ??
+                notifier.unit.ticksPerStep,
           ),
-          const SizedBox(height: QPLayout.padding),
+          // No gap here: the stepper row below the ruler already brings its
+          // own bottom margin, which adds up to the usual QPLayout.padding.
           QPWidgetGroup(
             children: <Widget>[
               QPGroupedSwitchListTile(
@@ -305,6 +321,8 @@ Future<bool> showTargetWeightDialog({
           return QPDialog(
             title: context.l10n.targetWeight,
             content: SingleChildScrollView(child: content),
+            contentPadding: _weightDialogContentPadding,
+            actionsPadding: _weightDialogActionsPadding,
             actions: actions(context, () {
               // In order to make our contribution to prevention, no target
               // weight below 50 kg / 110 lb / 7.9 st is possible.

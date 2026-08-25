@@ -40,7 +40,12 @@ class QPDialog extends StatelessWidget {
           const EdgeInsets.symmetric(horizontal: pad, vertical: pad),
       actionsPadding:
           actionsPadding ??
-          EdgeInsets.symmetric(horizontal: pad, vertical: pad - 4),
+          const EdgeInsets.symmetric(
+            horizontal: pad,
+            // The action buttons carry their own touch-target inset, so the
+            // dialog gives back half a [QPLayout.smallPadding] of its own.
+            vertical: pad - QPLayout.smallPadding / 2,
+          ),
       actionsAlignment: actions.length == 1
           ? MainAxisAlignment.end
           : MainAxisAlignment.spaceBetween,
