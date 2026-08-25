@@ -13,16 +13,16 @@ typedef ValueChangedCallback = void Function(num value);
 /// A horizontal ruler-style picker for selecting numeric values.
 class RulerPicker extends StatefulWidget {
   /// Creates a [RulerPicker].
-  RulerPicker({
+  const RulerPicker({
     required this.onValueChange,
     required this.ticksPerStep,
     required this.value,
     this.marker,
     this.height = 90,
     this.backgroundColor = Colors.white,
-    RulerPickerController? controller,
+    this.controller,
     super.key,
-  }) : controller = controller ?? RulerPickerController(value: value);
+  });
 
   /// Callback invoked on value change.
   final ValueChangedCallback onValueChange;
@@ -43,22 +43,45 @@ class RulerPicker extends StatefulWidget {
   final double value;
 
   /// Controller for external value changes.
-  final RulerPickerController controller;
+  ///
+  /// When omitted the picker creates and disposes one of its own. Creating it
+  /// here rather than in the constructor matters: the enclosing dialogs
+  /// rebuild the picker on every value change, and a controller built in the
+  /// constructor would be re-allocated — and leaked — on every one of them.
+  final RulerPickerController? controller;
 
   @override
   State<StatefulWidget> createState() => RulerPickerState();
 }
 
 /// State for [RulerPicker].
-class RulerPickerState extends State<RulerPicker> {
+class RulerPickerState extends State<RulerPicker>
+    with SingleTickerProviderStateMixin {
   late final ScrollController _scrollController;
+
+  /// The controller in use, either [RulerPicker.controller] or our own.
+  late RulerPickerController _controller;
+
+  /// Drives the collapse of the ruler while the weight is typed.
+  ///
+  /// 1 means fully expanded, 0 fully collapsed. The ruler stays in the tree
+  /// while collapsed ([SizeTransition] only clips it) so that the scroll
+  /// position survives and can be animated to the typed value.
+  late final AnimationController _collapseController;
+  late final CurvedAnimation _collapse;
+
+  /// Scroll distances longer than this many ticks are jumped, not animated.
+  ///
+  /// Animating over hundreds of ticks would report every crossed value to the
+  /// enclosing dialog, rebuilding it on every frame of the animation.
+  static const int _maxAnimatedTicks = 40;
 
   /// Width in logical pixels of each ruler tick.
   // Tick visuals
   final double tickWidth = 10.0;
 
-  /// Current weight value selected by the picker.
-  late num weightValue = widget.value;
+  /// Whether the value is currently being typed instead of scrolled to.
+  bool _editing = false;
 
   @override
   void initState() {
@@ -69,97 +92,269 @@ class RulerPickerState extends State<RulerPicker> {
       initialScrollOffset: initialIndex * tickWidth,
     );
 
+    _collapseController = AnimationController(
+      vsync: this,
+      duration: QPLayout.transitionNormal,
+      value: 1,
+    );
+    _collapse = CurvedAnimation(
+      parent: _collapseController,
+      curve: Curves.easeOutCubic,
+    );
+
     // External commands to jump/change value
-    widget.controller.addListener(() {
-      if (!_scrollController.hasClients) {
-        return;
+    _controller =
+        widget.controller ?? RulerPickerController(value: widget.value);
+    _controller.addListener(_onControllerChanged);
+  }
+
+  @override
+  void didUpdateWidget(covariant RulerPicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Swapping the controller out is rare, but the listener has to follow it.
+    if (oldWidget.controller != widget.controller) {
+      _controller.removeListener(_onControllerChanged);
+      if (oldWidget.controller == null) {
+        _controller.dispose();
       }
-      final int targetIndex = (widget.controller.value * widget.ticksPerStep)
-          .round();
-      _scrollController.animateTo(
-        targetIndex * tickWidth,
-        duration:
-            QPTheme.of(context)?.transitionDuration.normal ??
-            const Duration(milliseconds: 250),
-        curve: Curves.easeOutCubic,
-      );
-    });
+      _controller =
+          widget.controller ?? RulerPickerController(value: widget.value);
+      _controller.addListener(_onControllerChanged);
+    }
   }
 
   @override
   void dispose() {
+    _controller.removeListener(_onControllerChanged);
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
+    _collapse.dispose();
+    _collapseController.dispose();
     _scrollController.dispose();
     super.dispose();
   }
 
-  Widget _weightLabelWidget(BuildContext context, double weight, Color color) {
-    final TraleNotifier notifier = Provider.of<TraleNotifier>(
-      context,
-      listen: false,
-    );
-    final int precision =
-        notifier.unitPrecision.precision ?? notifier.unit.precision;
-    final Text valueLabel = Text(
-      '${weight.toStringAsFixed(precision)} '
-      '${notifier.unit.name}',
-      style: Theme.of(
-        context,
-      ).textTheme.emphasized.monospace.headlineLarge?.apply(color: color),
-    );
+  void _onControllerChanged() => _scrollToValue(_controller.value);
 
-    return Container(
-      alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.only(
-        top: (QPLayout.padding + QPLayout.smallPadding) / 2,
-        bottom: QPLayout.smallPadding,
-      ),
-      child: valueLabel,
+  /// Value the ruler currently points at.
+  ///
+  /// Before the first layout there is no scroll offset to read yet, and the
+  /// value the picker was given is the one it is about to scroll to.
+  double get _scrolledValue {
+    if (!_scrollController.hasClients) {
+      return widget.value;
+    }
+    return (_scrollController.offset / tickWidth).round() / widget.ticksPerStep;
+  }
+
+  /// Moves the ruler onto [value], animating short distances only.
+  Future<void> _scrollToValue(double value) async {
+    if (!_scrollController.hasClients) {
+      return;
+    }
+    final int targetIndex = (value * widget.ticksPerStep).round();
+    final double target = targetIndex * tickWidth;
+    if ((target - _scrollController.offset).abs() >
+        _maxAnimatedTicks * tickWidth) {
+      _scrollController.jumpTo(target);
+      return;
+    }
+    return _scrollController.animateTo(
+      target,
+      duration: QPLayout.transitionNormal,
+      curve: Curves.easeOutCubic,
     );
+  }
+
+  /// Weight change of a single stepper tap, in the currently selected unit.
+  double get _stepSize => 1 / widget.ticksPerStep;
+
+  /// Value the pending stepper animation is heading for.
+  ///
+  /// Taps arriving faster than the scroll animation would otherwise start
+  /// over from the still moving offset, so that two taps add up to less than
+  /// two ticks. Counting from the last target instead keeps them exact.
+  double? _stepTarget;
+
+  /// Whether the value can still be moved by [steps] ticks.
+  ///
+  /// The ruler runs from zero upwards without an end, so only stepping down
+  /// can ever run out of room.
+  bool _canStep(int steps) => steps >= 0 || (_stepTarget ?? _scrolledValue) > 0;
+
+  /// Moves the value by [steps] ticks, just like scrolling there would.
+  Future<void> _stepBy(int steps) async {
+    final double target = max(
+      0.0,
+      (_stepTarget ?? _scrolledValue) + steps * _stepSize,
+    );
+    _stepTarget = target;
+    await _scrollToValue(target);
+    // A drag interrupting the animation completes it too, so the target is
+    // only stale if no newer tap has replaced it in the meantime.
+    if (_stepTarget == target) {
+      _stepTarget = null;
+    }
+  }
+
+  void _startEditing() {
+    setState(() => _editing = true);
+    _collapseController.reverse();
+  }
+
+  void _commitEditing(double? value) {
+    // Dismissing the dialog with the keyboard open releases the focus, which
+    // commits — by then neither this state nor the dialog around it is still
+    // there to be told about a new value.
+    if (!mounted) {
+      return;
+    }
+    setState(() => _editing = false);
+    _collapseController.forward();
+    if (value == null) {
+      // Invalid input: fall back to what the ruler still points at, so that
+      // the dialog never keeps a draft the user cannot see any more.
+      widget.onValueChange(_scrolledValue);
+      return;
+    }
+    widget.onValueChange(value);
+    _scrollToValue(value);
   }
 
   void _updateWeightValue(num newValue) {
     widget.onValueChange(newValue);
-    setState(() {
-      weightValue = newValue;
-    });
+    // Rebuild so the value bar and the steppers follow the ruler.
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-    final double offset = _scrollController.hasClients
-        ? _scrollController.offset
-        : 0.0;
-    final double page = offset / tickWidth;
-    final int nearestIndex = page.round();
-
-    final double newValue = nearestIndex / widget.ticksPerStep;
-
-    return QPWidgetGroup(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        QPGroupedWidget(
-          color: colorScheme.secondary,
-          child: _weightLabelWidget(context, newValue, colorScheme.onSecondary),
-        ),
-        QPGroupedWidget(
-          color: colorScheme.secondaryContainer,
-          child: SizedBox(
-            height: widget.height,
-            width: MediaQuery.of(context).size.width,
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) =>
-                  _WeightSlider(
-                    constraints: constraints,
-                    scrollController: _scrollController,
+        QPWidgetGroup(
+          // The bottom margin is dropped: the stepper row below supplies
+          // the whole gap itself, via its own top margin.
+          padding: const EdgeInsets.only(top: QPLayout.smallPadding),
+          children: <Widget>[
+            AnimatedBuilder(
+              animation: _collapse,
+              builder: (BuildContext context, _) {
+                // With the ruler collapsed the bar is no longer a tile stacked
+                // on top of it, so it morphs from the flush tile corners into
+                // the pill shape a standalone element has in this design.
+                final ShapeBorder shape = ShapeBorder.lerp(
+                  const StadiumBorder(),
+                  QPLayout.innerBorderShape,
+                  _collapse.value,
+                )!;
+                return QPGroupedWidget(
+                  color: colorScheme.secondary,
+                  shape: shape,
+                  child: _WeightValueField(
+                    value: _scrolledValue,
                     ticksPerStep: widget.ticksPerStep,
-                    onValueChange: _updateWeightValue,
-                    tickWidth: tickWidth,
+                    shape: shape,
+                    editing: _editing,
+                    onEditingStarted: _startEditing,
+                    onDraftChanged: widget.onValueChange,
+                    onCommitted: _commitEditing,
                   ),
+                );
+              },
             ),
-          ),
+            SizeTransition(
+              sizeFactor: _collapse,
+              alignment: AlignmentDirectional.topStart,
+              child: QPGroupedWidget(
+                color: colorScheme.secondaryContainer,
+                child: SizedBox(
+                  height: widget.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: LayoutBuilder(
+                    builder:
+                        (BuildContext context, BoxConstraints constraints) =>
+                            _WeightSlider(
+                              constraints: constraints,
+                              scrollController: _scrollController,
+                              ticksPerStep: widget.ticksPerStep,
+                              onValueChange: _updateWeightValue,
+                              tickWidth: tickWidth,
+                            ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        // The steppers are part of the ruler and collapse along with it: while
+        // typing, the keyboard offers the same fine adjustment.
+        SizeTransition(
+          sizeFactor: _collapse,
+          alignment: AlignmentDirectional.topStart,
+          child: _stepperRow(context, colorScheme),
         ),
       ],
     );
   }
+
+  /// The `-` / `+` pair below the ruler.
+  ///
+  /// It repeats the grouped icon button design of the chart's zoom controls,
+  /// but takes the colour of the ruler so that both read as one control. The
+  /// gap to the ruler is [QPLayout.bentoPadding], matching the tight spacing
+  /// between bento cells rather than the wider gap used between unrelated
+  /// widget groups elsewhere in the dialog.
+  Widget _stepperRow(BuildContext context, ColorScheme colorScheme) => Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: <Widget>[
+      QPWidgetGroup(
+        direction: Axis.horizontal,
+        padding: const EdgeInsets.only(
+          top: QPLayout.bentoPadding,
+          bottom: QPLayout.smallPadding,
+        ),
+        children: <Widget>[
+          _stepperButton(
+            context,
+            colorScheme,
+            icon: PhosphorIconsRegular.minus,
+            steps: -1,
+            tooltip: context.l10n.decreaseWeight,
+          ),
+          _stepperButton(
+            context,
+            colorScheme,
+            icon: PhosphorIconsRegular.plus,
+            steps: 1,
+            tooltip: context.l10n.increaseWeight,
+          ),
+        ],
+      ),
+    ],
+  );
+
+  /// A single stepper button moving the value by [steps] ticks.
+  Widget _stepperButton(
+    BuildContext context,
+    ColorScheme colorScheme, {
+    required IconData icon,
+    required int steps,
+    required String tooltip,
+  }) => QPGroupedWidget(
+    color: colorScheme.secondaryContainer,
+    child: IconButton(
+      onPressed: _canStep(steps) ? () => _stepBy(steps) : null,
+      color: colorScheme.onSecondaryContainer,
+      disabledColor: colorScheme.onSecondaryContainer.withValues(alpha: 0.38),
+      tooltip: tooltip,
+      // No explicit colour: an [Icon] prefers its own over the [IconTheme],
+      // so setting one here would hide the disabled tint at the ends of the
+      // ruler and the button would keep looking pressable.
+      icon: PPIcon(icon, context),
+    ),
+  );
 }

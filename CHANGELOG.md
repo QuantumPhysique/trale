@@ -17,6 +17,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - Reworked the measurement list: entries are now grouped by month and can be
   filtered by year and month
+- Weight can now be typed on the keyboard: tap the value above the ruler in
+  the add weight and target weight dialogs
+- Added `-` and `+` buttons below the ruler to adjust the weight one step at
+  a time
 
 ### Bugfix 🐛:
 - Fixed export writing microseconds in the timestamp of the latest measurement

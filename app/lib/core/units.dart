@@ -1,3 +1,4 @@
+import 'package:trale/core/constants.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/unit_precision.dart';
 
@@ -54,7 +55,7 @@ extension TraleUnitExtension on TraleUnit {
     // get unit precision from context
     final String suffix = showUnit ? ' $name' : '';
     final double scaledVal = doubleToPrecision(weight / scaling, tup);
-    return '${scaledVal.toStringAsFixed(tup.precision ?? precision)}'
+    return '${scaledVal.toStringAsFixed(decimals(tup))}'
         '$suffix';
   }
 
@@ -62,6 +63,34 @@ extension TraleUnitExtension on TraleUnit {
   double doubleToPrecision(double val, TraleUnitPrecision tup) {
     final int tps = tup.ticksPerStep ?? ticksPerStep;
     return (val * tps).roundToDouble() / tps;
+  }
+
+  /// number of decimals shown for this unit and precision setting
+  int decimals(TraleUnitPrecision tup) => tup.precision ?? precision;
+
+  /// parse manually typed input into a weight in this unit
+  ///
+  /// Returns `null` for input that is not a number. Accepts both `.` and `,`
+  /// as decimal separator and snaps the result onto a tick grid, so that
+  /// every accepted value can also be reached by scrolling. [grid] overrides
+  /// the number of ticks per step derived from [tup] and should be set to the
+  /// `ticksPerStep` of the ruler the input belongs to.
+  ///
+  /// Only [minWeightKg] is enforced, because that is where the ruler starts.
+  /// There is deliberately no upper limit: the ruler has none either, and
+  /// typing is meant to reach exactly the same values as scrolling.
+  double? parseWeight(String value, TraleUnitPrecision tup, {int? grid}) {
+    final double? parsed = double.tryParse(value.trim().replaceAll(',', '.'));
+    if (parsed == null) {
+      return null;
+    }
+    final double clamped = parsed < minWeightKg / scaling
+        ? minWeightKg / scaling
+        : parsed;
+    if (grid == null) {
+      return doubleToPrecision(clamped, tup);
+    }
+    return (clamped * grid).roundToDouble() / grid;
   }
 
   /// get string expression

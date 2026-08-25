@@ -11,6 +11,8 @@ class QPDialog extends StatelessWidget {
     required this.content,
     required this.actions,
     required this.title,
+    this.contentPadding,
+    this.actionsPadding,
   });
 
   /// Body widget displayed in the dialog's content area.
@@ -22,16 +24,28 @@ class QPDialog extends StatelessWidget {
   /// Plain title string rendered as a centered headline.
   final String title;
 
+  /// Overrides the default padding around [content].
+  final EdgeInsets? contentPadding;
+
+  /// Overrides the default padding around [actions].
+  final EdgeInsets? actionsPadding;
+
   @override
   Widget build(BuildContext context) {
     const double pad = QPLayout.padding;
     return AlertDialog(
       titlePadding: const EdgeInsets.all(pad),
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: pad,
-        vertical: pad,
-      ),
-      actionsPadding: EdgeInsets.symmetric(horizontal: pad, vertical: pad - 4),
+      contentPadding:
+          contentPadding ??
+          const EdgeInsets.symmetric(horizontal: pad, vertical: pad),
+      actionsPadding:
+          actionsPadding ??
+          const EdgeInsets.symmetric(
+            horizontal: pad,
+            // The action buttons carry their own touch-target inset, so the
+            // dialog gives back half a [QPLayout.smallPadding] of its own.
+            vertical: pad - QPLayout.smallPadding / 2,
+          ),
       actionsAlignment: actions.length == 1
           ? MainAxisAlignment.end
           : MainAxisAlignment.spaceBetween,
