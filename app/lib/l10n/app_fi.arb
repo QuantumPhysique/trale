@@ -266,6 +266,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Napauta kirjoittaaksesi painon",
+    "decreaseWeight": "Vähennä painoa",
+    "increaseWeight": "Lisää painoa",
     "interpolation": "interpolaatio",
     "@interpolation": {
         "description": "interpolation"

@@ -220,6 +220,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Tocca per digitare il peso",
+    "decreaseWeight": "Diminuisci peso",
+    "increaseWeight": "Aumenta peso",
     "onBoarding1": "Questa app in Material You ti aiuta a raggiungere il tuo peso ideale! Che tu voglia ingrassare, dimagrire o mantenere il peso forma, fornisce previsioni affidabili e statistiche complete ti aiuteranno a monitorare i tuoi progressi.\n\nUnisciti alla nostra community per tenere traccia dei tuoi obiettivi.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
     "@onBoarding1": {
         "description": "Text of 1st onBoarding screen."

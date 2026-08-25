@@ -16,6 +16,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Weight can now be typed on the keyboard: tap the value above the ruler in the add weight and target weight dialogs',
         'Added `-` and `+` buttons below the ruler to adjust the weight one step at a time',
       ],
+      ChangelogSection.otherChanges: <String>[
+        'Improved translation',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed export writing microseconds in the timestamp of the latest measurement',
         'Fixed reminders firing at the wrong hour: the device time zone was matched against the time zone database by its abbreviation, which either failed outright or picked a zone with the wrong daylight saving rules',
