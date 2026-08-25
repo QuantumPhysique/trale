@@ -10,6 +10,10 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.3.0',
+    dateString: '2026-08-25',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Reworked the measurement list: entries are now grouped by month and can be filtered by year and month',
