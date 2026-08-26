@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/first_day.dart';
@@ -17,12 +17,12 @@ import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoom_level.dart';
 
-part 'trale_notifier/theme_state.dart';
-part 'trale_notifier/user_state.dart';
-part 'trale_notifier/stats_state.dart';
 part 'trale_notifier/backup_state.dart';
 part 'trale_notifier/reminder_state.dart';
+part 'trale_notifier/stats_state.dart';
+part 'trale_notifier/theme_state.dart';
 part 'trale_notifier/ui_state.dart';
+part 'trale_notifier/user_state.dart';
 
 /// App-level ChangeNotifier extending [QPNotifier] with trale-specific state.
 class TraleNotifier extends QPNotifier {

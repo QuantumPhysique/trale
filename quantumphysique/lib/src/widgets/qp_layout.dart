@@ -1,7 +1,7 @@
 /// Layout constants shared across all QP widgets.
 library;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Shared layout constants for QP apps.
 ///

@@ -1,7 +1,7 @@
 /// FAQ page for QP-based apps.
 library;
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/types/icons.dart';

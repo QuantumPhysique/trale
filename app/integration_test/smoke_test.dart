@@ -19,9 +19,9 @@
 //   CI run starts with a wiped emulator.  If you re-run on a real device with
 //   existing data the test still passes: a new timestamp is used every time.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trale/main.dart' as app;
 import 'package:trale/widget/weight_list_tile.dart';
 

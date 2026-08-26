@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:intl/intl.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:ml_linalg/linalg.dart' as ml;
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
@@ -17,5 +17,5 @@ import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/zoom_level.dart';
 
-part 'linechart_parts/target_weight_segments.dart';
 part 'linechart_parts/custom_line_chart.dart';
+part 'linechart_parts/target_weight_segments.dart';

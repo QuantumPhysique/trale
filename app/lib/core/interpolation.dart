@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Enum with all available interpolation functions

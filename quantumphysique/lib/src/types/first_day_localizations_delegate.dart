@@ -1,8 +1,7 @@
 /// First-day-of-week [LocalizationsDelegate] for QP apps.
 library;
 
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/src/types/first_day.dart';
 
 /// Overrides [MaterialLocalizations.firstDayOfWeekIndex] based on a
