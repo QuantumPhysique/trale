@@ -15,7 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 
-## [1.3.0] - 2026-08-25
+## [1.3.0] - 2026-08-26
 
 ### Added Features and Improvements 🙌:
 - Reworked the measurement list: entries are now grouped by month and can be
