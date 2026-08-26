@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+## [1.3.0] - 2026-08-25
+
 ### Added Features and Improvements 🙌:
 - Reworked the measurement list: entries are now grouped by month and can be
   filtered by year and month
@@ -494,7 +497,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.2.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.3.0...main
+[1.3.0]: https://github.com/quantumphysique/trale/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/quantumphysique/trale/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/quantumphysique/trale/compare/v1.0.3...v1.1.0
 [1.0.2]: https://github.com/quantumphysique/trale/compare/v1.0.0...v1.0.3
