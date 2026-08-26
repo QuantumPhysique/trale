@@ -18,9 +18,9 @@ jobs:
       - name: ⚙️ Setup Java
         uses: actions/setup-java@v5
         with:
-          java-version: "17.x"
+          java-version: "21"
           cache: 'gradle'
-          distribution: 'adopt'
+          distribution: 'temurin'
         id: java
       - name: Set Flutter version
         run: |
