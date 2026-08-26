@@ -177,6 +177,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Нажмите, чтобы ввести вес",
+    "decreaseWeight": "Уменьшить вес",
+    "increaseWeight": "Увеличить вес",
     "interpolation": "Интерполяция",
     "@interpolation": {
         "description": "interpolation"

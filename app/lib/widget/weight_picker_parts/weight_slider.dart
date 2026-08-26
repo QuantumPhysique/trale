@@ -51,7 +51,7 @@ class _WeightSliderState extends State<_WeightSlider> {
       height: height + 1.5 * padding,
       padding: const EdgeInsets.only(bottom: 0.5 * padding, top: padding),
       child: Listener(
-        onPointerDown: (_) => FocusScope.of(context).requestFocus(FocusNode()),
+        onPointerDown: (_) => FocusScope.of(context).unfocus(),
         child: AnimatedBuilder(
           animation: scrollController,
           builder: (BuildContext context, _) {

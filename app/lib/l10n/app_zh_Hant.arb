@@ -277,6 +277,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "點按以輸入體重",
+    "decreaseWeight": "減少體重",
+    "increaseWeight": "增加體重",
     "addHeight": "輸入身高值",
     "@addHeight": {
         "description": "Enter your height"

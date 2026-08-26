@@ -258,7 +258,7 @@ List<Measurement> _parseOpenScaleSplitDatetime(
 
 /// Import backup
 Future<bool> importBackup(BuildContext context) async {
-  final FilePickerResult? pickerResult = await FilePicker.pickFiles(
+  final PlatformFile? pickerResult = await FilePicker.pickFile(
     type: FileType.custom,
     allowedExtensions: <String>['txt', 'csv'],
   );
@@ -268,14 +268,13 @@ Future<bool> importBackup(BuildContext context) async {
   final ScaffoldMessengerState sm = ScaffoldMessenger.of(context);
   final MeasurementDatabase db = MeasurementDatabase();
 
-  final bool pickedSuccess =
-      pickerResult != null && pickerResult.files.single.path != null;
+  final bool pickedSuccess = pickerResult != null && pickerResult.path != null;
   bool accepted = false;
 
   if (pickedSuccess) {
     // get file extension of the file
-    final String ext = pickerResult.names.single!.split('.').last;
-    final File file = File(pickerResult.files.single.path!);
+    final String ext = pickerResult.extension ?? '';
+    final File file = File(pickerResult.path!);
     final List<String> lines;
     try {
       lines = file.readAsLinesSync();

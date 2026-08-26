@@ -314,6 +314,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Dotknij, aby wpisać wagę",
+    "decreaseWeight": "Zmniejsz wagę",
+    "increaseWeight": "Zwiększ wagę",
     "onBoarding1": "Ta prosta aplikacja, używająca Material You pomaga ci osiągnąć twoją wymarzoną wagę! Niezależnie czy chcesz dobrać, stracić czy zwyczajnie utrzymać aktualną wagę: Niezawodne prognozy wagi i uniwersalne statystyki pomagają ci pozostać na dobrej drodze.\n\nDołącz do naszej społeczności.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
     "@onBoarding1": {
         "description": "Text of 1st onBoarding screen."

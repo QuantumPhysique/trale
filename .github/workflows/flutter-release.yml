@@ -14,13 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: ⚙️ Setup Java
         uses: actions/setup-java@v5
         with:
-          java-version: "17.x"
+          java-version: "21"
           cache: 'gradle'
-          distribution: 'adopt'
+          distribution: 'temurin'
         id: java
       - name: Set Flutter version
         run: |
@@ -36,7 +36,7 @@ jobs:
         id: flutter
       - name: 🔐 Retrieve base64 keystore and decode it to a file
         id: write_file
-        uses: timheuer/base64-to-file@v1.2
+        uses: timheuer/base64-to-file@v2.0
         with:
           fileName: "android-keystore.jks"
           fileDir: "${{ github.workspace }}/"
@@ -60,7 +60,7 @@ jobs:
           make build
           make build-aab
       - name: 🤖🚀 Upload to GitHub release
-        uses: AButler/upload-release-assets@v3.0
+        uses: AButler/upload-release-assets@v4.0
         with:
           files: 'app/build/app/outputs/flutter-apk/*;app/build/app/outputs/bundle/release/*'
           repo-token: ${{ secrets.GITHUB_TOKEN }}

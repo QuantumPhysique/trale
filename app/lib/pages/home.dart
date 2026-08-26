@@ -94,6 +94,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return QPHomePage(
+      // No tab has a text field; only dialogs open the keyboard and they
+      // float above it, so the tabs must not be squeezed by its inset.
+      resizeToAvoidBottomInset: false,
       tabs: <QPHomeTab>[
         QPHomeTab(
           icon: PPIcon(PhosphorIconsDuotone.lineSegments, context),

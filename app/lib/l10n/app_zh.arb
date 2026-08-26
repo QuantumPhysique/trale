@@ -86,6 +86,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "点按以输入体重",
+    "decreaseWeight": "减少体重",
+    "increaseWeight": "增加体重",
     "interpolation": "插值(体重预测算法)",
     "@interpolation": {
         "description": "interpolation"

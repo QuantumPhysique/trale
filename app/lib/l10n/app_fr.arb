@@ -290,6 +290,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Appuyez pour saisir le poids",
+    "decreaseWeight": "Diminuer le poids",
+    "increaseWeight": "Augmenter le poids",
     "interpolation": "interpolation",
     "@interpolation": {
         "description": "interpolation"

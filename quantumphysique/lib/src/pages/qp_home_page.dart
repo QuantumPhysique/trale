@@ -65,11 +65,20 @@ class QPHomePage extends StatefulWidget {
     this.fabTooltip,
     this.fabOnFirstTabOnly = false,
     this.onPostInit,
+    this.resizeToAvoidBottomInset = true,
     super.key,
   });
 
   /// The tabs to display in the [NavigationBar] and [TabBarView].
   final List<QPHomeTab> tabs;
+
+  /// Whether the body shrinks when the software keyboard appears.
+  ///
+  /// Set this to `false` when the tabs contain no text input of their own.
+  /// A keyboard opened by a dialog on top of the home page would otherwise
+  /// squeeze tab content that is sized to the viewport, and dialogs float
+  /// above the keyboard regardless of this setting.
+  final bool resizeToAvoidBottomInset;
 
   /// Builds the settings page navigated to when the gear icon is tapped.
   final WidgetBuilder settingsPageBuilder;
@@ -163,6 +172,7 @@ class _QPHomePageState extends State<QPHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,

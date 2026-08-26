@@ -14,9 +14,19 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+## [1.3.0] - 2026-08-26
+
 ### Added Features and Improvements 🙌:
 - Reworked the measurement list: entries are now grouped by month and can be
   filtered by year and month
+- Weight can now be typed on the keyboard: tap the value above the ruler in
+  the add weight and target weight dialogs
+- Added `-` and `+` buttons below the ruler to adjust the weight one step at
+  a time
+
+### Other Changes:
+- Improved translation
 
 ### Bugfix 🐛:
 - Fixed export writing microseconds in the timestamp of the latest measurement
@@ -487,7 +497,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.2.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.3.0...main
+[1.3.0]: https://github.com/quantumphysique/trale/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/quantumphysique/trale/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/quantumphysique/trale/compare/v1.0.3...v1.1.0
 [1.0.2]: https://github.com/quantumphysique/trale/compare/v1.0.0...v1.0.3
