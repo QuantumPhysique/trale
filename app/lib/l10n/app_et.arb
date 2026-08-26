@@ -167,6 +167,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Puuduta kaalu sisestamiseks",
+    "decreaseWeight": "Vähenda kaalu",
+    "increaseWeight": "Suurenda kaalu",
     "interpolation": "interpolatsioon",
     "@interpolation": {
         "description": "interpolation"

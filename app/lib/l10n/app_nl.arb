@@ -223,6 +223,9 @@
     "@addWeight": {
         "description": "Enter your weight"
     },
+    "enterWeightManually": "Tik om het gewicht in te voeren",
+    "decreaseWeight": "Gewicht verlagen",
+    "increaseWeight": "Gewicht verhogen",
     "interpolation": "Tendens",
     "@interpolation": {
         "description": "interpolation"

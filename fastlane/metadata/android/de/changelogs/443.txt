@@ -1,0 +1,6 @@
+- Überarbeitete Messwertliste: Einträge sind nach Monat gruppiert und nach Jahr und Monat filterbar
+- Das Gewicht kann jetzt über die Tastatur eingegeben werden
+- Neue - und + Buttons ändern das Gewicht schrittweise
+- Verbesserte Übersetzung
+- Fehlerhafte Mikrosekunden im Zeitstempel der letzten Messung beim Export behoben
+- Erinnerungen zur falschen Zeit behoben
