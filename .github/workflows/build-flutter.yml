@@ -1,15 +1,87 @@
 name: Build Flutter app for an environment
 
-on: [push]
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 permissions:
   contents: read
 
 jobs:
+  verify:
+    name: 🔍 Lint & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v7
+      - name: ⚙️ Setup Java
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: 'temurin'
+      - name: Set Flutter version
+        run: |
+          cd app
+          export FLUTTER_VERSION="$(sed -E -n -e 's/^.*flutter:\ ">=([0-9.]+)"/\1/p' pubspec.yaml)"
+          echo "FLUTTER_VERSION=$FLUTTER_VERSION" >> $GITHUB_ENV
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "${{ env.FLUTTER_VERSION }}"
+          channel: 'stable'
+      - name: 📦 Cache Flutter SDK
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.FLUTTER_ROOT }}
+          key: flutter-sdk-${{ runner.os }}-${{ env.FLUTTER_VERSION }}
+          restore-keys: |
+            flutter-sdk-${{ runner.os }}-
+      - name: 📦 Cache Pub dependencies
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.pub-cache
+            app/.dart_tool
+          key: pub-${{ runner.os }}-${{ hashFiles('app/pubspec.lock') }}
+          restore-keys: |
+            pub-${{ runner.os }}-
+      - name: Pub Get Packages
+        run: |
+          cd app
+          flutter --disable-analytics
+          flutter pub get --enforce-lockfile
+      - name: Check formatting
+        run: |
+          cd app
+          dart format --set-exit-if-changed .
+      - name: Lint dart code
+        run: |
+          cd app
+          dart analyze --no-fatal-warnings lib/
+      - name: Check dependencies
+        run: |
+          cd app
+          dart run dependency_validator
+      - name: Check changelog is up-to-date
+        run: |
+          cd app
+          dart run quantumphysique:generate_changelog --check
+      - name: 🧪 Run tests
+        run: |
+          cd app
+          flutter test
+
   deployAndroid:
     permissions: write-all
     name: Build Android apk
     runs-on: ubuntu-latest
+    needs: verify
+    # Fork PRs (Weblate) receive no signing secrets, so a signed release
+    # build cannot succeed there.
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v7
@@ -75,26 +147,6 @@ jobs:
           cd app
           flutter --disable-analytics
           flutter pub get --enforce-lockfile
-      - name: Check formatting
-        run: |
-          cd app
-          dart format --set-exit-if-changed .
-      - name: Lint dart code
-        run: |
-          cd app
-          dart analyze --no-fatal-warnings lib/
-      - name: Check dependencies
-        run: |
-          cd app
-          dart run dependency_validator
-      - name: Check changelog is up-to-date
-        run: |
-          cd app
-          dart run quantumphysique:generate_changelog --check
-      - name: 🧪 Run tests
-        run: |
-          cd app
-          flutter test
       - name: 🤖📦 Create Android release
         run: |
           cd app
@@ -115,8 +167,9 @@ jobs:
   integrationTest:
     name: 🤖 Integration tests (Android emulator)
     runs-on: ubuntu-latest
-    # Only run on the main branch and on PRs targeting main to save CI time.
-    if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    needs: verify
+    # Slow and expensive: merge-to-main only, never on PRs.
+    if: github.event_name == 'push'
     steps:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v7
