@@ -5,9 +5,17 @@ allprojects {
     }
 }
 
-rootProject.buildDir = '../build'
+rootProject.layout.buildDirectory.value(
+        rootProject.layout.projectDirectory.dir('../build'))
 subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.layout.buildDirectory.value(
+            rootProject.layout.buildDirectory.dir(project.name))
+}
+
+// Kept separate from the block above: evaluationDependsOn forces ':app' to be
+// evaluated at once, which must not happen before every subproject has had its
+// build directory redirected.
+subprojects {
     project.evaluationDependsOn(':app')
 
     // Disable all tasks whose name contains "ArtProfile", see #341
@@ -19,5 +27,5 @@ subprojects {
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    delete rootProject.layout.buildDirectory
 }
