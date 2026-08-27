@@ -67,19 +67,24 @@ class QPThemeSettingsPage extends StatelessWidget {
               ),
             ],
           ),
-      schemeVariantSection ??
-          QPWidgetGroup(
-            title: strings.schemeVariant,
-            children: <Widget>[
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: _SchemeVariantCarousel(
-                  notifier: notifier,
-                  isDark: isDark,
+      // With the palettes fixed by the system, four of the seven variants
+      // resolve to the same colours, so the carousel would show identical
+      // previews. Hide it while the system palette is selected; the stored
+      // choice is untouched and returns with any other palette.
+      if (notifier.theme != QPCustomTheme.system)
+        schemeVariantSection ??
+            QPWidgetGroup(
+              title: strings.schemeVariant,
+              children: <Widget>[
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: _SchemeVariantCarousel(
+                    notifier: notifier,
+                    isDark: isDark,
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
       QPWidgetGroup(
         title: strings.theme,
         children: <Widget>[

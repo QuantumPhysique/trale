@@ -70,6 +70,13 @@ extension QPThemeStateExtension on QPNotifier {
     }
   }
 
+  /// The system colours, but only while [QPCustomTheme.system] is selected.
+  ///
+  /// The ten hand-authored palettes keep seeding their scheme from
+  /// [QPCustomThemeExtension.seed].
+  QPSystemColors? get activeSystemColors =>
+      theme == QPCustomTheme.system ? systemColors : null;
+
   /// Light [ThemeData] built from current settings.
   ThemeData get lightTheme => buildQPThemeData(
     seedColor: seedColor,
@@ -77,6 +84,7 @@ extension QPThemeStateExtension on QPNotifier {
     schemeVariant: schemeVariant,
     contrast: contrastLevel,
     isGrey: _isSeedGrey,
+    systemColors: activeSystemColors,
   );
 
   /// Dark [ThemeData] built from current settings.
@@ -87,5 +95,6 @@ extension QPThemeStateExtension on QPNotifier {
     contrast: contrastLevel,
     isAmoled: isAmoled,
     isGrey: _isSeedGrey,
+    systemColors: activeSystemColors,
   );
 }

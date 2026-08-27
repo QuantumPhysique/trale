@@ -29,6 +29,7 @@ export 'src/preferences/qp_preferences.dart';
 
 // Theme
 export 'src/theme/qp_theme.dart';
+export 'src/theme/qp_system_colors.dart';
 
 // Notifier
 export 'src/notifier/qp_notifier.dart';
