@@ -14,6 +14,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Bugfix 🐛:
+- Fixed the height field in the personalization settings losing focus after
+  every digit, which made it impossible to enter a height in one go
+
 
 ## [1.3.0] - 2026-08-26
 

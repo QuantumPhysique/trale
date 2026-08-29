@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fixed the height field in the personalization settings losing focus after every digit, which made it impossible to enter a height in one go',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.3.0',
