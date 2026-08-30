@@ -74,7 +74,7 @@ class UserDetailsGroup extends StatelessWidget {
               notifier.userHeight = newHeight;
             }
           },
-          onEditingComplete: () {
+          onSubmitted: () {
             onRefresh();
           },
         ),

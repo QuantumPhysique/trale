@@ -104,6 +104,43 @@ void main() {
     expect(heightText(tester), '''5'11"''');
   });
 
+  testWidgets('the done key closes the keyboard on the height field', (
+    WidgetTester tester,
+  ) async {
+    notifier.heightUnit = TraleUnitHeight.metric;
+    await pumpGroup(tester);
+
+    await tester.tap(heightField());
+    await tester.pump();
+    expect(primaryFocus?.hasPrimaryFocus, isTrue);
+
+    tester.testTextInput.enterText('180');
+    await tester.pump();
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    expect(tester.testTextInput.isVisible, isFalse);
+    expect(notifier.userHeight, 180);
+  });
+
+  testWidgets('the done key closes the keyboard on the name field', (
+    WidgetTester tester,
+  ) async {
+    await pumpGroup(tester);
+
+    await tester.tap(find.byType(TextFormField).first);
+    await tester.pump();
+    expect(primaryFocus?.hasPrimaryFocus, isTrue);
+
+    tester.testTextInput.enterText('Alice');
+    await tester.pump();
+    await tester.testTextInput.receiveAction(TextInputAction.done);
+    await tester.pumpAndSettle();
+
+    expect(tester.testTextInput.isVisible, isFalse);
+    expect(notifier.userName, 'Alice');
+  });
+
   testWidgets('typing a name does not disturb the height field', (
     WidgetTester tester,
   ) async {
