@@ -10,7 +10,15 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.3.1',
+    dateString: '2026-08-31',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.otherChanges: <String>[
+        'Use the latest Flutter (3.47) with the new material_ui package',
+        'Improved translation',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed the language selection showing "error" instead of العربية for Arabic',
         'Fixed the height field in the personalization settings losing focus after every digit, which made it impossible to enter a height in one go',

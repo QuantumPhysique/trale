@@ -1,0 +1,6 @@
+- Fixed the language selection showing "error" instead of العربية for Arabic
+- Fixed the height field in the personalization settings losing focus after every digit
+- Fixed the done key of the keyboard doing nothing in the height field
+- Fixed the content of the user dialog overlapping when the keyboard shrinks it
+- Uses the latest Flutter (3.47)
+- Improved translation

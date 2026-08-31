@@ -1,0 +1,6 @@
+- Sprachauswahl zeigte "error" statt العربية für Arabisch – behoben
+- Größenfeld in den Personalisierungs-Einstellungen verlor nach jeder Ziffer den Fokus – behoben
+- Die Fertig-Taste der Tastatur hatte im Größenfeld keine Wirkung – behoben
+- Überlappende Inhalte im Benutzer-Dialog, wenn die Tastatur ihn verkleinert – behoben
+- Nutzt das neueste Flutter (3.47)
+- Verbesserte Übersetzung
