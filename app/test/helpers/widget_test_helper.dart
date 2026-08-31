@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
+import 'package:quantumphysique/quantumphysique.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
@@ -90,9 +91,16 @@ Future<void> pumpUntilSettled(
 
 /// Wraps [child] in a [MaterialApp] with [notifier] in the Provider tree and
 /// English localizations.
+///
+/// The notifier is registered under both types, the way [QPApp] does it in
+/// production, so that QP widgets reaching for `QPNotifier` — `QPTheme.of`
+/// among them — resolve here too.
 Widget buildTestApp({required Widget child, required TraleNotifier notifier}) {
-  return ChangeNotifierProvider<TraleNotifier>.value(
-    value: notifier,
+  return MultiProvider(
+    providers: <ChangeNotifierProvider<ChangeNotifier>>[
+      ChangeNotifierProvider<TraleNotifier>.value(value: notifier),
+      ChangeNotifierProvider<QPNotifier>.value(value: notifier),
+    ],
     child: MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
