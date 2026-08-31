@@ -12,6 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
+        'Fixed the language selection showing "error" instead of العربية for Arabic',
         'Fixed the height field in the personalization settings losing focus after every digit, which made it impossible to enter a height in one go',
         'Fixed the done key of the keyboard doing nothing in the height field',
         'Fixed the content of the user dialog overlapping when the dialog shrinks to make room for the keyboard',
