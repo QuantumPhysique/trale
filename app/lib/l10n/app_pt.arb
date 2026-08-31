@@ -384,7 +384,7 @@
     "@targetWeightReachedIn": {
         "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
     },
-    "change": "mudar",
+    "change": "mudança",
     "@change": {
         "description": "A short word describing a difference in numbers, i.e. the change of the weight"
     },
