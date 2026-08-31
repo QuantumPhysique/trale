@@ -1,0 +1,6 @@
+- Aktualisierung auf die neueste Flutterversion 3.47
+- Verbesserte Übersetzung
+- Anzeige von "error" statt العربية in der Sprachauswahl behoben
+- Fokusverlust im Größenfeld nach jeder Ziffer behoben
+- Wirkungslose Fertig-Taste im Größenfeld behoben
+- Überlappende Inhalte im Benutzer-Dialog bei geöffneter Tastatur behoben

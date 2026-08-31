@@ -1,0 +1,6 @@
+- Updated to the latest Flutter (3.47)
+- Improved translation
+- Fixed Arabic showing as "error" in the language selection
+- Fixed the height field losing focus after every digit
+- Fixed the done key doing nothing in the height field
+- Fixed the user dialog overlapping when the keyboard opens
