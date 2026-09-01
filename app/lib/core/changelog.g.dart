@@ -10,6 +10,12 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fixed "Import all history" reaching no further back than 30 days: Health Connect hides older records until an app asks for access to past data, which trale now does',
+        'The Health Connect import now says why nothing arrived instead of reporting "Imported 0 measurements" for a missing permission or a failed read',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.3.1',

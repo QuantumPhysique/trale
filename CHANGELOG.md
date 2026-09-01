@@ -14,6 +14,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Bugfix 🐛:
+- Fixed "Import all history" reaching no further back than 30 days: Health
+  Connect hides older records until an app asks for access to past data, which
+  trale now does
+- The Health Connect import now says why nothing arrived instead of reporting
+  "Imported 0 measurements" for a missing permission or a failed read
+
 
 ## [1.3.1] - 2026-08-31
 

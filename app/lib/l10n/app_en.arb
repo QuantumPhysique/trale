@@ -1048,5 +1048,17 @@
     "healthConnectPermissionsRequired": "Permissions are required to sync. Please enable them.",
     "@healthConnectPermissionsRequired": {
         "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "No weight records found in Health Connect.",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "Health Connect only shared the last 30 days. Allow access to past data in Health Connect to import your full history.",
+    "@healthConnectHistoryLimited": {
+        "description": "Message shown when the full history was imported without permission to read data older than 30 days"
+    },
+    "healthConnectBusy": "A sync is already running. Please try again in a moment.",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
     }
 }
