@@ -8,6 +8,7 @@ import 'package:quantumphysique/src/types/first_day.dart';
 import 'package:quantumphysique/src/types/language.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 import 'package:quantumphysique/src/notifier/qp_theme_builder.dart';
+import 'package:quantumphysique/src/theme/qp_system_colors.dart';
 import 'package:quantumphysique/src/theme/qp_theme.dart';
 
 part 'qp_theme_state.dart';
@@ -31,22 +32,25 @@ class QPNotifier with ChangeNotifier {
   /// The underlying preferences instance.
   final QPPreferences prefs;
 
-  ColorScheme? _systemLightDynamic;
-  ColorScheme? _systemDarkDynamic;
+  QPSystemColors? _systemColors;
 
-  /// Updates the system dynamic color schemes (Android 12+).
-  void setColorScheme(ColorScheme? light, ColorScheme? dark) {
-    _systemLightDynamic = light;
-    _systemDarkDynamic = dark;
+  /// Updates the colours reported by the operating system.
+  ///
+  /// Called from [QPApp] while it builds, so it must not notify listeners.
+  void setSystemColors(QPSystemColors? colors) {
+    _systemColors = colors;
   }
 
-  /// Whether system dynamic color is available (Android 12+).
-  bool get systemColorsAvailable =>
-      _systemLightDynamic != null && _systemDarkDynamic != null;
+  /// The colours reported by the operating system, or `null` when the platform
+  /// provides none (Android below 12).
+  QPSystemColors? get systemColors => _systemColors;
 
-  /// The primary system seed color, falling back to [Colors.black].
-  Color get systemSeedColor =>
-      systemColorsAvailable ? _systemLightDynamic!.primary : Colors.black;
+  /// Whether system dynamic color is available (Android 12+, or a desktop
+  /// platform that reports an accent colour).
+  bool get systemColorsAvailable => _systemColors != null;
+
+  /// The system accent color, falling back to [Colors.black].
+  Color get systemSeedColor => _systemColors?.accentColor ?? Colors.black;
 
   /// The seed color for this app's palette.
   ///

@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/src/notifier/qp_notifier.dart';
+import 'package:quantumphysique/src/theme/qp_system_colors.dart';
 import 'package:quantumphysique/src/types/contrast.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 import 'package:quantumphysique/src/types/strings.dart';
@@ -21,6 +22,7 @@ class QPTheme {
     required this.schemeVariant,
     this.isAmoled = false,
     this.contrast = 0.0,
+    this.systemColors,
   });
 
   /// Returns a copy with the given fields replaced.
@@ -30,6 +32,7 @@ class QPTheme {
     bool? isAmoled,
     double? contrast,
     DynamicSchemeVariant? schemeVariant,
+    QPSystemColors? systemColors,
   }) {
     return QPTheme(
       brightness: brightness ?? this.brightness,
@@ -37,6 +40,7 @@ class QPTheme {
       isAmoled: isAmoled ?? this.isAmoled,
       contrast: contrast ?? this.contrast,
       schemeVariant: schemeVariant ?? this.schemeVariant,
+      systemColors: systemColors ?? this.systemColors,
     );
   }
 
@@ -53,12 +57,14 @@ class QPTheme {
       return null;
     }
     final bool isLight = Theme.of(context).brightness == Brightness.light;
+    final QPSystemColors? systemColors = notifier.activeSystemColors;
     if (isLight) {
       return QPTheme(
         seedColor: notifier.seedColor,
         brightness: Brightness.light,
         schemeVariant: notifier.schemeVariant.toDynamicSchemeVariant,
         contrast: notifier.contrastLevel.contrast,
+        systemColors: systemColors,
       );
     }
     if (notifier.isAmoled) {
@@ -68,6 +74,7 @@ class QPTheme {
         schemeVariant: notifier.schemeVariant.toDynamicSchemeVariant,
         contrast: notifier.contrastLevel.contrast,
         isAmoled: true,
+        systemColors: systemColors,
       );
     }
     return QPTheme(
@@ -75,6 +82,7 @@ class QPTheme {
       brightness: Brightness.dark,
       schemeVariant: notifier.schemeVariant.toDynamicSchemeVariant,
       contrast: notifier.contrastLevel.contrast,
+      systemColors: systemColors,
     );
   }
 
@@ -92,6 +100,13 @@ class QPTheme {
 
   /// Contrast level in the range `[-1.0, 1.0]`.
   late double contrast;
+
+  /// The colours reported by the operating system.
+  ///
+  /// Non-null only for [QPCustomTheme.system]; when set, [themeData] resolves
+  /// every role from the system's palettes instead of seeding from
+  /// [seedColor].
+  QPSystemColors? systemColors;
 
   // ── Layout constants ────────────────────────────────────────────────────────
 
@@ -199,14 +214,23 @@ class QPTheme {
 
   /// Fully configured [ThemeData] for this [QPTheme].
   ThemeData get themeData {
-    ColorScheme colorScheme = ColorScheme.fromSeed(
-      seedColor: seedColor,
-      brightness: brightness,
-      contrastLevel: contrast,
-      dynamicSchemeVariant: isGrey
-          ? DynamicSchemeVariant.monochrome
-          : schemeVariant,
-    ).harmonized();
+    final QPSystemColors? systemColors = this.systemColors;
+    ColorScheme colorScheme =
+        (systemColors != null
+                ? systemColors.toColorScheme(
+                    brightness: brightness,
+                    contrastLevel: contrast,
+                    variant: schemeVariant,
+                  )
+                : ColorScheme.fromSeed(
+                    seedColor: seedColor,
+                    brightness: brightness,
+                    contrastLevel: contrast,
+                    dynamicSchemeVariant: isGrey
+                        ? DynamicSchemeVariant.monochrome
+                        : schemeVariant,
+                  ))
+            .harmonized();
     if (isAmoled && brightness == Brightness.dark) {
       colorScheme = colorScheme.copyWith(surface: Colors.black).harmonized();
     }
@@ -335,12 +359,21 @@ extension QPCustomThemeExtension on QPCustomTheme {
         listen: false,
       ).schemeVariant.toDynamicSchemeVariant;
 
+  /// The system colours, for [QPCustomTheme.system] only.
+  ///
+  /// Keeps the other ten preview tiles on the seeded path.
+  QPSystemColors? systemColors(BuildContext context) =>
+      this == QPCustomTheme.system
+      ? Provider.of<QPNotifier>(context, listen: false).systemColors
+      : null;
+
   /// Builds the light-mode [QPTheme] for this palette.
   QPTheme light(BuildContext context) => QPTheme(
     seedColor: seedColor(context),
     brightness: Brightness.light,
     schemeVariant: schemeVariant(context),
     contrast: contrast(context),
+    systemColors: systemColors(context),
   );
 
   /// Builds the dark-mode [QPTheme] for this palette.
@@ -349,6 +382,7 @@ extension QPCustomThemeExtension on QPCustomTheme {
     brightness: Brightness.dark,
     schemeVariant: schemeVariant(context),
     contrast: contrast(context),
+    systemColors: systemColors(context),
   );
 
   /// Builds the AMOLED dark-mode [QPTheme] for this palette.

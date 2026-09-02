@@ -1,10 +1,11 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/src/app/qp_notification_service.dart';
+import 'package:quantumphysique/src/app/qp_system_color_builder.dart';
 import 'package:quantumphysique/src/notifier/qp_notifier.dart';
 import 'package:quantumphysique/src/preferences/qp_preferences.dart';
+import 'package:quantumphysique/src/theme/qp_system_colors.dart';
 import 'package:quantumphysique/src/types/first_day_localizations_delegate.dart';
 import 'package:quantumphysique/src/types/logger.dart';
 import 'package:quantumphysique/src/types/strings.dart';
@@ -155,9 +156,9 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
       ],
       child: Consumer<N>(
         builder: (BuildContext ctx, N notifier, _) {
-          return DynamicColorBuilder(
-            builder: (ColorScheme? light, ColorScheme? dark) {
-              notifier.setColorScheme(light, dark);
+          return QPSystemColorBuilder(
+            builder: (QPSystemColors? systemColors) {
+              notifier.setSystemColors(systemColors);
               final Map<String, WidgetBuilder> routes = widget.buildRoutes();
               if (_showOnboarding) {
                 routes[widget.initialRoute] = widget.onboardingBuilder!;

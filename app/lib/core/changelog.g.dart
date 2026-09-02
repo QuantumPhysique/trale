@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'The "system" colour palette now uses the full Material You palette reported by Android instead of re-deriving one from the accent colour, so surfaces, outlines and the secondary and tertiary colours match the rest of the system',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.3.1',
