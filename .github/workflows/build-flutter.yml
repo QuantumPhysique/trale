@@ -16,7 +16,7 @@ jobs:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v7
       - name: ⚙️ Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: "21"
           distribution: 'temurin'
@@ -86,7 +86,7 @@ jobs:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v7
       - name: ⚙️ Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: "21"
           distribution: 'temurin'
@@ -174,7 +174,7 @@ jobs:
       - name: ⬇️ Checkout repository
         uses: actions/checkout@v7
       - name: ⚙️ Setup Java
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: "21"
           distribution: 'temurin'

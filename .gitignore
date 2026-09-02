@@ -7,7 +7,7 @@
 .env.dev
 /doc/
 .DS_Store
-.claude/
+.claude/settings.local.json
 .githooks/
 
 

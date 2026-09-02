@@ -69,9 +69,14 @@ Future<bool> showUserDialog({required BuildContext context}) async {
         builder: (BuildContext context) {
           return QPDialog(
             title: context.l10n.userDialogTitle,
-            content: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: content,
+            // The dialog shrinks to stay clear of the software keyboard, so
+            // the content has to give way with it — without a scroll view
+            // [AlertDialog] hands it a hard height and it overflows.
+            content: SingleChildScrollView(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: content,
+              ),
             ),
             actions: actions(context, () {
               Navigator.pop(context, true);

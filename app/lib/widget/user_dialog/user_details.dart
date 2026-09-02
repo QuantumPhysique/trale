@@ -44,10 +44,12 @@ class UserDetailsGroup extends StatelessWidget {
         _GroupedFormFieldTile(
           color: tileColor,
           icon: PhosphorIconsDuotone.arrowsVertical,
-          fieldKey: ValueKey<Object>((
-            notifier.heightUnit,
-            notifier.userHeight,
-          )),
+          // Keyed on the unit alone so that switching between cm and ft/in
+          // remounts the field with a reformatted [initialValue]. The height
+          // itself must stay out of the key: every keystroke writes it back to
+          // the notifier, and the rebuild that follows would swap in a fresh
+          // field, dropping the focus — and with it the rest of the digits.
+          fieldKey: ValueKey<TraleUnitHeight>(notifier.heightUnit),
           keyboardType: notifier.heightUnit == TraleUnitHeight.metric
               ? TextInputType.number
               : TextInputType.text,
@@ -72,7 +74,7 @@ class UserDetailsGroup extends StatelessWidget {
               notifier.userHeight = newHeight;
             }
           },
-          onEditingComplete: () {
+          onSubmitted: () {
             onRefresh();
           },
         ),

@@ -20,6 +20,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   outlines and the secondary and tertiary colours match the rest of the system
 
 
+## [1.3.1] - 2026-08-31
+
+### Other Changes:
+- Use the latest Flutter (3.47) with the new material_ui package
+- Improved translation
+
+### Bugfix 🐛:
+- Fixed the language selection showing "error" instead of العربية for Arabic
+- Fixed the height field in the personalization settings losing focus after
+  every digit, which made it impossible to enter a height in one go
+- Fixed the done key of the keyboard doing nothing in the height field
+- Fixed the content of the user dialog overlapping when the dialog shrinks to
+  make room for the keyboard
+
+
 ## [1.3.0] - 2026-08-26
 
 ### Added Features and Improvements 🙌:
@@ -502,7 +517,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.3.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.3.1...main
+[1.3.1]: https://github.com/quantumphysique/trale/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/quantumphysique/trale/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/quantumphysique/trale/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/quantumphysique/trale/compare/v1.0.3...v1.1.0

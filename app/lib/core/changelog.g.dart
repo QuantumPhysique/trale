@@ -17,6 +17,22 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     },
   ),
   ChangelogEntry(
+    version: '1.3.1',
+    dateString: '2026-08-31',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.otherChanges: <String>[
+        'Use the latest Flutter (3.47) with the new material_ui package',
+        'Improved translation',
+      ],
+      ChangelogSection.bugfix: <String>[
+        'Fixed the language selection showing "error" instead of العربية for Arabic',
+        'Fixed the height field in the personalization settings losing focus after every digit, which made it impossible to enter a height in one go',
+        'Fixed the done key of the keyboard doing nothing in the height field',
+        'Fixed the content of the user dialog overlapping when the dialog shrinks to make room for the keyboard',
+      ],
+    },
+  ),
+  ChangelogEntry(
     version: '1.3.0',
     dateString: '2026-08-26',
     sections: <ChangelogSection, List<String>>{

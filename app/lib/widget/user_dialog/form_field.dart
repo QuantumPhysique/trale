@@ -13,7 +13,7 @@ class _GroupedFormFieldTile extends StatelessWidget {
     this.inputFormatters,
     this.readOnly = false,
     this.onChanged,
-    this.onEditingComplete,
+    this.onSubmitted,
     this.onTap,
   });
 
@@ -28,7 +28,14 @@ class _GroupedFormFieldTile extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool readOnly;
   final ValueChanged<String>? onChanged;
-  final VoidCallback? onEditingComplete;
+
+  /// Called when the input is committed with the keyboard's done key.
+  ///
+  /// Deliberately wired to `onFieldSubmitted` rather than
+  /// `onEditingComplete`: the latter *replaces* the default handler, which is
+  /// what closes the keyboard, so a field that supplied it left the keyboard
+  /// open with nothing happening on done.
+  final VoidCallback? onSubmitted;
   final GestureTapCallback? onTap;
 
   @override
@@ -56,7 +63,9 @@ class _GroupedFormFieldTile extends StatelessWidget {
           labelText: labelText,
         ),
         onChanged: onChanged,
-        onEditingComplete: onEditingComplete,
+        onFieldSubmitted: onSubmitted == null
+            ? null
+            : (String _) => onSubmitted!(),
         onTap: onTap,
       ),
       onTap: () {},
