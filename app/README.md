@@ -44,8 +44,12 @@ dart run dart_code_metrics:metrics check-unused-l10n lib
 dart run dart_code_metrics:metrics check-unused-code lib
 ```
 
-### Generate APKS
+### Generate APK set for Accrescent
+Needs `bundletool` (`brew install bundletool`, or
+`BUNDLETOOL="java -jar /path/to/bundletool-all.jar"`) and `android/key.properties`.
 ```bash
-traleVersion="0.11.1"
-bundletool build-apks --bundle trale-${traleVersion}.aab --output trale-${traleVersion}.apks --ks ~/path/to/key.jks --ks-key-alias=key
+make build-apks
+# -> build/app/outputs/apks/trale-<version>.apks
 ```
+The release workflow runs the same target and attaches the `.apks` to the
+GitHub release.

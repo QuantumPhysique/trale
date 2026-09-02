@@ -42,6 +42,32 @@ build: $(CHANGELOG_GEN)
 build-aab: $(CHANGELOG_GEN)
 	flutter build appbundle --release
 
+# Override for a jar: BUNDLETOOL="java -jar /path/to/bundletool-all.jar"
+BUNDLETOOL ?= bundletool
+KEY_PROPERTIES := android/key.properties
+APP_VERSION := $(shell sed -n -E 's/^version: ([0-9.]+)\+.*/\1/p' pubspec.yaml)
+AAB := build/app/outputs/bundle/release/app-release.aab
+APKS_DIR := build/app/outputs/apks
+APKS := $(APKS_DIR)/trale-$(APP_VERSION).apks
+
+## Build the APK set (.apks) for Accrescent from the signed release bundle.
+## Needs bundletool and android/key.properties. Recipe is silenced so the
+## keystore passwords never reach the terminal or CI log.
+.PHONY: build-apks
+build-apks: build-aab
+	@mkdir -p $(APKS_DIR)
+	@KS=$$(sed -n 's/^storeFile=//p' $(KEY_PROPERTIES)); \
+	case "$$KS" in /*) ;; *) KS="android/$$KS";; esac; \
+	echo "$(BUNDLETOOL) build-apks --bundle=$(AAB) --output=$(APKS)"; \
+	$(BUNDLETOOL) build-apks \
+		--bundle=$(AAB) \
+		--output=$(APKS) \
+		--overwrite \
+		--ks="$$KS" \
+		--ks-key-alias="$$(sed -n 's/^keyAlias=//p' $(KEY_PROPERTIES))" \
+		--ks-pass="pass:$$(sed -n 's/^storePassword=//p' $(KEY_PROPERTIES))" \
+		--key-pass="pass:$$(sed -n 's/^keyPassword=//p' $(KEY_PROPERTIES))"
+
 .PHONY: analyze
 analyze: $(CHANGELOG_GEN)
 	flutter analyze
@@ -99,6 +125,7 @@ help:
 	@echo "  make run        – generate + flutter run"
 	@echo "  make build      – generate + flutter build apk"
 	@echo "  make build-aab  – generate + flutter build appbundle"
+	@echo "  make build-apks – build-aab + bundletool APK set for Accrescent"
 	@echo "  make analyze    – generate + flutter analyze"
 	@echo "  make test       – generate + flutter test"
 	@echo "  make coverage   – generate + flutter test --coverage"

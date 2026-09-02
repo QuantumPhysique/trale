@@ -22,6 +22,7 @@ make generate        # changelog.g.dart from ../CHANGELOG.md
 | Changelog check (as CI) | `dart run quantumphysique:generate_changelog --check` |
 | Hive adapters | `make hive` (after editing `measurement.dart`) |
 | Release APK | `make build` |
+| Accrescent APK set | `make build-apks` (needs bundletool + `android/key.properties`) |
 
 **Format, analyze and test once, on the finished change.** They are the gate before commit and PR, not a step after every edit. In between, run only what answers a concrete question — one test file, usually.
 
@@ -31,7 +32,7 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 
 - `main` is the only long-lived branch; feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` directly.
 - Every commit lands on `main` as it is (no squash), so every commit is a conventional commit — see `/commit`. The PR title uses the same format.
-- Versions are hand-made: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs. Never create tags by hand.
+- Versions are hand-made: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
 
 ## Changelog
 

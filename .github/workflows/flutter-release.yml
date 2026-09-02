@@ -9,7 +9,8 @@ permissions:
   
 jobs:
   deployAndroid:
-    permissions: write-all
+    permissions:
+      contents: write
     name: Build & deploy Android release
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +35,13 @@ jobs:
           channel: 'stable'
           cache: true
         id: flutter
+      - name: ⚙️ Setup bundletool
+        env:
+          BUNDLETOOL_VERSION: "1.18.3"
+        run: |
+          curl -fsSL -o "${{ github.workspace }}/bundletool.jar" \
+            "https://github.com/google/bundletool/releases/download/${BUNDLETOOL_VERSION}/bundletool-all-${BUNDLETOOL_VERSION}.jar"
+          echo "BUNDLETOOL=java -jar ${{ github.workspace }}/bundletool.jar" >> "$GITHUB_ENV"
       - name: 🔐 Retrieve base64 keystore and decode it to a file
         id: write_file
         uses: timheuer/base64-to-file@v2.0
@@ -58,9 +66,9 @@ jobs:
         run: |
           cd app
           make build
-          make build-aab
+          make build-apks
       - name: 🤖🚀 Upload to GitHub release
         uses: AButler/upload-release-assets@v4.0.0
         with:
-          files: 'app/build/app/outputs/flutter-apk/*;app/build/app/outputs/bundle/release/*'
+          files: 'app/build/app/outputs/flutter-apk/*;app/build/app/outputs/bundle/release/*;app/build/app/outputs/apks/*'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
