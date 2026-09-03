@@ -16,9 +16,9 @@ String healthConnectImportMessage(
     case HealthConnectImportStatus.unavailable:
       return l10n.healthConnectNotAvailable;
     case HealthConnectImportStatus.missingPermission:
-      return l10n.healthConnectPermissionsRequired;
+      return l10n.healthConnectImportPermissionRequired;
     case HealthConnectImportStatus.failed:
-      return l10n.healthConnectSyncError;
+      return l10n.healthConnectImportError;
     case HealthConnectImportStatus.success:
       final String message = result.count == 0
           ? l10n.healthConnectImportNothingFound
@@ -26,7 +26,7 @@ String healthConnectImportMessage(
       if (!result.historyLimited) {
         return message;
       }
-      return '$message ${l10n.healthConnectHistoryLimited}';
+      return l10n.healthConnectHistoryLimited(result: message);
   }
 }
 

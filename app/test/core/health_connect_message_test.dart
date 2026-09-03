@@ -51,7 +51,9 @@ void main() {
             historyLimited: true,
           ),
         ),
-        contains(l10n.healthConnectHistoryLimited),
+        l10n.healthConnectHistoryLimited(
+          result: l10n.healthConnectImportSuccess(count: 2),
+        ),
       );
     });
 
@@ -62,8 +64,8 @@ void main() {
             HealthConnectImportStatus.unavailable:
                 l10n.healthConnectNotAvailable,
             HealthConnectImportStatus.missingPermission:
-                l10n.healthConnectPermissionsRequired,
-            HealthConnectImportStatus.failed: l10n.healthConnectSyncError,
+                l10n.healthConnectImportPermissionRequired,
+            HealthConnectImportStatus.failed: l10n.healthConnectImportError,
           };
 
       for (final HealthConnectImportStatus status in expected.keys) {
@@ -104,8 +106,98 @@ void main() {
             exported: 4,
           ),
         ),
-        l10n.healthConnectPermissionsRequired,
+        l10n.healthConnectImportPermissionRequired,
       );
+    });
+  });
+
+  // Health Connect's 30-day cap and READ_HEALTH_DATA_HISTORY shipped together,
+  // so "the feature is missing" and "the permission is missing" are opposite
+  // outcomes: the first means the full history already came through.
+  group('history cap', () {
+    late int asked;
+
+    Future<bool> alwaysTrue() async => true;
+    Future<bool> alwaysFalse() async => false;
+
+    setUp(() => asked = 0);
+
+    Future<bool> grantOnRequest(bool granted) async {
+      asked += 1;
+      return granted;
+    }
+
+    test(
+      'a Health Connect without the feature does not cap the read',
+      () async {
+        expect(
+          await historyReadIsCapped(
+            isFeatureAvailable: alwaysFalse,
+            isGranted: alwaysFalse,
+            requestAccess: () => grantOnRequest(true),
+            request: true,
+          ),
+          isFalse,
+          reason: 'no history feature means no 30-day cap to warn about',
+        );
+        expect(
+          asked,
+          0,
+          reason: 'nothing to ask for when the feature is absent',
+        );
+      },
+    );
+
+    test('a granted permission does not cap the read', () async {
+      expect(
+        await historyReadIsCapped(
+          isFeatureAvailable: alwaysTrue,
+          isGranted: alwaysTrue,
+          requestAccess: () => grantOnRequest(true),
+          request: true,
+        ),
+        isFalse,
+      );
+      expect(asked, 0, reason: 'already granted, so nothing to ask for');
+    });
+
+    test('a withheld permission caps the read without asking', () async {
+      expect(
+        await historyReadIsCapped(
+          isFeatureAvailable: alwaysTrue,
+          isGranted: alwaysFalse,
+          requestAccess: () => grantOnRequest(true),
+          request: false,
+        ),
+        isTrue,
+      );
+      expect(asked, 0, reason: 'a background import must not raise a dialog');
+    });
+
+    test('granting on request lifts the cap', () async {
+      expect(
+        await historyReadIsCapped(
+          isFeatureAvailable: alwaysTrue,
+          isGranted: alwaysFalse,
+          requestAccess: () => grantOnRequest(true),
+          request: true,
+        ),
+        isFalse,
+      );
+      expect(asked, 1);
+    });
+
+    test('declining on request leaves the read capped', () async {
+      expect(
+        await historyReadIsCapped(
+          isFeatureAvailable: alwaysTrue,
+          isGranted: alwaysFalse,
+          requestAccess: () => grantOnRequest(false),
+          request: true,
+        ),
+        isTrue,
+      );
+      expect(asked, 1);
     });
   });
 }
