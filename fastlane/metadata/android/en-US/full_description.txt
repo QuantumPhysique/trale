@@ -6,7 +6,7 @@ Lock in your optimal weight by losing or gaining with this simple, material desi
 * <b>Customizable</b>: Many custom themes, <b>dark mode</b>, and several <b>units</b>
 * Track your <b>progress</b> with state-of-the-art data modeling 🧑‍💻
 * Import and export of your measurements
-* <b>Privacy</b>: No permissions and we do not collect any data
+* <b>Privacy</b>: Permissions are optional. Only reminders and Health Connect sync ask for one, and we do not collect any data
 * <b><a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Copylefted libre software</a></b>: Our words are not just empty promises
 
 

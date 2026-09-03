@@ -1038,5 +1038,30 @@
     "healthConnectPermissionsRequired": "Для синхронизации требуются разрешения. Пожалуйста, включите их.",
     "@healthConnectPermissionsRequired": {
         "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "Записи о весе в Health Connect не найдены.",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "{result} Health Connect предоставил только последние 30 дней. Пожалуйста, разрешите доступ к прошлым данным в Health Connect, чтобы импортировать всю историю.",
+    "@healthConnectHistoryLimited": {
+        "description": "Shown when a full history import was capped at 30 days. {result} is the import result sentence, e.g. \"Imported 3 measurements.\"",
+        "placeholders": {
+            "result": {
+                "type": "String"
+            }
+        }
+    },
+    "healthConnectImportError": "Не удалось импортировать из Health Connect.",
+    "@healthConnectImportError": {
+        "description": "Message shown when reading measurements from Health Connect failed"
+    },
+    "healthConnectImportPermissionRequired": "Требуется разрешение на чтение веса. Пожалуйста, включите его в Health Connect.",
+    "@healthConnectImportPermissionRequired": {
+        "description": "Message shown when an import is triggered without read permission"
+    },
+    "healthConnectBusy": "Синхронизация уже выполняется. Пожалуйста, повторите попытку через мгновение.",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
     }
 }

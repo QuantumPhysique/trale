@@ -19,6 +19,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   by Android instead of re-deriving one from the accent colour, so surfaces,
   outlines and the secondary and tertiary colours match the rest of the system
 
+### Bugfix 🐛:
+- Fixed the Health Connect history import reaching no further back than 30
+  days: Health Connect hides older records until an app asks for access to
+  past data, which trale now does when the import is switched on and when
+  the full history is requested
+- The Health Connect import now says why nothing arrived instead of reporting
+  "Imported 0 measurements" for a missing permission or a failed read
+
 
 ## [1.3.1] - 2026-08-31
 

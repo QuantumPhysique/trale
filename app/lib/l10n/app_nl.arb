@@ -1038,5 +1038,30 @@
     "healthConnectPermissionsRequired": "Machtigingen zijn vereist om te synchroniseren. Schakel deze in.",
     "@healthConnectPermissionsRequired": {
         "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "Geen gewichtsgegevens gevonden in Health Connect.",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "{result} Health Connect heeft alleen de laatste 30 dagen gedeeld. Geef in Health Connect toegang tot eerdere gegevens om je volledige geschiedenis te importeren.",
+    "@healthConnectHistoryLimited": {
+        "description": "Shown when a full history import was capped at 30 days. {result} is the import result sentence, e.g. \"Imported 3 measurements.\"",
+        "placeholders": {
+            "result": {
+                "type": "String"
+            }
+        }
+    },
+    "healthConnectImportError": "Importeren uit Health Connect mislukt.",
+    "@healthConnectImportError": {
+        "description": "Message shown when reading measurements from Health Connect failed"
+    },
+    "healthConnectImportPermissionRequired": "Machtiging om het gewicht te lezen is vereist. Schakel deze in Health Connect in.",
+    "@healthConnectImportPermissionRequired": {
+        "description": "Message shown when an import is triggered without read permission"
+    },
+    "healthConnectBusy": "Er wordt al gesynchroniseerd. Probeer het zo meteen opnieuw.",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
     }
 }
