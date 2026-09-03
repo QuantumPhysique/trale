@@ -19,6 +19,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   by Android instead of re-deriving one from the accent colour, so surfaces,
   outlines and the secondary and tertiary colours match the rest of the system
 
+### Bugfix 🐛:
+- Fixed the launch screen always being white: it now follows the system dark
+  mode, so starting trale in the dark no longer flashes a bright screen
+
 
 ## [1.3.1] - 2026-08-31
 
