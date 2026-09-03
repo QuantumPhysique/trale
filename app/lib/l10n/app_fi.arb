@@ -1038,5 +1038,30 @@
     "healthConnectPermissionsRequired": "Synkronointiin vaaditaan oikeuksia. Myönnä ne.",
     "@healthConnectPermissionsRequired": {
         "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "Health Connectista ei löytynyt painotietoja.",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "{result} Health Connect jakoi vain viimeiset 30 päivää. Salli pääsy aiempiin tietoihin Health Connectissa, niin voit tuoda koko historiasi.",
+    "@healthConnectHistoryLimited": {
+        "description": "Shown when a full history import was capped at 30 days. {result} is the import result sentence, e.g. \"Imported 3 measurements.\"",
+        "placeholders": {
+            "result": {
+                "type": "String"
+            }
+        }
+    },
+    "healthConnectImportError": "Tuonti Health Connectista epäonnistui.",
+    "@healthConnectImportError": {
+        "description": "Message shown when reading measurements from Health Connect failed"
+    },
+    "healthConnectImportPermissionRequired": "Painon lukemiseen vaaditaan oikeus. Myönnä se Health Connectissa.",
+    "@healthConnectImportPermissionRequired": {
+        "description": "Message shown when an import is triggered without read permission"
+    },
+    "healthConnectBusy": "Synkronointi on jo käynnissä. Yritä hetken kuluttua uudelleen.",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
     }
 }
