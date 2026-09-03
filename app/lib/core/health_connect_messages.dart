@@ -3,8 +3,8 @@ import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Message describing the outcome of a Health Connect import.
 ///
-/// Import used to report a bare count, so every failure — Health Connect
-/// missing, permission withheld, read throwing — read as "Imported 0
+/// Import used to report a bare count, so every failure (Health Connect
+/// missing, permission withheld, read throwing) read as "Imported 0
 /// measurements." and left nothing to act on.
 String healthConnectImportMessage(
   AppLocalizations l10n,
