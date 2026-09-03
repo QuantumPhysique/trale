@@ -41,6 +41,57 @@ Future<(_TestNotifier, SharedPreferences)> _build([
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  group('QPNotifier system colours', () {
+    test('are unavailable until the platform reports them', () async {
+      final (_TestNotifier notifier, _) = await _build();
+
+      expect(notifier.systemColorsAvailable, isFalse);
+      expect(notifier.systemColors, isNull);
+      expect(notifier.systemSeedColor, Colors.black);
+    });
+
+    test('become available once set', () async {
+      final (_TestNotifier notifier, _) = await _build();
+      const Color accent = Color(0xFF6750A4);
+
+      notifier.setSystemColors(const QPSystemColors.fromAccent(accent));
+
+      expect(notifier.systemColorsAvailable, isTrue);
+      expect(notifier.systemSeedColor, accent);
+    });
+
+    test('only reach the theme while the system palette is selected', () async {
+      final (_TestNotifier notifier, _) = await _build(<String, Object>{
+        'qp_theme': 'water',
+      });
+      notifier.setSystemColors(
+        const QPSystemColors.fromAccent(Color(0xFF6750A4)),
+      );
+
+      expect(notifier.activeSystemColors, isNull);
+
+      notifier.theme = QPCustomTheme.system;
+
+      expect(notifier.activeSystemColors, isNotNull);
+    });
+
+    test('change the built theme', () async {
+      final (_TestNotifier notifier, _) = await _build(<String, Object>{
+        'qp_theme': 'system',
+      });
+      final ThemeData before = notifier.lightTheme;
+
+      notifier.setSystemColors(
+        const QPSystemColors.fromAccent(Color(0xFF00696D)),
+      );
+
+      expect(
+        notifier.lightTheme.colorScheme.primary,
+        isNot(before.colorScheme.primary),
+      );
+    });
+  });
+
   group('QPNotifier.themeMode', () {
     test('returns ThemeMode.system for default "auto" setting', () async {
       final (_TestNotifier notifier, _) = await _build();

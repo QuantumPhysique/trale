@@ -1,5 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:quantumphysique/src/theme/qp_system_colors.dart';
 import 'package:quantumphysique/src/types/contrast.dart';
 import 'package:quantumphysique/src/types/scheme_variant.dart';
 
@@ -8,6 +9,10 @@ import 'package:quantumphysique/src/types/scheme_variant.dart';
 /// This is the canonical theme-building function shared by all
 /// quantumphysique-based apps. It uses [ColorScheme.fromSeed] with
 /// Material 3 and applies the app's font family.
+///
+/// Pass [systemColors] to build the scheme from the palettes the operating
+/// system reported instead of seeding it from [seedColor]. [contrast] still
+/// applies on that path; [isGrey] does not.
 ThemeData buildQPThemeData({
   required Color seedColor,
   required Brightness brightness,
@@ -15,15 +20,28 @@ ThemeData buildQPThemeData({
   required QPContrast contrast,
   bool isAmoled = false,
   bool isGrey = false,
+  QPSystemColors? systemColors,
 }) {
-  ColorScheme colorScheme = ColorScheme.fromSeed(
-    seedColor: seedColor,
-    brightness: brightness,
-    contrastLevel: contrast.contrast,
-    dynamicSchemeVariant: isGrey
-        ? DynamicSchemeVariant.monochrome
-        : schemeVariant.toDynamicSchemeVariant,
-  ).harmonized();
+  // [isGrey] only ever fires for the achromatic fallback seed, which is used
+  // exactly when there are no system colours to work from — so the monochrome
+  // override must not reach the system path and flatten a genuinely
+  // low-chroma system palette.
+  ColorScheme colorScheme =
+      (systemColors != null
+              ? systemColors.toColorScheme(
+                  brightness: brightness,
+                  contrastLevel: contrast.contrast,
+                  variant: schemeVariant.toDynamicSchemeVariant,
+                )
+              : ColorScheme.fromSeed(
+                  seedColor: seedColor,
+                  brightness: brightness,
+                  contrastLevel: contrast.contrast,
+                  dynamicSchemeVariant: isGrey
+                      ? DynamicSchemeVariant.monochrome
+                      : schemeVariant.toDynamicSchemeVariant,
+                ))
+          .harmonized();
 
   if (isAmoled && brightness == Brightness.dark) {
     colorScheme = colorScheme.copyWith(surface: Colors.black).harmonized();

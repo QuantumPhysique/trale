@@ -11,6 +11,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'The "system" colour palette now uses the full Material You palette reported by Android instead of re-deriving one from the accent colour, so surfaces, outlines and the secondary and tertiary colours match the rest of the system',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed "Import all history" reaching no further back than 30 days: Health Connect hides older records until an app asks for access to past data, which trale now does',
         'The Health Connect import now says why nothing arrived instead of reporting "Imported 0 measurements" for a missing permission or a failed read',
