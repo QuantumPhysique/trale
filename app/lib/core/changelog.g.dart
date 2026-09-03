@@ -14,6 +14,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'The "system" colour palette now uses the full Material You palette reported by Android instead of re-deriving one from the accent colour, so surfaces, outlines and the secondary and tertiary colours match the rest of the system',
       ],
+      ChangelogSection.bugfix: <String>[
+        'Fixed the launch screen always being white: it now follows the system dark mode, so starting trale in the dark no longer flashes a bright screen',
+      ],
     },
   ),
   ChangelogEntry(
