@@ -30,7 +30,7 @@ The [latest release](https://github.com/QuantumPhysique/trale/releases/latest) c
 - **Customizable**: Many custom themes, **dark mode**, and several **units**
 - Track your **progress** with state-of-the-art data modeling 🧑‍💻
 - Import and export of your measurements
-- **Privacy**: No permissions and we do not collect any data
+- **Privacy**: Permissions are optional — only reminders and Health Connect sync ask for one — and we do not collect any data
 - **<a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Copylefted libre software</a>**: Our words are not just empty promises
 
 ## Screenshots
