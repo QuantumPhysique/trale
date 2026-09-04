@@ -21,15 +21,9 @@ const QPNotificationChannel weightReminderChannel = QPNotificationChannel(
   description: 'Reminders to log your weight',
 );
 
-/// Cancels and re-arms the weekly weight reminders from the stored settings.
+/// Re-arms the weekly weight reminders from the stored settings.
 ///
-/// Call on every app start, and that is not book-keeping.
-/// flutter_local_notifications persists every armed notification on the
-/// Android side together with the time-zone *name* that was current when it
-/// was armed, and re-schedules the next weekly occurrence itself. A reminder
-/// armed while `tz.local` was still UTC therefore keeps firing two hours late
-/// in CEST forever, even once the app resolves the zone correctly. Re-arming
-/// drops the stale id and schedules it again against the resolved zone.
+/// Called on every app start — see [QPReminderRegistry.rearm] for why.
 Future<void> rescheduleWeightReminders({
   required String title,
   required String body,
@@ -38,26 +32,23 @@ Future<void> rescheduleWeightReminders({
   await prefs.loaded;
 
   await _cancelPreRegistryReminders(prefs);
-  await QPReminderRegistry().cancelTag(weightReminderTag);
-  if (!prefs.reminderEnabled) {
-    return;
-  }
-
-  for (final int day in prefs.reminderDays) {
-    await QPReminderRegistry().schedule(
-      tag: '$weightReminderTag:$day',
-      title: title,
-      body: body,
-      scheduledFor: QPNotificationService.nextWeekdayInstance(
-        day,
-        prefs.reminderHour,
-        prefs.reminderMinute,
-      ),
-      channel: weightReminderChannel,
-      repeat: QPReminderRepeat.weekly,
-      route: addWeightRoute,
-    );
-  }
+  await QPReminderRegistry().rearm(weightReminderTag, <QPReminderRequest>[
+    if (prefs.reminderEnabled)
+      for (final int day in prefs.reminderDays)
+        QPReminderRequest(
+          tag: '$weightReminderTag:$day',
+          title: title,
+          body: body,
+          scheduledFor: QPNotificationService.nextWeekdayInstance(
+            day,
+            prefs.reminderHour,
+            prefs.reminderMinute,
+          ),
+          channel: weightReminderChannel,
+          repeat: QPReminderRepeat.weekly,
+          route: addWeightRoute,
+        ),
+  ]);
 
   await skipTodaysWeightReminder();
 }

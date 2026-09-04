@@ -62,7 +62,7 @@ class QPReminderRegistry {
 
   /// The armed reminders under [tag], earliest fire instant first.
   List<QPReminder> withTag(String tag) =>
-      active.where((QPReminder r) => _matches(r, tag)).toList();
+      active.where((QPReminder r) => _matches(r.tag, tag)).toList();
 
   /// The next reminder under [tag] that has yet to fire.
   QPReminder? next(String tag) {
@@ -74,37 +74,36 @@ class QPReminderRegistry {
   // Arming
   // ---------------------------------------------------------------------------
 
-  /// Arms a reminder and records it.
+  /// Arms [request] and records it.
   ///
-  /// [tag] groups the reminder with its siblings, [title] and [body] are the
-  /// message, and [route] is the named route a tap opens — pass it with
-  /// [routeArguments] to land on a specific item. Returns the armed reminder,
-  /// whose [QPReminder.id] the registry assigned.
-  Future<QPReminder> schedule({
-    required String tag,
-    required String title,
-    required String body,
-    required DateTime scheduledFor,
-    required QPNotificationChannel channel,
-    QPReminderRepeat repeat = QPReminderRepeat.once,
-    String? route,
-    String? routeArguments,
-  }) async {
-    final QPReminder reminder = QPReminder(
-      id: _takeId(),
-      tag: tag,
-      title: title,
-      body: body,
-      scheduledFor: scheduledFor,
-      channel: channel,
-      repeat: repeat,
-      route: route,
-      routeArguments: routeArguments,
-    );
+  /// Returns the armed reminder, whose [QPReminder.id] the registry assigned.
+  Future<QPReminder> schedule(QPReminderRequest request) async {
+    final QPReminder reminder = QPReminder.of(request, id: _takeId());
     await QPNotificationService().arm(reminder);
     _reminders.add(reminder);
     await _persist();
     return reminder;
+  }
+
+  /// Replaces every reminder under [tag] with [reminders].
+  ///
+  /// What an app calls on every start, and that is not book-keeping.
+  /// flutter_local_notifications persists every armed notification on the
+  /// Android side together with the time-zone *name* that was current when it
+  /// was armed, and re-schedules the next weekly occurrence itself. A reminder
+  /// armed while `tz.local` was still UTC therefore keeps firing two hours
+  /// late in CEST forever, even once the app resolves the zone correctly.
+  /// Re-arming drops the stale id and schedules it again against the resolved
+  /// zone.
+  Future<void> rearm(String tag, Iterable<QPReminderRequest> reminders) async {
+    assert(
+      reminders.every((QPReminderRequest r) => _matches(r.tag, tag)),
+      'every reminder passed to rearm() must sit under "$tag"',
+    );
+    await cancelTag(tag);
+    for (final QPReminderRequest request in reminders) {
+      await schedule(request);
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -116,7 +115,7 @@ class QPReminderRegistry {
 
   /// Cancels every reminder under [tag].
   Future<void> cancelTag(String tag) =>
-      _cancelWhere((QPReminder r) => _matches(r, tag));
+      _cancelWhere((QPReminder r) => _matches(r.tag, tag));
 
   /// Cancels every armed reminder.
   Future<void> cancelAll() => _cancelWhere((QPReminder r) => true);
@@ -231,8 +230,10 @@ class QPReminderRegistry {
     }
   }
 
-  static bool _matches(QPReminder reminder, String tag) =>
-      reminder.tag == tag || reminder.tag.startsWith('$tag:');
+  /// Whether [candidate] sits under [tag], i.e. is [tag] itself or one of
+  /// the `:`-separated tags below it.
+  static bool _matches(String candidate, String tag) =>
+      candidate == tag || candidate.startsWith('$tag:');
 
   static bool _sameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
