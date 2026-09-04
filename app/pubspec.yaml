@@ -28,7 +28,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_auto_size_text: ^5.0.0
-  flutter_local_notifications: ^21.0.0
   flutter_localizations:
     sdk: flutter
   flutter_m3shapes_extended: ^2.0.0
@@ -47,7 +46,6 @@ dependencies:
   quick_actions: ^1.1.0
   share_plus: ^13.3.0
   shared_preferences: ^2.5.5
-  timezone: ^0.11.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
