@@ -849,10 +849,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "帮助我们将 trale 翻译成更多语言",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "主题",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -900,10 +896,6 @@
     "qp_reminderTitle": "提醒",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "每日体重记录提醒",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "开启提醒",
     "@qp_reminderEnabled": {

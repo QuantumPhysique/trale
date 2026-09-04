@@ -603,10 +603,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Hilf uns, trale in weitere Sprachen zu übersetzen",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Design",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -654,10 +650,6 @@
     "qp_reminderTitle": "Erinnerungen",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Tägliche Wiege-Erinnerungen",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Erinnerungen einschalten",
     "@qp_reminderEnabled": {

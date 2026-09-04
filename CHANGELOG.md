@@ -27,6 +27,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - The Health Connect import now says why nothing arrived instead of reporting
   "Imported 0 measurements" for a missing permission or a failed read
 
+### Other Changes:
+- The translation banner and the reminder settings now reuse the wording trale
+  already had, dropping a second, near-identical copy of both sentences
+
 
 ## [1.3.1] - 2026-08-31
 
