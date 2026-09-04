@@ -15,6 +15,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added Features and Improvements 🙌:
+- Tapping a reminder now opens the add-weight dialog straight away instead of
+  dropping you on the home screen
 - The "system" colour palette now uses the full Material You palette reported
   by Android instead of re-deriving one from the accent colour, so surfaces,
   outlines and the secondary and tertiary colours match the rest of the system

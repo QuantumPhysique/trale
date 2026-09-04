@@ -12,6 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
+        'Tapping a reminder now opens the add-weight dialog straight away instead of dropping you on the home screen',
         'The "system" colour palette now uses the full Material You palette reported by Android instead of re-deriving one from the accent colour, so surfaces, outlines and the secondary and tertiary colours match the rest of the system',
       ],
       ChangelogSection.bugfix: <String>[

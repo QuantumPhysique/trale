@@ -4,8 +4,6 @@ import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/changelog.dart';
 import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/core/measurement.dart';
-import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/quick_actions_service.dart';
 import 'package:trale/pages/measurement_screen.dart';
@@ -67,18 +65,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   }
 
   Future<void> _onFABPressed() async {
-    final MeasurementDatabase database = MeasurementDatabase();
-    final List<SortedMeasurement> measurements = database.sortedMeasurements;
     setState(() {
       _popupShown = true;
     });
-    await showAddWeightDialog(
-      context: context,
-      weight: measurements.isNotEmpty
-          ? measurements.first.measurement.weight.toDouble()
-          : Preferences().defaultUserWeight,
-      date: DateTime.now(),
-    );
+    await showTodaysAddWeightDialog(context);
     setState(() {
       _popupShown = false;
     });

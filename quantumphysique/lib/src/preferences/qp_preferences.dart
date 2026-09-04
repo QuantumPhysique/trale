@@ -85,6 +85,15 @@ abstract class QPPreferences {
   /// Default reminder minute.
   final int defaultReminderMinute = 0;
 
+  /// Default set of armed reminders (empty JSON list).
+  final String defaultActiveReminders = '[]';
+
+  /// Default notification id handed to the first armed reminder.
+  ///
+  /// Starts above the ids trale and adonify used before the registry existed,
+  /// so an upgrade cannot re-use one that is still armed on the device.
+  final int defaultNextReminderId = 2000;
+
   /// Default first day of week.
   final QPFirstDay defaultFirstDay = QPFirstDay.Default;
 
