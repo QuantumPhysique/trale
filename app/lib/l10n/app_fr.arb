@@ -811,10 +811,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Aidez-nous à traduire trale dans d'autres langues",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Thème",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -924,10 +920,6 @@
     "qp_schemeVariant": "Variante du schéma de couleurs",
     "@qp_schemeVariant": {
         "description": "Scheme variant selection section title"
-    },
-    "qp_reminderSubtitle": "Rappels quotidiens de pesée",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_firstDayDefault": "Par défaut (régional)",
     "@qp_firstDayDefault": {

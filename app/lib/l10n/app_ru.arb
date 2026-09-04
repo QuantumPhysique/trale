@@ -853,10 +853,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Помогите нам перевести trale на другие языки",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Тема",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -904,10 +900,6 @@
     "qp_reminderTitle": "Напоминания",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Ежедневные напоминания о записи веса",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Включить напоминания",
     "@qp_reminderEnabled": {

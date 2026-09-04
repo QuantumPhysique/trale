@@ -849,10 +849,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Na ndihmoni të përkthejmë trale në më shumë gjuhë",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Tema",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -900,10 +896,6 @@
     "qp_reminderTitle": "Kujtesa",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Kujtesa për regjistrimin e peshës çdo ditë",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Aktivizo rikujtuesit",
     "@qp_reminderEnabled": {

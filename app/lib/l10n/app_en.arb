@@ -863,10 +863,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Help us translate trale into more languages",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Theme",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -914,10 +910,6 @@
     "qp_reminderTitle": "Reminders",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Daily weight-logging reminders",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Enable reminders",
     "@qp_reminderEnabled": {

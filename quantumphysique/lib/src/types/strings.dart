@@ -10,6 +10,10 @@ import 'package:flutter/foundation.dart';
 /// itself — the caller is responsible for rebuilding this object when the
 /// locale changes.
 ///
+/// Most fields are app-agnostic and the apps share their translations under
+/// a `qp_` key prefix.  [translateSubtitle] and [reminderSubtitle] are not:
+/// they describe the app itself, so each app owns and translates its own.
+///
 /// ```dart
 /// QPStrings qpStringsFromL10n(AppLocalizations l) => QPStrings(
 ///   defaultLangLabel: l.qpDefaultLangLabel,
@@ -73,6 +77,9 @@ class QPStrings {
   final String translate;
 
   /// Settings tile subtitle for translation call-to-action.
+  ///
+  /// App-specific: it describes the app being translated, so it must come
+  /// from an app-owned key and never from the shared `qp_` vocabulary.
   final String translateSubtitle;
 
   // ── Theme ─────────────────────────────────────────────────────────────────
@@ -116,6 +123,9 @@ class QPStrings {
   final String reminderTitle;
 
   /// Settings section subtitle for reminders.
+  ///
+  /// App-specific: it names what the app reminds about, so it must come from
+  /// an app-owned key and never from the shared `qp_` vocabulary.
   final String reminderSubtitle;
 
   /// Settings tile title for enable-reminders toggle.

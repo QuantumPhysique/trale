@@ -18,6 +18,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Fixed the Health Connect history import reaching no further back than 30 days: Health Connect hides older records until an app asks for access to past data, which trale now does when the import is switched on and when the full history is requested',
         'The Health Connect import now says why nothing arrived instead of reporting "Imported 0 measurements" for a missing permission or a failed read',
       ],
+      ChangelogSection.otherChanges: <String>[
+        'The translation banner and the reminder settings now reuse the wording trale already had, dropping a second, near-identical copy of both sentences',
+      ],
     },
   ),
   ChangelogEntry(

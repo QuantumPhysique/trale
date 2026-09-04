@@ -853,10 +853,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Help ons trale in meer talen te vertalen",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Thema",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -904,10 +900,6 @@
     "qp_reminderTitle": "Herinneringen",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Dagelijkse herinneringen om je gewicht te noteren",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Herinneringen inschakelen",
     "@qp_reminderEnabled": {

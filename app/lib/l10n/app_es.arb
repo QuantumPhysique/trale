@@ -853,10 +853,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Ayúdanos a traducir trale a más idiomas",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Tema",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -904,10 +900,6 @@
     "qp_reminderTitle": "Recordatorios",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Recordatorios diarios para registrar el peso",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Activar recordatorios",
     "@qp_reminderEnabled": {

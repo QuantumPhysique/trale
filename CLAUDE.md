@@ -64,6 +64,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 - Types everywhere (`always_specify_types`); `const` where possible; single quotes; 80 columns
 - Theme only through `QPTheme.of(context)` and `Theme.of(context)` — no literal colours, sizes or radii
 - Strings only through `context.l10n`; new keys go in `app_en.arb` and `app_de.arb`. The other languages come from Weblate — never edit them by hand
+- `qp_*` keys are the vocabulary shared with the other quantumphysique apps, which copy them over verbatim, so they must never name trale or weight tracking. A `QPStrings` field that does (`translateSubtitle`, `reminderSubtitle`) is fed from an app-owned key in `l10n_extension.dart`; `test/core/qp_strings_test.dart` enforces it
 - Enums carry behaviour in extensions (see `units.dart`)
 - Constants in `lib/core/constants.dart` (`dayInMs`, `kcalPerKg`), no magic numbers
 - Adding a setting: getter/setter in the matching `preferences/*.dart` part, default in `loadDefaultSettings()`, property plus `notifyListeners()` in the matching `trale_notifier/*.dart` part
