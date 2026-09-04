@@ -37,6 +37,7 @@ Future<void> rescheduleWeightReminders({
   final Preferences prefs = Preferences();
   await prefs.loaded;
 
+  await _cancelPreRegistryReminders(prefs);
   await QPReminderRegistry().cancelTag(weightReminderTag);
   if (!prefs.reminderEnabled) {
     return;
@@ -59,6 +60,23 @@ Future<void> rescheduleWeightReminders({
   }
 
   await skipTodaysWeightReminder();
+}
+
+/// Cancels the ids the weekly reminders were armed under before the reminder
+/// registry existed: 1000 plus the ISO weekday.
+///
+/// Android re-arms a weekly notification on its own, so an alarm left behind
+/// by an older build keeps firing next to its replacement forever. The
+/// registry knows nothing about those ids, so they are cancelled by number,
+/// once, on the first start after the update.
+Future<void> _cancelPreRegistryReminders(Preferences prefs) async {
+  if (prefs.legacyReminderIdsCleared) {
+    return;
+  }
+  for (int day = DateTime.monday; day <= DateTime.sunday; day++) {
+    await QPNotificationService().cancel(1000 + day);
+  }
+  prefs.legacyReminderIdsCleared = true;
 }
 
 /// Drops today's weight reminder once a measurement for today exists.

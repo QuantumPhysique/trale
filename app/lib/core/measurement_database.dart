@@ -25,9 +25,8 @@ extension DateTimeExtension on DateTime {
 }
 
 /// check if day is in list
-bool dayInMeasurements(DateTime date, List<Measurement> measurements) => <bool>[
-  for (final Measurement m in measurements) date.sameDay(m.date),
-].reduce((bool value, bool element) => value || element);
+bool dayInMeasurements(DateTime date, List<Measurement> measurements) =>
+    measurements.any((Measurement m) => date.sameDay(m.date));
 
 /// Base class for measurement database
 class MeasurementDatabaseBaseclass {
