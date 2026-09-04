@@ -8,6 +8,7 @@ import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -221,6 +222,51 @@ Future<bool> showAddWeightDialog({
       ) ??
       false;
   return accepted;
+}
+
+/// Opens the add-weight dialog for today, prefilled with the latest weight.
+Future<bool> showTodaysAddWeightDialog(BuildContext context) {
+  final List<SortedMeasurement> measurements =
+      MeasurementDatabase().sortedMeasurements;
+  return showAddWeightDialog(
+    context: context,
+    weight: measurements.isNotEmpty
+        ? measurements.first.measurement.weight.toDouble()
+        : Preferences().defaultUserWeight,
+    date: DateTime.now(),
+  );
+}
+
+/// Route content that opens the add-weight dialog and pops once it closes.
+///
+/// Pushed by a tapped weight reminder. It draws nothing itself so the screen
+/// the user was last on stays visible behind the dialog.
+class AddWeightOverlay extends StatefulWidget {
+  /// Constructor.
+  const AddWeightOverlay({super.key});
+
+  @override
+  State<AddWeightOverlay> createState() => _AddWeightOverlayState();
+}
+
+class _AddWeightOverlayState extends State<AddWeightOverlay> {
+  @override
+  void initState() {
+    super.initState();
+    // The route's own overlay entry is not mounted before the first frame,
+    // so the dialog would have nothing to push itself onto.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _openDialog());
+  }
+
+  Future<void> _openDialog() async {
+    await showTodaysAddWeightDialog(context);
+    if (mounted) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
 }
 
 ///

@@ -34,6 +34,7 @@ class TraleNotifier extends QPNotifier {
   @override
   Future<void> factoryReset() async {
     await super.factoryReset();
+    await QPReminderRegistry().cancelAll();
     await MeasurementDatabase().deleteAllMeasurements();
   }
 }

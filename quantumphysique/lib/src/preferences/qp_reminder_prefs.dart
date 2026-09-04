@@ -51,6 +51,21 @@ extension QPReminderPrefsExtension on QPPreferences {
     prefs.setInt('qp_reminderMinute', value);
   }
 
+  /// Get the reminders [QPReminderRegistry] has armed, as a JSON list.
+  String get activeReminders =>
+      prefs.getString('qp_activeReminders') ?? defaultActiveReminders;
+
+  /// Set the reminders [QPReminderRegistry] has armed.
+  set activeReminders(String value) =>
+      prefs.setString('qp_activeReminders', value);
+
+  /// Get the notification id the next armed reminder gets.
+  int get nextReminderId =>
+      prefs.getInt('qp_nextReminderId') ?? defaultNextReminderId;
+
+  /// Set the notification id the next armed reminder gets.
+  set nextReminderId(int value) => prefs.setInt('qp_nextReminderId', value);
+
   /// Writes reminder defaults for missing keys.
   ///
   /// Called by [QPPreferences.loadDefaultSettings].
@@ -66,6 +81,12 @@ extension QPReminderPrefsExtension on QPPreferences {
     }
     if (override || !prefs.containsKey('qp_reminderMinute')) {
       reminderMinute = defaultReminderMinute;
+    }
+    if (override || !prefs.containsKey('qp_activeReminders')) {
+      activeReminders = defaultActiveReminders;
+    }
+    if (override || !prefs.containsKey('qp_nextReminderId')) {
+      nextReminderId = defaultNextReminderId;
     }
   }
 }

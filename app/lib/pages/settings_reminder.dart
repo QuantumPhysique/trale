@@ -1,33 +1,27 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/l10n_extension.dart';
-import 'package:trale/core/notification_service.dart';
+import 'package:trale/core/reminders.dart';
 
 /// Settings sub-page for configuring weight-logging reminders.
 ///
-/// Thin wrapper around [QPNotificationsSettingsPage] that wires up
-/// trale's [NotificationService].
+/// Thin wrapper around [QPNotificationsSettingsPage] that re-arms trale's
+/// weight reminders whenever a setting changes.
 class ReminderSettingsPage extends StatelessWidget {
   /// Constructor.
   const ReminderSettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final NotificationService ns = NotificationService();
+    final QPNotificationService ns = QPNotificationService();
     final AppLocalizations l10n = context.l10n;
 
     return QPNotificationsSettingsPage(
       strings: qpStringsFromL10n(l10n),
-      onScheduleChanged: (QPNotifier notifier) async {
-        if (notifier.reminderEnabled && notifier.reminderDays.isNotEmpty) {
-          await ns.rescheduleFromPreferences(
-            title: l10n.reminderNotificationTitle,
-            body: l10n.reminderNotificationBody,
-          );
-        } else {
-          await ns.cancelAllReminders();
-        }
-      },
+      onScheduleChanged: (QPNotifier notifier) => rescheduleWeightReminders(
+        title: l10n.reminderNotificationTitle,
+        body: l10n.reminderNotificationBody,
+      ),
       onRequestPermission: () => ns.requestPermission(),
       onRequestExactAlarmPermission: () => ns.requestExactAlarmPermission(),
       footerWidget: Padding(

@@ -9,8 +9,8 @@ import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
-import 'package:trale/core/notification_service.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/reminders.dart';
 import 'package:trale/main.dart';
 
 /// Extend DateTime for faster comparison
@@ -192,9 +192,8 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
         return false;
       }
       await reinit();
-      // Cancel today's reminder notification since
-      // we just logged a measurement.
-      NotificationService().cancelTodayIfMeasured();
+      // Today's weight is in, so today's reminder has nothing left to ask for.
+      skipTodaysWeightReminder();
 
       // Auto-export to Health Connect if enabled
       if (Preferences().healthConnectEnabled &&
