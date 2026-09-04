@@ -84,15 +84,14 @@ class QPReminderRoute {
   int get hashCode => Object.hash(name, arguments);
 }
 
-/// A notification armed for a point in time.
+/// A reminder waiting to be armed.
 ///
-/// Built by [QPReminderRegistry.schedule], which assigns [id] and records the
-/// result so the reminder can be cancelled or skipped later.
+/// Everything [QPReminderRegistry] needs to arm one except the notification
+/// id, which it assigns itself.
 @immutable
-class QPReminder {
-  /// Creates a reminder.
-  const QPReminder({
-    required this.id,
+class QPReminderRequest {
+  /// Describes a reminder.
+  const QPReminderRequest({
     required this.tag,
     required this.title,
     required this.body,
@@ -103,27 +102,12 @@ class QPReminder {
     this.routeArguments,
   });
 
-  /// Restores a reminder from [json].
-  factory QPReminder.fromJson(Map<String, dynamic> json) => QPReminder(
-    id: json['id'] as int,
-    tag: json['tag'] as String,
-    title: json['title'] as String,
-    body: json['body'] as String,
-    scheduledFor: DateTime.parse(json['scheduledFor'] as String),
-    channel: QPNotificationChannel.fromJson(
-      json['channel'] as Map<String, dynamic>,
-    ),
-    repeat: QPReminderRepeat.values.byName(json['repeat'] as String),
-    route: json['route'] as String?,
-    routeArguments: json['routeArguments'] as String?,
-  );
-
-  /// Notification id this reminder is armed under.
-  final int id;
-
-  /// Groups the reminders that belong together, e.g. `weight` or `workout:7`.
+  /// Groups the reminders that belong together, e.g. `weight:1` or
+  /// `workout:Push`.
   ///
-  /// Everything that cancels or skips reminders addresses them by tag.
+  /// Tags are hierarchical and `:`-separated: everything that cancels or
+  /// skips reminders addresses them by tag, and a tag also reaches the tags
+  /// below it.
   final String tag;
 
   /// Title of the notification.
@@ -147,6 +131,95 @@ class QPReminder {
   /// Argument handed to [route].
   final String? routeArguments;
 
+  /// Serialises the reminder.
+  @mustCallSuper
+  Map<String, dynamic> toJson() => <String, dynamic>{
+    'tag': tag,
+    'title': title,
+    'body': body,
+    'scheduledFor': scheduledFor.toIso8601String(),
+    'channel': channel.toJson(),
+    'repeat': repeat.name,
+    'route': route,
+    'routeArguments': routeArguments,
+  };
+
+  @override
+  bool operator ==(Object other) =>
+      other is QPReminderRequest &&
+      other.runtimeType == runtimeType &&
+      other.tag == tag &&
+      other.title == title &&
+      other.body == body &&
+      other.scheduledFor == scheduledFor &&
+      other.channel == channel &&
+      other.repeat == repeat &&
+      other.route == route &&
+      other.routeArguments == routeArguments;
+
+  @override
+  int get hashCode => Object.hash(
+    tag,
+    title,
+    body,
+    scheduledFor,
+    channel,
+    repeat,
+    route,
+    routeArguments,
+  );
+}
+
+/// A reminder that is armed with the system.
+///
+/// Built by [QPReminderRegistry.schedule], which assigns [id] and records the
+/// result so the reminder can be cancelled or skipped later.
+@immutable
+class QPReminder extends QPReminderRequest {
+  /// Creates an armed reminder.
+  const QPReminder({
+    required this.id,
+    required super.tag,
+    required super.title,
+    required super.body,
+    required super.scheduledFor,
+    required super.channel,
+    super.repeat,
+    super.route,
+    super.routeArguments,
+  });
+
+  /// Arms [request] under [id].
+  QPReminder.of(QPReminderRequest request, {required this.id})
+    : super(
+        tag: request.tag,
+        title: request.title,
+        body: request.body,
+        scheduledFor: request.scheduledFor,
+        channel: request.channel,
+        repeat: request.repeat,
+        route: request.route,
+        routeArguments: request.routeArguments,
+      );
+
+  /// Restores a reminder from [json].
+  factory QPReminder.fromJson(Map<String, dynamic> json) => QPReminder(
+    id: json['id'] as int,
+    tag: json['tag'] as String,
+    title: json['title'] as String,
+    body: json['body'] as String,
+    scheduledFor: DateTime.parse(json['scheduledFor'] as String),
+    channel: QPNotificationChannel.fromJson(
+      json['channel'] as Map<String, dynamic>,
+    ),
+    repeat: QPReminderRepeat.values.byName(json['repeat'] as String),
+    route: json['route'] as String?,
+    routeArguments: json['routeArguments'] as String?,
+  );
+
+  /// Notification id this reminder is armed under.
+  final int id;
+
   /// The route a tap opens, or `null` when the reminder only opens the app.
   QPReminderRoute? get tapRoute =>
       route == null ? null : QPReminderRoute(route!, routeArguments);
@@ -164,42 +237,16 @@ class QPReminder {
     routeArguments: routeArguments,
   );
 
-  /// Serialises the reminder.
+  @override
   Map<String, dynamic> toJson() => <String, dynamic>{
     'id': id,
-    'tag': tag,
-    'title': title,
-    'body': body,
-    'scheduledFor': scheduledFor.toIso8601String(),
-    'channel': channel.toJson(),
-    'repeat': repeat.name,
-    'route': route,
-    'routeArguments': routeArguments,
+    ...super.toJson(),
   };
 
   @override
   bool operator ==(Object other) =>
-      other is QPReminder &&
-      other.id == id &&
-      other.tag == tag &&
-      other.title == title &&
-      other.body == body &&
-      other.scheduledFor == scheduledFor &&
-      other.channel == channel &&
-      other.repeat == repeat &&
-      other.route == route &&
-      other.routeArguments == routeArguments;
+      other is QPReminder && other.id == id && super == other;
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    tag,
-    title,
-    body,
-    scheduledFor,
-    channel,
-    repeat,
-    route,
-    routeArguments,
-  );
+  int get hashCode => Object.hash(id, super.hashCode);
 }

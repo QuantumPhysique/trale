@@ -46,13 +46,15 @@ void main() {
     QPReminderRepeat repeat = QPReminderRepeat.once,
     String? route,
   }) => registry.schedule(
-    tag: tag,
-    title: 'title',
-    body: 'body',
-    scheduledFor: when,
-    channel: _channel,
-    repeat: repeat,
-    route: route,
+    QPReminderRequest(
+      tag: tag,
+      title: 'title',
+      body: 'body',
+      scheduledFor: when,
+      channel: _channel,
+      repeat: repeat,
+      route: route,
+    ),
   );
 
   setUp(() async {
@@ -114,6 +116,46 @@ void main() {
       expect(registry.active.map((QPReminder r) => r.tag), <String>['workout']);
     },
   );
+
+  test('rearm replaces the previous generation under the tag', () async {
+    final QPReminder old = await schedule(
+      'weight:1',
+      DateTime.now().add(const Duration(days: 1)),
+    );
+    final QPReminder other = await schedule(
+      'workout:1',
+      DateTime.now().add(const Duration(days: 1)),
+    );
+
+    await registry.rearm('weight', <QPReminderRequest>[
+      QPReminderRequest(
+        tag: 'weight:3',
+        title: 'title',
+        body: 'body',
+        scheduledFor: DateTime.now().add(const Duration(days: 3)),
+        channel: _channel,
+      ),
+    ]);
+
+    expect(service.cancelled, <int>[old.id]);
+    expect(registry.withTag('weight').single.tag, 'weight:3');
+    expect(registry.withTag('workout').single.id, other.id);
+  });
+
+  test('rearm rejects a reminder that sits outside the tag', () async {
+    expect(
+      () => registry.rearm('weight', <QPReminderRequest>[
+        QPReminderRequest(
+          tag: 'workout:1',
+          title: 'title',
+          body: 'body',
+          scheduledFor: DateTime.now().add(const Duration(days: 1)),
+          channel: _channel,
+        ),
+      ]),
+      throwsA(isA<AssertionError>()),
+    );
+  });
 
   test('skipping a one-shot reminder cancels it for good', () async {
     final QPReminder reminder = await schedule(
