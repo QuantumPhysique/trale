@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ColorScheme.surface of the default 'water' theme, dark. Overridden by
+         the Material You neutral on API 31+. -->
+    <color name="launch_background">#111418</color>
+</resources>

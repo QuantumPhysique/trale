@@ -22,6 +22,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   outlines and the secondary and tertiary colours match the rest of the system
 
 ### Bugfix 🐛:
+- Fixed the launch screen always being white: it now follows the system dark
+  mode, so starting trale in the dark no longer flashes a bright screen
 - Fixed the Health Connect history import reaching no further back than 30
   days: Health Connect hides older records until an app asks for access to
   past data, which trale now does when the import is switched on and when
