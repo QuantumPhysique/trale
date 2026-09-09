@@ -849,10 +849,6 @@
     "@qp_translate": {
         "description": "Banner title prompting users to help translate the app"
     },
-    "qp_translateSubtitle": "Na ndihmoni të përkthejmë trale në më shumë gjuhë",
-    "@qp_translateSubtitle": {
-        "description": "Banner subtitle for translation call-to-action"
-    },
     "qp_theme": "Tema",
     "@qp_theme": {
         "description": "Theme settings title"
@@ -900,10 +896,6 @@
     "qp_reminderTitle": "Kujtesa",
     "@qp_reminderTitle": {
         "description": "Reminder settings title"
-    },
-    "qp_reminderSubtitle": "Kujtesa për regjistrimin e peshës çdo ditë",
-    "@qp_reminderSubtitle": {
-        "description": "Reminder settings subtitle shown in the overview"
     },
     "qp_reminderEnabled": "Aktivizo rikujtuesit",
     "@qp_reminderEnabled": {
@@ -1038,5 +1030,30 @@
     "healthConnectPermissionsRequired": "Kërkohen leje për sinkronizimin. Të lutem aktivizoji.",
     "@healthConnectPermissionsRequired": {
         "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "Nuk u gjetën të dhëna peshe në Health Connect.",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "{result} Health Connect ndau vetëm 30 ditët e fundit. Të lutem lejo qasjen te të dhënat e mëparshme në Health Connect për të importuar të gjithë historikun tënd.",
+    "@healthConnectHistoryLimited": {
+        "description": "Shown when a full history import was capped at 30 days. {result} is the import result sentence, e.g. \"Imported 3 measurements.\"",
+        "placeholders": {
+            "result": {
+                "type": "String"
+            }
+        }
+    },
+    "healthConnectImportError": "Importimi nga Health Connect dështoi.",
+    "@healthConnectImportError": {
+        "description": "Message shown when reading measurements from Health Connect failed"
+    },
+    "healthConnectImportPermissionRequired": "Kërkohet leje për të lexuar peshën. Të lutem aktivizoje në Health Connect.",
+    "@healthConnectImportPermissionRequired": {
+        "description": "Message shown when an import is triggered without read permission"
+    },
+    "healthConnectBusy": "Një sinkronizim është tashmë në vazhdim. Të lutem provo sërish pas pak.",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
     }
 }

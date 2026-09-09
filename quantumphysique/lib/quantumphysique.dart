@@ -37,6 +37,8 @@ export 'src/notifier/qp_notifier.dart';
 // App
 export 'src/app/qp_app.dart';
 export 'src/app/qp_notification_service.dart';
+export 'src/app/qp_reminder.dart';
+export 'src/app/qp_reminder_registry.dart';
 
 // Widgets
 export 'src/widgets/qp_layout.dart';

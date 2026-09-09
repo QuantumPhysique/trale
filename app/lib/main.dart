@@ -7,9 +7,9 @@ import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/measurement.dart';
-import 'package:trale/core/notification_service.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/quick_actions_service.dart';
+import 'package:trale/core/reminders.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/pages/splash.dart';
 
@@ -28,19 +28,12 @@ Future<void> main() async {
   runApp(
     QPApp<TraleNotifier>(
       notifier: TraleNotifier(),
+      // Monochrome trale icon for the notification tray.
+      notificationIcon: '@drawable/ic_notification',
       onExtraInit: () async {
         await Hive.initFlutter();
         Hive.registerAdapter<Measurement>(MeasurementAdapter());
         await Hive.openBox<Measurement>(measurementBoxName);
-        try {
-          await NotificationService().init();
-        } catch (e) {
-          QPAppLogger.error(
-            'NotificationService init failed',
-            tag: 'Main',
-            error: e,
-          );
-        }
         try {
           await HealthConnectService().init();
           if (Preferences().healthConnectEnabled &&
@@ -56,6 +49,7 @@ Future<void> main() async {
         }
       },
       buildRoutes: () => <String, WidgetBuilder>{'/': (_) => const Splash()},
+      onGenerateRoute: buildReminderRoute,
       buildStrings: (BuildContext ctx) => qpStringsFromL10n(ctx.l10n),
       // AppLocalizations.localizationsDelegates is generated against
       // flutter_localizations, whose delegates provide the legacy

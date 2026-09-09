@@ -172,10 +172,9 @@ extension UserStateExtension on TraleNotifier {
   set healthConnectImportEnabled(bool enabled) {
     if (healthConnectImportEnabled != enabled) {
       _prefs.healthConnectImportEnabled = enabled;
-      if (enabled && healthConnectEnabled) {
-        // Trigger a full sync (all history) on toggle on
-        unawaited(HealthConnectService().importMeasurements());
-      }
+      // The first full-history import runs from the settings page instead of
+      // here: it has to ask for the history permission and report what it got,
+      // and neither belongs in a setter.
       notify;
     }
   }

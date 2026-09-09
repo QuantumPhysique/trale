@@ -2,6 +2,8 @@ import 'package:material_ui/material_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/src/app/qp_notification_service.dart';
+import 'package:quantumphysique/src/app/qp_reminder.dart';
+import 'package:quantumphysique/src/app/qp_reminder_registry.dart';
 import 'package:quantumphysique/src/app/qp_system_color_builder.dart';
 import 'package:quantumphysique/src/notifier/qp_notifier.dart';
 import 'package:quantumphysique/src/preferences/qp_preferences.dart';
@@ -25,7 +27,8 @@ class QPApp<N extends QPNotifier> extends StatefulWidget {
     required this.buildStrings,
     required this.localizationsDelegates,
     required this.supportedLocales,
-    this.notificationService,
+    this.notificationIcon,
+    this.onGenerateRoute,
     this.onExtraInit,
     this.onGenerateTitle,
     this.initialRoute = '/',
@@ -52,9 +55,18 @@ class QPApp<N extends QPNotifier> extends StatefulWidget {
   /// Supported locales forwarded to [MaterialApp].
   final Iterable<Locale> supportedLocales;
 
-  /// Optional notification service. When provided, [init] is called during
-  /// startup.
-  final QPNotificationService? notificationService;
+  /// Android drawable used as the notification tray icon, e.g.
+  /// `'@drawable/ic_notification'`.
+  ///
+  /// When set, [QPNotificationService] is initialised during startup and
+  /// reminders can be armed. Leave it out in apps that send none.
+  final String? notificationIcon;
+
+  /// Forwarded to [MaterialApp.onGenerateRoute].
+  ///
+  /// Reminders opening a route that is not in [buildRoutes] — a dialog, or a
+  /// page that needs its argument decoded — are served from here.
+  final Route<dynamic>? Function(RouteSettings)? onGenerateRoute;
 
   /// Optional async hook called after preferences and notifications are ready,
   /// before the app is shown (e.g. Hive initialisation).
@@ -82,10 +94,19 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
   bool _ready = false;
   bool _showOnboarding = false;
 
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   void initState() {
     super.initState();
+    qpPendingReminderRoute.addListener(_openPendingRoute);
     _init();
+  }
+
+  @override
+  void dispose() {
+    qpPendingReminderRoute.removeListener(_openPendingRoute);
+    super.dispose();
   }
 
   Future<void> _init() async {
@@ -97,10 +118,15 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
       _showOnboarding = widget.notifier.prefs.showOnBoarding;
     }
 
-    // 3. Initialise notifications if requested.
-    if (widget.notificationService != null) {
+    // 3. Give the reminder registry its storage, before anything schedules.
+    QPReminderRegistry().attach(widget.notifier.prefs);
+
+    // 4. Initialise notifications if requested.
+    if (widget.notificationIcon != null) {
       try {
-        await widget.notificationService!.init();
+        await QPNotificationService().init(
+          androidIconName: widget.notificationIcon!,
+        );
       } catch (e) {
         QPAppLogger.error(
           'QPNotificationService init failed',
@@ -110,10 +136,10 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
       }
     }
 
-    // 3. App-specific extra initialisation (e.g. Hive).
+    // 5. App-specific extra initialisation (e.g. Hive).
     await widget.onExtraInit?.call();
 
-    // 4. Build-number check — show changelog on first run after update.
+    // 6. Build-number check — show changelog on first run after update.
     try {
       final PackageInfo info = await PackageInfo.fromPlatform();
       final int? buildNumber = int.tryParse(info.buildNumber);
@@ -137,6 +163,24 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
     if (mounted) {
       setState(() => _ready = true);
     }
+  }
+
+  /// Opens the route a reminder tapped while the app was running asked for.
+  ///
+  /// A route left behind by a cold start arrives before the app is ready and
+  /// stays put: the initial route is still on screen and would pop the pushed
+  /// route with itself. [QPSplash] takes it from there.
+  void _openPendingRoute() {
+    if (!_ready || qpPendingReminderRoute.value == null) {
+      return;
+    }
+    final QPReminderRoute route = takePendingReminderRoute()!;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigatorKey.currentState?.pushNamed(
+        route.name,
+        arguments: route.arguments,
+      );
+    });
   }
 
   @override
@@ -164,6 +208,7 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
                 routes[widget.initialRoute] = widget.onboardingBuilder!;
               }
               return MaterialApp(
+                navigatorKey: _navigatorKey,
                 theme: notifier.lightTheme,
                 darkTheme: notifier.darkTheme,
                 themeMode: notifier.themeMode,
@@ -174,6 +219,7 @@ class _QPAppState<N extends QPNotifier> extends State<QPApp<N>> {
                 ],
                 supportedLocales: widget.supportedLocales,
                 routes: routes,
+                onGenerateRoute: widget.onGenerateRoute,
                 initialRoute: widget.initialRoute,
                 onGenerateTitle: widget.onGenerateTitle,
               );

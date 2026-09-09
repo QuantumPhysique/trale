@@ -229,5 +229,70 @@
     "@healthConnectSyncError": {
         "description": "Error message shown when synchronization fails"
     },
-    "healthConnectPermissionsRequired": "Es requereixen permisos per a la sincronització. Si us plau, activa'ls."
+    "healthConnectPermissionsRequired": "Es requereixen permisos per a la sincronització. Si us plau, activa'ls.",
+    "today": "Avui",
+    "weightForecast": "Previsió",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "tot",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "fins l'objectiu",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "any anterior",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "personalitza",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "allTimeStats": "Estadístiques de tot el temps",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "exportDialog": "Exportaràs tots els mesuratges a un emmagatzematge exterior. Caldran permisos d'escriptura.",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "open": "Obrir",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "Cancelar",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "Importa una còpia de seguretat",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "Importa els mesuratges des d'una copia de seguretat en un arxiu .txt o .csv.",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup or .csv file."
+    },
+    "amoled": "Tornar",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "Canvia el color de fons a true black per a mode obscur.",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "reset": "Re inicia l'aplicació",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "Re inicia a l'estat de fàbrica",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "Re inicia totes les opcions i esborra tots els mesuratges.",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    }
 }

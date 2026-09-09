@@ -16,12 +16,16 @@ extension AppLocalizationsX on BuildContext {
 /// Builds a [QPStrings] instance from [AppLocalizations].
 ///
 /// Call this wherever you need to pass [QPStrings] to a QP widget or page.
+///
+/// The `qp_` keys mirror the package's shared vocabulary and are copied
+/// verbatim into the other QP apps, so the two that name trale or weight
+/// tracking come from app-owned keys instead.
 QPStrings qpStringsFromL10n(AppLocalizations l) => QPStrings(
   defaultLangLabel: l.qp_defaultLangLabel,
   language: l.qp_language,
   languageSubtitle: l.qp_languageSubtitle,
   translate: l.qp_translate,
-  translateSubtitle: l.qp_translateSubtitle,
+  translateSubtitle: l.translateSubtitle,
   theme: l.qp_theme,
   themeSubtitle: l.qp_themeSubtitle,
   darkMode: l.qp_darkMode,
@@ -34,7 +38,7 @@ QPStrings qpStringsFromL10n(AppLocalizations l) => QPStrings(
   themePalette: l.qp_themePalette,
   schemeVariant: l.qp_schemeVariant,
   reminderTitle: l.qp_reminderTitle,
-  reminderSubtitle: l.qp_reminderSubtitle,
+  reminderSubtitle: l.reminderSubtitle,
   reminderEnabled: l.qp_reminderEnabled,
   reminderDays: l.qp_reminderDays,
   reminderTime: l.qp_reminderTime,

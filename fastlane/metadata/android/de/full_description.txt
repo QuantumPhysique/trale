@@ -6,7 +6,7 @@ Erreiche Dein optimales Gewicht mit Hilfe dieser schlichten App im Material Desi
 * <b>Anpassbar</b>: Viele Farbthemen, <b>Dark Mode</b>, und verschiedene <b>Gewichtseinheiten</b>
 * Verfolge deinen Fortschritt mit <b>state-of-the-art</b> Datenmodellierung 🧑‍💻
 * Import und Export der Messwerte möglich
-* <b>Privatsphäre</b>: Keine Berechtigungen und wir sammeln keinerlei Daten
+* <b>Privatsphäre</b>: Berechtigungen sind optional. Nur Erinnerungen und die Health-Connect-Synchronisierung fragen danach, und wir sammeln keinerlei Daten
 * <b><a href="https://github.com/comradekingu/trale/blob/main/LICENSE">Open-source</a></b>: Unsere Worte sind nicht nur leere Versprechen
 
 <b>Zukünftige Funktionen 🚀</b>

@@ -4,6 +4,10 @@
    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
    <uses-permission android:name="android.permission.health.READ_WEIGHT" />
    <uses-permission android:name="android.permission.health.WRITE_WEIGHT" />
+   <!-- Without this, Health Connect caps every read at the 30 days before the
+        read permission was granted, so "Import all history" can never reach
+        older records. -->
+   <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY" />
    <application
         android:enableOnBackInvokedCallback="true"
         android:label="trale"

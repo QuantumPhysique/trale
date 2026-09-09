@@ -3,6 +3,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/health_connect_messages.dart';
 import 'package:trale/core/health_connect_service.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/trale_notifier.dart';
@@ -35,6 +36,30 @@ class _HealthConnectSettingsPageState extends State<HealthConnectSettingsPage> {
         _loading = false;
       });
     }
+  }
+
+  /// Import the full history behind a spinner and report the outcome.
+  ///
+  /// Health Connect withholds anything older than 30 days until the history
+  /// permission is granted, so this asks for it and names the reason when the
+  /// import still comes back capped.
+  Future<void> _importFullHistory() async {
+    unawaited(
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(child: CircularProgressIndicator()),
+      ),
+    );
+    final HealthConnectImportResult result = await HealthConnectService()
+        .importMeasurements(ignoreOwnOrigin: true, requestHistory: true);
+    if (!mounted) {
+      return;
+    }
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(healthConnectImportMessage(context.l10n, result))),
+    );
   }
 
   @override
@@ -207,6 +232,9 @@ class _HealthConnectSettingsPageState extends State<HealthConnectSettingsPage> {
                                         }
                                       }
                                       notifier.healthConnectImportEnabled = val;
+                                      if (val) {
+                                        await _importFullHistory();
+                                      }
                                     }
                                   : null,
                             ),
@@ -286,18 +314,14 @@ class _HealthConnectSettingsPageState extends State<HealthConnectSettingsPage> {
                                             child: CircularProgressIndicator(),
                                           ),
                                         );
-                                        final Map<String, int> result =
+                                        final HealthConnectSyncResult result =
                                             await HealthConnectService().sync();
-                                        final int imported =
-                                            result['imported'] ?? 0;
-                                        final int exported =
-                                            result['exported'] ?? 0;
                                         if (context.mounted) {
                                           Navigator.of(context).pop();
-                                          final String msg = context.l10n
-                                              .healthConnectSyncSuccess(
-                                                importCount: imported,
-                                                exportCount: exported,
+                                          final String msg =
+                                              healthConnectSyncMessage(
+                                                context.l10n,
+                                                result,
                                               );
                                           ScaffoldMessenger.of(
                                             context,
@@ -330,32 +354,7 @@ class _HealthConnectSettingsPageState extends State<HealthConnectSettingsPage> {
                                 onPressed:
                                     (notifier.healthConnectEnabled &&
                                         notifier.healthConnectImportEnabled)
-                                    ? () async {
-                                        showDialog<void>(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (_) => const Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        );
-                                        final int imported =
-                                            await HealthConnectService()
-                                                .importMeasurements(
-                                                  ignoreOwnOrigin: true,
-                                                );
-                                        if (context.mounted) {
-                                          Navigator.of(context).pop();
-                                          final String msg = context.l10n
-                                              .healthConnectImportSuccess(
-                                                count: imported,
-                                              );
-                                          ScaffoldMessenger.of(
-                                            context,
-                                          ).showSnackBar(
-                                            SnackBar(content: Text(msg)),
-                                          );
-                                        }
-                                      }
+                                    ? _importFullHistory
                                     : null,
                               ),
                             ),

@@ -1,5 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
+import 'package:quantumphysique/src/app/qp_notification_service.dart';
+import 'package:quantumphysique/src/app/qp_reminder.dart';
 
 /// A generic splash screen for quantumphysique-based apps.
 ///
@@ -22,8 +24,8 @@ import 'package:flutter/services.dart';
 class QPSplash extends StatefulWidget {
   /// Creates a [QPSplash].
   const QPSplash({
-    required this.onInit,
     required this.homeBuilder,
+    this.onInit,
     this.child,
     super.key,
   });
@@ -31,7 +33,7 @@ class QPSplash extends StatefulWidget {
   /// Async work to perform while the splash is shown (e.g. database init,
   /// notification rescheduling).  The splash navigates to [homeBuilder] as
   /// soon as this future completes.
-  final Future<void> Function() onInit;
+  final Future<void> Function()? onInit;
 
   /// Builds the home widget that replaces the splash after [onInit] finishes.
   final WidgetBuilder homeBuilder;
@@ -52,7 +54,7 @@ class _QPSplashState extends State<QPSplash> {
   @override
   void initState() {
     super.initState();
-    _init = widget.onInit();
+    _init = widget.onInit?.call() ?? Future<void>.value();
   }
 
   @override
@@ -78,10 +80,15 @@ class _QPSplashState extends State<QPSplash> {
         if (!mounted) {
           return;
         }
-        Navigator.of(context).pop();
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute<Widget>(builder: widget.homeBuilder));
+        final NavigatorState navigator = Navigator.of(context);
+        navigator.pop();
+        navigator.push(MaterialPageRoute<Widget>(builder: widget.homeBuilder));
+        // A reminder that cold-started the app could not be opened earlier:
+        // the pop above would have taken the pushed route with it.
+        final QPReminderRoute? route = takePendingReminderRoute();
+        if (route != null) {
+          navigator.pushNamed(route.name, arguments: route.arguments);
+        }
       });
     }
   }

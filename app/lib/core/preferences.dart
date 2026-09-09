@@ -124,6 +124,9 @@ class Preferences extends QPPreferences {
   /// Default stats range.
   final StatsRange defaultStatsRange = StatsRange.all;
 
+  /// Default for legacyReminderIdsCleared.
+  final bool defaultLegacyReminderIdsCleared = false;
+
   /// Default for healthConnectEnabled.
   final bool defaultHealthConnectEnabled = false;
 
@@ -205,6 +208,9 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('statsUseInterpolation')) {
       statsUseInterpolation = defaultStatsUseInterpolation;
+    }
+    if (override || !prefs.containsKey('legacyReminderIdsCleared')) {
+      legacyReminderIdsCleared = defaultLegacyReminderIdsCleared;
     }
     if (override || !prefs.containsKey('healthConnectEnabled')) {
       healthConnectEnabled = defaultHealthConnectEnabled;

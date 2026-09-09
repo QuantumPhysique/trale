@@ -10,4 +10,12 @@ extension ReminderPrefsExtension on Preferences {
 
   /// Set stats range
   set statsRange(StatsRange range) => prefs.setString('statsRange', range.name);
+
+  /// Whether the reminder ids of pre-registry builds have been cancelled.
+  bool get legacyReminderIdsCleared =>
+      prefs.getBool('legacyReminderIdsCleared') ?? false;
+
+  /// Records that the reminder ids of pre-registry builds are gone.
+  set legacyReminderIdsCleared(bool value) =>
+      prefs.setBool('legacyReminderIdsCleared', value);
 }
