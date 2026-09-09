@@ -1,0 +1,5 @@
+- Tapping a reminder now opens the add weight dialog straight away
+- The "system" colour theme now uses the full Material You palette of Android
+- Fixed the launch screen always being white instead of following dark mode
+- Fixed the Health Connect import reaching no further back than 30 days
+- The Health Connect import now says why nothing was imported

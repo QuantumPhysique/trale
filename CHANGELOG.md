@@ -14,26 +14,20 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+
+## [1.4.0] - 2026-09-09
+
 ### Added Features and Improvements 🙌:
-- Tapping a reminder now opens the add-weight dialog straight away instead of
-  dropping you on the home screen
-- The "system" colour palette now uses the full Material You palette reported
-  by Android instead of re-deriving one from the accent colour, so surfaces,
-  outlines and the secondary and tertiary colours match the rest of the system
+- Tapping a reminder opens the add weight dialog right away
+- The "system" colour palette now uses the full Material You palette of Android
 
 ### Bugfix 🐛:
-- Fixed the launch screen always being white: it now follows the system dark
-  mode, so starting trale in the dark no longer flashes a bright screen
-- Fixed the Health Connect history import reaching no further back than 30
-  days: Health Connect hides older records until an app asks for access to
-  past data, which trale now does when the import is switched on and when
-  the full history is requested
-- The Health Connect import now says why nothing arrived instead of reporting
-  "Imported 0 measurements" for a missing permission or a failed read
+- Fixed the launch screen always being white instead of following dark mode
+- Fixed the Health Connect import reaching back only 30 days
+- Fixed the Health Connect import not saying why nothing was imported
 
 ### Other Changes:
-- The translation banner and the reminder settings now reuse the wording trale
-  already had, dropping a second, near-identical copy of both sentences
+- Improved the wording of the translation banner and the reminder settings
 
 
 ## [1.3.1] - 2026-08-31
@@ -533,7 +527,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.3.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.4.0...main
+[1.4.0]: https://github.com/quantumphysique/trale/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/quantumphysique/trale/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/quantumphysique/trale/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/quantumphysique/trale/compare/v1.1.0...v1.2.0
