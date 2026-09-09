@@ -1,0 +1,5 @@
+- Tippen auf eine Erinnerung öffnet jetzt direkt den Dialog zum Eintragen
+- Das Farbschema "System" nutzt jetzt die volle Material-You-Palette von Android
+- Immer weißer Startbildschirm behoben, er folgt jetzt dem Dunkelmodus
+- Auf 30 Tage begrenzter Verlaufsimport aus Health Connect behoben
+- Der Health-Connect-Import nennt jetzt den Grund, wenn nichts importiert wurde
