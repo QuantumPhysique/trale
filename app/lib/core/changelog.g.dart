@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fixed the reminder still firing when the weight was already logged that day',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.4.0',

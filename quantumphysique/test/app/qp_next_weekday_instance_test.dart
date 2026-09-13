@@ -62,4 +62,35 @@ void main() {
 
     expect(next, DateTime(2024, 4, 1, 6));
   });
+
+  test('recognises the slot still ahead today as the next instance', () {
+    expect(
+      QPNotificationService.isNextWeekdayInstance(
+        DateTime(2024, 5, 1, 20),
+        from: wednesdayNoon,
+      ),
+      isTrue,
+    );
+  });
+
+  test('recognises a slot moved a week out as a later instance', () {
+    expect(
+      QPNotificationService.isNextWeekdayInstance(
+        DateTime(2024, 5, 8, 20),
+        from: wednesdayNoon,
+      ),
+      isFalse,
+    );
+  });
+
+  test('counts a slot that has passed today as the next instance', () {
+    // Its alarm is due next Wednesday either way, so it keeps repeating.
+    expect(
+      QPNotificationService.isNextWeekdayInstance(
+        DateTime(2024, 5, 1, 8, 30),
+        from: wednesdayNoon,
+      ),
+      isTrue,
+    );
+  });
 }
