@@ -311,6 +311,9 @@ class QPNotificationService {
   /// defers inexact alarms — even `allowWhileIdle` ones — by up to several
   /// hours while the device dozes. Falls back to an inexact alarm when the
   /// exact-alarm permission was denied (Android 14+).
+  ///
+  /// A weekly reminder repeats through the plugin, except when it is armed
+  /// for a later week than [isNextWeekdayInstance] — see there.
   Future<void> arm(QPReminder reminder) async {
     final AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
@@ -334,7 +337,8 @@ class QPNotificationService {
       when.minute,
     );
     final DateTimeComponents? repeat =
-        reminder.repeat == QPReminderRepeat.weekly
+        reminder.repeat == QPReminderRepeat.weekly &&
+            isNextWeekdayInstance(when)
         ? DateTimeComponents.dayOfWeekAndTime
         : null;
     final String? payload = reminder.route == null
@@ -402,5 +406,29 @@ class QPNotificationService {
       scheduled = DateTime(now.year, now.month, now.day + offset, hour, minute);
     }
     return scheduled;
+  }
+
+  /// Whether [when] is the first instant matching its own weekday and time,
+  /// counted from [from] (defaults to now).
+  ///
+  /// `zonedSchedule` throws the date of a repeating alarm away and derives
+  /// its own from the current day, the weekday and the time. An occurrence
+  /// armed for a later week — the one a skip moves out of the way — therefore
+  /// comes back as this week's and fires after all. Such an occurrence is
+  /// armed as a one-shot instead; the weekly series returns with the next
+  /// [QPReminderRegistry.rearm].
+  static bool isNextWeekdayInstance(DateTime when, {DateTime? from}) {
+    // Alarms are armed to the minute, so a reminder carrying seconds still
+    // describes the occurrence the plugin would pick.
+    final DateTime minute = DateTime(
+      when.year,
+      when.month,
+      when.day,
+      when.hour,
+      when.minute,
+    );
+    return !minute.isAfter(
+      nextWeekdayInstance(when.weekday, when.hour, when.minute, from: from),
+    );
   }
 }
