@@ -14,8 +14,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-### Other Changes:
-- The changelog now opens with a link to the GitHub repository, where a star helps the app
+
+## [1.4.1] - 2026-09-14
+
+That's one small step for mankind, one giant leap for trale: 200 stars on Github! Thx to all the great people supporting this app 🎉
 
 ### Bugfix 🐛:
 - Fixed the reminder still firing when the weight was already logged that day
