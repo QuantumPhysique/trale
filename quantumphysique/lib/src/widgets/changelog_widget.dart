@@ -15,6 +15,7 @@ class QPChangelogContent extends StatefulWidget {
     required this.changelog,
     required this.dateFormatter,
     this.sectionLabels,
+    this.headerWidget,
   });
 
   /// Scroll controller provided by [DraggableScrollableSheet].
@@ -28,6 +29,12 @@ class QPChangelogContent extends StatefulWidget {
 
   /// Optional overrides for [ChangelogSection] labels.
   final Map<ChangelogSection, String>? sectionLabels;
+
+  /// Optional widget shown above the first release entry.
+  ///
+  /// Spans the full sheet width and brings its own padding, so a header that
+  /// hides itself takes up no space.
+  final Widget? headerWidget;
 
   @override
   State<QPChangelogContent> createState() => _QPChangelogContentState();
@@ -110,6 +117,8 @@ class _QPChangelogContentState extends State<QPChangelogContent>
             },
           ),
         ),
+        if (widget.headerWidget != null)
+          SliverToBoxAdapter(child: widget.headerWidget),
         SliverList.builder(
           itemCount: entries.length,
           itemBuilder: (_, int i) => Padding(
@@ -160,7 +169,13 @@ class _QPChangelogContentState extends State<QPChangelogContent>
 /// Opens the changelog in a modal bottom sheet.
 ///
 /// Uses [QPNotifier.dateFormat] from the widget tree to format release dates.
-void showQPChangelog(BuildContext context, Changelog changelog) {
+///
+/// An optional [headerWidget] is shown above the first release entry.
+void showQPChangelog(
+  BuildContext context,
+  Changelog changelog, {
+  Widget? headerWidget,
+}) {
   showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
@@ -176,6 +191,7 @@ void showQPChangelog(BuildContext context, Changelog changelog) {
           return QPChangelogContent(
             scrollController: scrollController,
             changelog: changelog,
+            headerWidget: headerWidget,
             dateFormatter: (DateTime d) => Provider.of<QPNotifier>(
               context,
               listen: false,

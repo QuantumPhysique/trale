@@ -2,6 +2,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/changelog.dart';
 import 'package:trale/core/l10n_extension.dart';
+import 'package:trale/widget/github_star_banner.dart';
 import 'package:trale/widget/icon_hero.dart';
 import 'package:trale/widget/sinewave.dart';
 
@@ -186,6 +187,7 @@ class About extends StatelessWidget {
       ),
       heroWidget: const IconHero(),
       changelog: changelog,
+      changelogHeader: const GithubStarBanner(),
       decorationWidget: const SineWave(),
       sourceCodeUrl: 'https://github.com/quantumphysique/trale',
       licenceName: 'GNU AGPLv3+',
