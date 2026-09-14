@@ -13,6 +13,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
         'Fixed the reminder still firing when the weight was already logged that day',
+        'Fixed dates showing a leading zero, e.g. "014/09", in French and Italian',
       ],
     },
   ),

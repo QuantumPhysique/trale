@@ -16,6 +16,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Bugfix 🐛:
 - Fixed the reminder still firing when the weight was already logged that day
+- Fixed dates showing a leading zero, e.g. "014/09", in French and Italian
 
 
 ## [1.4.0] - 2026-09-09
