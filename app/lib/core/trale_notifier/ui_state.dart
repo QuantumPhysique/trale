@@ -27,6 +27,17 @@ extension UiStateExtension on TraleNotifier {
     }
   }
 
+  /// Whether to show the GitHub star banner.
+  bool get showGithubStarBanner => _prefs.showGithubStarBanner;
+
+  /// Sets the GitHub star banner flag.
+  set showGithubStarBanner(bool show) {
+    if (show != showGithubStarBanner) {
+      _prefs.showGithubStarBanner = show;
+      notify;
+    }
+  }
+
   /// Whether to use loose interpolation mode.
   bool get looseWeight => _prefs.looseWeight;
 

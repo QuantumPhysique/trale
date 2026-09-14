@@ -11,6 +11,7 @@ import 'package:trale/pages/overview.dart';
 import 'package:trale/pages/settings_overview.dart';
 import 'package:trale/pages/stat_screen.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
+import 'package:trale/widget/github_star_banner.dart';
 import 'package:trale/widget/user_dialog.dart';
 
 /// home scaffold
@@ -77,7 +78,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   void _onPostInit(BuildContext ctx) {
     if (Preferences().showChangelog) {
       Preferences().showChangelog = false;
-      showQPChangelog(ctx, changelog);
+      showQPChangelog(ctx, changelog, headerWidget: const GithubStarBanner());
     }
   }
 

@@ -16,6 +16,7 @@ class QPSettingsBanner extends StatelessWidget {
     this.trailingColor,
     this.fontColor,
     this.url,
+    this.onTap,
     super.key,
   });
 
@@ -43,6 +44,9 @@ class QPSettingsBanner extends StatelessWidget {
   /// URL to open on tap.
   final String? url;
 
+  /// Called when the banner is tapped, before [url] is opened.
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     const double padding = QPLayout.padding;
@@ -60,7 +64,12 @@ class QPSettingsBanner extends StatelessWidget {
       shape: const StadiumBorder(),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => url == null ? null : _launchURL(url!),
+        onTap: () {
+          onTap?.call();
+          if (url != null) {
+            _launchURL(url!);
+          }
+        },
         child: Stack(
           children: <Widget>[
             Padding(

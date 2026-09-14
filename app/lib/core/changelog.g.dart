@@ -11,6 +11,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.otherChanges: <String>[
+        'The changelog now opens with a link to the GitHub repository, where a star helps the app',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed the reminder still firing when the weight was already logged that day',
         'Fixed dates showing a leading zero, e.g. "014/09", in French and Italian',
