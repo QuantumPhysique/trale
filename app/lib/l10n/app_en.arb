@@ -705,6 +705,14 @@
     "@openIssueSubtitle": {
         "description": "Open issue subtitle for feedback"
     },
+    "starOnGithub": "Star on GitHub",
+    "@starOnGithub": {
+        "description": "Star banner title"
+    },
+    "starOnGithubSubtitle": "Support us with a star.",
+    "@starOnGithubSubtitle": {
+        "description": "Star banner subtitle"
+    },
     "aboutDescription1": "A simple weight log with short-term extrapolation.",
     "@aboutDescription1": {
         "description": "About page first paragraph"

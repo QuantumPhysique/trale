@@ -10,9 +10,15 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.4.1',
+    dateString: '2026-09-14',
+    summary: 'That\'s one small step for mankind, one giant leap for trale: 200 stars on Github! Thx to all the great people supporting this app 🎉',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
         'Fixed the reminder still firing when the weight was already logged that day',
+        'Fixed dates showing a leading zero, e.g. "014/09", in French and Italian',
       ],
     },
   ),

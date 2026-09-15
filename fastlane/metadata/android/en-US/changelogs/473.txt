@@ -1,0 +1,2 @@
+- Fixed the reminder still firing when the weight was already logged that day
+- Fixed dates showing a leading zero, e.g. "014/09", in French and Italian

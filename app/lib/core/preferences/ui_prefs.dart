@@ -22,4 +22,11 @@ extension UiPrefsExtension on Preferences {
   /// Set show stats hint banner
   set showStatsHintBanner(bool show) =>
       prefs.setBool('showStatsHintBanner', show);
+
+  /// Get show GitHub star banner
+  bool get showGithubStarBanner => prefs.getBool('showGithubStarBanner')!;
+
+  /// Set show GitHub star banner
+  set showGithubStarBanner(bool show) =>
+      prefs.setBool('showGithubStarBanner', show);
 }

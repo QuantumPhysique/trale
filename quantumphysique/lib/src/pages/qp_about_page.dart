@@ -38,6 +38,7 @@ class QPAboutPage extends StatelessWidget {
     required this.tplAssets,
     this.heroWidget,
     this.changelog,
+    this.changelogHeader,
     this.decorationWidget,
     this.sourceCodeUrl,
     this.licenceName,
@@ -64,6 +65,9 @@ class QPAboutPage extends StatelessWidget {
   ///
   /// When provided, a changelog tile is shown in the info group.
   final Changelog? changelog;
+
+  /// Optional widget shown above the first entry of the changelog sheet.
+  final Widget? changelogHeader;
 
   /// Optional decoration widget shown between the info group and the TPL
   /// section (e.g. a decorative wave illustration).
@@ -127,7 +131,11 @@ class QPAboutPage extends StatelessWidget {
                 maxLines: 1,
               ),
               trailing: const Icon(Icons.article_outlined),
-              onTap: () => showQPChangelog(context, changelog!),
+              onTap: () => showQPChangelog(
+                context,
+                changelog!,
+                headerWidget: changelogHeader,
+              ),
             ),
           if (sourceCodeUrl != null)
             QPGroupedListTile(

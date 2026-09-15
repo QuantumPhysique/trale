@@ -1,0 +1,2 @@
+- Erinnerung behoben, die trotz bereits eingetragenem Gewicht ausgelöst wurde
+- Datumsangaben mit führender Null, z. B. "014/09", in Französisch und Italienisch behoben

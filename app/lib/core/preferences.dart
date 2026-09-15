@@ -121,6 +121,9 @@ class Preferences extends QPPreferences {
   /// Default show stats hint banner.
   final bool defaultShowStatsHintBanner = true;
 
+  /// Default show GitHub star banner.
+  final bool defaultShowGithubStarBanner = true;
+
   /// Default stats range.
   final StatsRange defaultStatsRange = StatsRange.all;
 
@@ -196,6 +199,9 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('showStatsHintBanner')) {
       showStatsHintBanner = defaultShowStatsHintBanner;
+    }
+    if (override || !prefs.containsKey('showGithubStarBanner')) {
+      showGithubStarBanner = defaultShowGithubStarBanner;
     }
     if (override || !prefs.containsKey('statsRange')) {
       statsRange = defaultStatsRange;

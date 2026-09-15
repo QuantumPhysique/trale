@@ -346,6 +346,14 @@
     "@openIssueSubtitle": {
         "description": "Open issue subtitle for feedback"
     },
+    "starOnGithub": "Stern auf GitHub",
+    "@starOnGithub": {
+        "description": "Star banner title"
+    },
+    "starOnGithubSubtitle": "Unterstütze uns damit.",
+    "@starOnGithubSubtitle": {
+        "description": "Star banner subtitle"
+    },
     "aboutDescription1": "Ein simples Gewichtstagebuch mit kurzzeitiger Extrapolation.",
     "@aboutDescription1": {
         "description": "About page first paragraph"
