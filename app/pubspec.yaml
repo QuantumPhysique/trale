@@ -43,7 +43,7 @@ dependencies:
   provider: ^6.1.5+1
   quantumphysique:
     path: ../quantumphysique
-  quick_actions: ^1.1.0
+  quick_actions: ^1.1.1
   share_plus: ^13.3.0
   shared_preferences: ^2.5.5
 
