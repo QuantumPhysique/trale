@@ -239,7 +239,7 @@
     "@all": {
         "description": "Stats range: use all data"
     },
-    "sinceTarget": "fins l'objectiu",
+    "sinceTarget": "des de l'objectiu",
     "@sinceTarget": {
         "description": "Stats range: since target weight was set"
     },
@@ -271,7 +271,7 @@
     "@import": {
         "description": "Import backup."
     },
-    "importSubtitle": "Importa els mesuratges des d'una copia de seguretat en un arxiu .txt o .csv.",
+    "importSubtitle": "Importa les mesures des d'una còpia de seguretat en un arxiu .txt o .csv.",
     "@importSubtitle": {
         "description": "Import measurements from txt backup or .csv file."
     },
@@ -283,16 +283,200 @@
     "@amoledSubtitle": {
         "description": "Change background color to true black for dark mode."
     },
-    "reset": "Re inicia l'aplicació",
+    "reset": "Restableix l'aplicació",
     "@reset": {
         "description": "Factory reset app."
     },
-    "factoryReset": "Re inicia a l'estat de fàbrica",
+    "factoryReset": "Restableix a l'estat de fàbrica",
     "@factoryReset": {
         "description": "Factory reset app."
     },
-    "factoryResetSubtitle": "Re inicia totes les opcions i esborra tots els mesuratges.",
+    "factoryResetSubtitle": "Restableix totes les preferències i esborra totes les mesures.",
     "@factoryResetSubtitle": {
         "description": "Reset all settings and delete all measurements."
+    },
+    "importingAbort": "Importació interrompuda.",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importSuccess": "{count} mesures afegides",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "No s'ha pogut llegir el fitxer seleccionat. Torna a provar o utilitza un altre fitxer.",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "factoryResetDialog": "Restablir l'aplicació als valors per defecte? Això suprimirà totes les preferències i les mesures afegides. No es podrà desfer.",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "Esborrar",
+    "@delete": {
+        "description": "delete"
+    },
+    "importNoMeasurements": "No s'han trobat mesures vàlides al fitxer seleccionat. Si us plau, comprova el format del fitxer.",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "importDialog": "Importa totes les mesures a la base de dades actual. Això no es pot desfer!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "yes": "Sí",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "D'acord",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "Desa",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "Edita",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "Còpia de seguretat",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "Hora",
+    "@time": {
+        "description": "time"
+    },
+    "home": "Inici",
+    "@home": {
+        "description": "home screen"
+    },
+    "sourcecode": "Codi font",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "packages": "paquets",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "Carregant",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "Mesures",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "Versió",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "Llicències de tercers",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "Llicència",
+    "@licence": {
+        "description": "licence"
+    },
+    "changelog": "Changelog",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "openIssue": "Obre una incidència",
+    "@openIssue": {
+        "description": "open an issue"
+    },
+    "undertpl": "© {years} per {author} sota llicència {licence}",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "Introdueix el teu pes",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "decreaseWeight": "Disminueix el pes",
+    "@decreaseWeight": {
+        "description": "Accessibility label of the minus button below the weight ruler, which lowers the weight by one tick."
+    },
+    "increaseWeight": "Augmenta el pes",
+    "@increaseWeight": {
+        "description": "Accessibility label of the plus button below the weight ruler, which raises the weight by one tick."
+    },
+    "addHeight": "Introdueix la teva alçada",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "alçada",
+    "@height": {
+        "description": "height"
+    },
+    "target": "objectiu",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "interpolation": "interpolació",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "showUserData": "mostra les meves dades",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "personalització",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "strength": "intensitat",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "Cap",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "Suau",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "Interpolació mitjana",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "Alta",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "Hola",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "Aquesta senzilla aplicació amb disseny 'Material You' t'ajuda a arribar al teu pes ideal! Tant si vols guanyar pes com perdre'n o simplement mantenir-lo, les prediccions de pes fiables i les estadístiques versàtils t'ajudaran a no perdre el rumb.\n\nUneix-te avui a la nostra comunitat i fes el seguiment del teu pes.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "Tria un dels sis temes per personalitzar l'aplicació. Quin expressa millor el teu estat d'ànim?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
     }
 }
