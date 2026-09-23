@@ -16,9 +16,45 @@
     "@gainWeight": {
         "description": "Gain weight switch label."
     },
-    "looseWeightSubtitle": "Switching between losing or gaining weight.",
-    "@looseWeightSubtitle": {
-        "description": "Switching between losing or gaining weight."
+    "maintainWeight": "Maintain weight",
+    "@maintainWeight": {
+        "description": "Name of the goal to keep the weight within a range around the target weight."
+    },
+    "weightGoalSubtitle": "Choose whether to lose, maintain or gain weight.",
+    "@weightGoalSubtitle": {
+        "description": "Subtitle of the goal selector in the target weight dialog."
+    },
+    "targetRange": "Target range",
+    "@targetRange": {
+        "description": "Label of the target weight range of the maintain goal."
+    },
+    "targetRangeShort": "Range",
+    "@targetRangeShort": {
+        "description": "Short label of the target range band in the chart."
+    },
+    "targetWeightTolerance": "Tolerance",
+    "@targetWeightTolerance": {
+        "description": "Label of the tolerance around the target weight of the maintain goal."
+    },
+    "targetRangeDaysIn": "within your target range",
+    "@targetRangeDaysIn": {
+        "description": "Shown after 'x days/weeks' while the trend stays in the target range."
+    },
+    "targetRangeBackIn": "left to get back into your range",
+    "@targetRangeBackIn": {
+        "description": "Shown after 'x days/weeks' while the trend heads back into the target range."
+    },
+    "outsideTargetRange": "outside your target range",
+    "@outsideTargetRange": {
+        "description": "Shown while the trend is outside the target range and not heading back."
+    },
+    "inTargetRangeShort": "in range",
+    "@inTargetRangeShort": {
+        "description": "Short note that the trend is inside the target range."
+    },
+    "targetWeightIn": "in",
+    "@targetWeightIn": {
+        "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
     },
     "days": "days",
     "weeks": "weeks",

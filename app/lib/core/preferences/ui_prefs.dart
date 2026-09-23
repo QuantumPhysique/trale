@@ -2,12 +2,6 @@ part of '../preferences.dart';
 
 /// Extension grouping ui_prefs settings on [Preferences].
 extension UiPrefsExtension on Preferences {
-  /// Get loose mode
-  bool get looseWeight => prefs.getBool('looseWeight')!;
-
-  /// Set loose mode
-  set looseWeight(bool loose) => prefs.setBool('looseWeight', loose);
-
   /// Get show measurement hint banner
   bool get showMeasurementHintBanner =>
       prefs.getBool('showMeasurementHintBanner')!;

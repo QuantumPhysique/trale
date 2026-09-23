@@ -7,6 +7,7 @@ import 'package:trale/core/language.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/core/zoom_level.dart';
 
 part 'preferences/user_prefs.dart';
@@ -69,6 +70,12 @@ class Preferences extends QPPreferences {
   /// Default for userTargetWeightSetDate (not set).
   final DateTime? defaultUserTargetWeightSetDate = null;
 
+  /// Default weight goal.
+  final WeightGoal defaultWeightGoal = WeightGoal.lose;
+
+  /// Default tolerance in kg around the target of the maintain goal.
+  final double defaultTargetWeightTolerance = 1;
+
   /// Default for statsRangeFrom.
   final DateTime? defaultStatsRangeFrom = null;
 
@@ -111,9 +118,6 @@ class Preferences extends QPPreferences {
   /// Latest backup reminder date.
   final DateTime defaultLatestBackupReminderDate =
       DateTime.fromMillisecondsSinceEpoch(0);
-
-  /// Default loose mode.
-  final bool defaultLooseWeight = true;
 
   /// Default show measurement hint banner.
   final bool defaultShowMeasurementHintBanner = true;
@@ -176,6 +180,16 @@ class Preferences extends QPPreferences {
     if (override || !prefs.containsKey('userTargetWeightSetDate')) {
       userTargetWeightSetDate = defaultUserTargetWeightSetDate;
     }
+    if (override || !prefs.containsKey('weightGoal')) {
+      // Released versions stored only lose or gain, as the bool 'looseWeight'.
+      weightGoal = !override && prefs.containsKey('looseWeight')
+          ? (prefs.getBool('looseWeight')! ? WeightGoal.lose : WeightGoal.gain)
+          : defaultWeightGoal;
+      prefs.remove('looseWeight');
+    }
+    if (override || !prefs.containsKey('targetWeightTolerance')) {
+      targetWeightTolerance = defaultTargetWeightTolerance;
+    }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
     }
@@ -190,9 +204,6 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('latestBackupReminderDate')) {
       latestBackupReminderDate = defaultLatestBackupReminderDate;
-    }
-    if (override || !prefs.containsKey('looseWeight')) {
-      looseWeight = defaultLooseWeight;
     }
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;

@@ -1,6 +1,7 @@
 part of '../stats_widgets.dart';
 
-/// Hero card: days until target weight is reached (with rotating M3E shape).
+/// Hero card: days until target weight is reached, or for the maintain goal
+/// days within the target range (with rotating M3E shape).
 QPBentoCard reachingTargetWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
@@ -10,17 +11,29 @@ QPBentoCard reachingTargetWeightCard({
     context,
     listen: false,
   );
-  final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-    notifier.effectiveTargetWeight,
-    notifier.looseWeight,
-  );
+  final TargetRange? range = notifier.effectiveTargetRange;
+  final Duration? timeToRange = stats.timeToTargetRange(range);
+  final bool maintaining =
+      range != null && notifier.weightGoal == WeightGoal.maintain;
+  final bool inRange = timeToRange?.inDays == -1;
   final AppLocalizations l10n = context.l10n;
+  final Duration? shown = maintaining && inRange
+      ? Duration(days: stats.daysInTargetRange(range))
+      : timeToRange;
   final List<String> labels =
-      (timeOfTargetWeight?.durationToString(context) ?? '-- ${l10n.days}')
-          .split(' ');
-  final String subtext = labels.length == 1
-      ? l10n.targetWeightReached
-      : '${labels[1]} ${l10n.targetWeightReachedIn}';
+      (shown?.durationToString(context) ?? '-- ${l10n.days}').split(' ');
+  final String subtext;
+  if (!maintaining) {
+    subtext = labels.length == 1
+        ? l10n.targetWeightReached
+        : '${labels[1]} ${l10n.targetWeightReachedIn}';
+  } else if (inRange) {
+    subtext = '${labels[1]} ${l10n.targetRangeDaysIn}';
+  } else if (timeToRange == null) {
+    subtext = l10n.outsideTargetRange;
+  } else {
+    subtext = '${labels[1]} ${l10n.targetRangeBackIn}';
+  }
 
   return QPBentoCard.textInline(
     columnSpan: 8,

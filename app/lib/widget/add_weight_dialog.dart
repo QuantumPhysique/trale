@@ -5,6 +5,7 @@ import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/constants.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
@@ -12,6 +13,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/weight_picker.dart';
 
 /// Content padding shared by the two weight dialogs.
@@ -280,10 +282,27 @@ Future<bool> showTargetWeightDialog({
   );
 
   double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
-  bool looseWeight = notifier.looseWeight;
+  WeightGoal goal = notifier.weightGoal;
+  double tolerance = notifier.targetWeightTolerance;
+  final double toleranceStep = notifier.unit.tickInKg(notifier.unitPrecision);
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
+      final Color tileColor = Theme.of(context).colorScheme.surfaceContainerLow;
+      final double centre = currentSliderValue * notifier.unit.scaling;
+      final int ticks = (tolerance / toleranceStep).round();
+      final String toleranceText = notifier.unit.weightToString(
+        tolerance,
+        notifier.unitPrecision,
+      );
+
+      void stepTolerance(int deltaTicks) => setState(() {
+        tolerance = ((ticks + deltaTicks) * toleranceStep).clamp(
+          toleranceStep,
+          maxTargetWeightTolerance,
+        );
+      });
+
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -323,35 +342,78 @@ Future<bool> showTargetWeightDialog({
           // own bottom margin, which adds up to the usual QPLayout.padding.
           QPWidgetGroup(
             children: <Widget>[
-              QPGroupedSwitchListTile(
-                color: Theme.of(context).colorScheme.surfaceContainerLow,
+              QPGroupedListTile(
+                color: tileColor,
                 dense: true,
-                leading: PPIcon(
-                  looseWeight
-                      ? PhosphorIconsDuotone.trendDown
-                      : PhosphorIconsDuotone.trendUp,
-                  context,
-                ),
+                leading: PPIcon(goal.icon, context),
                 title: Text(
-                  looseWeight
-                      ? context.l10n.looseWeight
-                      : context.l10n.gainWeight,
+                  goal.nameLong(context),
                   style: Theme.of(context).textTheme.bodyLarge,
                   maxLines: 1,
                 ),
                 subtitle: Text(
-                  context.l10n.looseWeightSubtitle,
+                  context.l10n.weightGoalSubtitle,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
-                value: !looseWeight,
-                onChanged: (bool? value) {
-                  if (value != null) {
-                    setState(() {
-                      looseWeight = !value;
-                    });
-                  }
-                },
               ),
+              QPGroupedWidget(
+                color: tileColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(QPLayout.smallPadding),
+                  child: QPButtonGroup<WeightGoal>(
+                    expanded: true,
+                    items: WeightGoal.values,
+                    selected: goal,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    tooltipBuilder: (WeightGoal value) =>
+                        value.nameLong(context),
+                    labelBuilder:
+                        (BuildContext context, WeightGoal value, bool active) =>
+                            Icon(value.selectorIcon(active: active)),
+                    onSelected: (WeightGoal value) =>
+                        setState(() => goal = value),
+                  ),
+                ),
+              ),
+              if (goal == WeightGoal.maintain)
+                QPGroupedListTile(
+                  color: tileColor,
+                  dense: true,
+                  title: Text(
+                    context.l10n.targetWeightTolerance,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    maxLines: 1,
+                  ),
+                  subtitle: Text(
+                    notifier.unit.weightRangeToString(
+                      centre - tolerance,
+                      centre + tolerance,
+                      notifier.unitPrecision,
+                    ),
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      IconButton.filledTonal(
+                        onPressed: ticks > 1 ? () => stepTolerance(-1) : null,
+                        icon: PPIcon(PhosphorIconsBold.minus, context),
+                      ),
+                      Text(
+                        '± $toleranceText',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.monospace.titleMedium,
+                      ),
+                      IconButton.filledTonal(
+                        onPressed: tolerance < maxTargetWeightTolerance
+                            ? () => stepTolerance(1)
+                            : null,
+                        icon: PPIcon(PhosphorIconsBold.plus, context),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ],
@@ -384,7 +446,12 @@ Future<bool> showTargetWeightDialog({
               } else {
                 minWeight = 50;
               }
-              if (currentSliderValue * notifier.unit.scaling < minWeight) {
+              // For the maintain goal the lower end of its range counts.
+              final double centre = currentSliderValue * notifier.unit.scaling;
+              final double lowestTarget = goal == WeightGoal.maintain
+                  ? centre - tolerance
+                  : centre;
+              if (lowestTarget < minWeight) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(context.l10n.target_weight_warning),
@@ -393,9 +460,9 @@ Future<bool> showTargetWeightDialog({
                   ),
                 );
               } else {
-                notifier.userTargetWeight =
-                    currentSliderValue * notifier.unit.scaling;
-                notifier.looseWeight = looseWeight;
+                notifier.userTargetWeight = centre;
+                notifier.weightGoal = goal;
+                notifier.targetWeightTolerance = tolerance;
                 // Save the date when the target was set
                 final DateTime now = DateTime.now();
                 notifier.userTargetWeightSetDate = now;

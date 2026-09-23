@@ -37,15 +37,4 @@ extension UiStateExtension on TraleNotifier {
       notify;
     }
   }
-
-  /// Whether to use loose interpolation mode.
-  bool get looseWeight => _prefs.looseWeight;
-
-  /// Sets the loose interpolation mode flag.
-  set looseWeight(bool loose) {
-    if (loose != looseWeight) {
-      _prefs.looseWeight = loose;
-      notify;
-    }
-  }
 }

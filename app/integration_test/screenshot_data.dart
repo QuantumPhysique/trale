@@ -11,6 +11,7 @@
 import 'dart:math';
 
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/core/zoom_level.dart';
 
 /// Number of days of history the demo dataset spans.
@@ -163,14 +164,14 @@ class DemoPersona {
   /// to it.
   final int targetDaysAhead;
 
-  /// Whether this persona is working the scale downwards.
+  /// Whether this persona works the scale downwards or upwards.
   ///
-  /// Drives the `looseWeight` preference, which
-  /// [MeasurementStats.timeOfTargetWeight] uses to decide on which side of the
-  /// current weight the target counts as reached — left at the shipped
-  /// default (losing), a gainer's target reads as already completed and the
-  /// "time to target" card renders 🥳 instead of a forecast.
-  bool get losesWeight => targetWeight < anchors.last.weight;
+  /// Decides on which side of the current weight the target counts as
+  /// reached. Left at the shipped default (lose), a gainer's target reads as
+  /// already completed and the "time to target" card renders 🥳 instead of a
+  /// forecast.
+  WeightGoal get weightGoal =>
+      targetWeight < anchors.last.weight ? WeightGoal.lose : WeightGoal.gain;
 
   /// Noise amplitude relative to the [_referenceWeight] the constants were
   /// tuned at.

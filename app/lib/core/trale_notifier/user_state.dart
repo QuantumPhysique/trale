@@ -3,7 +3,6 @@ part of '../trale_notifier.dart';
 /// Extension on [TraleNotifier] holding user body and weight state.
 ///
 /// [firstDay] is delegated to [QPDisplayStateExtension] on [QPNotifier].
-/// [looseWeight] has been moved to [UiStateExtension].
 extension UserStateExtension on TraleNotifier {
   // ── Delegate to QPDisplayStateExtension ───────────────────────────────────
 
@@ -90,6 +89,43 @@ extension UserStateExtension on TraleNotifier {
       notify;
     }
   }
+
+  /// getter
+  WeightGoal get weightGoal => _prefs.weightGoal;
+
+  /// setter
+  set weightGoal(WeightGoal newGoal) {
+    if (weightGoal != newGoal) {
+      _prefs.weightGoal = newGoal;
+      notify;
+    }
+  }
+
+  /// getter for the tolerance in kg around the target of the maintain goal
+  double get targetWeightTolerance => _prefs.targetWeightTolerance;
+
+  /// setter for the tolerance in kg around the target of the maintain goal
+  set targetWeightTolerance(double newTolerance) {
+    if (targetWeightTolerance != newTolerance) {
+      _prefs.targetWeightTolerance = newTolerance;
+      notify;
+    }
+  }
+
+  /// getter for the weights counting as on target, only when enabled
+  TargetRange? get effectiveTargetRange {
+    final double? targetWeight = effectiveTargetWeight;
+    return targetWeight != null
+        ? weightGoal.range(targetWeight, targetWeightTolerance)
+        : null;
+  }
+
+  /// getter for the target date, only when enabled and the goal has one.
+  /// The maintain goal keeps a stored date for switching back.
+  DateTime? get effectiveTargetWeightDate =>
+      targetWeightEnabled && weightGoal != WeightGoal.maintain
+      ? userTargetWeightDate
+      : null;
 
   /// getter for target weight date
   DateTime? get userTargetWeightDate => _prefs.userTargetWeightDate;

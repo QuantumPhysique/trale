@@ -11,6 +11,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'New goal "Maintain weight": keep your weight within a range around your target weight',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed the chart shading towards the target weight for lb and st users',
       ],

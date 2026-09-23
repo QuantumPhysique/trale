@@ -17,3 +17,9 @@ const double minWeightKg = 0;
 /// width so it does not resize with every keystroke. It caps typed input
 /// only in the sense that no more digits than these fit.
 const double maxWeightKg = 500;
+
+/// Slowest trend in kg/day still counted as heading towards the target.
+const double minSlopeToTarget = 0.005;
+
+/// Widest tolerance in kg around the target of the maintain goal.
+const double maxTargetWeightTolerance = 5;
