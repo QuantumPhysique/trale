@@ -230,9 +230,11 @@ class _CustomLineChartState extends State<CustomLineChart>
       listen: false,
     );
     final double? targetWeight = notifier.effectiveTargetWeight;
-    final DateTime? targetWeightDate = notifier.targetWeightEnabled
-        ? notifier.userTargetWeightDate
+    final TargetRange? maintainRange =
+        notifier.weightGoal == WeightGoal.maintain
+        ? notifier.effectiveTargetRange
         : null;
+    final DateTime? targetWeightDate = notifier.effectiveTargetWeightDate;
     final DateTime? effectiveSetDate = notifier.targetWeightEnabled
         ? notifier.userTargetWeightSetDate
         : null;
@@ -259,6 +261,7 @@ class _CustomLineChartState extends State<CustomLineChart>
     final Color targetWeightLabelBackgroundColor =
         widget.targetWeightLabelBackgroundColor ??
         colorScheme.surfaceContainerLow;
+    final Color targetRangeColor = targetWeightLineColor.withAlpha(60);
     final Color tooltipLineColor = colorScheme.tertiary;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
@@ -422,11 +425,22 @@ class _CustomLineChartState extends State<CustomLineChart>
           color: interpolationBelowAreaColor,
         ),
         aboveBarData: BarAreaData(
-          show: targetWeight != null,
+          show: targetWeight != null && maintainRange == null,
           color: interpolationAboveAreaColor,
           cutOffY: (targetWeight ?? 0) / unitScaling,
           applyCutOffY: true,
         ),
+      );
+
+      // fl_chart paints range annotations before it clips to the plot area,
+      // so the band has to be cut to the visible y-range here.
+      final double bandLower = max(
+        (maintainRange?.lower ?? 0) / unitScaling,
+        minY.floorToDouble(),
+      );
+      final double bandUpper = min(
+        (maintainRange?.upper ?? 0) / unitScaling,
+        maxY.ceilToDouble(),
       );
 
       return LineChart(
@@ -528,32 +542,49 @@ class _CustomLineChartState extends State<CustomLineChart>
             show: true,
           ),
           clipData: const FlClipData.all(),
+          rangeAnnotations: RangeAnnotations(
+            horizontalRangeAnnotations: <HorizontalRangeAnnotation>[
+              if (maintainRange != null &&
+                  bandLower < bandUpper &&
+                  !widget.isPreview &&
+                  ip.db.measurements.isNotEmpty)
+                HorizontalRangeAnnotation(
+                  y1: bandLower,
+                  y2: bandUpper,
+                  color: targetRangeColor,
+                ),
+            ],
+          ),
           extraLinesData: ExtraLinesData(
             extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
               if (targetWeight != null &&
                   !widget.isPreview &&
                   ip.db.measurements.isNotEmpty) ...<HorizontalLine>[
-                // Visible dashed line when no target date is set
+                // Visible dashed lines when no target date is set
                 if (targetWeightDate == null || effectiveSetWeight == null)
-                  HorizontalLine(
-                    y: targetWeight / unitScaling,
-                    color: targetWeightLineColor,
-                    strokeWidth: 2,
-                    dashArray: <int>[8, 6],
-                    label: HorizontalLineLabel(show: false),
-                  ),
+                  for (final double y
+                      in maintainRange == null
+                          ? <double>[targetWeight]
+                          : <double>[maintainRange.lower, maintainRange.upper])
+                    HorizontalLine(
+                      y: y / unitScaling,
+                      color: targetWeightLineColor,
+                      strokeWidth: 2,
+                      dashArray: <int>[8, 6],
+                      label: HorizontalLineLabel(show: false),
+                    ),
                 // Label clamped to visible y-range so it never disappears
                 HorizontalLine(
-                  y: (targetWeight / unitScaling).clamp(
-                    minY.floorToDouble(),
-                    maxY.ceilToDouble(),
-                  ),
+                  y: ((maintainRange?.upper ?? targetWeight) / unitScaling)
+                      .clamp(minY.floorToDouble(), maxY.ceilToDouble()),
                   color: Colors.transparent,
                   strokeWidth: 0,
                   label: HorizontalLineLabel(
                     show: true,
-                    alignment: ip.db.measurements.first.weight > targetWeight
+                    alignment:
+                        ip.db.measurements.first.weight >
+                            (maintainRange?.upper ?? targetWeight)
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.symmetric(vertical: 1),
@@ -562,7 +593,9 @@ class _CustomLineChartState extends State<CustomLineChart>
                       backgroundColor: targetWeightLabelBackgroundColor,
                     ),
                     labelResolver: (HorizontalLine line) =>
-                        ' ${context.l10n.targetWeightShort}',
+                        maintainRange == null
+                        ? ' ${context.l10n.targetWeightShort}'
+                        : ' ${context.l10n.targetRangeShort}',
                   ),
                 ),
               ],
