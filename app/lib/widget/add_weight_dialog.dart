@@ -462,7 +462,9 @@ Future<bool> showTargetWeightDialog({
               } else {
                 notifier.userTargetWeight = centre;
                 notifier.weightGoal = goal;
-                notifier.targetWeightTolerance = tolerance;
+                if (goal == WeightGoal.maintain) {
+                  notifier.targetWeightTolerance = tolerance;
+                }
                 // Save the date when the target was set
                 final DateTime now = DateTime.now();
                 notifier.userTargetWeightSetDate = now;
