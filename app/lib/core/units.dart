@@ -68,6 +68,15 @@ extension TraleUnitExtension on TraleUnit {
       '${weightToString(lower, tup, showUnit: false)}'
       '–${weightToString(upper, tup)}';
 
+  /// default tolerance in kg around the target of the maintain goal
+  double get defaultTargetWeightTolerance =>
+      <TraleUnit, double>{
+        TraleUnit.kg: 1,
+        TraleUnit.st: 0.15,
+        TraleUnit.lb: 2,
+      }[this]! *
+      scaling;
+
   /// one tick of the ruler in kg
   double tickInKg(TraleUnitPrecision tup) =>
       scaling / (tup.ticksPerStep ?? ticksPerStep);

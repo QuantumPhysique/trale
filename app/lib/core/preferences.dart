@@ -73,8 +73,8 @@ class Preferences extends QPPreferences {
   /// Default weight goal.
   final WeightGoal defaultWeightGoal = WeightGoal.lose;
 
-  /// Default tolerance in kg around the target of the maintain goal.
-  final double defaultTargetWeightTolerance = 1;
+  /// Default tolerance around the target of the maintain goal (not set).
+  final double? defaultTargetWeightTolerance = null;
 
   /// Default for statsRangeFrom.
   final DateTime? defaultStatsRangeFrom = null;

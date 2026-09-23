@@ -101,12 +101,14 @@ extension UserStateExtension on TraleNotifier {
     }
   }
 
-  /// getter for the tolerance in kg around the target of the maintain goal
-  double get targetWeightTolerance => _prefs.targetWeightTolerance;
+  /// getter for the tolerance in kg around the target of the maintain goal.
+  /// Until one is saved it follows the default of the unit.
+  double get targetWeightTolerance =>
+      _prefs.targetWeightTolerance ?? unit.defaultTargetWeightTolerance;
 
   /// setter for the tolerance in kg around the target of the maintain goal
   set targetWeightTolerance(double newTolerance) {
-    if (targetWeightTolerance != newTolerance) {
+    if (_prefs.targetWeightTolerance != newTolerance) {
       _prefs.targetWeightTolerance = newTolerance;
       notify;
     }
