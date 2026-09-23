@@ -424,7 +424,7 @@ class _CustomLineChartState extends State<CustomLineChart>
         aboveBarData: BarAreaData(
           show: targetWeight != null,
           color: interpolationAboveAreaColor,
-          cutOffY: targetWeight ?? 0,
+          cutOffY: (targetWeight ?? 0) / unitScaling,
           applyCutOffY: true,
         ),
       );

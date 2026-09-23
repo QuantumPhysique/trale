@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Bugfix 🐛:
+- Fixed the chart shading towards the target weight for lb and st users
+
 
 ## [1.4.1] - 2026-09-14
 
