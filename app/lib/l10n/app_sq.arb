@@ -1055,5 +1055,13 @@
     "healthConnectBusy": "Një sinkronizim është tashmë në vazhdim. Të lutem provo sërish pas pak.",
     "@healthConnectBusy": {
         "description": "Message shown when a sync or import is triggered while another one is still running"
+    },
+    "starOnGithub": "Jepi një yll në GitHub",
+    "@starOnGithub": {
+        "description": "Star banner title"
+    },
+    "starOnGithubSubtitle": "Na mbështet me një yll.",
+    "@starOnGithubSubtitle": {
+        "description": "Star banner subtitle"
     }
 }
