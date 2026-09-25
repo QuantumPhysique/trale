@@ -3,7 +3,6 @@ import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
-import 'package:trale/core/units.dart';
 import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 import 'package:trale/widget/weight_picker.dart';
@@ -92,17 +91,6 @@ void main() {
     await tapInDialog(tester, find.byTooltip('Maintain weight'));
 
     expect(find.text('Tolerance'), findsOneWidget);
-  });
-
-  testWidgets('the maintain goal starts at the default tolerance of the unit', (
-    WidgetTester tester,
-  ) async {
-    notifier.unit = TraleUnit.lb;
-    await openTargetWeightDialog(tester);
-
-    await tapInDialog(tester, find.byTooltip('Maintain weight'));
-
-    expect(find.text('± 2.0 lb'), findsOneWidget);
   });
 
   testWidgets('saving the maintain goal stores it with its tolerance', (
