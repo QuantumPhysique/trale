@@ -92,11 +92,7 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     _ensureWeightLostCardVisibility(nMeasured >= 2);
     Card userTargetWeightCard(double utw) {
       final String target = maintaining
-          ? notifier.unit.weightRangeToString(
-              targetRange!.lower,
-              targetRange.upper,
-              notifier.unitPrecision,
-            )
+          ? notifier.unit.maintainTargetToString(utw, notifier.unitPrecision)
           : notifier.unit.weightToString(utw, notifier.unitPrecision);
       return Card(
         shape: const StadiumBorder(),

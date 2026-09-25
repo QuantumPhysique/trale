@@ -91,6 +91,7 @@ void main() {
     await tapInDialog(tester, find.byTooltip('Maintain weight'));
 
     expect(find.text('Target range'), findsOneWidget);
+    expect(find.text('80.0 kg ± 1%'), findsOneWidget);
   });
 
   testWidgets('saving the maintain goal stores it with its target', (

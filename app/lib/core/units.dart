@@ -59,14 +59,9 @@ extension TraleUnitExtension on TraleUnit {
         '$suffix';
   }
 
-  /// weight range given in kg to string
-  String weightRangeToString(
-    double lower,
-    double upper,
-    TraleUnitPrecision tup,
-  ) =>
-      '${weightToString(lower, tup, showUnit: false)}'
-      '–${weightToString(upper, tup)}';
+  /// target of the maintain goal given in kg to string, with its tolerance
+  String maintainTargetToString(double target, TraleUnitPrecision tup) =>
+      '${weightToString(target, tup)} ± ${(maintainTolerance * 100).round()}%';
 
   /// round double to given precision
   double doubleToPrecision(double val, TraleUnitPrecision tup) {

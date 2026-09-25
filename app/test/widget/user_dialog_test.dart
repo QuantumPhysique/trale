@@ -97,7 +97,7 @@ void main() {
 
     await openDialog(tester);
 
-    expect(find.text('79.2–80.8 kg'), findsOneWidget);
+    expect(find.text('80.0 kg ± 1%'), findsOneWidget);
     expect(find.text('Target date'), findsNothing);
   });
 }

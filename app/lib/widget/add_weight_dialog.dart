@@ -286,10 +286,6 @@ Future<bool> showTargetWeightDialog({
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
       final Color tileColor = Theme.of(context).colorScheme.surfaceContainerLow;
-      final TargetRange range = goal.range(
-        currentSliderValue * notifier.unit.scaling,
-      );
-
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -372,9 +368,8 @@ Future<bool> showTargetWeightDialog({
                     maxLines: 1,
                   ),
                   trailing: Text(
-                    notifier.unit.weightRangeToString(
-                      range.lower,
-                      range.upper,
+                    notifier.unit.maintainTargetToString(
+                      currentSliderValue * notifier.unit.scaling,
                       notifier.unitPrecision,
                     ),
                     style: Theme.of(context).textTheme.bodyLarge,

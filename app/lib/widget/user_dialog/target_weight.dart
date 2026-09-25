@@ -33,7 +33,6 @@ class TargetWeightGroup extends StatelessWidget {
         backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerLow;
     final bool enabled = notifier.targetWeightEnabled;
     final bool maintaining = notifier.weightGoal == WeightGoal.maintain;
-    final TargetRange? range = notifier.effectiveTargetRange;
     final MeasurementDatabase db = MeasurementDatabase();
 
     final bool canEnable = !db.isEmpty;
@@ -79,12 +78,11 @@ class TargetWeightGroup extends StatelessWidget {
               '${notifier.userTargetWeight} ${notifier.weightGoal.name}',
             ),
             readOnly: true,
-            initialValue: range == null
+            initialValue: notifier.userTargetWeight == null
                 ? context.l10n.addTargetWeightDate
                 : maintaining
-                ? notifier.unit.weightRangeToString(
-                    range.lower,
-                    range.upper,
+                ? notifier.unit.maintainTargetToString(
+                    notifier.userTargetWeight!,
                     notifier.unitPrecision,
                   )
                 : notifier.unit.weightToString(
