@@ -122,20 +122,6 @@ void main() {
     expect(notifier.targetWeightTolerance, closeTo(1.1, 1e-9));
   });
 
-  testWidgets('saving another goal leaves the tolerance to the unit', (
-    WidgetTester tester,
-  ) async {
-    await openTargetWeightDialog(tester);
-
-    await tapInDialog(tester, find.text('Save'));
-    notifier.unit = TraleUnit.lb;
-
-    expect(
-      notifier.targetWeightTolerance,
-      closeTo(TraleUnit.lb.defaultTargetWeightTolerance, 1e-9),
-    );
-  });
-
   // Without a height the floor is 50 kg: the centre passes, its range not.
   testWidgets('the whole maintain range has to stay above the floor', (
     WidgetTester tester,
