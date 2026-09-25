@@ -76,8 +76,7 @@ class TargetWeightGroup extends StatelessWidget {
             color: tileColor,
             icon: PhosphorIconsDuotone.scales,
             fieldKey: ValueKey<String>(
-              '${notifier.userTargetWeight} ${notifier.weightGoal.name} '
-              '${notifier.targetWeightTolerance}',
+              '${notifier.userTargetWeight} ${notifier.weightGoal.name}',
             ),
             readOnly: true,
             initialValue: range == null

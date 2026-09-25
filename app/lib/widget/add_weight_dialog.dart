@@ -5,7 +5,6 @@ import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
-import 'package:trale/core/constants.dart';
 import 'package:trale/core/l10n_extension.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
@@ -283,25 +282,13 @@ Future<bool> showTargetWeightDialog({
 
   double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
   WeightGoal goal = notifier.weightGoal;
-  double tolerance = notifier.targetWeightTolerance;
-  final double toleranceStep = notifier.unit.tickInKg(notifier.unitPrecision);
 
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
       final Color tileColor = Theme.of(context).colorScheme.surfaceContainerLow;
-      final double centre = currentSliderValue * notifier.unit.scaling;
-      final int ticks = (tolerance / toleranceStep).round();
-      final String toleranceText = notifier.unit.weightToString(
-        tolerance,
-        notifier.unitPrecision,
+      final TargetRange range = goal.range(
+        currentSliderValue * notifier.unit.scaling,
       );
-
-      void stepTolerance(int deltaTicks) => setState(() {
-        tolerance = ((ticks + deltaTicks) * toleranceStep).clamp(
-          toleranceStep,
-          maxTargetWeightTolerance,
-        );
-      });
 
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -380,38 +367,17 @@ Future<bool> showTargetWeightDialog({
                   color: tileColor,
                   dense: true,
                   title: Text(
-                    context.l10n.targetWeightTolerance,
+                    context.l10n.targetRange,
                     style: Theme.of(context).textTheme.bodyLarge,
                     maxLines: 1,
                   ),
-                  subtitle: Text(
+                  trailing: Text(
                     notifier.unit.weightRangeToString(
-                      centre - tolerance,
-                      centre + tolerance,
+                      range.lower,
+                      range.upper,
                       notifier.unitPrecision,
                     ),
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      IconButton.filledTonal(
-                        onPressed: ticks > 1 ? () => stepTolerance(-1) : null,
-                        icon: PPIcon(PhosphorIconsBold.minus, context),
-                      ),
-                      Text(
-                        '± $toleranceText',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.monospace.titleMedium,
-                      ),
-                      IconButton.filledTonal(
-                        onPressed: tolerance < maxTargetWeightTolerance
-                            ? () => stepTolerance(1)
-                            : null,
-                        icon: PPIcon(PhosphorIconsBold.plus, context),
-                      ),
-                    ],
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
             ],
@@ -449,7 +415,7 @@ Future<bool> showTargetWeightDialog({
               // For the maintain goal the lower end of its range counts.
               final double centre = currentSliderValue * notifier.unit.scaling;
               final double lowestTarget = goal == WeightGoal.maintain
-                  ? centre - tolerance
+                  ? goal.range(centre).lower
                   : centre;
               if (lowestTarget < minWeight) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -462,7 +428,6 @@ Future<bool> showTargetWeightDialog({
               } else {
                 notifier.userTargetWeight = centre;
                 notifier.weightGoal = goal;
-                notifier.targetWeightTolerance = tolerance;
                 // Save the date when the target was set
                 final DateTime now = DateTime.now();
                 notifier.userTargetWeightSetDate = now;

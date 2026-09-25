@@ -21,5 +21,5 @@ const double maxWeightKg = 500;
 /// Slowest trend in kg/day still counted as heading towards the target.
 const double minSlopeToTarget = 0.005;
 
-/// Widest tolerance in kg around the target of the maintain goal.
-const double maxTargetWeightTolerance = 5;
+/// Tolerance of the maintain goal, relative to its target weight.
+const double maintainTolerance = 0.01;

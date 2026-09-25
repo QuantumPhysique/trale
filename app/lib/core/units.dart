@@ -68,10 +68,6 @@ extension TraleUnitExtension on TraleUnit {
       '${weightToString(lower, tup, showUnit: false)}'
       '–${weightToString(upper, tup)}';
 
-  /// one tick of the ruler in kg
-  double tickInKg(TraleUnitPrecision tup) =>
-      scaling / (tup.ticksPerStep ?? ticksPerStep);
-
   /// round double to given precision
   double doubleToPrecision(double val, TraleUnitPrecision tup) {
     final int tps = tup.ticksPerStep ?? ticksPerStep;

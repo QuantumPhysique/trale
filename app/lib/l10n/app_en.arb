@@ -32,10 +32,6 @@
     "@targetRangeShort": {
         "description": "Short label of the target range band in the chart."
     },
-    "targetWeightTolerance": "Tolerance",
-    "@targetWeightTolerance": {
-        "description": "Label of the tolerance around the target weight of the maintain goal."
-    },
     "targetRangeDaysIn": "within your target range",
     "@targetRangeDaysIn": {
         "description": "Shown after 'x days/weeks' while the trend stays in the target range."

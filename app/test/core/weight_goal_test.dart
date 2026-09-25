@@ -7,62 +7,62 @@ void main() {
   group('TargetRange.timeToEnter', () {
     test('a lose goal counts down to the target', () {
       expect(
-        WeightGoal.lose.range(75, 1).timeToEnter(weight: 80, slope: -0.1),
+        WeightGoal.lose.range(75).timeToEnter(weight: 80, slope: -0.1),
         const Duration(days: 50),
       );
     });
 
     test('a lose goal is reached below the target', () {
       expect(
-        WeightGoal.lose.range(75, 1).timeToEnter(weight: 74, slope: 0.1),
+        WeightGoal.lose.range(75).timeToEnter(weight: 74, slope: 0.1),
         const Duration(days: -1),
       );
     });
 
     test('a gain goal counts up to the target', () {
       expect(
-        WeightGoal.gain.range(75, 1).timeToEnter(weight: 70, slope: 0.1),
+        WeightGoal.gain.range(75).timeToEnter(weight: 70, slope: 0.1),
         const Duration(days: 50),
       );
     });
 
-    test('a maintain goal is reached anywhere within its tolerance', () {
-      final TargetRange range = WeightGoal.maintain.range(75, 1);
+    test('a maintain goal is reached anywhere within 1% of its target', () {
+      final TargetRange range = WeightGoal.maintain.range(100);
 
       expect(
-        range.timeToEnter(weight: 75.9, slope: 0.1),
+        range.timeToEnter(weight: 100.9, slope: 0.1),
         const Duration(days: -1),
       );
       expect(
-        range.timeToEnter(weight: 74.1, slope: -0.1),
+        range.timeToEnter(weight: 99.1, slope: -0.1),
         const Duration(days: -1),
       );
     });
 
     test('a maintain goal counts down to its upper bound, not its centre', () {
       expect(
-        WeightGoal.maintain.range(75, 1).timeToEnter(weight: 80, slope: -0.1),
+        WeightGoal.maintain.range(100).timeToEnter(weight: 105, slope: -0.1),
         const Duration(days: 40),
       );
     });
 
     test('a maintain goal counts up to its lower bound', () {
       expect(
-        WeightGoal.maintain.range(75, 1).timeToEnter(weight: 70, slope: 0.1),
+        WeightGoal.maintain.range(100).timeToEnter(weight: 95, slope: 0.1),
         const Duration(days: 40),
       );
     });
 
     test('a trend moving away never enters', () {
       expect(
-        WeightGoal.maintain.range(75, 1).timeToEnter(weight: 80, slope: 0.1),
+        WeightGoal.maintain.range(100).timeToEnter(weight: 105, slope: 0.1),
         isNull,
       );
     });
 
     test('a trend flatter than 5 g/day never enters', () {
       expect(
-        WeightGoal.lose.range(75, 1).timeToEnter(weight: 80, slope: -0.004),
+        WeightGoal.lose.range(75).timeToEnter(weight: 80, slope: -0.004),
         isNull,
       );
     });

@@ -49,18 +49,6 @@ extension UserPrefsExtension on Preferences {
   /// Set the weight goal
   set weightGoal(WeightGoal goal) => prefs.setString('weightGoal', goal.name);
 
-  /// Get the tolerance in kg around the target of the maintain goal
-  double get targetWeightTolerance => prefs.getDouble('targetWeightTolerance')!;
-
-  /// Set the tolerance in kg around the target of the maintain goal
-  set targetWeightTolerance(double tolerance) {
-    assert(
-      tolerance.isFinite && tolerance > 0,
-      'targetWeightTolerance must be a positive finite number',
-    );
-    prefs.setDouble('targetWeightTolerance', tolerance);
-  }
-
   /// set user target weight date (when to reach target)
   set userTargetWeightDate(DateTime? date) => prefs.setString(
     'userTargetWeightDate',

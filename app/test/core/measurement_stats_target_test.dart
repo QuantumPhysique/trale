@@ -31,7 +31,7 @@ void main() {
       );
 
       expect(
-        MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75, 1)),
+        MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75)),
         30,
       );
     });
@@ -42,7 +42,7 @@ void main() {
       );
 
       expect(
-        MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75, 1)),
+        MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75)),
         0,
       );
     });

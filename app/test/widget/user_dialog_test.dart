@@ -92,12 +92,12 @@ void main() {
     WidgetTester tester,
   ) async {
     notifier.targetWeightEnabled = true;
-    notifier.userTargetWeight = 75;
+    notifier.userTargetWeight = 80;
     notifier.weightGoal = WeightGoal.maintain;
 
     await openDialog(tester);
 
-    expect(find.text('74.0–76.0 kg'), findsOneWidget);
+    expect(find.text('79.2–80.8 kg'), findsOneWidget);
     expect(find.text('Target date'), findsNothing);
   });
 }

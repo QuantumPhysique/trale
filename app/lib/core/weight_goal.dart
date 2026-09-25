@@ -44,16 +44,15 @@ extension WeightGoalExtension on WeightGoal {
         : PhosphorIconsRegular.trendUp,
   }[this]!;
 
-  /// Weights [kg] that count as on target for [target] and [tolerance].
-  TargetRange range(double target, double tolerance) =>
-      <WeightGoal, TargetRange>{
-        WeightGoal.lose: TargetRange(double.negativeInfinity, target),
-        WeightGoal.maintain: TargetRange(
-          target - tolerance,
-          target + tolerance,
-        ),
-        WeightGoal.gain: TargetRange(target, double.infinity),
-      }[this]!;
+  /// Weights [kg] that count as on target for [target].
+  TargetRange range(double target) => <WeightGoal, TargetRange>{
+    WeightGoal.lose: TargetRange(double.negativeInfinity, target),
+    WeightGoal.maintain: TargetRange(
+      target - target * maintainTolerance,
+      target + target * maintainTolerance,
+    ),
+    WeightGoal.gain: TargetRange(target, double.infinity),
+  }[this]!;
 }
 
 /// Convert a string to a [WeightGoal].

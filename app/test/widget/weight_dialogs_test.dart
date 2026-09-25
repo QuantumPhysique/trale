@@ -82,32 +82,27 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('the tolerance is only offered for the maintain goal', (
+  testWidgets('the target range is only shown for the maintain goal', (
     WidgetTester tester,
   ) async {
     await openTargetWeightDialog(tester);
-    expect(find.text('Tolerance'), findsNothing);
+    expect(find.text('Target range'), findsNothing);
 
     await tapInDialog(tester, find.byTooltip('Maintain weight'));
 
-    expect(find.text('Tolerance'), findsOneWidget);
+    expect(find.text('Target range'), findsOneWidget);
   });
 
-  testWidgets('saving the maintain goal stores it with its tolerance', (
+  testWidgets('saving the maintain goal stores it with its target', (
     WidgetTester tester,
   ) async {
     await openTargetWeightDialog(tester);
 
     await tapInDialog(tester, find.byTooltip('Maintain weight'));
-    await tapInDialog(
-      tester,
-      find.widgetWithIcon(IconButton, PhosphorIconsBold.plus),
-    );
     await tapInDialog(tester, find.text('Save'));
 
     expect(notifier.weightGoal, WeightGoal.maintain);
     expect(notifier.userTargetWeight, closeTo(80, 1e-9));
-    expect(notifier.targetWeightTolerance, closeTo(1.1, 1e-9));
   });
 
   // Without a height the floor is 50 kg: the centre passes, its range not.

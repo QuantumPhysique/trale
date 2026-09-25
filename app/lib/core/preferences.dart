@@ -73,9 +73,6 @@ class Preferences extends QPPreferences {
   /// Default weight goal.
   final WeightGoal defaultWeightGoal = WeightGoal.lose;
 
-  /// Default tolerance in kg around the target of the maintain goal.
-  final double defaultTargetWeightTolerance = 1;
-
   /// Default for statsRangeFrom.
   final DateTime? defaultStatsRangeFrom = null;
 
@@ -186,9 +183,6 @@ class Preferences extends QPPreferences {
           ? (prefs.getBool('looseWeight')! ? WeightGoal.lose : WeightGoal.gain)
           : defaultWeightGoal;
       prefs.remove('looseWeight');
-    }
-    if (override || !prefs.containsKey('targetWeightTolerance')) {
-      targetWeightTolerance = defaultTargetWeightTolerance;
     }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
