@@ -14,8 +14,8 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'New goal "Maintain weight": keep your weight within 1% of your target weight',
       ],
-      ChangelogSection.bugfix: <String>[
-        'Fixed the chart shading towards the target weight for lb and st users',
+      ChangelogSection.otherChanges: <String>[
+        'The chart no longer shades the gap between your weight and your target weight',
       ],
     },
   ),

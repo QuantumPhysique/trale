@@ -17,8 +17,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - New goal "Maintain weight": keep your weight within 1% of your target weight
 
-### Bugfix 🐛:
-- Fixed the chart shading towards the target weight for lb and st users
+### Other Changes:
+- The chart no longer shades the gap between your weight and your target weight
 
 
 ## [1.4.1] - 2026-09-14
