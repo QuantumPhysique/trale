@@ -99,10 +99,6 @@
     "@targetRange": {
         "description": "Label of the target weight range of the maintain goal."
     },
-    "targetRangeShort": "Bereich",
-    "@targetRangeShort": {
-        "description": "Short label of the target range band in the chart."
-    },
     "targetRangeDaysIn": "in deinem Zielbereich",
     "@targetRangeDaysIn": {
         "description": "Shown after 'x days/weeks' while the trend stays in the target range."

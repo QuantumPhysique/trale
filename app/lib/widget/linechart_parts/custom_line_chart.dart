@@ -559,15 +559,15 @@ class _CustomLineChartState extends State<CustomLineChart>
                   ),
                 // Label clamped to visible y-range so it never disappears
                 HorizontalLine(
-                  y: ((maintainRange?.upper ?? targetWeight) / unitScaling)
-                      .clamp(minY.floorToDouble(), maxY.ceilToDouble()),
+                  y: (targetWeight / unitScaling).clamp(
+                    minY.floorToDouble(),
+                    maxY.ceilToDouble(),
+                  ),
                   color: Colors.transparent,
                   strokeWidth: 0,
                   label: HorizontalLineLabel(
                     show: true,
-                    alignment:
-                        ip.db.measurements.first.weight >
-                            (maintainRange?.upper ?? targetWeight)
+                    alignment: ip.db.measurements.first.weight > targetWeight
                         ? Alignment.bottomRight
                         : Alignment.topRight,
                     padding: const EdgeInsets.symmetric(vertical: 1),
@@ -576,9 +576,7 @@ class _CustomLineChartState extends State<CustomLineChart>
                       backgroundColor: targetWeightLabelBackgroundColor,
                     ),
                     labelResolver: (HorizontalLine line) =>
-                        maintainRange == null
-                        ? ' ${context.l10n.targetWeightShort}'
-                        : ' ${context.l10n.targetRangeShort}',
+                        ' ${context.l10n.targetWeightShort}',
                   ),
                 ),
               ],
