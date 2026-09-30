@@ -254,7 +254,7 @@ class _CustomLineChartState extends State<CustomLineChart>
     final Color targetWeightLabelBackgroundColor =
         widget.targetWeightLabelBackgroundColor ??
         colorScheme.surfaceContainerLow;
-    final Color targetRangeColor = targetWeightLineColor.withAlpha(60);
+    final Color targetRangeColor = colorScheme.surfaceContainerHighest;
     final Color tooltipLineColor = colorScheme.tertiary;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
