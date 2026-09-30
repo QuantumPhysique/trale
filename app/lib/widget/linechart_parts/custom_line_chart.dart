@@ -548,19 +548,15 @@ class _CustomLineChartState extends State<CustomLineChart>
               if (targetWeight != null &&
                   !widget.isPreview &&
                   ip.db.measurements.isNotEmpty) ...<HorizontalLine>[
-                // Visible dashed lines when no target date is set
+                // Visible dashed line when no target date is set
                 if (targetWeightDate == null || effectiveSetWeight == null)
-                  for (final double y
-                      in maintainRange == null
-                          ? <double>[targetWeight]
-                          : <double>[maintainRange.lower, maintainRange.upper])
-                    HorizontalLine(
-                      y: y / unitScaling,
-                      color: targetWeightLineColor,
-                      strokeWidth: 2,
-                      dashArray: <int>[8, 6],
-                      label: HorizontalLineLabel(show: false),
-                    ),
+                  HorizontalLine(
+                    y: targetWeight / unitScaling,
+                    color: targetWeightLineColor,
+                    strokeWidth: 2,
+                    dashArray: <int>[8, 6],
+                    label: HorizontalLineLabel(show: false),
+                  ),
                 // Label clamped to visible y-range so it never disappears
                 HorizontalLine(
                   y: ((maintainRange?.upper ?? targetWeight) / unitScaling)
