@@ -189,10 +189,10 @@ class _CustomLineChartState extends State<CustomLineChart>
     final ml.Vector interpolTimes = ip.times;
 
     // scale to unit
-    final double unitScaling = Provider.of<TraleNotifier>(
-      context,
-      listen: false,
-    ).unit.scaling;
+    // A unit change fires no measurement stream, so the chart listens itself.
+    final double unitScaling = context.select<TraleNotifier, double>(
+      (TraleNotifier notifier) => notifier.unit.scaling,
+    );
 
     final ml.Vector ms = widget.loadedFirst
         ? ml.Vector.filled(
