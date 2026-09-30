@@ -11,7 +11,6 @@ class CustomLineChart extends StatefulWidget {
     this.axisLabelColor,
     this.interpolationLineColor,
     this.interpolationBelowAreaColor,
-    this.interpolationAboveAreaColor,
     this.measurementLineColor,
     this.measurementDotStrokeColor,
     this.targetWeightLineColor,
@@ -43,9 +42,6 @@ class CustomLineChart extends StatefulWidget {
 
   /// Area color below interpolation.
   final Color? interpolationBelowAreaColor;
-
-  /// Area color above interpolation.
-  final Color? interpolationAboveAreaColor;
 
   /// Measurement line color.
   final Color? measurementLineColor;
@@ -247,9 +243,6 @@ class _CustomLineChartState extends State<CustomLineChart>
     final Color interpolationBelowAreaColor =
         widget.interpolationBelowAreaColor ??
         colorScheme.primaryContainer.withAlpha(155);
-    final Color interpolationAboveAreaColor =
-        widget.interpolationAboveAreaColor ??
-        colorScheme.tertiaryContainer.withAlpha(widget.isPreview ? 0 : 255);
     final Color measurementLineColor =
         widget.measurementLineColor ?? colorScheme.primary;
     final Color measurementDotStrokeColor =
@@ -423,12 +416,6 @@ class _CustomLineChartState extends State<CustomLineChart>
         belowBarData: BarAreaData(
           show: true,
           color: interpolationBelowAreaColor,
-        ),
-        aboveBarData: BarAreaData(
-          show: targetWeight != null && maintainRange == null,
-          color: interpolationAboveAreaColor,
-          cutOffY: (targetWeight ?? 0) / unitScaling,
-          applyCutOffY: true,
         ),
       );
 
