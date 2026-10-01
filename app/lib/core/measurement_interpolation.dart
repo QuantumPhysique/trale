@@ -1,9 +1,11 @@
 import 'dart:convert';
-import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:ml_linalg/linalg.dart';
+import 'package:state_space/state_space.dart'
+    show Observation, SmoothingResult, StructuralModel;
 
+import 'package:trale/core/constants.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
@@ -43,7 +45,7 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   static const String _cacheKey = 'interpolation_cache';
 
   /// Cache version — bump when the cached data format changes
-  static const int _cacheVersion = 2;
+  static const int _cacheVersion = 3;
 
   /// Flag to skip cache loading during reinit (force recompute)
   bool _skipCache = false;
@@ -115,20 +117,13 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
           )
           .toList();
       __times = _vectorFromJson(map['times']);
-      __isExtrapolated = _vectorFromJson(map['isExtrapolated']);
       __weights = _vectorFromJson(map['weights']);
       __isMeasurement = _vectorFromJson(map['isMeasurement']);
       __idxsMeasurements = (map['idxsMeasurements'] as List<dynamic>)
           .map((dynamic e) => (e as num).toInt())
           .toList();
-      __timesMeasured = _vectorFromJson(map['timesMeasured']);
-      __weightsMeasured = _vectorFromJson(map['weightsMeasured']);
-      __weightsSmoothed = _vectorFromJson(map['weightsSmoothed']);
-      __weightsLinExtrapol = _vectorFromJson(map['weightsLinExtrapol']);
-      __weightsGaussianExtrapol = _vectorFromJson(
-        map['weightsGaussianExtrapol'],
-      );
       _weightsDisplay = _vectorFromJson(map['weightsDisplay']);
+      _slopesDisplay = _vectorFromJson(map['slopesDisplay']);
       _measurementsDisplay = _vectorFromJson(map['measurementsDisplay']);
       _isMeasurementDisplay = _vectorFromJson(map['isMeasurementDisplay']);
       _timesDisplay = _vectorFromJson(map['timesDisplay']);
@@ -160,16 +155,11 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
             .map((DateTime dt) => dt.millisecondsSinceEpoch)
             .toList(),
         'times': _times.toList(),
-        'isExtrapolated': _isExtrapolated.toList(),
         'weights': _weights.toList(),
         'isMeasurement': _isMeasurement.toList(),
         'idxsMeasurements': _idxsMeasurements,
-        'timesMeasured': _timesMeasured.toList(),
-        'weightsMeasured': _weightsMeasured.toList(),
-        'weightsSmoothed': _weightsSmoothed.toList(),
-        'weightsLinExtrapol': _weightsLinExtrapol.toList(),
-        'weightsGaussianExtrapol': _weightsGaussianExtrapol.toList(),
         'weightsDisplay': weights.toList(),
+        'slopesDisplay': _slopesDisplay!.toList(),
         'measurementsDisplay': measurements.toList(),
         'isMeasurementDisplay': isMeasurement.toList(),
         'timesDisplay': times.toList(),

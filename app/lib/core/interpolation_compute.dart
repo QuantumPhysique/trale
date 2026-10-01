@@ -4,250 +4,121 @@ part of 'measurement_interpolation.dart';
 // Isolate payload & top-level function
 // ---------------------------------------------------------------------------
 
-/// Data payload sent to a background isolate for the full interpolation
-/// pipeline (linear interpolation, linear extrapolation with Gaussian
-/// regression, Gaussian smoothing – two passes – and weightsDisplay).
+/// The measured days on the internal daily grid, and the part of the grid
+/// that is displayed, for [_computeInterpolation].
 class _InterpolationPayload {
   _InterpolationPayload({
-    required this.timesData,
-    required this.weightsData,
-    required this.isMeasurementData,
-    required this.isNoMeasurementData,
     required this.idxsMeasurements,
-    required this.n,
-    required this.offsetInDays,
-    required this.offsetInDaysShown,
-    required this.strengthMeasurement,
-    required this.strengthInterpol,
-    required this.interpolWeight,
-    required this.interpolStrengthIsNone,
+    required this.weightsMeasured,
+    required this.counts,
+    required this.processVariance,
+    required this.isNone,
+    required this.displayStart,
+    required this.displayEnd,
   });
 
-  final List<double> timesData;
-  final List<double> weightsData;
-  final List<double> isMeasurementData;
-  final List<double> isNoMeasurementData;
+  /// Grid index of every day with a measurement, ascending.
   final List<int> idxsMeasurements;
-  final int n;
-  final int offsetInDays;
-  final int offsetInDaysShown;
-  final double strengthMeasurement;
-  final double strengthInterpol;
-  final double interpolWeight;
-  final bool interpolStrengthIsNone;
+
+  /// Mean weight of each of those days.
+  final List<double> weightsMeasured;
+
+  /// Number of measurements on each of those days.
+  final List<int> counts;
+
+  /// Variance ratio of the trend, see [InterpolStrengthExtension].
+  final double processVariance;
+
+  /// Whether the curve is drawn as straight lines between the days.
+  final bool isNone;
+
+  /// First displayed grid index.
+  final int displayStart;
+
+  /// One past the last displayed grid index.
+  final int displayEnd;
 }
 
-/// Result returned from the isolate containing all computed vectors.
+/// The displayed curve and its slope, one entry per displayed day.
 class _InterpolationResult {
-  _InterpolationResult({
-    required this.weightsSmoothed,
-    required this.weightsLinExtrapol,
-    required this.weightsGaussianExtrapol,
-    required this.weightsDisplay,
-  });
+  _InterpolationResult({required this.weights, required this.slopes});
 
-  final List<double> weightsSmoothed;
-  final List<double> weightsLinExtrapol;
-  final List<double> weightsGaussianExtrapol;
-  final List<double> weightsDisplay;
+  final List<double> weights;
+
+  /// Slope of the trend in kg/day.
+  final List<double> slopes;
 }
 
-/// Top-level function that runs the full interpolation pipeline in a
-/// background isolate.  Must be top-level (not a closure) for [compute].
-_InterpolationResult _computeFullInterpolation(_InterpolationPayload p) {
-  // Derived constants
-  const int dayInMs = 24 * 3600 * 1000;
+/// Smooths the measured days with a local linear trend at the strength's
+/// variance ratio. Top-level, so that [compute] can run it in an isolate.
+_InterpolationResult _computeInterpolation(_InterpolationPayload p) {
+  final List<double> grid = <double>[
+    for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
+  ];
+  final int nDays = p.idxsMeasurements.length;
 
-  // Build sigma list (same logic as the getter on the base class).
-  final List<double> sigma = List<double>.generate(p.n, (int i) {
-    final double s =
-        p.isMeasurementData[i] * p.strengthMeasurement +
-        p.isNoMeasurementData[i] * p.strengthInterpol;
-    return s * dayInMs;
-  });
-
-  // ---- helpers (plain-list implementations) ----
-
-  double slope(int from, int to, List<double> w) =>
-      w.isNotEmpty ? (w[to] - w[from]) / (to - from) : 0;
-
-  List<double> linearInterpolation(List<double> w) {
-    final List<double> out = List<double>.of(w);
-    if (p.idxsMeasurements.length <= 1) {
-      if (p.idxsMeasurements.length == 1) {
-        return List<double>.filled(p.n, w[p.idxsMeasurements[0]]);
-      }
-      return out;
-    }
-    for (int i = 0; i < p.idxsMeasurements.length - 1; i++) {
-      final int from = p.idxsMeasurements[i];
-      final int to = p.idxsMeasurements[i + 1];
-      if (from + 1 < to) {
-        final double rate = slope(from, to, w);
-        for (int j = from + 1; j < to; j++) {
-          out[j] = out[from] + rate * (j - from);
-        }
-      }
-    }
-    return out;
-  }
-
-  /// Compute Gaussian weights at reference point [tRef] and return them
-  /// normalised so they sum to 1.
-  List<double> gaussianWeights(double tRef, List<double> w) {
-    final List<double> gw = List<double>.filled(p.n, 0);
-    double total = 0;
-    for (int j = 0; j < p.n; j++) {
-      if (w[j] <= 0) {
-        continue;
-      }
-      final double s = sigma[j];
-      final double diff = p.timesData[j] - tRef;
-      final double gaussVal =
-          math.exp(-diff * diff / (2 * s * s)) / (s * math.sqrt(2 * math.pi));
-      final double val =
-          gaussVal *
-          (p.isMeasurementData[j] * p.interpolWeight +
-              p.isNoMeasurementData[j]);
-      gw[j] = val;
-      total += val;
-    }
-    if (total > 0) {
-      for (int j = 0; j < p.n; j++) {
-        gw[j] /= total;
-      }
-    }
-    return gw;
-  }
-
-  /// Linear regression extrapolation using Gaussian-weighted moments.
-  List<double> linearRegression(
-    List<double> w,
-    double tRef,
-    int startIdx,
-    int endIdx,
-  ) {
-    final List<double> gw = gaussianWeights(tRef, w);
-    double meanW = 0, meanT = 0;
-    for (int j = 0; j < p.n; j++) {
-      meanW += gw[j] * w[j];
-      meanT += gw[j] * p.timesData[j];
-    }
-    double numChange = 0, denChange = 0;
-    for (int j = 0; j < p.n; j++) {
-      numChange += gw[j] * (w[j] - meanW) * p.timesData[j];
-      denChange += gw[j] * (p.timesData[j] - meanT) * p.timesData[j];
-    }
-    final double meanChange = denChange != 0 ? numChange / denChange : 0;
-    final double intercept = meanW - meanChange * meanT;
-    final int count = endIdx - startIdx;
-    return List<double>.generate(count, (int i) {
-      final double t = p.timesData[startIdx + i];
-      final double v = meanChange * t + intercept;
-      return v < 0 ? 0 : v;
-    });
-  }
-
-  List<double> linearExtrapolation(List<double> w) {
-    final List<double> out = List<double>.of(w);
-    if (p.idxsMeasurements.length <= 1) {
-      if (p.idxsMeasurements.length == 1) {
-        return List<double>.filled(p.n, w[p.idxsMeasurements[0]]);
-      }
-      return out;
-    }
-    final List<double> initExtrapol = linearRegression(
-      w,
-      p.timesData[p.offsetInDays],
-      0,
-      p.offsetInDays,
-    );
-    final List<double> finalExtrapol = linearRegression(
-      w,
-      p.timesData[p.n - p.offsetInDays],
-      p.n - p.offsetInDays,
-      p.n,
-    );
-    for (int i = 0; i < p.offsetInDays; i++) {
-      out[i] = initExtrapol[i];
-      out[p.n - p.offsetInDays + i] = finalExtrapol[i];
-    }
-    return out;
-  }
-
-  List<double> gaussianInterpolation(List<double> w) {
-    final List<double> result = List<double>.filled(p.n, 0);
-    for (int idx = 0; idx < p.n; idx++) {
-      if (w[idx] == 0) {
-        continue;
-      }
-      final double t = p.timesData[idx];
-      double weightedSum = 0, normSum = 0;
-      for (int j = 0; j < p.n; j++) {
-        if (w[j] <= 0) {
-          continue;
-        }
-        final double s = sigma[j];
-        final double diff = p.timesData[j] - t;
-        final double gaussVal =
-            math.exp(-diff * diff / (2 * s * s)) / (s * math.sqrt(2 * math.pi));
-        final double val =
-            gaussVal *
-            (p.isMeasurementData[j] * p.interpolWeight +
-                p.isNoMeasurementData[j]);
-        weightedSum += val * w[j];
-        normSum += val;
-      }
-      result[idx] = normSum > 0 ? weightedSum / normSum : 0;
-    }
-    return result;
-  }
-
-  // ---- Pass 1: weightsSmoothed ----
-  final List<double> linInterp = linearInterpolation(p.weightsData);
-  final List<double> linExtrapol = linearExtrapolation(linInterp);
-  final List<double> smoothedRaw = gaussianInterpolation(linExtrapol);
-  // Zero out non-measurements
-  final List<double> weightsSmoothed = List<double>.generate(
-    p.n,
-    (int i) => smoothedRaw[i] * p.isMeasurementData[i],
-  );
-
-  // ---- Pass 2: weightsGaussianExtrapol ----
-  final List<double> linInterp2 = linearInterpolation(weightsSmoothed);
-  final List<double> weightsLinExtrapol = linearExtrapolation(linInterp2);
-  final List<double> weightsGaussianExtrapol = gaussianInterpolation(
-    weightsLinExtrapol,
-  );
-
-  // ---- weightsDisplay ----
-  List<double> weightsDisplay;
-  if (p.interpolStrengthIsNone) {
-    final List<double> wLinear = linearInterpolation(
-      p.weightsData,
-    ).sublist(p.offsetInDays, p.n - p.offsetInDays);
-    // finalSlope for extrapolation
-    final int idxLast = p.n - 1 - p.offsetInDays;
-    final double fSlope = slope(
-      idxLast,
-      idxLast + p.offsetInDaysShown,
-      weightsGaussianExtrapol,
-    );
-    weightsDisplay = List<double>.from(wLinear);
-    for (int i = 1; i <= p.offsetInDaysShown; i++) {
-      weightsDisplay.add(wLinear.last + fSlope * i);
-    }
+  List<double> weights;
+  List<double> slopes;
+  if (nDays == 1) {
+    weights = List<double>.filled(grid.length, p.weightsMeasured.single);
+    slopes = List<double>.filled(grid.length, 0);
   } else {
-    weightsDisplay = weightsGaussianExtrapol.sublist(
-      p.offsetInDays - p.offsetInDaysShown,
-      p.n - p.offsetInDays + p.offsetInDaysShown,
-    );
+    // The grid index is the time in days: consecutive entries are
+    // consecutive calendar days.
+    final List<Observation> observations = <Observation>[
+      for (int k = 0; k < nDays; k++)
+        Observation(
+          p.idxsMeasurements[k].toDouble(),
+          p.weightsMeasured[k],
+          relativeVariance: 1 / p.counts[k],
+        ),
+    ];
+    final StructuralModel model = nDays < 3
+        // Two days leave no residual to estimate the noise from.
+        ? StructuralModel.localLinearTrend(
+            processVariance: p.processVariance * minimumNoiseVariance,
+            measurementVariance: minimumNoiseVariance,
+          )
+        : StructuralModel.localLinearTrend(
+            processVariance: p.processVariance,
+          ).withEstimatedScale(
+            observations,
+            minimumMeasurementVariance: minimumNoiseVariance,
+          );
+    final SmoothingResult posterior = model.smooth(observations, grid: grid);
+    weights = posterior.mean.toList();
+    slopes = posterior.trendSlope!.toList();
   }
 
-  return _InterpolationResult(
-    weightsSmoothed: weightsSmoothed,
-    weightsLinExtrapol: weightsLinExtrapol,
-    weightsGaussianExtrapol: weightsGaussianExtrapol,
-    weightsDisplay: weightsDisplay,
-  );
+  if (p.isNone) {
+    weights = _polyline(p, slopes);
+  }
+  return _InterpolationResult(weights: weights, slopes: slopes);
+}
+
+/// Straight lines between the daily means, continued past the last one with
+/// the trend's slope there.
+List<double> _polyline(_InterpolationPayload p, List<double> slopes) {
+  final int last = p.idxsMeasurements.last;
+  final double lastSlope = slopes[last - p.displayStart];
+  final List<double> weights = <double>[];
+  int k = 0;
+  for (int idx = p.displayStart; idx < p.displayEnd; idx++) {
+    if (idx >= last) {
+      weights.add(p.weightsMeasured.last + lastSlope * (idx - last));
+      continue;
+    }
+    while (p.idxsMeasurements[k + 1] <= idx) {
+      k++;
+    }
+    final int from = p.idxsMeasurements[k];
+    final int to = p.idxsMeasurements[k + 1];
+    weights.add(
+      p.weightsMeasured[k] +
+          (p.weightsMeasured[k + 1] - p.weightsMeasured[k]) *
+              (idx - from) /
+              (to - from),
+    );
+  }
+  return weights;
 }

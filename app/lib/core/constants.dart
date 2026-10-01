@@ -23,3 +23,9 @@ const double minSlopeToTarget = 0.005;
 
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
+
+/// Lowest day-to-day noise variance in kg² the smoothing assumes, (0.1 kg)².
+///
+/// On a short history the noise is estimated from a handful of readings and
+/// would otherwise come out far too small, making the band falsely narrow.
+const double minimumNoiseVariance = 0.01;
