@@ -17,6 +17,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - New goal "Maintain weight": keep your weight within 1% of your target weight
 - All new interpolation: much faster with long histories, and more reliable across gaps. Your curve and rate of change may shift slightly
+- New chart style "Scientific": your trend as a line, with the range in which your measurements are expected to fall
 
 ### Bugfix 🐛:
 - Fixed the chart not updating right away after changing the unit

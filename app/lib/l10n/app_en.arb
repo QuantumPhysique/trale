@@ -713,6 +713,22 @@
             }
         }
     },
+    "chartMode": "chart style",
+    "@chartMode": {
+        "description": "Title of the setting how the weight chart is drawn"
+    },
+    "chartModeSimple": "Simple",
+    "@chartModeSimple": {
+        "description": "Chart style that draws the trend as a shaded curve"
+    },
+    "chartModeScientific": "Scientific",
+    "@chartModeScientific": {
+        "description": "Chart style that draws the trend as a line with the range the measurements are expected in"
+    },
+    "chartModeExplanation": "Simple shows your trend as a shaded curve. Scientific shows it as a line, together with the range in which about 95 of 100 measurements are expected to fall. The range is wider where you measured less often, and appears once you have measured on seven days.",
+    "@chartModeExplanation": {
+        "description": "Explanation of the chart styles"
+    },
     "unitTitle": "Unit",
     "@unitTitle": {
         "description": "Unit section title"

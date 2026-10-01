@@ -2,6 +2,7 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/chart_mode.dart';
 import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolation_preview.dart';
@@ -74,6 +75,9 @@ class _PersonalizationSettingsPageState
       ),
     );
 
+    final ChartMode chartMode = Provider.of<TraleNotifier>(context).chartMode;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     final bool hasEnoughData = MeasurementDatabase().measurements.length > 3;
     final bool useUserData = _showUserData && hasEnoughData;
 
@@ -126,6 +130,48 @@ class _PersonalizationSettingsPageState
           context.l10n.interpolationExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
           ),
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
+      const SizedBox(height: QPLayout.padding),
+      QPWidgetGroup(
+        title: context.l10n.chartMode,
+        children: <Widget>[
+          RadioGroup<ChartMode>(
+            groupValue: chartMode,
+            onChanged: (ChartMode? mode) {
+              if (mode != null) {
+                notifier.chartMode = mode;
+              }
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                for (final ChartMode mode in ChartMode.values)
+                  QPGroupedRadioListTile<ChartMode>(
+                    color: mode == chartMode
+                        ? colorScheme.primaryContainer
+                        : colorScheme.surfaceContainerLowest,
+                    shape: mode == chartMode ? const StadiumBorder() : null,
+                    value: mode,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: QPLayout.padding,
+                    ),
+                    title: Text(
+                      mode.nameLong(context),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: QPLayout.smallPadding),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
+        child: Text(
+          context.l10n.chartModeExplanation,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),

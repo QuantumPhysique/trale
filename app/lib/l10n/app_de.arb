@@ -354,6 +354,22 @@
             }
         }
     },
+    "chartMode": "Diagrammstil",
+    "@chartMode": {
+        "description": "Title of the setting how the weight chart is drawn"
+    },
+    "chartModeSimple": "Einfach",
+    "@chartModeSimple": {
+        "description": "Chart style that draws the trend as a shaded curve"
+    },
+    "chartModeScientific": "Wissenschaftlich",
+    "@chartModeScientific": {
+        "description": "Chart style that draws the trend as a line with the range the measurements are expected in"
+    },
+    "chartModeExplanation": "Einfach zeigt Deinen Trend als schattierte Kurve. Wissenschaftlich zeigt ihn als Linie, zusammen mit dem Bereich, in dem etwa 95 von 100 Messungen erwartet werden. Der Bereich ist breiter, wo Du seltener gemessen hast, und erscheint, sobald Du an sieben Tagen gemessen hast.",
+    "@chartModeExplanation": {
+        "description": "Explanation of the chart styles"
+    },
     "unitTitle": "Einheit",
     "@unitTitle": {
         "description": "Unit section title"
