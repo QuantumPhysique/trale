@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
 
@@ -54,6 +55,12 @@ List<Measurement> gaussianDiary({
 double bandWidth(MeasurementInterpolation ip, DateTime day) {
   final int idx = ip.indexForDay(day)!;
   return ip.bandUpper[idx] - ip.bandLower[idx];
+}
+
+/// Computed from scratch on the current database and strength.
+class FreshInterpolation extends MeasurementInterpolationBaseclass {
+  @override
+  MeasurementDatabaseBaseclass get db => MeasurementDatabase();
 }
 
 /// The interpolation of [measurements] at [strength].
@@ -267,6 +274,29 @@ void main() {
       expect(ip.slopeAtDay(DateTime.now()), slope);
     });
   }
+
+  test('the previous curve stays readable while it is recomputed', () async {
+    final MeasurementInterpolation ip = await interpolate(noisyDiary());
+    final List<double> weights = ip.weights.toList();
+    final double slope = ip.slopeAtDay(DateTime.now());
+
+    final Future<void> recompute = ip.reinitAsync();
+
+    expect(ip.weights.toList(), weights);
+    expect(ip.slopeAtDay(DateTime.now()), slope);
+    await recompute;
+  });
+
+  test('a newer recompute wins over an older one', () async {
+    final MeasurementInterpolation ip = await interpolate(noisyDiary());
+
+    final Future<void> older = ip.reinitAsync();
+    Preferences().interpolStrength = InterpolStrength.strong;
+    final Future<void> newer = ip.reinitAsync();
+    await Future.wait(<Future<void>>[older, newer]);
+
+    expect(ip.weights.toList(), FreshInterpolation().weights.toList());
+  });
 
   test('the grid keeps a last day read earlier in the day', () async {
     final DateTime last = DateTime(2026, 3, 21, 8);

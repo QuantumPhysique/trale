@@ -20,38 +20,46 @@ class MeasurementInterpolationBaseclass {
   }
 
   /// re initialize database asynchronously (offloads the interpolation
-  /// pipeline to a background isolate via [compute]).
+  /// pipeline to a background isolate via [compute]). Until it is done, the
+  /// previous curve stays readable.
   Future<void> reinitAsync() async {
-    _clear();
-    // The O(N) vectors first; the pipeline needs them.
-    _times;
-    _weights;
-    if (_n == 0) {
+    final int generation = ++_generation;
+    __dateTimes = null;
+    __times = null;
+    __weights = null;
+    final _InterpolationResult? result = _n == 0
+        ? null
+        : await compute(_computeInterpolation, _payload());
+    // A newer call has rebuilt the inputs in the meantime.
+    if (generation != _generation) {
       return;
     }
-    _store(await compute(_computeInterpolation, _payload()));
-
-    // Derive remaining display vectors (cheap subvector / offset
-    // ops).
-    times;
-    measurements;
-    isMeasurement;
+    _clearDisplay();
+    if (result != null) {
+      _store(result);
+    }
   }
 
   /// initialize database
   void init() {
-    _times;
-    _weights;
     if (_n > 0) {
       _store(_computeInterpolation(_payload()));
     }
   }
 
+  /// Counts recomputes, so that a result overtaken by a newer one is dropped.
+  int _generation = 0;
+
   void _clear() {
+    _generation++;
     __dateTimes = null;
     __times = null;
-    _timesDisplay = null;
     __weights = null;
+    _clearDisplay();
+  }
+
+  void _clearDisplay() {
+    _timesDisplay = null;
     _weightsDisplay = null;
     _slopesDisplay = null;
     _bandLower = null;
@@ -60,24 +68,33 @@ class MeasurementInterpolationBaseclass {
     _isMeasurementDisplay = null;
   }
 
-  _InterpolationPayload _payload() => _InterpolationPayload(
-    idxsMeasurements: _idxsMeasurements,
-    weightsMeasured: <double>[
-      for (final int idx in _idxsMeasurements) _weights[idx],
-    ],
-    counts: _countsMeasured,
-    processVariance: interpolStrength.processVariance,
-    timeScale: interpolStrength.timeScaleInDays,
-    isNone: interpolStrength == InterpolStrength.none,
-    displayStart: _displayStart,
-    displayEnd: _displayEnd,
-  );
+  _InterpolationPayload _payload() {
+    // Building the weights builds _idxsMeasurements and _countsMeasured too.
+    final Vector weights = _weights;
+    return _InterpolationPayload(
+      idxsMeasurements: _idxsMeasurements,
+      weightsMeasured: <double>[
+        for (final int idx in _idxsMeasurements) weights[idx],
+      ],
+      counts: _countsMeasured,
+      processVariance: interpolStrength.processVariance,
+      timeScale: interpolStrength.timeScaleInDays,
+      isNone: interpolStrength == InterpolStrength.none,
+      displayStart: _displayStart,
+      displayEnd: _displayEnd,
+    );
+  }
 
+  /// Stores [result] with every display vector derived from the same inputs,
+  /// so that none is derived later from newer ones.
   void _store(_InterpolationResult result) {
     _weightsDisplay = Vector.fromList(result.weights, dtype: dtype);
     _slopesDisplay = Vector.fromList(result.slopes, dtype: dtype);
     _bandLower = Vector.fromList(result.bandLower, dtype: dtype);
     _bandUpper = Vector.fromList(result.bandUpper, dtype: dtype);
+    times;
+    measurements;
+    isMeasurement;
   }
 
   /// data type of vectors
