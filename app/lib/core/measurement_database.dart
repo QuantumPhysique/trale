@@ -266,7 +266,7 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     // recalc all
     init();
 
-    // update interpolation (heavy Gaussian work runs in background isolate)
+    // update interpolation (computed in a background isolate)
     await MeasurementInterpolation().reinitAsync();
     MeasurementStats().reinit();
 

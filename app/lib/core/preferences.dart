@@ -239,5 +239,10 @@ class Preferences extends QPPreferences {
     if (override || !prefs.containsKey('healthConnectExportEnabled')) {
       healthConnectExportEnabled = defaultHealthConnectExportEnabled;
     }
+    // Released versions cached the interpolation here; it is recomputed on
+    // every start now.
+    if (prefs.containsKey('interpolation_cache')) {
+      prefs.remove('interpolation_cache');
+    }
   }
 }
