@@ -193,6 +193,10 @@ class _CustomLineChartState extends State<CustomLineChart>
     final double unitScaling = context.select<TraleNotifier, double>(
       (TraleNotifier notifier) => notifier.unit.scaling,
     );
+    final bool scientific = context.select<TraleNotifier, bool>(
+      (TraleNotifier notifier) => notifier.chartMode == ChartMode.scientific,
+    );
+    final bool showBand = scientific && ip.hasBand && !widget.loadedFirst;
 
     final ml.Vector ms = widget.loadedFirst
         ? ml.Vector.filled(
@@ -239,7 +243,8 @@ class _CustomLineChartState extends State<CustomLineChart>
         : null;
 
     final Color interpolationLineColor =
-        widget.interpolationLineColor ?? Colors.transparent;
+        widget.interpolationLineColor ??
+        (scientific ? colorScheme.primary : Colors.transparent);
     final Color interpolationBelowAreaColor =
         widget.interpolationBelowAreaColor ??
         colorScheme.primaryContainer.withAlpha(155);
@@ -262,6 +267,12 @@ class _CustomLineChartState extends State<CustomLineChart>
       interpolTimes,
       interpol,
     );
+    final List<FlSpot> predictiveLower = showBand
+        ? vectorsToFlSpot(interpolTimes, ip.bandLower)
+        : <FlSpot>[];
+    final List<FlSpot> predictiveUpper = showBand
+        ? vectorsToFlSpot(interpolTimes, ip.bandUpper)
+        : <FlSpot>[];
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < _curMinX,
@@ -279,10 +290,19 @@ class _CustomLineChartState extends State<CustomLineChart>
           : indexLast,
     );
 
-    // Without dots in view, the range of all dots.
-    final ({double minY, double maxY}) yRange = chartYRange(
-      (shownData.isEmpty ? measurements : shownData).map((FlSpot e) => e.y),
-    );
+    // Without dots in view, the range of all dots. The band counts only
+    // between the first and the last dot: beyond them it widens.
+    final double bandFrom = max(_curMinX, msTimes.first);
+    final double bandTo = min(_curMaxX, msTimes.last);
+    final ({double minY, double maxY}) yRange = chartYRange(<double>[
+      for (final FlSpot e in shownData.isEmpty ? measurements : shownData) e.y,
+      for (int i = 0; i < predictiveLower.length; i++)
+        if (predictiveLower[i].x >= bandFrom &&
+            predictiveLower[i].x <= bandTo) ...<double>[
+          predictiveLower[i].y,
+          predictiveUpper[i].y,
+        ],
+    ]);
     final double minY = yRange.minY;
     final double maxY = yRange.maxY;
 
@@ -402,7 +422,7 @@ class _CustomLineChartState extends State<CustomLineChart>
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
         belowBarData: BarAreaData(
-          show: true,
+          show: !scientific,
           color: interpolationBelowAreaColor,
         ),
       );
@@ -417,6 +437,74 @@ class _CustomLineChartState extends State<CustomLineChart>
         (maintainRange?.upper ?? 0) / unitScaling,
         maxY.ceilToDouble(),
       );
+
+      LineChartBarData bandEdge(List<FlSpot> spots) => LineChartBarData(
+        spots: spots,
+        isCurved: true,
+        color: Colors.transparent,
+        barWidth: 0,
+        dotData: const FlDotData(show: false),
+      );
+
+      final List<LineChartBarData> lineBars = <LineChartBarData>[
+        interpolBarData,
+        LineChartBarData(
+          spots: measurements,
+          isCurved: false,
+          color: measurementLineColor,
+          barWidth: 0,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: true,
+            getDotPainter:
+                (
+                  FlSpot spot,
+                  double percent,
+                  LineChartBarData barData,
+                  int index,
+                ) => FlDotCirclePainter(
+                  radius:
+                      max<double>(
+                        5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
+                        1.0,
+                      ) +
+                      0.4,
+                  color: measurementLineColor,
+                  strokeColor: measurementDotStrokeColor,
+                  strokeWidth: 0.2,
+                ),
+          ),
+        ),
+        // Target weight line segments
+        if (targetWeight != null &&
+            !widget.isPreview &&
+            targetWeightDate != null &&
+            effectiveSetDate != null &&
+            effectiveSetWeight != null)
+          for (final List<FlSpot> segment in _buildTargetWeightSegments(
+            setDateMs: effectiveSetDate.millisecondsSinceEpoch.toDouble(),
+            setWeight: effectiveSetWeight / unitScaling,
+            targetDateMs: targetWeightDate.millisecondsSinceEpoch.toDouble(),
+            targetWeight: targetWeight / unitScaling,
+            chartMaxX: maxX,
+            chartMinX: minX,
+          ))
+            LineChartBarData(
+              spots: segment,
+              isCurved: false,
+              color: targetWeightLineColor,
+              barWidth: 2,
+              isStrokeCapRound: true,
+              dashArray: <int>[8, 6],
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(show: false),
+              aboveBarData: BarAreaData(show: false),
+            ),
+        if (showBand) ...<LineChartBarData>[
+          bandEdge(predictiveLower),
+          bandEdge(predictiveUpper),
+        ],
+      ];
 
       return LineChart(
         LineChartData(
@@ -570,61 +658,14 @@ class _CustomLineChartState extends State<CustomLineChart>
               ],
             ],
           ),
-          lineBarsData: <LineChartBarData>[
-            interpolBarData,
-            LineChartBarData(
-              spots: measurements,
-              isCurved: false,
-              color: measurementLineColor,
-              barWidth: 0,
-              isStrokeCapRound: true,
-              dotData: FlDotData(
-                show: true,
-                getDotPainter:
-                    (
-                      FlSpot spot,
-                      double percent,
-                      LineChartBarData barData,
-                      int index,
-                    ) => FlDotCirclePainter(
-                      radius:
-                          max<double>(
-                            5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
-                            1.0,
-                          ) +
-                          0.4,
-                      color: measurementLineColor,
-                      strokeColor: measurementDotStrokeColor,
-                      strokeWidth: 0.2,
-                    ),
+          lineBarsData: lineBars,
+          betweenBarsData: <BetweenBarsData>[
+            if (showBand)
+              BetweenBarsData(
+                fromIndex: lineBars.length - 2,
+                toIndex: lineBars.length - 1,
+                color: interpolationBelowAreaColor,
               ),
-            ),
-            // Target weight line segments
-            if (targetWeight != null &&
-                !widget.isPreview &&
-                targetWeightDate != null &&
-                effectiveSetDate != null &&
-                effectiveSetWeight != null)
-              for (final List<FlSpot> segment in _buildTargetWeightSegments(
-                setDateMs: effectiveSetDate.millisecondsSinceEpoch.toDouble(),
-                setWeight: effectiveSetWeight / unitScaling,
-                targetDateMs: targetWeightDate.millisecondsSinceEpoch
-                    .toDouble(),
-                targetWeight: targetWeight / unitScaling,
-                chartMaxX: maxX,
-                chartMinX: minX,
-              ))
-                LineChartBarData(
-                  spots: segment,
-                  isCurved: false,
-                  color: targetWeightLineColor,
-                  barWidth: 2,
-                  isStrokeCapRound: true,
-                  dashArray: <int>[8, 6],
-                  dotData: const FlDotData(show: false),
-                  belowBarData: BarAreaData(show: false),
-                  aboveBarData: BarAreaData(show: false),
-                ),
           ],
         ),
         duration: Duration.zero,

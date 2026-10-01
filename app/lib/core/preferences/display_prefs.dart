@@ -10,4 +10,10 @@ extension DisplayPrefsExtension on Preferences {
 
   /// set zoom Level
   set zoomLevel(ZoomLevel level) => prefs.setInt('zoomLevel', level.index);
+
+  /// get chart mode
+  ChartMode get chartMode => prefs.getString('chartMode')!.toChartMode()!;
+
+  /// set chart mode
+  set chartMode(ChartMode mode) => prefs.setString('chartMode', mode.name);
 }

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/backup_interval.dart';
+import 'package:trale/core/chart_mode.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/stats_range.dart';
@@ -104,6 +105,9 @@ class Preferences extends QPPreferences {
   /// Default zoom level.
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
+  /// Default chart mode.
+  final ChartMode defaultChartMode = ChartMode.simple;
+
   /// Default backup interval.
   final BackupInterval defaultBackupInterval = BackupInterval.monthly;
 
@@ -189,6 +193,9 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('zoomLevel')) {
       zoomLevel = defaultZoomLevel;
+    }
+    if (override || !prefs.containsKey('chartMode')) {
+      chartMode = defaultChartMode;
     }
     if (override || !prefs.containsKey('backupInterval')) {
       backupInterval = defaultBackupInterval;
