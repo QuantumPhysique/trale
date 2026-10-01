@@ -24,6 +24,13 @@ const double minSlopeToTarget = 0.005;
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
 
+/// Time scale over which the trend's rate of change fades, in smoothing
+/// bandwidths.
+///
+/// Long enough that a steady rate still shows at 92 % at the last reading,
+/// short enough that projections level off.
+const double trendTimeScaleInBandwidths = 15;
+
 /// Lowest day-to-day noise variance in kg² the smoothing assumes, (0.1 kg)².
 ///
 /// On a short history the noise is estimated from a handful of readings and

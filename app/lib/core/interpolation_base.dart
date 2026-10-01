@@ -67,6 +67,7 @@ class MeasurementInterpolationBaseclass {
     ],
     counts: _countsMeasured,
     processVariance: interpolStrength.processVariance,
+    timeScale: interpolStrength.timeScaleInDays,
     isNone: interpolStrength == InterpolStrength.none,
     displayStart: _displayStart,
     displayEnd: _displayEnd,

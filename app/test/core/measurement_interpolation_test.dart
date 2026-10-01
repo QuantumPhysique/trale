@@ -84,14 +84,32 @@ void main() {
     test('a straight line is followed at strength ${strength.name}', () async {
       final MeasurementInterpolation ip = await interpolate(line(), strength);
 
-      // Day 32 is two days into the projection.
-      for (final int day in <int>[0, 15, 29, 32]) {
-        final DateTime date = DateTime(2026, 1, 1 + day);
-        expect(ip.interpolationForDay(date), closeTo(80 - 0.05 * day, 1e-6));
-        expect(ip.slopeAtDay(date), closeTo(-0.05, 1e-6));
+      for (int day = 0; day < 30; day++) {
+        expect(
+          ip.interpolationForDay(DateTime(2026, 1, 1 + day)),
+          closeTo(80 - 0.05 * day, 0.03),
+        );
       }
+      expect(ip.slopeAtDay(DateTime(2026, 1, 16)), closeTo(-0.05, 0.001));
+      // The damping pulls a steady rate to about 92 % at the last reading.
+      expect(
+        ip.slopeAtDay(DateTime(2026, 1, 30)) / -0.05,
+        inInclusiveRange(0.88, 0.96),
+      );
     });
   }
+
+  test('the projection levels off', () async {
+    final MeasurementInterpolation ip = await interpolate(line());
+    final DateTime last = DateTime(2026, 1, 30);
+    final DateTime week = DateTime(2026, 2, 6);
+
+    expect(ip.slopeAtDay(week).abs(), lessThan(ip.slopeAtDay(last).abs()));
+    expect(
+      ip.interpolationForDay(week)!,
+      greaterThan(ip.interpolationForDay(last)! - 7 * 0.05),
+    );
+  });
 
   test('a stronger strength gives a smoother curve', () async {
     final List<double> roughnesses = <double>[
@@ -121,18 +139,18 @@ void main() {
       Measurement(weight: 80, date: DateTime(2026, 1, 1, 8)),
     ]);
 
-    expect(ip.weights.toList(), everyElement(80));
-    expect(ip.slopeAtDay(DateTime(2026, 1, 1)), 0);
+    expect(ip.weights.toList(), everyElement(closeTo(80, 1e-9)));
+    expect(ip.slopeAtDay(DateTime(2026, 1, 1)), closeTo(0, 1e-9));
   });
 
-  test('two days are joined by a straight line', () async {
+  test('two days are joined by a curve between them', () async {
     final MeasurementInterpolation ip = await interpolate(<Measurement>[
       Measurement(weight: 80, date: DateTime(2026, 1, 1, 8)),
       Measurement(weight: 79, date: DateTime(2026, 1, 21, 8)),
     ]);
 
     expect(ip.interpolationForDay(DateTime(2026, 1, 11)), closeTo(79.5, 1e-6));
-    expect(ip.slopeAtDay(DateTime(2026, 1, 11)), closeTo(-0.05, 1e-6));
+    expect(ip.slopeAtDay(DateTime(2026, 1, 11)), closeTo(-0.05, 0.002));
   });
 
   test('several measurements on a day count as their mean', () async {

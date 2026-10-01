@@ -12,6 +12,7 @@ class _InterpolationPayload {
     required this.weightsMeasured,
     required this.counts,
     required this.processVariance,
+    required this.timeScale,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -28,6 +29,9 @@ class _InterpolationPayload {
 
   /// Variance ratio of the trend, see [InterpolStrengthExtension].
   final double processVariance;
+
+  /// Days over which the trend's rate of change fades.
+  final double timeScale;
 
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
@@ -64,59 +68,50 @@ class _InterpolationResult {
   final List<double> bandUpper;
 }
 
-/// Smooths the measured days with a local linear trend at the strength's
-/// variance ratio. Top-level, so that [compute] can run it in an isolate.
+/// Smooths the measured days with a damped trend at the strength's variance
+/// ratio and time scale. Top-level, so that [compute] can run it in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
   ];
   final int nDays = p.idxsMeasurements.length;
+  // The grid index is the time in days: consecutive entries are consecutive
+  // calendar days.
+  final List<Observation> observations = <Observation>[
+    for (int k = 0; k < nDays; k++)
+      Observation(
+        p.idxsMeasurements[k].toDouble(),
+        p.weightsMeasured[k],
+        relativeVariance: 1 / p.counts[k],
+      ),
+  ];
+  final StructuralModel model = nDays < 2
+      // One day leaves no residual to estimate the noise from.
+      ? StructuralModel.dampedLinearTrend(
+          processVariance: p.processVariance * minimumNoiseVariance,
+          timeScale: p.timeScale,
+          measurementVariance: minimumNoiseVariance,
+        )
+      : StructuralModel.dampedLinearTrend(
+          processVariance: p.processVariance,
+          timeScale: p.timeScale,
+        ).withEstimatedScale(
+          observations,
+          minimumMeasurementVariance: minimumNoiseVariance,
+        );
+  final SmoothingResult posterior = model.smooth(observations, grid: grid);
+  final List<double> slopes = posterior.trendSlope!.toList();
 
-  List<double> weights;
-  List<double> slopes;
   List<double> bandLower = <double>[];
   List<double> bandUpper = <double>[];
-  if (nDays == 1) {
-    weights = List<double>.filled(grid.length, p.weightsMeasured.single);
-    slopes = List<double>.filled(grid.length, 0);
-  } else {
-    // The grid index is the time in days: consecutive entries are
-    // consecutive calendar days.
-    final List<Observation> observations = <Observation>[
-      for (int k = 0; k < nDays; k++)
-        Observation(
-          p.idxsMeasurements[k].toDouble(),
-          p.weightsMeasured[k],
-          relativeVariance: 1 / p.counts[k],
-        ),
-    ];
-    final StructuralModel model = nDays < 3
-        // Two days leave no residual to estimate the noise from.
-        ? StructuralModel.localLinearTrend(
-            processVariance: p.processVariance * minimumNoiseVariance,
-            measurementVariance: minimumNoiseVariance,
-          )
-        : StructuralModel.localLinearTrend(
-            processVariance: p.processVariance,
-          ).withEstimatedScale(
-            observations,
-            minimumMeasurementVariance: minimumNoiseVariance,
-          );
-    final SmoothingResult posterior = model.smooth(observations, grid: grid);
-    weights = posterior.mean.toList();
-    slopes = posterior.trendSlope!.toList();
-    if (nDays >= _minDaysForBand && !p.isNone) {
-      final Bands band = posterior.predictiveBand();
-      bandLower = band.lo.toList();
-      bandUpper = band.hi.toList();
-    }
+  if (nDays >= _minDaysForBand && !p.isNone) {
+    final Bands band = posterior.predictiveBand();
+    bandLower = band.lo.toList();
+    bandUpper = band.hi.toList();
   }
 
-  if (p.isNone) {
-    weights = _polyline(p, slopes);
-  }
   return _InterpolationResult(
-    weights: weights,
+    weights: p.isNone ? _polyline(p, slopes) : posterior.mean.toList(),
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,

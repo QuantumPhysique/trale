@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:material_ui/material_ui.dart';
+import 'package:trale/core/constants.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Enum with all available interpolation functions
@@ -31,6 +32,9 @@ extension InterpolStrengthExtension on InterpolStrength {
   /// Variance ratio of the trend per day³ that smooths like a kernel of
   /// [bandwidthInDays] (Silverman 1984).
   double get processVariance => math.pow(bandwidthInDays, -4).toDouble();
+
+  /// Time scale in days over which the trend's rate of change fades.
+  double get timeScaleInDays => trendTimeScaleInBandwidths * bandwidthInDays;
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{
