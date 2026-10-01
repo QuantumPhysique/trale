@@ -103,14 +103,14 @@ class MeasurementInterpolationBaseclass {
       last.month,
       last.day,
     ).difference(DateTime.utc(first.year, first.month, first.day)).inDays;
-    final int timeSpawn = days + 1 + 2 * _offsetInDays;
+    final int timeSpawn = days + 1 + 2 * _offsetInDaysShown;
 
     return List<DateTime>.generate(
       timeSpawn,
       (int idx) => DateTime(
         db.firstDate.year,
         db.firstDate.month,
-        db.firstDate.day + idx - _offsetInDays,
+        db.firstDate.day + idx - _offsetInDaysShown,
       ),
     );
   }
@@ -178,12 +178,11 @@ class MeasurementInterpolationBaseclass {
   List<int> get _countsMeasured => __countsMeasured;
 
   /// First displayed internal index; `none` starts at the first measurement.
-  int get _displayStart => interpolStrength == InterpolStrength.none
-      ? _offsetInDays
-      : _offsetInDays - _offsetInDaysShown;
+  int get _displayStart =>
+      interpolStrength == InterpolStrength.none ? _offsetInDaysShown : 0;
 
   /// One past the last displayed internal index.
-  int get _displayEnd => _n - _offsetInDays + _offsetInDaysShown;
+  int get _displayEnd => _n;
 
   // -----------------------------------------------------------
   // Public API — display-length vectors
@@ -237,7 +236,7 @@ class MeasurementInterpolationBaseclass {
 
   /// Number of days between first and last measurement
   /// (inclusive).
-  int get nDays => _n == 0 ? 0 : _n - 2 * _offsetInDays;
+  int get nDays => _n == 0 ? 0 : _n - 2 * _offsetInDaysShown;
 
   // -----------------------------------------------------------
   // Public API — date-range filtered accessors
@@ -369,10 +368,7 @@ class MeasurementInterpolationBaseclass {
     return idx != null && isMeasurement[idx] == 1;
   }
 
-  /// offset of day in interpolation
-  static const int _offsetInDays = 21;
-
-  /// offset of day in interpolation shown
+  /// Days shown before the first and after the last measurement.
   static const int _offsetInDaysShown = 7;
 
   /// offset of day in interpolation shown
