@@ -20,3 +20,4 @@ import 'package:trale/core/zoom_level.dart';
 
 part 'linechart_parts/custom_line_chart.dart';
 part 'linechart_parts/target_weight_segments.dart';
+part 'linechart_parts/y_range.dart';

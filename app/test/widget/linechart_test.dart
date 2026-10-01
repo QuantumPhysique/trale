@@ -48,4 +48,23 @@ void main() {
       closeTo(80 / TraleUnit.lb.scaling, 0.01),
     );
   });
+
+  group('chartYRange', () {
+    test('pads both sides by a fifth of the span', () {
+      final ({double minY, double maxY}) range = chartYRange(<double>[80, 85]);
+
+      expect(range.minY, closeTo(79, 1e-9));
+      expect(range.maxY, closeTo(86, 1e-9));
+    });
+
+    test('centres a narrow span in the minimum window', () {
+      final ({double minY, double maxY}) range = chartYRange(<double>[
+        80,
+        80.4,
+      ]);
+
+      expect(range.minY, closeTo(79.2, 1e-9));
+      expect(range.maxY, closeTo(81.2, 1e-9));
+    });
+  });
 }

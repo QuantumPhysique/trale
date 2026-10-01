@@ -279,24 +279,12 @@ class _CustomLineChartState extends State<CustomLineChart>
           : indexLast,
     );
 
-    double minY;
-    double maxY;
-    if (shownData.isEmpty) {
-      // take global extrema if shownData is empty.
-      minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
-      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);
-    } else {
-      minY = shownData.map((FlSpot e) => e.y).toList().reduce(min);
-      maxY = shownData.map((FlSpot e) => e.y).toList().reduce(max);
-    }
-    // add padding to minY and maxY
-    minY -= 0.2 * (maxY - minY);
-    maxY += 0.2 * (maxY - minY);
-    // ensure that minY and maxY are not to close
-    if (maxY - minY < 2) {
-      minY = (maxY + minY) / 2 - 1;
-      maxY = (maxY + minY) / 2 + 1;
-    }
+    // Without dots in view, the range of all dots.
+    final ({double minY, double maxY}) yRange = chartYRange(
+      (shownData.isEmpty ? measurements : shownData).map((FlSpot e) => e.y),
+    );
+    final double minY = yRange.minY;
+    final double maxY = yRange.maxY;
 
     /// Build the x-tick label widget for a given [time] (ms since epoch).
     /// For January 1st, shows the month name and the year in bold below it.
