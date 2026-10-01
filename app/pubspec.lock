@@ -1052,10 +1052,11 @@ packages:
   state_space:
     dependency: "direct main"
     description:
-      name: state_space
-      sha256: "756a1ec12c0f44f8d37d5f85de35255ba9df33db0364938ed561187fb8d44b29"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: damped-linear-trend
+      resolved-ref: a4cb3e086ad6fe11a317d1490efc205c8b821225
+      url: "https://github.com/QuantumPhysique/state_space.git"
+    source: git
     version: "0.1.0"
   stream_channel:
     dependency: transitive
