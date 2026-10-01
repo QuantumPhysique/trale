@@ -39,14 +39,29 @@ class _InterpolationPayload {
   final int displayEnd;
 }
 
-/// The displayed curve and its slope, one entry per displayed day.
+/// Fewer days than this leave the noise estimate too uncertain for a band.
+const int _minDaysForBand = 7;
+
+/// The displayed curve, its slope and the band around it, one entry per
+/// displayed day.
 class _InterpolationResult {
-  _InterpolationResult({required this.weights, required this.slopes});
+  _InterpolationResult({
+    required this.weights,
+    required this.slopes,
+    required this.bandLower,
+    required this.bandUpper,
+  });
 
   final List<double> weights;
 
   /// Slope of the trend in kg/day.
   final List<double> slopes;
+
+  /// 95 % predictive band of a single measurement, empty when there is none.
+  final List<double> bandLower;
+
+  /// Upper edge of the band, see [bandLower].
+  final List<double> bandUpper;
 }
 
 /// Smooths the measured days with a local linear trend at the strength's
@@ -59,6 +74,8 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
 
   List<double> weights;
   List<double> slopes;
+  List<double> bandLower = <double>[];
+  List<double> bandUpper = <double>[];
   if (nDays == 1) {
     weights = List<double>.filled(grid.length, p.weightsMeasured.single);
     slopes = List<double>.filled(grid.length, 0);
@@ -88,12 +105,22 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     final SmoothingResult posterior = model.smooth(observations, grid: grid);
     weights = posterior.mean.toList();
     slopes = posterior.trendSlope!.toList();
+    if (nDays >= _minDaysForBand && !p.isNone) {
+      final Bands band = posterior.predictiveBand();
+      bandLower = band.lo.toList();
+      bandUpper = band.hi.toList();
+    }
   }
 
   if (p.isNone) {
     weights = _polyline(p, slopes);
   }
-  return _InterpolationResult(weights: weights, slopes: slopes);
+  return _InterpolationResult(
+    weights: weights,
+    slopes: slopes,
+    bandLower: bandLower,
+    bandUpper: bandUpper,
+  );
 }
 
 /// Straight lines between the daily means, continued past the last one with

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:state_space/state_space.dart'
-    show Observation, SmoothingResult, StructuralModel;
+    show Bands, Observation, SmoothingResult, StructuralModel;
 
 import 'package:trale/core/constants.dart';
 import 'package:trale/core/interpolation.dart';
@@ -124,6 +124,8 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
           .toList();
       _weightsDisplay = _vectorFromJson(map['weightsDisplay']);
       _slopesDisplay = _vectorFromJson(map['slopesDisplay']);
+      _bandLower = _vectorFromJson(map['bandLower']);
+      _bandUpper = _vectorFromJson(map['bandUpper']);
       _measurementsDisplay = _vectorFromJson(map['measurementsDisplay']);
       _isMeasurementDisplay = _vectorFromJson(map['isMeasurementDisplay']);
       _timesDisplay = _vectorFromJson(map['timesDisplay']);
@@ -160,6 +162,8 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
         'idxsMeasurements': _idxsMeasurements,
         'weightsDisplay': weights.toList(),
         'slopesDisplay': _slopesDisplay!.toList(),
+        'bandLower': bandLower.toList(),
+        'bandUpper': bandUpper.toList(),
         'measurementsDisplay': measurements.toList(),
         'isMeasurementDisplay': isMeasurement.toList(),
         'timesDisplay': times.toList(),

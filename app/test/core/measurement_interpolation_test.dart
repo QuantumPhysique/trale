@@ -29,6 +29,33 @@ List<Measurement> line() => <Measurement>[
     Measurement(weight: 80 - 0.05 * day, date: DateTime(2026, 1, 1 + day, 8)),
 ];
 
+/// [days] mornings around 80 kg with normally distributed noise of 0.3 kg,
+/// from 2026-01-01, leaving out the days in [skip].
+List<Measurement> gaussianDiary({
+  int days = 200,
+  Set<int> skip = const <int>{},
+}) {
+  final Random random = Random(3);
+  return <Measurement>[
+    for (int day = 0; day < days; day++)
+      if (!skip.contains(day))
+        Measurement(
+          weight:
+              80 +
+              0.3 *
+                  sqrt(-2 * log(1 - random.nextDouble())) *
+                  cos(2 * pi * random.nextDouble()),
+          date: DateTime(2026, 1, 1 + day, 8),
+        ),
+  ];
+}
+
+/// Width of the band on [day].
+double bandWidth(MeasurementInterpolation ip, DateTime day) {
+  final int idx = ip.indexForDay(day)!;
+  return ip.bandUpper[idx] - ip.bandLower[idx];
+}
+
 /// The interpolation of [measurements] at [strength].
 Future<MeasurementInterpolation> interpolate(
   List<Measurement> measurements, [
@@ -153,6 +180,55 @@ void main() {
     ]);
 
     expect(ip.weights.toList(), everyElement(closeTo(80, 1e-6)));
+  });
+
+  test('the band holds about 95 of 100 measurements', () async {
+    final MeasurementInterpolation ip = await interpolate(gaussianDiary());
+    int inside = 0;
+    int count = 0;
+    for (int i = 0; i < ip.times.length; i++) {
+      if (ip.isMeasurement[i] == 1) {
+        count++;
+        if (ip.measurements[i] >= ip.bandLower[i] &&
+            ip.measurements[i] <= ip.bandUpper[i]) {
+          inside++;
+        }
+      }
+    }
+
+    expect(inside / count, inInclusiveRange(0.9, 0.99));
+  });
+
+  test('the band widens over a gap', () async {
+    final MeasurementInterpolation ip = await interpolate(
+      gaussianDiary(skip: <int>{for (int day = 80; day < 110; day++) day}),
+    );
+
+    expect(
+      bandWidth(ip, DateTime(2026, 1, 1 + 95)),
+      greaterThan(bandWidth(ip, DateTime(2026, 1, 1 + 40))),
+    );
+  });
+
+  test('the band contains the curve', () async {
+    final MeasurementInterpolation ip = await interpolate(gaussianDiary());
+
+    for (int i = 0; i < ip.weights.length; i++) {
+      expect(ip.weights[i], inInclusiveRange(ip.bandLower[i], ip.bandUpper[i]));
+    }
+  });
+
+  test('there is no band below seven days or without smoothing', () async {
+    final MeasurementInterpolation short = await interpolate(
+      gaussianDiary(days: 6),
+    );
+    expect(short.hasBand, isFalse);
+
+    final MeasurementInterpolation none = await interpolate(
+      gaussianDiary(),
+      InterpolStrength.none,
+    );
+    expect(none.hasBand, isFalse);
   });
 
   for (final InterpolStrength strength in <InterpolStrength>[

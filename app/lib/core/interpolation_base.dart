@@ -54,6 +54,8 @@ class MeasurementInterpolationBaseclass {
     __weights = null;
     _weightsDisplay = null;
     _slopesDisplay = null;
+    _bandLower = null;
+    _bandUpper = null;
     _measurementsDisplay = null;
     _isMeasurementDisplay = null;
   }
@@ -73,6 +75,8 @@ class MeasurementInterpolationBaseclass {
   void _store(_InterpolationResult result) {
     _weightsDisplay = Vector.fromList(result.weights, dtype: dtype);
     _slopesDisplay = Vector.fromList(result.slopes, dtype: dtype);
+    _bandLower = Vector.fromList(result.bandLower, dtype: dtype);
+    _bandUpper = Vector.fromList(result.bandUpper, dtype: dtype);
   }
 
   /// data type of vectors
@@ -195,6 +199,21 @@ class MeasurementInterpolationBaseclass {
   Vector get weights => _weightsDisplay ?? _weights;
 
   Vector? _slopesDisplay;
+
+  Vector? _bandLower;
+
+  /// Lower edge of the 95 % predictive band, the range a single measurement
+  /// is expected in; empty below seven days with measurements and for
+  /// [InterpolStrength.none].
+  Vector get bandLower => _bandLower ?? Vector.empty();
+
+  Vector? _bandUpper;
+
+  /// Upper edge of the band, see [bandLower].
+  Vector get bandUpper => _bandUpper ?? Vector.empty();
+
+  /// Whether [bandLower] and [bandUpper] hold a band.
+  bool get hasBand => bandLower.isNotEmpty;
 
   /// Content-based hash of the interpolated weights vector.
   @override
