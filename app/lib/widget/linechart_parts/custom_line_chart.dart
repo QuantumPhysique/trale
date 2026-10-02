@@ -73,6 +73,9 @@ class CustomLineChart extends StatefulWidget {
   State<CustomLineChart> createState() => _CustomLineChartState();
 }
 
+/// The spots [from] to [to] of the curve, both included.
+typedef _CurvePart = ({int from, int to});
+
 class _CustomLineChartState extends State<CustomLineChart>
     with SingleTickerProviderStateMixin {
   // Animation targets (where the viewport will end up).
@@ -274,6 +277,22 @@ class _CustomLineChartState extends State<CustomLineChart>
         ? vectorsToFlSpot(interpolTimes, ip.bandUpper)
         : <FlSpot>[];
 
+    // The curve is fitted between the first and the last measurement; before
+    // and after, the model runs on without data. Neighbouring parts share the
+    // spot where they meet.
+    final int firstFitted = measurementsInterpol.indexWhere(
+      (FlSpot e) => e.x >= msTimes.first,
+    );
+    final int lastFitted = measurementsInterpol.lastIndexWhere(
+      (FlSpot e) => e.x <= msTimes.last,
+    );
+    final List<_CurvePart> curveParts = <_CurvePart>[
+      if (firstFitted > 0) (from: 0, to: firstFitted),
+      (from: firstFitted, to: lastFitted),
+      if (lastFitted < measurementsInterpol.length - 1)
+        (from: lastFitted, to: measurementsInterpol.length - 1),
+    ];
+
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < _curMinX,
     );
@@ -406,26 +425,36 @@ class _CustomLineChartState extends State<CustomLineChart>
       final double dotRadius =
           max<double>(5 - (maxX - minX) / (90 * 24 * 3600 * 1000), 1.0) + 0.4;
 
-      // Build the interpolation bar once so we can reference it in both
-      // lineBarsData and showingTooltipIndicators.
-      final LineChartBarData interpolBarData = LineChartBarData(
-        spots: measurementsInterpol,
-        showingIndicators:
-            (!widget.isPreview &&
-                _showTooltip &&
-                measurementsInterpol.isNotEmpty)
-            ? <int>[centerInterpolIdx]
-            : <int>[],
-        isCurved: true,
-        color: interpolationLineColor,
-        barWidth: 3,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: !scientific,
-          color: interpolationBelowAreaColor,
-        ),
+      final bool showTooltip =
+          !widget.isPreview && _showTooltip && measurementsInterpol.isNotEmpty;
+      // The part holding the tooltip; at a shared spot, the later part.
+      final int tooltipPart = curveParts.lastIndexWhere(
+        (_CurvePart part) => part.from <= centerInterpolIdx,
       );
+
+      // Build the curve bars once so we can reference them in both
+      // lineBarsData and showingTooltipIndicators.
+      final List<LineChartBarData> curveBars = <LineChartBarData>[
+        for (int i = 0; i < curveParts.length; i++)
+          LineChartBarData(
+            spots: measurementsInterpol.sublist(
+              curveParts[i].from,
+              curveParts[i].to + 1,
+            ),
+            showingIndicators: showTooltip && i == tooltipPart
+                ? <int>[centerInterpolIdx - curveParts[i].from]
+                : <int>[],
+            isCurved: true,
+            color: interpolationLineColor,
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(
+              show: !scientific,
+              color: interpolationBelowAreaColor,
+            ),
+          ),
+      ];
 
       // fl_chart paints range annotations before it clips to the plot area,
       // so the band has to be cut to the visible y-range here.
@@ -447,7 +476,7 @@ class _CustomLineChartState extends State<CustomLineChart>
       );
 
       final List<LineChartBarData> lineBars = <LineChartBarData>[
-        interpolBarData,
+        ...curveBars,
         LineChartBarData(
           spots: measurements,
           isCurved: false,
@@ -500,11 +529,14 @@ class _CustomLineChartState extends State<CustomLineChart>
               belowBarData: BarAreaData(show: false),
               aboveBarData: BarAreaData(show: false),
             ),
-        if (showBand) ...<LineChartBarData>[
-          bandEdge(predictiveLower),
-          bandEdge(predictiveUpper),
-        ],
+        // The band, a lower and an upper edge for each part of the curve.
+        if (showBand)
+          for (final _CurvePart part in curveParts) ...<LineChartBarData>[
+            bandEdge(predictiveLower.sublist(part.from, part.to + 1)),
+            bandEdge(predictiveUpper.sublist(part.from, part.to + 1)),
+          ],
       ];
+      final int firstBandEdge = lineBars.length - 2 * curveParts.length;
 
       return LineChart(
         LineChartData(
@@ -512,15 +544,12 @@ class _CustomLineChartState extends State<CustomLineChart>
           maxX: maxX,
           minY: minY.floorToDouble(),
           maxY: maxY.ceilToDouble(),
-          showingTooltipIndicators:
-              (!widget.isPreview &&
-                  _showTooltip &&
-                  measurementsInterpol.isNotEmpty)
+          showingTooltipIndicators: showTooltip
               ? <ShowingTooltipIndicators>[
                   ShowingTooltipIndicators(<LineBarSpot>[
                     LineBarSpot(
-                      interpolBarData,
-                      0,
+                      curveBars[tooltipPart],
+                      tooltipPart,
                       measurementsInterpol[centerInterpolIdx],
                     ),
                   ]),
@@ -661,11 +690,12 @@ class _CustomLineChartState extends State<CustomLineChart>
           lineBarsData: lineBars,
           betweenBarsData: <BetweenBarsData>[
             if (showBand)
-              BetweenBarsData(
-                fromIndex: lineBars.length - 2,
-                toIndex: lineBars.length - 1,
-                color: interpolationBelowAreaColor,
-              ),
+              for (int i = 0; i < curveParts.length; i++)
+                BetweenBarsData(
+                  fromIndex: firstBandEdge + 2 * i,
+                  toIndex: firstBandEdge + 2 * i + 1,
+                  color: interpolationBelowAreaColor,
+                ),
           ],
         ),
         duration: Duration.zero,

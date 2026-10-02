@@ -86,7 +86,7 @@ void main() {
 
     expect(data.lineBarsData.first.belowBarData.show, isFalse);
     expect(data.lineBarsData.first.color, isNot(Colors.transparent));
-    expect(data.betweenBarsData, hasLength(1));
+    expect(data.betweenBarsData, isNotEmpty);
   });
 
   testWidgets('the scientific chart makes room for the band', (
@@ -107,10 +107,14 @@ void main() {
     notifier.chartMode = ChartMode.scientific;
 
     final LineChartData data = await pumpChart(tester);
-    final List<FlSpot> lower =
-        data.lineBarsData[data.betweenBarsData.single.fromIndex].spots;
-    final List<FlSpot> upper =
-        data.lineBarsData[data.betweenBarsData.single.toIndex].spots;
+    final List<FlSpot> lower = <FlSpot>[
+      for (final BetweenBarsData band in data.betweenBarsData)
+        ...data.lineBarsData[band.fromIndex].spots,
+    ];
+    final List<FlSpot> upper = <FlSpot>[
+      for (final BetweenBarsData band in data.betweenBarsData)
+        ...data.lineBarsData[band.toIndex].spots,
+    ];
     final double from = now
         .subtract(const Duration(days: 79))
         .millisecondsSinceEpoch
@@ -139,7 +143,7 @@ void main() {
     await tester.pump();
 
     final LineChart chart = tester.widget<LineChart>(find.byType(LineChart));
-    expect(chart.data.betweenBarsData, hasLength(1));
+    expect(chart.data.betweenBarsData, isNotEmpty);
   });
 
   group('chartYRange', () {
