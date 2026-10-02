@@ -16,6 +16,7 @@ class CustomLineChart extends StatefulWidget {
     this.targetWeightLineColor,
     this.targetWeightLabelTextColor,
     this.targetWeightLabelBackgroundColor,
+    this.targetRangeColor,
     this.backgroundColor,
     this.chartPadding,
     this.chartMargin,
@@ -57,6 +58,9 @@ class CustomLineChart extends StatefulWidget {
 
   /// Target weight label background color.
   final Color? targetWeightLabelBackgroundColor;
+
+  /// Maintain range band color.
+  final Color? targetRangeColor;
 
   /// Chart background color.
   final Color? backgroundColor;
@@ -254,7 +258,8 @@ class _CustomLineChartState extends State<CustomLineChart>
     final Color targetWeightLabelBackgroundColor =
         widget.targetWeightLabelBackgroundColor ??
         colorScheme.surfaceContainerLow;
-    final Color targetRangeColor = colorScheme.tertiaryContainer.withAlpha(155);
+    final Color targetRangeColor =
+        widget.targetRangeColor ?? colorScheme.tertiaryContainer.withAlpha(155);
     final Color tooltipLineColor = colorScheme.tertiary;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
