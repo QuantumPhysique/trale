@@ -73,11 +73,37 @@ class CustomLineChart extends StatefulWidget {
   State<CustomLineChart> createState() => _CustomLineChartState();
 }
 
-/// The spots [from] to [to] of the curve, both included.
-typedef _CurvePart = ({int from, int to});
+/// The spots [from] to [to] of the curve, both included, and for a part
+/// beyond the measurements, the side facing away from them.
+typedef _CurvePart = ({int from, int to, Alignment? awayFromData});
 
 class _CustomLineChartState extends State<CustomLineChart>
     with SingleTickerProviderStateMixin {
+  /// Dash pattern of the curve where it is projected beyond the measurements.
+  static const List<int> _projectionDashArray = <int>[4, 6];
+
+  /// Opacity of the projected area and band next to the measurements,
+  /// relative to the fitted part, fading to [_projectionFadedOpacity] at the
+  /// far end.
+  static const double _projectionOpacity = 0.6;
+
+  /// See [_projectionOpacity].
+  static const double _projectionFadedOpacity = 0.15;
+
+  /// The fill of a projected part, lighter than [color] and fading out
+  /// [awayFromData]; null for the fitted part, which is filled with [color].
+  static Gradient? _projectionFade(Color color, Alignment? awayFromData) =>
+      awayFromData == null
+      ? null
+      : LinearGradient(
+          begin: -awayFromData,
+          end: awayFromData,
+          colors: <Color>[
+            color.withValues(alpha: color.a * _projectionOpacity),
+            color.withValues(alpha: color.a * _projectionFadedOpacity),
+          ],
+        );
+
   // Animation targets (where the viewport will end up).
   late double minX;
   late double maxX;
@@ -287,10 +313,15 @@ class _CustomLineChartState extends State<CustomLineChart>
       (FlSpot e) => e.x <= msTimes.last,
     );
     final List<_CurvePart> curveParts = <_CurvePart>[
-      if (firstFitted > 0) (from: 0, to: firstFitted),
-      (from: firstFitted, to: lastFitted),
+      if (firstFitted > 0)
+        (from: 0, to: firstFitted, awayFromData: Alignment.centerLeft),
+      (from: firstFitted, to: lastFitted, awayFromData: null),
       if (lastFitted < measurementsInterpol.length - 1)
-        (from: lastFitted, to: measurementsInterpol.length - 1),
+        (
+          from: lastFitted,
+          to: measurementsInterpol.length - 1,
+          awayFromData: Alignment.centerRight,
+        ),
     ];
 
     final int indexFirst = measurements.lastIndexWhere(
@@ -448,10 +479,19 @@ class _CustomLineChartState extends State<CustomLineChart>
             color: interpolationLineColor,
             barWidth: 3,
             isStrokeCapRound: true,
+            dashArray: curveParts[i].awayFromData == null
+                ? null
+                : _projectionDashArray,
             dotData: const FlDotData(show: false),
             belowBarData: BarAreaData(
               show: !scientific,
-              color: interpolationBelowAreaColor,
+              color: curveParts[i].awayFromData == null
+                  ? interpolationBelowAreaColor
+                  : null,
+              gradient: _projectionFade(
+                interpolationBelowAreaColor,
+                curveParts[i].awayFromData,
+              ),
             ),
           ),
       ];
@@ -694,7 +734,13 @@ class _CustomLineChartState extends State<CustomLineChart>
                 BetweenBarsData(
                   fromIndex: firstBandEdge + 2 * i,
                   toIndex: firstBandEdge + 2 * i + 1,
-                  color: interpolationBelowAreaColor,
+                  color: curveParts[i].awayFromData == null
+                      ? interpolationBelowAreaColor
+                      : null,
+                  gradient: _projectionFade(
+                    interpolationBelowAreaColor,
+                    curveParts[i].awayFromData,
+                  ),
                 ),
           ],
         ),

@@ -89,6 +89,39 @@ void main() {
     expect(data.betweenBarsData, isNotEmpty);
   });
 
+  // The curve comes in three parts: before the first measurement, between
+  // the first and the last, and after the last.
+  testWidgets('the scientific chart dashes the curve beyond the measurements', (
+    WidgetTester tester,
+  ) async {
+    notifier.chartMode = ChartMode.scientific;
+
+    final LineChartData data = await pumpChart(tester);
+    final List<LineChartBarData> curve = data.lineBarsData.sublist(0, 3);
+    final List<FlSpot> measurements = data.lineBarsData[3].spots;
+
+    expect(curve[0].spots.last.x, measurements.first.x);
+    expect(curve[2].spots.first.x, measurements.last.x);
+    expect(curve[0].dashArray, isNotNull);
+    expect(curve[1].dashArray, isNull);
+    expect(curve[2].dashArray, isNotNull);
+    expect(data.betweenBarsData, hasLength(3));
+    expect(data.betweenBarsData[0].gradient, isNotNull);
+    expect(data.betweenBarsData[1].gradient, isNull);
+    expect(data.betweenBarsData[2].gradient, isNotNull);
+  });
+
+  testWidgets('the simple chart fades the area beyond the measurements', (
+    WidgetTester tester,
+  ) async {
+    final LineChartData data = await pumpChart(tester);
+    final List<LineChartBarData> curve = data.lineBarsData.sublist(0, 3);
+
+    expect(curve[0].belowBarData.gradient, isNotNull);
+    expect(curve[1].belowBarData.gradient, isNull);
+    expect(curve[2].belowBarData.gradient, isNotNull);
+  });
+
   testWidgets('the scientific chart makes room for the band', (
     WidgetTester tester,
   ) async {
