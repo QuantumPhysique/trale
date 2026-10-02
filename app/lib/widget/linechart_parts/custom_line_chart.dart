@@ -11,7 +11,6 @@ class CustomLineChart extends StatefulWidget {
     this.axisLabelColor,
     this.interpolationLineColor,
     this.interpolationBelowAreaColor,
-    this.interpolationAboveAreaColor,
     this.measurementLineColor,
     this.measurementDotStrokeColor,
     this.targetWeightLineColor,
@@ -44,9 +43,6 @@ class CustomLineChart extends StatefulWidget {
   /// Area color below interpolation.
   final Color? interpolationBelowAreaColor;
 
-  /// Area color above interpolation.
-  final Color? interpolationAboveAreaColor;
-
   /// Measurement line color.
   final Color? measurementLineColor;
 
@@ -77,8 +73,37 @@ class CustomLineChart extends StatefulWidget {
   State<CustomLineChart> createState() => _CustomLineChartState();
 }
 
+/// The spots [from] to [to] of the curve, both included, and for a part
+/// beyond the measurements, the side facing away from them.
+typedef _CurvePart = ({int from, int to, Alignment? awayFromData});
+
 class _CustomLineChartState extends State<CustomLineChart>
     with SingleTickerProviderStateMixin {
+  /// Dash pattern of the curve where it is projected beyond the measurements.
+  static const List<int> _projectionDashArray = <int>[4, 6];
+
+  /// Opacity of the projected area and band next to the measurements,
+  /// relative to the fitted part, fading to [_projectionFadedOpacity] at the
+  /// far end.
+  static const double _projectionOpacity = 0.6;
+
+  /// See [_projectionOpacity].
+  static const double _projectionFadedOpacity = 0.15;
+
+  /// The fill of a projected part, lighter than [color] and fading out
+  /// [awayFromData]; null for the fitted part, which is filled with [color].
+  static Gradient? _projectionFade(Color color, Alignment? awayFromData) =>
+      awayFromData == null
+      ? null
+      : LinearGradient(
+          begin: -awayFromData,
+          end: awayFromData,
+          colors: <Color>[
+            color.withValues(alpha: color.a * _projectionOpacity),
+            color.withValues(alpha: color.a * _projectionFadedOpacity),
+          ],
+        );
+
   // Animation targets (where the viewport will end up).
   late double minX;
   late double maxX;
@@ -197,6 +222,10 @@ class _CustomLineChartState extends State<CustomLineChart>
     final double unitScaling = context.select<TraleNotifier, double>(
       (TraleNotifier notifier) => notifier.unit.scaling,
     );
+    final bool scientific = context.select<TraleNotifier, bool>(
+      (TraleNotifier notifier) => notifier.chartMode == ChartMode.scientific,
+    );
+    final bool showBand = scientific && ip.hasBand && !widget.loadedFirst;
 
     final ml.Vector ms = widget.loadedFirst
         ? ml.Vector.filled(
@@ -230,9 +259,11 @@ class _CustomLineChartState extends State<CustomLineChart>
       listen: false,
     );
     final double? targetWeight = notifier.effectiveTargetWeight;
-    final DateTime? targetWeightDate = notifier.targetWeightEnabled
-        ? notifier.userTargetWeightDate
+    final TargetRange? maintainRange =
+        notifier.weightGoal == WeightGoal.maintain
+        ? notifier.effectiveTargetRange
         : null;
+    final DateTime? targetWeightDate = notifier.effectiveTargetWeightDate;
     final DateTime? effectiveSetDate = notifier.targetWeightEnabled
         ? notifier.userTargetWeightSetDate
         : null;
@@ -241,13 +272,11 @@ class _CustomLineChartState extends State<CustomLineChart>
         : null;
 
     final Color interpolationLineColor =
-        widget.interpolationLineColor ?? Colors.transparent;
+        widget.interpolationLineColor ??
+        (scientific ? colorScheme.primary : Colors.transparent);
     final Color interpolationBelowAreaColor =
         widget.interpolationBelowAreaColor ??
         colorScheme.primaryContainer.withAlpha(155);
-    final Color interpolationAboveAreaColor =
-        widget.interpolationAboveAreaColor ??
-        colorScheme.tertiaryContainer.withAlpha(widget.isPreview ? 0 : 255);
     final Color measurementLineColor =
         widget.measurementLineColor ?? colorScheme.primary;
     final Color measurementDotStrokeColor =
@@ -259,6 +288,7 @@ class _CustomLineChartState extends State<CustomLineChart>
     final Color targetWeightLabelBackgroundColor =
         widget.targetWeightLabelBackgroundColor ??
         colorScheme.surfaceContainerLow;
+    final Color targetRangeColor = colorScheme.surfaceContainerHighest;
     final Color tooltipLineColor = colorScheme.tertiary;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
@@ -266,6 +296,33 @@ class _CustomLineChartState extends State<CustomLineChart>
       interpolTimes,
       interpol,
     );
+    final List<FlSpot> predictiveLower = showBand
+        ? vectorsToFlSpot(interpolTimes, ip.bandLower)
+        : <FlSpot>[];
+    final List<FlSpot> predictiveUpper = showBand
+        ? vectorsToFlSpot(interpolTimes, ip.bandUpper)
+        : <FlSpot>[];
+
+    // The curve is fitted between the first and the last measurement; before
+    // and after, the model runs on without data. Neighbouring parts share the
+    // spot where they meet.
+    final int firstFitted = measurementsInterpol.indexWhere(
+      (FlSpot e) => e.x >= msTimes.first,
+    );
+    final int lastFitted = measurementsInterpol.lastIndexWhere(
+      (FlSpot e) => e.x <= msTimes.last,
+    );
+    final List<_CurvePart> curveParts = <_CurvePart>[
+      if (firstFitted > 0)
+        (from: 0, to: firstFitted, awayFromData: Alignment.centerLeft),
+      (from: firstFitted, to: lastFitted, awayFromData: null),
+      if (lastFitted < measurementsInterpol.length - 1)
+        (
+          from: lastFitted,
+          to: measurementsInterpol.length - 1,
+          awayFromData: Alignment.centerRight,
+        ),
+    ];
 
     final int indexFirst = measurements.lastIndexWhere(
       (FlSpot e) => e.x < _curMinX,
@@ -283,24 +340,21 @@ class _CustomLineChartState extends State<CustomLineChart>
           : indexLast,
     );
 
-    double minY;
-    double maxY;
-    if (shownData.isEmpty) {
-      // take global extrema if shownData is empty.
-      minY = measurements.map((FlSpot e) => e.y).toList().reduce(min);
-      maxY = measurements.map((FlSpot e) => e.y).toList().reduce(max);
-    } else {
-      minY = shownData.map((FlSpot e) => e.y).toList().reduce(min);
-      maxY = shownData.map((FlSpot e) => e.y).toList().reduce(max);
-    }
-    // add padding to minY and maxY
-    minY -= 0.2 * (maxY - minY);
-    maxY += 0.2 * (maxY - minY);
-    // ensure that minY and maxY are not to close
-    if (maxY - minY < 2) {
-      minY = (maxY + minY) / 2 - 1;
-      maxY = (maxY + minY) / 2 + 1;
-    }
+    // Without dots in view, the range of all dots. The band counts only
+    // between the first and the last dot: beyond them it widens.
+    final double bandFrom = max(_curMinX, msTimes.first);
+    final double bandTo = min(_curMaxX, msTimes.last);
+    final ({double minY, double maxY}) yRange = chartYRange(<double>[
+      for (final FlSpot e in shownData.isEmpty ? measurements : shownData) e.y,
+      for (int i = 0; i < predictiveLower.length; i++)
+        if (predictiveLower[i].x >= bandFrom &&
+            predictiveLower[i].x <= bandTo) ...<double>[
+          predictiveLower[i].y,
+          predictiveUpper[i].y,
+        ],
+    ]);
+    final double minY = yRange.minY;
+    final double maxY = yRange.maxY;
 
     /// Build the x-tick label widget for a given [time] (ms since epoch).
     /// For January 1st, shows the month name and the year in bold below it.
@@ -402,32 +456,127 @@ class _CustomLineChartState extends State<CustomLineChart>
       final double dotRadius =
           max<double>(5 - (maxX - minX) / (90 * 24 * 3600 * 1000), 1.0) + 0.4;
 
-      // Build the interpolation bar once so we can reference it in both
-      // lineBarsData and showingTooltipIndicators.
-      final LineChartBarData interpolBarData = LineChartBarData(
-        spots: measurementsInterpol,
-        showingIndicators:
-            (!widget.isPreview &&
-                _showTooltip &&
-                measurementsInterpol.isNotEmpty)
-            ? <int>[centerInterpolIdx]
-            : <int>[],
-        isCurved: true,
-        color: interpolationLineColor,
-        barWidth: 3,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: true,
-          color: interpolationBelowAreaColor,
-        ),
-        aboveBarData: BarAreaData(
-          show: targetWeight != null,
-          color: interpolationAboveAreaColor,
-          cutOffY: targetWeight ?? 0,
-          applyCutOffY: true,
-        ),
+      final bool showTooltip =
+          !widget.isPreview && _showTooltip && measurementsInterpol.isNotEmpty;
+      // The part holding the tooltip; at a shared spot, the later part.
+      final int tooltipPart = curveParts.lastIndexWhere(
+        (_CurvePart part) => part.from <= centerInterpolIdx,
       );
+
+      // Build the curve bars once so we can reference them in both
+      // lineBarsData and showingTooltipIndicators.
+      final List<LineChartBarData> curveBars = <LineChartBarData>[
+        for (int i = 0; i < curveParts.length; i++)
+          LineChartBarData(
+            spots: measurementsInterpol.sublist(
+              curveParts[i].from,
+              curveParts[i].to + 1,
+            ),
+            showingIndicators: showTooltip && i == tooltipPart
+                ? <int>[centerInterpolIdx - curveParts[i].from]
+                : <int>[],
+            isCurved: true,
+            color: interpolationLineColor,
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dashArray: curveParts[i].awayFromData == null
+                ? null
+                : _projectionDashArray,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(
+              show: !scientific,
+              color: curveParts[i].awayFromData == null
+                  ? interpolationBelowAreaColor
+                  : null,
+              gradient: _projectionFade(
+                interpolationBelowAreaColor,
+                curveParts[i].awayFromData,
+              ),
+            ),
+          ),
+      ];
+
+      // fl_chart paints range annotations before it clips to the plot area,
+      // so the band has to be cut to the visible y-range here.
+      final double bandLower = max(
+        (maintainRange?.lower ?? 0) / unitScaling,
+        minY.floorToDouble(),
+      );
+      final double bandUpper = min(
+        (maintainRange?.upper ?? 0) / unitScaling,
+        maxY.ceilToDouble(),
+      );
+
+      LineChartBarData bandEdge(List<FlSpot> spots) => LineChartBarData(
+        spots: spots,
+        isCurved: true,
+        color: Colors.transparent,
+        barWidth: 0,
+        dotData: const FlDotData(show: false),
+      );
+
+      final List<LineChartBarData> lineBars = <LineChartBarData>[
+        ...curveBars,
+        LineChartBarData(
+          spots: measurements,
+          isCurved: false,
+          color: measurementLineColor,
+          barWidth: 0,
+          isStrokeCapRound: true,
+          dotData: FlDotData(
+            show: true,
+            getDotPainter:
+                (
+                  FlSpot spot,
+                  double percent,
+                  LineChartBarData barData,
+                  int index,
+                ) => FlDotCirclePainter(
+                  radius:
+                      max<double>(
+                        5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
+                        1.0,
+                      ) +
+                      0.4,
+                  color: measurementLineColor,
+                  strokeColor: measurementDotStrokeColor,
+                  strokeWidth: 0.2,
+                ),
+          ),
+        ),
+        // Target weight line segments
+        if (targetWeight != null &&
+            !widget.isPreview &&
+            targetWeightDate != null &&
+            effectiveSetDate != null &&
+            effectiveSetWeight != null)
+          for (final List<FlSpot> segment in _buildTargetWeightSegments(
+            setDateMs: effectiveSetDate.millisecondsSinceEpoch.toDouble(),
+            setWeight: effectiveSetWeight / unitScaling,
+            targetDateMs: targetWeightDate.millisecondsSinceEpoch.toDouble(),
+            targetWeight: targetWeight / unitScaling,
+            chartMaxX: maxX,
+            chartMinX: minX,
+          ))
+            LineChartBarData(
+              spots: segment,
+              isCurved: false,
+              color: targetWeightLineColor,
+              barWidth: 2,
+              isStrokeCapRound: true,
+              dashArray: <int>[8, 6],
+              dotData: const FlDotData(show: false),
+              belowBarData: BarAreaData(show: false),
+              aboveBarData: BarAreaData(show: false),
+            ),
+        // The band, a lower and an upper edge for each part of the curve.
+        if (showBand)
+          for (final _CurvePart part in curveParts) ...<LineChartBarData>[
+            bandEdge(predictiveLower.sublist(part.from, part.to + 1)),
+            bandEdge(predictiveUpper.sublist(part.from, part.to + 1)),
+          ],
+      ];
+      final int firstBandEdge = lineBars.length - 2 * curveParts.length;
 
       return LineChart(
         LineChartData(
@@ -435,15 +584,12 @@ class _CustomLineChartState extends State<CustomLineChart>
           maxX: maxX,
           minY: minY.floorToDouble(),
           maxY: maxY.ceilToDouble(),
-          showingTooltipIndicators:
-              (!widget.isPreview &&
-                  _showTooltip &&
-                  measurementsInterpol.isNotEmpty)
+          showingTooltipIndicators: showTooltip
               ? <ShowingTooltipIndicators>[
                   ShowingTooltipIndicators(<LineBarSpot>[
                     LineBarSpot(
-                      interpolBarData,
-                      0,
+                      curveBars[tooltipPart],
+                      tooltipPart,
                       measurementsInterpol[centerInterpolIdx],
                     ),
                   ]),
@@ -528,6 +674,19 @@ class _CustomLineChartState extends State<CustomLineChart>
             show: true,
           ),
           clipData: const FlClipData.all(),
+          rangeAnnotations: RangeAnnotations(
+            horizontalRangeAnnotations: <HorizontalRangeAnnotation>[
+              if (maintainRange != null &&
+                  bandLower < bandUpper &&
+                  !widget.isPreview &&
+                  ip.db.measurements.isNotEmpty)
+                HorizontalRangeAnnotation(
+                  y1: bandLower,
+                  y2: bandUpper,
+                  color: targetRangeColor,
+                ),
+            ],
+          ),
           extraLinesData: ExtraLinesData(
             extraLinesOnTop: true,
             horizontalLines: <HorizontalLine>[
@@ -568,60 +727,20 @@ class _CustomLineChartState extends State<CustomLineChart>
               ],
             ],
           ),
-          lineBarsData: <LineChartBarData>[
-            interpolBarData,
-            LineChartBarData(
-              spots: measurements,
-              isCurved: false,
-              color: measurementLineColor,
-              barWidth: 0,
-              isStrokeCapRound: true,
-              dotData: FlDotData(
-                show: true,
-                getDotPainter:
-                    (
-                      FlSpot spot,
-                      double percent,
-                      LineChartBarData barData,
-                      int index,
-                    ) => FlDotCirclePainter(
-                      radius:
-                          max<double>(
-                            5 - (maxX - minX) / (90 * 24 * 3600 * 1000),
-                            1.0,
-                          ) +
-                          0.4,
-                      color: measurementLineColor,
-                      strokeColor: measurementDotStrokeColor,
-                      strokeWidth: 0.2,
-                    ),
-              ),
-            ),
-            // Target weight line segments
-            if (targetWeight != null &&
-                !widget.isPreview &&
-                targetWeightDate != null &&
-                effectiveSetDate != null &&
-                effectiveSetWeight != null)
-              for (final List<FlSpot> segment in _buildTargetWeightSegments(
-                setDateMs: effectiveSetDate.millisecondsSinceEpoch.toDouble(),
-                setWeight: effectiveSetWeight / unitScaling,
-                targetDateMs: targetWeightDate.millisecondsSinceEpoch
-                    .toDouble(),
-                targetWeight: targetWeight / unitScaling,
-                chartMaxX: maxX,
-                chartMinX: minX,
-              ))
-                LineChartBarData(
-                  spots: segment,
-                  isCurved: false,
-                  color: targetWeightLineColor,
-                  barWidth: 2,
-                  isStrokeCapRound: true,
-                  dashArray: <int>[8, 6],
-                  dotData: const FlDotData(show: false),
-                  belowBarData: BarAreaData(show: false),
-                  aboveBarData: BarAreaData(show: false),
+          lineBarsData: lineBars,
+          betweenBarsData: <BetweenBarsData>[
+            if (showBand)
+              for (int i = 0; i < curveParts.length; i++)
+                BetweenBarsData(
+                  fromIndex: firstBandEdge + 2 * i,
+                  toIndex: firstBandEdge + 2 * i + 1,
+                  color: curveParts[i].awayFromData == null
+                      ? interpolationBelowAreaColor
+                      : null,
+                  gradient: _projectionFade(
+                    interpolationBelowAreaColor,
+                    curveParts[i].awayFromData,
+                  ),
                 ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:trale/core/trale_notifier.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/user_dialog.dart';
 
 import '../helpers/widget_test_helper.dart';
@@ -85,5 +86,18 @@ void main() {
       lessThan(before),
     );
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('the maintain goal shows its range and no target date', (
+    WidgetTester tester,
+  ) async {
+    notifier.targetWeightEnabled = true;
+    notifier.userTargetWeight = 80;
+    notifier.weightGoal = WeightGoal.maintain;
+
+    await openDialog(tester);
+
+    expect(find.text('80.0 kg ± 1%'), findsOneWidget);
+    expect(find.text('Target date'), findsNothing);
   });
 }

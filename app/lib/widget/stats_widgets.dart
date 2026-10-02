@@ -14,6 +14,7 @@ import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/text_size.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/icon_hero.dart';
 
 part 'stats/info_cards.dart';
@@ -83,40 +84,47 @@ class _AnimatedStatsWidgetsState extends State<AnimatedStatsWidgets> {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(context);
 
     final double? userTargetWeight = notifier.effectiveTargetWeight;
-    final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-      userTargetWeight,
-      notifier.looseWeight,
-    );
+    final TargetRange? targetRange = notifier.effectiveTargetRange;
+    final Duration? timeOfTargetWeight = stats.timeToTargetRange(targetRange);
+    final bool maintaining = notifier.weightGoal == WeightGoal.maintain;
+    final bool inRange = maintaining && timeOfTargetWeight?.inDays == -1;
     final int nMeasured = stats.nMeasurements;
     _ensureWeightLostCardVisibility(nMeasured >= 2);
-    Card userTargetWeightCard(double utw) => Card(
-      shape: const StadiumBorder(),
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      margin: const EdgeInsets.symmetric(vertical: QPLayout.padding),
-      child: Padding(
-        padding: const EdgeInsets.all(QPLayout.padding),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            AutoSizeText(
-              '${notifier.unit.weightToString(utw, notifier.unitPrecision)} in',
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall!.onSecondaryContainer(context),
-            ),
-            AutoSizeText(
-              timeOfTargetWeight == null
-                  ? '--'
-                  : timeOfTargetWeight.durationToString(context),
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge!.onSecondaryContainer(context),
-            ),
-          ],
+    Card userTargetWeightCard(double utw) {
+      final String target = maintaining
+          ? notifier.unit.maintainTargetToString(utw, notifier.unitPrecision)
+          : notifier.unit.weightToString(utw, notifier.unitPrecision);
+      return Card(
+        shape: const StadiumBorder(),
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        margin: const EdgeInsets.symmetric(vertical: QPLayout.padding),
+        child: Padding(
+          padding: const EdgeInsets.all(QPLayout.padding),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              AutoSizeText(
+                inRange ? target : '$target ${context.l10n.targetWeightIn}',
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall!.onSecondaryContainer(context),
+              ),
+              AutoSizeText(
+                inRange
+                    ? context.l10n.inTargetRangeShort
+                    : timeOfTargetWeight == null
+                    ? '--'
+                    : timeOfTargetWeight.durationToString(context),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.onSecondaryContainer(context),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
 
     Card userWeightLostCard() {
       final double deltaWeight = stats.monthlyChange;

@@ -3,23 +3,11 @@ import 'package:trale/core/interpolation.dart';
 
 void main() {
   group('InterpolStrength', () {
-    test('strengthMeasurement values are correct', () {
-      expect(InterpolStrength.none.strengthMeasurement, 2);
-      expect(InterpolStrength.soft.strengthMeasurement, 2);
-      expect(InterpolStrength.medium.strengthMeasurement, 4);
-      expect(InterpolStrength.strong.strengthMeasurement, 7);
-    });
-
-    test('strengthInterpol is half of strengthMeasurement', () {
-      for (final InterpolStrength s in InterpolStrength.values) {
-        expect(s.strengthInterpol, s.strengthMeasurement / 2);
-      }
-    });
-
-    test('weight is always 2', () {
-      for (final InterpolStrength s in InterpolStrength.values) {
-        expect(s.weight, 2);
-      }
+    test('bandwidthInDays values are correct', () {
+      expect(InterpolStrength.none.bandwidthInDays, 2);
+      expect(InterpolStrength.soft.bandwidthInDays, 2);
+      expect(InterpolStrength.medium.bandwidthInDays, 4);
+      expect(InterpolStrength.strong.bandwidthInDays, 7);
     });
 
     test('name returns enum value name', () {

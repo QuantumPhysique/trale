@@ -1,4 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:material_ui/material_ui.dart';
+import 'package:trale/core/constants.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Enum with all available interpolation functions
@@ -18,19 +21,20 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// get the interpolation strength of measurements [days]
-  double get strengthMeasurement => <InterpolStrength, double>{
+  /// Bandwidth of the smoothing in days; `none` takes its slope from `soft`.
+  double get bandwidthInDays => <InterpolStrength, double>{
     InterpolStrength.none: 2,
     InterpolStrength.soft: 2,
     InterpolStrength.medium: 4,
     InterpolStrength.strong: 7,
   }[this]!;
 
-  /// get the interpolation strength of measurements [days]
-  double get strengthInterpol => strengthMeasurement / 2;
+  /// Variance ratio of the trend per day³ that smooths like a kernel of
+  /// [bandwidthInDays] (Silverman 1984).
+  double get processVariance => math.pow(bandwidthInDays, -4).toDouble();
 
-  /// get the ratio how much the measurements are weighted more than interpols
-  double get weight => 2;
+  /// Time scale in days over which the trend's rate of change fades.
+  double get timeScaleInDays => trendTimeScaleInBandwidths * bandwidthInDays;
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{

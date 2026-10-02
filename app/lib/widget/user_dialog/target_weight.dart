@@ -3,8 +3,8 @@ part of '../user_dialog.dart';
 /// Target weight settings group with enable/disable toggle.
 ///
 /// When disabled, only the toggle is shown. When enabled, the group expands
-/// to show target weight, starting date, target date (side by side), rate,
-/// and the lose/gain weight toggle.
+/// to show the target weight, or the target range of the maintain goal, and
+/// for the other goals the target date.
 class TargetWeightGroup extends StatelessWidget {
   /// Creates a [TargetWeightGroup].
   const TargetWeightGroup({
@@ -32,6 +32,7 @@ class TargetWeightGroup extends StatelessWidget {
     final Color tileColor =
         backgroundColor ?? Theme.of(context).colorScheme.surfaceContainerLow;
     final bool enabled = notifier.targetWeightEnabled;
+    final bool maintaining = notifier.weightGoal == WeightGoal.maintain;
     final MeasurementDatabase db = MeasurementDatabase();
 
     final bool canEnable = !db.isEmpty;
@@ -73,15 +74,24 @@ class TargetWeightGroup extends StatelessWidget {
           _GroupedFormFieldTile(
             color: tileColor,
             icon: PhosphorIconsDuotone.scales,
-            fieldKey: ValueKey<double?>(notifier.userTargetWeight),
+            fieldKey: ValueKey<String>(
+              '${notifier.userTargetWeight} ${notifier.weightGoal.name}',
+            ),
             readOnly: true,
-            initialValue: notifier.userTargetWeight != null
-                ? notifier.unit.weightToString(
+            initialValue: notifier.userTargetWeight == null
+                ? context.l10n.addTargetWeightDate
+                : maintaining
+                ? notifier.unit.maintainTargetToString(
                     notifier.userTargetWeight!,
                     notifier.unitPrecision,
                   )
-                : context.l10n.addTargetWeightDate,
-            labelText: context.l10n.targetWeight,
+                : notifier.unit.weightToString(
+                    notifier.userTargetWeight!,
+                    notifier.unitPrecision,
+                  ),
+            labelText: maintaining
+                ? context.l10n.targetRange
+                : context.l10n.targetWeight,
             onTap: () async {
               await showTargetWeightDialog(
                 context: context,
@@ -94,7 +104,7 @@ class TargetWeightGroup extends StatelessWidget {
             },
           ),
           // Target date
-          if (notifier.userTargetWeight != null)
+          if (notifier.userTargetWeight != null && !maintaining)
             _GroupedFormFieldTile(
               color: tileColor,
               icon: PhosphorIconsDuotone.calendarCheck,

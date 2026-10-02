@@ -12,6 +12,7 @@ import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/trale_notifier.dart';
+import 'package:trale/core/weight_goal.dart';
 
 /// class providing an API to handle interpolation of measurements
 class MeasurementStats {
@@ -373,42 +374,33 @@ class MeasurementStats {
   double? get deltaWeightLastWeek =>
       _deltaWeightLastWeek ??= deltaWeightLastNDays(7);
 
-  /// get time of reaching target weight in kg
-  Duration? timeOfTargetWeight(double? targetWeight, bool loose) {
-    if ((targetWeight == null) || (db.nMeasurements < 2)) {
+  /// get time until the trend enters [range]
+  Duration? timeToTargetRange(TargetRange? range) {
+    if ((range == null) || (db.nMeasurements < 2)) {
       return null;
     }
 
     final double? weight = ip.interpolationForDay(toDate);
-    // if no interpolation value for fromDate, no prediction
+    // if no interpolation value for toDate, no prediction
     if (weight == null) {
       return null;
     }
-    // Check if target weight is already completed
-    if (loose ? targetWeight > weight : targetWeight <= weight) {
-      return const Duration(days: -1);
-    }
+    return range.timeToEnter(weight: weight, slope: ip.slopeAtDay(toDate));
+  }
 
-    final double slope = ip.slopeAtDay(toDate);
-    // Crossing is in the past
-    if (slope * (weight - targetWeight) >= 0) {
-      return null;
+  /// get number of days up to [toDate] on which the trend stayed in [range]
+  int daysInTargetRange(TargetRange range) {
+    final int? idxTo = ip.indexForDay(toDate);
+    if (idxTo == null || db.isEmpty) {
+      return 0;
     }
-
-    // if slope is less then 5 g/day, return null
-    // slope is given in kg/day
-    if (slope.abs() < 0.005) {
-      return null;
+    final int idxFirst = ip.indexForDay(db.firstDate) ?? 0;
+    int days = 0;
+    while (idxTo - days >= idxFirst &&
+        range.contains(ip.weights[idxTo - days])) {
+      days++;
     }
-    // in ms from last measurement
-    final int remainingTime = ((targetWeight - weight) / slope).round();
-
-    // if remaining time is rounded to 0, return -1
-    if (remainingTime == 0) {
-      return const Duration(days: -1);
-    }
-
-    return Duration(days: remainingTime);
+    return days;
   }
 
   /// Return the target-weight reference value [kg] for a given day
@@ -417,6 +409,7 @@ class MeasurementStats {
   /// * Between [setDate] and [targetDate]: linear from [setWeight] to
   ///   [targetWeight].
   /// * After [targetDate]: constant at [targetWeight].
+  /// * Maintain goal: constant at [targetWeight], the centre of its range.
   double? referenceAtDay(DateTime day) {
     final Preferences prefs = Preferences();
     if (!prefs.targetWeightEnabled) {
@@ -429,7 +422,7 @@ class MeasurementStats {
     }
 
     final DateTime? targetDate = prefs.userTargetWeightDate;
-    if (targetDate == null) {
+    if (targetDate == null || prefs.weightGoal == WeightGoal.maintain) {
       return targetWeight;
     }
 

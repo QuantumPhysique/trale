@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/backup_interval.dart';
+import 'package:trale/core/chart_mode.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/core/zoom_level.dart';
 
 part 'preferences/user_prefs.dart';
@@ -69,6 +71,9 @@ class Preferences extends QPPreferences {
   /// Default for userTargetWeightSetDate (not set).
   final DateTime? defaultUserTargetWeightSetDate = null;
 
+  /// Default weight goal.
+  final WeightGoal defaultWeightGoal = WeightGoal.lose;
+
   /// Default for statsRangeFrom.
   final DateTime? defaultStatsRangeFrom = null;
 
@@ -100,6 +105,9 @@ class Preferences extends QPPreferences {
   /// Default zoom level.
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
+  /// Default chart mode.
+  final ChartMode defaultChartMode = ChartMode.simple;
+
   /// Default backup interval.
   final BackupInterval defaultBackupInterval = BackupInterval.monthly;
 
@@ -111,9 +119,6 @@ class Preferences extends QPPreferences {
   /// Latest backup reminder date.
   final DateTime defaultLatestBackupReminderDate =
       DateTime.fromMillisecondsSinceEpoch(0);
-
-  /// Default loose mode.
-  final bool defaultLooseWeight = true;
 
   /// Default show measurement hint banner.
   final bool defaultShowMeasurementHintBanner = true;
@@ -176,11 +181,21 @@ class Preferences extends QPPreferences {
     if (override || !prefs.containsKey('userTargetWeightSetDate')) {
       userTargetWeightSetDate = defaultUserTargetWeightSetDate;
     }
+    if (override || !prefs.containsKey('weightGoal')) {
+      // Released versions stored only lose or gain, as the bool 'looseWeight'.
+      weightGoal = !override && prefs.containsKey('looseWeight')
+          ? (prefs.getBool('looseWeight')! ? WeightGoal.lose : WeightGoal.gain)
+          : defaultWeightGoal;
+      prefs.remove('looseWeight');
+    }
     if (override || !prefs.containsKey('userHeight')) {
       userHeight = defaultUserHeight;
     }
     if (override || !prefs.containsKey('zoomLevel')) {
       zoomLevel = defaultZoomLevel;
+    }
+    if (override || !prefs.containsKey('chartMode')) {
+      chartMode = defaultChartMode;
     }
     if (override || !prefs.containsKey('backupInterval')) {
       backupInterval = defaultBackupInterval;
@@ -190,9 +205,6 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('latestBackupReminderDate')) {
       latestBackupReminderDate = defaultLatestBackupReminderDate;
-    }
-    if (override || !prefs.containsKey('looseWeight')) {
-      looseWeight = defaultLooseWeight;
     }
     if (override || !prefs.containsKey('showMeasurementHintBanner')) {
       showMeasurementHintBanner = defaultShowMeasurementHintBanner;
@@ -226,6 +238,11 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('healthConnectExportEnabled')) {
       healthConnectExportEnabled = defaultHealthConnectExportEnabled;
+    }
+    // Released versions cached the interpolation here; it is recomputed on
+    // every start now.
+    if (prefs.containsKey('interpolation_cache')) {
+      prefs.remove('interpolation_cache');
     }
   }
 }

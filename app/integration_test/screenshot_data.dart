@@ -11,6 +11,7 @@
 import 'dart:math';
 
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/core/zoom_level.dart';
 
 /// Number of days of history the demo dataset spans.
@@ -92,11 +93,10 @@ const double _waterPersistence = 0.75;
 ///
 /// Staying at the low end is also what keeps the screenshots coherent.  The
 /// "change / month", "calorie deficit" and "weeks left to reach target weight"
-/// cards are all driven by [MeasurementInterpolation.slopeAtDay], a five-point
-/// derivative of a curve smoothed with a 4-day Gaussian — an estimator that
-/// only sees about a week either side of today.  At twice this amplitude a
-/// single ordinary swing in the final days swings that slope by a factor of
-/// three, and the cards start contradicting the curve above them.
+/// cards are all driven by [MeasurementInterpolation.slopeAtDay], the slope of
+/// the smoothed trend today, which at the end of the data rests on the last
+/// week or two of readings.  A large swing in the final days moves that slope,
+/// and the cards start contradicting the curve above them.
 const double _waterKick = 0.17;
 
 /// Standard deviation in kg of the scale's own reading error, at
@@ -163,14 +163,14 @@ class DemoPersona {
   /// to it.
   final int targetDaysAhead;
 
-  /// Whether this persona is working the scale downwards.
+  /// Whether this persona works the scale downwards or upwards.
   ///
-  /// Drives the `looseWeight` preference, which
-  /// [MeasurementStats.timeOfTargetWeight] uses to decide on which side of the
-  /// current weight the target counts as reached — left at the shipped
-  /// default (losing), a gainer's target reads as already completed and the
-  /// "time to target" card renders 🥳 instead of a forecast.
-  bool get losesWeight => targetWeight < anchors.last.weight;
+  /// Decides on which side of the current weight the target counts as
+  /// reached. Left at the shipped default (lose), a gainer's target reads as
+  /// already completed and the "time to target" card renders 🥳 instead of a
+  /// forecast.
+  WeightGoal get weightGoal =>
+      targetWeight < anchors.last.weight ? WeightGoal.lose : WeightGoal.gain;
 
   /// Noise amplitude relative to the [_referenceWeight] the constants were
   /// tuned at.
