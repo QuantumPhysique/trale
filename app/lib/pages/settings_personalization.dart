@@ -7,6 +7,7 @@ import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolation_preview.dart';
 import 'package:trale/core/l10n_extension.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/print_format.dart';
@@ -31,6 +32,14 @@ class _PersonalizationSettingsPageState
     extends State<PersonalizationSettingsPage> {
   /// Whether to show the user's own data instead of fake preview data.
   bool _showUserData = false;
+
+  late final Stream<List<Measurement>> _measurementStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _measurementStream = MeasurementDatabase().streamController.stream;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,17 +96,22 @@ class _PersonalizationSettingsPageState
         children: <Widget>[
           QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
-            child: CustomLineChart(
-              loadedFirst: false,
-              ip: useUserData
-                  ? MeasurementInterpolation()
-                  : PreviewInterpolation(),
-              isPreview: true,
-              relativeHeight: 0.25,
-              backgroundColor: Theme.of(
-                context,
-              ).colorScheme.surfaceContainerLowest,
-              chartMargin: EdgeInsets.zero,
+            // A new strength is computed in the background, after the page
+            // was rebuilt for it; the stream fires once the curve is ready.
+            child: StreamBuilder<List<Measurement>>(
+              stream: _measurementStream,
+              builder: (BuildContext context, _) => CustomLineChart(
+                loadedFirst: false,
+                ip: useUserData
+                    ? MeasurementInterpolation()
+                    : PreviewInterpolation(),
+                isPreview: true,
+                relativeHeight: 0.25,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerLowest,
+                chartMargin: EdgeInsets.zero,
+              ),
             ),
           ),
           if (hasEnoughData)
