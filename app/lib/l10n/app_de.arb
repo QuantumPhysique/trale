@@ -101,7 +101,11 @@
     },
     "targetRangeDaysIn": "dein Gewicht gehalten",
     "@targetRangeDaysIn": {
-        "description": "Shown after 'x days/weeks' while the trend stays in the target range."
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "schon dein Gewicht gehalten",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
     },
     "targetRangeBackIn": "verbleibend bis zur Rückkehr in den Zielbereich",
     "@targetRangeBackIn": {

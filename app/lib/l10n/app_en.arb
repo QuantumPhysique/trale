@@ -30,7 +30,11 @@
     },
     "targetRangeDaysIn": "holding your weight steady",
     "@targetRangeDaysIn": {
-        "description": "Shown after 'x days/weeks' while the trend stays in the target range."
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "and still holding your weight steady",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
     },
     "targetRangeBackIn": "left to get back into your range",
     "@targetRangeBackIn": {

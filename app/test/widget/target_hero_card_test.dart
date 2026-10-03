@@ -13,10 +13,11 @@ void main() {
   /// Shows the hero card for a maintain goal of 75 kg ± 1%.
   Future<void> pumpMaintainCard(
     WidgetTester tester,
-    double Function(int daysAgo) weightAt,
-  ) async {
+    double Function(int daysAgo) weightAt, {
+    int days = 20,
+  }) async {
     final TraleNotifier notifier = await setUpWidgetTestDependencies(
-      measurements: dailyMeasurements(weightAt, days: 20),
+      measurements: dailyMeasurements(weightAt, days: days),
     );
     notifier.targetWeightEnabled = true;
     notifier.userTargetWeight = 75;
@@ -47,6 +48,18 @@ void main() {
 
     expect(find.text('20'), findsOneWidget);
     expect(find.text('days holding your weight steady'), findsOneWidget);
+  });
+
+  testWidgets('a streak of four weeks or more is praised', (
+    WidgetTester tester,
+  ) async {
+    await pumpMaintainCard(tester, (int daysAgo) => 75, days: 42);
+
+    expect(find.text('6'), findsOneWidget);
+    expect(
+      find.text('weeks and still holding your weight steady'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('above the range and falling it counts the way back', (
