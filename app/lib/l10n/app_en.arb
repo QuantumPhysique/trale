@@ -36,7 +36,7 @@
     "@targetRangeDaysInLong": {
         "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
     },
-    "targetRangeBackIn": "left to get back into your range",
+    "targetRangeBackIn": "until you're back in range",
     "@targetRangeBackIn": {
         "description": "Shown after 'x days/weeks' while the trend heads back into the target range."
     },

@@ -69,7 +69,7 @@ void main() {
 
     // The smoothed trend lags behind the ramp, so the count may be in weeks.
     expect(
-      find.textContaining('left to get back into your range'),
+      find.textContaining("until you're back in range"),
       findsOneWidget,
     );
   });
