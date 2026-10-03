@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
+import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/weight_goal.dart';
 
@@ -33,6 +36,22 @@ void main() {
       expect(
         MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75)),
         30,
+      );
+    });
+
+    test('counts back only to the day the trend entered the range', () async {
+      await setUpWidgetTestDependencies(
+        measurements: dailyMeasurements(
+          (int daysAgo) => daysAgo < 10 ? 75 : 80,
+        ),
+      );
+      // Unsmoothed, so that the trend steps into the range on a known day.
+      Preferences().interpolStrength = InterpolStrength.none;
+      MeasurementInterpolation.resetInstance();
+
+      expect(
+        MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75)),
+        10,
       );
     });
 
