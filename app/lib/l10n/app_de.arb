@@ -134,6 +134,46 @@
         "description": "Frequency of backup interval"
     },
     "days": "Tage",
+    "dayUnit": "{count, plural, one{Tag} other{Tage}}",
+    "@dayUnit": {
+        "description": "Unit after a number of days, e.g. '3' + 'days'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weekUnit": "{count, plural, one{Woche} other{Wochen}}",
+    "@weekUnit": {
+        "description": "Unit after a number of weeks, e.g. '6' + 'weeks'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "monthUnit": "{count, plural, one{Monat} other{Monate}}",
+    "@monthUnit": {
+        "description": "Unit after a number of months, e.g. '4' + 'months'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "yearUnit": "{count, plural, one{Jahr} other{Jahre}}",
+    "@yearUnit": {
+        "description": "Unit after a number of years, e.g. '5' + 'years'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
     "weeks": "Wochen",
     "week": "Woche",
     "months": "Monate",
