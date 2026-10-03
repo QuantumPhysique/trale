@@ -107,9 +107,15 @@
     "@targetRangeDaysInLong": {
         "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
     },
-    "targetRangeBackIn": "bis zur Rückkehr in den Zielbereich",
+    "targetRangeBackIn": "{unit}, bis du wieder bei deinem Zielgewicht bist",
     "@targetRangeBackIn": {
-        "description": "Shown after 'x days/weeks' while the trend heads back into the target range."
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "Wochen"
+            }
+        }
     },
     "outsideTargetRange": "außerhalb deines Zielbereichs",
     "@outsideTargetRange": {

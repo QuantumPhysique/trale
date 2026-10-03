@@ -37,7 +37,7 @@ QPBentoCard reachingTargetWeightCard({
   } else if (timeToRange == null) {
     subtext = l10n.outsideTargetRange;
   } else {
-    subtext = '${labels[1]} ${l10n.targetRangeBackIn}';
+    subtext = l10n.targetRangeBackIn(unit: labels[1]);
   }
 
   return QPBentoCard.textInline(
