@@ -148,7 +148,7 @@ void main() {
       notifier
         ..userName = persona.name
         ..userHeight = persona.height
-        ..looseWeight = persona.losesWeight
+        ..weightGoal = persona.weightGoal
         ..targetWeightEnabled = true
         ..userTargetWeight = persona.targetWeight
         ..userTargetWeightDate = persona.targetDate()

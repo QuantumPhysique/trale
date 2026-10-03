@@ -43,6 +43,12 @@ extension UserPrefsExtension on Preferences {
       ? prefs.getDouble('userTargetWeight')!
       : null;
 
+  /// Get the weight goal
+  WeightGoal get weightGoal => prefs.getString('weightGoal')!.toWeightGoal()!;
+
+  /// Set the weight goal
+  set weightGoal(WeightGoal goal) => prefs.setString('weightGoal', goal.name);
+
   /// set user target weight date (when to reach target)
   set userTargetWeightDate(DateTime? date) => prefs.setString(
     'userTargetWeightDate',

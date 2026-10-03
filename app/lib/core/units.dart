@@ -59,6 +59,10 @@ extension TraleUnitExtension on TraleUnit {
         '$suffix';
   }
 
+  /// target of the maintain goal given in kg to string, with its tolerance
+  String maintainTargetToString(double target, TraleUnitPrecision tup) =>
+      '${weightToString(target, tup)} ± ${(maintainTolerance * 100).round()}%';
+
   /// round double to given precision
   double doubleToPrecision(double val, TraleUnitPrecision tup) {
     final int tps = tup.ticksPerStep ?? ticksPerStep;

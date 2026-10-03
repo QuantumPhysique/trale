@@ -1,8 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 import 'package:trale/widget/weight_picker.dart';
 
@@ -20,14 +22,17 @@ void main() {
 
   tearDown(resetWidgetTestDependencies);
 
-  Future<void> openTargetWeightDialog(WidgetTester tester) async {
+  Future<void> openTargetWeightDialog(
+    WidgetTester tester, {
+    double weight = 80,
+  }) async {
     await tester.pumpWidget(
       buildTestApp(
         notifier: notifier,
         child: Builder(
           builder: (BuildContext context) => TextButton(
             onPressed: () =>
-                showTargetWeightDialog(context: context, weight: 80),
+                showTargetWeightDialog(context: context, weight: weight),
             child: const Text('open'),
           ),
         ),
@@ -69,6 +74,68 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('75.15 kg'), findsOneWidget);
+  });
+
+  Future<void> tapInDialog(WidgetTester tester, Finder finder) async {
+    await tester.ensureVisible(finder);
+    await tester.pumpAndSettle();
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('the target range is only shown for the maintain goal', (
+    WidgetTester tester,
+  ) async {
+    await openTargetWeightDialog(tester);
+    expect(find.text('Target range'), findsNothing);
+
+    await tapInDialog(tester, find.byTooltip('Maintain weight'));
+
+    expect(find.text('Target range'), findsOneWidget);
+    expect(find.text('80.0 kg ± 1%'), findsOneWidget);
+  });
+
+  testWidgets('saving the maintain goal stores it with its target', (
+    WidgetTester tester,
+  ) async {
+    await openTargetWeightDialog(tester);
+
+    await tapInDialog(tester, find.byTooltip('Maintain weight'));
+    await tapInDialog(tester, find.text('Save'));
+
+    expect(notifier.weightGoal, WeightGoal.maintain);
+    expect(notifier.userTargetWeight, closeTo(80, 1e-9));
+  });
+
+  // Without a height the floor is 50 kg: the centre passes, its range not.
+  testWidgets('the whole maintain range has to stay above the floor', (
+    WidgetTester tester,
+  ) async {
+    await openTargetWeightDialog(tester, weight: 50.5);
+
+    await tapInDialog(tester, find.byTooltip('Maintain weight'));
+    await tapInDialog(tester, find.text('Save'));
+
+    expect(find.byType(SnackBar), findsOneWidget);
+    expect(notifier.userTargetWeight, isNull);
+    expect(notifier.weightGoal, WeightGoal.lose);
+  });
+
+  testWidgets('saving an unchanged target keeps the start of the goal', (
+    WidgetTester tester,
+  ) async {
+    final DateTime start = DateTime(2026, 1, 1);
+    // The notifier only knows a start date that has a measurement.
+    notifier = await setUpWidgetTestDependencies(
+      measurements: <Measurement>[Measurement(weight: 82, date: start)],
+    );
+    notifier.userTargetWeight = 80;
+    notifier.userTargetWeightSetDate = start;
+
+    await openTargetWeightDialog(tester);
+    await tapInDialog(tester, find.text('Save'));
+
+    expect(notifier.userTargetWeightSetDate, start);
   });
 
   // Smoke test only: this path does not reproduce the teardown ordering the

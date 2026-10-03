@@ -14,8 +14,18 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added Features and Improvements 🙌:
+- New goal "Maintain weight": keep your weight within 1% of your target weight
+- A new target weight now starts at your current weight
+
 ### Bugfix 🐛:
 - Fixed the chart not updating right away after changing the unit
+- Fixed saving an unchanged target weight restarting the "since goal" statistics
+- Fixed the empty target weight field asking for a target date
+
+### Other Changes:
+- The chart no longer shades the gap between your weight and your target weight
+- The area below the trend line in the chart has a new colour
 
 
 ## [1.4.1] - 2026-09-14

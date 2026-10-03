@@ -11,8 +11,18 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'New goal "Maintain weight": keep your weight within 1% of your target weight',
+        'A new target weight now starts at your current weight',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed the chart not updating right away after changing the unit',
+        'Fixed saving an unchanged target weight restarting the "since goal" statistics',
+        'Fixed the empty target weight field asking for a target date',
+      ],
+      ChangelogSection.otherChanges: <String>[
+        'The chart no longer shades the gap between your weight and your target weight',
+        'The area below the trend line in the chart has a new colour',
       ],
     },
   ),
