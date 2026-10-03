@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:trale/core/interpolation.dart';
-import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
@@ -8,21 +7,6 @@ import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/weight_goal.dart';
 
 import '../helpers/widget_test_helper.dart';
-
-/// One measurement per day up to today, [weightAt] days ago.
-List<Measurement> dailyMeasurements(
-  double Function(int daysAgo) weightAt, {
-  int days = 30,
-}) {
-  final DateTime now = DateTime.now();
-  return <Measurement>[
-    for (int daysAgo = 0; daysAgo < days; daysAgo++)
-      Measurement(
-        weight: weightAt(daysAgo),
-        date: now.subtract(Duration(days: daysAgo)),
-      ),
-  ];
-}
 
 void main() {
   tearDown(resetWidgetTestDependencies);

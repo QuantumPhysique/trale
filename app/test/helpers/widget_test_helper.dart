@@ -52,6 +52,21 @@ void resetWidgetTestDependencies() {
   MeasurementDatabase.resetInstance();
 }
 
+/// One measurement per day up to today, [weightAt] days ago.
+List<Measurement> dailyMeasurements(
+  double Function(int daysAgo) weightAt, {
+  int days = 30,
+}) {
+  final DateTime now = DateTime.now();
+  return <Measurement>[
+    for (int daysAgo = 0; daysAgo < days; daysAgo++)
+      Measurement(
+        weight: weightAt(daysAgo),
+        date: now.subtract(Duration(days: daysAgo)),
+      ),
+  ];
+}
+
 // ---------------------------------------------------------------------------
 // Pump helpers
 // ---------------------------------------------------------------------------
