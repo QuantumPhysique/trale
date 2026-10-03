@@ -46,7 +46,7 @@ void main() {
     await pumpMaintainCard(tester, (int daysAgo) => 75);
 
     expect(find.text('20'), findsOneWidget);
-    expect(find.text('days within your target range'), findsOneWidget);
+    expect(find.text('days holding your weight steady'), findsOneWidget);
   });
 
   testWidgets('above the range and falling it counts the way back', (

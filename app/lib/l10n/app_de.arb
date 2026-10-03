@@ -99,7 +99,7 @@
     "@targetRange": {
         "description": "Label of the target weight range of the maintain goal."
     },
-    "targetRangeDaysIn": "in deinem Zielbereich",
+    "targetRangeDaysIn": "dein Gewicht gehalten",
     "@targetRangeDaysIn": {
         "description": "Shown after 'x days/weeks' while the trend stays in the target range."
     },

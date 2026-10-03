@@ -28,7 +28,7 @@
     "@targetRange": {
         "description": "Label of the target weight range of the maintain goal."
     },
-    "targetRangeDaysIn": "within your target range",
+    "targetRangeDaysIn": "holding your weight steady",
     "@targetRangeDaysIn": {
         "description": "Shown after 'x days/weeks' while the trend stays in the target range."
     },
