@@ -46,7 +46,7 @@
             }
         }
     },
-    "outsideTargetRange": "outside your target range",
+    "outsideTargetRange": "not at your target weight",
     "@outsideTargetRange": {
         "description": "Shown while the trend is outside the target range and not heading back."
     },

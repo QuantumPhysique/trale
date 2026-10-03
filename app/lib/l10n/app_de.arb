@@ -117,7 +117,7 @@
             }
         }
     },
-    "outsideTargetRange": "außerhalb deines Zielbereichs",
+    "outsideTargetRange": "nicht bei deinem Zielgewicht",
     "@outsideTargetRange": {
         "description": "Shown while the trend is outside the target range and not heading back."
     },

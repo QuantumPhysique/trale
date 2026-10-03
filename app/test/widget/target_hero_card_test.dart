@@ -80,6 +80,6 @@ void main() {
     await pumpMaintainCard(tester, (int daysAgo) => 78 - 0.1 * daysAgo);
 
     expect(find.text('--'), findsOneWidget);
-    expect(find.text('outside your target range'), findsOneWidget);
+    expect(find.text('not at your target weight'), findsOneWidget);
   });
 }
