@@ -245,8 +245,7 @@ class _CustomLineChartState extends State<CustomLineChart>
     final Color interpolationLineColor =
         widget.interpolationLineColor ?? Colors.transparent;
     final Color interpolationBelowAreaColor =
-        widget.interpolationBelowAreaColor ??
-        colorScheme.primaryContainer.withAlpha(155);
+        widget.interpolationBelowAreaColor ?? colorScheme.secondaryContainer;
     final Color measurementLineColor =
         widget.measurementLineColor ?? colorScheme.primary;
     final Color measurementDotStrokeColor =
@@ -259,7 +258,7 @@ class _CustomLineChartState extends State<CustomLineChart>
         widget.targetWeightLabelBackgroundColor ??
         colorScheme.surfaceContainerLow;
     final Color targetRangeColor =
-        widget.targetRangeColor ?? colorScheme.tertiaryContainer.withAlpha(155);
+        widget.targetRangeColor ?? colorScheme.surfaceContainerHigh;
     final Color tooltipLineColor = colorScheme.tertiary;
 
     final List<FlSpot> measurements = vectorsToFlSpot(msTimes, ms);
@@ -434,6 +433,11 @@ class _CustomLineChartState extends State<CustomLineChart>
         (maintainRange?.upper ?? 0) / unitScaling,
         maxY.ceilToDouble(),
       );
+      final bool showTargetRange =
+          maintainRange != null &&
+          bandLower < bandUpper &&
+          !widget.isPreview &&
+          ip.db.measurements.isNotEmpty;
 
       return LineChart(
         LineChartData(
@@ -536,10 +540,7 @@ class _CustomLineChartState extends State<CustomLineChart>
           clipData: const FlClipData.all(),
           rangeAnnotations: RangeAnnotations(
             horizontalRangeAnnotations: <HorizontalRangeAnnotation>[
-              if (maintainRange != null &&
-                  bandLower < bandUpper &&
-                  !widget.isPreview &&
-                  ip.db.measurements.isNotEmpty)
+              if (showTargetRange)
                 HorizontalRangeAnnotation(
                   y1: bandLower,
                   y2: bandUpper,
@@ -578,7 +579,10 @@ class _CustomLineChartState extends State<CustomLineChart>
                     padding: const EdgeInsets.symmetric(vertical: 1),
                     style: theme.textTheme.bodySmall!.apply(
                       color: targetWeightLabelTextColor,
-                      backgroundColor: targetWeightLabelBackgroundColor,
+                      // Blend the label into the band it sits on.
+                      backgroundColor: showTargetRange
+                          ? targetRangeColor
+                          : targetWeightLabelBackgroundColor,
                     ),
                     labelResolver: (HorizontalLine line) =>
                         ' ${context.l10n.targetWeightShort}',
