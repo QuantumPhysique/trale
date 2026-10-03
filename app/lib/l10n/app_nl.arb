@@ -20,11 +20,8 @@
     "weekUnit": "{count, plural, one{week} other{weken}}",
     "monthUnit": "{count, plural, one{maand} other{maanden}}",
     "yearUnit": "{count, plural, other{jaar}}",
-    "weeks": "Weken",
     "week": "Week",
-    "months": "Maanden",
     "month": "Maand",
-    "years": "Jaren",
     "year": "Jaar",
     "never": "Nooit",
     "@never": {

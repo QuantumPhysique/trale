@@ -24,11 +24,8 @@
     "weekUnit": "{count, plural, other{tuần}}",
     "monthUnit": "{count, plural, other{tháng}}",
     "yearUnit": "{count, plural, other{năm}}",
-    "weeks": "tuần",
     "week": "tuần",
-    "months": "tháng",
     "month": "tháng",
-    "years": "năm",
     "year": "năm",
     "never": "không bao giờ",
     "@never": {

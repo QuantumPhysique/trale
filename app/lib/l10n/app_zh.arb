@@ -334,10 +334,8 @@
     "weekUnit": "{count, plural, other{周}}",
     "monthUnit": "{count, plural, other{个月}}",
     "yearUnit": "{count, plural, other{年}}",
-    "weeks": "周",
     "week": "周",
     "month": "月",
-    "years": "年",
     "year": "年",
     "monthly": "每月备份",
     "@monthly": {
@@ -359,7 +357,6 @@
     "@backupSuccess": {
         "description": "Back successfully exported"
     },
-    "months": "个月",
     "backupInterval": "备份周期",
     "@backupInterval": {
         "description": "Frequency of backup interval"

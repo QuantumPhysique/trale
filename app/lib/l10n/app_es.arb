@@ -370,12 +370,9 @@
     "weekUnit": "{count, plural, one{semana} other{semanas}}",
     "monthUnit": "{count, plural, one{mes} other{meses}}",
     "yearUnit": "{count, plural, one{año} other{años}}",
-    "weeks": "semanas",
     "week": "semana",
     "month": "mes",
-    "years": "años",
     "year": "año",
-    "months": "meses",
     "lastBackup": "última copia de seguridad",
     "@lastBackup": {
         "description": "Time of last backup"

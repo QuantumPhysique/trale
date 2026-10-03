@@ -323,8 +323,6 @@
         "description": "soft interpolation"
     },
     "month": "měsíc",
-    "months": "měsíců",
-    "years": "let",
     "year": "rok",
     "biweekly": "jednou za dva týdny",
     "@biweekly": {
@@ -336,7 +334,6 @@
     "monthUnit": "{count, plural, one{měsíc} few{měsíce} other{měsíců}}",
     "yearUnit": "{count, plural, one{rok} few{roky} other{let}}",
     "week": "týden",
-    "weeks": "týdnů",
     "weekly": "týdně",
     "@weekly": {
         "description": "Frequency of backup interval"

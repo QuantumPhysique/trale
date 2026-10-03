@@ -97,11 +97,8 @@
     "weekUnit": "{count, plural, one{வாரம்} other{வாரங்கள்}}",
     "monthUnit": "{count, plural, one{திங்கள்} other{திங்கள்கள்}}",
     "yearUnit": "{count, plural, one{ஆண்டு} other{ஆண்டுகள்}}",
-    "weeks": "வாரங்கள்",
     "week": "வாரம்",
-    "months": "திங்கள்கள்",
     "month": "திங்கள்",
-    "years": "ஆண்டுகள்",
     "year": "ஆண்டு",
     "never": "ஒருபோதும்இல்லை",
     "@never": {

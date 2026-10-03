@@ -24,11 +24,8 @@
     "weekUnit": "{count, plural, one{setmana} other{setmanes}}",
     "monthUnit": "{count, plural, one{mes} other{mesos}}",
     "yearUnit": "{count, plural, one{any} other{anys}}",
-    "weeks": "setmanes",
     "week": "setmana",
-    "months": "mesos",
     "month": "mes",
-    "years": "anys",
     "year": "any",
     "never": "mai",
     "@never": {

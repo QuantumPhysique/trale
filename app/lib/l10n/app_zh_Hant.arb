@@ -20,11 +20,8 @@
     "weekUnit": "{count, plural, other{週}}",
     "monthUnit": "{count, plural, other{個月}}",
     "yearUnit": "{count, plural, other{年}}",
-    "weeks": "週數",
     "week": "週",
-    "months": "月",
     "month": "月",
-    "years": "年",
     "year": "年",
     "never": "從不",
     "@never": {

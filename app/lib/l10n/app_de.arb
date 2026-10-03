@@ -174,9 +174,7 @@
             }
         }
     },
-    "weeks": "Wochen",
     "week": "Woche",
-    "months": "Monate",
     "change": "Veränderung",
     "@change": {
         "description": "A short word describing a difference in numbers, i.e. the change of the weight"
@@ -194,7 +192,6 @@
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
     },
     "month": "Monat",
-    "years": "Jahre",
     "year": "Jahr",
     "never": "Nie",
     "@never": {

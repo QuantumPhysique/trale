@@ -335,7 +335,6 @@
     "weekUnit": "{count, plural, other{hafta}}",
     "monthUnit": "{count, plural, other{ay}}",
     "yearUnit": "{count, plural, other{yıl}}",
-    "months": "ay",
     "month": "ay",
     "year": "yıl",
     "never": "hiç",
@@ -382,7 +381,6 @@
     "@timeSinceFirstMeasurement": {
         "description": "A brief sentence describing the duration from the first measurement to the present"
     },
-    "years": "yıl",
     "backupInterval": "Aralık",
     "@backupInterval": {
         "description": "Frequency of backup interval"
@@ -423,7 +421,6 @@
     "@targetWeightReachedIn": {
         "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
     },
-    "weeks": "hafta",
     "mean": "ortalama",
     "@mean": {
         "description": "The mathematical quantity (arithmetic mean)"
