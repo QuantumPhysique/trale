@@ -28,7 +28,8 @@ class QPBentoCard extends StatelessWidget {
        _textColor = null,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _reversed = false;
+       _reversed = false,
+       _labelMaxLines = 3;
 
   /// Two centered text rows: a small label on top and a bold value below.
   const QPBentoCard.text({
@@ -49,7 +50,8 @@ class QPBentoCard extends StatelessWidget {
        _textColor = null,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _reversed = false;
+       _reversed = false,
+       _labelMaxLines = 3;
 
   /// Vertical card with a small label and a large emphasized value.
   const QPBentoCard.textEmphasized({
@@ -73,14 +75,18 @@ class QPBentoCard extends StatelessWidget {
        _textColor = textColor,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _reversed = reversed;
+       _reversed = reversed,
+       _labelMaxLines = 3;
 
   /// Horizontal card with a label and a large value placed side by side.
+  ///
+  /// The label shrinks until it fits on [labelMaxLines] lines.
   const QPBentoCard.textInline({
     required String label,
     required String value,
     bool reversed = false,
     Color? textColor,
+    int labelMaxLines = 3,
     this.columnSpan = 6,
     this.rowSpan = 2,
     this.backgroundColor,
@@ -96,7 +102,8 @@ class QPBentoCard extends StatelessWidget {
        _textColor = textColor,
        _m3eShape = null,
        _rotateDuration = Duration.zero,
-       _reversed = reversed;
+       _reversed = reversed,
+       _labelMaxLines = labelMaxLines;
 
   /// Square card with a custom child, optional M3E shape background,
   /// and optional continuous rotation.
@@ -119,7 +126,8 @@ class QPBentoCard extends StatelessWidget {
        rowSpan = span,
        _m3eShape = m3eShape,
        _rotateDuration = rotateDuration,
-       _reversed = false;
+       _reversed = false,
+       _labelMaxLines = 3;
 
   /// Large hero number on top with a subtitle below.
   factory QPBentoCard.hero({
@@ -183,6 +191,7 @@ class QPBentoCard extends StatelessWidget {
   final String? _value;
   final String? _sublabel;
   final bool _reversed;
+  final int _labelMaxLines;
 
   // ── Build helpers ─────────────────────────────────────────────────────────
 
@@ -311,7 +320,7 @@ class QPBentoCard extends StatelessWidget {
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium!.copyWith(height: 1.0, color: labelColor),
-              maxLines: 3,
+              maxLines: _labelMaxLines,
               textAlign: TextAlign.center,
             ),
           ),
