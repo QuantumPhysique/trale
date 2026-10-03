@@ -41,6 +41,8 @@ QPBentoCard reachingTargetWeightCard({
     label: subtext,
     value: labels[0],
     reversed: true,
+    // German needs four lines for the way back into the target range.
+    labelMaxLines: 4,
     textColor: Theme.of(context).colorScheme.onPrimaryContainer,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
