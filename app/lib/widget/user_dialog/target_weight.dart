@@ -79,7 +79,7 @@ class TargetWeightGroup extends StatelessWidget {
             ),
             readOnly: true,
             initialValue: notifier.userTargetWeight == null
-                ? context.l10n.addTargetWeightDate
+                ? context.l10n.addTargetWeight
                 : maintaining
                 ? notifier.unit.maintainTargetToString(
                     notifier.userTargetWeight!,

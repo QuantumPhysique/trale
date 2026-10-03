@@ -20,6 +20,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Bugfix 🐛:
 - Fixed the chart not updating right away after changing the unit
 - Fixed saving an unchanged target weight restarting the "since goal" statistics
+- Fixed the empty target weight field asking for a target date
 
 ### Other Changes:
 - The chart no longer shades the gap between your weight and your target weight
