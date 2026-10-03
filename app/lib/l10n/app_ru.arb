@@ -24,6 +24,10 @@
         "description": "Loose weight switch label."
     },
     "days": "Дни",
+    "dayUnit": "{count, plural, one{день} few{дня} many{дней} other{дня}}",
+    "weekUnit": "{count, plural, one{неделя} few{недели} many{недель} other{недели}}",
+    "monthUnit": "{count, plural, one{месяц} few{месяца} many{месяцев} other{месяца}}",
+    "yearUnit": "{count, plural, one{год} few{года} many{лет} other{года}}",
     "week": "Неделя",
     "months": "Месяцы",
     "month": "Месяц",

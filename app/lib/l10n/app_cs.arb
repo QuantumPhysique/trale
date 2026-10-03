@@ -331,6 +331,10 @@
         "description": "Frequency of backup interval"
     },
     "days": "dnů",
+    "dayUnit": "{count, plural, one{den} few{dny} other{dnů}}",
+    "weekUnit": "{count, plural, one{týden} few{týdny} other{týdnů}}",
+    "monthUnit": "{count, plural, one{měsíc} few{měsíce} other{měsíců}}",
+    "yearUnit": "{count, plural, one{rok} few{roky} other{let}}",
     "week": "týden",
     "weeks": "týdnů",
     "weekly": "týdně",

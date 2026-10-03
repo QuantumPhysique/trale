@@ -50,6 +50,10 @@
     },
     "weeks": "semanas",
     "days": "dias",
+    "dayUnit": "{count, plural, =0{dias} one{dia} other{dias}}",
+    "weekUnit": "{count, plural, =0{semanas} one{semana} other{semanas}}",
+    "monthUnit": "{count, plural, =0{meses} one{mês} other{meses}}",
+    "yearUnit": "{count, plural, =0{anos} one{ano} other{anos}}",
     "week": "semana",
     "defaultLang": "Padrão do sistema",
     "@defaultLang": {

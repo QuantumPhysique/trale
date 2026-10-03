@@ -28,6 +28,10 @@
     "description": "Frequency of backup interval"
   },
   "days": "dni",
+  "dayUnit": "{count, plural, one{deň} few{dni} other{dní}}",
+  "weekUnit": "{count, plural, one{týždeň} few{týždne} other{týždňov}}",
+  "monthUnit": "{count, plural, one{mesiac} few{mesiace} other{mesiacov}}",
+  "yearUnit": "{count, plural, one{rok} few{roky} other{rokov}}",
   "@days": {},
   "week": "týžden",
   "@week": {},

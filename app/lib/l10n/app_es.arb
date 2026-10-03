@@ -366,6 +366,10 @@
         "description": "Frequency of backup interval"
     },
     "days": "días",
+    "dayUnit": "{count, plural, one{día} other{días}}",
+    "weekUnit": "{count, plural, one{semana} other{semanas}}",
+    "monthUnit": "{count, plural, one{mes} other{meses}}",
+    "yearUnit": "{count, plural, one{año} other{años}}",
     "weeks": "semanas",
     "week": "semana",
     "month": "mes",

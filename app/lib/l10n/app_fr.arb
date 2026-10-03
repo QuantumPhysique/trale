@@ -382,6 +382,10 @@
         "description": "Shorthand for minimum."
     },
     "days": "jours",
+    "dayUnit": "{count, plural, one{jour} other{jours}}",
+    "weekUnit": "{count, plural, one{semaine} other{semaines}}",
+    "monthUnit": "{count, plural, one{mois} other{mois}}",
+    "yearUnit": "{count, plural, one{année} other{années}}",
     "weeks": "semaines",
     "year": "année",
     "lastBackup": "dernière sauvegarde",

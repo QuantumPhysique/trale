@@ -330,6 +330,10 @@
         "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
     },
     "days": "天",
+    "dayUnit": "{count, plural, other{天}}",
+    "weekUnit": "{count, plural, other{周}}",
+    "monthUnit": "{count, plural, other{个月}}",
+    "yearUnit": "{count, plural, other{年}}",
     "weeks": "周",
     "week": "周",
     "month": "月",

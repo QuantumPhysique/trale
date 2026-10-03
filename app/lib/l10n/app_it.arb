@@ -357,6 +357,10 @@
         "description": "Start of 'press + to get started'"
     },
     "days": "giorni",
+    "dayUnit": "{count, plural, one{giorno} other{giorni}}",
+    "weekUnit": "{count, plural, one{settimana} other{settimane}}",
+    "monthUnit": "{count, plural, one{mese} other{mesi}}",
+    "yearUnit": "{count, plural, one{anno} other{anni}}",
     "months": "mesi",
     "faq_a3": "Un lupo che ulula seduto, con la coda nascosta in parte dalle lettere \"t\" e \"r\".",
     "@faq_a3": {

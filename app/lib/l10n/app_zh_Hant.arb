@@ -16,6 +16,10 @@
         "description": "Switching between losing or gaining weight."
     },
     "days": "天數",
+    "dayUnit": "{count, plural, other{天}}",
+    "weekUnit": "{count, plural, other{週}}",
+    "monthUnit": "{count, plural, other{個月}}",
+    "yearUnit": "{count, plural, other{年}}",
     "weeks": "週數",
     "week": "週",
     "months": "月",

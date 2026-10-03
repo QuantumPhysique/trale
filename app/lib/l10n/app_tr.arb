@@ -331,6 +331,10 @@
         "description": "First displayed day of the week"
     },
     "days": "gün",
+    "dayUnit": "{count, plural, other{gün}}",
+    "weekUnit": "{count, plural, other{hafta}}",
+    "monthUnit": "{count, plural, other{ay}}",
+    "yearUnit": "{count, plural, other{yıl}}",
     "months": "ay",
     "month": "ay",
     "year": "yıl",

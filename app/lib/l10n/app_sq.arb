@@ -20,6 +20,10 @@
         "description": "Switching between losing or gaining weight."
     },
     "days": "ditë",
+    "dayUnit": "{count, plural, other{ditë}}",
+    "weekUnit": "{count, plural, other{javë}}",
+    "monthUnit": "{count, plural, other{muaj}}",
+    "yearUnit": "{count, plural, one{vit} other{vite}}",
     "weeks": "javë",
     "week": "javë",
     "months": "muaj",
