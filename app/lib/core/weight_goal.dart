@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/constants.dart';
@@ -94,7 +96,7 @@ class TargetRange {
     if (slope * (weight - bound) >= 0 || slope.abs() < minSlopeToTarget) {
       return null;
     }
-    final int days = ((bound - weight) / slope).round();
-    return days == 0 ? const Duration(days: -1) : Duration(days: days);
+    // At least a day, so that -1 only ever means the trend is inside.
+    return Duration(days: max(1, ((bound - weight) / slope).round()));
   }
 }

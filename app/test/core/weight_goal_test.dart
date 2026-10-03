@@ -53,6 +53,13 @@ void main() {
       );
     });
 
+    test('a trend less than half a day outside has not entered yet', () {
+      expect(
+        WeightGoal.maintain.range(100).timeToEnter(weight: 101.02, slope: -0.1),
+        const Duration(days: 1),
+      );
+    });
+
     test('a trend moving away never enters', () {
       expect(
         WeightGoal.maintain.range(100).timeToEnter(weight: 105, slope: 0.1),
