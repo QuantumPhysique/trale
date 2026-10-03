@@ -22,6 +22,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other Changes:
 - The chart no longer shades the gap between your weight and your target weight
+- The area below the trend line in the chart has a new colour
 
 
 ## [1.4.1] - 2026-09-14
