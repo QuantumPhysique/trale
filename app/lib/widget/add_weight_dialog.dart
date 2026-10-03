@@ -280,7 +280,11 @@ Future<bool> showTargetWeightDialog({
     listen: false,
   );
 
-  final double initialSliderValue = weight / notifier.unit.scaling;
+  // On the ruler's grid, so that saving without scrolling stores what it shows.
+  final double initialSliderValue = notifier.unit.doubleToPrecision(
+    weight / notifier.unit.scaling,
+    notifier.unitPrecision,
+  );
   double currentSliderValue = initialSliderValue;
   WeightGoal goal = notifier.weightGoal;
 

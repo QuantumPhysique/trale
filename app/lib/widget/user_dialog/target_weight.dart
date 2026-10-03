@@ -95,9 +95,15 @@ class TargetWeightGroup extends StatelessWidget {
             onTap: () async {
               await showTargetWeightDialog(
                 context: context,
+                // A new target starts at the trend the goals are judged by,
+                // so that a maintain goal starts inside its range.
                 weight:
                     notifier.userTargetWeight ??
-                    Preferences().defaultUserWeight,
+                    (db.isEmpty
+                        ? Preferences().defaultUserWeight
+                        : MeasurementInterpolation().interpolationForDay(
+                            db.lastDate,
+                          )!),
               );
               notifier.notify;
               onRefresh();

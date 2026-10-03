@@ -16,6 +16,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added Features and Improvements 🙌:
 - New goal "Maintain weight": keep your weight within 1% of your target weight
+- A new target weight now starts at your current weight
 
 ### Bugfix 🐛:
 - Fixed the chart not updating right away after changing the unit

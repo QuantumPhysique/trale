@@ -100,4 +100,20 @@ void main() {
     expect(find.text('80.0 kg ± 1%'), findsOneWidget);
     expect(find.text('Target date'), findsNothing);
   });
+
+  testWidgets('a new target starts at the current weight', (
+    WidgetTester tester,
+  ) async {
+    notifier = await setUpWidgetTestDependencies(
+      measurements: dailyMeasurements((int daysAgo) => 76.3),
+    );
+    notifier.targetWeightEnabled = true;
+
+    await openDialog(tester);
+    await tester.ensureVisible(find.text('Add target weight'));
+    await tester.tap(find.text('Add target weight'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('76.3 kg'), findsOneWidget);
+  });
 }
