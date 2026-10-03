@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/weight_goal.dart';
@@ -118,6 +119,23 @@ void main() {
     expect(find.byType(SnackBar), findsOneWidget);
     expect(notifier.userTargetWeight, isNull);
     expect(notifier.weightGoal, WeightGoal.lose);
+  });
+
+  testWidgets('saving an unchanged target keeps the start of the goal', (
+    WidgetTester tester,
+  ) async {
+    final DateTime start = DateTime(2026, 1, 1);
+    // The notifier only knows a start date that has a measurement.
+    notifier = await setUpWidgetTestDependencies(
+      measurements: <Measurement>[Measurement(weight: 82, date: start)],
+    );
+    notifier.userTargetWeight = 80;
+    notifier.userTargetWeightSetDate = start;
+
+    await openTargetWeightDialog(tester);
+    await tapInDialog(tester, find.text('Save'));
+
+    expect(notifier.userTargetWeightSetDate, start);
   });
 
   // Smoke test only: this path does not reproduce the teardown ordering the
