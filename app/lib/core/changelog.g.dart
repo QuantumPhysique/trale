@@ -14,6 +14,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'New goal "Maintain weight": keep your weight within 1% of your target weight',
         'A new target weight now starts at your current weight',
+        'The interpolation preview of your own data now uses the zoom of the main chart',
       ],
       ChangelogSection.bugfix: <String>[
         'Fixed the chart not updating right away after changing the unit',
