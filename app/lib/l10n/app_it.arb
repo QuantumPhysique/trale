@@ -276,7 +276,6 @@
         "description": "First displayed day of the week"
     },
     "week": "settimana",
-    "years": "anni",
     "year": "anno",
     "never": "mai",
     "@never": {
@@ -343,7 +342,6 @@
         "description": "Back up now"
     },
     "month": "mese",
-    "weeks": "settimane",
     "totalChange": "variazione totale",
     "@totalChange": {
         "description": "The quantity describing the overall change of body weight"
@@ -357,7 +355,10 @@
         "description": "Start of 'press + to get started'"
     },
     "days": "giorni",
-    "months": "mesi",
+    "dayUnit": "{count, plural, one{giorno} other{giorni}}",
+    "weekUnit": "{count, plural, one{settimana} other{settimane}}",
+    "monthUnit": "{count, plural, one{mese} other{mesi}}",
+    "yearUnit": "{count, plural, one{anno} other{anni}}",
     "faq_a3": "Un lupo che ulula seduto, con la coda nascosta in parte dalle lettere \"t\" e \"r\".",
     "@faq_a3": {
         "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."

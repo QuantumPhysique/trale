@@ -4,10 +4,11 @@
         "description": "achievements"
     },
     "days": "päeva",
-    "weeks": "nädalat",
-    "months": "kuud",
+    "dayUnit": "{count, plural, one{päev} other{päeva}}",
+    "weekUnit": "{count, plural, one{nädal} other{nädalat}}",
+    "monthUnit": "{count, plural, one{kuu} other{kuud}}",
+    "yearUnit": "{count, plural, one{aasta} other{aastat}}",
     "month": "kuu",
-    "years": "aastat",
     "year": "aasta",
     "backupReminderButton": "varunda nüüd",
     "@backupReminderButton": {

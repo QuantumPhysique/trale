@@ -20,11 +20,12 @@
         "description": "Switching between losing or gaining weight."
     },
     "days": "dies",
-    "weeks": "setmanes",
+    "dayUnit": "{count, plural, one{dia} other{dies}}",
+    "weekUnit": "{count, plural, one{setmana} other{setmanes}}",
+    "monthUnit": "{count, plural, one{mes} other{mesos}}",
+    "yearUnit": "{count, plural, one{any} other{anys}}",
     "week": "setmana",
-    "months": "mesos",
     "month": "mes",
-    "years": "anys",
     "year": "any",
     "never": "mai",
     "@never": {

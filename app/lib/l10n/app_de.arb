@@ -134,9 +134,47 @@
         "description": "Frequency of backup interval"
     },
     "days": "Tage",
-    "weeks": "Wochen",
+    "dayUnit": "{count, plural, one{Tag} other{Tage}}",
+    "@dayUnit": {
+        "description": "Unit after a number of days, e.g. '3' + 'days'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weekUnit": "{count, plural, one{Woche} other{Wochen}}",
+    "@weekUnit": {
+        "description": "Unit after a number of weeks, e.g. '6' + 'weeks'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "monthUnit": "{count, plural, one{Monat} other{Monate}}",
+    "@monthUnit": {
+        "description": "Unit after a number of months, e.g. '4' + 'months'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "yearUnit": "{count, plural, one{Jahr} other{Jahre}}",
+    "@yearUnit": {
+        "description": "Unit after a number of years, e.g. '5' + 'years'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
     "week": "Woche",
-    "months": "Monate",
     "change": "Veränderung",
     "@change": {
         "description": "A short word describing a difference in numbers, i.e. the change of the weight"
@@ -154,7 +192,6 @@
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
     },
     "month": "Monat",
-    "years": "Jahre",
     "year": "Jahr",
     "never": "Nie",
     "@never": {

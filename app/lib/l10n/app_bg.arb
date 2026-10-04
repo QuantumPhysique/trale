@@ -27,12 +27,13 @@
     "@backupReminder": {
         "description": "Please remember to back up your data regularly."
     },
-    "weeks": "седмици",
     "week": "седмица",
     "days": "дена",
-    "months": "месеца",
+    "dayUnit": "{count, plural, one{ден} other{дена}}",
+    "weekUnit": "{count, plural, one{седмица} other{седмици}}",
+    "monthUnit": "{count, plural, one{месец} other{месеца}}",
+    "yearUnit": "{count, plural, one{година} other{години}}",
     "month": "месец",
-    "years": "години",
     "year": "година",
     "never": "никога",
     "@never": {
