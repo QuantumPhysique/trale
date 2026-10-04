@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
@@ -147,7 +148,9 @@ class _StatsScreen extends State<StatsScreen>
 
       return CustomScrollView(
         physics: const NeverScrollableScrollPhysics(),
-        cacheExtent: MediaQuery.of(context).size.height,
+        scrollCacheExtent: ScrollCacheExtent.pixels(
+          MediaQuery.of(context).size.height,
+        ),
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Consumer<TraleNotifier>(
