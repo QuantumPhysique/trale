@@ -15,6 +15,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/text_size.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/core/zoom_level.dart';
 
 part 'linechart_parts/custom_line_chart.dart';

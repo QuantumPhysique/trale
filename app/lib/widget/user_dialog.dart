@@ -12,6 +12,7 @@ import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
 
 part 'user_dialog/form_field.dart';

@@ -87,9 +87,47 @@
     "@gainWeight": {
         "description": "Gain weight switch label."
     },
-    "looseWeightSubtitle": "Wechsle zwischen Gewicht verlieren oder Gewicht zunehmen.",
-    "@looseWeightSubtitle": {
-        "description": "Switching between loosing or gaining weight."
+    "maintainWeight": "Gewicht halten",
+    "@maintainWeight": {
+        "description": "Name of the goal to keep the weight within a range around the target weight."
+    },
+    "weightGoalSubtitle": "Wähle, ob du Gewicht verlieren, halten oder zunehmen möchtest.",
+    "@weightGoalSubtitle": {
+        "description": "Subtitle of the goal selector in the target weight dialog."
+    },
+    "targetRange": "Zielbereich",
+    "@targetRange": {
+        "description": "Label of the target weight range of the maintain goal."
+    },
+    "targetRangeDaysIn": "dein Gewicht gehalten",
+    "@targetRangeDaysIn": {
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "schon dein Gewicht gehalten",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit}, bis du wieder bei deinem Zielgewicht bist",
+    "@targetRangeBackIn": {
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "Wochen"
+            }
+        }
+    },
+    "outsideTargetRange": "nicht bei deinem Zielgewicht",
+    "@outsideTargetRange": {
+        "description": "Shown while the trend is outside the target range and not heading back."
+    },
+    "inTargetRangeShort": "im Zielbereich",
+    "@inTargetRangeShort": {
+        "description": "Short note that the trend is inside the target range."
+    },
+    "targetWeightIn": "in",
+    "@targetWeightIn": {
+        "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
     },
     "backupInterval": "Sicherungsintervall",
     "@backupInterval": {

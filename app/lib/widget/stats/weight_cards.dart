@@ -1,6 +1,10 @@
 part of '../stats_widgets.dart';
 
-/// Hero card: days until target weight is reached (with rotating M3E shape).
+/// From this many days on, a maintain streak is praised as an achievement.
+const int _longMaintainStreakDays = 28;
+
+/// Hero card: days until target weight is reached, or for the maintain goal
+/// days within the target range (with rotating M3E shape).
 QPBentoCard reachingTargetWeightCard({
   required BuildContext context,
   required MeasurementStats stats,
@@ -10,17 +14,31 @@ QPBentoCard reachingTargetWeightCard({
     context,
     listen: false,
   );
-  final Duration? timeOfTargetWeight = stats.timeOfTargetWeight(
-    notifier.effectiveTargetWeight,
-    notifier.looseWeight,
-  );
+  final TargetRange? range = notifier.effectiveTargetRange;
+  final Duration? timeToRange = stats.timeToTargetRange(range);
+  final bool maintaining =
+      range != null && notifier.weightGoal == WeightGoal.maintain;
+  final bool inRange = timeToRange?.inDays == -1;
   final AppLocalizations l10n = context.l10n;
+  final Duration? shown = maintaining && inRange
+      ? Duration(days: stats.daysInTargetRange(range))
+      : timeToRange;
   final List<String> labels =
-      (timeOfTargetWeight?.durationToString(context) ?? '-- ${l10n.days}')
-          .split(' ');
-  final String subtext = labels.length == 1
-      ? l10n.targetWeightReached
-      : '${labels[1]} ${l10n.targetWeightReachedIn}';
+      (shown?.durationToString(context) ?? '-- ${l10n.days}').split(' ');
+  final String subtext;
+  if (!maintaining) {
+    subtext = labels.length == 1
+        ? l10n.targetWeightReached
+        : '${labels[1]} ${l10n.targetWeightReachedIn}';
+  } else if (inRange) {
+    subtext = shown!.inDays >= _longMaintainStreakDays
+        ? '${labels[1]} ${l10n.targetRangeDaysInLong}'
+        : '${labels[1]} ${l10n.targetRangeDaysIn}';
+  } else if (timeToRange == null) {
+    subtext = l10n.outsideTargetRange;
+  } else {
+    subtext = l10n.targetRangeBackIn(unit: labels[1]);
+  }
 
   return QPBentoCard.textInline(
     columnSpan: 8,
@@ -28,6 +46,8 @@ QPBentoCard reachingTargetWeightCard({
     label: subtext,
     value: labels[0],
     reversed: true,
+    // German needs four lines for the way back into the target range.
+    labelMaxLines: 4,
     textColor: Theme.of(context).colorScheme.onPrimaryContainer,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,
