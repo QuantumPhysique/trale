@@ -78,8 +78,11 @@ void main() {
   // ---------------------------------------------------------------------------
   group('openScaleIndices', () {
     test('detects standard OpenScales CSV header', () {
+      const String header =
+          'dateTime,weight,fat,water,muscle,bone,visceralFat,waist,caliper,'
+          'bodyCaliper,comment';
       final List<String?> lines = <String?>[
-        'dateTime,weight,fat,water,muscle,bone,visceralFat,waist,caliper,bodyCaliper,comment',
+        header,
         '2024-03-01 08:00,75.4,,,,,,,,,',
       ];
       final List<int>? indices = openScaleIndices(lines);
@@ -193,7 +196,7 @@ void main() {
       ];
       expect(() => parseMeasurementsCSV(lines, 0, 2), returnsNormally);
       final List<Measurement> result = parseMeasurementsCSV(lines, 0, 2);
-      // The data line has too few columns for weightIdx=2; it should be skipped.
+      // The data line is too short for weightIdx=2; it should be skipped.
       expect(result, isEmpty);
     });
 
@@ -260,10 +263,12 @@ void main() {
   group('parseOpenScaleCSV', () {
     // New format: separate DATE + TIME + uppercase WEIGHT columns
     test('parses new OpenScale export format (DATE, TIME, WEIGHT columns)', () {
+      const String header =
+          'DATE,TIME,BICEPS,BMI,BMR,BODY_FAT,BONE,CALIPER,CALIPER_1,CALIPER_2,'
+          'CALIPER_3,CALORIES,CHEST,COMMENT,HEART_RATE,HIPS,LBM,MUSCLE,NECK,'
+          'TDEE,THIGH,VISCERAL_FAT,WAIST,WATER,WEIGHT,WHR,WHTR';
       final List<String?> lines = <String?>[
-        'DATE,TIME,BICEPS,BMI,BMR,BODY_FAT,BONE,CALIPER,CALIPER_1,CALIPER_2,'
-            'CALIPER_3,CALORIES,CHEST,COMMENT,HEART_RATE,HIPS,LBM,MUSCLE,NECK,'
-            'TDEE,THIGH,VISCERAL_FAT,WAIST,WATER,WEIGHT,WHR,WHTR',
+        header,
         '2026-04-23,20:30:13.974,,5.32,3383.75,,,,,,,,,,,,,,,4060.5,,,,,90.0,,',
       ];
       final List<Measurement>? result = parseOpenScaleCSV(lines);
@@ -280,16 +285,10 @@ void main() {
     test('parses multiple rows in new format', () {
       final List<String?> lines = <String?>[
         'DATE,TIME,WEIGHT',
-        '2026-04-01,08:00:00.000,,',
-        '2026-04-02,09:30:00.000,,',
-      ];
-      // WEIGHT column not present at index 2 — re-test with a proper header
-      final List<String?> lines2 = <String?>[
-        'DATE,TIME,WEIGHT',
         '2026-04-01,08:00:00,75.4',
         '2026-04-02,09:30:00,76.0',
       ];
-      final List<Measurement>? result = parseOpenScaleCSV(lines2);
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
       expect(result, isNotNull);
       expect(result!.length, 2);
       expect(result[0].weight, closeTo(75.4, 0.0001));

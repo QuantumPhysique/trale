@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/rendering.dart' show ScrollCacheExtent;
 import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -232,7 +233,9 @@ class _TotalWeightList extends State<TotalWeightList>
 
     return CustomScrollView(
       controller: widget.scrollController,
-      cacheExtent: 2 * MediaQuery.of(context).size.height,
+      scrollCacheExtent: ScrollCacheExtent.pixels(
+        2 * MediaQuery.of(context).size.height,
+      ),
       slivers: <Widget>[
         SliverToBoxAdapter(
           child: QPAnimateInEffect(
@@ -255,7 +258,7 @@ class _TotalWeightList extends State<TotalWeightList>
               parent: _bannerController,
               curve: Curves.easeOut,
             ),
-            axisAlignment: -1.0,
+            alignment: AlignmentDirectional.topStart,
             child: !showBanner
                 ? const SizedBox.shrink()
                 : Padding(

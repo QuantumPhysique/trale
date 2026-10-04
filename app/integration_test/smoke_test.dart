@@ -52,17 +52,17 @@ void main() {
     }
   }
 
-  bool _surfaceConverted = false;
+  bool surfaceConverted = false;
 
   /// Takes a named PNG screenshot via the test driver.
   ///
   /// [convertFlutterSurfaceToImage] must be called exactly once before the
   /// first [takeScreenshot] call when running under `flutter drive`.
   Future<void> screenshot(WidgetTester tester, String name) async {
-    if (!_surfaceConverted) {
+    if (!surfaceConverted) {
       await binding.convertFlutterSurfaceToImage();
       await tester.pump();
-      _surfaceConverted = true;
+      surfaceConverted = true;
     }
     await binding.takeScreenshot(name);
   }
