@@ -280,16 +280,10 @@ void main() {
     test('parses multiple rows in new format', () {
       final List<String?> lines = <String?>[
         'DATE,TIME,WEIGHT',
-        '2026-04-01,08:00:00.000,,',
-        '2026-04-02,09:30:00.000,,',
-      ];
-      // WEIGHT column not present at index 2 — re-test with a proper header
-      final List<String?> lines2 = <String?>[
-        'DATE,TIME,WEIGHT',
         '2026-04-01,08:00:00,75.4',
         '2026-04-02,09:30:00,76.0',
       ];
-      final List<Measurement>? result = parseOpenScaleCSV(lines2);
+      final List<Measurement>? result = parseOpenScaleCSV(lines);
       expect(result, isNotNull);
       expect(result!.length, 2);
       expect(result[0].weight, closeTo(75.4, 0.0001));
