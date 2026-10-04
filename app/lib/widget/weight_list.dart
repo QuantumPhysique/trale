@@ -258,7 +258,7 @@ class _TotalWeightList extends State<TotalWeightList>
               parent: _bannerController,
               curve: Curves.easeOut,
             ),
-            axisAlignment: -1.0,
+            alignment: AlignmentDirectional.topStart,
             child: !showBanner
                 ? const SizedBox.shrink()
                 : Padding(

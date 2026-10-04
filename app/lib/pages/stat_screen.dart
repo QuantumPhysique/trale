@@ -163,7 +163,7 @@ class _StatsScreen extends State<StatsScreen>
                     parent: _bannerController,
                     curve: Curves.easeOut,
                   ),
-                  axisAlignment: -1.0,
+                  alignment: AlignmentDirectional.topStart,
                   child: !n.showStatsHintBanner
                       ? const SizedBox.shrink()
                       : Padding(
