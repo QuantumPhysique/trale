@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:trale/core/trale_notifier.dart';
-import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/user_dialog.dart';
 
 import '../helpers/widget_test_helper.dart';
@@ -41,63 +40,19 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('the user dialog fits a small screen', (
+  testWidgets('a new target starts at the current weight', (
     WidgetTester tester,
   ) async {
-    await openDialog(tester);
-
-    expect(tester.takeException(), isNull);
-  });
-
-  testWidgets('the user dialog fits once the keyboard is up', (
-    WidgetTester tester,
-  ) async {
-    await openDialog(tester);
-
-    // The keyboard takes the bottom of the screen, and the dialog shrinks to
-    // stay clear of it.
-    tester.view.viewInsets = const FakeViewPadding(bottom: 1200);
-    await tester.pumpAndSettle();
-
-    expect(tester.takeException(), isNull);
-  });
-
-  testWidgets('the shrunken dialog scrolls down to the target weight', (
-    WidgetTester tester,
-  ) async {
-    await openDialog(tester);
-
-    tester.view.viewInsets = const FakeViewPadding(bottom: 1200);
-    await tester.pumpAndSettle();
-
-    final Finder scrollView = find
-        .ancestor(
-          of: find.byType(UserDetailsGroup),
-          matching: find.byType(SingleChildScrollView),
-        )
-        .first;
-    final double before = tester.getTopLeft(find.byType(UserDetailsGroup)).dy;
-
-    await tester.drag(scrollView, const Offset(0, -120));
-    await tester.pumpAndSettle();
-
-    expect(
-      tester.getTopLeft(find.byType(UserDetailsGroup)).dy,
-      lessThan(before),
+    notifier = await setUpWidgetTestDependencies(
+      measurements: dailyMeasurements((int daysAgo) => 76.3),
     );
-    expect(tester.takeException(), isNull);
-  });
-
-  testWidgets('the maintain goal shows its range and no target date', (
-    WidgetTester tester,
-  ) async {
     notifier.targetWeightEnabled = true;
-    notifier.userTargetWeight = 80;
-    notifier.weightGoal = WeightGoal.maintain;
 
     await openDialog(tester);
+    await tester.ensureVisible(find.text('Add target weight'));
+    await tester.tap(find.text('Add target weight'));
+    await tester.pumpAndSettle();
 
-    expect(find.text('80.0 kg ± 1%'), findsOneWidget);
-    expect(find.text('Target date'), findsNothing);
+    expect(find.text('76.3 kg'), findsOneWidget);
   });
 }

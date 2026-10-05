@@ -1,38 +1,30 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:trale/core/measurement.dart';
+import 'package:trale/core/interpolation.dart';
+import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
+import 'package:trale/core/preferences.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/weight_goal.dart';
 
 import '../helpers/widget_test_helper.dart';
 
-/// One measurement per day up to today, [weightAt] days ago.
-List<Measurement> dailyMeasurements(
-  double Function(int daysAgo) weightAt, {
-  int days = 30,
-}) {
-  final DateTime now = DateTime.now();
-  return <Measurement>[
-    for (int daysAgo = 0; daysAgo < days; daysAgo++)
-      Measurement(
-        weight: weightAt(daysAgo),
-        date: now.subtract(Duration(days: daysAgo)),
-      ),
-  ];
-}
-
 void main() {
   tearDown(resetWidgetTestDependencies);
 
   group('MeasurementStats.daysInTargetRange', () {
-    test('counts every day the trend stayed within the range', () async {
+    test('counts back only to the day the trend entered the range', () async {
       await setUpWidgetTestDependencies(
-        measurements: dailyMeasurements((int daysAgo) => 75),
+        measurements: dailyMeasurements(
+          (int daysAgo) => daysAgo < 10 ? 75 : 80,
+        ),
       );
+      // Unsmoothed, so that the trend steps into the range on a known day.
+      Preferences().interpolStrength = InterpolStrength.none;
+      MeasurementInterpolation.resetInstance();
 
       expect(
         MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75)),
-        30,
+        10,
       );
     });
 

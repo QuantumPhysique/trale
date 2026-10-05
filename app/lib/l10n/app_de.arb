@@ -99,15 +99,25 @@
     "@targetRange": {
         "description": "Label of the target weight range of the maintain goal."
     },
-    "targetRangeDaysIn": "in deinem Zielbereich",
+    "targetRangeDaysIn": "dein Gewicht gehalten",
     "@targetRangeDaysIn": {
-        "description": "Shown after 'x days/weeks' while the trend stays in the target range."
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
     },
-    "targetRangeBackIn": "verbleibend bis zur Rückkehr in den Zielbereich",
+    "targetRangeDaysInLong": "schon dein Gewicht gehalten",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit}, bis du wieder bei deinem Zielgewicht bist",
     "@targetRangeBackIn": {
-        "description": "Shown after 'x days/weeks' while the trend heads back into the target range."
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "Wochen"
+            }
+        }
     },
-    "outsideTargetRange": "außerhalb deines Zielbereichs",
+    "outsideTargetRange": "nicht bei deinem Zielgewicht",
     "@outsideTargetRange": {
         "description": "Shown while the trend is outside the target range and not heading back."
     },
@@ -124,9 +134,47 @@
         "description": "Frequency of backup interval"
     },
     "days": "Tage",
-    "weeks": "Wochen",
+    "dayUnit": "{count, plural, one{Tag} other{Tage}}",
+    "@dayUnit": {
+        "description": "Unit after a number of days, e.g. '3' + 'days'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weekUnit": "{count, plural, one{Woche} other{Wochen}}",
+    "@weekUnit": {
+        "description": "Unit after a number of weeks, e.g. '6' + 'weeks'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "monthUnit": "{count, plural, one{Monat} other{Monate}}",
+    "@monthUnit": {
+        "description": "Unit after a number of months, e.g. '4' + 'months'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "yearUnit": "{count, plural, one{Jahr} other{Jahre}}",
+    "@yearUnit": {
+        "description": "Unit after a number of years, e.g. '5' + 'years'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
     "week": "Woche",
-    "months": "Monate",
     "change": "Veränderung",
     "@change": {
         "description": "A short word describing a difference in numbers, i.e. the change of the weight"
@@ -144,7 +192,6 @@
         "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
     },
     "month": "Monat",
-    "years": "Jahre",
     "year": "Jahr",
     "never": "Nie",
     "@never": {

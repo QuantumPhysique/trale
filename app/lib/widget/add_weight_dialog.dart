@@ -280,7 +280,12 @@ Future<bool> showTargetWeightDialog({
     listen: false,
   );
 
-  double currentSliderValue = weight.toDouble() / notifier.unit.scaling;
+  // On the ruler's grid, so that saving without scrolling stores what it shows.
+  final double initialSliderValue = notifier.unit.doubleToPrecision(
+    weight / notifier.unit.scaling,
+    notifier.unitPrecision,
+  );
+  double currentSliderValue = initialSliderValue;
   WeightGoal goal = notifier.weightGoal;
 
   final Widget content = StatefulBuilder(
@@ -420,12 +425,13 @@ Future<bool> showTargetWeightDialog({
                     duration: const Duration(seconds: 10),
                   ),
                 );
-              } else {
+              } else if (notifier.userTargetWeight == null ||
+                  currentSliderValue != initialSliderValue ||
+                  goal != notifier.weightGoal) {
+                // Only a changed goal restarts it, and with it "since goal".
                 notifier.userTargetWeight = centre;
                 notifier.weightGoal = goal;
-                // Save the date when the target was set
-                final DateTime now = DateTime.now();
-                notifier.userTargetWeightSetDate = now;
+                notifier.userTargetWeightSetDate = DateTime.now();
               }
               // force rebuilding linechart and widgets
               MeasurementDatabase().fireStream();

@@ -1,0 +1,6 @@
+Gingerbread has already returned to the shelves, but trale is ready: it can now help you maintain your weight through the holidays.
+
+- New goal "Maintain weight"
+- A new target weight now starts at your current weight
+- The interpolation preview of your own data now uses the zoom of the main chart
+- Fixed saving an unchanged target weight restarting the "since goal" statistics

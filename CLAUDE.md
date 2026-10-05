@@ -32,11 +32,25 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 
 - `main` is the only long-lived branch; feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` directly.
 - Every commit lands on `main` as it is (no squash), so every commit is a conventional commit — see `/commit`. The PR title uses the same format.
-- Versions are hand-made: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
+- Versions are prepared with `/release`: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
 
 ## Changelog
 
-Every user-visible change adds one line under `[Unreleased]` in `CHANGELOG.md` — sections `Added Features and Improvements 🙌`, `Bugfix 🐛`, `Other Changes`, `API Changes Warning ⚠️`. Written for users: what changed for them, not which class moved. Internal changes get no line. Then `make generate` and commit `app/lib/core/changelog.g.dart` with it; CI fails when it is stale.
+`CHANGELOG.md` is read by users, in the app and on the stores. Every change adds to `[Unreleased]`, in the sections `Added Features and Improvements 🙌`, `Bugfix 🐛`, `Other Changes`, `API Changes Warning ⚠️`.
+
+- A change users notice gets one short line: what changed for them. No class or widget names, no cause, no implementation
+  - Bad: `Fixed reminders firing at the wrong hour: the device time zone was matched by its abbreviation`
+  - Good: `Fixed reminders firing at the wrong hour`
+- Bug fixes start with `Fixed …`
+- A change tied to a GitHub issue ends with it: `Fixed the calendar with a custom first day of the week (#417)`
+- Everything users cannot see — refactoring, tests, CI, lint fixes, build tooling — is covered by one shared line under `Other Changes`: `Minor improvements to the code base`. Add it if it is missing, never a second one
+- A broken store release is the exception users do notice: `Fixed the F-Droid release`
+- Under `Added Features and Improvements`:
+  - Flutter is the only dependency named, with its version: `Use the latest Flutter (3.47) with upgraded deps`. Without a Flutter upgrade, other upgrades get `Upgraded deps` under `Other Changes`
+  - A new Android target SDK: `Target Android 16 (SDK 36)`
+- Translations from Weblate: `Improved translation`. A new language: `<Hello world in that language>! Thx to the community, the app is now available in <Language> 🎉`
+
+Then `make generate` and commit `app/lib/core/changelog.g.dart` with it; CI fails when it is stale.
 
 ## Unreleased changes
 
@@ -47,7 +61,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 ## Dev loop
 
 1. Branch off `main`.
-2. Implement the whole change: `lib/`, `test/`, a `CHANGELOG.md` line if users will notice.
+2. Implement the whole change in `lib/`, plus its `CHANGELOG.md` line as the Changelog section says. Tests only where the Tests section below asks for one.
 3. Once, on the finished change: `make format`, `make analyze`, `make test`, `make generate`. Fix what they report.
 4. `/commit`, then `/pr`.
 
@@ -87,8 +101,14 @@ Section banners (`// ── Delegates ──`) only to split a long `part` file 
 
 ### Tests
 
-- Test what can break: calculations (interpolation, stats, units, export/import), state transitions, widgets with logic (input parsing, focus, keyboard). Not getters and setters, theme or layout, enum tables, generated code, translations
-- One test per behaviour, through the public API, readable on its own
+The suite must stay small enough to maintain by hand. A test is the exception, not part of every change.
+
+- Write one only for logic that is easy to break silently and tedious to check by hand: calculations (interpolation, stats, units), export/import and the backup format, input parsing
+- Bug fix: at most one regression test, and only when the bug was in such logic. UI, layout, wiring and platform fixes get none
+- New feature: test its core calculation, not every branch, edge case or widget state. Extend an existing test file before creating a new one
+- Never: getters and setters, theme or layout, enum tables, generated code, translations, plain widget rendering
+- When unsure whether a test earns its place, leave it out
+- Through the public API, readable on its own
 - Setup through `test/helpers/` (`ServiceLocator.registerForTesting`, `setUpWidgetTestDependencies`); reset in `tearDown`. No further helper layers
 - On failure, assume the implementation is wrong before the test
 

@@ -4,10 +4,11 @@
         "description": "achievements"
     },
     "days": "päeva",
-    "weeks": "nädalat",
-    "months": "kuud",
+    "dayUnit": "{count, plural, one{päev} other{päeva}}",
+    "weekUnit": "{count, plural, one{nädal} other{nädalat}}",
+    "monthUnit": "{count, plural, one{kuu} other{kuud}}",
+    "yearUnit": "{count, plural, one{aasta} other{aastat}}",
     "month": "kuu",
-    "years": "aastat",
     "year": "aasta",
     "backupReminderButton": "varunda nüüd",
     "@backupReminderButton": {
@@ -940,5 +941,29 @@
     "qp_notifications": "Teavitused",
     "@qp_notifications": {
         "description": "Notifications settings group title"
+    },
+    "healthConnect": "Health Connect",
+    "@healthConnect": {
+        "description": "Title of the Health Connect page and tile"
+    },
+    "healthConnectSubtitle": "Sünkrooni mõõdistused nutiseadme Health Connect teenusega",
+    "@healthConnectSubtitle": {
+        "description": "Subtitle of the Health Connect settings option"
+    },
+    "healthConnectWarningTitle": "Andmekaitsealane teade",
+    "@healthConnectWarningTitle": {
+        "description": "Title of the privacy advisory card"
+    },
+    "healthConnectWarningText": "Kui lubad sünkroonida Health Connect taustateenusesse, siis sinu kaaluandmetele on ligipääs kõikidel rakendustel, mis võivad Health Connecti kasutada. Enne selle seadistuse sisselülitamist palun vaata see rakenduste loend üle.",
+    "@healthConnectWarningText": {
+        "description": "Text warning the user about privacy implications of sharing data with Health Connect"
+    },
+    "healthConnectEnable": "Luba kasutada Health Connecti lõimingut",
+    "@healthConnectEnable": {
+        "description": "Label for the master toggle to enable/disable Health Connect integration"
+    },
+    "healthConnectImport": "Impordi kaaluandmed",
+    "@healthConnectImport": {
+        "description": "Label for importing weight data from Health Connect"
     }
 }

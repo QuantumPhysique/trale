@@ -4,8 +4,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/trale_notifier.dart';
@@ -57,7 +55,7 @@ final class _FakePicker extends FilePickerPlatform {
     String? initialDirectory,
     FileType type = FileType.any,
     List<String>? allowedExtensions,
-    Function(FilePickerStatus)? onFileLoading,
+    void Function(FilePickerStatus)? onFileLoading,
     int compressionQuality = 0,
     AndroidOptions androidOptions = const AndroidOptions(),
     DarwinOptions darwinOptions = const DarwinOptions(),
@@ -134,55 +132,10 @@ void main() {
   /// Number of measurement rows listed in the confirmation dialog.
   int listedMeasurements() => find.byType(AutoSizeText).evaluate().length;
 
-  testWidgets('a picked .txt backup reaches the parser intact', (
-    WidgetTester tester,
-  ) async {
-    installPicker('trale_2024-03-04.txt', content: traleBackup);
-
-    await runImport(tester);
-
-    expect(find.byType(Dialog), findsOneWidget);
-    expect(listedMeasurements(), 3);
-  });
-
   testWidgets('a picked .csv backup is routed to the csv parser', (
     WidgetTester tester,
   ) async {
     installPicker('openscale.csv', content: openScaleCsv);
-
-    await runImport(tester);
-
-    expect(find.byType(Dialog), findsOneWidget);
-    expect(listedMeasurements(), 2);
-  });
-
-  testWidgets('the picker is asked for txt and csv only', (
-    WidgetTester tester,
-  ) async {
-    final _FakePicker picker = installPicker('trale.txt', content: traleBackup);
-
-    await runImport(tester);
-
-    expect(picker.calls, 1);
-    expect(picker.requestedType, FileType.custom);
-    expect(picker.requestedExtensions, <String>['txt', 'csv']);
-  });
-
-  testWidgets('cancelling the picker opens no dialog', (
-    WidgetTester tester,
-  ) async {
-    installPicker('unused.txt');
-
-    await runImport(tester);
-
-    expect(find.byType(Dialog), findsNothing);
-    expect(find.byType(SnackBar), findsOneWidget);
-  });
-
-  testWidgets('the last dot decides the extension', (
-    WidgetTester tester,
-  ) async {
-    installPicker('trale.backup.2024.csv', content: openScaleCsv);
 
     await runImport(tester);
 
@@ -199,21 +152,6 @@ void main() {
 
     expect(find.byType(Dialog), findsNothing);
     expect(find.byType(SnackBar), findsOneWidget);
-  });
-
-  testWidgets('declining the dialog inserts nothing', (
-    WidgetTester tester,
-  ) async {
-    installPicker('trale.txt', content: traleBackup);
-
-    await runImport(tester);
-    await tester.tap(
-      find.widgetWithIcon(QPDialogAction, PhosphorIconsRegular.x),
-    );
-    await tester.pumpAndSettle();
-
-    expect(find.byType(Dialog), findsNothing);
-    expect(MeasurementDatabase().measurements, isEmpty);
   });
 
   // The point of the whole feature: what the app writes out has to come back

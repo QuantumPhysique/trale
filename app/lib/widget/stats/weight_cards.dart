@@ -1,5 +1,8 @@
 part of '../stats_widgets.dart';
 
+/// From this many days on, a maintain streak is praised as an achievement.
+const int _longMaintainStreakDays = 28;
+
 /// Hero card: days until target weight is reached, or for the maintain goal
 /// days within the target range (with rotating M3E shape).
 QPBentoCard reachingTargetWeightCard({
@@ -28,11 +31,13 @@ QPBentoCard reachingTargetWeightCard({
         ? l10n.targetWeightReached
         : '${labels[1]} ${l10n.targetWeightReachedIn}';
   } else if (inRange) {
-    subtext = '${labels[1]} ${l10n.targetRangeDaysIn}';
+    subtext = shown!.inDays >= _longMaintainStreakDays
+        ? '${labels[1]} ${l10n.targetRangeDaysInLong}'
+        : '${labels[1]} ${l10n.targetRangeDaysIn}';
   } else if (timeToRange == null) {
     subtext = l10n.outsideTargetRange;
   } else {
-    subtext = '${labels[1]} ${l10n.targetRangeBackIn}';
+    subtext = l10n.targetRangeBackIn(unit: labels[1]);
   }
 
   return QPBentoCard.textInline(
@@ -41,6 +46,8 @@ QPBentoCard reachingTargetWeightCard({
     label: subtext,
     value: labels[0],
     reversed: true,
+    // German needs four lines for the way back into the target range.
+    labelMaxLines: 4,
     textColor: Theme.of(context).colorScheme.onPrimaryContainer,
     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
     delayInMilliseconds: delayInMilliseconds,

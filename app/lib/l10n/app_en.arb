@@ -28,15 +28,25 @@
     "@targetRange": {
         "description": "Label of the target weight range of the maintain goal."
     },
-    "targetRangeDaysIn": "within your target range",
+    "targetRangeDaysIn": "holding your weight steady",
     "@targetRangeDaysIn": {
-        "description": "Shown after 'x days/weeks' while the trend stays in the target range."
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
     },
-    "targetRangeBackIn": "left to get back into your range",
+    "targetRangeDaysInLong": "and still holding your weight steady",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit} until you're back at your target weight",
     "@targetRangeBackIn": {
-        "description": "Shown after 'x days/weeks' while the trend heads back into the target range."
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "weeks"
+            }
+        }
     },
-    "outsideTargetRange": "outside your target range",
+    "outsideTargetRange": "not at your target weight",
     "@outsideTargetRange": {
         "description": "Shown while the trend is outside the target range and not heading back."
     },
@@ -49,11 +59,48 @@
         "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
     },
     "days": "days",
-    "weeks": "weeks",
+    "dayUnit": "{count, plural, one{day} other{days}}",
+    "@dayUnit": {
+        "description": "Unit after a number of days, e.g. '3' + 'days'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weekUnit": "{count, plural, one{week} other{weeks}}",
+    "@weekUnit": {
+        "description": "Unit after a number of weeks, e.g. '6' + 'weeks'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "monthUnit": "{count, plural, one{month} other{months}}",
+    "@monthUnit": {
+        "description": "Unit after a number of months, e.g. '4' + 'months'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "yearUnit": "{count, plural, one{year} other{years}}",
+    "@yearUnit": {
+        "description": "Unit after a number of years, e.g. '5' + 'years'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
     "week": "week",
-    "months": "months",
     "month": "month",
-    "years": "years",
     "year": "year",
     "today": "today",
     "weightForecast": "forecast",

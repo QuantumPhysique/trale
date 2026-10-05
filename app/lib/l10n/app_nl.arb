@@ -16,11 +16,12 @@
         "description": "Switching between loosing or gaining weight."
     },
     "days": "Dagen",
-    "weeks": "Weken",
+    "dayUnit": "{count, plural, one{dag} other{dagen}}",
+    "weekUnit": "{count, plural, one{week} other{weken}}",
+    "monthUnit": "{count, plural, one{maand} other{maanden}}",
+    "yearUnit": "{count, plural, other{jaar}}",
     "week": "Week",
-    "months": "Maanden",
     "month": "Maand",
-    "years": "Jaren",
     "year": "Jaar",
     "never": "Nooit",
     "@never": {

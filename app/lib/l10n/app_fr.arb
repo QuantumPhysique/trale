@@ -366,9 +366,7 @@
         "description": "Frequency of backup interval"
     },
     "week": "semaine",
-    "months": "mois",
     "month": "mois",
-    "years": "années",
     "nextBackup": "prochaine sauvegarde",
     "@nextBackup": {
         "description": "Time of last backup"
@@ -382,7 +380,10 @@
         "description": "Shorthand for minimum."
     },
     "days": "jours",
-    "weeks": "semaines",
+    "dayUnit": "{count, plural, one{jour} other{jours}}",
+    "weekUnit": "{count, plural, one{semaine} other{semaines}}",
+    "monthUnit": "{count, plural, one{mois} other{mois}}",
+    "yearUnit": "{count, plural, one{année} other{années}}",
     "year": "année",
     "lastBackup": "dernière sauvegarde",
     "@lastBackup": {

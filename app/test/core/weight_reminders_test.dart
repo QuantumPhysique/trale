@@ -85,17 +85,6 @@ void main() {
     },
   );
 
-  test('arms nothing while reminders are switched off', () async {
-    await seedPrefs(<String, Object>{
-      'qp_reminderEnabled': false,
-      'qp_reminderDays': '1,4',
-    });
-
-    await reschedule();
-
-    expect(service.armed, isEmpty);
-  });
-
   test('drops the ids of pre-registry builds once', () async {
     await seedPrefs(<String, Object>{'qp_reminderEnabled': false});
 

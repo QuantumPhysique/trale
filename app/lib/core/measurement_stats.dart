@@ -411,22 +411,17 @@ class MeasurementStats {
   /// * After [targetDate]: constant at [targetWeight].
   /// * Maintain goal: constant at [targetWeight], the centre of its range.
   double? referenceAtDay(DateTime day) {
-    final Preferences prefs = Preferences();
-    if (!prefs.targetWeightEnabled) {
-      return null;
-    }
-
-    final double? targetWeight = prefs.userTargetWeight;
+    final TraleNotifier notifier = TraleNotifier();
+    final double? targetWeight = notifier.effectiveTargetWeight;
     if (targetWeight == null) {
       return null;
     }
 
-    final DateTime? targetDate = prefs.userTargetWeightDate;
-    if (targetDate == null || prefs.weightGoal == WeightGoal.maintain) {
+    final DateTime? targetDate = notifier.effectiveTargetWeightDate;
+    if (targetDate == null) {
       return targetWeight;
     }
 
-    final TraleNotifier notifier = TraleNotifier();
     final DateTime? setDate = notifier.userTargetWeightSetDate;
     final double? setWeight = notifier.userTargetWeightSetWeight;
     if (setDate == null || setWeight == null) {

@@ -383,11 +383,12 @@
         "description": "Switching between loosing or gaining weight."
     },
     "days": "dni",
+    "dayUnit": "{count, plural, one{dzień} few{dni} many{dni} other{dnia}}",
+    "weekUnit": "{count, plural, one{tydzień} few{tygodnie} many{tygodni} other{tygodnia}}",
+    "monthUnit": "{count, plural, one{miesiąc} few{miesiące} many{miesięcy} other{miesiąca}}",
+    "yearUnit": "{count, plural, one{rok} few{lata} many{lat} other{roku}}",
     "week": "tydzień",
-    "months": "miesięcy",
     "month": "miesiąc",
-    "years": "lat(a)",
-    "weeks": "tygodni(e)",
     "backupReminderButton": "wykonaj kopię zapasową",
     "@backupReminderButton": {
         "description": "Back up now"
