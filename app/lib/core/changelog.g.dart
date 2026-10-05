@@ -10,9 +10,14 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.5.0',
+    dateString: '2026-10-05',
+    summary: 'Gingerbread has already returned to the shelves, but trale is ready: it can now\nhelp you maintain your weight through the holidays.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'New goal "Maintain weight": keep your weight within 1% of your target weight (#454)',
+        'New goal "Maintain weight" to keep your weight steady (#454)',
         'A new target weight now starts at your current weight',
         'The interpolation preview of your own data now uses the zoom of the main chart (#512)',
       ],
