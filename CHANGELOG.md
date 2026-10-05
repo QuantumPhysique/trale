@@ -17,7 +17,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - New goal "Maintain weight": keep your weight within 1% of your target weight (#454)
 - A new target weight now starts at your current weight
-- The interpolation preview of your own data now uses the zoom of the main chart
+- The interpolation preview of your own data now uses the zoom of the main chart (#512)
 
 ### Bugfix 🐛:
 - Fixed the chart not updating right away after changing the unit
