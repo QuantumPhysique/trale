@@ -23,6 +23,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.otherChanges: <String>[
         'The chart no longer shades the gap between your weight and your target weight',
         'The area below the trend line in the chart has a new colour',
+        'Minor improvements to the code base',
       ],
     },
   ),

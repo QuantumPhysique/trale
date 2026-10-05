@@ -36,7 +36,16 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 
 ## Changelog
 
-Every user-visible change adds one line under `[Unreleased]` in `CHANGELOG.md` — sections `Added Features and Improvements 🙌`, `Bugfix 🐛`, `Other Changes`, `API Changes Warning ⚠️`. Written for users: what changed for them, not which class moved. Internal changes get no line. Then `make generate` and commit `app/lib/core/changelog.g.dart` with it; CI fails when it is stale.
+`CHANGELOG.md` is read by users, in the app and on the stores. Every change adds to `[Unreleased]`, in the sections `Added Features and Improvements 🙌`, `Bugfix 🐛`, `Other Changes`, `API Changes Warning ⚠️`.
+
+- A change users notice gets one short line: what changed for them. No class or widget names, no cause, no implementation
+  - Bad: `Fixed reminders firing at the wrong hour: the device time zone was matched by its abbreviation`
+  - Good: `Fixed reminders firing at the wrong hour`
+- Everything users cannot see — refactoring, tests, CI, lint fixes, build tooling — is covered by one shared line under `Other Changes`: `Minor improvements to the code base`. Add it if it is missing, never a second one
+- Dependencies: only Flutter is named, with its version; every other upgrade is covered by `upgraded deps`. `Use the latest Flutter (3.47) with upgraded deps`, or `Upgraded deps` alone
+- Translations from Weblate: `Improved translation`. A new language: `<Hello world in that language>! Thx to the community, the app is now available in <Language> 🎉`
+
+Then `make generate` and commit `app/lib/core/changelog.g.dart` with it; CI fails when it is stale.
 
 ## Unreleased changes
 
@@ -47,7 +56,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 ## Dev loop
 
 1. Branch off `main`.
-2. Implement the whole change in `lib/`, plus a `CHANGELOG.md` line if users will notice. Tests only where the Tests section below asks for one.
+2. Implement the whole change in `lib/`, plus its `CHANGELOG.md` line as the Changelog section says. Tests only where the Tests section below asks for one.
 3. Once, on the finished change: `make format`, `make analyze`, `make test`, `make generate`. Fix what they report.
 4. `/commit`, then `/pr`.
 

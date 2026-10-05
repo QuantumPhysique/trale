@@ -9,7 +9,7 @@ Usage: `/pr` or `/pr <target-branch>` — target: `$ARGUMENTS` if given, else `m
 3. `git status --short` — stop on uncommitted changes to tracked files.
 4. `gh pr view --json url` — if a PR already exists for this branch: `git push`, print its URL, done.
 5. `git log origin/<target>..HEAD --oneline` and `git diff origin/<target>...HEAD --stat` — the scope. Every commit must be a conventional commit (`/commit`); reword before opening if one is not.
-6. User-visible change without a `CHANGELOG.md` line under `[Unreleased]`: add it and regenerate. From `app/`: `dart run quantumphysique:generate_changelog --check` must pass.
+6. `[Unreleased]` in `CHANGELOG.md` must cover the branch as the CLAUDE.md Changelog section says; add what is missing and regenerate. From `app/`: `dart run quantumphysique:generate_changelog --check` must pass.
 7. Format, analyze and tests run once, here, on the finished branch: if they have not run on this exact tree, run `make format-check`, `make analyze` and `make test` from `app/` and fix what they report before opening.
 
 ## Step 2 — Open
