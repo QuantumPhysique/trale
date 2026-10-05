@@ -14,8 +14,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-05
+
+Gingerbread has already returned to the shelves, but trale is ready: it can now
+help you maintain your weight through the holidays.
+
 ### Added Features and Improvements 🙌:
-- New goal "Maintain weight": keep your weight within 1% of your target weight (#454)
+- New goal "Maintain weight" to keep your weight steady (#454)
 - A new target weight now starts at your current weight
 - The interpolation preview of your own data now uses the zoom of the main chart (#512)
 
@@ -546,7 +551,9 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.4.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.5.0...main
+[1.5.0]: https://github.com/quantumphysique/trale/compare/v1.4.1...v1.5.0
+[1.4.1]: https://github.com/quantumphysique/trale/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/quantumphysique/trale/compare/v1.3.1...v1.4.0
 [1.3.1]: https://github.com/quantumphysique/trale/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/quantumphysique/trale/compare/v1.2.0...v1.3.0

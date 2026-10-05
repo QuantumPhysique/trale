@@ -1,0 +1,6 @@
+Die Lebkuchen sind schon zurück im Regal, doch trale ist bereit: Die App kann dir jetzt helfen, dein Gewicht über die Feiertage zu halten.
+
+- Neues Ziel "Gewicht halten"
+- Ein neues Zielgewicht startet jetzt bei deinem aktuellen Gewicht
+- Die Interpolationsvorschau eigener Daten nutzt jetzt den Zoom des Hauptdiagramms
+- Neustart der "Seit Ziel"-Statistik beim Speichern eines unveränderten Zielgewichts behoben
