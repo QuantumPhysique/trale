@@ -126,7 +126,9 @@ class _CustomLineChartState extends State<CustomLineChart>
   }
 
   ({double minX, double maxX}) _resolveViewport(Preferences prefs) {
-    if (widget.isPreview) {
+    // The zoom window is derived from the user's measurements, so a chart of
+    // them follows it, even as a preview. Only sample data is shown in full.
+    if (widget.ip is! MeasurementInterpolation) {
       final ml.Vector times = widget.ip.times;
       if (times.isNotEmpty) {
         return (minX: times.first, maxX: times.last);
