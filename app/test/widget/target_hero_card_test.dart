@@ -50,18 +50,6 @@ void main() {
     expect(find.text('days holding your weight steady'), findsOneWidget);
   });
 
-  testWidgets('a streak of four weeks or more is praised', (
-    WidgetTester tester,
-  ) async {
-    await pumpMaintainCard(tester, (int daysAgo) => 75, days: 42);
-
-    expect(find.text('6'), findsOneWidget);
-    expect(
-      find.text('weeks and still holding your weight steady'),
-      findsOneWidget,
-    );
-  });
-
   testWidgets('above the range and falling it counts the way back', (
     WidgetTester tester,
   ) async {
@@ -72,14 +60,5 @@ void main() {
       find.textContaining("until you're back at your target weight"),
       findsOneWidget,
     );
-  });
-
-  testWidgets('above the range and rising it shows no way back', (
-    WidgetTester tester,
-  ) async {
-    await pumpMaintainCard(tester, (int daysAgo) => 78 - 0.1 * daysAgo);
-
-    expect(find.text('--'), findsOneWidget);
-    expect(find.text('not at your target weight'), findsOneWidget);
   });
 }

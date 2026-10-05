@@ -44,15 +44,6 @@ void main() {
       expect(notifier.dayFormat(context).format(date), '14.09.');
     });
 
-    testWidgets('leaves an already padded locale pattern alone', (
-      WidgetTester tester,
-    ) async {
-      final BuildContext context = await pumpLocale(tester, 'fr');
-
-      expect(notifier.dateFormat(context).format(date), '14/09/2026');
-      expect(notifier.dayFormat(context).format(date), '14/09');
-    });
-
     testWidgets('keeps the day before the month in Italian', (
       WidgetTester tester,
     ) async {

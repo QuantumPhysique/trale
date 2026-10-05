@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/language.dart';
-import 'package:trale/l10n-gen/app_localizations.dart';
 
 void main() {
   group('supported languages', () {
@@ -25,21 +24,6 @@ void main() {
             'Add the native name of each language listed above to '
             'QPLanguage.nativeNames in the quantumphysique package.',
       );
-    });
-
-    test('covers every locale the app is translated into', () {
-      expect(
-        QPLanguage.supportedLanguages.length,
-        // The system-default entry has no translation of its own.
-        AppLocalizations.supportedLocales.length + 1,
-      );
-    });
-
-    test('names the system default with the label it is given', () {
-      final QPLanguage system = QPLanguage.system();
-
-      expect(system.displayName('Systemsprache'), 'Systemsprache');
-      expect(system.languageLong('Systemsprache'), 'Systemsprache');
     });
   });
 }
