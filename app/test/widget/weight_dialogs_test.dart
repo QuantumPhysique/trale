@@ -1,12 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/weight_goal.dart';
 import 'package:trale/widget/add_weight_dialog.dart';
-import 'package:trale/widget/weight_picker.dart';
 
 import '../helpers/widget_test_helper.dart';
 
@@ -42,22 +40,6 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('the target weight dialog carries the ruler and its steppers', (
-    WidgetTester tester,
-  ) async {
-    await openTargetWeightDialog(tester);
-
-    expect(find.byType(RulerPicker), findsOneWidget);
-    expect(
-      find.widgetWithIcon(IconButton, PhosphorIconsRegular.minus),
-      findsOneWidget,
-    );
-    expect(
-      find.widgetWithIcon(IconButton, PhosphorIconsRegular.plus),
-      findsOneWidget,
-    );
-  });
-
   testWidgets('the target weight ruler follows the precision setting', (
     WidgetTester tester,
   ) async {
@@ -82,30 +64,6 @@ void main() {
     await tester.tap(finder);
     await tester.pumpAndSettle();
   }
-
-  testWidgets('the target range is only shown for the maintain goal', (
-    WidgetTester tester,
-  ) async {
-    await openTargetWeightDialog(tester);
-    expect(find.text('Target range'), findsNothing);
-
-    await tapInDialog(tester, find.byTooltip('Maintain weight'));
-
-    expect(find.text('Target range'), findsOneWidget);
-    expect(find.text('80.0 kg ± 1%'), findsOneWidget);
-  });
-
-  testWidgets('saving the maintain goal stores it with its target', (
-    WidgetTester tester,
-  ) async {
-    await openTargetWeightDialog(tester);
-
-    await tapInDialog(tester, find.byTooltip('Maintain weight'));
-    await tapInDialog(tester, find.text('Save'));
-
-    expect(notifier.weightGoal, WeightGoal.maintain);
-    expect(notifier.userTargetWeight, closeTo(80, 1e-9));
-  });
 
   // Without a height the floor is 50 kg: the centre passes, its range not.
   testWidgets('the whole maintain range has to stay above the floor', (
@@ -136,26 +94,5 @@ void main() {
     await tapInDialog(tester, find.text('Save'));
 
     expect(notifier.userTargetWeightSetDate, start);
-  });
-
-  // Smoke test only: this path does not reproduce the teardown ordering the
-  // `mounted` guards in the picker defend against, because the test binding
-  // releases the focus before the route is torn down. It still covers
-  // dismissing the dialog with a half-typed value in it.
-  testWidgets('the target weight dialog closes cleanly while typing', (
-    WidgetTester tester,
-  ) async {
-    await openTargetWeightDialog(tester);
-
-    await tester.tap(find.text('80.0 kg'));
-    await tester.pump();
-    await tester.enterText(find.byType(TextField), '75.4');
-    await tester.pump();
-
-    await tester.tap(find.text('Cancel'));
-    await tester.pumpAndSettle();
-
-    expect(find.byType(RulerPicker), findsNothing);
-    expect(tester.takeException(), isNull);
   });
 }

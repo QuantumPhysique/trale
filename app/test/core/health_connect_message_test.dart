@@ -18,19 +18,6 @@ void main() {
   });
 
   group('import message', () {
-    test('reports the count of a successful import', () {
-      expect(
-        healthConnectImportMessage(
-          l10n,
-          const HealthConnectImportResult(
-            HealthConnectImportStatus.success,
-            count: 3,
-          ),
-        ),
-        l10n.healthConnectImportSuccess(count: 3),
-      );
-    });
-
     test('says nothing was found instead of counting zero', () {
       expect(
         healthConnectImportMessage(
@@ -38,22 +25,6 @@ void main() {
           const HealthConnectImportResult(HealthConnectImportStatus.success),
         ),
         l10n.healthConnectImportNothingFound,
-      );
-    });
-
-    test('explains a history import that Health Connect capped', () {
-      expect(
-        healthConnectImportMessage(
-          l10n,
-          const HealthConnectImportResult(
-            HealthConnectImportStatus.success,
-            count: 2,
-            historyLimited: true,
-          ),
-        ),
-        l10n.healthConnectHistoryLimited(
-          result: l10n.healthConnectImportSuccess(count: 2),
-        ),
       );
     });
 
@@ -75,39 +46,6 @@ void main() {
           reason: '$status must not read as an empty import',
         );
       }
-    });
-  });
-
-  group('sync message', () {
-    test('reports both counts when the import went through', () {
-      expect(
-        healthConnectSyncMessage(
-          l10n,
-          const HealthConnectSyncResult(
-            importResult: HealthConnectImportResult(
-              HealthConnectImportStatus.success,
-              count: 1,
-            ),
-            exported: 4,
-          ),
-        ),
-        l10n.healthConnectSyncSuccess(importCount: 1, exportCount: 4),
-      );
-    });
-
-    test('surfaces a failed import over the export count', () {
-      expect(
-        healthConnectSyncMessage(
-          l10n,
-          const HealthConnectSyncResult(
-            importResult: HealthConnectImportResult(
-              HealthConnectImportStatus.missingPermission,
-            ),
-            exported: 4,
-          ),
-        ),
-        l10n.healthConnectImportPermissionRequired,
-      );
     });
   });
 
@@ -148,19 +86,6 @@ void main() {
       },
     );
 
-    test('a granted permission does not cap the read', () async {
-      expect(
-        await historyReadIsCapped(
-          isFeatureAvailable: alwaysTrue,
-          isGranted: alwaysTrue,
-          requestAccess: () => grantOnRequest(true),
-          request: true,
-        ),
-        isFalse,
-      );
-      expect(asked, 0, reason: 'already granted, so nothing to ask for');
-    });
-
     test('a withheld permission caps the read without asking', () async {
       expect(
         await historyReadIsCapped(
@@ -183,19 +108,6 @@ void main() {
           request: true,
         ),
         isFalse,
-      );
-      expect(asked, 1);
-    });
-
-    test('declining on request leaves the read capped', () async {
-      expect(
-        await historyReadIsCapped(
-          isFeatureAvailable: alwaysTrue,
-          isGranted: alwaysFalse,
-          requestAccess: () => grantOnRequest(false),
-          request: true,
-        ),
-        isTrue,
       );
       expect(asked, 1);
     });

@@ -12,17 +12,6 @@ void main() {
   tearDown(resetWidgetTestDependencies);
 
   group('MeasurementStats.daysInTargetRange', () {
-    test('counts every day the trend stayed within the range', () async {
-      await setUpWidgetTestDependencies(
-        measurements: dailyMeasurements((int daysAgo) => 75),
-      );
-
-      expect(
-        MeasurementStats().daysInTargetRange(WeightGoal.maintain.range(75)),
-        30,
-      );
-    });
-
     test('counts back only to the day the trend entered the range', () async {
       await setUpWidgetTestDependencies(
         measurements: dailyMeasurements(

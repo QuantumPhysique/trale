@@ -12,7 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'New goal "Maintain weight": keep your weight within 1% of your target weight',
+        'New goal "Maintain weight": keep your weight within 1% of your target weight (#454)',
         'A new target weight now starts at your current weight',
         'The interpolation preview of your own data now uses the zoom of the main chart',
       ],
@@ -24,6 +24,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.otherChanges: <String>[
         'The chart no longer shades the gap between your weight and your target weight',
         'The area below the trend line in the chart has a new colour',
+        'Minor improvements to the code base',
       ],
     },
   ),
@@ -34,7 +35,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
         'Fixed the reminder still firing when the weight was already logged that day',
-        'Fixed dates showing a leading zero, e.g. "014/09", in French and Italian',
+        'Fixed dates showing a leading zero, e.g. "014/09", in French and Italian (#533)',
       ],
     },
   ),
@@ -47,9 +48,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'The "system" colour palette now uses the full Material You palette of Android',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fixed the launch screen always being white instead of following dark mode',
-        'Fixed the Health Connect import reaching back only 30 days',
-        'Fixed the Health Connect import not saying why nothing was imported',
+        'Fixed the launch screen always being white instead of following dark mode (#507)',
+        'Fixed the Health Connect import reaching back only 30 days (#508)',
+        'Fixed the Health Connect import not saying why nothing was imported (#508)',
       ],
       ChangelogSection.otherChanges: <String>[
         'Improved the wording of the translation banner and the reminder settings',
@@ -60,15 +61,17 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '1.3.1',
     dateString: '2026-08-31',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'Use the latest Flutter (3.47) with upgraded deps',
+      ],
       ChangelogSection.otherChanges: <String>[
-        'Use the latest Flutter (3.47) with the new material_ui package',
         'Improved translation',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fixed the language selection showing "error" instead of العربية for Arabic',
-        'Fixed the height field in the personalization settings losing focus after every digit, which made it impossible to enter a height in one go',
+        'Fixed the language selection showing "error" instead of العربية for Arabic (#515)',
+        'Fixed the height field in the personalization settings losing focus after every digit (#509)',
         'Fixed the done key of the keyboard doing nothing in the height field',
-        'Fixed the content of the user dialog overlapping when the dialog shrinks to make room for the keyboard',
+        'Fixed the user dialog overlapping when the keyboard opens (#509)',
       ],
     },
   ),
@@ -77,16 +80,16 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2026-08-26',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Reworked the measurement list: entries are now grouped by month and can be filtered by year and month',
-        'Weight can now be typed on the keyboard: tap the value above the ruler in the add weight and target weight dialogs',
+        'Reworked the measurement list: entries are now grouped by month and can be filtered by year and month (#460)',
+        'Weight can now be typed on the keyboard: tap the value above the ruler in the add weight and target weight dialogs (#484)',
         'Added `-` and `+` buttons below the ruler to adjust the weight one step at a time',
       ],
       ChangelogSection.otherChanges: <String>[
         'Improved translation',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fixed export writing microseconds in the timestamp of the latest measurement',
-        'Fixed reminders firing at the wrong hour: the device time zone was matched against the time zone database by its abbreviation, which either failed outright or picked a zone with the wrong daylight saving rules',
+        'Fixed the export writing microseconds in the timestamp of the latest measurement (#489)',
+        'Fixed reminders firing at the wrong hour',
       ],
     },
   ),
@@ -95,11 +98,11 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2026-07-01',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Added Health Connect integration to synchronize weight measurements on Android',
-        'Added quick action to add a new weight even faster',
+        'Added Health Connect integration to synchronize weight measurements on Android (#475)',
+        'Added quick action to add a new weight even faster (#468)',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Introduce new M3E ButtonGroups Widget',
+        'New Material Expressive look for button groups',
         'Improved translation',
       ],
     },
@@ -110,11 +113,11 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Përshëndetje botë! Thx to the community, the app is now available in Albanian 🎉',
-        'Thx to the community, many translations have been improved 🎉',
+        'Use the latest Flutter (3.44)',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Internal reworks to improve maintainability',
-        'Use the latest Flutter (3.44)',
+        'Improved translation',
+        'Minor improvements to the code base',
       ],
     },
   ),
@@ -123,7 +126,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2026-05-02',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix f-droid pipeline',
+        'Fixed the F-Droid release',
       ],
     },
   ),
@@ -134,24 +137,24 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'A brand-new stats page with lots of new stats widgets',
-        'Set a target date for your weight goal',
+        'Set a target date for your weight goal (#189)',
         'Reminder notifications for daily weight logging',
         'Major performance improvements throughout the app',
         '0.05 kg/st/lb entry steps for finer control',
-        'Height can now be entered in imperial units',
+        'Height can now be entered in imperial units (#326)',
         'Preview the interpolation on your own data',
         'Changelog now viewable in the app',
         'Tooltip shown while scrolling the chart',
-      ],
-      ChangelogSection.otherChanges: <String>[
-        'Shared app framework extracted into the \'quantumphysique\' package',
         'Use the latest Flutter (3.41)',
       ],
+      ChangelogSection.otherChanges: <String>[
+        'Minor improvements to the code base',
+      ],
       ChangelogSection.bugfix: <String>[
-        'Fixed a broken import when importing OpenScales CSV and made the import function more robust (#452, #455)',
-        'Fixed broken calendar when choosing the \'Custom first day of week\' option (#417, #418)',
-        'Fix persisting pop-up when deleting measurements',
-        'Fix for updating target weight in the user dialogue',
+        'Fixed importing OpenScale CSV files (#452, #455)',
+        'Fixed the calendar with a custom first day of the week (#417, #418)',
+        'Fixed a pop-up staying open after deleting measurements',
+        'Fixed updating the target weight in the user dialog',
       ],
     },
   ),
@@ -161,7 +164,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.otherChanges: <String>[
         'Improved translation',
-        'Remove white matte in app icon',
+        'Removed the white matte from the app icon',
       ],
     },
   ),
@@ -171,16 +174,16 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'New app icon 🐺',
-        'All new F-droid store page with Material You Expressive (ready) Design 🎉',
+        'All new F-Droid store page with Material You Expressive (ready) Design 🎉',
       ],
       ChangelogSection.otherChanges: <String>[
         'Improved chart animation',
         'Improved translation',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix bug on negative time estimates when the slope is zero, #314',
-        'Fix persisting Backup reminder, #394',
-        'Fix Animation re-triggering when returning from settings to overview tab #402',
+        'Fixed negative time estimates when the weight does not change (#314)',
+        'Fixed the backup reminder not going away (#394)',
+        'Fixed the animation re-triggering when returning from settings to the overview tab (#402)',
       ],
     },
   ),
@@ -193,17 +196,17 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Material You Expressive (ready) Design throughout the whole app 🎉',
         'Redesigned, more responsive weight picker',
         'Improved and all new Settings pages',
+        'Use the latest Flutter (3.38) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Using the latest flutter 3.38',
-        'New font family: RobotoFlex',
-        'All new animations to align with M3E design guidelines',
-        'Remove outdated onboarding screen',
-        'Upgrade dependencies and building envs',
+        'New font',
+        'All new animations',
+        'Removed the outdated onboarding screen',
+        'Minor improvements to the code base',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix bug which prevents selecting zh-Hant variant',
-        'Add hints to explain which imports are supported, #338 and #357',
+        'Fixed selecting the zh-Hant variant',
+        'Fixed missing hints on which imports are supported (#338, #357)',
       ],
     },
   ),
@@ -215,9 +218,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Added larger zoom levels for longtime users',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix several bugs of zoom buttons, #334 and #333',
-        'Fix bug that scrollbar is not dragable',
-        'Fix misaligned measurements when using am/pm format',
+        'Fixed several bugs of the zoom buttons (#333, #334)',
+        'Fixed the scrollbar not being draggable',
+        'Fixed misaligned measurements when using the am/pm format',
       ],
     },
   ),
@@ -226,7 +229,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-09-10',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix Fdroid build, #342',
+        'Fixed the F-Droid release (#342)',
       ],
     },
   ),
@@ -236,15 +239,15 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Added zoom buttons, identical to double-tap',
-        'Added iso8601 date format, #325',
+        'Added iso8601 date format (#325)',
+        'Target Android 16 (SDK 36)',
+        'Use the latest Flutter (3.35) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Target Android 16 (SDK 36)',
-        'Using the latest flutter 3.35 with upgraded deps',
         'Improved translation',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix typo in about screen, #328',
+        'Fixed a typo in the about screen (#328)',
       ],
     },
   ),
@@ -253,7 +256,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-08-13',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix Fdroid build, #312',
+        'Fixed the F-Droid release (#312)',
       ],
     },
   ),
@@ -266,12 +269,11 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Trale offers now 7 color scheme variants. Check out the settings page 🎉',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Upgrade dependencies',
-        'Upgrade building envs (Kotlin, Gradle, Android Application, and NDK)',
+        'Upgraded deps',
+        'Minor improvements to the code base',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix `java heap space` error (CI) by increasing jvm memory',
-        'Fix BMI widget for st and lbs, #301',
+        'Fixed the BMI widget for st and lb (#301)',
       ],
     },
   ),
@@ -280,16 +282,13 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-07-15',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Thx to the community, many translations have been improved 🎉',
-        'Using the latest flutter 3.32 with upgraded deps',
-        'Add a BMI widget, #239',
+        'Added a BMI widget (#239)',
+        'Use the latest Flutter (3.32) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Improve change icon on measurement screen, #263',
-        'Add a hint that the user\'s height is in centimeters',
-      ],
-      ChangelogSection.bugfix: <String>[
-        'Replace `auto_size_text` dependency to support latest flutter version',
+        'Improved translation',
+        'Improved the change icon on the measurement screen (#263)',
+        'Added a hint that the user\'s height is in centimeters',
       ],
     },
   ),
@@ -298,11 +297,11 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-05-10',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Thx to the community, many translations have been improved 🎉',
-        'Improved material you design',
+        'Improved Material You design',
+        'Use the latest Flutter (3.29.3) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Using the latest flutter 3.29.3 with upgraded deps',
+        'Improved translation',
       ],
     },
   ),
@@ -313,18 +312,18 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'ஹலோ வேர்ல்ட்! Thx to the community, the app is now available in Tamil 🎉',
         'Use predictive back gesture',
-        'Incorporate user height to calculate BMI-based minimum target weight, replacing the predefined value.',
+        'The minimum target weight now follows your height (BMI) instead of a fixed value',
         'Added experimental high contrast mode',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Update translations',
-        'Minor improvements',
+        'Improved translation',
+        'Minor improvements to the code base',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix system color scheme for monochrome colors, #236',
-        'Fix using wrong font color in some places',
-        'Fix target label overlapping with line',
-        'Fix returning achieving goal in 0 days',
+        'Fixed the system color scheme for monochrome colors (#236)',
+        'Fixed a wrong font color in some places',
+        'Fixed the target label overlapping with the line',
+        'Fixed reaching the goal being estimated as 0 days',
       ],
     },
   ),
@@ -333,7 +332,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-03-03',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix wrongly assign button action in import screen',
+        'Fixed a wrongly assigned button in the import screen',
       ],
     },
   ),
@@ -349,8 +348,8 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Minor speed improvements',
       ],
       ChangelogSection.bugfix: <String>[
-        'Make label of gain weight mode more clear',
-        'Fix label for Dutch language',
+        'Fixed the unclear label of the gain weight mode',
+        'Fixed the label of the Dutch language',
       ],
     },
   ),
@@ -359,10 +358,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-02-25',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Hello World! Thx to the community, the app is now available in Dutch 🎉',
+        'Hallo wereld! Thx to the community, the app is now available in Dutch 🎉',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fixes a bug that caused the shared file to always be empty.',
+        'Fixed the shared file always being empty',
       ],
     },
   ),
@@ -371,8 +370,8 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2025-02-15',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Hello World! Thx to the community, the app is now available in Bulgarian 🎉',
-        'Using the latest flutter 3.29 with upgraded deps',
+        'Здравей, свят! Thx to the community, the app is now available in Bulgarian 🎉',
+        'Use the latest Flutter (3.29) with upgraded deps',
         'Added experimental mode to gain weight',
       ],
     },
@@ -381,13 +380,16 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: '0.9.1',
     dateString: '2025-01-31',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'Target Android 15 (SDK 35)',
+      ],
       ChangelogSection.otherChanges: <String>[
-        'Target SDK35 and use gradle 8.10',
         'Design improvements',
-        'Thx to the community, added localizations for Italian, Estonian, and Chinese',
+        'Improved translation',
+        'Minor improvements to the code base',
       ],
       ChangelogSection.bugfix: <String>[
-        'Removed target weight from the interpolation preview',
+        'Fixed the target weight showing in the interpolation preview',
       ],
     },
   ),
@@ -398,13 +400,13 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'Hello World! Thx to the community, the app is now available in Estonian and Slovenian 🎉',
         'Allow setting the first day of the week, thx to @olker159',
-        'Using the latest flutter 3.27 with upgraded deps',
+        'Use the latest Flutter (3.27) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
         'Improved and restructured settings page',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fixed the estimation of the current/max streak, see #183',
+        'Fixed the estimate of the current and max streak (#183)',
       ],
     },
   ),
@@ -413,7 +415,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-11-14',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Remove DependencyInfoBlock',
+        'Fixed the F-Droid release',
       ],
     },
   ),
@@ -426,13 +428,13 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ],
       ChangelogSection.otherChanges: <String>[
         'Changed font and icons to improve overall accessibility',
-        'Thx to the community, Spanish and French translation were improved',
-        'Add backup reminder, see settings for more options',
-        'Minor clean up of deprecated flutter code',
+        'Improved translation',
+        'Added a backup reminder, see settings for more options',
         'Upgraded deps',
+        'Minor improvements to the code base',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fixed a bug that caused a small icon to be displayed in the F-Droid store (German).',
+        'Fixed a small icon being shown in the F-Droid store (German)',
       ],
     },
   ),
@@ -441,11 +443,11 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-09-22',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Hello World! Thx to the community, the app is now available in Croatian 🎉',
-        'Using the latest flutter 3.24 with upgraded deps',
+        'Pozdrav svijete! Thx to the community, the app is now available in Croatian 🎉',
+        'Use the latest Flutter (3.24) with upgraded deps',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix showing ukraine as supported language',
+        'Fixed Ukrainian showing as a supported language',
       ],
     },
   ),
@@ -454,17 +456,17 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-07-03',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Hello World! Thx to the community, the app is now available in Turkish 🎉',
+        'Merhaba dünya! Thx to the community, the app is now available in Turkish 🎉',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Upgraded dependencies',
-        'Improve readability of target weight label',
+        'Upgraded deps',
+        'Improved readability of the target weight label',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix broken color of linechart',
-        'Allow adding measurements older than 2 years',
-        'Fix bug of showing target weight correctly using st/lb',
-        'Fixed a bug where saving an unmodified measurement resulted in it being deleted',
+        'Fixed the broken color of the line chart',
+        'Fixed adding measurements older than 2 years',
+        'Fixed the target weight shown in st/lb',
+        'Fixed saving an unmodified measurement deleting it',
       ],
     },
   ),
@@ -474,10 +476,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Hello World! Thx to the community, the app is now available in French, Finnish, and Italian 🎉',
-        'Using the latest flutter 3.22 with upgraded deps',
+        'Use the latest Flutter (3.22) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Improved translations',
+        'Improved translation',
       ],
     },
   ),
@@ -486,7 +488,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-04-02',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix bug that prevents app to start, #70',
+        'Fixed the app not starting (#70)',
       ],
     },
   ),
@@ -495,17 +497,17 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-03-21',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'All new and improved interpolation API, the predictions are now more reliable',
-        'Using the latest flutter 3.19 with upgraded deps',
-        'Compile against Android 14 (SDK34)',
+        'More reliable predictions',
+        'Use the latest Flutter (3.19) with upgraded deps',
+        'Target Android 14 (SDK 34)',
         'Hello World! Thx to the community, the app is now available in Lithuanian, Chinese, and Spanish 🎉',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix bug, when reloading theme',
-        'Fix bug that the interpolation was not shown for disabled smoothing, #25',
+        'Fixed reloading the theme',
+        'Fixed the interpolation not being shown with smoothing disabled (#25)',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Disabling interpolation, will now use sigma=2days for extrapolation prediction',
+        'Predictions with smoothing disabled now use a 2-day window',
         'Removed v0.6.0 due to critical bug when user target weight was set.',
       ],
     },
@@ -516,7 +518,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Hello World! Thx to the community, the app is now available in Czech, Korean, Norwegian, and Polish 🎉',
-        'Improved readme, screenshots, and app description (fastlane)',
+        'Improved readme, screenshots, and app description',
       ],
     },
   ),
@@ -525,10 +527,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-01-18',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Accelerated import',
+        'Faster import',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix bug, that allowed target weights below 50 kg',
+        'Fixed target weights below 50 kg being allowed',
       ],
     },
   ),
@@ -537,11 +539,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-01-08',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix bug, when using lb and st units',
+        'Fixed using lb and st units',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Fix version error in 0.4.5',
-        'Fix f-droid metadata',
+        'Fixed the F-Droid release',
       ],
     },
   ),
@@ -550,11 +551,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2024-01-08',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix bug, when using lb and st units',
+        'Fixed using lb and st units',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Fix version error in 0.4.5',
-        'Fix f-droid metadata',
+        'Fixed the F-Droid release',
       ],
     },
   ),
@@ -563,10 +563,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2023-12-20',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fix bug, which prevented loading the app without measurements',
+        'Fixed the app not loading without measurements',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Upgrade dependencies',
+        'Upgraded deps',
       ],
     },
   ),
@@ -575,12 +575,12 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2023-11-26',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Using the latest flutter 3.16 with upgraded deps',
+        'Use the latest Flutter (3.16) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Prepare for predictive back gesture',
-        'Removed splash animation to fix adding to f-droid, see #1',
-        'Fixed list of used dependencies in about screen',
+        'Removed the splash animation (#1)',
+        'Fixed the list of used dependencies in the about screen',
+        'Minor improvements to the code base',
       ],
     },
   ),
@@ -589,7 +589,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2023-11-14',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.otherChanges: <String>[
-        'Remove build-id from rive to enable reproducible builds',
+        'Minor improvements to the code base',
       ],
     },
   ),
@@ -598,8 +598,8 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2023-10-30',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.otherChanges: <String>[
-        'Upgrade dependencies',
-        'Setup Proguard optimization',
+        'Upgraded deps',
+        'Minor improvements to the code base',
       ],
     },
   ),
@@ -614,13 +614,13 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Prepare F-Droid launch',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Add github actions',
-        'Upgrade dependencies',
+        'Upgraded deps',
         'Minor UI improvements',
+        'Minor improvements to the code base',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix missing permission to open links',
-        'Fixed overlapping monthly ticks and added years',
+        'Fixed the missing permission to open links',
+        'Fixed overlapping monthly ticks in the chart, which now also show years',
       ],
     },
   ),
@@ -629,10 +629,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2023-09-08',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Add basic animation',
+        'Added basic animation',
       ],
       ChangelogSection.bugfix: <String>[
-        'Overview screen now updates upon adding first measurement',
+        'Fixed the overview screen not updating after adding the first measurement',
       ],
     },
   ),
@@ -641,13 +641,13 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     dateString: '2023-09-05',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Add support for themed app icon (android 13)',
-        'Using the latest flutter 3.13 version with improved Material You theme',
-        'Update measurement list',
-        'Add import and export feature',
+        'Added support for themed app icon (Android 13)',
+        'Use the latest Flutter (3.13) with an improved Material You theme',
+        'Updated measurement list',
+        'Added import and export feature',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix broken theme selection',
+        'Fixed the broken theme selection',
       ],
     },
   ),
@@ -659,10 +659,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'All new measurement screen including now achievements',
       ],
       ChangelogSection.bugfix: <String>[
-        'Show current slope on start screen widget instead of 30 days average',
+        'Fixed the start screen widget showing the 30 days average instead of the current slope',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Added linear regression for history prediction',
+        'More accurate history prediction',
       ],
     },
   ),
@@ -676,12 +676,12 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'New and fresher app icon',
       ],
       ChangelogSection.bugfix: <String>[
-        'Fix showing date labels for ranges larger than 7 months',
+        'Fixed date labels for ranges larger than 7 months',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Improve text on onboarding screen',
-        'Add German meta data',
-        'Remove unused files',
+        'Improved text on onboarding screen',
+        'Added a German store description',
+        'Minor improvements to the code base',
       ],
     },
   ),
@@ -695,7 +695,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Many new themes, improved zoom levels, many fixed bugs and so much more.',
       ],
       ChangelogSection.otherChanges: <String>[
-        'Added fastlane to publish app',
+        'Minor improvements to the code base',
       ],
     },
   ),
