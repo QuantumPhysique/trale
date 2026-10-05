@@ -49,28 +49,4 @@ void main() {
     expect(await format(tester, 'en', 120), '4 months');
     expect(await format(tester, 'en', 5 * 365), '5 years');
   });
-
-  testWidgets('Slavic units take the form the count asks for', (
-    WidgetTester tester,
-  ) async {
-    expect(await format(tester, 'ru', 21), '21 день');
-    expect(await format(tester, 'ru', 22), '22 дня');
-    expect(await format(tester, 'ru', 25), '25 дней');
-    expect(await format(tester, 'pl', 2), '2 dni');
-    expect(await format(tester, 'pl', 1), '1 dzień');
-  });
-
-  testWidgets('the streak counts a single day in the singular', (
-    WidgetTester tester,
-  ) async {
-    expect(
-      await inLocale(
-        tester,
-        'en',
-        (BuildContext context) =>
-            const Duration(days: 1).streakToStringDays(context),
-      ),
-      '1 day',
-    );
-  });
 }

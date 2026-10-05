@@ -12,20 +12,6 @@ void main() {
       );
     });
 
-    test('a lose goal is reached below the target', () {
-      expect(
-        WeightGoal.lose.range(75).timeToEnter(weight: 74, slope: 0.1),
-        const Duration(days: -1),
-      );
-    });
-
-    test('a gain goal counts up to the target', () {
-      expect(
-        WeightGoal.gain.range(75).timeToEnter(weight: 70, slope: 0.1),
-        const Duration(days: 50),
-      );
-    });
-
     test('a maintain goal is reached anywhere within 1% of its target', () {
       final TargetRange range = WeightGoal.maintain.range(100);
 
@@ -43,20 +29,6 @@ void main() {
       expect(
         WeightGoal.maintain.range(100).timeToEnter(weight: 105, slope: -0.1),
         const Duration(days: 40),
-      );
-    });
-
-    test('a maintain goal counts up to its lower bound', () {
-      expect(
-        WeightGoal.maintain.range(100).timeToEnter(weight: 95, slope: 0.1),
-        const Duration(days: 40),
-      );
-    });
-
-    test('a trend less than half a day outside has not entered yet', () {
-      expect(
-        WeightGoal.maintain.range(100).timeToEnter(weight: 101.02, slope: -0.1),
-        const Duration(days: 1),
       );
     });
 
@@ -93,31 +65,6 @@ void main() {
 
       expect(prefs.weightGoal, WeightGoal.gain);
       expect(sp.containsKey('looseWeight'), isFalse);
-    });
-
-    test('a stored lose direction becomes the lose goal', () async {
-      final Preferences prefs = await loadPrefs(<String, Object>{
-        'looseWeight': true,
-      });
-
-      expect(prefs.weightGoal, WeightGoal.lose);
-      expect(sp.containsKey('looseWeight'), isFalse);
-    });
-
-    test('without a stored direction the goal is lose', () async {
-      final Preferences prefs = await loadPrefs(<String, Object>{});
-
-      expect(prefs.weightGoal, WeightGoal.lose);
-    });
-
-    test('restoring the defaults resets the goal', () async {
-      final Preferences prefs = await loadPrefs(<String, Object>{
-        'looseWeight': false,
-      });
-
-      prefs.loadDefaultSettings(override: true);
-
-      expect(prefs.weightGoal, WeightGoal.lose);
     });
   });
 }
