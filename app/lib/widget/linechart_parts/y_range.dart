@@ -2,8 +2,7 @@ part of '../linechart.dart';
 
 /// The chart's y-range for [values]: padded by a fifth of their span on each
 /// side, and at least [minSpan] wide.
-@visibleForTesting
-({double minY, double maxY}) chartYRange(
+({double minY, double maxY}) _chartYRange(
   Iterable<double> values, {
   double minSpan = 2,
 }) {

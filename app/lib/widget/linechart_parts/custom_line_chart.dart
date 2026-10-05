@@ -350,7 +350,7 @@ class _CustomLineChartState extends State<CustomLineChart>
     // between the first and the last dot: beyond them it widens.
     final double bandFrom = max(_curMinX, msTimes.first);
     final double bandTo = min(_curMaxX, msTimes.last);
-    final ({double minY, double maxY}) yRange = chartYRange(<double>[
+    final ({double minY, double maxY}) yRange = _chartYRange(<double>[
       for (final FlSpot e in shownData.isEmpty ? measurements : shownData) e.y,
       for (int i = 0; i < predictiveLower.length; i++)
         if (predictiveLower[i].x >= bandFrom &&
