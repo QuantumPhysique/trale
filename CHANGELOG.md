@@ -15,9 +15,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added Features and Improvements 🙌:
-- All new interpolation: much faster with long histories, and more reliable across gaps. Your curve and rate of change may shift slightly
-- New chart style "Scientific": your trend as a line, with the range in which your measurements are expected to fall
-- The chart shows the part beyond your last measurement lighter, and dashed in "Scientific", as it is only a projection
+- All new interpolation that learns from your data, entirely on your device
+- New chart style "Scientific" showing the range your measurements are expected to fall in
+- The chart now marks the part after your last measurement as a projection
 
 ### Other Changes:
 - Minor improvements to the code base
