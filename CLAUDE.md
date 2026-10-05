@@ -32,7 +32,7 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 
 - `main` is the only long-lived branch; feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` directly.
 - Every commit lands on `main` as it is (no squash), so every commit is a conventional commit — see `/commit`. The PR title uses the same format.
-- Versions are hand-made: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
+- Versions are prepared with `/release`: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
 
 ## Changelog
 
@@ -41,8 +41,13 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 - A change users notice gets one short line: what changed for them. No class or widget names, no cause, no implementation
   - Bad: `Fixed reminders firing at the wrong hour: the device time zone was matched by its abbreviation`
   - Good: `Fixed reminders firing at the wrong hour`
+- Bug fixes start with `Fixed …`
+- A change tied to a GitHub issue ends with it: `Fixed the calendar with a custom first day of the week (#417)`
 - Everything users cannot see — refactoring, tests, CI, lint fixes, build tooling — is covered by one shared line under `Other Changes`: `Minor improvements to the code base`. Add it if it is missing, never a second one
-- Dependencies: only Flutter is named, with its version; every other upgrade is covered by `upgraded deps`. `Use the latest Flutter (3.47) with upgraded deps`, or `Upgraded deps` alone
+- A broken store release is the exception users do notice: `Fixed the F-Droid release`
+- Under `Added Features and Improvements`:
+  - Flutter is the only dependency named, with its version: `Use the latest Flutter (3.47) with upgraded deps`. Without a Flutter upgrade, other upgrades get `Upgraded deps` under `Other Changes`
+  - A new Android target SDK: `Target Android 16 (SDK 36)`
 - Translations from Weblate: `Improved translation`. A new language: `<Hello world in that language>! Thx to the community, the app is now available in <Language> 🎉`
 
 Then `make generate` and commit `app/lib/core/changelog.g.dart` with it; CI fails when it is stale.
