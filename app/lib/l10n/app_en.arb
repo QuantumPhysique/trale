@@ -750,7 +750,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation uses state-of-the-art Gaussian filtering to smooth your weight curve and create a clearer trend. Higher strength levels reduce daily fluctuations but may hide short-term changes. Choose '{noneInterpol}' to see your raw measurements, though extrapolation will still use soft smoothing.",
+    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. Higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still use soft smoothing.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {
