@@ -185,7 +185,9 @@ class _PersonalizationSettingsPageState
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
         child: Text(
-          context.l10n.chartModeExplanation,
+          context.l10n.chartModeExplanation(
+            noneInterpol: InterpolStrength.none.nameLong(context),
+          ),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),

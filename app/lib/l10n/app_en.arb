@@ -772,9 +772,15 @@
     "@chartModeScientific": {
         "description": "Chart style that draws the trend as a line with the range the measurements are expected in"
     },
-    "chartModeExplanation": "Simple shows your trend as a shaded curve. Scientific shows it as a line, together with the range in which about 95 of 100 measurements are expected to fall. The range is wider where you measured less often, and appears once you have measured on seven days.",
+    "chartModeExplanation": "Simple shows your trend as a shaded curve. Scientific shows it as a line, together with the range in which about 95 of 100 measurements are expected to fall. The range is wider where you measured less often, and appears once you have measured on seven days. It is not shown when the interpolation is set to '{noneInterpol}'.",
     "@chartModeExplanation": {
-        "description": "Explanation of the chart styles"
+        "description": "Explanation of the chart styles",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
     },
     "unitTitle": "Unit",
     "@unitTitle": {
