@@ -43,9 +43,6 @@ class _InterpolationPayload {
   final int displayEnd;
 }
 
-/// Fewer days than this leave the noise estimate too uncertain for a band.
-const int _minDaysForBand = 7;
-
 /// The displayed curve, its slope and the band around it, one entry per
 /// displayed day.
 class _InterpolationResult {
@@ -104,7 +101,7 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
 
   List<double> bandLower = <double>[];
   List<double> bandUpper = <double>[];
-  if (nDays >= _minDaysForBand && !p.isNone) {
+  if (nDays >= minimumDaysForBand && !p.isNone) {
     final Bands band = posterior.predictiveBand();
     bandLower = band.lo.toList();
     bandUpper = band.hi.toList();

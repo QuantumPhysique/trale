@@ -36,3 +36,8 @@ const double trendTimeScaleInBandwidths = 15;
 /// On a short history the noise is estimated from a handful of readings and
 /// would otherwise come out far too small, making the band falsely narrow.
 const double minimumNoiseVariance = 0.01;
+
+/// Fewest days with measurements for the predictive band.
+///
+/// On fewer days the noise estimate is too uncertain for a band.
+const int minimumDaysForBand = 7;
