@@ -12,7 +12,9 @@ class _InterpolationPayload {
     required this.weightsMeasured,
     required this.counts,
     required this.processVariance,
-    required this.timeScale,
+    required this.useAutoStrength,
+    required this.autoStrengthRatio,
+    required this.tryAutoStrength,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -27,11 +29,19 @@ class _InterpolationPayload {
   /// Number of measurements on each of those days.
   final List<int> counts;
 
-  /// Variance ratio of the trend, see [InterpolStrengthExtension].
+  /// Variance ratio of the trend at the manual strength, see
+  /// [InterpolStrengthExtension].
   final double processVariance;
 
-  /// Days over which the trend's rate of change fades.
-  final double timeScale;
+  /// Whether the curve uses the automatic strength instead of
+  /// [processVariance].
+  final bool useAutoStrength;
+
+  /// Variance ratio the automatic strength holds.
+  final double autoStrengthRatio;
+
+  /// Whether to fit the automatic strength before smoothing.
+  final bool tryAutoStrength;
 
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
@@ -51,6 +61,7 @@ class _InterpolationResult {
     required this.slopes,
     required this.bandLower,
     required this.bandUpper,
+    required this.learnedAutoStrength,
   });
 
   final List<double> weights;
@@ -63,10 +74,15 @@ class _InterpolationResult {
 
   /// Upper edge of the band, see [bandLower].
   final List<double> bandUpper;
+
+  /// Variance ratio the automatic strength holds after its fit, null without
+  /// an accepted fit.
+  final double? learnedAutoStrength;
 }
 
 /// Smooths the measured days with a damped trend at the strength's variance
-/// ratio and time scale. Top-level, so that [compute] can run it in an isolate.
+/// ratio, after fitting the automatic strength when that is due. Top-level, so
+/// that [compute] can run it in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
@@ -82,16 +98,24 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
         relativeVariance: 1 / p.counts[k],
       ),
   ];
+  final double? learned = p.tryAutoStrength
+      ? learnAutoStrength(observations, p.autoStrengthRatio)
+      : null;
+  final double ratio = p.useAutoStrength
+      ? learned ?? p.autoStrengthRatio
+      : p.processVariance;
+  final double timeScale =
+      trendTimeScaleInBandwidths * bandwidthForRatio(ratio);
   final StructuralModel model = nDays < 2
       // One day leaves no residual to estimate the noise from.
       ? StructuralModel.dampedLinearTrend(
-          processVariance: p.processVariance * minimumNoiseVariance,
-          timeScale: p.timeScale,
+          processVariance: ratio * minimumNoiseVariance,
+          timeScale: timeScale,
           measurementVariance: minimumNoiseVariance,
         )
       : StructuralModel.dampedLinearTrend(
-          processVariance: p.processVariance,
-          timeScale: p.timeScale,
+          processVariance: ratio,
+          timeScale: timeScale,
         ).withEstimatedScale(
           observations,
           minimumMeasurementVariance: minimumNoiseVariance,
@@ -112,6 +136,7 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,
+    learnedAutoStrength: learned,
   );
 }
 

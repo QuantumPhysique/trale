@@ -41,3 +41,26 @@ const double minimumNoiseVariance = 0.01;
 ///
 /// On fewer days the noise estimate is too uncertain for a band.
 const int minimumDaysForBand = 7;
+
+/// Smoothing bandwidth in days the automatic strength starts from.
+///
+/// Where the out-of-sample error had flattened on all five test diaries while
+/// the 30-day band still covered 89 to 97 % of the readings.
+const double autoStrengthStartInDays = 5.5;
+
+/// Days of history before the automatic strength fits its first value.
+///
+/// Shorter histories gave fits up to twenty times too small, often without a
+/// warning: the two-day water wobble in the readings passes for trend.
+const int autoStrengthMinHistoryInDays = 90;
+
+/// New days with measurements between two fits of the automatic strength.
+const int autoStrengthTryEveryDays = 30;
+
+/// Widest plateau, in decades of the variance ratio, of a fit the automatic
+/// strength accepts; 0.5 decades pin the bandwidth to ±15 %.
+const double autoStrengthMaxPlateauDecades = 0.5;
+
+/// Log-likelihood in nats by which a fit has to beat the strength in use to
+/// replace it, so that noise in the fit does not move the curve.
+const double autoStrengthMinGainInNats = 0.5;

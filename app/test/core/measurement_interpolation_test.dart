@@ -46,6 +46,31 @@ List<Measurement> gaussianDiary() {
   ];
 }
 
+/// [days] mornings from 2026-01-01 of a trend whose slope wanders as a
+/// smoothing bandwidth of [bandwidth] days assumes, read with 0.4 kg of noise.
+List<Measurement> trendDiary(int days, double bandwidth) {
+  final Random random = Random(11);
+  double gaussian() =>
+      sqrt(-2 * log(1 - random.nextDouble())) *
+      cos(2 * pi * random.nextDouble());
+  const double noise = 0.4;
+  final double slopeStep = noise * sqrt(ratioForBandwidth(bandwidth));
+  double level = 80;
+  double slope = 0;
+  final List<Measurement> measurements = <Measurement>[];
+  for (int day = 0; day < days; day++) {
+    measurements.add(
+      Measurement(
+        weight: level + noise * gaussian(),
+        date: DateTime(2026, 1, 1 + day, 8),
+      ),
+    );
+    level += slope;
+    slope += slopeStep * gaussian();
+  }
+  return measurements;
+}
+
 /// The interpolation of [measurements] at [strength].
 Future<MeasurementInterpolation> interpolate(
   List<Measurement> measurements, [
@@ -128,6 +153,24 @@ void main() {
     }
 
     expect(inside / count, inInclusiveRange(0.9, 0.99));
+  });
+
+  test('a history under 90 days keeps the start strength', () async {
+    // On its own, the fit to this diary would be accepted.
+    final MeasurementInterpolation ip = await interpolate(trendDiary(80, 1.5));
+    await ip.reinitAsync();
+
+    expect(Preferences().autoStrengthRatio, isNull);
+  });
+
+  test('a long history learns its bandwidth', () async {
+    final MeasurementInterpolation ip = await interpolate(trendDiary(1000, 12));
+    await ip.reinitAsync();
+
+    expect(
+      bandwidthForRatio(Preferences().autoStrengthRatio!),
+      closeTo(12, 12 * 0.15),
+    );
   });
 
   test('the grid keeps a last day read earlier in the day', () async {
