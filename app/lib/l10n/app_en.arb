@@ -448,6 +448,44 @@
     "@strength": {
         "description": "interpolation strength"
     },
+    "autoStrength": "automatic",
+    "@autoStrength": {
+        "description": "Switch label to learn the interpolation strength from the user's data"
+    },
+    "autoStrengthLearned": "{days, plural, one{About 1 day, learned from your data} other{About {days} days, learned from your data}}",
+    "@autoStrengthLearned": {
+        "description": "Subtitle of the automatic strength switch once a strength was learned, with its smoothing bandwidth in days",
+        "placeholders": {
+            "days": {
+                "type": "int",
+                "example": "8"
+            }
+        }
+    },
+    "autoStrengthLearning": "Learning from your data",
+    "@autoStrengthLearning": {
+        "description": "Subtitle of the automatic strength switch before a strength was learned"
+    },
+    "autoStrengthSummary": "Help tune the automatic smoothing",
+    "@autoStrengthSummary": {
+        "description": "Title of the tile and dialog that show a shareable summary of the learned interpolation strength"
+    },
+    "autoStrengthSummarySubtitle": "Share a summary without weights or dates",
+    "@autoStrengthSummarySubtitle": {
+        "description": "Subtitle of the tile that opens the summary of the learned interpolation strength"
+    },
+    "autoStrengthSummaryExplanation": "trale has no internet access and cannot send anything by itself. The numbers below only describe how the automatic smoothing fits your data, without any weights or dates. If you like, share them in our GitHub discussion, so that we can tune the smoothing for everyone:",
+    "@autoStrengthSummaryExplanation": {
+        "description": "Explanation in the dialog with the summary of the learned interpolation strength, followed by the link to the discussion"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Button that closes a dialog"
+    },
+    "share": "Share",
+    "@share": {
+        "description": "Button that opens the system share sheet"
+    },
     "none": "None",
     "@none": {
         "description": "no interpolation"
@@ -750,9 +788,31 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation uses state-of-the-art Gaussian filtering to smooth your weight curve and create a clearer trend. Higher strength levels reduce daily fluctuations but may hide short-term changes. Choose '{noneInterpol}' to see your raw measurements, though extrapolation will still use soft smoothing.",
+    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. Automatic starts with a medium smoothing and adapts it to your data as your history grows. Switch it off to choose the strength yourself: higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still come from the automatic smoothing.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "chartMode": "chart style",
+    "@chartMode": {
+        "description": "Title of the setting how the weight chart is drawn"
+    },
+    "chartModeSimple": "Simple",
+    "@chartModeSimple": {
+        "description": "Chart style that draws the trend as a shaded curve"
+    },
+    "chartModeScientific": "Scientific",
+    "@chartModeScientific": {
+        "description": "Chart style that draws the trend as a line with the range the measurements are expected in"
+    },
+    "chartModeExplanation": "Simple shows your trend as a shaded curve. Scientific shows it as a line, together with the range in which about 95 of 100 measurements are expected to fall. The range is wider where you measured less often, and appears once you have measured on seven days. It is not shown when the interpolation is set to '{noneInterpol}'.",
+    "@chartModeExplanation": {
+        "description": "Explanation of the chart styles",
         "placeholders": {
             "noneInterpol": {
                 "type": "String",

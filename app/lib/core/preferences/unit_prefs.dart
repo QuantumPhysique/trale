@@ -31,4 +31,26 @@ extension UnitPrefsExtension on Preferences {
   /// set interpolation strength mode
   set interpolStrength(InterpolStrength strength) =>
       prefs.setString('interpolStrength', strength.name);
+
+  /// Whether the smoothing strength is learned from the data.
+  bool get autoStrength => prefs.getBool('autoStrength')!;
+
+  /// set whether the smoothing strength is learned from the data
+  set autoStrength(bool enabled) => prefs.setBool('autoStrength', enabled);
+
+  /// Variance ratio the automatic strength holds, null before its first
+  /// accepted fit.
+  double? get autoStrengthRatio => prefs.getDouble('autoStrengthRatio')! > 0
+      ? prefs.getDouble('autoStrengthRatio')!
+      : null;
+
+  /// set the variance ratio the automatic strength holds
+  set autoStrengthRatio(double? ratio) =>
+      prefs.setDouble('autoStrengthRatio', ratio ?? -1);
+
+  /// Days with measurements at the automatic strength's last fit.
+  int get autoStrengthDays => prefs.getInt('autoStrengthDays')!;
+
+  /// set the days with measurements at the automatic strength's last fit
+  set autoStrengthDays(int days) => prefs.setInt('autoStrengthDays', days);
 }

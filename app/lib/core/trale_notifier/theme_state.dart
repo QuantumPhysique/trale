@@ -8,6 +8,17 @@ extension ThemeStateExtension on TraleNotifier {
   /// Current zoom level.
   ZoomLevel get zoomLevel => _prefs.zoomLevel;
 
+  /// How the weight curve is drawn.
+  ChartMode get chartMode => _prefs.chartMode;
+
+  /// Sets [chartMode].
+  set chartMode(ChartMode mode) {
+    if (mode != chartMode) {
+      _prefs.chartMode = mode;
+      notify;
+    }
+  }
+
   /// Advance to the next zoom level.
   void nextZoomLevel() {
     final ZoomLevel newLevel = _prefs.zoomLevel.next;

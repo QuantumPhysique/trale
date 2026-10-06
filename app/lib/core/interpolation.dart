@@ -1,5 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:material_ui/material_ui.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
+
+/// Variance ratio of the trend per day³ that smooths like a kernel of [days],
+/// at one reading a day (Silverman 1984).
+double ratioForBandwidth(double days) => math.pow(days, -4).toDouble();
+
+/// Bandwidth in days of the kernel the variance ratio [ratio] smooths like,
+/// at one reading a day; the inverse of [ratioForBandwidth].
+double bandwidthForRatio(double ratio) => math.pow(ratio, -0.25).toDouble();
 
 /// Enum with all available interpolation functions
 enum InterpolStrength {
@@ -18,19 +28,19 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// get the interpolation strength of measurements [days]
-  double get strengthMeasurement => <InterpolStrength, double>{
-    InterpolStrength.none: 2,
+  /// Bandwidth of the smoothing in days, null for `none`, whose rate comes
+  /// from the automatic strength.
+  double? get bandwidthInDays => <InterpolStrength, double?>{
+    InterpolStrength.none: null,
     InterpolStrength.soft: 2,
     InterpolStrength.medium: 4,
     InterpolStrength.strong: 7,
-  }[this]!;
+  }[this];
 
-  /// get the interpolation strength of measurements [days]
-  double get strengthInterpol => strengthMeasurement / 2;
-
-  /// get the ratio how much the measurements are weighted more than interpols
-  double get weight => 2;
+  /// Variance ratio of the trend per day³ that smooths like a kernel of
+  /// [bandwidthInDays], null for `none`.
+  double? get processVariance =>
+      bandwidthInDays == null ? null : ratioForBandwidth(bandwidthInDays!);
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{

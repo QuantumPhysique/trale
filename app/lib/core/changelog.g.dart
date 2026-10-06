@@ -10,6 +10,18 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'All new interpolation that learns from your data, entirely on your device (#481)',
+        'Faster with long histories (#279)',
+        'Share an anonymous summary of the automatic smoothing to help tune it',
+        'New chart style "Scientific" showing the range your measurements are expected to fall in',
+        'The chart now marks the part after your last measurement as a projection',
+      ],
+      ChangelogSection.otherChanges: <String>[
+        'Minor improvements to the code base',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.5.0',

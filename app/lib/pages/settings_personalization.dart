@@ -2,16 +2,19 @@ import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
+import 'package:trale/core/chart_mode.dart';
 import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/interpolation_preview.dart';
 import 'package:trale/core/l10n_extension.dart';
+import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/print_format.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/widget/auto_strength_summary_dialog.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/user_dialog.dart';
@@ -31,12 +34,22 @@ class _PersonalizationSettingsPageState
   /// Whether to show the user's own data instead of fake preview data.
   bool _showUserData = false;
 
+  late final Stream<List<Measurement>> _measurementStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _measurementStream = MeasurementDatabase().streamController.stream;
+  }
+
   @override
   Widget build(BuildContext context) {
     final TraleNotifier notifier = Provider.of<TraleNotifier>(
       context,
       listen: false,
     );
+
+    final bool autoStrength = Provider.of<TraleNotifier>(context).autoStrength;
 
     final Widget sliderTile = Container(
       padding: const EdgeInsets.fromLTRB(
@@ -50,7 +63,9 @@ class _PersonalizationSettingsPageState
         children: <Widget>[
           Text(
             context.l10n.strength.inCaps,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: autoStrength ? Theme.of(context).disabledColor : null,
+            ),
             maxLines: 1,
           ),
           Slider(
@@ -63,16 +78,22 @@ class _PersonalizationSettingsPageState
             label: Provider.of<TraleNotifier>(
               context,
             ).interpolStrength.nameLong(context),
-            onChanged: (double newStrength) async {
-              Provider.of<TraleNotifier>(
-                context,
-                listen: false,
-              ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
-            },
+            onChanged: autoStrength
+                ? null
+                : (double newStrength) async {
+                    Provider.of<TraleNotifier>(
+                          context,
+                          listen: false,
+                        ).interpolStrength =
+                        InterpolStrength.values[newStrength.toInt()];
+                  },
           ),
         ],
       ),
     );
+
+    final ChartMode chartMode = Provider.of<TraleNotifier>(context).chartMode;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     final bool hasEnoughData = MeasurementDatabase().measurements.length > 3;
     final bool useUserData = _showUserData && hasEnoughData;
@@ -83,17 +104,22 @@ class _PersonalizationSettingsPageState
         children: <Widget>[
           QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
-            child: CustomLineChart(
-              loadedFirst: false,
-              ip: useUserData
-                  ? MeasurementInterpolation()
-                  : PreviewInterpolation(),
-              isPreview: true,
-              relativeHeight: 0.25,
-              backgroundColor: Theme.of(
-                context,
-              ).colorScheme.surfaceContainerLowest,
-              chartMargin: EdgeInsets.zero,
+            // A new strength is computed in the background, after the page
+            // was rebuilt for it; the stream fires once the curve is ready.
+            child: StreamBuilder<List<Measurement>>(
+              stream: _measurementStream,
+              builder: (BuildContext context, _) => CustomLineChart(
+                loadedFirst: false,
+                ip: useUserData
+                    ? MeasurementInterpolation()
+                    : PreviewInterpolation(),
+                isPreview: true,
+                relativeHeight: 0.25,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerLowest,
+                chartMargin: EdgeInsets.zero,
+              ),
             ),
           ),
           if (hasEnoughData)
@@ -113,10 +139,52 @@ class _PersonalizationSettingsPageState
                 });
               },
             ),
+          // A fit of the strength lands after the page was rebuilt for the
+          // switch; the stream fires once it is stored.
+          StreamBuilder<List<Measurement>>(
+            stream: _measurementStream,
+            builder: (BuildContext context, _) {
+              final double? learnedDays =
+                  MeasurementInterpolation().learnedAutoStrengthInDays;
+              return QPGroupedSwitchListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: QPLayout.padding,
+                ),
+                title: Text(
+                  context.l10n.autoStrength.inCaps,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                subtitle: Text(
+                  learnedDays == null
+                      ? context.l10n.autoStrengthLearning
+                      : context.l10n.autoStrengthLearned(
+                          days: learnedDays.round(),
+                        ),
+                ),
+                value: autoStrength,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    notifier.autoStrength = value;
+                  }
+                },
+              );
+            },
+          ),
           QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,
           ),
+          if (MeasurementInterpolation().learnedAutoStrengthInDays != null)
+            QPGroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              title: Text(
+                context.l10n.autoStrengthSummary,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              subtitle: Text(context.l10n.autoStrengthSummarySubtitle),
+              onTap: () => showAutoStrengthSummaryDialog(context: context),
+            ),
         ],
       ),
       const SizedBox(height: QPLayout.smallPadding),
@@ -124,6 +192,50 @@ class _PersonalizationSettingsPageState
         padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
         child: Text(
           context.l10n.interpolationExplanation(
+            noneInterpol: InterpolStrength.none.nameLong(context),
+          ),
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      ),
+      const SizedBox(height: QPLayout.padding),
+      QPWidgetGroup(
+        title: context.l10n.chartMode,
+        children: <Widget>[
+          RadioGroup<ChartMode>(
+            groupValue: chartMode,
+            onChanged: (ChartMode? mode) {
+              if (mode != null) {
+                notifier.chartMode = mode;
+              }
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                for (final ChartMode mode in ChartMode.values)
+                  QPGroupedRadioListTile<ChartMode>(
+                    color: mode == chartMode
+                        ? colorScheme.primaryContainer
+                        : colorScheme.surfaceContainerLowest,
+                    shape: mode == chartMode ? const StadiumBorder() : null,
+                    value: mode,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: QPLayout.padding,
+                    ),
+                    title: Text(
+                      mode.nameLong(context),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: QPLayout.smallPadding),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
+        child: Text(
+          context.l10n.chartModeExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
           ),
           style: Theme.of(context).textTheme.bodyMedium,

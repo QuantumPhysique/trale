@@ -237,6 +237,44 @@
     "@strength": {
         "description": "interpolation strength"
     },
+    "autoStrength": "automatisch",
+    "@autoStrength": {
+        "description": "Switch label to learn the interpolation strength from the user's data"
+    },
+    "autoStrengthLearned": "{days, plural, one{Etwa 1 Tag, aus Deinen Daten gelernt} other{Etwa {days} Tage, aus Deinen Daten gelernt}}",
+    "@autoStrengthLearned": {
+        "description": "Subtitle of the automatic strength switch once a strength was learned, with its smoothing bandwidth in days",
+        "placeholders": {
+            "days": {
+                "type": "int",
+                "example": "8"
+            }
+        }
+    },
+    "autoStrengthLearning": "Lernt aus Deinen Daten",
+    "@autoStrengthLearning": {
+        "description": "Subtitle of the automatic strength switch before a strength was learned"
+    },
+    "autoStrengthSummary": "Hilf, die automatische Glättung abzustimmen",
+    "@autoStrengthSummary": {
+        "description": "Title of the tile and dialog that show a shareable summary of the learned interpolation strength"
+    },
+    "autoStrengthSummarySubtitle": "Teile eine Zusammenfassung ohne Gewichte und Datumsangaben",
+    "@autoStrengthSummarySubtitle": {
+        "description": "Subtitle of the tile that opens the summary of the learned interpolation strength"
+    },
+    "autoStrengthSummaryExplanation": "trale hat keinen Internetzugriff und kann selbst nichts senden. Die Zahlen unten beschreiben nur, wie die automatische Glättung zu Deinen Daten passt, ohne Gewichte oder Datumsangaben. Wenn Du magst, teile sie in unserer GitHub-Diskussion, damit wir die Glättung für alle abstimmen können:",
+    "@autoStrengthSummaryExplanation": {
+        "description": "Explanation in the dialog with the summary of the learned interpolation strength, followed by the link to the discussion"
+    },
+    "close": "Schließen",
+    "@close": {
+        "description": "Button that closes a dialog"
+    },
+    "share": "Teilen",
+    "@share": {
+        "description": "Button that opens the system share sheet"
+    },
     "min": "min.",
     "@min": {
         "description": "Shorthand for minimum."
@@ -391,9 +429,31 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation verwendet einen Gauß-Filter, um die Gewichtskurve zu glätten und einen Trend erkennbar zu machen. Ein stärkerer Filter reduziert tägliche Sprünge aber versteckt eventuell kurzweilige Änderungen. Wähle „{noneInterpol}“, um die rohen Messwerte zu sehen. Extrapolierte Werte werden dann trotzdem noch leicht geglättet.",
+    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Automatisch beginnt mit einer mittleren Glättung und passt sie an Deine Daten an, je länger Du misst. Schalte es aus, um die Stärke selbst zu wählen: Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der automatischen Glättung.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "chartMode": "Diagrammstil",
+    "@chartMode": {
+        "description": "Title of the setting how the weight chart is drawn"
+    },
+    "chartModeSimple": "Einfach",
+    "@chartModeSimple": {
+        "description": "Chart style that draws the trend as a shaded curve"
+    },
+    "chartModeScientific": "Wissenschaftlich",
+    "@chartModeScientific": {
+        "description": "Chart style that draws the trend as a line with the range the measurements are expected in"
+    },
+    "chartModeExplanation": "Einfach zeigt Deinen Trend als schattierte Kurve. Wissenschaftlich zeigt ihn als Linie, zusammen mit dem Bereich, in dem etwa 95 von 100 Messungen erwartet werden. Der Bereich ist breiter, wo Du seltener gemessen hast, und erscheint, sobald Du an sieben Tagen gemessen hast. Ist die Interpolation auf „{noneInterpol}“ gestellt, wird er nicht angezeigt.",
+    "@chartModeExplanation": {
+        "description": "Explanation of the chart styles",
         "placeholders": {
             "noneInterpol": {
                 "type": "String",

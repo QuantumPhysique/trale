@@ -177,6 +177,18 @@ extension UserStateExtension on TraleNotifier {
     }
   }
 
+  /// Whether the smoothing strength is learned from the data.
+  bool get autoStrength => _prefs.autoStrength;
+
+  /// Sets [autoStrength].
+  set autoStrength(bool enabled) {
+    if (autoStrength != enabled) {
+      _prefs.autoStrength = enabled;
+      MeasurementDatabase().reinit();
+      notify;
+    }
+  }
+
   /// getter
   bool get healthConnectEnabled => _prefs.healthConnectEnabled;
 

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/backup_interval.dart';
+import 'package:trale/core/chart_mode.dart';
 import 'package:trale/core/first_day.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement_database.dart';

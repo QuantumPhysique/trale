@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/backup_interval.dart';
+import 'package:trale/core/chart_mode.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
 import 'package:trale/core/stats_range.dart';
@@ -101,8 +102,20 @@ class Preferences extends QPPreferences {
   /// Default interpolation strength.
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
+  /// Default for autoStrength.
+  final bool defaultAutoStrength = true;
+
+  /// Default for autoStrengthRatio, nothing learned yet.
+  final double? defaultAutoStrengthRatio = null;
+
+  /// Default for autoStrengthDays.
+  final int defaultAutoStrengthDays = 0;
+
   /// Default zoom level.
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
+
+  /// Default chart mode.
+  final ChartMode defaultChartMode = ChartMode.simple;
 
   /// Default backup interval.
   final BackupInterval defaultBackupInterval = BackupInterval.monthly;
@@ -162,6 +175,19 @@ class Preferences extends QPPreferences {
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
     }
+    if (override || !prefs.containsKey('autoStrength')) {
+      // Released versions wrote medium as the default, so a chosen medium and
+      // an untouched one look alike: both move to the automatic strength.
+      autoStrength = override
+          ? defaultAutoStrength
+          : interpolStrength == InterpolStrength.medium;
+    }
+    if (override || !prefs.containsKey('autoStrengthRatio')) {
+      autoStrengthRatio = defaultAutoStrengthRatio;
+    }
+    if (override || !prefs.containsKey('autoStrengthDays')) {
+      autoStrengthDays = defaultAutoStrengthDays;
+    }
     if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;
     }
@@ -189,6 +215,9 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('zoomLevel')) {
       zoomLevel = defaultZoomLevel;
+    }
+    if (override || !prefs.containsKey('chartMode')) {
+      chartMode = defaultChartMode;
     }
     if (override || !prefs.containsKey('backupInterval')) {
       backupInterval = defaultBackupInterval;
@@ -231,6 +260,11 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('healthConnectExportEnabled')) {
       healthConnectExportEnabled = defaultHealthConnectExportEnabled;
+    }
+    // Released versions cached the interpolation here; it is recomputed on
+    // every start now.
+    if (prefs.containsKey('interpolation_cache')) {
+      prefs.remove('interpolation_cache');
     }
   }
 }
