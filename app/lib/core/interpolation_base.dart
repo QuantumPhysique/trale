@@ -17,6 +17,17 @@ class MeasurementInterpolationBaseclass {
   /// user's own diary is.
   bool get learnsAutoStrength => false;
 
+  /// Bandwidth in days the learned automatic strength smooths with at this
+  /// diary's density of readings, null before its first accepted fit.
+  double? get learnedAutoStrengthInDays {
+    final double? ratio = Preferences().autoStrengthRatio;
+    if (ratio == null || nDays == 0) {
+      return null;
+    }
+    // A sparser diary spreads the same ratio over more days.
+    return bandwidthForRatio(ratio * isMeasurement.sum() / nDays);
+  }
+
   /// Whether the curve is drawn as straight lines between the measurements,
   /// which only a manual [InterpolStrength.none] does.
   bool get _isNone =>

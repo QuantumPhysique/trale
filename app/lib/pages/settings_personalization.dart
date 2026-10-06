@@ -48,6 +48,8 @@ class _PersonalizationSettingsPageState
       listen: false,
     );
 
+    final bool autoStrength = Provider.of<TraleNotifier>(context).autoStrength;
+
     final Widget sliderTile = Container(
       padding: const EdgeInsets.fromLTRB(
         QPLayout.padding,
@@ -60,7 +62,9 @@ class _PersonalizationSettingsPageState
         children: <Widget>[
           Text(
             context.l10n.strength.inCaps,
-            style: Theme.of(context).textTheme.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+              color: autoStrength ? Theme.of(context).disabledColor : null,
+            ),
             maxLines: 1,
           ),
           Slider(
@@ -73,12 +77,15 @@ class _PersonalizationSettingsPageState
             label: Provider.of<TraleNotifier>(
               context,
             ).interpolStrength.nameLong(context),
-            onChanged: (double newStrength) async {
-              Provider.of<TraleNotifier>(
-                context,
-                listen: false,
-              ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
-            },
+            onChanged: autoStrength
+                ? null
+                : (double newStrength) async {
+                    Provider.of<TraleNotifier>(
+                          context,
+                          listen: false,
+                        ).interpolStrength =
+                        InterpolStrength.values[newStrength.toInt()];
+                  },
           ),
         ],
       ),
@@ -131,6 +138,38 @@ class _PersonalizationSettingsPageState
                 });
               },
             ),
+          // A fit of the strength lands after the page was rebuilt for the
+          // switch; the stream fires once it is stored.
+          StreamBuilder<List<Measurement>>(
+            stream: _measurementStream,
+            builder: (BuildContext context, _) {
+              final double? learnedDays =
+                  MeasurementInterpolation().learnedAutoStrengthInDays;
+              return QPGroupedSwitchListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: QPLayout.padding,
+                ),
+                title: Text(
+                  context.l10n.autoStrength.inCaps,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                subtitle: Text(
+                  learnedDays == null
+                      ? context.l10n.autoStrengthLearning
+                      : context.l10n.autoStrengthLearned(
+                          days: learnedDays.round(),
+                        ),
+                ),
+                value: autoStrength,
+                onChanged: (bool? value) {
+                  if (value != null) {
+                    notifier.autoStrength = value;
+                  }
+                },
+              );
+            },
+          ),
           QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,

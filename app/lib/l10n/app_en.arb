@@ -448,6 +448,24 @@
     "@strength": {
         "description": "interpolation strength"
     },
+    "autoStrength": "automatic",
+    "@autoStrength": {
+        "description": "Switch label to learn the interpolation strength from the user's data"
+    },
+    "autoStrengthLearned": "{days, plural, one{About 1 day, learned from your data} other{About {days} days, learned from your data}}",
+    "@autoStrengthLearned": {
+        "description": "Subtitle of the automatic strength switch once a strength was learned, with its smoothing bandwidth in days",
+        "placeholders": {
+            "days": {
+                "type": "int",
+                "example": "8"
+            }
+        }
+    },
+    "autoStrengthLearning": "Learning from your data",
+    "@autoStrengthLearning": {
+        "description": "Subtitle of the automatic strength switch before a strength was learned"
+    },
     "none": "None",
     "@none": {
         "description": "no interpolation"
@@ -750,7 +768,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. Higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still use soft smoothing.",
+    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. Automatic starts with a medium smoothing and adapts it to your data as your history grows. Switch it off to choose the strength yourself: higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still use soft smoothing.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {
