@@ -28,17 +28,19 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// Bandwidth of the smoothing in days; `none` takes its slope from `soft`.
-  double get bandwidthInDays => <InterpolStrength, double>{
-    InterpolStrength.none: 2,
+  /// Bandwidth of the smoothing in days, null for `none`, whose rate comes
+  /// from the automatic strength.
+  double? get bandwidthInDays => <InterpolStrength, double?>{
+    InterpolStrength.none: null,
     InterpolStrength.soft: 2,
     InterpolStrength.medium: 4,
     InterpolStrength.strong: 7,
-  }[this]!;
+  }[this];
 
   /// Variance ratio of the trend per day³ that smooths like a kernel of
-  /// [bandwidthInDays].
-  double get processVariance => ratioForBandwidth(bandwidthInDays);
+  /// [bandwidthInDays], null for `none`.
+  double? get processVariance =>
+      bandwidthInDays == null ? null : ratioForBandwidth(bandwidthInDays!);
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{

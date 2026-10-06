@@ -11,8 +11,7 @@ class _InterpolationPayload {
     required this.idxsMeasurements,
     required this.weightsMeasured,
     required this.counts,
-    required this.processVariance,
-    required this.useAutoStrength,
+    required this.manualRatio,
     required this.autoStrengthRatio,
     required this.tryAutoStrength,
     required this.isNone,
@@ -30,12 +29,8 @@ class _InterpolationPayload {
   final List<int> counts;
 
   /// Variance ratio of the trend at the manual strength, see
-  /// [InterpolStrengthExtension].
-  final double processVariance;
-
-  /// Whether the curve uses the automatic strength instead of
-  /// [processVariance].
-  final bool useAutoStrength;
+  /// [InterpolStrengthExtension]; null when the automatic strength sets it.
+  final double? manualRatio;
 
   /// Variance ratio the automatic strength holds.
   final double autoStrengthRatio;
@@ -101,9 +96,7 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final double? learned = p.tryAutoStrength
       ? learnAutoStrength(observations, p.autoStrengthRatio)
       : null;
-  final double ratio = p.useAutoStrength
-      ? learned ?? p.autoStrengthRatio
-      : p.processVariance;
+  final double ratio = p.manualRatio ?? learned ?? p.autoStrengthRatio;
   final double timeScale =
       trendTimeScaleInBandwidths * bandwidthForRatio(ratio);
   final StructuralModel model = nDays < 2

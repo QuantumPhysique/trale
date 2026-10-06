@@ -768,7 +768,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. Automatic starts with a medium smoothing and adapts it to your data as your history grows. Switch it off to choose the strength yourself: higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still use soft smoothing.",
+    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. Automatic starts with a medium smoothing and adapts it to your data as your history grows. Switch it off to choose the strength yourself: higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still come from the automatic smoothing.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {

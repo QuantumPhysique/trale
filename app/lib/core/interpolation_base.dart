@@ -111,8 +111,7 @@ class MeasurementInterpolationBaseclass {
         for (final int idx in _idxsMeasurements) weights[idx],
       ],
       counts: _countsMeasured,
-      processVariance: interpolStrength.processVariance,
-      useAutoStrength: prefs.autoStrength,
+      manualRatio: prefs.autoStrength ? null : interpolStrength.processVariance,
       autoStrengthRatio:
           prefs.autoStrengthRatio ?? ratioForBandwidth(autoStrengthStartInDays),
       tryAutoStrength:
