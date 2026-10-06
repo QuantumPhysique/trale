@@ -279,7 +279,7 @@ class _CustomLineChartState extends State<CustomLineChart>
 
     final Color interpolationLineColor =
         widget.interpolationLineColor ??
-        (scientific ? colorScheme.primary : Colors.transparent);
+        (scientific ? colorScheme.secondary : Colors.transparent);
     final Color interpolationBelowAreaColor =
         widget.interpolationBelowAreaColor ?? colorScheme.secondaryContainer;
     final Color measurementLineColor =
