@@ -42,4 +42,9 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
 
   @override
   bool get learnsAutoStrength => true;
+
+  /// Replays the automatic strength over the diary as it grew, in the
+  /// background.
+  Future<AutoStrengthSummary> autoStrengthSummary() =>
+      compute(_summarizeAutoStrength, _payload(mayTryAutoStrength: false));
 }

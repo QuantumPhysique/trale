@@ -64,3 +64,12 @@ const double autoStrengthMaxPlateauDecades = 0.5;
 /// Log-likelihood in nats by which a fit has to beat the strength in use to
 /// replace it, so that noise in the fit does not move the curve.
 const double autoStrengthMinGainInNats = 0.5;
+
+/// Average length of a month in days.
+const double daysPerMonth = 365.25 / 12;
+
+/// GitHub Discussion where people share the summary of their automatic
+/// strength.
+// TODO(pb): a placeholder until braniii agrees to open the discussion.
+const String autoStrengthDiscussionUrl =
+    'https://github.com/QuantumPhysique/trale/discussions';

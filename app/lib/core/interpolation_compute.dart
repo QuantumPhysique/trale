@@ -83,16 +83,7 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
   ];
   final int nDays = p.idxsMeasurements.length;
-  // The grid index is the time in days: consecutive entries are consecutive
-  // calendar days.
-  final List<Observation> observations = <Observation>[
-    for (int k = 0; k < nDays; k++)
-      Observation(
-        p.idxsMeasurements[k].toDouble(),
-        p.weightsMeasured[k],
-        relativeVariance: 1 / p.counts[k],
-      ),
-  ];
+  final List<Observation> observations = _observations(p);
   final double? learned = p.tryAutoStrength
       ? learnAutoStrength(observations, p.autoStrengthRatio)
       : null;
@@ -132,6 +123,23 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     learnedAutoStrength: learned,
   );
 }
+
+/// Replays the automatic strength over the measured days as they grew.
+/// Top-level, so that [compute] can run it in an isolate.
+AutoStrengthSummary _summarizeAutoStrength(_InterpolationPayload p) =>
+    summarizeAutoStrength(_observations(p));
+
+/// The daily means of [p], each weighted by its number of measurements.
+List<Observation> _observations(_InterpolationPayload p) => <Observation>[
+  // The grid index is the time in days: consecutive entries are consecutive
+  // calendar days.
+  for (int k = 0; k < p.idxsMeasurements.length; k++)
+    Observation(
+      p.idxsMeasurements[k].toDouble(),
+      p.weightsMeasured[k],
+      relativeVariance: 1 / p.counts[k],
+    ),
+];
 
 /// Straight lines between the daily means, continued past the last one with
 /// the trend's slope there.

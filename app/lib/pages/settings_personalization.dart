@@ -14,6 +14,7 @@ import 'package:trale/core/print_format.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/widget/auto_strength_summary_dialog.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/linechart.dart';
 import 'package:trale/widget/user_dialog.dart';
@@ -174,6 +175,16 @@ class _PersonalizationSettingsPageState
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,
           ),
+          if (MeasurementInterpolation().learnedAutoStrengthInDays != null)
+            QPGroupedListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              title: Text(
+                context.l10n.autoStrengthSummary,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              subtitle: Text(context.l10n.autoStrengthSummarySubtitle),
+              onTap: () => showAutoStrengthSummaryDialog(context: context),
+            ),
         ],
       ),
       const SizedBox(height: QPLayout.smallPadding),

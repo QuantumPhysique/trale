@@ -255,6 +255,26 @@
     "@autoStrengthLearning": {
         "description": "Subtitle of the automatic strength switch before a strength was learned"
     },
+    "autoStrengthSummary": "Hilf, die automatische Glättung abzustimmen",
+    "@autoStrengthSummary": {
+        "description": "Title of the tile and dialog that show a shareable summary of the learned interpolation strength"
+    },
+    "autoStrengthSummarySubtitle": "Teile eine Zusammenfassung ohne Gewichte und Datumsangaben",
+    "@autoStrengthSummarySubtitle": {
+        "description": "Subtitle of the tile that opens the summary of the learned interpolation strength"
+    },
+    "autoStrengthSummaryExplanation": "trale hat keinen Internetzugriff und kann selbst nichts senden. Die Zahlen unten beschreiben nur, wie die automatische Glättung zu Deinen Daten passt, ohne Gewichte oder Datumsangaben. Wenn Du magst, teile sie in unserer GitHub-Diskussion, damit wir die Glättung für alle abstimmen können:",
+    "@autoStrengthSummaryExplanation": {
+        "description": "Explanation in the dialog with the summary of the learned interpolation strength, followed by the link to the discussion"
+    },
+    "close": "Schließen",
+    "@close": {
+        "description": "Button that closes a dialog"
+    },
+    "share": "Teilen",
+    "@share": {
+        "description": "Button that opens the system share sheet"
+    },
     "min": "min.",
     "@min": {
         "description": "Shorthand for minimum."

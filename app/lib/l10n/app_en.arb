@@ -466,6 +466,26 @@
     "@autoStrengthLearning": {
         "description": "Subtitle of the automatic strength switch before a strength was learned"
     },
+    "autoStrengthSummary": "Help tune the automatic smoothing",
+    "@autoStrengthSummary": {
+        "description": "Title of the tile and dialog that show a shareable summary of the learned interpolation strength"
+    },
+    "autoStrengthSummarySubtitle": "Share a summary without weights or dates",
+    "@autoStrengthSummarySubtitle": {
+        "description": "Subtitle of the tile that opens the summary of the learned interpolation strength"
+    },
+    "autoStrengthSummaryExplanation": "trale has no internet access and cannot send anything by itself. The numbers below only describe how the automatic smoothing fits your data, without any weights or dates. If you like, share them in our GitHub discussion, so that we can tune the smoothing for everyone:",
+    "@autoStrengthSummaryExplanation": {
+        "description": "Explanation in the dialog with the summary of the learned interpolation strength, followed by the link to the discussion"
+    },
+    "close": "Close",
+    "@close": {
+        "description": "Button that closes a dialog"
+    },
+    "share": "Share",
+    "@share": {
+        "description": "Button that opens the system share sheet"
+    },
     "none": "None",
     "@none": {
         "description": "no interpolation"
