@@ -71,12 +71,13 @@ List<Measurement> trendDiary(int days, double bandwidth) {
   return measurements;
 }
 
-/// The interpolation of [measurements] at [strength].
+/// The interpolation of [measurements] at the manual [strength].
 Future<MeasurementInterpolation> interpolate(
   List<Measurement> measurements, [
   InterpolStrength strength = InterpolStrength.medium,
 ]) async {
   await setUpWidgetTestDependencies(measurements: measurements);
+  Preferences().autoStrength = false;
   Preferences().interpolStrength = strength;
   MeasurementInterpolation.resetInstance();
   return MeasurementInterpolation();

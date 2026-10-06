@@ -19,6 +19,7 @@ void main() {
         ),
       );
       // Unsmoothed, so that the trend steps into the range on a known day.
+      Preferences().autoStrength = false;
       Preferences().interpolStrength = InterpolStrength.none;
       MeasurementInterpolation.resetInstance();
 

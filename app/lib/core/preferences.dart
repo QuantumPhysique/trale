@@ -103,7 +103,7 @@ class Preferences extends QPPreferences {
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
   /// Default for autoStrength.
-  final bool defaultAutoStrength = false;
+  final bool defaultAutoStrength = true;
 
   /// Default for autoStrengthRatio, nothing learned yet.
   final double? defaultAutoStrengthRatio = null;
@@ -176,7 +176,11 @@ class Preferences extends QPPreferences {
       interpolStrength = defaultInterpolStrength;
     }
     if (override || !prefs.containsKey('autoStrength')) {
-      autoStrength = defaultAutoStrength;
+      // Released versions wrote medium as the default, so a chosen medium and
+      // an untouched one look alike: both move to the automatic strength.
+      autoStrength = override
+          ? defaultAutoStrength
+          : interpolStrength == InterpolStrength.medium;
     }
     if (override || !prefs.containsKey('autoStrengthRatio')) {
       autoStrengthRatio = defaultAutoStrengthRatio;
