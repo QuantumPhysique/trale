@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Other Changes:
+- Minor improvements to the code base
+
 ## [1.5.0] - 2026-10-05
 
 Gingerbread has already returned to the shelves, but trale is ready: it can now
