@@ -1,0 +1,110 @@
+name: 📸 Regenerate screenshots
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  screenshots:
+    name: 📸 Screenshot tour (Android emulator)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    # Patch releases (vX.Y.Z with Z > 0) leave the screens unchanged.
+    if: >-
+      github.event_name != 'release' ||
+      endsWith(github.event.release.tag_name, '.0')
+    env:
+      # The runner image ships cmdline-tools 12.0, which predates the
+      # pixel_10 profile the screenshots are taken on.
+      CMDLINE_TOOLS_BUILD: "16111833"
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: ⚙️ Setup Java
+        uses: actions/setup-java@v6
+        with:
+          java-version: "21"
+          cache: 'gradle'
+          distribution: 'temurin'
+      - name: Set Flutter version
+        run: |
+          cd app
+          export FLUTTER_VERSION="$(sed -E -n -e 's/^.*flutter:\ ">=([0-9.]+)"/\1/p' pubspec.yaml)"
+          echo "FLUTTER_VERSION=$FLUTTER_VERSION" >> $GITHUB_ENV
+      - name: ⚙️ Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "${{ env.FLUTTER_VERSION }}"
+          channel: 'stable'
+          cache: true
+      - name: ⚙️ Setup cmdline-tools
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/cmdline-tools.zip" \
+            "https://dl.google.com/android/repository/commandlinetools-linux-${CMDLINE_TOOLS_BUILD}_latest.zip"
+          unzip -q "$RUNNER_TEMP/cmdline-tools.zip" -d "$RUNNER_TEMP"
+          rm -rf "$ANDROID_HOME/cmdline-tools/latest"
+          mv "$RUNNER_TEMP/cmdline-tools" "$ANDROID_HOME/cmdline-tools/latest"
+      - name: Pub Get Packages
+        run: |
+          cd app
+          flutter --disable-analytics
+          flutter pub get --enforce-lockfile
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: 📸 Capture screenshots on emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: '37.0'
+          target: google_apis
+          arch: x86_64
+          profile: pixel_10
+          emulator-options: -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect
+          # Flutter maps a zero animation scale to disableAnimations, which
+          # would make the shots differ from a local run.
+          disable-animations: false
+          script: cd app && make screenshots
+      # Minted only now: the token lives one hour, the tour runs longer.  The
+      # app, unlike GITHUB_TOKEN, opens a PR that triggers the required checks.
+      - name: 🔑 Create bot token
+        id: bot
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.BOT_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+      - name: ⬆️ Open screenshots PR
+        env:
+          GH_TOKEN: ${{ steps.bot.outputs.token }}
+          BOT: ${{ steps.bot.outputs.app-slug }}[bot]
+          BASE: ${{ github.event_name == 'release' && 'main' || github.ref_name }}
+          BRANCH: chore/screenshots_${{ github.event.release.tag_name || github.run_id }}
+        run: |
+          git add screenshots
+          if git diff --cached --quiet; then
+            echo "Screenshots are unchanged." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git switch -c "$BRANCH"
+          git -c user.name="$BOT" \
+            -c user.email="$(gh api "/users/$BOT" --jq .id)+$BOT@users.noreply.github.com" \
+            commit -m "chore: regenerate screenshots"
+          git push "https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git" "$BRANCH"
+          gh pr create --base "$BASE" --head "$BRANCH" \
+            --title "chore: regenerate screenshots" \
+            --body "Screenshot tour of ${{ github.event.release.tag_name || github.sha }}."
+      - name: ⬆️ Upload partial screenshots
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: screenshots/
+          retention-days: 7
