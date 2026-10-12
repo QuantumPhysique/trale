@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.otherChanges: <String>[
+        'Minor improvements to the code base',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.5.0',

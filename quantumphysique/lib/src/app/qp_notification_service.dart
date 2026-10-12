@@ -307,7 +307,7 @@ class QPNotificationService {
 
   /// Arms [reminder] with the system.
   ///
-  /// Uses an exact alarm so the notification fires at its minute; Android
+  /// Uses an exact alarm so the notification fires at its time; Android
   /// defers inexact alarms — even `allowWhileIdle` ones — by up to several
   /// hours while the device dozes. Falls back to an inexact alarm when the
   /// exact-alarm permission was denied (Android 14+).
@@ -328,14 +328,7 @@ class QPNotificationService {
     );
 
     final DateTime when = reminder.scheduledFor;
-    final tz.TZDateTime scheduledDate = tz.TZDateTime(
-      tz.local,
-      when.year,
-      when.month,
-      when.day,
-      when.hour,
-      when.minute,
-    );
+    final tz.TZDateTime scheduledDate = alarmTimeOf(when);
     final DateTimeComponents? repeat =
         reminder.repeat == QPReminderRepeat.weekly &&
             isNextWeekdayInstance(when)
@@ -380,6 +373,18 @@ class QPNotificationService {
   // Helpers
   // ---------------------------------------------------------------------------
 
+  /// The alarm instant for [when]: its wall-clock time in [tz.local], to the
+  /// second.
+  static tz.TZDateTime alarmTimeOf(DateTime when) => tz.TZDateTime(
+    tz.local,
+    when.year,
+    when.month,
+    when.day,
+    when.hour,
+    when.minute,
+    when.second,
+  );
+
   /// Returns the next local instant matching [weekday] (1=Mon … 7=Sun) at
   /// [hour]:[minute], counted from [from] (defaults to now).
   static DateTime nextWeekdayInstance(
@@ -418,8 +423,8 @@ class QPNotificationService {
   /// armed as a one-shot instead; the weekly series returns with the next
   /// [QPReminderRegistry.rearm].
   static bool isNextWeekdayInstance(DateTime when, {DateTime? from}) {
-    // Alarms are armed to the minute, so a reminder carrying seconds still
-    // describes the occurrence the plugin would pick.
+    // nextWeekdayInstance works to the minute, so a reminder carrying
+    // seconds is compared on its minute.
     final DateTime minute = DateTime(
       when.year,
       when.month,

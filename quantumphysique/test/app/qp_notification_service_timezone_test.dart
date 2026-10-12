@@ -105,4 +105,17 @@ void main() {
       expect(scheduled.toUtc(), DateTime.utc(2026, 8, 19, 18, 0));
     });
   });
+
+  test('arms an alarm to the second', () {
+    // Regression (adonify): dropping the seconds fired a countdown alert up
+    // to a minute early, or refused one due within the current minute as
+    // lying in the past.
+    tz.setLocalLocation(tz.getLocation('Europe/Berlin'));
+    addTearDown(() => tz.setLocalLocation(tz.UTC));
+
+    expect(
+      QPNotificationService.alarmTimeOf(DateTime(2026, 10, 11, 18, 4, 40)),
+      tz.TZDateTime(tz.local, 2026, 10, 11, 18, 4, 40),
+    );
+  });
 }
