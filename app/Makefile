@@ -53,13 +53,16 @@ APKS := $(APKS_DIR)/trale-$(APP_VERSION).apks
 ## Build the APK set (.apks) for Accrescent from the signed release bundle.
 ## Needs bundletool and android/key.properties. Recipe is silenced so the
 ## keystore passwords never reach the terminal or CI log.
+# Universal mode: Accrescent reads the minSdk of bundletool 1.18.3's
+# SDK-targeted variants as targetSdk (accrescent/accrescent#815).
 .PHONY: build-apks
 build-apks: build-aab
 	@mkdir -p $(APKS_DIR)
 	@KS=$$(sed -n 's/^storeFile=//p' $(KEY_PROPERTIES)); \
 	case "$$KS" in /*) ;; *) KS="android/$$KS";; esac; \
-	echo "$(BUNDLETOOL) build-apks --bundle=$(AAB) --output=$(APKS)"; \
+	echo "$(BUNDLETOOL) build-apks --mode=universal --bundle=$(AAB) --output=$(APKS)"; \
 	$(BUNDLETOOL) build-apks \
+		--mode=universal \
 		--bundle=$(AAB) \
 		--output=$(APKS) \
 		--overwrite \

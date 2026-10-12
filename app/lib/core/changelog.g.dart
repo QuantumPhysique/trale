@@ -11,6 +11,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fixed the Accrescent release (#521)',
+      ],
       ChangelogSection.otherChanges: <String>[
         'Minor improvements to the code base',
       ],
