@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Bugfix 🐛:
+- Fixed the Accrescent release (#521)
+
 ### Other Changes:
 - Minor improvements to the code base
 
