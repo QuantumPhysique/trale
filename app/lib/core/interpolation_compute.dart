@@ -11,7 +11,9 @@ class _InterpolationPayload {
     required this.idxsMeasurements,
     required this.weightsMeasured,
     required this.counts,
-    required this.ratio,
+    required this.slopeSd,
+    required this.state,
+    required this.stepKg,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -26,9 +28,14 @@ class _InterpolationPayload {
   /// Number of measurements on each of those days.
   final List<int> counts;
 
-  /// Variance ratio of the trend at the strength, see
-  /// [InterpolStrengthExtension].
-  final double ratio;
+  /// Slope sd of the strength, see [InterpolStrengthExtension.slopeSd].
+  final double slopeSd;
+
+  /// The amplitudes and the scale error the curve is drawn with.
+  final SmoothingState state;
+
+  /// Step in kg that weights are entered in.
+  final double stepKg;
 
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
@@ -50,9 +57,10 @@ class _InterpolationResult {
     required this.bandUpper,
   });
 
+  /// The curve: the tissue trend plus the week-scale changes, in kg.
   final List<double> weights;
 
-  /// Slope of the trend in kg/day.
+  /// Slope of the tissue trend in kg/day.
   final List<double> slopes;
 
   /// 95 % predictive band of a single measurement, empty when there is none.
@@ -62,61 +70,61 @@ class _InterpolationResult {
   final List<double> bandUpper;
 }
 
-/// Smooths the measured days with a damped trend at the strength's variance
-/// ratio. Top-level, so that [compute] can run it in an isolate.
+/// Smooths the logarithm of the measured days with [smoothingModel].
+/// Top-level, so that [compute] can run it in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
   ];
-  final int nDays = p.idxsMeasurements.length;
-  final List<Observation> observations = _observations(p);
-  final double ratio = p.ratio;
-  final double timeScale =
-      trendTimeScaleInBandwidths * bandwidthForRatio(ratio);
-  final StructuralModel model = nDays < 2
-      // One day leaves no residual to estimate the noise from.
-      ? StructuralModel.dampedLinearTrend(
-          processVariance: ratio * minimumNoiseVariance,
-          timeScale: timeScale,
-          measurementVariance: minimumNoiseVariance,
-        )
-      : StructuralModel.dampedLinearTrend(
-          processVariance: ratio,
-          timeScale: timeScale,
-        ).withEstimatedScale(
-          observations,
-          minimumMeasurementVariance: minimumNoiseVariance,
-        );
-  final SmoothingResult posterior = model.smooth(observations, grid: grid);
-  final List<double> slopes = posterior.trendSlope!.toList();
+  final StructuralModel model = smoothingModel(
+    state: p.state,
+    slopeSd: p.slopeSd,
+    bodyKg: bodyWeightKg(p.weightsMeasured),
+    stepKg: p.stepKg,
+  );
+  final SmoothingResult posterior = model.smooth(
+    _observations(p),
+    grid: grid,
+    signal: curveComponents,
+  );
+  final List<double> curve = <double>[
+    for (final double logWeight in posterior.mean) math.exp(logWeight),
+  ];
+  final List<double> slopes = <double>[
+    for (int i = 0; i < curve.length; i++)
+      posterior.trendSlope![i] * curve[i],
+  ];
 
-  List<double> bandLower = <double>[];
-  List<double> bandUpper = <double>[];
-  if (nDays >= minimumDaysForBand && !p.isNone) {
-    final Bands band = posterior.predictiveBand();
-    bandLower = band.lo.toList();
-    bandUpper = band.hi.toList();
+  final List<double> bandLower = <double>[];
+  final List<double> bandUpper = <double>[];
+  if (p.idxsMeasurements.length >= minimumDaysForBand && !p.isNone) {
+    final double water = p.state.waterAmplitude * p.state.waterAmplitude;
+    final double reading = readingVarianceKg(p.state.scaleErrorKg, p.stepKg);
+    for (int i = 0; i < curve.length; i++) {
+      final double sd = math.sqrt(
+        posterior.variance[i] + water + reading / (curve[i] * curve[i]),
+      );
+      bandLower.add(math.exp(posterior.mean[i] - z95 * sd));
+      bandUpper.add(math.exp(posterior.mean[i] + z95 * sd));
+    }
   }
 
   return _InterpolationResult(
-    weights: p.isNone ? _polyline(p, slopes) : posterior.mean.toList(),
+    weights: p.isNone ? _polyline(p, slopes) : curve,
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,
   );
 }
 
-/// The daily means of [p], each weighted by its number of measurements.
-List<Observation> _observations(_InterpolationPayload p) => <Observation>[
+/// The daily means of [p] as observations of their logarithm.
+List<Observation> _observations(_InterpolationPayload p) => logObservations(
   // The grid index is the time in days: consecutive entries are consecutive
   // calendar days.
-  for (int k = 0; k < p.idxsMeasurements.length; k++)
-    Observation(
-      p.idxsMeasurements[k].toDouble(),
-      p.weightsMeasured[k],
-      relativeVariance: 1 / p.counts[k],
-    ),
-];
+  <double>[for (final int idx in p.idxsMeasurements) idx.toDouble()],
+  p.weightsMeasured,
+  p.counts,
+);
 
 /// Straight lines between the daily means, continued past the last one with
 /// the trend's slope there.

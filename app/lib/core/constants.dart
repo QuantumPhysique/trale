@@ -24,18 +24,37 @@ const double minSlopeToTarget = 0.005;
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
 
-/// Time scale over which the trend's rate of change fades, in smoothing
-/// bandwidths.
+/// Days over which the tissue trend's slope fades.
 ///
-/// Long enough that a steady rate still shows at 92 % at the last reading,
-/// short enough that projections level off.
-const double trendTimeScaleInBandwidths = 15;
+/// Over weeks a slope is set by behaviour, not by the body: it holds, then
+/// changes on a date. 30 days gave the best forecasts.
+const double tissueSlopeMemoryInDays = 30;
 
-/// Lowest day-to-day noise variance in kg² the smoothing assumes, (0.1 kg)².
-///
-/// On a short history the noise is estimated from a handful of readings and
-/// would otherwise come out far too small, making the band falsely narrow.
-const double minimumNoiseVariance = 0.01;
+/// Length scale in days of the week-scale changes the curve follows.
+const double weekScaleLengthInDays = 7;
+
+/// Length scale in days of water and gut content, which follow what was eaten
+/// and relax within about a day (Hall et al. 2011).
+const double waterLengthInDays = 1;
+
+/// Prior centre of the week-scale and the water amplitude, as a fraction of
+/// body weight: a day-to-day scatter of about 0.6 % (Khosla & Billewicz 1964;
+/// Cheuvront et al. 2004), split between the two.
+const double amplitudePriorCentre = 0.0042;
+
+/// Body weight in kg at which the strengths' slope sd is stated.
+const double strengthReferenceKg = 83;
+
+/// Exponent of body weight that scales the slope sd (Kleiber 1932): energy use
+/// grows with weight^0.75, so the same relative calorie cut moves a smaller
+/// body faster in percent.
+const double kleiberExponent = -0.25;
+
+/// Last readings whose mean is the body weight the slope sd is scaled to.
+const int readingsForBodyWeight = 10;
+
+/// Two-sided z of the 95 % band.
+const double z95 = 1.959963984540054;
 
 /// Fewest days with measurements for the predictive band.
 ///

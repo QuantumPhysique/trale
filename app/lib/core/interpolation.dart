@@ -1,15 +1,5 @@
-import 'dart:math' as math;
-
 import 'package:material_ui/material_ui.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
-
-/// Variance ratio of the trend per day³ that smooths like a kernel of [days],
-/// at one reading a day (Silverman 1984).
-double ratioForBandwidth(double days) => math.pow(days, -4).toDouble();
-
-/// Bandwidth in days of the kernel the variance ratio [ratio] smooths like,
-/// at one reading a day; the inverse of [ratioForBandwidth].
-double bandwidthForRatio(double ratio) => math.pow(ratio, -0.25).toDouble();
 
 /// Enum with all available interpolation functions
 enum InterpolStrength {
@@ -28,18 +18,15 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// Bandwidth of the smoothing in days; `none` draws straight lines and
-  /// takes its rates from the medium smoothing.
-  double get bandwidthInDays => <InterpolStrength, double>{
-    InterpolStrength.none: 4,
-    InterpolStrength.soft: 2,
-    InterpolStrength.medium: 4,
-    InterpolStrength.strong: 7,
+  /// Standard deviation of the tissue trend's slope at [strengthReferenceKg],
+  /// as a fraction of body weight per day: 0.10, 0.08 and 0.06 kg/day at
+  /// 83 kg. `none` draws straight lines and takes its rates from medium.
+  double get slopeSd => <InterpolStrength, double>{
+    InterpolStrength.none: 0.00096,
+    InterpolStrength.soft: 0.0012,
+    InterpolStrength.medium: 0.00096,
+    InterpolStrength.strong: 0.00072,
   }[this]!;
-
-  /// Variance ratio of the trend per day³ that smooths like a kernel of
-  /// [bandwidthInDays].
-  double get processVariance => ratioForBandwidth(bandwidthInDays);
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{

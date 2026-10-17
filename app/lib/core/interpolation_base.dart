@@ -16,6 +16,12 @@ class MeasurementInterpolationBaseclass {
   /// Whether the curve is drawn as straight lines between the measurements.
   bool get _isNone => interpolStrength == InterpolStrength.none;
 
+  /// Step in kg that weights are entered in, from the unit settings.
+  double get stepKg {
+    final Preferences prefs = Preferences();
+    return prefs.unit.stepInKg(prefs.unitPrecision);
+  }
+
   /// re initialize database
   void reinit() {
     _clear();
@@ -83,7 +89,9 @@ class MeasurementInterpolationBaseclass {
         for (final int idx in _idxsMeasurements) weights[idx],
       ],
       counts: _countsMeasured,
-      ratio: interpolStrength.processVariance,
+      slopeSd: interpolStrength.slopeSd,
+      state: SmoothingState.prior(stepKg),
+      stepKg: stepKg,
       isNone: _isNone,
       displayStart: _displayStart,
       displayEnd: _displayEnd,

@@ -1,13 +1,17 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:ml_linalg/linalg.dart';
 import 'package:state_space/state_space.dart'
-    show Bands, Observation, SmoothingResult, StructuralModel;
+    show Observation, SmoothingResult, StructuralModel;
 
 import 'package:trale/core/constants.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/smoothing.dart';
+import 'package:trale/core/units.dart';
 
 part 'interpolation_compute.dart';
 part 'interpolation_base.dart';
