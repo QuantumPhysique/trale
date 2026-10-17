@@ -396,10 +396,25 @@ class MeasurementInterpolationBaseclass {
   // Public API — scalar helpers
   // -----------------------------------------------------------
 
-  /// Slope of the trend at [day] in kg/day, 0 outside the display range.
+  /// Slope of the tissue trend at [day] in kg/day, 0 outside the display
+  /// range.
   double slopeAtDay(DateTime day) {
     final int? idx = indexForDay(day);
     return idx != null ? _slopesDisplay![idx] : 0;
+  }
+
+  /// Mean slope of the tissue trend in kg/day over the [forecastWeekInDays]
+  /// after [day], over which it fades unless the body is growing.
+  double weekRateAtDay(DateTime day) {
+    final double slope = slopeAtDay(day);
+    if (bodyGrowing ?? false) {
+      return slope;
+    }
+    const double tau = tissueSlopeMemoryInDays;
+    return slope *
+        tau *
+        (1 - math.exp(-forecastWeekInDays / tau)) /
+        forecastWeekInDays;
   }
 
   /// Return the index into display vectors for a given [day],
