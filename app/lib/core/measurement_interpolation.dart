@@ -11,6 +11,7 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/smoothing.dart';
+import 'package:trale/core/smoothing_summary.dart';
 import 'package:trale/core/units.dart';
 
 part 'interpolation_compute.dart';
@@ -53,4 +54,19 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
 
   @override
   bool? get bodyGrowing => Preferences().bodyGrowing;
+
+  /// What the smoothing learned from the diary, null before its first refit.
+  SmoothingSummary? get smoothingSummary {
+    final SmoothingState? state = Preferences().smoothingState;
+    if (state == null || nDays == 0) {
+      return null;
+    }
+    return SmoothingSummary(
+      state: state,
+      strength: interpolStrength,
+      growing: bodyGrowing ?? false,
+      daysPerWeek: 7 * isMeasurement.sum() / nDays,
+      historyInDays: nDays,
+    );
+  }
 }

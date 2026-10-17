@@ -456,6 +456,22 @@
     "@stillGrowingSubtitle": {
         "description": "Subtitle of the switch for a body that is still growing"
     },
+    "smoothingSummary": "Help tune the smoothing",
+    "@smoothingSummary": {
+        "description": "Title of the tile and dialog that show a shareable summary of what the smoothing learned"
+    },
+    "smoothingSummarySubtitle": "Share a summary without weights or dates",
+    "@smoothingSummarySubtitle": {
+        "description": "Subtitle of the tile that opens the summary of what the smoothing learned"
+    },
+    "smoothingSummaryUnavailable": "Available once the smoothing has learned from your data",
+    "@smoothingSummaryUnavailable": {
+        "description": "Subtitle of the greyed-out summary tile before the smoothing learned from the user's data"
+    },
+    "smoothingSummaryExplanation": "trale has no internet access and cannot send anything by itself. The numbers below only describe how the smoothing fits your data, without any weights or dates. If you like, share them in our GitHub discussion, so that we can tune the smoothing for everyone:",
+    "@smoothingSummaryExplanation": {
+        "description": "Explanation in the dialog with the summary of what the smoothing learned, followed by the link to the discussion"
+    },
     "close": "Close",
     "@close": {
         "description": "Button that closes a dialog"

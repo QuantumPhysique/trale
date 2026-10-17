@@ -245,6 +245,22 @@
     "@stillGrowingSubtitle": {
         "description": "Subtitle of the switch for a body that is still growing"
     },
+    "smoothingSummary": "Hilf, die Glättung abzustimmen",
+    "@smoothingSummary": {
+        "description": "Title of the tile and dialog that show a shareable summary of what the smoothing learned"
+    },
+    "smoothingSummarySubtitle": "Teile eine Zusammenfassung ohne Gewichte und Datumsangaben",
+    "@smoothingSummarySubtitle": {
+        "description": "Subtitle of the tile that opens the summary of what the smoothing learned"
+    },
+    "smoothingSummaryUnavailable": "Verfügbar, sobald die Glättung aus Deinen Daten gelernt hat",
+    "@smoothingSummaryUnavailable": {
+        "description": "Subtitle of the greyed-out summary tile before the smoothing learned from the user's data"
+    },
+    "smoothingSummaryExplanation": "trale hat keinen Internetzugriff und kann selbst nichts senden. Die Zahlen unten beschreiben nur, wie die Glättung zu Deinen Daten passt, ohne Gewichte oder Datumsangaben. Wenn Du magst, teile sie in unserer GitHub-Diskussion, damit wir die Glättung für alle abstimmen können:",
+    "@smoothingSummaryExplanation": {
+        "description": "Explanation in the dialog with the summary of what the smoothing learned, followed by the link to the discussion"
+    },
     "close": "Schließen",
     "@close": {
         "description": "Button that closes a dialog"

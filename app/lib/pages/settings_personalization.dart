@@ -1,5 +1,6 @@
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/chart_mode.dart';
@@ -11,11 +12,13 @@ import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/print_format.dart';
+import 'package:trale/core/smoothing_summary.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/widget/custom_scroll_view_snapping.dart';
 import 'package:trale/widget/linechart.dart';
+import 'package:trale/widget/smoothing_summary_dialog.dart';
 import 'package:trale/widget/user_dialog.dart';
 
 /// Settings personalization page.
@@ -156,6 +159,53 @@ class _PersonalizationSettingsPageState
                 }
               },
             ),
+          ),
+          StreamBuilder<List<Measurement>>(
+            stream: _measurementStream,
+            builder: (BuildContext context, _) {
+              final SmoothingSummary? summary =
+                  MeasurementInterpolation().smoothingSummary;
+              final bool learned = summary != null;
+              return QPGroupedListTile(
+                color: Theme.of(context).colorScheme.surfaceContainerLowest,
+                enabled: learned,
+                title: AutoSizeText(
+                  context.l10n.smoothingSummary,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: learned ? null : Theme.of(context).disabledColor,
+                  ),
+                  maxLines: 1,
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: QPLayout.padding,
+                ),
+                subtitle: AutoSizeText(
+                  learned
+                      ? context.l10n.smoothingSummarySubtitle
+                      : context.l10n.smoothingSummaryUnavailable,
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                    color: learned ? null : Theme.of(context).disabledColor,
+                  ),
+                ),
+                trailing: IconButton(
+                  icon: PPIcon(
+                    PhosphorIconsDuotone.handHeart,
+                    context,
+                    duotoneSecondaryColor: learned
+                        ? null
+                        : Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.12),
+                  ),
+                  onPressed: learned
+                      ? () => showSmoothingSummaryDialog(
+                          context: context,
+                          summary: summary,
+                        )
+                      : null,
+                ),
+              );
+            },
           ),
         ],
       ),

@@ -92,6 +92,14 @@ const int readingsForBodyWeight = 10;
 /// Two-sided z of the 95 % band.
 const double z95 = 1.959963984540054;
 
+/// Average length of a month in days.
+const double daysPerMonth = 365.25 / 12;
+
+/// GitHub Discussion where people share the summary of their smoothing.
+// TODO(pb): a placeholder until braniii agrees to open the discussion.
+const String smoothingDiscussionUrl =
+    'https://github.com/QuantumPhysique/trale/discussions';
+
 /// Fewest days with measurements for the predictive band.
 ///
 /// On fewer days the noise estimate is too uncertain for a band.
