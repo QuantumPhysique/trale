@@ -22,6 +22,13 @@ class MeasurementInterpolationBaseclass {
     return prefs.unit.stepInKg(prefs.unitPrecision);
   }
 
+  /// Whether the smoothing is refitted to these measurements; only the
+  /// user's own diary is.
+  bool get learnsSmoothing => false;
+
+  /// The amplitudes and the scale error the curve is drawn with.
+  SmoothingState get smoothingState => SmoothingState.prior(stepKg);
+
   /// re initialize database
   void reinit() {
     _clear();
@@ -40,9 +47,10 @@ class MeasurementInterpolationBaseclass {
       _clearDisplay();
       return;
     }
+    final _InterpolationPayload payload = _payload(mayRefit: learnsSmoothing);
     final _InterpolationResult result = await compute(
       _computeInterpolation,
-      _payload(),
+      payload,
     );
     // A newer call has rebuilt the inputs in the meantime.
     if (generation != _generation) {
@@ -50,12 +58,18 @@ class MeasurementInterpolationBaseclass {
     }
     _clearDisplay();
     _store(result);
+    final SmoothingState? refitted = result.refitted;
+    if (refitted != null) {
+      Preferences().smoothingState = refitted;
+      Preferences().smoothingFittedDays = payload.idxsMeasurements.length;
+    }
   }
 
   /// initialize database
   void init() {
     if (_n > 0) {
-      _store(_computeInterpolation(_payload()));
+      // A refit would block the UI here.
+      _store(_computeInterpolation(_payload(mayRefit: false)));
     }
   }
 
@@ -80,7 +94,7 @@ class MeasurementInterpolationBaseclass {
     _isMeasurementDisplay = null;
   }
 
-  _InterpolationPayload _payload() {
+  _InterpolationPayload _payload({required bool mayRefit}) {
     // Building the weights builds _idxsMeasurements and _countsMeasured too.
     final Vector weights = _weights;
     return _InterpolationPayload(
@@ -90,8 +104,14 @@ class MeasurementInterpolationBaseclass {
       ],
       counts: _countsMeasured,
       slopeSd: interpolStrength.slopeSd,
-      state: SmoothingState.prior(stepKg),
+      state: smoothingState,
       stepKg: stepKg,
+      refit:
+          mayRefit &&
+          isRefitDue(
+            _idxsMeasurements.length,
+            Preferences().smoothingFittedDays,
+          ),
       isNone: _isNone,
       displayStart: _displayStart,
       displayEnd: _displayEnd,

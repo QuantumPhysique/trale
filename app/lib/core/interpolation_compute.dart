@@ -14,6 +14,7 @@ class _InterpolationPayload {
     required this.slopeSd,
     required this.state,
     required this.stepKg,
+    required this.refit,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -37,6 +38,9 @@ class _InterpolationPayload {
   /// Step in kg that weights are entered in.
   final double stepKg;
 
+  /// Whether to refit [state] before smoothing.
+  final bool refit;
+
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
 
@@ -55,6 +59,7 @@ class _InterpolationResult {
     required this.slopes,
     required this.bandLower,
     required this.bandUpper,
+    required this.refitted,
   });
 
   /// The curve: the tissue trend plus the week-scale changes, in kg.
@@ -68,22 +73,38 @@ class _InterpolationResult {
 
   /// Upper edge of the band, see [bandLower].
   final List<double> bandUpper;
+
+  /// The state after a refit, null without one.
+  final SmoothingState? refitted;
 }
 
-/// Smooths the logarithm of the measured days with [smoothingModel].
-/// Top-level, so that [compute] can run it in an isolate.
+/// Smooths the logarithm of the measured days with [smoothingModel], after
+/// refitting its state when that is due. Top-level, so that [compute] can run
+/// it in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
   ];
+  final List<Observation> observations = _observations(p);
+  final double bodyKg = bodyWeightKg(p.weightsMeasured);
+  final SmoothingState? refitted = p.refit
+      ? refitSmoothing(
+          observations: observations,
+          state: p.state,
+          slopeSd: p.slopeSd,
+          bodyKg: bodyKg,
+          stepKg: p.stepKg,
+        )
+      : null;
+  final SmoothingState state = refitted ?? p.state;
   final StructuralModel model = smoothingModel(
-    state: p.state,
+    state: state,
     slopeSd: p.slopeSd,
-    bodyKg: bodyWeightKg(p.weightsMeasured),
+    bodyKg: bodyKg,
     stepKg: p.stepKg,
   );
   final SmoothingResult posterior = model.smooth(
-    _observations(p),
+    observations,
     grid: grid,
     signal: curveComponents,
   );
@@ -91,15 +112,14 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     for (final double logWeight in posterior.mean) math.exp(logWeight),
   ];
   final List<double> slopes = <double>[
-    for (int i = 0; i < curve.length; i++)
-      posterior.trendSlope![i] * curve[i],
+    for (int i = 0; i < curve.length; i++) posterior.trendSlope![i] * curve[i],
   ];
 
   final List<double> bandLower = <double>[];
   final List<double> bandUpper = <double>[];
   if (p.idxsMeasurements.length >= minimumDaysForBand && !p.isNone) {
-    final double water = p.state.waterAmplitude * p.state.waterAmplitude;
-    final double reading = readingVarianceKg(p.state.scaleErrorKg, p.stepKg);
+    final double water = state.waterAmplitude * state.waterAmplitude;
+    final double reading = readingVarianceKg(state.scaleErrorKg, p.stepKg);
     for (int i = 0; i < curve.length; i++) {
       final double sd = math.sqrt(
         posterior.variance[i] + water + reading / (curve[i] * curve[i]),
@@ -114,6 +134,7 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,
+    refitted: refitted,
   );
 }
 

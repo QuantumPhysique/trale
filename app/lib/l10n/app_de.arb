@@ -399,7 +399,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der mittleren Glättung.",
+    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Sie lernt aus Deinen Messungen, wie stark Dein Gewicht von Tag zu Tag und von Woche zu Woche schwankt. Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der mittleren Glättung.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {

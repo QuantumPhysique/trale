@@ -31,4 +31,32 @@ extension UnitPrefsExtension on Preferences {
   /// set interpolation strength mode
   set interpolStrength(InterpolStrength strength) =>
       prefs.setString('interpolStrength', strength.name);
+
+  /// The amplitudes and the scale error learned from the user's diary, null
+  /// before the first refit.
+  SmoothingState? get smoothingState {
+    final double week = prefs.getDouble('smoothingWeekAmplitude')!;
+    if (week < 0) {
+      return null;
+    }
+    return SmoothingState(
+      weekAmplitude: week,
+      waterAmplitude: prefs.getDouble('smoothingWaterAmplitude')!,
+      scaleErrorKg: prefs.getDouble('smoothingScaleErrorKg')!,
+    );
+  }
+
+  /// set the amplitudes and the scale error learned from the user's diary
+  set smoothingState(SmoothingState? state) {
+    prefs.setDouble('smoothingWeekAmplitude', state?.weekAmplitude ?? -1);
+    prefs.setDouble('smoothingWaterAmplitude', state?.waterAmplitude ?? -1);
+    prefs.setDouble('smoothingScaleErrorKg', state?.scaleErrorKg ?? -1);
+  }
+
+  /// Days with measurements at the last refit of [smoothingState].
+  int get smoothingFittedDays => prefs.getInt('smoothingFittedDays')!;
+
+  /// set the days with measurements at the last refit
+  set smoothingFittedDays(int days) =>
+      prefs.setInt('smoothingFittedDays', days);
 }

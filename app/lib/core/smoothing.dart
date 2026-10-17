@@ -4,9 +4,13 @@ import 'package:state_space/state_space.dart'
     show
         Component,
         DampedLinearTrend,
+        FitResult,
+        LogNormalPrior,
         Matern,
         Observation,
-        StructuralModel;
+        SearchStart,
+        StructuralModel,
+        fit;
 import 'package:trale/core/constants.dart';
 
 /// The components the curve is drawn from: the tissue trend and the
@@ -70,6 +74,56 @@ StructuralModel smoothingModel({
       lengthScale: waterLengthInDays,
     ),
   ], measurementVariance: readingVarianceKg(state.scaleErrorKg, stepKg));
+}
+
+/// Whether the amplitudes and the scale error are due for a refit, with
+/// [days] with measurements now and [fittedDays] at the last refit.
+bool isRefitDue(int days, int fittedDays) =>
+    days >= firstRefitDays &&
+    (days <= refitEveryDayUpTo
+        ? days != fittedDays
+        : (days - fittedDays).abs() >= refitIntervalDays);
+
+/// The amplitudes and the scale error at their posterior mode on
+/// [observations], under priors centred on [amplitudePriorCentre] and the
+/// display step [stepKg], refined from [state].
+SmoothingState refitSmoothing({
+  required List<Observation> observations,
+  required SmoothingState state,
+  required double slopeSd,
+  required double bodyKg,
+  required double stepKg,
+}) {
+  final double width = 2 * math.log(priorWidthFactor);
+  final LogNormalPrior amplitude = LogNormalPrior(
+    median: amplitudePriorCentre * amplitudePriorCentre,
+    logSd: width,
+  );
+  final double rounding = readingVarianceKg(0, stepKg);
+  final FitResult fitted = fit(
+    smoothingModel(
+      state: state,
+      slopeSd: slopeSd,
+      bodyKg: bodyKg,
+      stepKg: stepKg,
+    ),
+    observations,
+    // The trend, set by the strength, and both length scales.
+    heldParameters: const <int>{0, 1, 3, 5},
+    priors: <int, LogNormalPrior>{2: amplitude, 4: amplitude},
+    measurementVariancePrior: LogNormalPrior(
+      median: readingVarianceKg(stepKg, stepKg),
+      logSd: width,
+    ),
+    minimumMeasurementVariance: rounding,
+    start: SearchStart.previousParameters,
+  );
+  final List<double> theta = fitted.model.parameters;
+  return SmoothingState(
+    weekAmplitude: math.sqrt(math.exp(theta[2])),
+    waterAmplitude: math.sqrt(math.exp(theta[4])),
+    scaleErrorKg: math.sqrt(math.max(0, fitted.measurementVariance - rounding)),
+  );
 }
 
 /// The logarithm of each day's mean weight at [days], the mean of [counts]
