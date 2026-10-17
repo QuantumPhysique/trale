@@ -177,6 +177,19 @@ extension UserStateExtension on TraleNotifier {
     }
   }
 
+  /// Whether the body is still growing, null while the readings may decide.
+  bool? get bodyGrowing => _prefs.bodyGrowing;
+
+  /// Sets [bodyGrowing] and refits the smoothing to the other profile.
+  set bodyGrowing(bool? growing) {
+    if (bodyGrowing != growing) {
+      _prefs.bodyGrowing = growing;
+      _prefs.smoothingFittedDays = 0;
+      MeasurementDatabase().reinit();
+      notify;
+    }
+  }
+
   /// getter
   bool get healthConnectEnabled => _prefs.healthConnectEnabled;
 

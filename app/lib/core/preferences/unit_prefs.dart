@@ -43,6 +43,7 @@ extension UnitPrefsExtension on Preferences {
       weekAmplitude: week,
       waterAmplitude: prefs.getDouble('smoothingWaterAmplitude')!,
       scaleErrorKg: prefs.getDouble('smoothingScaleErrorKg')!,
+      growthFactor: prefs.getDouble('smoothingGrowthFactor')!,
     );
   }
 
@@ -51,7 +52,16 @@ extension UnitPrefsExtension on Preferences {
     prefs.setDouble('smoothingWeekAmplitude', state?.weekAmplitude ?? -1);
     prefs.setDouble('smoothingWaterAmplitude', state?.waterAmplitude ?? -1);
     prefs.setDouble('smoothingScaleErrorKg', state?.scaleErrorKg ?? -1);
+    prefs.setDouble('smoothingGrowthFactor', state?.growthFactor ?? -1);
   }
+
+  /// Whether the body is still growing, null while the readings may decide.
+  bool? get bodyGrowing => prefs.getBool('bodyGrowing');
+
+  /// set whether the body is still growing
+  set bodyGrowing(bool? growing) => growing == null
+      ? prefs.remove('bodyGrowing')
+      : prefs.setBool('bodyGrowing', growing);
 
   /// Days with measurements at the last refit of [smoothingState].
   int get smoothingFittedDays => prefs.getInt('smoothingFittedDays')!;

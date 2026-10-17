@@ -15,6 +15,8 @@ class _InterpolationPayload {
     required this.state,
     required this.stepKg,
     required this.refit,
+    required this.growing,
+    required this.testGrowing,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -41,6 +43,12 @@ class _InterpolationPayload {
   /// Whether to refit [state] before smoothing.
   final bool refit;
 
+  /// Whether the body is growing, see [smoothingModel].
+  final bool growing;
+
+  /// Whether a refit also tests the growing profile against the other.
+  final bool testGrowing;
+
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
 
@@ -60,6 +68,7 @@ class _InterpolationResult {
     required this.bandLower,
     required this.bandUpper,
     required this.refitted,
+    required this.turnedGrowing,
   });
 
   /// The curve: the tissue trend plus the week-scale changes, in kg.
@@ -76,6 +85,9 @@ class _InterpolationResult {
 
   /// The state after a refit, null without one.
   final SmoothingState? refitted;
+
+  /// Whether the refit found the body growing.
+  final bool turnedGrowing;
 }
 
 /// Smooths the logarithm of the measured days with [smoothingModel], after
@@ -87,21 +99,33 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   ];
   final List<Observation> observations = _observations(p);
   final double bodyKg = bodyWeightKg(p.weightsMeasured);
-  final SmoothingState? refitted = p.refit
-      ? refitSmoothing(
-          observations: observations,
-          state: p.state,
-          slopeSd: p.slopeSd,
-          bodyKg: bodyKg,
-          stepKg: p.stepKg,
-        )
-      : null;
-  final SmoothingState state = refitted ?? p.state;
+  SmoothingFit refit({required bool growing}) => refitSmoothing(
+    observations: observations,
+    state: p.state,
+    slopeSd: p.slopeSd,
+    bodyKg: bodyKg,
+    stepKg: p.stepKg,
+    growing: growing,
+  );
+
+  SmoothingFit? refitted = p.refit ? refit(growing: p.growing) : null;
+  bool turnedGrowing = false;
+  if (refitted != null && p.testGrowing) {
+    final SmoothingFit grown = refit(growing: true);
+    // The two models integrate out different flat directions, so the
+    // threshold holds only for the units it was set in: days and log kg.
+    if (grown.logPosterior > refitted.logPosterior + growingEvidenceNats) {
+      refitted = grown;
+      turnedGrowing = true;
+    }
+  }
+  final SmoothingState state = refitted?.state ?? p.state;
   final StructuralModel model = smoothingModel(
     state: state,
     slopeSd: p.slopeSd,
     bodyKg: bodyKg,
     stepKg: p.stepKg,
+    growing: p.growing || turnedGrowing,
   );
   final SmoothingResult posterior = model.smooth(
     observations,
@@ -134,7 +158,8 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,
-    refitted: refitted,
+    refitted: refitted?.state,
+    turnedGrowing: turnedGrowing,
   );
 }
 

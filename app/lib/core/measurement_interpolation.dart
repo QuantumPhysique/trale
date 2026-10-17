@@ -50,4 +50,7 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   @override
   SmoothingState get smoothingState =>
       Preferences().smoothingState ?? super.smoothingState;
+
+  @override
+  bool? get bodyGrowing => Preferences().bodyGrowing;
 }

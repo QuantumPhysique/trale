@@ -448,6 +448,14 @@
     "@strength": {
         "description": "interpolation strength"
     },
+    "stillGrowing": "still growing",
+    "@stillGrowing": {
+        "description": "Title of the switch for a body that is still growing, such as a child or a young pet"
+    },
+    "stillGrowingSubtitle": "For a child or a young pet; switches on by itself when your measurements show growth",
+    "@stillGrowingSubtitle": {
+        "description": "Subtitle of the switch for a body that is still growing"
+    },
     "close": "Close",
     "@close": {
         "description": "Button that closes a dialog"

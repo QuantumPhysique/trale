@@ -109,6 +109,9 @@ class Preferences extends QPPreferences {
   /// Default for smoothingFittedDays.
   final int defaultSmoothingFittedDays = 0;
 
+  /// Default for bodyGrowing, undecided.
+  final bool? defaultBodyGrowing = null;
+
   /// Default zoom level.
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
@@ -173,11 +176,14 @@ class Preferences extends QPPreferences {
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
     }
-    if (override || !prefs.containsKey('smoothingWeekAmplitude')) {
+    if (override || !prefs.containsKey('smoothingGrowthFactor')) {
       smoothingState = defaultSmoothingState;
     }
     if (override || !prefs.containsKey('smoothingFittedDays')) {
       smoothingFittedDays = defaultSmoothingFittedDays;
+    }
+    if (override) {
+      bodyGrowing = defaultBodyGrowing;
     }
     if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;

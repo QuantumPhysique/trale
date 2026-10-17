@@ -135,6 +135,28 @@ class _PersonalizationSettingsPageState
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,
           ),
+          // The readings can switch it on in the background; the stream
+          // fires once that is stored.
+          StreamBuilder<List<Measurement>>(
+            stream: _measurementStream,
+            builder: (BuildContext context, _) => QPGroupedSwitchListTile(
+              color: Theme.of(context).colorScheme.surfaceContainerLowest,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: QPLayout.padding,
+              ),
+              title: Text(
+                context.l10n.stillGrowing.inCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              subtitle: Text(context.l10n.stillGrowingSubtitle),
+              value: notifier.bodyGrowing ?? false,
+              onChanged: (bool? value) {
+                if (value != null) {
+                  notifier.bodyGrowing = value;
+                }
+              },
+            ),
+          ),
         ],
       ),
       const SizedBox(height: QPLayout.smallPadding),

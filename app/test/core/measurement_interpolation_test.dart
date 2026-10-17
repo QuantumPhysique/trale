@@ -71,6 +71,25 @@ List<Measurement> waterDiary(double water) {
   return measurements;
 }
 
+/// Twenty weekly readings of a puppy growing from 2 towards 18 kg along a
+/// Gompertz curve, with 1 % scatter and rounding to 0.1 kg, from 2026-01-01.
+List<Measurement> puppyDiary() {
+  final Random random = Random(9);
+  return <Measurement>[
+    for (int week = 0; week < 20; week++)
+      Measurement(
+        weight:
+            (18 *
+                    exp(-log(9) * exp(-7 * week / 60)) *
+                    (1 + 0.01 * gaussian(random)) *
+                    10)
+                .round() /
+            10,
+        date: DateTime(2026, 1, 1 + 7 * week, 8),
+      ),
+  ];
+}
+
 /// The interpolation of [measurements] at [strength].
 Future<MeasurementInterpolation> interpolate(
   List<Measurement> measurements, [
@@ -151,7 +170,7 @@ void main() {
   });
 
   test(
-    'a year of readings learns its water and no week-scale changes',
+    'a year of readings learns its water, no week-scale changes, no growth',
     () async {
       final MeasurementInterpolation ip = await interpolate(waterDiary(0.006));
       await ip.reinitAsync();
@@ -159,6 +178,17 @@ void main() {
 
       expect(learned.waterAmplitude / 0.006, inInclusiveRange(0.8, 1.2));
       expect(learned.weekAmplitude, lessThan(amplitudePriorCentre));
+      expect(Preferences().bodyGrowing, isNull);
+    },
+  );
+
+  test(
+    'a puppy nobody marked as growing switches to the growing profile',
+    () async {
+      final MeasurementInterpolation ip = await interpolate(puppyDiary());
+      await ip.reinitAsync();
+
+      expect(Preferences().bodyGrowing, isTrue);
     },
   );
 

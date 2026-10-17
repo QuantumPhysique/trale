@@ -46,6 +46,18 @@ const double amplitudePriorCentre = 0.0042;
 /// factor either way: the spread between people.
 const double priorWidthFactor = 2;
 
+/// One prior standard deviation of a growing body's factor on the slope sd,
+/// as a factor either way: growth rates differ by orders of magnitude
+/// between bodies, a toddler against a puppy.
+const double growthPriorWidthFactor = 4;
+
+/// Log posterior density in nats by which a growing fit has to beat the
+/// other before a body counts as growing without being marked so.
+///
+/// No adult and no pet in the tests reached it, and an unmarked puppy did
+/// after seven weekly readings.
+const double growingEvidenceNats = 10;
+
 /// Days with measurements before the first refit of the amplitudes and the
 /// scale error.
 const int firstRefitDays = 5;

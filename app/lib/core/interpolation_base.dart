@@ -29,6 +29,9 @@ class MeasurementInterpolationBaseclass {
   /// The amplitudes and the scale error the curve is drawn with.
   SmoothingState get smoothingState => SmoothingState.prior(stepKg);
 
+  /// Whether the body is still growing, null while the evidence may decide.
+  bool? get bodyGrowing => false;
+
   /// re initialize database
   void reinit() {
     _clear();
@@ -62,6 +65,9 @@ class MeasurementInterpolationBaseclass {
     if (refitted != null) {
       Preferences().smoothingState = refitted;
       Preferences().smoothingFittedDays = payload.idxsMeasurements.length;
+    }
+    if (result.turnedGrowing) {
+      Preferences().bodyGrowing = true;
     }
   }
 
@@ -112,6 +118,8 @@ class MeasurementInterpolationBaseclass {
             _idxsMeasurements.length,
             Preferences().smoothingFittedDays,
           ),
+      growing: bodyGrowing ?? false,
+      testGrowing: bodyGrowing == null,
       isNone: _isNone,
       displayStart: _displayStart,
       displayEnd: _displayEnd,

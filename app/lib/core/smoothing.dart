@@ -5,6 +5,7 @@ import 'package:state_space/state_space.dart'
         Component,
         DampedLinearTrend,
         FitResult,
+        LocalLinearTrend,
         LogNormalPrior,
         Matern,
         Observation,
@@ -24,13 +25,15 @@ class SmoothingState {
     required this.weekAmplitude,
     required this.waterAmplitude,
     required this.scaleErrorKg,
+    this.growthFactor = 1,
   });
 
   /// The prior centres, with the scale error at the display step [stepKg].
   const SmoothingState.prior(double stepKg)
     : weekAmplitude = amplitudePriorCentre,
       waterAmplitude = amplitudePriorCentre,
-      scaleErrorKg = stepKg;
+      scaleErrorKg = stepKg,
+      growthFactor = 1;
 
   /// Standard deviation of the week-scale changes, as a fraction of body
   /// weight.
@@ -42,29 +45,48 @@ class SmoothingState {
 
   /// Standard deviation in kg of a reading's error besides its rounding.
   final double scaleErrorKg;
+
+  /// Factor on the slope sd of a growing body; 1 for any other.
+  final double growthFactor;
 }
+
+/// A refitted [SmoothingState] and its log posterior density.
+typedef SmoothingFit = ({SmoothingState state, double logPosterior});
 
 /// Variance in kg² of one reading around the weight: the scale error and the
 /// rounding to the display step [stepKg].
 double readingVarianceKg(double scaleErrorKg, double stepKg) =>
     scaleErrorKg * scaleErrorKg + stepKg * stepKg / 12;
 
+/// Process variance of the tissue trend whose slope has the sd [slopeSd] at
+/// [strengthReferenceKg], scaled to [bodyKg].
+double _trendVariance(double slopeSd, double bodyKg) {
+  final double s =
+      slopeSd * math.pow(bodyKg / strengthReferenceKg, kleiberExponent);
+  return 2 * s * s / tissueSlopeMemoryInDays;
+}
+
 /// The model of the log weight: a tissue trend whose slope has the sd
 /// [slopeSd] at [strengthReferenceKg], scaled to [bodyKg]; week-scale changes;
-/// water; and each reading's own error in kg.
+/// water; and each reading's own error in kg. A [growing] body's slope does
+/// not revert to zero.
 StructuralModel smoothingModel({
   required SmoothingState state,
   required double slopeSd,
   required double bodyKg,
   required double stepKg,
+  required bool growing,
 }) {
-  final double s =
-      slopeSd * math.pow(bodyKg / strengthReferenceKg, kleiberExponent);
+  final double trend = _trendVariance(slopeSd, bodyKg);
+  final double g = state.growthFactor;
   return StructuralModel(<Component>[
-    DampedLinearTrend(
-      processVariance: 2 * s * s / tissueSlopeMemoryInDays,
-      timeScale: tissueSlopeMemoryInDays,
-    ),
+    if (growing)
+      LocalLinearTrend(processVariance: trend * g * g)
+    else
+      DampedLinearTrend(
+        processVariance: trend,
+        timeScale: tissueSlopeMemoryInDays,
+      ),
     Matern.threeHalves(
       variance: state.weekAmplitude * state.weekAmplitude,
       lengthScale: weekScaleLengthInDays,
@@ -84,33 +106,53 @@ bool isRefitDue(int days, int fittedDays) =>
         ? days != fittedDays
         : (days - fittedDays).abs() >= refitIntervalDays);
 
-/// The amplitudes and the scale error at their posterior mode on
-/// [observations], under priors centred on [amplitudePriorCentre] and the
-/// display step [stepKg], refined from [state].
-SmoothingState refitSmoothing({
+/// The amplitudes, the scale error and, for a [growing] body, the growth
+/// factor at their posterior mode on [observations], refined from [state].
+///
+/// The priors are centred on [amplitudePriorCentre], the display step
+/// [stepKg] and a growth factor of 1.
+SmoothingFit refitSmoothing({
   required List<Observation> observations,
   required SmoothingState state,
   required double slopeSd,
   required double bodyKg,
   required double stepKg,
+  required bool growing,
 }) {
   final double width = 2 * math.log(priorWidthFactor);
   final LogNormalPrior amplitude = LogNormalPrior(
     median: amplitudePriorCentre * amplitudePriorCentre,
     logSd: width,
   );
+  final double trend = _trendVariance(slopeSd, bodyKg);
   final double rounding = readingVarianceKg(0, stepKg);
+  // The damped trend has a variance and a time scale, the growing one a
+  // variance; the two Matérn components a variance and a length scale each.
+  final int week = growing ? 1 : 2;
+  final int water = week + 2;
   final FitResult fitted = fit(
     smoothingModel(
       state: state,
       slopeSd: slopeSd,
       bodyKg: bodyKg,
       stepKg: stepKg,
+      growing: growing,
     ),
     observations,
-    // The trend, set by the strength, and both length scales.
-    heldParameters: const <int>{0, 1, 3, 5},
-    priors: <int, LogNormalPrior>{2: amplitude, 4: amplitude},
+    heldParameters: <int>{
+      if (!growing) ...<int>{0, 1},
+      week + 1,
+      water + 1,
+    },
+    priors: <int, LogNormalPrior>{
+      if (growing)
+        0: LogNormalPrior(
+          median: trend,
+          logSd: 2 * math.log(growthPriorWidthFactor),
+        ),
+      week: amplitude,
+      water: amplitude,
+    },
     measurementVariancePrior: LogNormalPrior(
       median: readingVarianceKg(stepKg, stepKg),
       logSd: width,
@@ -119,10 +161,16 @@ SmoothingState refitSmoothing({
     start: SearchStart.previousParameters,
   );
   final List<double> theta = fitted.model.parameters;
-  return SmoothingState(
-    weekAmplitude: math.sqrt(math.exp(theta[2])),
-    waterAmplitude: math.sqrt(math.exp(theta[4])),
-    scaleErrorKg: math.sqrt(math.max(0, fitted.measurementVariance - rounding)),
+  return (
+    state: SmoothingState(
+      weekAmplitude: math.sqrt(math.exp(theta[week])),
+      waterAmplitude: math.sqrt(math.exp(theta[water])),
+      scaleErrorKg: math.sqrt(
+        math.max(0, fitted.measurementVariance - rounding),
+      ),
+      growthFactor: growing ? math.sqrt(math.exp(theta[0]) / trend) : 1,
+    ),
+    logPosterior: fitted.logMarginalLikelihood + fitted.logPrior,
   );
 }
 
