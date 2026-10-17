@@ -13,25 +13,8 @@ class MeasurementInterpolationBaseclass {
   /// get interpolation strength values
   InterpolStrength get interpolStrength => Preferences().interpolStrength;
 
-  /// Whether the automatic strength is fitted to these measurements; only the
-  /// user's own diary is.
-  bool get learnsAutoStrength => false;
-
-  /// Bandwidth in days the learned automatic strength smooths with at this
-  /// diary's density of readings, null before its first accepted fit.
-  double? get learnedAutoStrengthInDays {
-    final double? ratio = Preferences().autoStrengthRatio;
-    if (ratio == null || nDays == 0) {
-      return null;
-    }
-    // A sparser diary spreads the same ratio over more days.
-    return bandwidthForRatio(ratio * isMeasurement.sum() / nDays);
-  }
-
-  /// Whether the curve is drawn as straight lines between the measurements,
-  /// which only a manual [InterpolStrength.none] does.
-  bool get _isNone =>
-      !Preferences().autoStrength && interpolStrength == InterpolStrength.none;
+  /// Whether the curve is drawn as straight lines between the measurements.
+  bool get _isNone => interpolStrength == InterpolStrength.none;
 
   /// re initialize database
   void reinit() {
@@ -51,12 +34,9 @@ class MeasurementInterpolationBaseclass {
       _clearDisplay();
       return;
     }
-    final _InterpolationPayload payload = _payload(
-      mayTryAutoStrength: learnsAutoStrength,
-    );
     final _InterpolationResult result = await compute(
       _computeInterpolation,
-      payload,
+      _payload(),
     );
     // A newer call has rebuilt the inputs in the meantime.
     if (generation != _generation) {
@@ -64,19 +44,12 @@ class MeasurementInterpolationBaseclass {
     }
     _clearDisplay();
     _store(result);
-    if (payload.tryAutoStrength) {
-      Preferences().autoStrengthDays = payload.idxsMeasurements.length;
-      if (result.learnedAutoStrength != null) {
-        Preferences().autoStrengthRatio = result.learnedAutoStrength;
-      }
-    }
   }
 
   /// initialize database
   void init() {
     if (_n > 0) {
-      // A fit of the automatic strength would block the UI here.
-      _store(_computeInterpolation(_payload(mayTryAutoStrength: false)));
+      _store(_computeInterpolation(_payload()));
     }
   }
 
@@ -101,24 +74,16 @@ class MeasurementInterpolationBaseclass {
     _isMeasurementDisplay = null;
   }
 
-  _InterpolationPayload _payload({required bool mayTryAutoStrength}) {
+  _InterpolationPayload _payload() {
     // Building the weights builds _idxsMeasurements and _countsMeasured too.
     final Vector weights = _weights;
-    final Preferences prefs = Preferences();
     return _InterpolationPayload(
       idxsMeasurements: _idxsMeasurements,
       weightsMeasured: <double>[
         for (final int idx in _idxsMeasurements) weights[idx],
       ],
       counts: _countsMeasured,
-      manualRatio: prefs.autoStrength ? null : interpolStrength.processVariance,
-      autoStrengthRatio:
-          prefs.autoStrengthRatio ?? ratioForBandwidth(autoStrengthStartInDays),
-      tryAutoStrength:
-          mayTryAutoStrength &&
-          nDays >= autoStrengthMinHistoryInDays &&
-          _idxsMeasurements.length - prefs.autoStrengthDays >=
-              autoStrengthTryEveryDays,
+      ratio: interpolStrength.processVariance,
       isNone: _isNone,
       displayStart: _displayStart,
       displayEnd: _displayEnd,

@@ -11,9 +11,7 @@ class _InterpolationPayload {
     required this.idxsMeasurements,
     required this.weightsMeasured,
     required this.counts,
-    required this.manualRatio,
-    required this.autoStrengthRatio,
-    required this.tryAutoStrength,
+    required this.ratio,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -28,15 +26,9 @@ class _InterpolationPayload {
   /// Number of measurements on each of those days.
   final List<int> counts;
 
-  /// Variance ratio of the trend at the manual strength, see
-  /// [InterpolStrengthExtension]; null when the automatic strength sets it.
-  final double? manualRatio;
-
-  /// Variance ratio the automatic strength holds.
-  final double autoStrengthRatio;
-
-  /// Whether to fit the automatic strength before smoothing.
-  final bool tryAutoStrength;
+  /// Variance ratio of the trend at the strength, see
+  /// [InterpolStrengthExtension].
+  final double ratio;
 
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
@@ -56,7 +48,6 @@ class _InterpolationResult {
     required this.slopes,
     required this.bandLower,
     required this.bandUpper,
-    required this.learnedAutoStrength,
   });
 
   final List<double> weights;
@@ -69,25 +60,17 @@ class _InterpolationResult {
 
   /// Upper edge of the band, see [bandLower].
   final List<double> bandUpper;
-
-  /// Variance ratio the automatic strength holds after its fit, null without
-  /// an accepted fit.
-  final double? learnedAutoStrength;
 }
 
 /// Smooths the measured days with a damped trend at the strength's variance
-/// ratio, after fitting the automatic strength when that is due. Top-level, so
-/// that [compute] can run it in an isolate.
+/// ratio. Top-level, so that [compute] can run it in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
   ];
   final int nDays = p.idxsMeasurements.length;
   final List<Observation> observations = _observations(p);
-  final double? learned = p.tryAutoStrength
-      ? learnAutoStrength(observations, p.autoStrengthRatio)
-      : null;
-  final double ratio = p.manualRatio ?? learned ?? p.autoStrengthRatio;
+  final double ratio = p.ratio;
   final double timeScale =
       trendTimeScaleInBandwidths * bandwidthForRatio(ratio);
   final StructuralModel model = nDays < 2
@@ -120,14 +103,8 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,
-    learnedAutoStrength: learned,
   );
 }
-
-/// Replays the automatic strength over the measured days as they grew.
-/// Top-level, so that [compute] can run it in an isolate.
-AutoStrengthSummary _summarizeAutoStrength(_InterpolationPayload p) =>
-    summarizeAutoStrength(_observations(p));
 
 /// The daily means of [p], each weighted by its number of measurements.
 List<Observation> _observations(_InterpolationPayload p) => <Observation>[

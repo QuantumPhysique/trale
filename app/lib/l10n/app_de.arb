@@ -237,36 +237,6 @@
     "@strength": {
         "description": "interpolation strength"
     },
-    "autoStrength": "automatisch",
-    "@autoStrength": {
-        "description": "Switch label to learn the interpolation strength from the user's data"
-    },
-    "autoStrengthLearned": "{days, plural, one{Etwa 1 Tag, aus Deinen Daten gelernt} other{Etwa {days} Tage, aus Deinen Daten gelernt}}",
-    "@autoStrengthLearned": {
-        "description": "Subtitle of the automatic strength switch once a strength was learned, with its smoothing bandwidth in days",
-        "placeholders": {
-            "days": {
-                "type": "int",
-                "example": "8"
-            }
-        }
-    },
-    "autoStrengthLearning": "Lernt aus Deinen Daten",
-    "@autoStrengthLearning": {
-        "description": "Subtitle of the automatic strength switch before a strength was learned"
-    },
-    "autoStrengthSummary": "Hilf, die automatische Glättung abzustimmen",
-    "@autoStrengthSummary": {
-        "description": "Title of the tile and dialog that show a shareable summary of the learned interpolation strength"
-    },
-    "autoStrengthSummarySubtitle": "Teile eine Zusammenfassung ohne Gewichte und Datumsangaben",
-    "@autoStrengthSummarySubtitle": {
-        "description": "Subtitle of the tile that opens the summary of the learned interpolation strength"
-    },
-    "autoStrengthSummaryExplanation": "trale hat keinen Internetzugriff und kann selbst nichts senden. Die Zahlen unten beschreiben nur, wie die automatische Glättung zu Deinen Daten passt, ohne Gewichte oder Datumsangaben. Wenn Du magst, teile sie in unserer GitHub-Diskussion, damit wir die Glättung für alle abstimmen können:",
-    "@autoStrengthSummaryExplanation": {
-        "description": "Explanation in the dialog with the summary of the learned interpolation strength, followed by the link to the discussion"
-    },
     "close": "Schließen",
     "@close": {
         "description": "Button that closes a dialog"
@@ -429,7 +399,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Automatisch beginnt mit einer mittleren Glättung und passt sie an Deine Daten an, je länger Du misst. Schalte es aus, um die Stärke selbst zu wählen: Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der automatischen Glättung.",
+    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der mittleren Glättung.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {

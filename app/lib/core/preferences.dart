@@ -102,15 +102,6 @@ class Preferences extends QPPreferences {
   /// Default interpolation strength.
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
-  /// Default for autoStrength.
-  final bool defaultAutoStrength = true;
-
-  /// Default for autoStrengthRatio, nothing learned yet.
-  final double? defaultAutoStrengthRatio = null;
-
-  /// Default for autoStrengthDays.
-  final int defaultAutoStrengthDays = 0;
-
   /// Default zoom level.
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
@@ -174,19 +165,6 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
-    }
-    if (override || !prefs.containsKey('autoStrength')) {
-      // Released versions wrote medium as the default, so a chosen medium and
-      // an untouched one look alike: both move to the automatic strength.
-      autoStrength = override
-          ? defaultAutoStrength
-          : interpolStrength == InterpolStrength.medium;
-    }
-    if (override || !prefs.containsKey('autoStrengthRatio')) {
-      autoStrengthRatio = defaultAutoStrengthRatio;
-    }
-    if (override || !prefs.containsKey('autoStrengthDays')) {
-      autoStrengthDays = defaultAutoStrengthDays;
     }
     if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;
