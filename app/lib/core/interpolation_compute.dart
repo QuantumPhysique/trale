@@ -90,6 +90,23 @@ class _InterpolationResult {
   final bool turnedGrowing;
 }
 
+/// The posterior of the log curve on the grid.
+class _ModeCurve {
+  _ModeCurve(this.mean, this.variance, this.slope, this.readingVariance);
+
+  /// Mean of the log curve.
+  final List<double> mean;
+
+  /// Variance of the log curve.
+  final List<double> variance;
+
+  /// Slope of the tissue trend in log units per day.
+  final List<double> slope;
+
+  /// Variance of a single reading's logarithm around [mean].
+  final List<double> readingVariance;
+}
+
 /// Smooths the logarithm of the measured days with [smoothingModel], after
 /// refitting its state when that is due. Top-level, so that [compute] can run
 /// it in an isolate.
@@ -127,27 +144,26 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     stepKg: p.stepKg,
     growing: p.growing || turnedGrowing,
   );
-  final SmoothingResult posterior = model.smooth(
+  final _ModeCurve posterior = _modeCurve(
+    p,
+    model,
+    state,
     observations,
-    grid: grid,
-    signal: curveComponents,
+    grid,
+    growing: p.growing || turnedGrowing,
   );
   final List<double> curve = <double>[
     for (final double logWeight in posterior.mean) math.exp(logWeight),
   ];
   final List<double> slopes = <double>[
-    for (int i = 0; i < curve.length; i++) posterior.trendSlope![i] * curve[i],
+    for (int i = 0; i < curve.length; i++) posterior.slope[i] * curve[i],
   ];
 
   final List<double> bandLower = <double>[];
   final List<double> bandUpper = <double>[];
   if (p.idxsMeasurements.length >= minimumDaysForBand && !p.isNone) {
-    final double water = state.waterAmplitude * state.waterAmplitude;
-    final double reading = readingVarianceKg(state.scaleErrorKg, p.stepKg);
     for (int i = 0; i < curve.length; i++) {
-      final double sd = math.sqrt(
-        posterior.variance[i] + water + reading / (curve[i] * curve[i]),
-      );
+      final double sd = math.sqrt(posterior.readingVariance[i]);
       bandLower.add(math.exp(posterior.mean[i] - z95 * sd));
       bandUpper.add(math.exp(posterior.mean[i] + z95 * sd));
     }
@@ -161,6 +177,44 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     refitted: refitted?.state,
     turnedGrowing: turnedGrowing,
   );
+}
+
+/// The posterior of [model] with [state] on [grid]; past the last reading it
+/// keeps the tissue slope there, which the model lets fade.
+_ModeCurve _modeCurve(
+  _InterpolationPayload p,
+  StructuralModel model,
+  SmoothingState state,
+  List<Observation> observations,
+  List<double> grid, {
+  required bool growing,
+}) {
+  final SmoothingResult posterior = model.smooth(
+    observations,
+    grid: grid,
+    signal: curveComponents,
+  );
+  final List<double> mean = posterior.mean.toList();
+  final List<double> variance = posterior.variance.toList();
+  final List<double> slope = posterior.trendSlope!.toList();
+  if (!growing) {
+    final int last = p.idxsMeasurements.last - p.displayStart;
+    final double slopeVariance = posterior.trendSlopeVariance![last];
+    const double tau = tissueSlopeMemoryInDays;
+    for (int i = last + 1; i < grid.length; i++) {
+      final double days = (i - last).toDouble();
+      final double faded = tau * (1 - math.exp(-days / tau));
+      mean[i] += slope[last] * (days - faded);
+      variance[i] += (days * days - faded * faded) * slopeVariance;
+      slope[i] = slope[last];
+    }
+  }
+  final double water = state.waterAmplitude * state.waterAmplitude;
+  final double reading = readingVarianceKg(state.scaleErrorKg, p.stepKg);
+  return _ModeCurve(mean, variance, slope, <double>[
+    for (int i = 0; i < grid.length; i++)
+      variance[i] + water + reading / math.exp(2 * mean[i]),
+  ]);
 }
 
 /// The daily means of [p] as observations of their logarithm.

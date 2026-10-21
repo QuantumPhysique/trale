@@ -484,10 +484,10 @@ class MeasurementStats {
   double get rate => curveRateOverDays(constants.rateWindowInDays);
 
   /// The rate the forecasts continue, in kg/day: the mean of the tissue
-  /// trend's rate over the coming week and the curve's rate over the last
+  /// trend's slope and the curve's rate over the last
   /// [constants.forecastWindowInDays].
   double get forecastRate =>
-      (ip.weekRateAtDay(toDate) +
+      (ip.slopeAtDay(toDate) +
           curveRateOverDays(constants.forecastWindowInDays)) /
       2;
 

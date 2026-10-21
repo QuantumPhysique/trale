@@ -28,9 +28,6 @@ const int rateWindowInDays = 14;
 /// Days over which the forecasts read the curve's rate.
 const int forecastWindowInDays = 28;
 
-/// Days over which the forecasts average the tissue trend's fading slope.
-const int forecastWeekInDays = 7;
-
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
 

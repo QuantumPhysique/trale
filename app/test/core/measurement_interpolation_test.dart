@@ -127,16 +127,13 @@ void main() {
     }
   });
 
-  test('the projection levels off', () async {
+  test('the projection keeps the slope of the last reading', () async {
     final MeasurementInterpolation ip = await interpolate(line());
     final DateTime last = DateTime(2026, 1, 30);
     final DateTime week = DateTime(2026, 2, 6);
 
-    expect(ip.slopeAtDay(week).abs(), lessThan(ip.slopeAtDay(last).abs()));
-    expect(
-      ip.interpolationForDay(week)!,
-      greaterThan(ip.interpolationForDay(last)! - 7 * 0.05),
-    );
+    // The same slope in log units, slightly less in kg a week later.
+    expect(ip.slopeAtDay(week) / ip.slopeAtDay(last), closeTo(1, 0.01));
   });
 
   test('a stronger strength gives a smoother curve', () async {
