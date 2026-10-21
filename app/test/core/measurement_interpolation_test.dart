@@ -11,8 +11,8 @@ import 'package:trale/core/smoothing.dart';
 
 import '../helpers/widget_test_helper.dart';
 
-/// Sixty days of a slow loss with day-to-day noise, one reading a day and a
-/// few days skipped, up to today.
+/// Sixty days of a loss of 0.07 kg a week, slow enough for every mode, with
+/// day-to-day noise, one reading a day and a few days skipped, up to today.
 List<Measurement> noisyDiary() {
   final Random random = Random(7);
   final DateTime now = DateTime.now();
@@ -20,7 +20,7 @@ List<Measurement> noisyDiary() {
     for (int daysAgo = 0; daysAgo < 60; daysAgo++)
       if (daysAgo % 9 != 4)
         Measurement(
-          weight: 80 + 0.03 * daysAgo + 0.4 * (random.nextDouble() - 0.5),
+          weight: 80 + 0.01 * daysAgo + 0.4 * (random.nextDouble() - 0.5),
           date: now.subtract(Duration(days: daysAgo)),
         ),
   ];
@@ -94,7 +94,7 @@ List<Measurement> puppyDiary() {
 /// The interpolation of [measurements] at [strength].
 Future<MeasurementInterpolation> interpolate(
   List<Measurement> measurements, [
-  InterpolStrength strength = InterpolStrength.medium,
+  InterpolStrength strength = InterpolStrength.textbook,
 ]) async {
   await setUpWidgetTestDependencies(measurements: measurements);
   Preferences().interpolStrength = strength;
@@ -127,30 +127,60 @@ void main() {
     }
   });
 
-  test('the projection levels off', () async {
+  test('the projection keeps the slope of the last reading', () async {
     final MeasurementInterpolation ip = await interpolate(line());
     final DateTime last = DateTime(2026, 1, 30);
     final DateTime week = DateTime(2026, 2, 6);
 
-    expect(ip.slopeAtDay(week).abs(), lessThan(ip.slopeAtDay(last).abs()));
-    expect(
-      ip.interpolationForDay(week)!,
-      greaterThan(ip.interpolationForDay(last)! - 7 * 0.05),
-    );
+    // The same slope in log units, slightly less in kg a week later.
+    expect(ip.slopeAtDay(week) / ip.slopeAtDay(last), closeTo(1, 0.01));
   });
 
-  test('a stronger strength gives a smoother curve', () async {
+  test('a slower mode gives a smoother curve', () async {
     final List<double> roughnesses = <double>[
       for (final InterpolStrength strength in <InterpolStrength>[
-        InterpolStrength.soft,
-        InterpolStrength.medium,
-        InterpolStrength.strong,
+        InterpolStrength.aggressive,
+        InterpolStrength.ambitious,
+        InterpolStrength.textbook,
+        InterpolStrength.maintenance,
       ])
         roughness(await interpolate(noisyDiary(), strength)),
     ];
 
-    expect(roughnesses[0], greaterThan(roughnesses[1]));
-    expect(roughnesses[1], greaterThan(roughnesses[2]));
+    for (int k = 1; k < roughnesses.length; k++) {
+      expect(roughnesses[k - 1], greaterThan(roughnesses[k]));
+    }
+  });
+
+  test('the automatic strength reads a diet off its recent readings', () async {
+    final Random random = Random(11);
+    final MeasurementInterpolation diet = await interpolate(
+      dailyMeasurements(
+        (int daysAgo) =>
+            daysAgo < 42 ? 80 + 0.08 * daysAgo : 83.36 + 0.4 * gaussian(random),
+        days: 200,
+      ),
+      InterpolStrength.auto,
+    );
+
+    expect(diet.modeWeights[SmoothingMode.maintenance], lessThan(0.2));
+  });
+
+  test('a planned rate puts its mode first', () {
+    List<double> prior(double? plannedRate) => targetLogPrior(
+      SmoothingMode.values,
+      bodyKg: strengthReferenceKg,
+      target: (plannedRate: plannedRate),
+    );
+    final List<double> aggressive = prior(
+      SmoothingMode.aggressive.slopeSd * strengthReferenceKg,
+    );
+
+    expect(
+      aggressive.indexOf(aggressive.reduce(max)),
+      SmoothingMode.aggressive.index,
+    );
+    expect(prior(null), <double>[-targetMaintenanceHandicapNats, 0, 0, 0]);
   });
 
   test('the band holds about 95 of 100 measurements', () async {
@@ -175,7 +205,8 @@ void main() {
     () async {
       final MeasurementInterpolation ip = await interpolate(waterDiary(0.006));
       await ip.reinitAsync();
-      final SmoothingState learned = Preferences().smoothingState!;
+      final SmoothingState learned =
+          Preferences().smoothingStates[SmoothingMode.textbook]!;
 
       expect(learned.waterAmplitude / 0.006, inInclusiveRange(0.8, 1.2));
       expect(learned.weekAmplitude, lessThan(amplitudePriorCentre));

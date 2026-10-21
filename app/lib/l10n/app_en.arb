@@ -484,17 +484,25 @@
     "@none": {
         "description": "no interpolation"
     },
-    "soft": "Soft",
-    "@soft": {
-        "description": "soft interpolation"
+    "strengthMaintenance": "Maintenance",
+    "@strengthMaintenance": {
+        "description": "Interpolation strength that expects the weight to be held steady"
     },
-    "medium": "Medium interpolation",
-    "@medium": {
-        "description": "medium interpolation"
+    "strengthTextbook": "Textbook",
+    "@strengthTextbook": {
+        "description": "Interpolation strength that expects a diet at the usual recommended pace"
     },
-    "strong": "Strong",
-    "@strong": {
-        "description": "strong interpolation"
+    "strengthAmbitious": "Ambitious",
+    "@strengthAmbitious": {
+        "description": "Interpolation strength that expects a faster diet"
+    },
+    "strengthAggressive": "Aggressive",
+    "@strengthAggressive": {
+        "description": "Interpolation strength that expects a diet at the fastest pace that lasts"
+    },
+    "strengthAuto": "Automatic",
+    "@strengthAuto": {
+        "description": "Interpolation strength that picks the strengths fitting the recent measurements and the target"
     },
     "welcome": "Welcome",
     "@welcome": {
@@ -782,13 +790,21 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. It learns from your measurements how much your weight varies from day to day and from week to week. Higher strengths smooth out more of the day-to-day fluctuations but follow real changes more slowly. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still come from the medium smoothing.",
+    "interpolationExplanation": "Interpolation finds the trend behind your daily ups and downs with a Kalman smoother, computed on your device. It learns from your measurements how much your weight varies from day to day and from week to week. Each strength expects your weight to change at the pace of a type of diet, from holding it steady to an aggressive diet: the slower the pace, the more fluctuations it smooths out, but the more slowly it follows real changes. '{autoInterpol}' picks the strengths that fit your recent measurements best, leaning towards your target. Choose '{noneInterpol}' to connect your measurements with straight lines; the rate and the projection then still come from '{textbookInterpol}'.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {
             "noneInterpol": {
                 "type": "String",
                 "example": "none"
+            },
+            "autoInterpol": {
+                "type": "String",
+                "example": "Automatic"
+            },
+            "textbookInterpol": {
+                "type": "String",
+                "example": "Textbook"
             }
         }
     },

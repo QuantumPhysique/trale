@@ -266,11 +266,14 @@ class MeasurementDatabase extends MeasurementDatabaseBaseclass {
     // recalc all
     init();
 
-    // update interpolation (computed in a background isolate)
+    await reinterpolate();
+  }
+
+  /// Recomputes the interpolation of the unchanged measurements in a
+  /// background isolate, then the stats, and fires the stream.
+  Future<void> reinterpolate() async {
     await MeasurementInterpolation().reinitAsync();
     MeasurementStats().reinit();
-
-    // fire stream
     fireStream();
   }
 

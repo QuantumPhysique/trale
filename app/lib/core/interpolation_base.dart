@@ -26,8 +26,31 @@ class MeasurementInterpolationBaseclass {
   /// user's own diary is.
   bool get learnsSmoothing => false;
 
-  /// The amplitudes and the scale error the curve is drawn with.
-  SmoothingState get smoothingState => SmoothingState.prior(stepKg);
+  /// The amplitudes and the scale error learned for each mode; a mode
+  /// missing here is drawn with the prior centres.
+  Map<SmoothingMode, SmoothingState> get smoothingStates =>
+      const <SmoothingMode, SmoothingState>{};
+
+  /// The target the automatic strength leans towards while [bodyKg] has not
+  /// reached it, null without one.
+  TargetAhead? targetAhead(double bodyKg) => null;
+
+  Map<SmoothingMode, double> _modeWeights = const <SmoothingMode, double>{};
+
+  /// Weight of each mode the curve is drawn from.
+  Map<SmoothingMode, double> get modeWeights => _modeWeights;
+
+  /// The mode with the most weight, null before the first curve.
+  SmoothingMode? get leadingMode => _modeWeights.isEmpty
+      ? null
+      : _modeWeights.entries
+            .reduce(
+              (
+                MapEntry<SmoothingMode, double> a,
+                MapEntry<SmoothingMode, double> b,
+              ) => b.value > a.value ? b : a,
+            )
+            .key;
 
   /// Whether the body is still growing, null while the evidence may decide.
   bool? get bodyGrowing => false;
@@ -61,9 +84,12 @@ class MeasurementInterpolationBaseclass {
     }
     _clearDisplay();
     _store(result);
-    final SmoothingState? refitted = result.refitted;
+    final Map<SmoothingMode, SmoothingState>? refitted = result.refitted;
     if (refitted != null) {
-      Preferences().smoothingState = refitted;
+      Preferences().smoothingStates = <SmoothingMode, SmoothingState>{
+        ...Preferences().smoothingStates,
+        ...refitted,
+      };
       Preferences().smoothingFittedDays = payload.idxsMeasurements.length;
     }
     if (result.turnedGrowing) {
@@ -103,22 +129,39 @@ class MeasurementInterpolationBaseclass {
   _InterpolationPayload _payload({required bool mayRefit}) {
     // Building the weights builds _idxsMeasurements and _countsMeasured too.
     final Vector weights = _weights;
+    final List<double> weightsMeasured = <double>[
+      for (final int idx in _idxsMeasurements) weights[idx],
+    ];
+    final bool growing = bodyGrowing ?? false;
+    final List<SmoothingMode> modes = growing
+        ? <SmoothingMode>[growingMode(interpolStrength.modes)]
+        : interpolStrength.modes;
+    final Map<SmoothingMode, SmoothingState> learned = smoothingStates;
+    final double bodyKg = bodyWeightKg(weightsMeasured);
+    final TargetAhead? target = modes.length > 1 ? targetAhead(bodyKg) : null;
     return _InterpolationPayload(
       idxsMeasurements: _idxsMeasurements,
-      weightsMeasured: <double>[
-        for (final int idx in _idxsMeasurements) weights[idx],
-      ],
+      weightsMeasured: weightsMeasured,
       counts: _countsMeasured,
-      slopeSd: interpolStrength.slopeSd,
-      state: smoothingState,
+      modes: modes,
+      states: <SmoothingMode, SmoothingState>{
+        for (final SmoothingMode mode in modes)
+          mode: learned[mode] ?? SmoothingState.prior(stepKg),
+      },
+      logPrior: target == null
+          ? <double>[for (final SmoothingMode _ in modes) 0]
+          : targetLogPrior(modes, bodyKg: bodyKg, target: target),
       stepKg: stepKg,
       refit:
           mayRefit &&
           isRefitDue(
             _idxsMeasurements.length,
             Preferences().smoothingFittedDays,
+            unfitted: modes.any(
+              (SmoothingMode mode) => !learned.containsKey(mode),
+            ),
           ),
-      growing: bodyGrowing ?? false,
+      growing: growing,
       testGrowing: bodyGrowing == null,
       isNone: _isNone,
       displayStart: _displayStart,
@@ -133,6 +176,7 @@ class MeasurementInterpolationBaseclass {
     _slopesDisplay = Vector.fromList(result.slopes, dtype: dtype);
     _bandLower = Vector.fromList(result.bandLower, dtype: dtype);
     _bandUpper = Vector.fromList(result.bandUpper, dtype: dtype);
+    _modeWeights = result.modeWeights;
     times;
     measurements;
     isMeasurement;
@@ -403,20 +447,6 @@ class MeasurementInterpolationBaseclass {
     return idx != null ? _slopesDisplay![idx] : 0;
   }
 
-  /// Mean slope of the tissue trend in kg/day over the [forecastWeekInDays]
-  /// after [day], over which it fades unless the body is growing.
-  double weekRateAtDay(DateTime day) {
-    final double slope = slopeAtDay(day);
-    if (bodyGrowing ?? false) {
-      return slope;
-    }
-    const double tau = tissueSlopeMemoryInDays;
-    return slope *
-        tau *
-        (1 - math.exp(-forecastWeekInDays / tau)) /
-        forecastWeekInDays;
-  }
-
   /// Return the index into display vectors for a given [day],
   /// or null if [day] falls outside the display range.
   int? indexForDay(DateTime day) {
@@ -452,6 +482,14 @@ class MeasurementInterpolationBaseclass {
       return null;
     }
     return measurements[idx];
+  }
+
+  /// Mean of the measurements on [day] from the internal vectors, which are
+  /// rebuilt before the displayed ones; null without one.
+  double? _measuredOn(DateTime day) {
+    final Vector weights = _weights;
+    final int idx = _dateTimes.indexWhere((DateTime d) => d.sameDay(day));
+    return idx >= 0 && _isMeasurement[idx] > 0 ? weights[idx] : null;
   }
 
   /// Whether a measurement exists on [day].

@@ -32,28 +32,32 @@ extension UnitPrefsExtension on Preferences {
   set interpolStrength(InterpolStrength strength) =>
       prefs.setString('interpolStrength', strength.name);
 
-  /// The amplitudes and the scale error learned from the user's diary, null
-  /// before the first refit.
-  SmoothingState? get smoothingState {
-    final double week = prefs.getDouble('smoothingWeekAmplitude')!;
-    if (week < 0) {
-      return null;
-    }
-    return SmoothingState(
-      weekAmplitude: week,
-      waterAmplitude: prefs.getDouble('smoothingWaterAmplitude')!,
-      scaleErrorKg: prefs.getDouble('smoothingScaleErrorKg')!,
-      growthFactor: prefs.getDouble('smoothingGrowthFactor')!,
-    );
+  /// The amplitudes and the scale error learned from the user's diary, for
+  /// each mode refitted so far.
+  Map<SmoothingMode, SmoothingState> get smoothingStates {
+    final Map<String, dynamic> stored =
+        jsonDecode(prefs.getString('smoothingStates')!) as Map<String, dynamic>;
+    return <SmoothingMode, SmoothingState>{
+      for (final MapEntry<String, dynamic> entry in stored.entries)
+        SmoothingMode.values.byName(
+          entry.key,
+        ): SmoothingState.fromList(<double>[
+          for (final dynamic value in entry.value as List<dynamic>)
+            (value as num).toDouble(),
+        ]),
+    };
   }
 
   /// set the amplitudes and the scale error learned from the user's diary
-  set smoothingState(SmoothingState? state) {
-    prefs.setDouble('smoothingWeekAmplitude', state?.weekAmplitude ?? -1);
-    prefs.setDouble('smoothingWaterAmplitude', state?.waterAmplitude ?? -1);
-    prefs.setDouble('smoothingScaleErrorKg', state?.scaleErrorKg ?? -1);
-    prefs.setDouble('smoothingGrowthFactor', state?.growthFactor ?? -1);
-  }
+  set smoothingStates(Map<SmoothingMode, SmoothingState> states) =>
+      prefs.setString(
+        'smoothingStates',
+        jsonEncode(<String, List<double>>{
+          for (final MapEntry<SmoothingMode, SmoothingState> entry
+              in states.entries)
+            entry.key.name: entry.value.toList(),
+        }),
+      );
 
   /// Whether the body is still growing, null while the readings may decide.
   bool? get bodyGrowing => prefs.getBool('bodyGrowing');
@@ -63,7 +67,7 @@ extension UnitPrefsExtension on Preferences {
       ? prefs.remove('bodyGrowing')
       : prefs.setBool('bodyGrowing', growing);
 
-  /// Days with measurements at the last refit of [smoothingState].
+  /// Days with measurements at the last refit of [smoothingStates].
   int get smoothingFittedDays => prefs.getInt('smoothingFittedDays')!;
 
   /// set the days with measurements at the last refit

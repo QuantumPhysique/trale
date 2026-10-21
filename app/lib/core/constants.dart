@@ -28,9 +28,6 @@ const int rateWindowInDays = 14;
 /// Days over which the forecasts read the curve's rate.
 const int forecastWindowInDays = 28;
 
-/// Days over which the forecasts average the tissue trend's fading slope.
-const int forecastWeekInDays = 7;
-
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
 
@@ -88,6 +85,36 @@ const double kleiberExponent = -0.25;
 
 /// Last readings whose mean is the body weight the slope sd is scaled to.
 const int readingsForBodyWeight = 10;
+
+/// Horizons in days of the forecasts a mode is scored on. Next-day forecasts
+/// alone barely tell the modes apart.
+const List<int> evidenceHorizonsInDays = <int>[1, 7, 14];
+
+/// Days of readings before the last one whose forecasts the automatic
+/// strength weighs.
+const double evidenceWindowInDays = 28;
+
+/// Standard deviation in days of the Gaussian kernel on a scored reading's
+/// age. Shorter kernels read the noise of a ramping diet as a switch.
+const double evidenceKernelInDays = 7;
+
+/// Days of readings before its origin that a scored forecast starts from.
+const double hindcastHistoryInDays = 120;
+
+/// Fewest readings a scored forecast starts from.
+const int minimumReadingsForHindcast = 10;
+
+/// Log prior weight in nats that maintenance loses while a target without a
+/// date is ahead.
+const double targetMaintenanceHandicapNats = 2;
+
+/// One prior standard deviation of a mode's rate around the rate planned to
+/// reach the target, as a factor either way.
+const double plannedRateWidthFactor = 1.5;
+
+/// Bisection steps of a mixture quantile, which start between the components'
+/// quantiles, a fraction of a percent apart.
+const int mixtureBisectionSteps = 30;
 
 /// Two-sided z of the 95 % band.
 const double z95 = 1.959963984540054;

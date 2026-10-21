@@ -46,9 +46,13 @@
     "language": "Sprache",
     "licence": "Lizenz",
     "loading": "lädt",
-    "medium": "Mittelstarke Interpolation",
     "measurements": "Messwerte",
     "none": "ohne",
+    "strengthMaintenance": "Halten",
+    "strengthTextbook": "Lehrbuch",
+    "strengthAmbitious": "Ambitioniert",
+    "strengthAggressive": "Aggressiv",
+    "strengthAuto": "Automatisch",
     "ok": "OK",
     "onBoarding1": "Diese schlichte App im Material-You-Design hilft Dir dein Traumgewicht zu erreichen! Unabhängig davon ob Du zunehmen, abnehmen oder einfach Dein Gewicht halten willst: Zuverlässige Gewichtsprognosen und vielseitige Statistiken helfen Dir am Ball zu bleiben. \n\n Treten Sie noch heute unserer Community bei, um Ihr Gewicht zu tracken.\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
     "onBoarding2": "Wähle eines aus sechs Designs aus, um die App zu personalisieren. Welches passt am besten zu Dir?",
@@ -62,11 +66,9 @@
     "save": "Speichern",
     "settings": "Einstellungen",
     "skip": "Überspringen",
-    "soft": "schwach",
     "sourcecode": "Quellcode",
     "startApp": "Starten",
     "stats": "Statistik",
-    "strong": "stark",
     "targetWeight": "Zielgewicht",
     "targetWeightMotivation": "Sich ein Zielgewicht zu setzen ist sehr wichtig und ein Schritt in die richtige Richtung. Denn ein Ziel vor Augen zu haben motiviert, mehr dafür zu tun.",
     "targetWeightShort": "Ziel",
@@ -423,13 +425,21 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Sie lernt aus Deinen Messungen, wie stark Dein Gewicht von Tag zu Tag und von Woche zu Woche schwankt. Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der mittleren Glättung.",
+    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Sie lernt aus Deinen Messungen, wie stark Dein Gewicht von Tag zu Tag und von Woche zu Woche schwankt. Jede Stärke erwartet, dass sich Dein Gewicht im Tempo einer Diätform ändert, vom Halten bis zur aggressiven Diät: Je langsamer das Tempo, desto mehr Schwankungen gleicht sie aus, desto langsamer folgt sie aber echten Änderungen. „{autoInterpol}“ wählt die Stärken, die am besten zu Deinen letzten Messungen passen, und orientiert sich dabei an Deinem Ziel. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus „{textbookInterpol}“.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {
             "noneInterpol": {
                 "type": "String",
                 "example": "none"
+            },
+            "autoInterpol": {
+                "type": "String",
+                "example": "Automatic"
+            },
+            "textbookInterpol": {
+                "type": "String",
+                "example": "Textbook"
             }
         }
     },

@@ -17,6 +17,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added Features and Improvements 🙌:
 - All new interpolation that learns from your data, entirely on your device (#481)
 - Faster with long histories (#279)
+- Smoothing strengths from holding your weight to an aggressive diet, and an automatic one that follows your target
 - Smoothing that suits a child or a young pet that is still growing
 - Share an anonymous summary of the smoothing to help tune it
 - New chart style "Scientific" showing the range your measurements are expected to fall in
