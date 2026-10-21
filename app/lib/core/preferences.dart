@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,10 +103,11 @@ class Preferences extends QPPreferences {
       TraleUnitPrecision.unitDefault;
 
   /// Default interpolation strength.
-  final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
+  final InterpolStrength defaultInterpolStrength = InterpolStrength.auto;
 
-  /// Default for smoothingState, nothing learned yet.
-  final SmoothingState? defaultSmoothingState = null;
+  /// Default for smoothingStates, nothing learned yet.
+  final Map<SmoothingMode, SmoothingState> defaultSmoothingStates =
+      const <SmoothingMode, SmoothingState>{};
 
   /// Default for smoothingFittedDays.
   final int defaultSmoothingFittedDays = 0;
@@ -173,11 +176,19 @@ class Preferences extends QPPreferences {
     if (override || !prefs.containsKey('heightUnit')) {
       heightUnit = defaultHeightUnit;
     }
-    if (override || !prefs.containsKey('interpolStrength')) {
+    // Released versions offered the Gaussian strengths soft, medium and
+    // strong, which the modes replace.
+    if (override ||
+        !prefs.containsKey('interpolStrength') ||
+        const <String>{
+          'soft',
+          'medium',
+          'strong',
+        }.contains(prefs.getString('interpolStrength'))) {
       interpolStrength = defaultInterpolStrength;
     }
-    if (override || !prefs.containsKey('smoothingGrowthFactor')) {
-      smoothingState = defaultSmoothingState;
+    if (override || !prefs.containsKey('smoothingStates')) {
+      smoothingStates = defaultSmoothingStates;
     }
     if (override || !prefs.containsKey('smoothingFittedDays')) {
       smoothingFittedDays = defaultSmoothingFittedDays;

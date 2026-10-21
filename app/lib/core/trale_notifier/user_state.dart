@@ -172,7 +172,7 @@ extension UserStateExtension on TraleNotifier {
   set interpolStrength(InterpolStrength strength) {
     if (interpolStrength != strength) {
       _prefs.interpolStrength = strength;
-      MeasurementDatabase().reinit();
+      MeasurementDatabase().reinterpolate();
       notify;
     }
   }

@@ -5,6 +5,7 @@ import 'package:state_space/state_space.dart'
         Component,
         DampedLinearTrend,
         FitResult,
+        ForecastResult,
         LocalLinearTrend,
         LogNormalPrior,
         Matern,
@@ -17,6 +18,41 @@ import 'package:trale/core/constants.dart';
 /// The components the curve is drawn from: the tissue trend and the
 /// week-scale changes, without water and the scale error.
 const Set<int> curveComponents = <int>{0, 1};
+
+/// The strengths of the tissue trend, each named after the diet whose lasting
+/// rate is its slope sd.
+enum SmoothingMode {
+  /// A weight held steady.
+  maintenance,
+
+  /// A diet at the usual recommendation.
+  textbook,
+
+  /// A faster diet.
+  ambitious,
+
+  /// A diet at the limit of what lasts.
+  aggressive,
+}
+
+/// Extend [SmoothingMode].
+extension SmoothingModeExtension on SmoothingMode {
+  /// Standard deviation of the tissue trend's slope at [strengthReferenceKg],
+  /// as a fraction of body weight per day: 0.20, 0.67, 0.84 and 1.19 % a
+  /// week, about 180, 610, 770 and 1090 kcal/day at 83 kg.
+  double get slopeSd => <SmoothingMode, double>{
+    SmoothingMode.maintenance: 0.002 / 7,
+    SmoothingMode.textbook: 0.00096,
+    SmoothingMode.ambitious: 0.0012,
+    SmoothingMode.aggressive: 0.0017,
+  }[this]!;
+}
+
+/// The one of [modes] a growing body is smoothed with: their only one, or
+/// textbook. A growing body's slope sd is fitted, and the modes differ in
+/// nothing else.
+SmoothingMode growingMode(List<SmoothingMode> modes) =>
+    modes.length == 1 ? modes.single : SmoothingMode.textbook;
 
 /// The part of the smoothing learned from one diary's readings.
 class SmoothingState {
@@ -35,6 +71,13 @@ class SmoothingState {
       scaleErrorKg = stepKg,
       growthFactor = 1;
 
+  /// Creates a [SmoothingState] from the values of [toList].
+  SmoothingState.fromList(List<double> values)
+    : weekAmplitude = values[0],
+      waterAmplitude = values[1],
+      scaleErrorKg = values[2],
+      growthFactor = values[3];
+
   /// Standard deviation of the week-scale changes, as a fraction of body
   /// weight.
   final double weekAmplitude;
@@ -48,6 +91,14 @@ class SmoothingState {
 
   /// Factor on the slope sd of a growing body; 1 for any other.
   final double growthFactor;
+
+  /// The fields in the order [SmoothingState.fromList] reads them.
+  List<double> toList() => <double>[
+    weekAmplitude,
+    waterAmplitude,
+    scaleErrorKg,
+    growthFactor,
+  ];
 }
 
 /// A refitted [SmoothingState] and its log posterior density.
@@ -58,11 +109,14 @@ typedef SmoothingFit = ({SmoothingState state, double logPosterior});
 double readingVarianceKg(double scaleErrorKg, double stepKg) =>
     scaleErrorKg * scaleErrorKg + stepKg * stepKg / 12;
 
+/// The slope sd [slopeSd] at [strengthReferenceKg], scaled to [bodyKg].
+double _scaledSlopeSd(double slopeSd, double bodyKg) =>
+    slopeSd * math.pow(bodyKg / strengthReferenceKg, kleiberExponent);
+
 /// Process variance of the tissue trend whose slope has the sd [slopeSd] at
 /// [strengthReferenceKg], scaled to [bodyKg].
 double _trendVariance(double slopeSd, double bodyKg) {
-  final double s =
-      slopeSd * math.pow(bodyKg / strengthReferenceKg, kleiberExponent);
+  final double s = _scaledSlopeSd(slopeSd, bodyKg);
   return 2 * s * s / tissueSlopeMemoryInDays;
 }
 
@@ -99,12 +153,14 @@ StructuralModel smoothingModel({
 }
 
 /// Whether the amplitudes and the scale error are due for a refit, with
-/// [days] with measurements now and [fittedDays] at the last refit.
-bool isRefitDue(int days, int fittedDays) =>
+/// [days] with measurements now and [fittedDays] at the last refit, or with
+/// a mode [unfitted] so far.
+bool isRefitDue(int days, int fittedDays, {required bool unfitted}) =>
     days >= firstRefitDays &&
-    (days <= refitEveryDayUpTo
-        ? days != fittedDays
-        : (days - fittedDays).abs() >= refitIntervalDays);
+    (unfitted ||
+        (days <= refitEveryDayUpTo
+            ? days != fittedDays
+            : (days - fittedDays).abs() >= refitIntervalDays));
 
 /// The amplitudes, the scale error and, for a [growing] body, the growth
 /// factor at their posterior mode on [observations], refined from [state].
@@ -199,4 +255,144 @@ double bodyWeightKg(List<double> weights) {
     math.max(0, weights.length - readingsForBodyWeight),
   );
   return recent.reduce((double a, double b) => a + b) / recent.length;
+}
+
+/// Mean log density of [observations] entry [i] under [model], over its
+/// forecasts from [evidenceHorizonsInDays] before it; null while too few
+/// readings precede those.
+///
+/// The filter forgets within a few slope memories, so each forecast starts
+/// [hindcastHistoryInDays] before its origin instead of at the first reading.
+double? readingEvidence(
+  StructuralModel model,
+  List<Observation> observations,
+  int i,
+) {
+  final Observation reading = observations[i];
+  double sum = 0;
+  int count = 0;
+  for (final int horizon in evidenceHorizonsInDays) {
+    int end = i;
+    while (end > 0 && observations[end - 1].time > reading.time - horizon) {
+      end--;
+    }
+    if (end == 0) {
+      continue;
+    }
+    final double origin = observations[end - 1].time;
+    int start = end - 1;
+    while (start > 0 &&
+        observations[start - 1].time >= origin - hindcastHistoryInDays) {
+      start--;
+    }
+    if (end - start < minimumReadingsForHindcast) {
+      continue;
+    }
+    final ForecastResult forecast = model.forecast(
+      observations.sublist(start, end),
+      <double>[reading.time],
+    );
+    sum += _logNormalDensity(
+      reading.value,
+      forecast.mean[0],
+      forecast.variance[0] +
+          model.measurementVariance * reading.relativeVariance,
+    );
+    count++;
+  }
+  return count == 0 ? null : sum / count;
+}
+
+/// Evidence in nats of each of [models]: the [readingEvidence] of the readings
+/// in the last [evidenceWindowInDays], weighed by a Gaussian kernel on their
+/// age.
+List<double> modeEvidence(
+  List<StructuralModel> models,
+  List<Observation> observations,
+) {
+  final List<double> evidence = List<double>.filled(models.length, 0);
+  final double last = observations.last.time;
+  for (int i = observations.length - 1; i >= 0; i--) {
+    final double age = last - observations[i].time;
+    if (age > evidenceWindowInDays) {
+      break;
+    }
+    final double kernel = math.exp(
+      -age * age / (2 * evidenceKernelInDays * evidenceKernelInDays),
+    );
+    for (int k = 0; k < models.length; k++) {
+      final double? score = readingEvidence(models[k], observations, i);
+      // Whether a reading is scored depends on the times only, so it is
+      // scored by every model or by none.
+      if (score == null) {
+        break;
+      }
+      evidence[k] += kernel * score;
+    }
+  }
+  return evidence;
+}
+
+/// Weights proportional to the exponential of [logWeights].
+List<double> softmax(List<double> logWeights) {
+  final double top = logWeights.reduce(math.max);
+  final List<double> weights = <double>[
+    for (final double w in logWeights) math.exp(w - top),
+  ];
+  final double sum = weights.reduce((double a, double b) => a + b);
+  return <double>[for (final double w in weights) w / sum];
+}
+
+double _logNormalDensity(double x, double mean, double variance) =>
+    -0.5 * math.log(2 * math.pi * variance) -
+    0.5 * (x - mean) * (x - mean) / variance;
+
+/// Standard normal distribution function (Abramowitz and Stegun 7.1.26).
+double _normalCdf(double z) {
+  final double t = 1 / (1 + 0.3275911 * z.abs() / math.sqrt2);
+  final double erf =
+      1 -
+      (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t -
+                      0.284496736) *
+                  t +
+              0.254829592) *
+          t *
+          math.exp(-z * z / 2);
+  return z >= 0 ? 0.5 * (1 + erf) : 0.5 * (1 - erf);
+}
+
+/// The value below which the normal mixture with [weights], [means] and
+/// [variances] lies with the probability a standard normal lies below [z].
+double mixtureQuantile(
+  List<double> weights,
+  List<double> means,
+  List<double> variances,
+  double z,
+) {
+  if (means.length == 1) {
+    return means.single + z * math.sqrt(variances.single);
+  }
+  // The mixture's quantile lies between its components' quantiles.
+  double lo = double.infinity;
+  double hi = double.negativeInfinity;
+  for (int k = 0; k < means.length; k++) {
+    final double quantile = means[k] + z * math.sqrt(variances[k]);
+    lo = math.min(lo, quantile);
+    hi = math.max(hi, quantile);
+  }
+  final double p = _normalCdf(z);
+  for (int step = 0; step < mixtureBisectionSteps; step++) {
+    final double mid = (lo + hi) / 2;
+    double cdf = 0;
+    for (int k = 0; k < means.length; k++) {
+      cdf +=
+          weights[k] * _normalCdf((mid - means[k]) / math.sqrt(variances[k]));
+    }
+    if (cdf < p) {
+      lo = mid;
+    } else {
+      hi = mid;
+    }
+  }
+  return (lo + hi) / 2;
 }

@@ -8,16 +8,21 @@ class SmoothingSummary {
   const SmoothingSummary({
     required this.state,
     required this.strength,
+    required this.modeWeights,
     required this.growing,
     required this.daysPerWeek,
     required this.historyInDays,
   });
 
-  /// The learned amplitudes, scale error and growth factor.
+  /// The learned amplitudes, scale error and growth factor of the mode with
+  /// the most weight.
   final SmoothingState state;
 
   /// The strength the curve is drawn with.
   final InterpolStrength strength;
+
+  /// Weight of each mode the curve is drawn from.
+  final Map<SmoothingMode, double> modeWeights;
 
   /// Whether the body counts as still growing.
   final bool growing;
@@ -36,9 +41,14 @@ class SmoothingSummary {
     final String growth = growing
         ? 'yes, growth factor ${state.growthFactor.toStringAsFixed(1)}'
         : 'no';
+    final String modes = <String>[
+      for (final MapEntry<SmoothingMode, double> mode in modeWeights.entries)
+        '${mode.key.name} ${(mode.value * 100).round()} %',
+    ].join(', ');
     return <String>[
       'trale: smoothing summary',
       'strength: ${strength.name}',
+      'modes: $modes',
       'week-scale changes: ${percent(state.weekAmplitude)} of body weight',
       'water: ${percent(state.waterAmplitude)} of body weight',
       'scale error: ${state.scaleErrorKg.toStringAsFixed(2)} kg',

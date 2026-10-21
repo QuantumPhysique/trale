@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:trale/core/smoothing.dart';
 import 'package:trale/l10n-gen/app_localizations.dart';
 
 /// Enum with all available interpolation functions
@@ -6,34 +7,47 @@ enum InterpolStrength {
   /// none
   none,
 
-  /// soft
-  soft,
+  /// [SmoothingMode.maintenance]
+  maintenance,
 
-  /// medium
-  medium,
+  /// [SmoothingMode.textbook]
+  textbook,
 
-  /// strong
-  strong,
+  /// [SmoothingMode.ambitious]
+  ambitious,
+
+  /// [SmoothingMode.aggressive]
+  aggressive,
+
+  /// the mixture of all modes that fits the recent readings best
+  auto,
 }
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// Standard deviation of the tissue trend's slope at [strengthReferenceKg],
-  /// as a fraction of body weight per day: 0.10, 0.08 and 0.06 kg/day at
-  /// 83 kg. `none` draws straight lines and takes its rates from medium.
-  double get slopeSd => <InterpolStrength, double>{
-    InterpolStrength.none: 0.00096,
-    InterpolStrength.soft: 0.0012,
-    InterpolStrength.medium: 0.00096,
-    InterpolStrength.strong: 0.00072,
+  /// The modes the curve is drawn from. `none` draws straight lines and takes
+  /// its rates from textbook.
+  List<SmoothingMode> get modes => <InterpolStrength, List<SmoothingMode>>{
+    InterpolStrength.none: <SmoothingMode>[SmoothingMode.textbook],
+    InterpolStrength.maintenance: <SmoothingMode>[SmoothingMode.maintenance],
+    InterpolStrength.textbook: <SmoothingMode>[SmoothingMode.textbook],
+    InterpolStrength.ambitious: <SmoothingMode>[SmoothingMode.ambitious],
+    InterpolStrength.aggressive: <SmoothingMode>[SmoothingMode.aggressive],
+    InterpolStrength.auto: SmoothingMode.values,
   }[this]!;
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{
     InterpolStrength.none: AppLocalizations.of(context)!.none,
-    InterpolStrength.soft: AppLocalizations.of(context)!.soft,
-    InterpolStrength.medium: AppLocalizations.of(context)!.medium,
-    InterpolStrength.strong: AppLocalizations.of(context)!.strong,
+    InterpolStrength.maintenance: AppLocalizations.of(
+      context,
+    )!.strengthMaintenance,
+    InterpolStrength.textbook: AppLocalizations.of(context)!.strengthTextbook,
+    InterpolStrength.ambitious: AppLocalizations.of(context)!.strengthAmbitious,
+    InterpolStrength.aggressive: AppLocalizations.of(
+      context,
+    )!.strengthAggressive,
+    InterpolStrength.auto: AppLocalizations.of(context)!.strengthAuto,
   }[this]!;
 
   /// get string expression
@@ -48,6 +62,17 @@ extension InterpolStrengthExtension on InterpolStrength {
     }
     return -1;
   }
+}
+
+/// The strength of each [SmoothingMode].
+extension SmoothingModeStrength on SmoothingMode {
+  /// The strength that draws the curve with this mode alone.
+  InterpolStrength get strength => <SmoothingMode, InterpolStrength>{
+    SmoothingMode.maintenance: InterpolStrength.maintenance,
+    SmoothingMode.textbook: InterpolStrength.textbook,
+    SmoothingMode.ambitious: InterpolStrength.ambitious,
+    SmoothingMode.aggressive: InterpolStrength.aggressive,
+  }[this]!;
 }
 
 /// convert string to interpolation strength

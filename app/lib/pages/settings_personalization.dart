@@ -38,6 +38,18 @@ class _PersonalizationSettingsPageState
 
   late final Stream<List<Measurement>> _measurementStream;
 
+  /// The strengths on the slider; auto has its own switch.
+  static final List<InterpolStrength> _manualStrengths = <InterpolStrength>[
+    for (final InterpolStrength strength in InterpolStrength.values)
+      if (strength != InterpolStrength.auto) strength,
+  ];
+
+  /// The strength of the automatic strength's leading mode, textbook before
+  /// its first estimate.
+  InterpolStrength get _leadingStrength =>
+      MeasurementInterpolation().leadingMode?.strength ??
+      InterpolStrength.textbook;
+
   @override
   void initState() {
     super.initState();
@@ -51,40 +63,66 @@ class _PersonalizationSettingsPageState
       listen: false,
     );
 
-    final Widget sliderTile = Container(
-      padding: const EdgeInsets.fromLTRB(
-        QPLayout.padding,
-        QPLayout.smallPadding,
-        QPLayout.padding,
-        QPLayout.smallPadding,
+    final InterpolStrength strength = Provider.of<TraleNotifier>(
+      context,
+    ).interpolStrength;
+    final bool isAuto = strength == InterpolStrength.auto;
+
+    final Widget autoTile = QPGroupedSwitchListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLowest,
+      contentPadding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
+      title: Text(
+        context.l10n.strengthAuto.inCaps,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            context.l10n.strength.inCaps,
-            style: Theme.of(context).textTheme.bodyLarge,
-            maxLines: 1,
+      value: isAuto,
+      onChanged: (bool? value) {
+        if (value != null) {
+          notifier.interpolStrength = value
+              ? InterpolStrength.auto
+              : _leadingStrength;
+        }
+      },
+    );
+
+    // In auto the slider shows the leading mode, which is estimated in the
+    // background; the stream fires once it is stored.
+    final Widget sliderTile = StreamBuilder<List<Measurement>>(
+      stream: _measurementStream,
+      builder: (BuildContext context, _) {
+        final InterpolStrength shown = isAuto ? _leadingStrength : strength;
+        return Container(
+          padding: const EdgeInsets.fromLTRB(
+            QPLayout.padding,
+            QPLayout.smallPadding,
+            QPLayout.padding,
+            QPLayout.smallPadding,
           ),
-          Slider(
-            value: Provider.of<TraleNotifier>(
-              context,
-            ).interpolStrength.idx.toDouble(),
-            divisions: InterpolStrength.values.length - 1,
-            min: 0.0,
-            max: InterpolStrength.values.length.toDouble() - 1,
-            label: Provider.of<TraleNotifier>(
-              context,
-            ).interpolStrength.nameLong(context),
-            onChanged: (double newStrength) async {
-              Provider.of<TraleNotifier>(
-                context,
-                listen: false,
-              ).interpolStrength = InterpolStrength.values[newStrength.toInt()];
-            },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                context.l10n.strength.inCaps,
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 1,
+              ),
+              Slider(
+                value: _manualStrengths.indexOf(shown).toDouble(),
+                divisions: _manualStrengths.length - 1,
+                min: 0.0,
+                max: _manualStrengths.length.toDouble() - 1,
+                label: shown.nameLong(context),
+                onChanged: isAuto
+                    ? null
+                    : (double newStrength) {
+                        notifier.interpolStrength =
+                            _manualStrengths[newStrength.toInt()];
+                      },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
 
     final ChartMode chartMode = Provider.of<TraleNotifier>(context).chartMode;
@@ -134,6 +172,7 @@ class _PersonalizationSettingsPageState
                 });
               },
             ),
+          autoTile,
           QPGroupedWidget(
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,
@@ -215,6 +254,8 @@ class _PersonalizationSettingsPageState
         child: Text(
           context.l10n.interpolationExplanation(
             noneInterpol: InterpolStrength.none.nameLong(context),
+            autoInterpol: InterpolStrength.auto.nameLong(context),
+            textbookInterpol: InterpolStrength.textbook.nameLong(context),
           ),
           style: Theme.of(context).textTheme.bodyMedium,
         ),

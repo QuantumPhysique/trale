@@ -11,8 +11,8 @@ class _InterpolationPayload {
     required this.idxsMeasurements,
     required this.weightsMeasured,
     required this.counts,
-    required this.slopeSd,
-    required this.state,
+    required this.modes,
+    required this.states,
     required this.stepKg,
     required this.refit,
     required this.growing,
@@ -31,16 +31,16 @@ class _InterpolationPayload {
   /// Number of measurements on each of those days.
   final List<int> counts;
 
-  /// Slope sd of the strength, see [InterpolStrengthExtension.slopeSd].
-  final double slopeSd;
+  /// The modes the curve is drawn from.
+  final List<SmoothingMode> modes;
 
-  /// The amplitudes and the scale error the curve is drawn with.
-  final SmoothingState state;
+  /// The amplitudes and the scale error of each of [modes].
+  final Map<SmoothingMode, SmoothingState> states;
 
   /// Step in kg that weights are entered in.
   final double stepKg;
 
-  /// Whether to refit [state] before smoothing.
+  /// Whether to refit [states] before smoothing.
   final bool refit;
 
   /// Whether the body is growing, see [smoothingModel].
@@ -67,6 +67,7 @@ class _InterpolationResult {
     required this.slopes,
     required this.bandLower,
     required this.bandUpper,
+    required this.modeWeights,
     required this.refitted,
     required this.turnedGrowing,
   });
@@ -83,14 +84,17 @@ class _InterpolationResult {
   /// Upper edge of the band, see [bandLower].
   final List<double> bandUpper;
 
-  /// The state after a refit, null without one.
-  final SmoothingState? refitted;
+  /// Weight of each mode the curve is drawn from.
+  final Map<SmoothingMode, double> modeWeights;
+
+  /// The state of each refitted mode, null without a refit.
+  final Map<SmoothingMode, SmoothingState>? refitted;
 
   /// Whether the refit found the body growing.
   final bool turnedGrowing;
 }
 
-/// The posterior of the log curve on the grid.
+/// One mode's posterior of the log curve on the grid.
 class _ModeCurve {
   _ModeCurve(this.mean, this.variance, this.slope, this.readingVariance);
 
@@ -107,65 +111,108 @@ class _ModeCurve {
   final List<double> readingVariance;
 }
 
-/// Smooths the logarithm of the measured days with [smoothingModel], after
-/// refitting its state when that is due. Top-level, so that [compute] can run
-/// it in an isolate.
+/// Smooths the logarithm of the measured days with [smoothingModel] in each
+/// mode, after refitting their states when that is due, and mixes the modes
+/// by their [modeEvidence]. Top-level, so that [compute] can run it in an
+/// isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
   ];
   final List<Observation> observations = _observations(p);
   final double bodyKg = bodyWeightKg(p.weightsMeasured);
-  SmoothingFit refit({required bool growing}) => refitSmoothing(
-    observations: observations,
-    state: p.state,
-    slopeSd: p.slopeSd,
-    bodyKg: bodyKg,
-    stepKg: p.stepKg,
-    growing: growing,
-  );
+  SmoothingFit refit(SmoothingMode mode, {required bool growing}) =>
+      refitSmoothing(
+        observations: observations,
+        state: p.states[mode]!,
+        slopeSd: mode.slopeSd,
+        bodyKg: bodyKg,
+        stepKg: p.stepKg,
+        growing: growing,
+      );
 
-  SmoothingFit? refitted = p.refit ? refit(growing: p.growing) : null;
+  List<SmoothingMode> modes = p.modes;
+  Map<SmoothingMode, SmoothingState> states = p.states;
+  Map<SmoothingMode, SmoothingState>? refitted;
   bool turnedGrowing = false;
-  if (refitted != null && p.testGrowing) {
-    final SmoothingFit grown = refit(growing: true);
-    // The two models integrate out different flat directions, so the
-    // threshold holds only for the units it was set in: days and log kg.
-    if (grown.logPosterior > refitted.logPosterior + growingEvidenceNats) {
-      refitted = grown;
-      turnedGrowing = true;
+  if (p.refit) {
+    Map<SmoothingMode, SmoothingFit> fits = <SmoothingMode, SmoothingFit>{
+      for (final SmoothingMode mode in modes)
+        mode: refit(mode, growing: p.growing),
+    };
+    if (p.testGrowing) {
+      final SmoothingMode mode = growingMode(modes);
+      final SmoothingFit grown = refit(mode, growing: true);
+      // The two models integrate out different flat directions, so the
+      // threshold holds only for the units it was set in: days and log kg.
+      if (grown.logPosterior > fits[mode]!.logPosterior + growingEvidenceNats) {
+        modes = <SmoothingMode>[mode];
+        fits = <SmoothingMode, SmoothingFit>{mode: grown};
+        turnedGrowing = true;
+      }
     }
+    refitted = states = <SmoothingMode, SmoothingState>{
+      for (final MapEntry<SmoothingMode, SmoothingFit> fit in fits.entries)
+        fit.key: fit.value.state,
+    };
   }
-  final SmoothingState state = refitted?.state ?? p.state;
-  final StructuralModel model = smoothingModel(
-    state: state,
-    slopeSd: p.slopeSd,
-    bodyKg: bodyKg,
-    stepKg: p.stepKg,
-    growing: p.growing || turnedGrowing,
-  );
-  final _ModeCurve posterior = _modeCurve(
-    p,
-    model,
-    state,
-    observations,
-    grid,
-    growing: p.growing || turnedGrowing,
-  );
-  final List<double> curve = <double>[
-    for (final double logWeight in posterior.mean) math.exp(logWeight),
+  final bool growing = p.growing || turnedGrowing;
+  final List<StructuralModel> models = <StructuralModel>[
+    for (final SmoothingMode mode in modes)
+      smoothingModel(
+        state: states[mode]!,
+        slopeSd: mode.slopeSd,
+        bodyKg: bodyKg,
+        stepKg: p.stepKg,
+        growing: growing,
+      ),
   ];
-  final List<double> slopes = <double>[
-    for (int i = 0; i < curve.length; i++) posterior.slope[i] * curve[i],
+  final List<double> modeWeights = modes.length == 1
+      ? <double>[1]
+      : softmax(modeEvidence(models, observations));
+  final List<_ModeCurve> curves = <_ModeCurve>[
+    for (int k = 0; k < modes.length; k++)
+      _modeCurve(
+        p,
+        models[k],
+        states[modes[k]]!,
+        observations,
+        grid,
+        growing: growing,
+      ),
   ];
 
+  final bool hasBand =
+      p.idxsMeasurements.length >= minimumDaysForBand && !p.isNone;
+  final List<double> curve = <double>[];
+  final List<double> slopes = <double>[];
   final List<double> bandLower = <double>[];
   final List<double> bandUpper = <double>[];
-  if (p.idxsMeasurements.length >= minimumDaysForBand && !p.isNone) {
-    for (int i = 0; i < curve.length; i++) {
-      final double sd = math.sqrt(posterior.readingVariance[i]);
-      bandLower.add(math.exp(posterior.mean[i] - z95 * sd));
-      bandUpper.add(math.exp(posterior.mean[i] + z95 * sd));
+  for (int i = 0; i < grid.length; i++) {
+    final List<double> means = <double>[
+      for (final _ModeCurve c in curves) c.mean[i],
+    ];
+    final double weight = math.exp(
+      mixtureQuantile(modeWeights, means, <double>[
+        for (final _ModeCurve c in curves) c.variance[i],
+      ], 0),
+    );
+    curve.add(weight);
+    double slope = 0;
+    for (int k = 0; k < curves.length; k++) {
+      slope += modeWeights[k] * curves[k].slope[i];
+    }
+    slopes.add(slope * weight);
+    if (hasBand) {
+      final List<double> readings = <double>[
+        for (final _ModeCurve c in curves) c.readingVariance[i],
+      ];
+      bandLower.add(
+        math.exp(mixtureQuantile(modeWeights, means, readings, -z95)),
+      );
+      bandUpper.add(
+        math.exp(mixtureQuantile(modeWeights, means, readings, z95)),
+      );
     }
   }
 
@@ -174,7 +221,10 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     slopes: slopes,
     bandLower: bandLower,
     bandUpper: bandUpper,
-    refitted: refitted?.state,
+    modeWeights: <SmoothingMode, double>{
+      for (int k = 0; k < modes.length; k++) modes[k]: modeWeights[k],
+    },
+    refitted: refitted,
     turnedGrowing: turnedGrowing,
   );
 }

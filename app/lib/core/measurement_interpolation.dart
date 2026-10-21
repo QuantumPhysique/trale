@@ -47,23 +47,26 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   @override
   bool get learnsSmoothing => true;
 
-  /// The learned state, or the prior centres before the first refit.
   @override
-  SmoothingState get smoothingState =>
-      Preferences().smoothingState ?? super.smoothingState;
+  Map<SmoothingMode, SmoothingState> get smoothingStates =>
+      Preferences().smoothingStates;
 
   @override
   bool? get bodyGrowing => Preferences().bodyGrowing;
 
   /// What the smoothing learned from the diary, null before its first refit.
   SmoothingSummary? get smoothingSummary {
-    final SmoothingState? state = Preferences().smoothingState;
+    final SmoothingMode? mode = leadingMode;
+    final SmoothingState? state = mode == null
+        ? null
+        : Preferences().smoothingStates[mode];
     if (state == null || nDays == 0) {
       return null;
     }
     return SmoothingSummary(
       state: state,
       strength: interpolStrength,
+      modeWeights: modeWeights,
       growing: bodyGrowing ?? false,
       daysPerWeek: 7 * isMeasurement.sum() / nDays,
       historyInDays: nDays,
