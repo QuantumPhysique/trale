@@ -425,7 +425,7 @@
     "@aboutSubtitle": {
         "description": "About settings subtitle"
     },
-    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Sie lernt aus Deinen Messungen, wie stark Dein Gewicht von Tag zu Tag und von Woche zu Woche schwankt. Jede Stärke erwartet, dass sich Dein Gewicht im Tempo einer Diätform ändert, vom Halten bis zur aggressiven Diät: Je langsamer das Tempo, desto mehr Schwankungen gleicht sie aus, desto langsamer folgt sie aber echten Änderungen. „{autoInterpol}“ wählt die Stärken, die am besten zu Deinen letzten Messungen passen. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus „{textbookInterpol}“.",
+    "interpolationExplanation": "Die Interpolation findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Sie lernt aus Deinen Messungen, wie stark Dein Gewicht von Tag zu Tag und von Woche zu Woche schwankt. Jede Stärke erwartet, dass sich Dein Gewicht im Tempo einer Diätform ändert, vom Halten bis zur aggressiven Diät: Je langsamer das Tempo, desto mehr Schwankungen gleicht sie aus, desto langsamer folgt sie aber echten Änderungen. „{autoInterpol}“ wählt die Stärken, die am besten zu Deinen letzten Messungen passen, und orientiert sich dabei an Deinem Ziel. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus „{textbookInterpol}“.",
     "@interpolationExplanation": {
         "description": "Explanation text for interpolation settings",
         "placeholders": {

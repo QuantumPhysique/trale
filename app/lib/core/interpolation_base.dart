@@ -31,6 +31,10 @@ class MeasurementInterpolationBaseclass {
   Map<SmoothingMode, SmoothingState> get smoothingStates =>
       const <SmoothingMode, SmoothingState>{};
 
+  /// The target the automatic strength leans towards while [bodyKg] has not
+  /// reached it, null without one.
+  TargetAhead? targetAhead(double bodyKg) => null;
+
   Map<SmoothingMode, double> _modeWeights = const <SmoothingMode, double>{};
 
   /// Weight of each mode the curve is drawn from.
@@ -133,6 +137,8 @@ class MeasurementInterpolationBaseclass {
         ? <SmoothingMode>[growingMode(interpolStrength.modes)]
         : interpolStrength.modes;
     final Map<SmoothingMode, SmoothingState> learned = smoothingStates;
+    final double bodyKg = bodyWeightKg(weightsMeasured);
+    final TargetAhead? target = modes.length > 1 ? targetAhead(bodyKg) : null;
     return _InterpolationPayload(
       idxsMeasurements: _idxsMeasurements,
       weightsMeasured: weightsMeasured,
@@ -142,6 +148,9 @@ class MeasurementInterpolationBaseclass {
         for (final SmoothingMode mode in modes)
           mode: learned[mode] ?? SmoothingState.prior(stepKg),
       },
+      logPrior: target == null
+          ? <double>[for (final SmoothingMode _ in modes) 0]
+          : targetLogPrior(modes, bodyKg: bodyKg, target: target),
       stepKg: stepKg,
       refit:
           mayRefit &&
@@ -473,6 +482,14 @@ class MeasurementInterpolationBaseclass {
       return null;
     }
     return measurements[idx];
+  }
+
+  /// Mean of the measurements on [day] from the internal vectors, which are
+  /// rebuilt before the displayed ones; null without one.
+  double? _measuredOn(DateTime day) {
+    final Vector weights = _weights;
+    final int idx = _dateTimes.indexWhere((DateTime d) => d.sameDay(day));
+    return idx >= 0 && _isMeasurement[idx] > 0 ? weights[idx] : null;
   }
 
   /// Whether a measurement exists on [day].

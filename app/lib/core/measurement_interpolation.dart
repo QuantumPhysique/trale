@@ -13,6 +13,7 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/smoothing.dart';
 import 'package:trale/core/smoothing_summary.dart';
 import 'package:trale/core/units.dart';
+import 'package:trale/core/weight_goal.dart';
 
 part 'interpolation_compute.dart';
 part 'interpolation_base.dart';
@@ -50,6 +51,37 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   @override
   Map<SmoothingMode, SmoothingState> get smoothingStates =>
       Preferences().smoothingStates;
+
+  /// The user's target, with the rate planned from the day it was set to its
+  /// date while that is ahead; none for the maintain goal.
+  @override
+  TargetAhead? targetAhead(double bodyKg) {
+    final Preferences prefs = Preferences();
+    final double? target = prefs.targetWeightEnabled
+        ? prefs.userTargetWeight
+        : null;
+    if (target == null ||
+        prefs.weightGoal == WeightGoal.maintain ||
+        prefs.weightGoal.range(target).contains(bodyKg)) {
+      return null;
+    }
+    final DateTime? date = prefs.userTargetWeightDate;
+    final DateTime? setDate = prefs.userTargetWeightSetDate;
+    final double? setWeight = setDate == null ? null : _measuredOn(setDate);
+    if (date == null ||
+        setDate == null ||
+        setWeight == null ||
+        setWeight == target ||
+        !date.isAfter(DateTime.now())) {
+      return (plannedRate: null);
+    }
+    final int days = DateTime.utc(
+      date.year,
+      date.month,
+      date.day,
+    ).difference(DateTime.utc(setDate.year, setDate.month, setDate.day)).inDays;
+    return (plannedRate: (target - setWeight).abs() / days);
+  }
 
   @override
   bool? get bodyGrowing => Preferences().bodyGrowing;

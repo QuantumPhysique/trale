@@ -104,6 +104,14 @@ const double hindcastHistoryInDays = 120;
 /// Fewest readings a scored forecast starts from.
 const int minimumReadingsForHindcast = 10;
 
+/// Log prior weight in nats that maintenance loses while a target without a
+/// date is ahead.
+const double targetMaintenanceHandicapNats = 2;
+
+/// One prior standard deviation of a mode's rate around the rate planned to
+/// reach the target, as a factor either way.
+const double plannedRateWidthFactor = 1.5;
+
 /// Bisection steps of a mixture quantile, which start between the components'
 /// quantiles, a fraction of a percent apart.
 const int mixtureBisectionSteps = 30;

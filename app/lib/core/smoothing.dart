@@ -257,6 +257,38 @@ double bodyWeightKg(List<double> weights) {
   return recent.reduce((double a, double b) => a + b) / recent.length;
 }
 
+/// A target the weight has yet to reach, with [plannedRate] the kg/day
+/// planned to reach it by its date, null without a date ahead.
+typedef TargetAhead = ({double? plannedRate});
+
+/// Log prior weight of each of [modes] at [bodyKg] while [target] is ahead.
+///
+/// With a planned rate, a normal in the log ratio of each mode's rate to it,
+/// so that the closest mode leads; without one, a handicap on maintenance.
+List<double> targetLogPrior(
+  List<SmoothingMode> modes, {
+  required double bodyKg,
+  required TargetAhead target,
+}) {
+  final double? plannedRate = target.plannedRate;
+  if (plannedRate == null) {
+    return <double>[
+      for (final SmoothingMode mode in modes)
+        mode == SmoothingMode.maintenance ? -targetMaintenanceHandicapNats : 0,
+    ];
+  }
+  final double planned = plannedRate / bodyKg;
+  final double width = math.log(plannedRateWidthFactor);
+  return <double>[
+    for (final SmoothingMode mode in modes)
+      -math.pow(
+            math.log(_scaledSlopeSd(mode.slopeSd, bodyKg) / planned) / width,
+            2,
+          ) /
+          2,
+  ];
+}
+
 /// Mean log density of [observations] entry [i] under [model], over its
 /// forecasts from [evidenceHorizonsInDays] before it; null while too few
 /// readings precede those.

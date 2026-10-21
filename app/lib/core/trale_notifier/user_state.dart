@@ -71,6 +71,7 @@ extension UserStateExtension on TraleNotifier {
   set targetWeightEnabled(bool enabled) {
     if (enabled != targetWeightEnabled) {
       _prefs.targetWeightEnabled = enabled;
+      _retarget();
       notify;
     }
   }
@@ -86,6 +87,7 @@ extension UserStateExtension on TraleNotifier {
   set userTargetWeight(double? newWeight) {
     if (userTargetWeight != newWeight) {
       _prefs.userTargetWeight = newWeight;
+      _retarget();
       notify;
     }
   }
@@ -97,6 +99,7 @@ extension UserStateExtension on TraleNotifier {
   set weightGoal(WeightGoal newGoal) {
     if (weightGoal != newGoal) {
       _prefs.weightGoal = newGoal;
+      _retarget();
       notify;
     }
   }
@@ -121,6 +124,7 @@ extension UserStateExtension on TraleNotifier {
   set userTargetWeightDate(DateTime? newDate) {
     if (userTargetWeightDate != newDate) {
       _prefs.userTargetWeightDate = newDate;
+      _retarget();
       notify;
     }
   }
@@ -139,6 +143,7 @@ extension UserStateExtension on TraleNotifier {
   set userTargetWeightSetDate(DateTime? newDate) {
     if (userTargetWeightSetDate != newDate) {
       _prefs.userTargetWeightSetDate = newDate;
+      _retarget();
       notify;
     }
   }
@@ -162,6 +167,13 @@ extension UserStateExtension on TraleNotifier {
     if (userHeight != newHeight) {
       _prefs.userHeight = newHeight;
       notify;
+    }
+  }
+
+  /// Recomputes the curve when the automatic strength leans on the target.
+  void _retarget() {
+    if (interpolStrength == InterpolStrength.auto) {
+      MeasurementDatabase().reinterpolate();
     }
   }
 

@@ -166,6 +166,23 @@ void main() {
     expect(diet.modeWeights[SmoothingMode.maintenance], lessThan(0.2));
   });
 
+  test('a planned rate puts its mode first', () {
+    List<double> prior(double? plannedRate) => targetLogPrior(
+      SmoothingMode.values,
+      bodyKg: strengthReferenceKg,
+      target: (plannedRate: plannedRate),
+    );
+    final List<double> aggressive = prior(
+      SmoothingMode.aggressive.slopeSd * strengthReferenceKg,
+    );
+
+    expect(
+      aggressive.indexOf(aggressive.reduce(max)),
+      SmoothingMode.aggressive.index,
+    );
+    expect(prior(null), <double>[-targetMaintenanceHandicapNats, 0, 0, 0]);
+  });
+
   test('the band holds about 95 of 100 measurements', () async {
     final MeasurementInterpolation ip = await interpolate(gaussianDiary());
     int inside = 0;

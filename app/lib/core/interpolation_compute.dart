@@ -13,6 +13,7 @@ class _InterpolationPayload {
     required this.counts,
     required this.modes,
     required this.states,
+    required this.logPrior,
     required this.stepKg,
     required this.refit,
     required this.growing,
@@ -36,6 +37,9 @@ class _InterpolationPayload {
 
   /// The amplitudes and the scale error of each of [modes].
   final Map<SmoothingMode, SmoothingState> states;
+
+  /// Log prior weight of each of [modes].
+  final List<double> logPrior;
 
   /// Step in kg that weights are entered in.
   final double stepKg;
@@ -113,8 +117,8 @@ class _ModeCurve {
 
 /// Smooths the logarithm of the measured days with [smoothingModel] in each
 /// mode, after refitting their states when that is due, and mixes the modes
-/// by their [modeEvidence]. Top-level, so that [compute] can run it in an
-/// isolate.
+/// by their [modeEvidence] and prior. Top-level, so that [compute] can run it
+/// in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
@@ -169,7 +173,13 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   ];
   final List<double> modeWeights = modes.length == 1
       ? <double>[1]
-      : softmax(modeEvidence(models, observations));
+      : softmax(<double>[
+          for (final (int k, double evidence) in modeEvidence(
+            models,
+            observations,
+          ).indexed)
+            evidence + p.logPrior[k],
+        ]);
   final List<_ModeCurve> curves = <_ModeCurve>[
     for (int k = 0; k < modes.length; k++)
       _modeCurve(
