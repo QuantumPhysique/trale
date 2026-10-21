@@ -23,3 +23,6 @@ const double minSlopeToTarget = 0.005;
 
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
+
+/// Step of the weekly target rate, as a share of the weight.
+const double weeklyRateStep = 0.0005;

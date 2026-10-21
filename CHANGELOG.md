@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added Features and Improvements 🙌:
+- The target rate is now set in % of your weight per week and rated from gentle to aggressive, so the target line flattens towards your goal
+
 ### Bugfix 🐛:
 - Fixed the Accrescent release (#521)
 

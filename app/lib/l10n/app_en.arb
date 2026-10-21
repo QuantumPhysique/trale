@@ -556,6 +556,38 @@
     "@targetWeightRateAdvice": {
         "description": "Advice text shown in the rate picker dialog."
     },
+    "targetPaceGentle": "Gentle",
+    "@targetPaceGentle": {
+        "description": "Name of a weekly rate slower than recommended."
+    },
+    "targetPaceTextbook": "Textbook",
+    "@targetPaceTextbook": {
+        "description": "Name of the weekly rate guidelines recommend."
+    },
+    "targetPaceAmbitious": "Ambitious",
+    "@targetPaceAmbitious": {
+        "description": "Name of a weekly rate faster than recommended."
+    },
+    "targetPaceAggressive": "Aggressive",
+    "@targetPaceAggressive": {
+        "description": "Name of a weekly rate far faster than recommended."
+    },
+    "targetPaceGentleDescription": "Easy to keep up, but progress is slow to show.",
+    "@targetPaceGentleDescription": {
+        "description": "What a gentle weekly rate means, shown in the rate picker dialog."
+    },
+    "targetPaceTextbookDescription": "The pace most guidelines recommend.",
+    "@targetPaceTextbookDescription": {
+        "description": "What a textbook weekly rate means, shown in the rate picker dialog."
+    },
+    "targetPaceAmbitiousDescription": "Faster, but harder to keep up.",
+    "@targetPaceAmbitiousDescription": {
+        "description": "What an ambitious weekly rate means, shown in the rate picker dialog."
+    },
+    "targetPaceAggressiveDescription": "Hard to keep up for long.",
+    "@targetPaceAggressiveDescription": {
+        "description": "What an aggressive weekly rate means, shown in the rate picker dialog."
+    },
     "startDate": "Start date",
     "@startDate": {
         "description": "The starting date from which the target weight timeline begins."

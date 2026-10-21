@@ -154,6 +154,24 @@ extension UserStateExtension on TraleNotifier {
     return MeasurementInterpolation().measurementForDay(date);
   }
 
+  /// getter for the plan from the set date to the target date, only when
+  /// enabled and the goal has one
+  TargetPlan? get targetPlan {
+    final double? target = effectiveTargetWeight;
+    final DateTime? end = effectiveTargetWeightDate;
+    final DateTime? start = userTargetWeightSetDate;
+    final double? startWeight = userTargetWeightSetWeight;
+    if (target == null || end == null || start == null || startWeight == null) {
+      return null;
+    }
+    return TargetPlan(
+      start: start,
+      startWeight: startWeight,
+      end: end,
+      target: target,
+    );
+  }
+
   /// get user height in [cm]
   double? get userHeight => _prefs.userHeight;
 

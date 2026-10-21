@@ -236,13 +236,7 @@ class _CustomLineChartState extends State<CustomLineChart>
         notifier.weightGoal == WeightGoal.maintain
         ? notifier.effectiveTargetRange
         : null;
-    final DateTime? targetWeightDate = notifier.effectiveTargetWeightDate;
-    final DateTime? effectiveSetDate = notifier.targetWeightEnabled
-        ? notifier.userTargetWeightSetDate
-        : null;
-    final double? effectiveSetWeight = notifier.targetWeightEnabled
-        ? notifier.userTargetWeightSetWeight
-        : null;
+    final TargetPlan? targetPlan = notifier.targetPlan;
 
     final Color interpolationLineColor =
         widget.interpolationLineColor ?? Colors.transparent;
@@ -557,7 +551,7 @@ class _CustomLineChartState extends State<CustomLineChart>
                   !widget.isPreview &&
                   ip.db.measurements.isNotEmpty) ...<HorizontalLine>[
                 // Visible dashed line when no target date is set
-                if (targetWeightDate == null || effectiveSetWeight == null)
+                if (targetPlan == null)
                   HorizontalLine(
                     y: targetWeight / unitScaling,
                     color: targetWeightLineColor,
@@ -623,17 +617,10 @@ class _CustomLineChartState extends State<CustomLineChart>
               ),
             ),
             // Target weight line segments
-            if (targetWeight != null &&
-                !widget.isPreview &&
-                targetWeightDate != null &&
-                effectiveSetDate != null &&
-                effectiveSetWeight != null)
+            if (!widget.isPreview && targetPlan != null)
               for (final List<FlSpot> segment in _buildTargetWeightSegments(
-                setDateMs: effectiveSetDate.millisecondsSinceEpoch.toDouble(),
-                setWeight: effectiveSetWeight / unitScaling,
-                targetDateMs: targetWeightDate.millisecondsSinceEpoch
-                    .toDouble(),
-                targetWeight: targetWeight / unitScaling,
+                plan: targetPlan,
+                unitScaling: unitScaling,
                 chartMaxX: maxX,
                 chartMinX: minX,
               ))
