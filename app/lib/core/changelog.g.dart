@@ -15,6 +15,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Fixed the Accrescent release (#521)',
       ],
       ChangelogSection.otherChanges: <String>[
+        'Upgraded deps',
         'Minor improvements to the code base',
       ],
     },
