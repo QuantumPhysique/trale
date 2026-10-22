@@ -18,6 +18,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fixed the Accrescent release (#521)
 
 ### Other Changes:
+- Upgraded deps
 - Minor improvements to the code base
 
 ## [1.5.0] - 2026-10-05
