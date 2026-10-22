@@ -1056,5 +1056,55 @@
     "healthConnectBusy": "Synkronointi on jo käynnissä. Yritä hetken kuluttua uudelleen.",
     "@healthConnectBusy": {
         "description": "Message shown when a sync or import is triggered while another one is still running"
+    },
+    "maintainWeight": "Ylläpidä painoa",
+    "@maintainWeight": {
+        "description": "Name of the goal to keep the weight within a range around the target weight."
+    },
+    "weightGoalSubtitle": "Valitse pudotetaanko, ylläpidetäänkö vai lisätäänkö painoa.",
+    "@weightGoalSubtitle": {
+        "description": "Subtitle of the goal selector in the target weight dialog."
+    },
+    "targetRange": "Tavoitteen vaihteluväli",
+    "@targetRange": {
+        "description": "Label of the target weight range of the maintain goal."
+    },
+    "targetRangeDaysIn": "ylläpidät painoasi vakaana",
+    "@targetRangeDaysIn": {
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "ja edelleen ylläpidät painoasi vakaana",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit} kunnes olet taas tavoitepainossasi",
+    "@targetRangeBackIn": {
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "weeks"
+            }
+        }
+    },
+    "outsideTargetRange": "ei ole tavoitepainon sisällä",
+    "@outsideTargetRange": {
+        "description": "Shown while the trend is outside the target range and not heading back."
+    },
+    "inTargetRangeShort": "tavoitteen sisällä",
+    "@inTargetRangeShort": {
+        "description": "Short note that the trend is inside the target range."
+    },
+    "targetWeightIn": "vielä",
+    "@targetWeightIn": {
+        "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
+    },
+    "starOnGithub": "Anna tähti GitHubissa",
+    "@starOnGithub": {
+        "description": "Star banner title"
+    },
+    "starOnGithubSubtitle": "Tue meitä tähdellä.",
+    "@starOnGithubSubtitle": {
+        "description": "Star banner subtitle"
     }
 }
