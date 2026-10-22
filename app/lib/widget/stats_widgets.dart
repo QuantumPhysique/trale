@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
-import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:provider/provider.dart';

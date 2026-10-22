@@ -416,14 +416,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_m3shapes_extended:
-    dependency: "direct main"
-    description:
-      name: flutter_m3shapes_extended
-      sha256: "585194f12fb7f4bb705228d11f39e8f157edadb5b2d906e0ed502817403270fc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -708,14 +700,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   path_parsing:
     dependency: transitive
     description:

@@ -1,21 +1,20 @@
 import 'dart:math';
 
-import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:quantumphysique/quantumphysique.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/widget/stats_widgets.dart';
 
 /// Shapes used for the trale icon card — cycled on tap.
-const List<Shapes> _iconHeroShapes = <Shapes>[
-  Shapes.sunny,
-  Shapes.c4SidedCookie,
-  Shapes.c6SidedCookie,
-  Shapes.c7SidedCookie,
-  Shapes.c9SidedCookie,
-  Shapes.c12SidedCookie,
-  Shapes.l4LeafClover,
-  Shapes.gem,
+final List<RoundedPolygon> _iconHeroShapes = <RoundedPolygon>[
+  MaterialShapes.sunny,
+  MaterialShapes.cookie4Sided,
+  MaterialShapes.cookie6Sided,
+  MaterialShapes.cookie7Sided,
+  MaterialShapes.cookie9Sided,
+  MaterialShapes.cookie12Sided,
+  MaterialShapes.clover4Leaf,
+  MaterialShapes.gem,
 ];
 
 /// Range-based statistics widgets laid out as a bento grid.
@@ -28,11 +27,12 @@ class StatsWidgetsList extends StatefulWidget {
 }
 
 class _StatsWidgetsListState extends State<StatsWidgetsList> {
-  Shapes _iconShape = _iconHeroShapes[Random().nextInt(_iconHeroShapes.length)];
+  RoundedPolygon _iconShape =
+      _iconHeroShapes[Random().nextInt(_iconHeroShapes.length)];
 
   void _cycleIconShape() {
     setState(() {
-      Shapes next;
+      RoundedPolygon next;
       do {
         next = _iconHeroShapes[Random().nextInt(_iconHeroShapes.length)];
       } while (next == _iconShape);
