@@ -507,16 +507,12 @@ class _RotatingShapeState extends State<_RotatingShape>
   Widget build(BuildContext context) {
     return RotationTransition(
       turns: _controller,
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 500),
-        child: SizedBox.expand(
-          key: ValueKey<RoundedPolygon>(widget.shape),
-          child: DecoratedBox(
-            decoration: ShapeDecoration(
-              shape: MaterialShapeBorder(shape: widget.shape),
-              color: widget.color,
-            ),
-          ),
+      child: AnimatedContainer(
+        duration: QPLayout.transitionSlow,
+        curve: Curves.easeInOut,
+        decoration: ShapeDecoration(
+          shape: MaterialShapeBorder(shape: widget.shape),
+          color: widget.color,
         ),
       ),
     );
