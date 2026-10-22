@@ -14,6 +14,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-10-22
+
 ### Bugfix 🐛:
 - Fixed the Accrescent release (#521)
 
@@ -558,7 +560,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.5.0...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.5.1...main
+[1.5.1]: https://github.com/quantumphysique/trale/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/quantumphysique/trale/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/quantumphysique/trale/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/quantumphysique/trale/compare/v1.3.1...v1.4.0
