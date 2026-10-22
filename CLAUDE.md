@@ -43,10 +43,19 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 
 ## Branching and release
 
-- `main` is the only long-lived branch; feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` directly.
+- `main` is the only long-lived branch, besides `v2` until v2.0.0 (see below); feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` or `v2` directly.
 - Every commit lands on `main` as it is (no squash), so every commit is a conventional commit — see `/commit`. The PR title uses the same format.
 - Versions are prepared with `/release`: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
 - A minor or major release (`vX.Y.0`, not patches) also runs `screenshots.yml`, which can be started by hand too: it retakes `screenshots/` on a `pixel_10` emulator and opens a PR from `chore/screenshots_<tag>` through the org's bot app (`BOT_CLIENT_ID`, `BOT_PRIVATE_KEY`).
+
+## Until v2.0.0
+
+v2 is developed on `v2`, while `main` carries the shipped 1.5.x.
+
+- v2 work branches off `v2` and goes back into it (`/pr v2`, `/review v2`). Fixes for the shipped app branch off `main` and go into `main`
+- After every merge to `main` that matters (releases, Weblate, dependabot), `main` is merged into `v2` through a PR. Conflicts in `CHANGELOG.md` `[Unreleased]` are resolved by hand, and `changelog.g.dart` is regenerated with `make generate`. Once `v2` has dropped `quantumphysique/`, a change to it from `main` is a modify/delete conflict: keep the deletion, the quantumphysique repository already has the change
+- A 1.5.x fix that has to change quantumphysique goes into the quantumphysique repository first, as a patch release. Only for that 1.5.x release is the same change copied into the frozen `quantumphysique/` on `main`
+- A `@HiveField` id or preference key added on `main` becomes released state when it ships: merge it into `v2` before `v2` allocates its own, so ids never collide
 
 ## Changelog
 
@@ -74,7 +83,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 
 ## Dev loop
 
-1. Branch off `main`.
+1. Branch off `main`, or off `v2` for v2 work.
 2. Implement the whole change in `lib/`, plus its `CHANGELOG.md` line as the Changelog section says. Tests only where the Tests section below asks for one.
 3. Once, on the finished change: `make format`, `make analyze`, `make test`, `make generate`. Fix what they report.
 4. `/commit`, then `/pr`.
