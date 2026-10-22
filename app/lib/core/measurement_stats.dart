@@ -11,6 +11,7 @@ import 'package:trale/core/measurement_database.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/stats_range.dart';
+import 'package:trale/core/target_plan.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/weight_goal.dart';
 
@@ -405,46 +406,16 @@ class MeasurementStats {
 
   /// Return the target-weight reference value [kg] for a given day
   ///
-  /// * Before [setDate]: constant at [targetWeight].
-  /// * Between [setDate] and [targetDate]: linear from [setWeight] to
-  ///   [targetWeight].
-  /// * After [targetDate]: constant at [targetWeight].
-  /// * Maintain goal: constant at [targetWeight], the centre of its range.
+  /// * With a target date: along the [TargetPlan], constant at the target
+  ///   weight before and after it.
+  /// * Otherwise, and for the maintain goal: constant at the target weight.
   double? referenceAtDay(DateTime day) {
     final TraleNotifier notifier = TraleNotifier();
     final double? targetWeight = notifier.effectiveTargetWeight;
     if (targetWeight == null) {
       return null;
     }
-
-    final DateTime? targetDate = notifier.effectiveTargetWeightDate;
-    if (targetDate == null) {
-      return targetWeight;
-    }
-
-    final DateTime? setDate = notifier.userTargetWeightSetDate;
-    final double? setWeight = notifier.userTargetWeightSetWeight;
-    if (setDate == null || setWeight == null) {
-      return targetWeight;
-    }
-
-    final DateTime d = DateTime(day.year, day.month, day.day);
-    final DateTime sd = DateTime(setDate.year, setDate.month, setDate.day);
-    final DateTime td = DateTime(
-      targetDate.year,
-      targetDate.month,
-      targetDate.day,
-    );
-
-    // Before setDate or after targetDate -> constant at targetWeight
-    if (d.compareTo(sd) <= 0 || d.compareTo(td) >= 0) {
-      return targetWeight;
-    }
-
-    // Between setDate and targetDate -> linear interpolation
-    final int totalDays = td.difference(sd).inDays;
-    final int elapsedDays = d.difference(sd).inDays;
-    return setWeight + (targetWeight - setWeight) * (elapsedDays / totalDays);
+    return notifier.targetPlan?.weightAt(day) ?? targetWeight;
   }
 
   /// Return the difference between the interpolated weight and the

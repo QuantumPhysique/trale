@@ -3,6 +3,7 @@ import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/target_plan.dart';
 import 'package:trale/core/trale_notifier.dart';
 import 'package:trale/core/weight_goal.dart';
 
@@ -56,5 +57,27 @@ void main() {
     notifier.weightGoal = WeightGoal.maintain;
 
     expect(MeasurementStats().referenceAtDay(now), closeTo(70, 0.01));
+  });
+
+  test('the target plan loses the same share of weight each week', () {
+    final DateTime start = DateTime(2026, 1, 1);
+    final TargetPlan plan = TargetPlan(
+      start: start,
+      startWeight: 100,
+      end: DateTime(2026, 1, 1 + 140),
+      target: 81,
+    );
+
+    // 100 -> 90 in the first ten weeks, 90 -> 81 in the second.
+    expect(plan.weightAt(DateTime(2026, 1, 1 + 70)), closeTo(90, 1e-9));
+    expect(
+      TargetPlan.fromRate(
+        start: start,
+        startWeight: 100,
+        target: 81,
+        weeklyRate: plan.weeklyRate,
+      )!.end,
+      plan.end,
+    );
   });
 }

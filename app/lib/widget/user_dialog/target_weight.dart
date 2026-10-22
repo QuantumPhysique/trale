@@ -137,8 +137,9 @@ class TargetWeightGroup extends StatelessWidget {
 /// Shows a dialog to set the target date via synced rate, target date,
 /// and start date fields.
 ///
-/// The rate is controlled with -/+ icon buttons and an editable text field.
-/// Changing any of the three fields recalculates the others.
+/// The rate is the weekly change as a share of the weight, picked on a slider
+/// whose track marks how demanding each rate is. Changing any of the three
+/// fields recalculates the others.
 Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   final TraleNotifier notifier = Provider.of<TraleNotifier>(
     context,
@@ -151,9 +152,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   }
 
   final double unitScaling = notifier.unit.scaling;
-  // 0.1 for kg/lb, 0.05 for st
-  final double step = 1.0 / notifier.unit.ticksPerStep;
-  const int decimals = 2;
+  final WeightGoal goal = notifier.weightGoal;
+  final ({double min, double max}) rateRange = goal.weeklyRateRange;
 
   // ── Initialise from notifier or latest measurement ──────────────
   final MeasurementInterpolation ip = MeasurementInterpolation();
@@ -163,84 +163,63 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
   double initWeight =
       ip.measurementForDay(initDate) ?? latestMeasurement.weight;
   DateTime? targetDate = notifier.userTargetWeightDate;
+  double rate = goal.defaultWeeklyRate;
 
   // ── Helpers ─────────────────────────────────────────────────────
-  double snapToStep(double v) {
-    double snapped = (v / step).round() * step;
-    if (snapped < step) {
-      snapped = step;
-    }
-    return snapped;
+  String percent(double weeklyRate) =>
+      '${(weeklyRate * 100).toStringAsFixed(2)}%';
+
+  void syncFromRate() {
+    targetDate = TargetPlan.fromRate(
+      start: initDate,
+      startWeight: initWeight,
+      target: targetWeight,
+      weeklyRate: rate,
+    )?.end;
   }
 
-  DateTime? calcTargetDate(double absRateDisplay) {
-    final double absRateKg = absRateDisplay * unitScaling;
-    if (absRateKg < 0.01) {
-      return null;
+  void syncFromTargetDate() {
+    final TargetPlan plan = TargetPlan(
+      start: initDate,
+      startWeight: initWeight,
+      end: targetDate!,
+      target: targetWeight,
+    );
+    // A target date on or before the start keeps the previous rate.
+    if (plan.days > 0) {
+      rate = plan.weeklyRate;
     }
-    final double weightDiff = (targetWeight - initWeight).abs();
-    final double weeks = weightDiff / absRateKg;
-    final int days = (weeks * 7).round();
-    if (days <= 0) {
-      return null;
-    }
-    return initDate.add(Duration(days: days));
   }
 
-  double calcRateFromDates(DateTime target) {
-    final int totalDays = target.difference(initDate).inDays;
-    if (totalDays <= 0) {
-      return step;
+  void syncFromStart() {
+    if (targetDate == null) {
+      syncFromRate();
+    } else {
+      syncFromTargetDate();
     }
-    final double totalWeeks = totalDays / 7.0;
-    final double raw =
-        (targetWeight - initWeight).abs() / totalWeeks / unitScaling;
-    // Round to 2 decimal places instead of snapping to step grid.
-    return double.parse(raw.toStringAsFixed(decimals));
   }
 
-  // ── Initial rate (positive, in display units) ───────────────────
-  double rateDisplayAbs;
-  if (targetDate != null) {
-    rateDisplayAbs = calcRateFromDates(targetDate);
-  } else {
-    rateDisplayAbs = snapToStep(0.5 / unitScaling);
-  }
-  targetDate ??= calcTargetDate(rateDisplayAbs);
+  syncFromStart();
 
   bool targetDateEnabled = true;
-
-  final TextEditingController rateController = TextEditingController(
-    text: rateDisplayAbs.toStringAsFixed(decimals),
-  );
 
   // ── Build dialog content ────────────────────────────────────────
   final Widget content = StatefulBuilder(
     builder: (BuildContext context, StateSetter setState) {
-      final Color tileColor = Theme.of(context).colorScheme.surfaceContainerLow;
+      final ColorScheme colorScheme = Theme.of(context).colorScheme;
+      final TextTheme textTheme = Theme.of(context).textTheme;
+      final Color tileColor = colorScheme.surfaceContainerLow;
+      final TargetPace pace = goal.paceOf(rate);
+      final Color paceColor = pace.color(colorScheme);
 
       final String targetDateStr = targetDate != null
           ? notifier.dateFormat(context).format(targetDate!)
           : '--';
       final String initDateStr = notifier.dateFormat(context).format(initDate);
-
-      void syncFromRate() {
-        targetDate = calcTargetDate(rateDisplayAbs);
-      }
-
-      void syncFromTargetDate() {
-        if (targetDate != null) {
-          rateDisplayAbs = calcRateFromDates(targetDate!);
-          rateController.text = rateDisplayAbs.toStringAsFixed(decimals);
-        }
-      }
-
-      void syncFromInitDate() {
-        if (targetDate != null) {
-          rateDisplayAbs = calcRateFromDates(targetDate!);
-          rateController.text = rateDisplayAbs.toStringAsFixed(decimals);
-        }
-      }
+      final String weeklyChangeStr =
+          '${(initWeight * rate / unitScaling).toStringAsFixed(2)} → '
+          '${(targetWeight * rate / unitScaling).toStringAsFixed(2)} '
+          '${notifier.unit.name}${context.l10n.perWeek}';
 
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -254,8 +233,8 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   padding: const EdgeInsets.all(QPLayout.padding),
                   child: Text(
                     context.l10n.targetWeightRateAdvice,
-                    style: Theme.of(context).textTheme.bodyMedium!.apply(
-                      color: Theme.of(context).colorScheme.onSurface,
+                    style: textTheme.bodyMedium!.apply(
+                      color: colorScheme.onSurface,
                     ),
                     textAlign: TextAlign.justify,
                   ),
@@ -269,11 +248,11 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                 leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
                 title: Text(
                   context.l10n.targetWeightDate,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: textTheme.bodyLarge,
                 ),
                 subtitle: Text(
                   context.l10n.targetWeightDateSubtitle,
-                  style: Theme.of(context).textTheme.labelSmall,
+                  style: textTheme.labelSmall,
                 ),
                 trailing: Switch(
                   value: targetDateEnabled,
@@ -291,7 +270,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
             QPWidgetGroup(
               children: <Widget>[
                 QPGroupedWidget(
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: colorScheme.secondary,
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     padding: const EdgeInsets.only(
@@ -300,97 +279,74 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                     ),
                     child: Text(
                       '${context.l10n.targetWeightRate} '
-                      '(${notifier.unit.name}'
-                      '${context.l10n.perWeek})',
-                      style: Theme.of(context)
-                          .textTheme
-                          .emphasized
-                          .headlineSmall
-                          ?.apply(
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
+                      '(%${context.l10n.perWeek})',
+                      style: textTheme.emphasized.headlineSmall?.apply(
+                        color: colorScheme.onSecondary,
+                      ),
                     ),
                   ),
                 ),
                 QPGroupedWidget(
                   color: tileColor,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: QPLayout.padding,
-                      horizontal: QPLayout.padding,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: QPLayout.padding,
+                    padding: const EdgeInsets.all(QPLayout.padding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        IconButton.filledTonal(
-                          onPressed: () {
-                            setState(() {
-                              rateDisplayAbs = snapToStep(
-                                ((rateDisplayAbs / step).floor() - 1) * step,
-                              );
-                              rateController.text = rateDisplayAbs
-                                  .toStringAsFixed(decimals);
-                              syncFromRate();
-                            });
-                          },
-                          icon: PPIcon(PhosphorIconsBold.minus, context),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: <Widget>[
+                            Text(
+                              percent(rate),
+                              style: textTheme.monospace.titleLarge,
+                            ),
+                            const Spacer(),
+                            Text(
+                              pace.nameLong(context),
+                              style: textTheme.emphasized.titleMedium?.apply(
+                                color: paceColor,
+                              ),
+                            ),
+                          ],
                         ),
-                        IntrinsicWidth(
-                          child: TextField(
-                            controller: rateController,
-                            keyboardType: const TextInputType.numberWithOptions(
-                              decimal: true,
+                        Text(weeklyChangeStr, style: textTheme.labelSmall),
+                        SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            // The pace track splits the gapped 2024 track.
+                            // ignore: deprecated_member_use
+                            year2023: false,
+                            trackShape: _PaceTrackShape(
+                              goal: goal,
+                              pace: pace,
+                              colorScheme: colorScheme,
+                              innerRadius: QPTheme.of(
+                                context,
+                              )!.innerBorderRadius,
                             ),
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d*\.?\d{0,2}'),
-                              ),
-                            ],
-                            textAlign: TextAlign.center,
-                            style: Theme.of(
-                              context,
-                            ).textTheme.monospace.titleLarge,
-                            decoration: const InputDecoration(
-                              // filled: true,
-                              // fillColor: Theme.of(
-                              //   context,
-                              // ).colorScheme.secondaryContainer,
-                              // border: OutlineInputBorder(
-                              //   borderRadius: BorderRadius.circular(
-                              //     QPTheme.of(context)!.borderRadius,
-                              //   ),
-                              //   borderSide: BorderSide.none,
-                              // ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: QPLayout.smallPadding,
-                                vertical: QPLayout.smallPadding,
-                              ),
-                            ),
-                            onChanged: (String value) {
-                              final double? parsed = double.tryParse(value);
-                              if (parsed != null && parsed > 0) {
-                                setState(() {
-                                  rateDisplayAbs = parsed;
-                                  syncFromRate();
-                                });
-                              }
+                            thumbColor: paceColor,
+                            tickMarkShape: SliderTickMarkShape.noTickMark,
+                          ),
+                          child: Slider(
+                            value: rate.clamp(rateRange.min, rateRange.max),
+                            min: rateRange.min,
+                            max: rateRange.max,
+                            divisions:
+                                ((rateRange.max - rateRange.min) /
+                                        weeklyRateStep)
+                                    .round(),
+                            semanticFormatterCallback: percent,
+                            onChanged: (double value) {
+                              setState(() {
+                                rate = value;
+                                syncFromRate();
+                              });
                             },
                           ),
                         ),
-                        IconButton.filledTonal(
-                          onPressed: () {
-                            setState(() {
-                              rateDisplayAbs = snapToStep(
-                                ((rateDisplayAbs / step).ceil() + 1) * step,
-                              );
-                              rateController.text = rateDisplayAbs
-                                  .toStringAsFixed(decimals);
-                              syncFromRate();
-                            });
-                          },
-                          icon: PPIcon(PhosphorIconsBold.plus, context),
+                        Text(
+                          pace.description(context),
+                          style: textTheme.bodyMedium,
                         ),
                       ],
                     ),
@@ -400,10 +356,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   color: tileColor,
                   leading: PPIcon(PhosphorIconsDuotone.calendarCheck, context),
                   title: Text(context.l10n.targetWeightDate),
-                  trailing: Text(
-                    targetDateStr,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  trailing: Text(targetDateStr, style: textTheme.bodyLarge),
                   onTap: () async {
                     final DateTime now = DateTime.now();
                     final DateTime? selected = await showDatePicker(
@@ -425,10 +378,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                   color: tileColor,
                   leading: PPIcon(PhosphorIconsDuotone.calendar, context),
                   title: Text(context.l10n.startDate),
-                  trailing: Text(
-                    initDateStr,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  trailing: Text(initDateStr, style: textTheme.bodyLarge),
                   onTap: () async {
                     final DateTime? selected = await showDatePicker(
                       context: context,
@@ -443,7 +393,7 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
                         setState(() {
                           initDate = selected;
                           initWeight = w;
-                          syncFromInitDate();
+                          syncFromStart();
                         });
                       }
                     }
@@ -457,14 +407,13 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
     },
   );
 
-  final bool accepted =
-      await showDialog<bool>(
+  return await showDialog<bool>(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return QPDialog(
             title: context.l10n.targetWeightDate,
-            content: content,
+            content: SingleChildScrollView(child: content),
             actions: <Widget>[
               QPDialogAction(
                 onPressed: () => Navigator.pop(context, false),
@@ -492,6 +441,128 @@ Future<bool> showTargetWeightDateDialog({required BuildContext context}) async {
         },
       ) ??
       false;
-  rateController.dispose();
-  return accepted;
+}
+
+/// Slider track split into the [TargetPace]s of [goal], with [pace]
+/// highlighted.
+class _PaceTrackShape extends SliderTrackShape with BaseSliderTrackShape {
+  const _PaceTrackShape({
+    required this.goal,
+    required this.pace,
+    required this.colorScheme,
+    required this.innerRadius,
+  });
+
+  /// Goal whose paces are shown.
+  final WeightGoal goal;
+
+  /// Pace of the current value.
+  final TargetPace pace;
+
+  /// Colours of the paces.
+  final ColorScheme colorScheme;
+
+  /// Corner radius where the track is split.
+  final double innerRadius;
+
+  @override
+  void paint(
+    PaintingContext context,
+    Offset offset, {
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required Animation<double> enableAnimation,
+    required TextDirection textDirection,
+    required Offset thumbCenter,
+    Offset? secondaryOffset,
+    bool isDiscrete = false,
+    bool isEnabled = false,
+    double additionalActiveTrackHeight = 2,
+  }) {
+    final Rect track = getPreferredRect(
+      parentBox: parentBox,
+      offset: offset,
+      sliderTheme: sliderTheme,
+      isEnabled: isEnabled,
+      isDiscrete: isDiscrete,
+    );
+    final ({double min, double max}) range = goal.weeklyRateRange;
+    final Map<TargetPace, double> paceFrom = goal.paceFrom;
+    final double thumbGap = sliderTheme.trackGap!;
+    final Radius outer = Radius.circular(track.height / 2);
+    final Radius inner = Radius.circular(innerRadius);
+
+    final Canvas canvas = context.canvas..save();
+    double thumbX = thumbCenter.dx;
+    // Painted left to right; right-to-left text mirrors the canvas.
+    if (textDirection == TextDirection.rtl) {
+      canvas
+        ..translate(track.left + track.right, 0)
+        ..scale(-1, 1);
+      thumbX = track.left + track.right - thumbX;
+    }
+
+    double xOf(double rate) =>
+        track.left +
+        track.width *
+            ((rate - range.min) / (range.max - range.min)).clamp(0.0, 1.0);
+
+    void paintPiece(
+      double left,
+      double right,
+      Radius leftRadius,
+      Radius rightRadius,
+      Color color,
+    ) {
+      if (right > left) {
+        canvas.drawRRect(
+          RRect.fromLTRBAndCorners(
+            left,
+            track.top,
+            right,
+            track.bottom,
+            topLeft: leftRadius,
+            bottomLeft: leftRadius,
+            topRight: rightRadius,
+            bottomRight: rightRadius,
+          ),
+          Paint()..color = color,
+        );
+      }
+    }
+
+    for (final TargetPace band in TargetPace.values) {
+      final bool first = band == TargetPace.values.first;
+      final bool last = band == TargetPace.values.last;
+      // Paces are parted like grouped tiles.
+      final double left = first
+          ? track.left
+          : xOf(paceFrom[band]!) + QPLayout.space / 2;
+      final double right = last
+          ? track.right
+          : xOf(paceFrom[TargetPace.values[band.index + 1]]!) -
+                QPLayout.space / 2;
+      final Color color = band == pace
+          ? band.color(colorScheme)
+          : band.containerColor(colorScheme);
+      // Split around the thumb like the default gapped track.
+      final double beforeThumb = min(right, thumbX - thumbGap);
+      final double afterThumb = max(left, thumbX + thumbGap);
+      paintPiece(
+        left,
+        beforeThumb,
+        first ? outer : inner,
+        last && beforeThumb == right ? outer : inner,
+        color,
+      );
+      paintPiece(
+        afterThumb,
+        right,
+        first && afterThumb == left ? outer : inner,
+        last ? outer : inner,
+        color,
+      );
+    }
+    canvas.restore();
+  }
 }

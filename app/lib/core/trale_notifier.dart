@@ -12,6 +12,7 @@ import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/print_format.dart';
 import 'package:trale/core/stats_range.dart';
+import 'package:trale/core/target_plan.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
 import 'package:trale/core/weight_goal.dart';

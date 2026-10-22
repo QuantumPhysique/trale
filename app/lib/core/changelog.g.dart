@@ -11,6 +11,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'The target rate is now set in % of your weight per week and rated from gentle to aggressive, so the target line flattens towards your goal',
+      ],
       ChangelogSection.bugfix: <String>[
         'Fixed the Accrescent release (#521)',
       ],
