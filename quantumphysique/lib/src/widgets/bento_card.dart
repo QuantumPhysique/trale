@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
-import 'package:flutter_m3shapes_extended/flutter_m3shapes_extended.dart';
 import 'package:quantumphysique/src/types/font.dart';
 import 'package:quantumphysique/src/widgets/animate_in_effect.dart';
 import 'package:quantumphysique/src/widgets/qp_layout.dart';
@@ -114,7 +113,7 @@ class QPBentoCard extends StatelessWidget {
     this.delayInMilliseconds = 0,
     this.pillShape = false,
     this.onTap,
-    Shapes? m3eShape,
+    RoundedPolygon? m3eShape,
     Duration rotateDuration = Duration.zero,
     super.key,
   }) : _mode = _BentoCardMode.custom,
@@ -140,7 +139,7 @@ class QPBentoCard extends StatelessWidget {
     Color? backgroundColor,
     int delayInMilliseconds = 0,
     bool pillShape = false,
-    Shapes? m3eShape,
+    RoundedPolygon? m3eShape,
     Duration rotateDuration = Duration.zero,
     Key? key,
   }) {
@@ -184,7 +183,7 @@ class QPBentoCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   final Color? _textColor;
-  final Shapes? _m3eShape;
+  final RoundedPolygon? _m3eShape;
   final Duration _rotateDuration;
   final _BentoCardMode _mode;
   final String? _label;
@@ -341,7 +340,7 @@ class QPBentoCard extends StatelessWidget {
         backgroundColor ?? Theme.of(context).colorScheme.surfaceContainer;
 
     final ShapeBorder shape = _m3eShape != null
-        ? M3EShapeBorder(shape: _m3eShape)
+        ? MaterialShapeBorder(shape: _m3eShape)
         : pillShape
         ? const StadiumBorder()
         : QPLayout.bentoBorderShape;
@@ -479,7 +478,7 @@ class _RotatingShape extends StatefulWidget {
     required this.duration,
   });
 
-  final Shapes shape;
+  final RoundedPolygon shape;
   final Color color;
   final Duration duration;
 
@@ -511,10 +510,10 @@ class _RotatingShapeState extends State<_RotatingShape>
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
         child: SizedBox.expand(
-          key: ValueKey<Shapes>(widget.shape),
+          key: ValueKey<RoundedPolygon>(widget.shape),
           child: DecoratedBox(
             decoration: ShapeDecoration(
-              shape: M3EShapeBorder(shape: widget.shape),
+              shape: MaterialShapeBorder(shape: widget.shape),
               color: widget.color,
             ),
           ),

@@ -3,7 +3,7 @@ part of '../stats_widgets.dart';
 /// Transparent card: app icon hero, placed on a given M3 shape.
 QPBentoCard iconHeroCard({
   required BuildContext context,
-  required Shapes shape,
+  required RoundedPolygon shape,
   VoidCallback? onTap,
   int delayInMilliseconds = 0,
 }) {

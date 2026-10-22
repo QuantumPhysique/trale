@@ -163,14 +163,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_m3shapes_extended:
-    dependency: "direct main"
-    description:
-      name: flutter_m3shapes_extended
-      sha256: "585194f12fb7f4bb705228d11f39e8f157edadb5b2d906e0ed502817403270fc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -257,10 +249,10 @@ packages:
     dependency: "direct main"
     description:
       name: material_ui
-      sha256: "7ba1ca315d50a004791dbab290417c52a61466d56db2822fe3c5c2994903110c"
+      sha256: e4031746f96c8316864d9b92bce375f1320a36ed56e166307e1e1bda9d90b4ab
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.8.0"
   meta:
     dependency: transitive
     description:
@@ -301,22 +293,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
-  path_parsing:
-    dependency: transitive
-    description:
-      name: path_parsing
-      sha256: "883402936929eac138ee0a45da5b0f2c80f89913e6dc3bf77eb65b84b409c6ca"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   path_provider_linux:
     dependency: transitive
     description:
@@ -620,5 +596,5 @@ packages:
     source: hosted
     version: "6.6.1"
 sdks:
-  dart: ">=3.12.0 <4.0.0"
+  dart: ">=3.13.0 <4.0.0"
   flutter: ">=3.47.1"
