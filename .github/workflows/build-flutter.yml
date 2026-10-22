@@ -2,7 +2,7 @@ name: Build Flutter app for an environment
 
 on:
   push:
-    branches: [main]
+    branches: [main, v2]
   pull_request:
 
 permissions:
