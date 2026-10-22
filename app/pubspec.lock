@@ -840,9 +840,11 @@ packages:
   quantumphysique:
     dependency: "direct main"
     description:
-      path: "../quantumphysique"
-      relative: true
-    source: path
+      path: "."
+      resolved-ref: "97aa3ea314b1efb9b71fcf31c831c5e9b6e22d2f"
+      tag-pattern: "v{{version}}"
+      url: "https://github.com/QuantumPhysique/quantumphysique.git"
+    source: git
     version: "0.1.0"
   quick_actions:
     dependency: "direct main"

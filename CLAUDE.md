@@ -1,6 +1,6 @@
 # trale
 
-Flutter body-weight diary. Android only, all data on-device (Hive + SharedPreferences). The app builds on the sibling package `../quantumphysique` (theme, notifier and preferences base classes, widget library, changelog generator). All commands run from `app/`.
+Flutter body-weight diary. Android only, all data on-device (Hive + SharedPreferences). The app builds on the package [quantumphysique](https://github.com/QuantumPhysique/quantumphysique) (theme, notifier and preferences base classes, widget library, changelog generator), pulled from its release tags. All commands run from `app/`.
 
 ## Setup
 
@@ -9,6 +9,18 @@ cd app
 flutter pub get --enforce-lockfile
 make generate        # changelog.g.dart from ../CHANGELOG.md
 ```
+
+## quantumphysique
+
+The package lives in its own repository and reaches trale through release tags. A change to it is a PR there, then a release, then `flutter pub upgrade quantumphysique` here. To try a change in trale before the release, point `app/pubspec_overrides.yaml`, which git ignores, at a local clone:
+
+```yaml
+dependency_overrides:
+  quantumphysique:
+    path: ../../quantumphysique
+```
+
+Never force-add that file: no other checkout has the path, so CI and F-Droid would fail.
 
 ## Tasks
 
@@ -20,6 +32,7 @@ make generate        # changelog.g.dart from ../CHANGELOG.md
 | Tests | `make test` |
 | One test file | `flutter test test/core/units_test.dart` |
 | Changelog check (as CI) | `dart run quantumphysique:generate_changelog --check` |
+| Newer quantumphysique | `flutter pub upgrade quantumphysique` (`--major-versions` across a breaking release) |
 | Hive adapters | `make hive` (after editing `measurement.dart`) |
 | Release APK | `make build` |
 | Accrescent APK set | `make build-apks` (needs bundletool + `android/key.properties`) |
@@ -72,7 +85,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 - `lib/pages/`, `lib/widget/` — UI
 - `lib/l10n/` — ARB files; `lib/l10n-gen/` is generated, never edit it
 - `test/core/`, `test/widget/` — suites; shared setup in `test/helpers/`
-- `../quantumphysique/` — app-agnostic Flutter code shared with other apps; `../CHANGELOG.md`, `../fastlane/` — release metadata
+- `../CHANGELOG.md`, `../fastlane/` — release metadata
 
 ## Code
 
@@ -83,7 +96,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 - Enums carry behaviour in extensions (see `units.dart`)
 - Constants in `lib/core/constants.dart` (`dayInMs`, `kcalPerKg`), no magic numbers
 - Adding a setting: getter/setter in the matching `preferences/*.dart` part, default in `loadDefaultSettings()`, property plus `notifyListeners()` in the matching `trale_notifier/*.dart` part
-- Anything not about weight tracking belongs in `quantumphysique`, not here; suggest it instead of implementing locally
+- Anything not about weight tracking belongs in `quantumphysique`, as a PR in its repository, not here; suggest it instead of implementing locally
 - No fallback logic unless explicitly asked; a silent default hides the bug
 
 ### Comments

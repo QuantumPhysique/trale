@@ -66,6 +66,7 @@ app/.flutter-plugins-dependencies
 app/.packages
 app/.pub-cache/
 app/.pub/
+app/pubspec_overrides.yaml
 app/build/
 app/flutter_*.png
 app/linked_*.ds
