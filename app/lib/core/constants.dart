@@ -23,3 +23,32 @@ const double minSlopeToTarget = 0.005;
 
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
+
+/// Days over which the tissue trend's slope fades.
+///
+/// Over weeks a slope is set by behaviour, not by the body: it holds, then
+/// changes on a date. 30 days gave the best forecasts.
+const double tissueSlopeMemoryInDays = 30;
+
+/// Length scale in days of the week-scale changes the curve follows.
+const double weekScaleLengthInDays = 7;
+
+/// Length scale in days of water and gut content, which follow what was eaten
+/// and relax within about a day (Hall et al. 2011).
+const double waterLengthInDays = 1;
+
+/// Prior centre of the week-scale and the water amplitude, as a fraction of
+/// body weight: a day-to-day scatter of about 0.6 % (Khosla & Billewicz 1964;
+/// Cheuvront et al. 2004), split between the two.
+const double amplitudePriorCentre = 0.0042;
+
+/// Body weight in kg at which the strengths' slope sd is stated.
+const double strengthReferenceKg = 83;
+
+/// Exponent of body weight that scales the slope sd (Kleiber 1932): energy use
+/// grows with weight^0.75, so the same relative calorie cut moves a smaller
+/// body faster in percent.
+const double kleiberExponent = -0.25;
+
+/// Last readings whose mean is the body weight the slope sd is scaled to.
+const int readingsForBodyWeight = 10;

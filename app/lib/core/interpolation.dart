@@ -18,19 +18,15 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
-  /// get the interpolation strength of measurements [days]
-  double get strengthMeasurement => <InterpolStrength, double>{
-    InterpolStrength.none: 2,
-    InterpolStrength.soft: 2,
-    InterpolStrength.medium: 4,
-    InterpolStrength.strong: 7,
+  /// Standard deviation of the tissue trend's slope at [strengthReferenceKg],
+  /// as a fraction of body weight per day: 0.10, 0.08 and 0.06 kg/day at
+  /// 83 kg. `none` draws straight lines and takes its rates from medium.
+  double get slopeSd => <InterpolStrength, double>{
+    InterpolStrength.none: 0.00096,
+    InterpolStrength.soft: 0.0012,
+    InterpolStrength.medium: 0.00096,
+    InterpolStrength.strong: 0.00072,
   }[this]!;
-
-  /// get the interpolation strength of measurements [days]
-  double get strengthInterpol => strengthMeasurement / 2;
-
-  /// get the ratio how much the measurements are weighted more than interpols
-  double get weight => 2;
 
   /// get international name
   String nameLong(BuildContext context) => <InterpolStrength, String>{
