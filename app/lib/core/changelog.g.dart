@@ -11,6 +11,10 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
+      ChangelogSection.addedFeatures: <String>[
+        'All new interpolation that learns from your data, entirely on your device (#481)',
+        'Faster with long histories (#279)',
+      ],
       ChangelogSection.otherChanges: <String>[
         'Minor improvements to the code base',
       ],
