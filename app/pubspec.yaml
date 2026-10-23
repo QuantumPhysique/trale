@@ -48,6 +48,10 @@ dependencies:
   quick_actions: ^1.1.1
   share_plus: ^13.3.1
   shared_preferences: ^2.5.6
+  state_space:
+    git:
+      url: https://github.com/QuantumPhysique/state_space.git
+      ref: feat/priors-and-summed-signal
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
