@@ -42,6 +42,20 @@ const double waterLengthInDays = 1;
 /// Cheuvront et al. 2004), split between the two.
 const double amplitudePriorCentre = 0.0042;
 
+/// One prior standard deviation of an amplitude or of the scale error, as a
+/// factor either way: the spread between people.
+const double priorWidthFactor = 2;
+
+/// Days with measurements before the first refit of the amplitudes and the
+/// scale error.
+const int firstRefitDays = 5;
+
+/// Days with measurements up to which every new one refits.
+const int refitEveryDayUpTo = 60;
+
+/// New days with measurements between two refits after that.
+const int refitIntervalDays = 7;
+
 /// Body weight in kg at which the strengths' slope sd is stated.
 const double strengthReferenceKg = 83;
 
