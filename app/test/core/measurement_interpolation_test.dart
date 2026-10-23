@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:trale/core/constants.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_interpolation.dart';
 import 'package:trale/core/preferences.dart';
+import 'package:trale/core/smoothing.dart';
 
 import '../helpers/widget_test_helper.dart';
 
@@ -28,6 +30,32 @@ List<Measurement> line() => <Measurement>[
   for (int day = 0; day < 30; day++)
     Measurement(weight: 80 - 0.05 * day, date: DateTime(2026, 1, 1 + day, 8)),
 ];
+
+/// A standard normal draw from [random].
+double gaussian(Random random) =>
+    sqrt(-2 * log(1 - random.nextDouble())) * cos(2 * pi * random.nextDouble());
+
+/// A year of mornings at 80 kg with water of [water] times the weight,
+/// relaxing over a day, a scale error of 0.05 kg and rounding to 0.1 kg, from
+/// 2026-01-01.
+List<Measurement> waterDiary(double water) {
+  final Random random = Random(5);
+  final double keep = exp(-1);
+  double level = water * 80 * gaussian(random);
+  final List<Measurement> measurements = <Measurement>[];
+  for (int day = 0; day < 365; day++) {
+    final double reading = 80 + level + 0.05 * gaussian(random);
+    measurements.add(
+      Measurement(
+        weight: (reading * 10).round() / 10,
+        date: DateTime(2026, 1, 1 + day, 8),
+      ),
+    );
+    level =
+        keep * level + water * 80 * sqrt(1 - keep * keep) * gaussian(random);
+  }
+  return measurements;
+}
 
 /// The interpolation of [measurements] at [strength].
 Future<MeasurementInterpolation> interpolate(
@@ -90,6 +118,18 @@ void main() {
     expect(roughnesses[0], greaterThan(roughnesses[1]));
     expect(roughnesses[1], greaterThan(roughnesses[2]));
   });
+
+  test(
+    'a year of readings learns its water and no week-scale changes',
+    () async {
+      final MeasurementInterpolation ip = await interpolate(waterDiary(0.006));
+      await ip.reinitAsync();
+      final SmoothingState learned = Preferences().smoothingState!;
+
+      expect(learned.waterAmplitude / 0.006, inInclusiveRange(0.8, 1.2));
+      expect(learned.weekAmplitude, lessThan(amplitudePriorCentre));
+    },
+  );
 
   test('the grid keeps a last day read earlier in the day', () async {
     final DateTime last = DateTime(2026, 3, 21, 8);

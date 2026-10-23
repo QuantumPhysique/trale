@@ -41,4 +41,12 @@ class MeasurementInterpolation extends MeasurementInterpolationBaseclass {
   /// get measurements
   @override
   MeasurementDatabase get db => MeasurementDatabase();
+
+  @override
+  bool get learnsSmoothing => true;
+
+  /// The learned state, or the prior centres before the first refit.
+  @override
+  SmoothingState get smoothingState =>
+      Preferences().smoothingState ?? super.smoothingState;
 }

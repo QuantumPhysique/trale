@@ -14,6 +14,7 @@ class _InterpolationPayload {
     required this.slopeSd,
     required this.state,
     required this.stepKg,
+    required this.refit,
     required this.isNone,
     required this.displayStart,
     required this.displayEnd,
@@ -37,6 +38,9 @@ class _InterpolationPayload {
   /// Step in kg that weights are entered in.
   final double stepKg;
 
+  /// Whether to refit [state] before smoothing.
+  final bool refit;
+
   /// Whether the curve is drawn as straight lines between the days.
   final bool isNone;
 
@@ -49,17 +53,25 @@ class _InterpolationPayload {
 
 /// The displayed curve and its slope, one entry per displayed day.
 class _InterpolationResult {
-  _InterpolationResult({required this.weights, required this.slopes});
+  _InterpolationResult({
+    required this.weights,
+    required this.slopes,
+    required this.refitted,
+  });
 
   /// The curve: the tissue trend plus the week-scale changes, in kg.
   final List<double> weights;
 
   /// Slope of the tissue trend in kg/day.
   final List<double> slopes;
+
+  /// The state after a refit, null without one.
+  final SmoothingState? refitted;
 }
 
-/// Smooths the logarithm of the measured days with [smoothingModel].
-/// Top-level, so that [compute] can run it in an isolate.
+/// Smooths the logarithm of the measured days with [smoothingModel], after
+/// refitting its state when that is due. Top-level, so that [compute] can run
+/// it in an isolate.
 _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   final List<double> grid = <double>[
     for (int idx = p.displayStart; idx < p.displayEnd; idx++) idx.toDouble(),
@@ -71,10 +83,20 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
     p.weightsMeasured,
     p.counts,
   );
+  final double bodyKg = bodyWeightKg(p.weightsMeasured);
+  final SmoothingState? refitted = p.refit
+      ? refitSmoothing(
+          observations: observations,
+          state: p.state,
+          slopeSd: p.slopeSd,
+          bodyKg: bodyKg,
+          stepKg: p.stepKg,
+        )
+      : null;
   final StructuralModel model = smoothingModel(
-    state: p.state,
+    state: refitted ?? p.state,
     slopeSd: p.slopeSd,
-    bodyKg: bodyWeightKg(p.weightsMeasured),
+    bodyKg: bodyKg,
     stepKg: p.stepKg,
   );
   final SmoothingResult posterior = model.smooth(
@@ -92,6 +114,7 @@ _InterpolationResult _computeInterpolation(_InterpolationPayload p) {
   return _InterpolationResult(
     weights: p.isNone ? _polyline(p, slopes) : curve,
     slopes: slopes,
+    refitted: refitted,
   );
 }
 
