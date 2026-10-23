@@ -1,6 +1,6 @@
 # trale
 
-Flutter body-weight diary. Android only, all data on-device (Hive + SharedPreferences). The app builds on the sibling package `../quantumphysique` (theme, notifier and preferences base classes, widget library, changelog generator). All commands run from `app/`.
+Flutter body-weight diary. Android only, all data on-device (Hive + SharedPreferences). The app builds on the sibling package `../quantumphysique` (theme, notifier and preferences base classes, widget library, changelog generator). The package itself now lives in [QuantumPhysique/quantumphysique](https://github.com/QuantumPhysique/quantumphysique): change it there through a PR. The copy here is frozen; only a fix that a 1.5.x release needs is copied in, after it has landed there. All commands run from `app/`.
 
 ## Setup
 
