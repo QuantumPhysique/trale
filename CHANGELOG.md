@@ -14,6 +14,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added Features and Improvements 🙌:
+- All new interpolation that learns from your data, entirely on your device (#481)
+- Faster with long histories (#279)
+
 ### Other Changes:
 - Minor improvements to the code base
 

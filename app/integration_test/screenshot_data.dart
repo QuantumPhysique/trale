@@ -93,11 +93,9 @@ const double _waterPersistence = 0.75;
 ///
 /// Staying at the low end is also what keeps the screenshots coherent.  The
 /// "change / month", "calorie deficit" and "weeks left to reach target weight"
-/// cards are all driven by [MeasurementInterpolation.slopeAtDay], a five-point
-/// derivative of a curve smoothed with a 4-day Gaussian — an estimator that
-/// only sees about a week either side of today.  At twice this amplitude a
-/// single ordinary swing in the final days swings that slope by a factor of
-/// three, and the cards start contradicting the curve above them.
+/// cards are all driven by [MeasurementStats.rate], the smoothed curve's
+/// change over the last two weeks.  A large swing in the final days moves
+/// that rate, and the cards start contradicting the curve above them.
 const double _waterKick = 0.17;
 
 /// Standard deviation in kg of the scale's own reading error, at

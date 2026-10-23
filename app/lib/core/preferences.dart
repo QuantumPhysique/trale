@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:trale/core/backup_interval.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/language.dart';
+import 'package:trale/core/smoothing.dart';
 import 'package:trale/core/stats_range.dart';
 import 'package:trale/core/unit_precision.dart';
 import 'package:trale/core/units.dart';
@@ -101,6 +102,12 @@ class Preferences extends QPPreferences {
   /// Default interpolation strength.
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
+  /// Default for smoothingState, nothing learned yet.
+  final SmoothingState? defaultSmoothingState = null;
+
+  /// Default for smoothingFittedDays.
+  final int defaultSmoothingFittedDays = 0;
+
   /// Default zoom level.
   final ZoomLevel defaultZoomLevel = ZoomLevel.all;
 
@@ -161,6 +168,12 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
+    }
+    if (override) {
+      smoothingState = defaultSmoothingState;
+    }
+    if (override || !prefs.containsKey('smoothingFittedDays')) {
+      smoothingFittedDays = defaultSmoothingFittedDays;
     }
     if (override || !prefs.containsKey('userName')) {
       userName = defaultUserName;
@@ -231,6 +244,11 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('healthConnectExportEnabled')) {
       healthConnectExportEnabled = defaultHealthConnectExportEnabled;
+    }
+    // Released versions cached the interpolation here; it is recomputed on
+    // every start now.
+    if (prefs.containsKey('interpolation_cache')) {
+      prefs.remove('interpolation_cache');
     }
   }
 }

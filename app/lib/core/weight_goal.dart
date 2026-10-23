@@ -93,7 +93,8 @@ class TargetRange {
       return const Duration(days: -1);
     }
     final double bound = weight > upper ? upper : lower;
-    if (slope * (weight - bound) >= 0 || slope.abs() < minSlopeToTarget) {
+    if (slope * (weight - bound) >= 0 ||
+        slope.abs() < minSlopeToTarget * weight) {
       return null;
     }
     // At least a day, so that -1 only ever means the trend is inside.
