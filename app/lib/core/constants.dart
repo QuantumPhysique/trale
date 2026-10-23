@@ -18,8 +18,18 @@ const double minWeightKg = 0;
 /// only in the sense that no more digits than these fit.
 const double maxWeightKg = 500;
 
-/// Slowest trend in kg/day still counted as heading towards the target.
-const double minSlopeToTarget = 0.005;
+/// Slowest trend still counted as heading towards the target, as a fraction
+/// of body weight per day: 0.005 kg/day at 83 kg.
+const double minSlopeToTarget = 0.00006;
+
+/// Days over which the cards read the curve's rate.
+const int rateWindowInDays = 14;
+
+/// Days over which the forecasts read the curve's rate.
+const int forecastWindowInDays = 28;
+
+/// Days over which the forecasts average the tissue trend's fading slope.
+const int forecastWeekInDays = 7;
 
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;

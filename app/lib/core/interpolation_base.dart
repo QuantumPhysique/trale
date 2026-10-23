@@ -376,6 +376,16 @@ class MeasurementInterpolationBaseclass {
     return idx != null ? _slopesDisplay![idx] : 0;
   }
 
+  /// Mean slope of the tissue trend in kg/day over the [forecastWeekInDays]
+  /// after [day], over which it fades.
+  double weekRateAtDay(DateTime day) {
+    const double tau = tissueSlopeMemoryInDays;
+    return slopeAtDay(day) *
+        tau *
+        (1 - math.exp(-forecastWeekInDays / tau)) /
+        forecastWeekInDays;
+  }
+
   /// Return the index into display vectors for a given [day],
   /// or null if [day] falls outside the display range.
   int? indexForDay(DateTime day) {

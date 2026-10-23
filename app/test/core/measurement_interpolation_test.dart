@@ -5,6 +5,7 @@ import 'package:trale/core/constants.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_interpolation.dart';
+import 'package:trale/core/measurement_stats.dart';
 import 'package:trale/core/preferences.dart';
 import 'package:trale/core/smoothing.dart';
 
@@ -130,6 +131,16 @@ void main() {
       expect(learned.weekAmplitude, lessThan(amplitudePriorCentre));
     },
   );
+
+  test('the rate card shows a steady loss nearly in full', () async {
+    final MeasurementInterpolation ip = await interpolate(
+      dailyMeasurements((int daysAgo) => 75 + 0.05 * daysAgo, days: 100),
+    );
+
+    // At the last reading the tissue slope's fade pulls it to about 77 %.
+    expect(ip.slopeAtDay(DateTime.now()) / -0.05, lessThan(0.85));
+    expect(MeasurementStats().rate / -0.05, greaterThan(0.9));
+  });
 
   test('the grid keeps a last day read earlier in the day', () async {
     final DateTime last = DateTime(2026, 3, 21, 8);

@@ -5,6 +5,7 @@ import 'package:ml_linalg/linalg.dart';
 import 'package:state_space/state_space.dart'
     show Observation, SmoothingResult, StructuralModel;
 
+import 'package:trale/core/constants.dart';
 import 'package:trale/core/interpolation.dart';
 import 'package:trale/core/measurement.dart';
 import 'package:trale/core/measurement_database.dart';
