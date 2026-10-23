@@ -1011,6 +1011,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.2"
+  state_space:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "feat/priors-and-summed-signal"
+      resolved-ref: c8eaff316c1e5686716346db0a4ba7c1f3b762e6
+      url: "https://github.com/QuantumPhysique/state_space.git"
+    source: git
+    version: "0.2.0"
   stream_channel:
     dependency: transitive
     description:
