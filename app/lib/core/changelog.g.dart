@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fixed a hole in the weight curve (#576)',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.5.1',

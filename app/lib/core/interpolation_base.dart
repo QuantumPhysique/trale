@@ -132,8 +132,16 @@ class MeasurementInterpolationBaseclass {
       return <DateTime>[];
     }
 
-    final int timeSpawn =
-        db.lastDate.difference(db.firstDate).inDays + 1 + 2 * _offsetInDays;
+    final DateTime first = db.firstDate;
+    final DateTime last = db.lastDate;
+    // Counted on dates: a timestamp difference loses a day when the last
+    // reading is earlier in the day than the first, or across a clock change.
+    final int days = DateTime.utc(
+      last.year,
+      last.month,
+      last.day,
+    ).difference(DateTime.utc(first.year, first.month, first.day)).inDays;
+    final int timeSpawn = days + 1 + 2 * _offsetInDays;
 
     return List<DateTime>.generate(
       timeSpawn,
