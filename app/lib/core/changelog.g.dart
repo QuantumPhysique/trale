@@ -10,9 +10,16 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.5.2',
+    dateString: '2026-10-31',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
         'Fixed a rare bug in the interpolation (#576)',
+      ],
+      ChangelogSection.otherChanges: <String>[
+        'Improved translation',
       ],
     },
   ),

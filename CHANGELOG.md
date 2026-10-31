@@ -14,8 +14,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.5.2] - 2026-10-31
+
 ### Bugfix 🐛:
 - Fixed a rare bug in the interpolation (#576)
+
+### Other Changes:
+- Improved translation
 
 ## [1.5.1] - 2026-10-22
 
@@ -563,7 +568,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.5.1...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.5.2...main
+[1.5.2]: https://github.com/quantumphysique/trale/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/quantumphysique/trale/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/quantumphysique/trale/compare/v1.4.1...v1.5.0
 [1.4.1]: https://github.com/quantumphysique/trale/compare/v1.4.0...v1.4.1

@@ -1,0 +1,2 @@
+- Improved translation
+- Fixed a rare bug in the interpolation
