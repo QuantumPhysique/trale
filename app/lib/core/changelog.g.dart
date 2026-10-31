@@ -12,7 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.bugfix: <String>[
-        'Fixed a hole in the weight curve (#576)',
+        'Fixed a rare bug in the interpolation (#576)',
       ],
     },
   ),

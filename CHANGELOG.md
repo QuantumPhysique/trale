@@ -15,7 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Bugfix 🐛:
-- Fixed a hole in the weight curve (#576)
+- Fixed a rare bug in the interpolation (#576)
 
 ## [1.5.1] - 2026-10-22
 
