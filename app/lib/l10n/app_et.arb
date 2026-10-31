@@ -965,5 +965,146 @@
     "healthConnectImport": "Impordi kaaluandmed",
     "@healthConnectImport": {
         "description": "Label for importing weight data from Health Connect"
+    },
+    "maintainWeight": "Kaalu säilitamine",
+    "@maintainWeight": {
+        "description": "Name of the goal to keep the weight within a range around the target weight."
+    },
+    "weightGoalSubtitle": "Vali, kas soovid kaalu kaotada, säilitada või lisada.",
+    "@weightGoalSubtitle": {
+        "description": "Subtitle of the goal selector in the target weight dialog."
+    },
+    "targetRange": "Sihtvahemik",
+    "@targetRange": {
+        "description": "Label of the target weight range of the maintain goal."
+    },
+    "targetRangeDaysIn": "on kaal püsinud samana",
+    "@targetRangeDaysIn": {
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "on kaal järkuvalt püsinud samana",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit} kuni jõuad tagasi sihtkaaluni",
+    "@targetRangeBackIn": {
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "weeks"
+            }
+        }
+    },
+    "outsideTargetRange": "pole rihtimas sihtkaalu suunas",
+    "@outsideTargetRange": {
+        "description": "Shown while the trend is outside the target range and not heading back."
+    },
+    "inTargetRangeShort": "sihtkaalu vahemikus",
+    "@inTargetRangeShort": {
+        "description": "Short note that the trend is inside the target range."
+    },
+    "targetWeightIn": ", jäänud veel",
+    "@targetWeightIn": {
+        "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
+    },
+    "starOnGithub": "Märgi GitHubis tärniga",
+    "@starOnGithub": {
+        "description": "Star banner title"
+    },
+    "starOnGithubSubtitle": "Toeta meid tärniga.",
+    "@starOnGithubSubtitle": {
+        "description": "Star banner subtitle"
+    },
+    "healthConnectImportDesc": "Impordi automaatselt Androidi Health Connectis logitud kaalukirjed",
+    "@healthConnectImportDesc": {
+        "description": "Description for the import toggle"
+    },
+    "healthConnectExport": "Ekspordi kaaluandmed",
+    "@healthConnectExport": {
+        "description": "Label for exporting weight data to Health Connect"
+    },
+    "healthConnectExportDesc": "Salvesta logitud kaaluandmed automaatselt Androidi Health Connecti",
+    "@healthConnectExportDesc": {
+        "description": "Description for the export toggle"
+    },
+    "healthConnectSyncNow": "Sünkrooni kohe",
+    "@healthConnectSyncNow": {
+        "description": "Label for manual sync trigger button"
+    },
+    "healthConnectImportHistory": "Impordi kogu ajalugu",
+    "@healthConnectImportHistory": {
+        "description": "Label for button to import all historical measurements"
+    },
+    "healthConnectExportHistory": "Ekspordi kogu ajalugu",
+    "@healthConnectExportHistory": {
+        "description": "Label for button to export all historical measurements"
+    },
+    "healthConnectNotAvailable": "Androidi Health Connect pole kas toetatud või on siia seadmesse paigaldamata.",
+    "@healthConnectNotAvailable": {
+        "description": "Error message when Health Connect is not available on the device"
+    },
+    "healthConnectImportSuccess": "{count, plural, =1{Importisin ühe kirje.} other{Importisin {count} kirjet.}}",
+    "@healthConnectImportSuccess": {
+        "description": "Success message after importing measurements from Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectExportSuccess": "{count, plural, =1{Eksportisin ühe kirje.} other{Eksportisin {count} kirjet.}}",
+    "@healthConnectExportSuccess": {
+        "description": "Success message after exporting measurements to Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncSuccess": "Importisin {importCount, plural, =1{ühe kirje} other{{importCount} kirjet}} ja eksportisin {exportCount, plural, =1{ühe kirje} other{{exportCount} kirjet}}.",
+    "@healthConnectSyncSuccess": {
+        "description": "Success message after a sync session",
+        "placeholders": {
+            "importCount": {
+                "type": "int"
+            },
+            "exportCount": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncError": "Androidi Health Connectiga sünkroonimine ei õnnestunud.",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "Sünkroonimiseks on vajalikud õigused. Palun luba need.",
+    "@healthConnectPermissionsRequired": {
+        "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "Androidi Health Connectis ei leidunud kaaluandmeid.",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "{result} Androidi Health Connect jagas vaid viimased 30 päeva. Kogu oma ajaloo importimiseks Health Connectis luba ligipääs varasematele andmetele.",
+    "@healthConnectHistoryLimited": {
+        "description": "Shown when a full history import was capped at 30 days. {result} is the import result sentence, e.g. \"Imported 3 measurements.\"",
+        "placeholders": {
+            "result": {
+                "type": "String"
+            }
+        }
+    },
+    "healthConnectImportError": "Androidi Health Connectist importimine ei õnnestunud.",
+    "@healthConnectImportError": {
+        "description": "Message shown when reading measurements from Health Connect failed"
+    },
+    "healthConnectImportPermissionRequired": "Vajalikud on õigused ligeda kaaluandmeid. Palun luba see Androidi Health Connectis.",
+    "@healthConnectImportPermissionRequired": {
+        "description": "Message shown when an import is triggered without read permission"
+    },
+    "healthConnectBusy": "Üks sünkroonimine on juba töös. Palun proovi mõne hetke pärast uuesti.",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
     }
 }
