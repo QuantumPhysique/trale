@@ -3,6 +3,8 @@
     <a href="https://www.gnu.org/licenses/agpl-3.0" alt="License: GPLv3"><img src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg" alt="AGPLv3+ license badge" />
     <a href="https://github.com/QuantumPhysique/trale/releases" alt="GitHub releases"><img src="https://img.shields.io/github/release/QuantumPhysique/trale.svg" alt="Release version badge" />
     <a href="https://hosted.weblate.org/engage/trale/"><img src="https://hosted.weblate.org/widget/trale/localizations/svg-badge.svg" alt="Translation status badge" />
+    <a href="https://f-droid.org/packages/de.quantumphysique.trale"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fkitswas%2Ffdroid-metrics-dashboard%2Fraw%2Frefs%2Fheads%2Fmain%2Fprocessed%2Ftotal%2Fde.quantumphysique.trale.json&query=%24.total_downloads&logo=fdroid&label=Downloads%20(all%20time)" alt="F-Droid downloads (all time) badge" />
+    <a href="https://f-droid.org/packages/de.quantumphysique.trale"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fgithub.com%2Fkitswas%2Ffdroid-metrics-dashboard%2Fraw%2Frefs%2Fheads%2Fmain%2Fprocessed%2Fmonthly%2Fde.quantumphysique.trale.json&query=%24.total_downloads&logo=fdroid&label=Downloads%20last%20month" alt="F-Droid downloads last month badge" />
 </a>
 </div>
 
