@@ -1,0 +1,2 @@
+- Verbesserte Übersetzung
+- Seltenen Fehler in der Interpolation behoben
