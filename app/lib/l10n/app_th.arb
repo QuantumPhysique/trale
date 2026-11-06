@@ -1,1 +1,550 @@
-{}
+{
+    "achievements": "ความสำเร็จ",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "คุณสมบัติทดลอง",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "ลดน้ำหนัก",
+    "@looseWeight": {
+        "description": "Lose weight switch label (label name loose is a typo!)."
+    },
+    "gainWeight": "เพิ่มน้ำหนัก",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "maintainWeight": "รักษาน้ำหนัก",
+    "@maintainWeight": {
+        "description": "Name of the goal to keep the weight within a range around the target weight."
+    },
+    "weightGoalSubtitle": "เลือกว่าต้องการจะลด รักษาน้ำหนัก หรือเพิ่มน้ำหนัก",
+    "@weightGoalSubtitle": {
+        "description": "Subtitle of the goal selector in the target weight dialog."
+    },
+    "targetRange": "ระยะเป้าหมาย",
+    "@targetRange": {
+        "description": "Label of the target weight range of the maintain goal."
+    },
+    "targetRangeDaysIn": "กำลังรักษาน้ำหนักของคุณให้มั่นคง",
+    "@targetRangeDaysIn": {
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "แล้วก็ยังคงรักษาน้ำหนักของคุณให้มั่นคงอยู่",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit} จนกว่าคุณจะถึงน้ำหนักเป้าหมาย",
+    "@targetRangeBackIn": {
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "weeks"
+            }
+        }
+    },
+    "outsideTargetRange": "ไม่ได้อยู่ในน้ำหนักเป้าหมายของคุณ",
+    "@outsideTargetRange": {
+        "description": "Shown while the trend is outside the target range and not heading back."
+    },
+    "inTargetRangeShort": "อยู่ในระยะ",
+    "@inTargetRangeShort": {
+        "description": "Short note that the trend is inside the target range."
+    },
+    "targetWeightIn": "ใน",
+    "@targetWeightIn": {
+        "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
+    },
+    "days": "วัน",
+    "dayUnit": "{count, plural, one{วัน} other{วัน}}",
+    "@dayUnit": {
+        "description": "Unit after a number of days, e.g. '3' + 'days'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weekUnit": "{count, plural, one{สัปดาห์} other{สัปดาห์}}",
+    "@weekUnit": {
+        "description": "Unit after a number of weeks, e.g. '6' + 'weeks'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "monthUnit": "{count, plural, one{เดือน} other{เดือน}}",
+    "@monthUnit": {
+        "description": "Unit after a number of months, e.g. '4' + 'months'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "yearUnit": "{count, plural, one{ปี} other{ปี}}",
+    "@yearUnit": {
+        "description": "Unit after a number of years, e.g. '5' + 'years'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "week": "สัปดาห์",
+    "month": "เดือน",
+    "year": "ปี",
+    "today": "วันนี้",
+    "weightForecast": "พยากรณ์",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "ทั้งหมด",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "ตั้งแต่เป้าหมาย",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "ปีที่แล้ว",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "กำหนดเอง",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "never": "ไม่เคย",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "รายสัปดาห์",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "รายสองสัปดาห์",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "รายเดือน",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "รายไตรมาส",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "กรุณาสำรองข้อมูลอย่างสม่ำเสมอ",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "สำรองข้อมูล",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "ส่งออกข้อมูลสำรองเสร็จสิ้น",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "ความถี่ในการสำรองข้อมูล",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "สำรองข้อมูลล่าสุด",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "สำรองข้อมูลครั้งถัดไป",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "stats": "สถิติ",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "allTimeStats": "สถิติตลอดกาล",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "หน่วย",
+    "precision": "ความแม่นยำ",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "date": "วันที่",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "น้ำหนัก",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "โปรไฟล์ผู้ใช้",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "ตั้งค่าผู้ใช้",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "เขตอันตราย",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "ตั้งค่า",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "คำถามที่พบบ่อย",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "เกี่ยวกับ",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "ค่าเริ่มต้นของระบบ",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "ภาษา",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "ธีม",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "translate": "แปลภาษา",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "ช่วยแปลภาษาของแอป",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "export": "ส่งออกข้อมูลการวัดทั้งหมด",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "ข้อมูลการวัดทั้งหมดจะถูกเปิดเผยไปยังทุกแอป.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "ข้อมูลการวัดทั้งหมดจะถูกส่งออกไปยังพื้นที่จัดเก็บข้อมูลภายนอก จำเป็นต้องมีสิทธิ์เขียนข้อมูล",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "open": "เปิด",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "ยกเลิก",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "นำเข้าข้อมูลสำรอง",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "นำเข้าข้อมูลการวัดจากไฟล์สำรองข้อมูล .txt หรือ .csv",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup or .csv file."
+    },
+    "amoled": "ดำสนิท",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "เปลี่ยนสีพื้นหลังเป็นมืดสนิทสำหรับโหมดมืด",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "reset": "รีเซ็ตแอป",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "คืนค่าโรงงาน",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "รีเซ็ตการตั้งค่าและลบข้อมูลการวัดทั้งหมด",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "รีเซ็ตแอปพลิเคชั่นเป็นค่าเริ่มต้นหรือไม่ การตั้งค่ารวมถึงข้อมูลการวัดที่นำเข้าทั้งหมดจะถูกลบและไม่สามารถย้อนกลับได้",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "ลบ",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "การนำเข้าถูกยกเลิก",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importSuccess": "เพิ่ม {count} ข้อมูลการวัดแล้ว",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "ไม่สามารถอ่านไฟล์ที่เลือกได้ กรุณาลองใหม่อีกครั้งหรือเลือกไฟล์อื่น",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "ไม่พบข้อมูลการวัดที่ถูกต้องในไฟล์ที่เลือก กรุณาตรวจสอบรูปแบบไฟล์",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "importDialog": "นำเข้าข้อมูลการวัดทั้งหมดไปยังฐานข้อมูลปัจจุบัน ไม่สามารถย้อนกลับได้!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "หน้าหลัก",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "ใช่",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "โอเค",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "บันทึก",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "แก้ไข",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "สำรองข้อมูล",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "เวลา",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "ทรัพยากร",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "แพ็กเกจ",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "กำลังโหลด",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "ข้อมูลการวัด",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "เวอร์ชั่น",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "ใบอนุญาตจากบุคคลที่สาม",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "ใบอนุญาต",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "รหัสต้นทาง",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "changelog": "บันทึกการเปลี่ยนแปลง",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "openIssue": "เปิดประเด็น",
+    "@openIssue": {
+        "description": "open an issue"
+    },
+    "undertpl": "© {years} โดย {author} ภายใต้ {licence} ใบอนุญาต",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "ระบุน้ำหนักของคุณ",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "enterWeightManually": "แตะเพื่อป้อนข้อมูลน้ำหนัก",
+    "@enterWeightManually": {
+        "description": "Accessibility label of the weight bar in the add weight dialog, which turns into a text field when tapped."
+    },
+    "decreaseWeight": "ลดน้ำหนัก",
+    "@decreaseWeight": {
+        "description": "Accessibility label of the minus button below the weight ruler, which lowers the weight by one tick."
+    },
+    "increaseWeight": "เพิ่มน้ำหนัก",
+    "@increaseWeight": {
+        "description": "Accessibility label of the plus button below the weight ruler, which raises the weight by one tick."
+    },
+    "addHeight": "ระบุส่วนสูงของคุณ",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "ส่วนสูง",
+    "@height": {
+        "description": "height"
+    },
+    "target": "เป้าหมาย",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "interpolation": "การประมาณค่าในช่วง",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "showUserData": "แสดงข้อมูลของฉัน",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "การปรับแต่ง",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "strength": "ความเข้มข้น",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "ไม่มี",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "อ่อน",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "ปานกลาง",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "เข้มข้น",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "ยินดีต้อนรับ",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "แอปที่ออกแบบด้วย Mateiral-You อย่างเรียบง่ายนี้จะช่วยให้คุณบรรลุน้ำหนักในฝันได้! ไม่ว่าคุณต้องการจะเพิ่มหรือลดน้ำหนัก หรือรักษาน้ำหนักของคุณ การประมาณค่าน้ำหนักและสถิติที่ปรับเปลี่ยนได้อย่างน่าเชื่อถือจะช่วยให้คุณอยู่ในลู่ทาง\n\nเข้าร่วมชุมชนของเราในวันนี้เพื่อติดตามตนเอง\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "เพื่อปรับแต่งแอปของคุณธีมไหนสะท้อนความรู้สึกของคุณได้ดีที่สุด?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "ขอบคุณที่ลองใช้แอปของเรา 🙂\n\nถ้าคุณชอบแอปนี้ เรายินดีที่จะรับฟังความเห็นของคุณ รวมถึงการมีส่วนร่วมบน Github หรือกาแฟสักแก้ว ในทางกลับกัน แอปของเราจะไม่มีโฆษณาที่น่ารำคาญและละเมิดความเป็นส่วนตัวของคุณ",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "ไสตล์",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "ความเป็นส่วนตัว",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "ข้าม",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "เริ่ม",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "น้ำหนักเป้าหมาย",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "การตั้งเป้าหมายน้ำหนักเป็นขั้นตอนที่สำคัญอย่างยิ่ง และยังเป็นอีกก้าวในหนทางที่ถูกต้อง การมีเป้าหมายในใจจะผลักดันให้คุณลงมือทำมากขึ้นเพื่อบรรลุเป้าหมาย",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "เป้าหมาย",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "เราควรเรียกคุณว่าอะไรดี",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "name": "ชื่อ",
+    "@name": {
+        "description": "Name"
+    },
+    "addTargetWeight": "เพิ่มน้ำหนักเป้าหมาย",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "targetWeightEnabled": "น้ำหนักเป้าหมาย",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "ตั้งน้ำหนักเป้าหมายและติดตามความคืบหน้าของคุณ",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "วันที่เป้าหมาย",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "กําหนดวันที่เป้าหมายหรือเฉลี่ยเพื่อให้ถึงเป้าหมายของคุณทันเวลา",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "กำหนดวันที่เป้าหมาย",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "เฉลี่ย",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/สัปดาห์",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    }
+}
