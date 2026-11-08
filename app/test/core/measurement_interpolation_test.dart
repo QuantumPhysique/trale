@@ -58,13 +58,14 @@ List<Measurement> waterDiary(double water) {
   return measurements;
 }
 
-/// The interpolation of [measurements] at [strength].
+/// The physiological model's interpolation of [measurements] at [strength].
 Future<MeasurementInterpolation> interpolate(
   List<Measurement> measurements, [
   InterpolStrength strength = InterpolStrength.medium,
 ]) async {
   await setUpWidgetTestDependencies(measurements: measurements);
   Preferences().interpolStrength = strength;
+  Preferences().physiologicalModel = true;
   MeasurementInterpolation.resetInstance();
   return MeasurementInterpolation();
 }
@@ -94,16 +95,19 @@ void main() {
     }
   });
 
-  test('the projection levels off', () async {
+  test('the projection continues the rate in a straight line', () async {
     final MeasurementInterpolation ip = await interpolate(line());
     final DateTime last = DateTime(2026, 1, 30);
-    final DateTime week = DateTime(2026, 2, 6);
+    final double rate = ip.slopeAtDay(last);
 
-    expect(ip.slopeAtDay(week).abs(), lessThan(ip.slopeAtDay(last).abs()));
-    expect(
-      ip.interpolationForDay(week)!,
-      greaterThan(ip.interpolationForDay(last)! - 7 * 0.05),
-    );
+    for (int day = 1; day <= 7; day++) {
+      final DateTime later = last.add(Duration(days: day));
+      expect(ip.slopeAtDay(later), rate);
+      expect(
+        ip.interpolationForDay(later),
+        closeTo(ip.interpolationForDay(last)! + rate * day, 1e-9),
+      );
+    }
   });
 
   test('a stronger strength gives a smoother curve', () async {
@@ -132,14 +136,28 @@ void main() {
     },
   );
 
-  test('the rate card shows a steady loss nearly in full', () async {
-    final MeasurementInterpolation ip = await interpolate(
+  test('the rate reads a weekly diary from the tissue level', () async {
+    double rate() {
+      final MeasurementInterpolation ip = MeasurementInterpolation();
+      expect(MeasurementStats().rate, ip.slopeAtDay(DateTime.now()));
+      return MeasurementStats().rate / -0.05;
+    }
+
+    await interpolate(
       dailyMeasurements((int daysAgo) => 75 + 0.05 * daysAgo, days: 100),
     );
-
     // At the last reading the tissue slope's fade pulls it to about 77 %.
-    expect(ip.slopeAtDay(DateTime.now()) / -0.05, lessThan(0.85));
-    expect(MeasurementStats().rate / -0.05, greaterThan(0.9));
+    expect(rate(), inInclusiveRange(0.7, 0.85));
+
+    await interpolate(<Measurement>[
+      for (int daysAgo = 0; daysAgo < 100; daysAgo += 7)
+        Measurement(
+          weight: 75 + 0.05 * daysAgo,
+          date: DateTime.now().subtract(Duration(days: daysAgo)),
+        ),
+    ]);
+    // The level's change over two weeks escapes most of that pull.
+    expect(rate(), greaterThan(0.85));
   });
 
   test('the grid keeps a last day read earlier in the day', () async {

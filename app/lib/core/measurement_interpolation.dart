@@ -13,8 +13,9 @@ import 'package:trale/core/preferences.dart';
 import 'package:trale/core/smoothing.dart';
 import 'package:trale/core/units.dart';
 
-part 'interpolation_compute.dart';
 part 'interpolation_base.dart';
+part 'interpolation_compute.dart';
+part 'interpolation_gaussian.dart';
 
 /// class providing an API to handle interpolation of measurements
 class MeasurementInterpolation extends MeasurementInterpolationBaseclass {

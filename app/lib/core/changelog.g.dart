@@ -12,7 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'All new interpolation that learns from your data, entirely on your device (#481)',
+        'Experimental physiological AI model for your weight trend, learned from your data entirely on your device. Try it in the interpolation settings (#481)',
         'Faster with long histories (#279)',
       ],
       ChangelogSection.otherChanges: <String>[

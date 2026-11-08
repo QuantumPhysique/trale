@@ -50,19 +50,15 @@ double readingVarianceKg(double scaleErrorKg, double stepKg) =>
     scaleErrorKg * scaleErrorKg + stepKg * stepKg / 12;
 
 /// The model of the log weight: a tissue trend whose slope has the sd
-/// [slopeSd] at [strengthReferenceKg], scaled to [bodyKg]; week-scale changes;
-/// water; and each reading's own error in kg.
+/// [slopeSd]; week-scale changes; water; and each reading's own error in kg.
 StructuralModel smoothingModel({
   required SmoothingState state,
   required double slopeSd,
-  required double bodyKg,
   required double stepKg,
 }) {
-  final double s =
-      slopeSd * math.pow(bodyKg / strengthReferenceKg, kleiberExponent);
   return StructuralModel(<Component>[
     DampedLinearTrend(
-      processVariance: 2 * s * s / tissueSlopeMemoryInDays,
+      processVariance: 2 * slopeSd * slopeSd / tissueSlopeMemoryInDays,
       timeScale: tissueSlopeMemoryInDays,
     ),
     Matern.threeHalves(
@@ -93,7 +89,6 @@ SmoothingState refitSmoothing({
   required List<Observation> observations,
   required SmoothingState state,
   required double slopeSd,
-  required double bodyKg,
   required double stepKg,
 }) {
   final double width = 2 * math.log(priorWidthFactor);
@@ -105,12 +100,7 @@ SmoothingState refitSmoothing({
   // The parameters are the trend's variance and time scale (0, 1), then each
   // Matérn component's variance and length scale (2, 3 and 4, 5).
   final FitResult fitted = fit(
-    smoothingModel(
-      state: state,
-      slopeSd: slopeSd,
-      bodyKg: bodyKg,
-      stepKg: stepKg,
-    ),
+    smoothingModel(state: state, slopeSd: slopeSd, stepKg: stepKg),
     observations,
     heldParameters: const <int>{0, 1, 3, 5},
     priors: <int, LogNormalPrior>{2: amplitude, 4: amplitude},
@@ -146,12 +136,3 @@ List<Observation> logObservations(
       relativeVariance: 1 / (counts[k] * weights[k] * weights[k]),
     ),
 ];
-
-/// Mean of the last [readingsForBodyWeight] daily [weights], the body weight
-/// the slope sd is scaled to.
-double bodyWeightKg(List<double> weights) {
-  final List<double> recent = weights.sublist(
-    math.max(0, weights.length - readingsForBodyWeight),
-  );
-  return recent.reduce((double a, double b) => a + b) / recent.length;
-}

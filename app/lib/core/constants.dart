@@ -22,14 +22,18 @@ const double maxWeightKg = 500;
 /// of body weight per day: 0.005 kg/day at 83 kg.
 const double minSlopeToTarget = 0.00006;
 
-/// Days over which the cards read the curve's rate.
-const int rateWindowInDays = 14;
+/// Median gap in days between measurements from which a diary is read as
+/// sparse: its rate is then the tissue trend's level change over
+/// [sparseRateWindowInDays], which such a diary separates better from the
+/// week-scale changes than the slope.
+const int sparseGapInDays = 7;
 
-/// Days over which the forecasts read the curve's rate.
-const int forecastWindowInDays = 28;
+/// Last gaps between measurements whose median decides whether a diary is
+/// sparse.
+const int sparseGapsCounted = 10;
 
-/// Days over which the forecasts average the tissue trend's fading slope.
-const int forecastWeekInDays = 7;
+/// Days over which a sparse diary's rate is read.
+const int sparseRateWindowInDays = 14;
 
 /// Tolerance of the maintain goal, relative to its target weight.
 const double maintainTolerance = 0.01;
@@ -65,14 +69,3 @@ const int refitEveryDayUpTo = 60;
 
 /// New days with measurements between two refits after that.
 const int refitIntervalDays = 7;
-
-/// Body weight in kg at which the strengths' slope sd is stated.
-const double strengthReferenceKg = 83;
-
-/// Exponent of body weight that scales the slope sd (Kleiber 1932): energy use
-/// grows with weight^0.75, so the same relative calorie cut moves a smaller
-/// body faster in percent.
-const double kleiberExponent = -0.25;
-
-/// Last readings whose mean is the body weight the slope sd is scaled to.
-const int readingsForBodyWeight = 10;

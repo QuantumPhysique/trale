@@ -131,15 +131,34 @@ class _PersonalizationSettingsPageState
             color: Theme.of(context).colorScheme.surfaceContainerLowest,
             child: sliderTile,
           ),
+          QPGroupedSwitchListTile(
+            color: Theme.of(context).colorScheme.surfaceContainerLowest,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: QPLayout.padding,
+            ),
+            title: Text(
+              context.l10n.physiologicalModel.inCaps,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            subtitle: Text(context.l10n.physiologicalModelSubtitle),
+            value: Provider.of<TraleNotifier>(context).physiologicalModel,
+            onChanged: (bool? value) {
+              notifier.physiologicalModel = value ?? false;
+            },
+          ),
         ],
       ),
       const SizedBox(height: QPLayout.smallPadding),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: QPLayout.padding),
         child: Text(
-          context.l10n.interpolationExplanation(
-            noneInterpol: InterpolStrength.none.nameLong(context),
-          ),
+          Provider.of<TraleNotifier>(context).physiologicalModel
+              ? context.l10n.interpolationExplanationPhysiological(
+                  noneInterpol: InterpolStrength.none.nameLong(context),
+                )
+              : context.l10n.interpolationExplanation(
+                  noneInterpol: InterpolStrength.none.nameLong(context),
+                ),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ),

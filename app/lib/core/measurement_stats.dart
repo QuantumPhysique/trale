@@ -385,7 +385,7 @@ class MeasurementStats {
     if (weight == null) {
       return null;
     }
-    return range.timeToEnter(weight: weight, slope: forecastRate);
+    return range.timeToEnter(weight: weight, slope: rate);
   }
 
   /// get number of days up to [toDate] on which the trend stayed in [range]
@@ -461,35 +461,9 @@ class MeasurementStats {
   /// Return the difference between the interpolated weight and the
   double? get currentDifference => differenceAtDay(toDate);
 
-  /// Change of the curve in kg/day over the [days] up to [toDate], or since
-  /// the first measurement when that is later; on the first day itself, and
-  /// past the curve, the trend's slope.
-  double curveRateOverDays(int days) {
-    DateTime date(DateTime t) => DateTime.utc(t.year, t.month, t.day);
-    final DateTime to = date(toDate);
-    final DateTime first = date(db.firstDate);
-    final DateTime back = to.subtract(Duration(days: days));
-    final DateTime from = back.isBefore(first) ? first : back;
-    final int span = to.difference(from).inDays;
-    final double? now = ip.interpolationForDay(toDate);
-    final double? then = ip.interpolationForDay(from);
-    if (span <= 0 || now == null || then == null) {
-      return ip.slopeAtDay(toDate);
-    }
-    return (now - then) / span;
-  }
-
-  /// The rate the cards show, in kg/day: the curve's change over the last
-  /// [constants.rateWindowInDays].
-  double get rate => curveRateOverDays(constants.rateWindowInDays);
-
-  /// The rate the forecasts continue, in kg/day: the mean of the tissue
-  /// trend's rate over the coming week and the curve's rate over the last
-  /// [constants.forecastWindowInDays].
-  double get forecastRate =>
-      (ip.weekRateAtDay(toDate) +
-          curveRateOverDays(constants.forecastWindowInDays)) /
-      2;
+  /// The rate in kg/day the cards show and the forecasts continue, see
+  /// [MeasurementInterpolationBaseclass.slopeAtDay].
+  double get rate => ip.slopeAtDay(toDate);
 
   /// get daily calorie deficit based on [rate] [kcal/day]
   /// give in precision of 10 kcal/day
@@ -501,19 +475,19 @@ class MeasurementStats {
   /// get interpolated weight today [kg]
   double? get weightToday => ip.interpolationForDay(toDate);
 
-  /// get forecast weight in n days [kg], continued at [forecastRate]
+  /// get forecast weight in n days [kg], continued at [rate]
   double? weightInNDays(int nDays) {
     final double? today = weightToday;
     if (today == null) {
       return null;
     }
-    return today + forecastRate * nDays;
+    return today + rate * nDays;
   }
 
-  /// get forecast weight in 1 week [kg], continued at [forecastRate]
+  /// get forecast weight in 1 week [kg], continued at [rate]
   double? get weightInOneWeek => weightInNDays(7);
 
-  /// get forecast weight in 1 month [kg], continued at [forecastRate]
+  /// get forecast weight in 1 month [kg], continued at [rate]
   double? get weightInOneMonth => weightInNDays(30);
 
   /// get standard deviation from interpolation

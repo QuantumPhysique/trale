@@ -102,6 +102,10 @@ class Preferences extends QPPreferences {
   /// Default interpolation strength.
   final InterpolStrength defaultInterpolStrength = InterpolStrength.medium;
 
+  /// Default for physiologicalModel: the Gaussian interpolation until users
+  /// have tried the physiological model.
+  final bool defaultPhysiologicalModel = false;
+
   /// Default for smoothingState, nothing learned yet.
   final SmoothingState? defaultSmoothingState = null;
 
@@ -168,6 +172,9 @@ class Preferences extends QPPreferences {
     }
     if (override || !prefs.containsKey('interpolStrength')) {
       interpolStrength = defaultInterpolStrength;
+    }
+    if (override || !prefs.containsKey('physiologicalModel')) {
+      physiologicalModel = defaultPhysiologicalModel;
     }
     if (override) {
       smoothingState = defaultSmoothingState;

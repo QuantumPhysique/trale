@@ -32,6 +32,14 @@ extension UnitPrefsExtension on Preferences {
   set interpolStrength(InterpolStrength strength) =>
       prefs.setString('interpolStrength', strength.name);
 
+  /// Whether the curve comes from the physiological model instead of the
+  /// Gaussian interpolation.
+  bool get physiologicalModel => prefs.getBool('physiologicalModel')!;
+
+  /// set whether the curve comes from the physiological model
+  set physiologicalModel(bool enabled) =>
+      prefs.setBool('physiologicalModel', enabled);
+
   /// The amplitudes and the scale error learned from the user's diary, null
   /// before the first refit.
   SmoothingState? get smoothingState {

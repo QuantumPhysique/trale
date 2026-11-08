@@ -16,6 +16,10 @@ class MeasurementInterpolationBaseclass {
   /// Whether the curve is drawn as straight lines between the measurements.
   bool get _isNone => interpolStrength == InterpolStrength.none;
 
+  /// Whether the physiological model draws the curve, otherwise the Gaussian
+  /// interpolation.
+  bool get physiological => Preferences().physiologicalModel;
+
   /// Step in kg that weights are entered in, from the unit settings.
   double get stepKg {
     final Preferences prefs = Preferences();
@@ -95,21 +99,29 @@ class MeasurementInterpolationBaseclass {
   _InterpolationPayload _payload({required bool mayRefit}) {
     // Building the weights builds _idxsMeasurements and _countsMeasured too.
     final Vector weights = _weights;
+    final bool physiological = this.physiological;
     return _InterpolationPayload(
       idxsMeasurements: _idxsMeasurements,
       weightsMeasured: <double>[
         for (final int idx in _idxsMeasurements) weights[idx],
       ],
       counts: _countsMeasured,
+      physiological: physiological,
       slopeSd: interpolStrength.slopeSd,
       state: smoothingState,
       stepKg: stepKg,
       refit:
+          physiological &&
           mayRefit &&
           isRefitDue(
             _idxsMeasurements.length,
             Preferences().smoothingFittedDays,
           ),
+      strengthMeasurement: interpolStrength.strengthMeasurement,
+      strengthInterpol: interpolStrength.strengthInterpol,
+      interpolWeight: interpolStrength.weight,
+      firstDay: db.firstDate,
+      gridLength: _n,
       isNone: _isNone,
       displayStart: _displayStart,
       displayEnd: _displayEnd,
@@ -369,21 +381,15 @@ class MeasurementInterpolationBaseclass {
   // Public API — scalar helpers
   // -----------------------------------------------------------
 
-  /// Slope of the tissue trend at [day] in kg/day, 0 outside the display
-  /// range.
+  /// The rate at [day] in kg/day that the cards show and the forecasts
+  /// continue, 0 outside the display range.
+  ///
+  /// The Gaussian interpolation's is the curve's derivative. The
+  /// physiological model's is the tissue trend's slope, or for a sparse diary
+  /// the tissue level's change over the last two weeks.
   double slopeAtDay(DateTime day) {
     final int? idx = indexForDay(day);
     return idx != null ? _slopesDisplay![idx] : 0;
-  }
-
-  /// Mean slope of the tissue trend in kg/day over the [forecastWeekInDays]
-  /// after [day], over which it fades.
-  double weekRateAtDay(DateTime day) {
-    const double tau = tissueSlopeMemoryInDays;
-    return slopeAtDay(day) *
-        tau *
-        (1 - math.exp(-forecastWeekInDays / tau)) /
-        forecastWeekInDays;
   }
 
   /// Return the index into display vectors for a given [day],
