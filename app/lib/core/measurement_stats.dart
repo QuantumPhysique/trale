@@ -385,7 +385,7 @@ class MeasurementStats {
     if (weight == null) {
       return null;
     }
-    return range.timeToEnter(weight: weight, slope: ip.slopeAtDay(toDate));
+    return range.timeToEnter(weight: weight, slope: rate);
   }
 
   /// get number of days up to [toDate] on which the trend stayed in [range]
@@ -461,30 +461,33 @@ class MeasurementStats {
   /// Return the difference between the interpolated weight and the
   double? get currentDifference => differenceAtDay(toDate);
 
-  /// get daily calorie deficit based on final slope [kcal/day]
+  /// The rate in kg/day the cards show and the forecasts continue, see
+  /// [MeasurementInterpolationBaseclass.slopeAtDay].
+  double get rate => ip.slopeAtDay(toDate);
+
+  /// get daily calorie deficit based on [rate] [kcal/day]
   /// give in precision of 10 kcal/day
-  int get dailyDeficit =>
-      (ip.slopeAtDay(toDate) * constants.kcalPerKg / 10).round() * 10;
+  int get dailyDeficit => (rate * constants.kcalPerKg / 10).round() * 10;
 
   /// get monthly change in weight [kg/month]
-  double get monthlyChange => ip.slopeAtDay(toDate) * 30;
+  double get monthlyChange => rate * 30;
 
   /// get interpolated weight today [kg]
   double? get weightToday => ip.interpolationForDay(toDate);
 
-  /// get forecast weight in n days [kg], extrapolated from today's slope
+  /// get forecast weight in n days [kg], continued at [rate]
   double? weightInNDays(int nDays) {
     final double? today = weightToday;
     if (today == null) {
       return null;
     }
-    return today + ip.slopeAtDay(toDate) * nDays;
+    return today + rate * nDays;
   }
 
-  /// get forecast weight in 1 week [kg], extrapolated from today's slope
+  /// get forecast weight in 1 week [kg], continued at [rate]
   double? get weightInOneWeek => weightInNDays(7);
 
-  /// get forecast weight in 1 month [kg], extrapolated from today's slope
+  /// get forecast weight in 1 month [kg], continued at [rate]
   double? get weightInOneMonth => weightInNDays(30);
 
   /// get standard deviation from interpolation

@@ -178,6 +178,18 @@ extension UserStateExtension on TraleNotifier {
   }
 
   /// getter
+  bool get physiologicalModel => _prefs.physiologicalModel;
+
+  /// setter
+  set physiologicalModel(bool enabled) {
+    if (physiologicalModel != enabled) {
+      _prefs.physiologicalModel = enabled;
+      MeasurementDatabase().reinit();
+      notify;
+    }
+  }
+
+  /// getter
   bool get healthConnectEnabled => _prefs.healthConnectEnabled;
 
   /// setter
