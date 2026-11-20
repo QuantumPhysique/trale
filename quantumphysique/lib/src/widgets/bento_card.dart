@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:flutter/physics.dart' show SpringSimulation;
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_auto_size_text/flutter_auto_size_text.dart';
 import 'package:quantumphysique/src/types/font.dart';
@@ -487,33 +488,65 @@ class _RotatingShape extends StatefulWidget {
 }
 
 class _RotatingShapeState extends State<_RotatingShape>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
+    with TickerProviderStateMixin {
+  late final AnimationController _rotation;
+
+  // Unbounded so that the expressive spring overshoots the new shape.
+  late final AnimationController _morph;
+
+  late RoundedPolygon _morphStart;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.duration)
+    _rotation = AnimationController(vsync: this, duration: widget.duration)
       ..repeat();
+    _morph = AnimationController.unbounded(vsync: this, value: 1);
+    _morphStart = widget.shape;
+  }
+
+  @override
+  void didUpdateWidget(_RotatingShape oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.shape != oldWidget.shape) {
+      _morphStart = oldWidget.shape;
+      _morph.animateWith(
+        SpringSimulation(
+          Springs.expressiveDefaultSpatial,
+          0,
+          1,
+          0,
+          snapToEnd: true,
+        ),
+      );
+    }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _morph.dispose();
+    _rotation.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return RotationTransition(
-      turns: _controller,
-      child: AnimatedContainer(
-        duration: QPLayout.transitionSlow,
-        curve: Curves.easeInOut,
-        decoration: ShapeDecoration(
-          shape: MaterialShapeBorder(shape: widget.shape),
-          color: widget.color,
+      turns: _rotation,
+      child: AnimatedBuilder(
+        animation: _morph,
+        builder: (BuildContext context, Widget? child) => DecoratedBox(
+          decoration: ShapeDecoration(
+            shape: ShapeBorder.lerp(
+              MaterialShapeBorder(shape: _morphStart),
+              MaterialShapeBorder(shape: widget.shape),
+              _morph.value,
+            )!,
+            color: widget.color,
+          ),
+          child: child,
         ),
+        child: const SizedBox.expand(),
       ),
     );
   }

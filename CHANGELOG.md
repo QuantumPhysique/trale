@@ -15,7 +15,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added Features and Improvements 🙌:
-- Icon buttons follow Material 3 Expressive
+- Icon buttons and the shape morphs on the statistics page follow Material 3 Expressive
 
 ### Other Changes:
 - Upgraded deps

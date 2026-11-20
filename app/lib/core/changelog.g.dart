@@ -12,7 +12,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
     version: 'Unreleased',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
-        'Icon buttons follow Material 3 Expressive',
+        'Icon buttons and the shape morphs on the statistics page follow Material 3 Expressive',
       ],
       ChangelogSection.otherChanges: <String>[
         'Upgraded deps',
