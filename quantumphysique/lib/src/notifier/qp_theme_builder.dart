@@ -8,7 +8,8 @@ import 'package:quantumphysique/src/types/scheme_variant.dart';
 ///
 /// This is the canonical theme-building function shared by all
 /// quantumphysique-based apps. It uses [ColorScheme.fromSeed] with
-/// Material 3 and applies the app's font family.
+/// Material 3, opts the components that support it into Material 3
+/// Expressive, and applies the app's font family.
 ///
 /// Pass [systemColors] to build the scheme from the palettes the operating
 /// system reported instead of seeding it from [seedColor]. [contrast] still
@@ -78,6 +79,12 @@ ThemeData buildQPThemeData({
     sliderTheme: sliderTheme,
     cardTheme: cardTheme,
     progressIndicatorTheme: progressIndicatorTheme,
+    iconButtonTheme: const IconButtonThemeData(
+      variant: StyleVariant.material3Expressive,
+    ),
+    elevatedButtonTheme: const ElevatedButtonThemeData(
+      variant: StyleVariant.material3Expressive,
+    ),
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: <TargetPlatform, PageTransitionsBuilder>{
         TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
