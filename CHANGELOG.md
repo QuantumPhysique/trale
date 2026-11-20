@@ -19,6 +19,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Other Changes:
 - Upgraded deps
+- Minor improvements to the code base
 
 ## [1.5.2] - 2026-10-31
 

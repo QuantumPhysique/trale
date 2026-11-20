@@ -16,6 +16,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ],
       ChangelogSection.otherChanges: <String>[
         'Upgraded deps',
+        'Minor improvements to the code base',
       ],
     },
   ),

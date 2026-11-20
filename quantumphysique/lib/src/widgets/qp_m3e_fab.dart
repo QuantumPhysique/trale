@@ -1,5 +1,6 @@
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/physics.dart' show SpringSimulation;
 import 'package:flutter/rendering.dart' show ScrollDirection;
+import 'package:material_ui/material_ui.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 /// A Material 3 floating action button that supports both a compact (icon-only)
@@ -75,8 +76,8 @@ class M3EFloatingActionButton extends StatefulWidget {
 class _M3EFloatingActionButtonState extends State<M3EFloatingActionButton>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final CurvedAnimation _curved;
   late final CurvedAnimation _labelFade;
+  late double _target;
 
   // ── geometry ──────────────────────────────────────────────────────────────
   static const double _size = 80.0;
@@ -89,13 +90,9 @@ class _M3EFloatingActionButtonState extends State<M3EFloatingActionButton>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-      // Start fully extended when a label is present.
-      value: widget.label != null ? 1.0 : 0.0,
-    );
-    _curved = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    // Start fully extended when a label is present.
+    _target = widget.label != null ? 1.0 : 0.0;
+    _controller = AnimationController(vsync: this, value: _target);
     // Fade the label over the first 60 % of the animation so text disappears
     // before the pill becomes too narrow to contain it.
     _labelFade = CurvedAnimation(
@@ -118,7 +115,6 @@ class _M3EFloatingActionButtonState extends State<M3EFloatingActionButton>
   void dispose() {
     widget.scrollController?.removeListener(_onScroll);
     _labelFade.dispose();
-    _curved.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -128,12 +124,28 @@ class _M3EFloatingActionButtonState extends State<M3EFloatingActionButton>
     switch (widget.scrollController!.position.userScrollDirection) {
       case ScrollDirection
           .reverse: // finger up → content scrolls down → collapse
-        _controller.reverse();
+        _animateTo(0);
       case ScrollDirection.forward: // finger down → content scrolls up → expand
-        _controller.forward();
+        _animateTo(1);
       case ScrollDirection.idle:
         break;
     }
+  }
+
+  void _animateTo(double target) {
+    // Every scroll tick reports the direction; restarting the spring on each
+    // would discard its momentum.
+    if (target == _target) return;
+    _target = target;
+    _controller.animateWith(
+      SpringSimulation(
+        Springs.standardDefaultSpatial,
+        _controller.value,
+        target,
+        _controller.velocity,
+        snapToEnd: true,
+      ),
+    );
   }
 
   @override
@@ -150,9 +162,9 @@ class _M3EFloatingActionButtonState extends State<M3EFloatingActionButton>
     }
 
     return AnimatedBuilder(
-      animation: _curved,
+      animation: _controller,
       builder: (BuildContext context, Widget? _) {
-        final double t = _curved.value;
+        final double t = _controller.value;
         const double radius = _compactRadius;
         final double padH = _compactPadH + (_extendedPadH - _compactPadH) * t;
 
@@ -174,7 +186,7 @@ class _M3EFloatingActionButtonState extends State<M3EFloatingActionButton>
                   ),
                   SizeTransition(
                     axis: Axis.horizontal,
-                    sizeFactor: _curved,
+                    sizeFactor: _controller,
                     alignment: AlignmentDirectional.centerStart,
                     child: FadeTransition(
                       opacity: _labelFade,
