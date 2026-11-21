@@ -72,6 +72,10 @@ extension TraleUnitExtension on TraleUnit {
   /// number of decimals shown for this unit and precision setting
   int decimals(TraleUnitPrecision tup) => tup.precision ?? precision;
 
+  /// Step in kg that weights are entered and shown in, at [tup].
+  double stepInKg(TraleUnitPrecision tup) =>
+      scaling / (tup.ticksPerStep ?? ticksPerStep);
+
   /// parse manually typed input into a weight in this unit
   ///
   /// Returns `null` for input that is not a number. Accepts both `.` and `,`
