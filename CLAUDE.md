@@ -1,6 +1,6 @@
 # trale
 
-Flutter body-weight diary. Android only, all data on-device (Hive + SharedPreferences). The app builds on the sibling package `../quantumphysique` (theme, notifier and preferences base classes, widget library, changelog generator). The package itself now lives in [QuantumPhysique/quantumphysique](https://github.com/QuantumPhysique/quantumphysique): change it there through a PR. The copy here is frozen; only a fix that a 1.5.x release needs is copied in, after it has landed there. All commands run from `app/`.
+Flutter body-weight diary. Android only, all data on-device (Hive + SharedPreferences). The app builds on the package [quantumphysique](https://github.com/QuantumPhysique/quantumphysique) (theme, notifier and preferences base classes, widget library, changelog generator), pulled from its release tags. All commands run from `app/`.
 
 ## Setup
 
@@ -9,6 +9,18 @@ cd app
 flutter pub get --enforce-lockfile
 make generate        # changelog.g.dart from ../CHANGELOG.md
 ```
+
+## quantumphysique
+
+The package lives in its own repository and reaches trale through release tags. A change to it is a PR there, then a release, then `flutter pub upgrade quantumphysique` here. To try a change in trale before the release, point `app/pubspec_overrides.yaml`, which git ignores, at a local clone:
+
+```yaml
+dependency_overrides:
+  quantumphysique:
+    path: ../../quantumphysique
+```
+
+Never force-add that file: no other checkout has the path, so CI and F-Droid would fail.
 
 ## Tasks
 
@@ -20,6 +32,7 @@ make generate        # changelog.g.dart from ../CHANGELOG.md
 | Tests | `make test` |
 | One test file | `flutter test test/core/units_test.dart` |
 | Changelog check (as CI) | `dart run quantumphysique:generate_changelog --check` |
+| Newer quantumphysique | `flutter pub upgrade quantumphysique` (`--major-versions` across a breaking release) |
 | Hive adapters | `make hive` (after editing `measurement.dart`) |
 | Release APK | `make build` |
 | Accrescent APK set | `make build-apks` (needs bundletool + `android/key.properties`) |
@@ -30,10 +43,19 @@ CI (`build-flutter.yml`) runs `dart format --set-exit-if-changed`, `dart analyze
 
 ## Branching and release
 
-- `main` is the only long-lived branch; feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` directly.
+- `main` is the only long-lived branch, besides `v2` until v2.0.0 (see below); feature branches `feat/<topic>`, `fix/<topic>`, `ci/<topic>`, `chore/<topic>` off `main`, back by merge commit. Never commit to `main` or `v2` directly.
 - Every commit lands on `main` as it is (no squash), so every commit is a conventional commit — see `/commit`. The PR title uses the same format.
 - Versions are prepared with `/release`: a `release/prepare_vX.Y.Z` branch with one `chore: prepare vX.Y.Z` commit that turns `[Unreleased]` in `CHANGELOG.md` into `[X.Y.Z] - <date>`, bumps `version:` in `pubspec.yaml` (name and build number), adds `fastlane/metadata/android/{en-US,de}/changelogs/<build>3.txt` (build number followed by the arm64 ABI digit) and regenerates `changelog.g.dart`. Only after merge: a GitHub release tagged `vX.Y.Z` with the changelog section as body; `flutter-release.yml` builds and uploads the APKs, the AAB and the Accrescent `.apks`. Never create tags by hand.
 - A minor or major release (`vX.Y.0`, not patches) also runs `screenshots.yml`, which can be started by hand too: it retakes `screenshots/` on a `pixel_10` emulator and opens a PR from `chore/screenshots_<tag>` through the org's bot app (`BOT_CLIENT_ID`, `BOT_PRIVATE_KEY`).
+
+## Until v2.0.0
+
+v2 is developed on `v2`, while `main` carries the shipped 1.5.x.
+
+- v2 work branches off `v2` and goes back into it (`/pr v2`, `/review v2`). Fixes for the shipped app branch off `main` and go into `main`
+- After every merge to `main` that matters (releases, Weblate, dependabot), `main` is merged into `v2` through a PR. Conflicts in `CHANGELOG.md` `[Unreleased]` are resolved by hand, and `changelog.g.dart` is regenerated with `make generate`. Once `v2` has dropped `quantumphysique/`, a change to it from `main` is a modify/delete conflict: keep the deletion, the quantumphysique repository already has the change
+- A 1.5.x fix that has to change quantumphysique goes into the quantumphysique repository first, as a patch release. Only for that 1.5.x release is the same change copied into the frozen `quantumphysique/` on `main`
+- A `@HiveField` id or preference key added on `main` becomes released state when it ships: merge it into `v2` before `v2` allocates its own, so ids never collide
 
 ## Changelog
 
@@ -61,7 +83,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 
 ## Dev loop
 
-1. Branch off `main`.
+1. Branch off `main`, or off `v2` for v2 work.
 2. Implement the whole change in `lib/`, plus its `CHANGELOG.md` line as the Changelog section says. Tests only where the Tests section below asks for one.
 3. Once, on the finished change: `make format`, `make analyze`, `make test`, `make generate`. Fix what they report.
 4. `/commit`, then `/pr`.
@@ -72,7 +94,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 - `lib/pages/`, `lib/widget/` — UI
 - `lib/l10n/` — ARB files; `lib/l10n-gen/` is generated, never edit it
 - `test/core/`, `test/widget/` — suites; shared setup in `test/helpers/`
-- `../quantumphysique/` — app-agnostic Flutter code shared with other apps; `../CHANGELOG.md`, `../fastlane/` — release metadata
+- `../CHANGELOG.md`, `../fastlane/` — release metadata
 
 ## Code
 
@@ -83,7 +105,7 @@ Released state is different: Hive fields, preference keys and the backup format 
 - Enums carry behaviour in extensions (see `units.dart`)
 - Constants in `lib/core/constants.dart` (`dayInMs`, `kcalPerKg`), no magic numbers
 - Adding a setting: getter/setter in the matching `preferences/*.dart` part, default in `loadDefaultSettings()`, property plus `notifyListeners()` in the matching `trale_notifier/*.dart` part
-- Anything not about weight tracking belongs in `quantumphysique`, not here; suggest it instead of implementing locally
+- Anything not about weight tracking belongs in `quantumphysique`, as a PR in its repository, not here; suggest it instead of implementing locally
 - No fallback logic unless explicitly asked; a silent default hides the bug
 
 ### Comments

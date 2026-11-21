@@ -14,6 +14,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added Features and Improvements 🙌:
+- Experimental physiological AI model for your weight trend, learned from your data entirely on your device. Try it in the interpolation settings (#481)
+- Faster with long histories (#279)
+- Buttons and animations in the new Material 3 Expressive style
+- Use the latest Flutter (3.50) with upgraded deps
+- Target Android 17 (SDK 37)
+
+### Other Changes:
+- Minor improvements to the code base
+
 ## [1.5.2] - 2026-10-31
 
 ### Bugfix 🐛:

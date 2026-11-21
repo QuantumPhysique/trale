@@ -16,7 +16,7 @@ THEMES ?= water,berry,forest,amber
 # ── Code generation ───────────────────────────────────────────────────
 
 ## Regenerate changelog.g.dart from ../CHANGELOG.md
-$(CHANGELOG_GEN): $(CHANGELOG_SRC) ../quantumphysique/bin/generate_changelog.dart lib/core/changelog.dart
+$(CHANGELOG_GEN): $(CHANGELOG_SRC) lib/core/changelog.dart
 	dart run quantumphysique:generate_changelog
 
 ## Regenerate Hive type adapters
