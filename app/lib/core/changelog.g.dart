@@ -14,6 +14,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
       ChangelogSection.addedFeatures: <String>[
         'Experimental physiological AI model for your weight trend, learned from your data entirely on your device. Try it in the interpolation settings (#481)',
         'Faster with long histories (#279)',
+        'Use the latest Flutter (3.50) with upgraded deps',
       ],
       ChangelogSection.otherChanges: <String>[
         'Minor improvements to the code base',
