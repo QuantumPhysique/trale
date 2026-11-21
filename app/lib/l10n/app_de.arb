@@ -401,6 +401,24 @@
             }
         }
     },
+    "interpolationExplanationPhysiological": "Das physiologische KI-Modell findet mit einem Kalman-Glätter den Trend hinter Deinen täglichen Schwankungen, berechnet auf Deinem Gerät. Es lernt aus Deinen Messungen, wie stark Dein Gewicht von Tag zu Tag und von Woche zu Woche schwankt. Eine höhere Stärke gleicht mehr Schwankungen aus, folgt echten Änderungen aber langsamer. Wähle „{noneInterpol}“, um Deine Messungen mit geraden Linien zu verbinden. Die Rate und die Prognose kommen dann trotzdem aus der mittleren Glättung.",
+    "@interpolationExplanationPhysiological": {
+        "description": "Explanation text for interpolation settings when the physiological AI model is on",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "physiologicalModel": "Physiologisches KI-Modell",
+    "@physiologicalModel": {
+        "description": "Title of the setting that switches the weight curve to the experimental physiological AI model"
+    },
+    "physiologicalModelSubtitle": "Experimentell. Lernt aus Deinen Daten, wie Dein Gewicht schwankt, ausschließlich auf Deinem Gerät.",
+    "@physiologicalModelSubtitle": {
+        "description": "Subtitle of the physiological AI model setting"
+    },
     "unitTitle": "Einheit",
     "@unitTitle": {
         "description": "Unit section title"

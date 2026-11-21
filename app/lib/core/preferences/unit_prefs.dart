@@ -31,4 +31,46 @@ extension UnitPrefsExtension on Preferences {
   /// set interpolation strength mode
   set interpolStrength(InterpolStrength strength) =>
       prefs.setString('interpolStrength', strength.name);
+
+  /// Whether the curve comes from the physiological model instead of the
+  /// Gaussian interpolation.
+  bool get physiologicalModel => prefs.getBool('physiologicalModel')!;
+
+  /// set whether the curve comes from the physiological model
+  set physiologicalModel(bool enabled) =>
+      prefs.setBool('physiologicalModel', enabled);
+
+  /// The amplitudes and the scale error learned from the user's diary, null
+  /// before the first refit.
+  SmoothingState? get smoothingState {
+    final double? week = prefs.getDouble('smoothingWeekAmplitude');
+    if (week == null) {
+      return null;
+    }
+    return SmoothingState(
+      weekAmplitude: week,
+      waterAmplitude: prefs.getDouble('smoothingWaterAmplitude')!,
+      scaleErrorKg: prefs.getDouble('smoothingScaleErrorKg')!,
+    );
+  }
+
+  /// set the amplitudes and the scale error learned from the user's diary
+  set smoothingState(SmoothingState? state) {
+    if (state == null) {
+      prefs.remove('smoothingWeekAmplitude');
+      prefs.remove('smoothingWaterAmplitude');
+      prefs.remove('smoothingScaleErrorKg');
+      return;
+    }
+    prefs.setDouble('smoothingWeekAmplitude', state.weekAmplitude);
+    prefs.setDouble('smoothingWaterAmplitude', state.waterAmplitude);
+    prefs.setDouble('smoothingScaleErrorKg', state.scaleErrorKg);
+  }
+
+  /// Days with measurements at the last refit of [smoothingState].
+  int get smoothingFittedDays => prefs.getInt('smoothingFittedDays')!;
+
+  /// set the days with measurements at the last refit
+  set smoothingFittedDays(int days) =>
+      prefs.setInt('smoothingFittedDays', days);
 }

@@ -18,6 +18,17 @@ enum InterpolStrength {
 
 /// extend interpolation strength
 extension InterpolStrengthExtension on InterpolStrength {
+  /// Standard deviation of the tissue trend's slope in the physiological
+  /// model, as a fraction of body weight per day: 1.4, 0.7 and 0.35 % a week,
+  /// each meant for changes of about that size. `none` draws straight lines
+  /// and takes its rates from medium.
+  double get slopeSd => <InterpolStrength, double>{
+    InterpolStrength.none: 0.001,
+    InterpolStrength.soft: 0.002,
+    InterpolStrength.medium: 0.001,
+    InterpolStrength.strong: 0.0005,
+  }[this]!;
+
   /// get the interpolation strength of measurements [days]
   double get strengthMeasurement => <InterpolStrength, double>{
     InterpolStrength.none: 2,
