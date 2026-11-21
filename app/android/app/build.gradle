@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "de.quantumphysique.trale"
         minSdk 26
-        targetSdk 36
+        targetSdk 37
         versionCode flutter.versionCode
         versionName flutter.versionName
         externalNativeBuild {

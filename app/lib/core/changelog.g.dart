@@ -16,6 +16,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Faster with long histories (#279)',
         'Buttons and animations in the new Material 3 Expressive style',
         'Use the latest Flutter (3.50) with upgraded deps',
+        'Target Android 17 (SDK 37)',
       ],
       ChangelogSection.otherChanges: <String>[
         'Minor improvements to the code base',
