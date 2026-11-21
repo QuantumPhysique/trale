@@ -28,6 +28,7 @@ Future<void> main() async {
   runApp(
     QPApp<TraleNotifier>(
       notifier: TraleNotifier(),
+      expressive: true,
       // Monochrome trale icon for the notification tray.
       notificationIcon: '@drawable/ic_notification',
       onExtraInit: () async {
