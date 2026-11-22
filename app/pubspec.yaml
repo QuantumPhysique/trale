@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.5.2+50
+version: 1.6.0+51
 
 environment:
   sdk: ">=3.11.0 <4.0.0"
@@ -44,7 +44,7 @@ dependencies:
     git:
       url: https://github.com/QuantumPhysique/quantumphysique.git
       tag_pattern: v{{version}}
-    version: ^0.4.0
+    version: ^0.4.1
   quick_actions: ^1.1.1
   share_plus: ^13.3.1
   shared_preferences: ^2.5.6

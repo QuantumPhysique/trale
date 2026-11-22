@@ -1,0 +1,6 @@
+Weihnachten rückt schnell näher, und wir haben fleißig an einem physiologischen Modell zur Gewichtsvorhersage gearbeitet: ein KI-Modell, das komplett auf deinem Handy läuft und noch bessere Vorhersagen macht. Es ist noch experimentell, du kannst es aber jetzt schon in den Interpolationseinstellungen ausprobieren 🎉
+
+- Schneller bei langen Verläufen
+- Neuer Material-3-Expressive-Stil
+- สวัสดีชาวโลก! Dank der Community jetzt auch auf Thailändisch 🎉
+- Neueste Flutterversion 3.50

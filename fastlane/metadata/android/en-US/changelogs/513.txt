@@ -1,0 +1,6 @@
+Christmas is approaching quickly, and we've been working hard on a physiological weight prediction model: an AI model that runs entirely on your phone and makes even better predictions. It's still experimental, and you can try it out now in the interpolation settings 🎉
+
+- Faster with long histories
+- New Material 3 Expressive style
+- สวัสดีชาวโลก! Thx to the community, the app is now available in Thai 🎉
+- Updated to the latest Flutter (3.50)

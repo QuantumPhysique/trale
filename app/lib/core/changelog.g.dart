@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+  ),
+  ChangelogEntry(
+    version: '1.6.0',
+    dateString: '2026-11-22',
+    summary: 'Christmas is approaching quickly, and we\'ve been working hard on a physiological weight prediction model: an AI model that runs entirely on your phone and makes even better predictions. It\'s still experimental, and you can try it out now in the interpolation settings 🎉',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'Experimental physiological AI model for your weight trend, learned from your data entirely on your device. Try it in the interpolation settings (#481)',
@@ -18,6 +23,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'สวัสดีชาวโลก! Thx to the community, the app is now available in Thai 🎉',
         'Use the latest Flutter (3.50) with upgraded deps',
         'Target Android 17 (SDK 37)',
+      ],
+      ChangelogSection.bugfix: <String>[
+        'Fixed the stretched loading spinner when opening the app',
       ],
       ChangelogSection.otherChanges: <String>[
         'Minor improvements to the code base',
@@ -52,7 +60,7 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: '1.5.0',
     dateString: '2026-10-05',
-    summary: 'Gingerbread has already returned to the shelves, but trale is ready: it can now\nhelp you maintain your weight through the holidays.',
+    summary: 'Gingerbread has already returned to the shelves, but trale is ready: it can now help you maintain your weight through the holidays.',
     sections: <ChangelogSection, List<String>>{
       ChangelogSection.addedFeatures: <String>[
         'New goal "Maintain weight" to keep your weight steady (#454)',

@@ -14,6 +14,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-11-22
+
+Christmas is approaching quickly, and we've been working hard on a physiological weight prediction model: an AI model that runs entirely on your phone and makes even better predictions. It's still experimental, and you can try it out now in the interpolation settings 🎉
+
 ### Added Features and Improvements 🙌:
 - Experimental physiological AI model for your weight trend, learned from your data entirely on your device. Try it in the interpolation settings (#481)
 - Faster with long histories (#279)
@@ -21,6 +25,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - สวัสดีชาวโลก! Thx to the community, the app is now available in Thai 🎉
 - Use the latest Flutter (3.50) with upgraded deps
 - Target Android 17 (SDK 37)
+
+### Bugfix 🐛:
+- Fixed the stretched loading spinner when opening the app
 
 ### Other Changes:
 - Minor improvements to the code base
@@ -44,8 +51,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.5.0] - 2026-10-05
 
-Gingerbread has already returned to the shelves, but trale is ready: it can now
-help you maintain your weight through the holidays.
+Gingerbread has already returned to the shelves, but trale is ready: it can now help you maintain your weight through the holidays.
 
 ### Added Features and Improvements 🙌:
 - New goal "Maintain weight" to keep your weight steady (#454)
@@ -579,7 +585,8 @@ This release is the foundation for the upcoming version 1.0. Now that the UI has
 - initial release
 
 
-[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.5.2...main
+[Unreleased]: https://github.com/quantumphysique/trale/compare/v1.6.0...main
+[1.6.0]: https://github.com/quantumphysique/trale/compare/v1.5.2...v1.6.0
 [1.5.2]: https://github.com/quantumphysique/trale/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/quantumphysique/trale/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/quantumphysique/trale/compare/v1.4.1...v1.5.0
