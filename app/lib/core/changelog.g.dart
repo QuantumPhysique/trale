@@ -19,6 +19,9 @@ const Changelog changelog = Changelog(<ChangelogEntry>[
         'Use the latest Flutter (3.50) with upgraded deps',
         'Target Android 17 (SDK 37)',
       ],
+      ChangelogSection.bugfix: <String>[
+        'Fixed the stretched loading spinner when opening the app',
+      ],
       ChangelogSection.otherChanges: <String>[
         'Minor improvements to the code base',
       ],

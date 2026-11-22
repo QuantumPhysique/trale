@@ -22,6 +22,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Use the latest Flutter (3.50) with upgraded deps
 - Target Android 17 (SDK 37)
 
+### Bugfix 🐛:
+- Fixed the stretched loading spinner when opening the app
+
 ### Other Changes:
 - Minor improvements to the code base
 
