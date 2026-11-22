@@ -1,0 +1,1151 @@
+{
+    "achievements": "ความสำเร็จ",
+    "@achievements": {
+        "description": "achievements"
+    },
+    "experimentalFeatures": "คุณสมบัติทดลอง",
+    "@experimentalFeatures": {
+        "description": "Label for experimental features section"
+    },
+    "looseWeight": "ลดน้ำหนัก",
+    "@looseWeight": {
+        "description": "Lose weight switch label (label name loose is a typo!)."
+    },
+    "gainWeight": "เพิ่มน้ำหนัก",
+    "@gainWeight": {
+        "description": "Gain weight switch label."
+    },
+    "maintainWeight": "รักษาน้ำหนัก",
+    "@maintainWeight": {
+        "description": "Name of the goal to keep the weight within a range around the target weight."
+    },
+    "weightGoalSubtitle": "เลือกว่าต้องการจะลด รักษาน้ำหนัก หรือเพิ่มน้ำหนัก",
+    "@weightGoalSubtitle": {
+        "description": "Subtitle of the goal selector in the target weight dialog."
+    },
+    "targetRange": "ระยะเป้าหมาย",
+    "@targetRange": {
+        "description": "Label of the target weight range of the maintain goal."
+    },
+    "targetRangeDaysIn": "กำลังรักษาน้ำหนักของคุณให้มั่นคง",
+    "@targetRangeDaysIn": {
+        "description": "Shown after 'x days' while the trend has stayed in the target range for less than four weeks."
+    },
+    "targetRangeDaysInLong": "แล้วก็ยังคงรักษาน้ำหนักของคุณให้มั่นคงอยู่",
+    "@targetRangeDaysInLong": {
+        "description": "Shown after 'x weeks/months' while the trend has stayed in the target range for four weeks or more, praising the streak."
+    },
+    "targetRangeBackIn": "{unit} จนกว่าคุณจะถึงน้ำหนักเป้าหมาย",
+    "@targetRangeBackIn": {
+        "description": "Shown after the number of days/weeks while the trend heads back into the target range.",
+        "placeholders": {
+            "unit": {
+                "type": "String",
+                "example": "weeks"
+            }
+        }
+    },
+    "outsideTargetRange": "ไม่ได้อยู่ในน้ำหนักเป้าหมายของคุณ",
+    "@outsideTargetRange": {
+        "description": "Shown while the trend is outside the target range and not heading back."
+    },
+    "inTargetRangeShort": "อยู่ในระยะ",
+    "@inTargetRangeShort": {
+        "description": "Short note that the trend is inside the target range."
+    },
+    "targetWeightIn": "ใน",
+    "@targetWeightIn": {
+        "description": "Follows the target weight, before the time left to reach it, e.g. '75 kg in' / '3 weeks'."
+    },
+    "days": "วัน",
+    "dayUnit": "{count, plural, one{วัน} other{วัน}}",
+    "@dayUnit": {
+        "description": "Unit after a number of days, e.g. '3' + 'days'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weekUnit": "{count, plural, one{สัปดาห์} other{สัปดาห์}}",
+    "@weekUnit": {
+        "description": "Unit after a number of weeks, e.g. '6' + 'weeks'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "monthUnit": "{count, plural, one{เดือน} other{เดือน}}",
+    "@monthUnit": {
+        "description": "Unit after a number of months, e.g. '4' + 'months'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "yearUnit": "{count, plural, one{ปี} other{ปี}}",
+    "@yearUnit": {
+        "description": "Unit after a number of years, e.g. '5' + 'years'. Only the unit; the number is shown separately.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "week": "สัปดาห์",
+    "month": "เดือน",
+    "year": "ปี",
+    "today": "วันนี้",
+    "weightForecast": "พยากรณ์",
+    "@weightForecast": {
+        "description": "Header for the weight forecast card (today, +1 week, +1 month)"
+    },
+    "all": "ทั้งหมด",
+    "@all": {
+        "description": "Stats range: use all data"
+    },
+    "sinceTarget": "ตั้งแต่เป้าหมาย",
+    "@sinceTarget": {
+        "description": "Stats range: since target weight was set"
+    },
+    "lastYear": "ปีที่แล้ว",
+    "@lastYear": {
+        "description": "Stats range: last 365 days"
+    },
+    "custom": "กำหนดเอง",
+    "@custom": {
+        "description": "Stats range: user-selected date range"
+    },
+    "never": "ไม่เคย",
+    "@never": {
+        "description": "Frequency of backup interval"
+    },
+    "weekly": "รายสัปดาห์",
+    "@weekly": {
+        "description": "Frequency of backup interval"
+    },
+    "biweekly": "รายสองสัปดาห์",
+    "@biweekly": {
+        "description": "Frequency of backup interval"
+    },
+    "monthly": "รายเดือน",
+    "@monthly": {
+        "description": "Frequency of backup interval"
+    },
+    "quarterly": "รายไตรมาส",
+    "@quarterly": {
+        "description": "Frequency of backup interval"
+    },
+    "backupReminder": "กรุณาสำรองข้อมูลอย่างสม่ำเสมอ",
+    "@backupReminder": {
+        "description": "Please remember to back up your data regularly."
+    },
+    "backupReminderButton": "สำรองข้อมูล",
+    "@backupReminderButton": {
+        "description": "Back up now"
+    },
+    "backupSuccess": "ส่งออกข้อมูลสำรองเสร็จสิ้น",
+    "@backupSuccess": {
+        "description": "Back successfully exported"
+    },
+    "backupInterval": "ความถี่ในการสำรองข้อมูล",
+    "@backupInterval": {
+        "description": "Frequency of backup interval"
+    },
+    "lastBackup": "สำรองข้อมูลล่าสุด",
+    "@lastBackup": {
+        "description": "Time of last backup"
+    },
+    "nextBackup": "สำรองข้อมูลครั้งถัดไป",
+    "@nextBackup": {
+        "description": "Time of last backup"
+    },
+    "stats": "สถิติ",
+    "@stats": {
+        "description": "Header for statistics section"
+    },
+    "allTimeStats": "สถิติตลอดกาล",
+    "@allTimeStats": {
+        "description": "Header for all-time statistics section"
+    },
+    "trale": "trale",
+    "@trale": {
+        "description": "Name of app: trale"
+    },
+    "unit": "หน่วย",
+    "precision": "ความแม่นยำ",
+    "@precision": {
+        "description": "Label for unit precision setting."
+    },
+    "date": "วันที่",
+    "@date": {
+        "description": "Date"
+    },
+    "weight": "น้ำหนัก",
+    "@weight": {
+        "description": "weight"
+    },
+    "user": "โปรไฟล์ผู้ใช้",
+    "@user": {
+        "description": "Name of user menu"
+    },
+    "userSettings": "ตั้งค่าผู้ใช้",
+    "@userSettings": {
+        "description": "Settings to customize user experience"
+    },
+    "dangerzone": "เขตอันตราย",
+    "@dangerzone": {
+        "description": "Settings which cannot be undone."
+    },
+    "settings": "ตั้งค่า",
+    "@settings": {
+        "description": "Name of settings menu"
+    },
+    "faq": "คำถามที่พบบ่อย",
+    "@faq": {
+        "description": "Frequently ask questions"
+    },
+    "about": "เกี่ยวกับ",
+    "@about": {
+        "description": "Name of about menu section"
+    },
+    "defaultLang": "ค่าเริ่มต้นของระบบ",
+    "@defaultLang": {
+        "description": "System default language."
+    },
+    "language": "ภาษา",
+    "@language": {
+        "description": "Language menu item."
+    },
+    "theme": "ธีม",
+    "@theme": {
+        "description": "Theme menu item."
+    },
+    "translate": "แปลภาษา",
+    "@translate": {
+        "description": "translate {trale}"
+    },
+    "translateSubtitle": "ช่วยแปลภาษาของแอป",
+    "@translateSubtitle": {
+        "description": "translate subtitle"
+    },
+    "export": "ส่งออกข้อมูลการวัดทั้งหมด",
+    "@export": {
+        "description": "Export all measurements"
+    },
+    "exportSubtitle": "ข้อมูลการวัดทั้งหมดจะถูกเปิดเผยไปยังทุกแอป.",
+    "@exportSubtitle": {
+        "description": "This exposes all measurements to all apps."
+    },
+    "exportDialog": "ข้อมูลการวัดทั้งหมดจะถูกส่งออกไปยังพื้นที่จัดเก็บข้อมูลภายนอก จำเป็นต้องมีสิทธิ์เขียนข้อมูล",
+    "@exportDialog": {
+        "description": "This will export all measurements to the external storage. Writing permissions are needed."
+    },
+    "open": "เปิด",
+    "@open": {
+        "description": "Open (file)."
+    },
+    "abort": "ยกเลิก",
+    "@abort": {
+        "description": "Abort (action)."
+    },
+    "import": "นำเข้าข้อมูลสำรอง",
+    "@import": {
+        "description": "Import backup."
+    },
+    "importSubtitle": "นำเข้าข้อมูลการวัดจากไฟล์สำรองข้อมูล .txt หรือ .csv",
+    "@importSubtitle": {
+        "description": "Import measurements from txt backup or .csv file."
+    },
+    "amoled": "ดำสนิท",
+    "@amoled": {
+        "description": "AMOLED"
+    },
+    "amoledSubtitle": "เปลี่ยนสีพื้นหลังเป็นมืดสนิทสำหรับโหมดมืด",
+    "@amoledSubtitle": {
+        "description": "Change background color to true black for dark mode."
+    },
+    "reset": "รีเซ็ตแอป",
+    "@reset": {
+        "description": "Factory reset app."
+    },
+    "factoryReset": "คืนค่าโรงงาน",
+    "@factoryReset": {
+        "description": "Factory reset app."
+    },
+    "factoryResetSubtitle": "รีเซ็ตการตั้งค่าและลบข้อมูลการวัดทั้งหมด",
+    "@factoryResetSubtitle": {
+        "description": "Reset all settings and delete all measurements."
+    },
+    "factoryResetDialog": "รีเซ็ตแอปพลิเคชั่นเป็นค่าเริ่มต้นหรือไม่? การตั้งค่ารวมถึงข้อมูลการวัดที่นำเข้าทั้งหมดจะถูกลบและไม่สามารถย้อนกลับได้",
+    "@factoryResetDialog": {
+        "description": "Reset application to default? This will delete all settings, and added measurements. This can not be undone."
+    },
+    "delete": "ลบ",
+    "@delete": {
+        "description": "delete"
+    },
+    "importingAbort": "การนำเข้าถูกยกเลิก",
+    "@importingAbort": {
+        "description": "Import aborted."
+    },
+    "importSuccess": "เพิ่ม {count} ข้อมูลการวัดแล้ว",
+    "@importSuccess": {
+        "description": "Count of measurements successfully imported.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "importFileError": "ไม่สามารถอ่านไฟล์ที่เลือกได้ กรุณาลองใหม่อีกครั้งหรือเลือกไฟล์อื่น",
+    "@importFileError": {
+        "description": "Error shown when the selected file cannot be read."
+    },
+    "importNoMeasurements": "ไม่พบข้อมูลการวัดที่ถูกต้องในไฟล์ที่เลือก กรุณาตรวจสอบรูปแบบไฟล์",
+    "@importNoMeasurements": {
+        "description": "Warning shown when the file was read but no valid measurements were parsed."
+    },
+    "importDialog": "นำเข้าข้อมูลการวัดทั้งหมดไปยังฐานข้อมูลปัจจุบัน ไม่สามารถย้อนกลับได้!",
+    "@importDialog": {
+        "description": "Include all measurements to the current database. This can not be undone!"
+    },
+    "home": "หน้าหลัก",
+    "@home": {
+        "description": "home screen"
+    },
+    "yes": "ใช่",
+    "@yes": {
+        "description": "yes"
+    },
+    "ok": "โอเค",
+    "@ok": {
+        "description": "ok"
+    },
+    "save": "บันทึก",
+    "@save": {
+        "description": "save"
+    },
+    "edit": "แก้ไข",
+    "@edit": {
+        "description": "edit"
+    },
+    "backup": "สำรองข้อมูล",
+    "@backup": {
+        "description": "backup"
+    },
+    "time": "เวลา",
+    "@time": {
+        "description": "time"
+    },
+    "assets": "ทรัพยากร",
+    "@assets": {
+        "description": "assets"
+    },
+    "packages": "แพ็กเกจ",
+    "@packages": {
+        "description": "packages"
+    },
+    "loading": "กำลังโหลด",
+    "@loading": {
+        "description": "loading"
+    },
+    "measurements": "ข้อมูลการวัด",
+    "@measurements": {
+        "description": "measurements"
+    },
+    "version": "เวอร์ชั่น",
+    "@version": {
+        "description": "version"
+    },
+    "tpl": "ใบอนุญาตจากบุคคลที่สาม",
+    "@tpl": {
+        "description": "third-party licences"
+    },
+    "licence": "ใบอนุญาต",
+    "@licence": {
+        "description": "licence"
+    },
+    "sourcecode": "รหัสต้นทาง",
+    "@sourcecode": {
+        "description": "source code"
+    },
+    "changelog": "บันทึกการเปลี่ยนแปลง",
+    "@changelog": {
+        "description": "changelog"
+    },
+    "openIssue": "เปิดประเด็น",
+    "@openIssue": {
+        "description": "open an issue"
+    },
+    "undertpl": "© {years} โดย {author} ภายใต้ {licence} ใบอนุญาต",
+    "@undertpl": {
+        "description": "String to show third-party license.",
+        "placeholders": {
+            "years": {
+                "type": "String",
+                "example": "2019"
+            },
+            "author": {
+                "type": "String",
+                "example": "Linux foundation"
+            },
+            "licence": {
+                "type": "String",
+                "example": "MIT"
+            }
+        }
+    },
+    "addWeight": "ระบุน้ำหนักของคุณ",
+    "@addWeight": {
+        "description": "Enter your weight"
+    },
+    "enterWeightManually": "แตะเพื่อป้อนข้อมูลน้ำหนัก",
+    "@enterWeightManually": {
+        "description": "Accessibility label of the weight bar in the add weight dialog, which turns into a text field when tapped."
+    },
+    "decreaseWeight": "ลดน้ำหนัก",
+    "@decreaseWeight": {
+        "description": "Accessibility label of the minus button below the weight ruler, which lowers the weight by one tick."
+    },
+    "increaseWeight": "เพิ่มน้ำหนัก",
+    "@increaseWeight": {
+        "description": "Accessibility label of the plus button below the weight ruler, which raises the weight by one tick."
+    },
+    "addHeight": "ระบุส่วนสูงของคุณ",
+    "@addHeight": {
+        "description": "Enter your height"
+    },
+    "height": "ส่วนสูง",
+    "@height": {
+        "description": "height"
+    },
+    "target": "เป้าหมาย",
+    "@target": {
+        "description": "Short label for target weight."
+    },
+    "interpolation": "การประมาณค่าในช่วง",
+    "@interpolation": {
+        "description": "interpolation"
+    },
+    "showUserData": "แสดงข้อมูลของฉัน",
+    "@showUserData": {
+        "description": "Toggle label to show user's own data in the interpolation preview"
+    },
+    "personalization": "การปรับแต่ง",
+    "@personalization": {
+        "description": "personalization"
+    },
+    "strength": "ความเข้มข้น",
+    "@strength": {
+        "description": "interpolation strength"
+    },
+    "none": "ไม่มี",
+    "@none": {
+        "description": "no interpolation"
+    },
+    "soft": "อ่อน",
+    "@soft": {
+        "description": "soft interpolation"
+    },
+    "medium": "ปานกลาง",
+    "@medium": {
+        "description": "medium interpolation"
+    },
+    "strong": "เข้มข้น",
+    "@strong": {
+        "description": "strong interpolation"
+    },
+    "welcome": "ยินดีต้อนรับ",
+    "@welcome": {
+        "description": "welcome"
+    },
+    "onBoarding1": "แอปที่ออกแบบด้วย Material-You อย่างเรียบง่ายนี้จะช่วยให้คุณบรรลุน้ำหนักในฝันได้! ไม่ว่าคุณต้องการจะเพิ่มหรือลดน้ำหนัก หรือรักษาน้ำหนักของคุณ การประมาณค่าน้ำหนักและสถิติที่ปรับเปลี่ยนได้อย่างน่าเชื่อถือจะช่วยให้คุณอยู่ในลู่ทาง\n\nเข้าร่วมชุมชนของเราในวันนี้เพื่อติดตามตนเอง\n🐺🤸‍♀️🏋‍♀️🧘‍♂️🏆🥇",
+    "@onBoarding1": {
+        "description": "Text of 1st onBoarding screen."
+    },
+    "onBoarding2": "เพื่อปรับแต่งแอปของคุณธีมไหนสะท้อนความรู้สึกของคุณได้ดีที่สุด?",
+    "@onBoarding2": {
+        "description": "Text of 2nd onBoarding screen."
+    },
+    "onBoarding3": "ขอบคุณที่ลองใช้แอปของเรา 🙂\n\nถ้าคุณชอบแอปนี้ เรายินดีที่จะรับฟังความเห็นของคุณ รวมถึงการมีส่วนร่วมบน Github หรือกาแฟสักแก้ว ในทางกลับกัน แอปของเราจะไม่มีโฆษณาที่น่ารำคาญและละเมิดความเป็นส่วนตัวของคุณ",
+    "@onBoarding3": {
+        "description": "Text of 3rd onBoarding screen."
+    },
+    "onBoarding2Title": "ไสตล์",
+    "@onBoarding2Title": {
+        "description": "Title of 2nd onBoarding screen."
+    },
+    "onBoarding3Title": "ความเป็นส่วนตัว",
+    "@onBoarding3Title": {
+        "description": "Title of 3rd onBoarding screen."
+    },
+    "skip": "ข้าม",
+    "@skip": {
+        "description": "Skip onboarding screen."
+    },
+    "startApp": "เริ่ม",
+    "@startApp": {
+        "description": "Press to start the app."
+    },
+    "targetWeight": "น้ำหนักเป้าหมาย",
+    "@targetWeight": {
+        "description": "Your target weight."
+    },
+    "targetWeightMotivation": "การตั้งเป้าหมายน้ำหนักเป็นขั้นตอนที่สำคัญอย่างยิ่ง และยังเป็นอีกก้าวในหนทางที่ถูกต้อง การมีเป้าหมายในใจจะผลักดันให้คุณลงมือทำมากขึ้นเพื่อบรรลุเป้าหมาย",
+    "@targetWeightMotivation": {
+        "description": "Explanation to clarify the importance of a target weight."
+    },
+    "targetWeightShort": "เป้าหมาย",
+    "@targetWeightShort": {
+        "description": "Short label to show for indicating target weight in line chart."
+    },
+    "addUserName": "เราควรเรียกคุณว่าอะไรดี?",
+    "@addUserName": {
+        "description": "How shall we call you?"
+    },
+    "name": "ชื่อ",
+    "@name": {
+        "description": "Name"
+    },
+    "addTargetWeight": "เพิ่มน้ำหนักเป้าหมาย",
+    "@addTargetWeight": {
+        "description": "Press to add a target weight."
+    },
+    "targetWeightEnabled": "น้ำหนักเป้าหมาย",
+    "@targetWeightEnabled": {
+        "description": "Toggle label for enabling or disabling the target weight feature."
+    },
+    "targetWeightEnabledSubtitle": "ตั้งน้ำหนักเป้าหมายและติดตามความคืบหน้าของคุณ",
+    "@targetWeightEnabledSubtitle": {
+        "description": "Subtitle for the target weight toggle."
+    },
+    "targetWeightDate": "วันที่เป้าหมาย",
+    "@targetWeightDate": {
+        "description": "The date by which the user wants to reach their target weight."
+    },
+    "targetWeightDateSubtitle": "กําหนดวันที่เป้าหมายหรือเฉลี่ยเพื่อให้ถึงเป้าหมายของคุณทันเวลา",
+    "@targetWeightDateSubtitle": {
+        "description": "Subtitle for the target date toggle."
+    },
+    "addTargetWeightDate": "กำหนดวันที่เป้าหมาย",
+    "@addTargetWeightDate": {
+        "description": "Press to set a target date for reaching target weight."
+    },
+    "targetWeightRate": "เฉลี่ย",
+    "@targetWeightRate": {
+        "description": "The rate of weight change per week to reach target weight."
+    },
+    "perWeek": "/สัปดาห์",
+    "@perWeek": {
+        "description": "Per week suffix for weight rate."
+    },
+    "targetWeightPrompt": "จำเป็นต้องมีข้อมูลการชั่งน้ำหนักที่เป็นปัจจุบันเพื่อคำนวณวันที่เป้าหมายและเฉลี่ย คุณยังสามารถเลือกวันที่เก่ากว่าเพื่อเริ่มบรรทัดเป้าหมายจากจุดนั้นได้",
+    "@targetWeightPrompt": {
+        "description": "Explanation shown when prompting the user to add a weight for target date/rate."
+    },
+    "targetWeightRateAdvice": "เลือกเฉลี่ยที่พอดี หากต่ำไปอาจไม่สามารถสังเกตความคืบหน้าได้ชัดเจน และหากสูงไปคุณอาจเสี่ยงต่อการสูญเสียมวลกล้ามแทนไขมันได้",
+    "@targetWeightRateAdvice": {
+        "description": "Advice text shown in the rate picker dialog."
+    },
+    "startDate": "วันที่เริ่มต้น",
+    "@startDate": {
+        "description": "The starting date from which the target weight timeline begins."
+    },
+    "intro1": "กด",
+    "@intro1": {
+        "description": "Start of 'press + to get started'"
+    },
+    "intro2": "เพื่อเริ่ม",
+    "@intro2": {
+        "description": "End of 'press + to get started'"
+    },
+    "intro3": "วันนี้เป็นวันที่ดีที่จะเริ่มการวัดครั้งแรกของคุณ!",
+    "@intro3": {
+        "description": "Text shown on statsOverview in case of no measurements"
+    },
+    "faqtext": "คุณสามารถหาคำตอบของคำถามที่พบได้บ่อยได้ในที่นี่ หากคุณมีคำถามอื่น ๆ สามารถตั้งประเด็นบน Github ได้",
+    "@faqtext": {
+        "description": "Here you find answers to some of the most frequent questions. If you have any other questions, feel free to open an issue on the github repository."
+    },
+    "faq_q1": "คุณสมบัติ/การใช้งาน X ไม่มี มันจะถูกเพิ่มเมื่อไหร่?",
+    "@faq_q1": {
+        "description": "The feature/function X is missing. When will it be implemented?"
+    },
+    "faq_a1": "แอปนี้ได้รับการพัฒนาดูแลในเวลาว่างของเรา และเราพยายามทำให้แอปดูเรียบง่ายและทันสมัย เราเชื่อว่าการเพิ่มคุณสมบัติมากเกินไปจะทำให้การใช้งานแอปลดลง หากคุณเชื่อว่าเรากำลังพลาดคุณสมบัติสำคัญใดไป คุณสามารถเปิดประเด็นหรือสร้างคำขอได้เลย",
+    "@faq_a1": {
+        "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
+    },
+    "faq_q2": "ฉันขอดูหน้าแนะนำ/เริ่มต้นใช้งานอีกครั้งได้ไหม?",
+    "@faq_q2": {
+        "description": "Can I see once again the intro/onboarding screen?"
+    },
+    "faq_a2": "แน่นอน! แค่กดไอคอนด้านล่าง",
+    "@faq_a2": {
+        "description": "Yes for sure! Simple press the icon below."
+    },
+    "faq_a2_widget": "กลับไปยังหน้าเริ่มต้น",
+    "@faq_a2_widget": {
+        "description": "Return to onboarding screen"
+    },
+    "faq_q3": "ไอคอนของแอปกำลังแสดงถึงอะไร?",
+    "@faq_q3": {
+        "description": "What is the app icon showing?"
+    },
+    "faq_a3": "หมาป่าที่กำลังนั่งเห่าหอนพร้อมด้วยหางที่ถูกบังโดยตัวอักษร 't' และตัวอักษร 'r'",
+    "@faq_a3": {
+        "description": "It shows a wolf sitting an the letter 'r' and its tail is partially hidden by the letter 't'."
+    },
+    "faq_q4": "ฉันสามารถระบุน้ำหนักเป้าหมายต่ำกว่า 50 kg / 110 lb / 7.9 st หรือไม่?",
+    "@faq_q4": {
+        "description": "Can I enter a target weight below 50kg / 110 lb / 7.9 st?"
+    },
+    "faq_a4": "ได้ เพียงแต่คุณต้องเพิ่มข้อมูลส่วนสูงของคุณ\n\nภาวะเบื่ออาหารคือโรคร้ายแรงที่กำลังเป็นปัญหาในวงกว้างของสังคม ส่วนนึงเกิดจากตัวอย่างเชิงลบมากมายบนโซเชียลมีเดีย เพื่อสนับสนุนความพยายามในการป้องกัน เราไม่อนุญาตให้น้ำหนักเป้าหมายต้ำกว่า 50 กก / 110 ปอนด์ / 7.9 สโตน การระบุส่วนสูงจะช่วยให้เราคำนวณน้ำหนักเป้าหมายขั้นต่ำที่สอดคล้องกับ BMI 18.5 ได้",
+    "@faq_a4": {
+        "description": "Yes, by providing your height.\nAnorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below 50 kg / 110 lb / 7.9 st. Entering your height allows us to calculate a minimum target weight corresponding to a BMI of 18.5."
+    },
+    "target_weight_warning": "ภาวะเบื่ออาหารคือโรคร้ายแรงที่กำลังเป็นปัญหาในวงกว้างของสังคม ส่วนนึงเกิดจากตัวอย่างเชิงลบมากมายบนโซเชียลมีเดีย เพื่อสนับสนุนความพยายามในการป้องกัน เราไม่อนุญาตให้น้ำหนักเป้าหมายต้ำกว่า 50 กก / 110 ปอนด์ / 7.9 สโตน การระบุส่วนสูงจะช่วยให้เราคำนวณน้ำหนักเป้าหมายขั้นต่ำที่สอดคล้องกับ BMI 18.5 ได้",
+    "@target_weight_warning": {
+        "description": "Anorexia is a serious disease that is increasingly becoming a problem for society as a whole, partly due to the many negative examples on social media. To support prevention efforts, we do not allow target weights below  50 kg / 110 lb / 7.9 st and BMIs below 18.5."
+    },
+    "max": "สูงสุด",
+    "@max": {
+        "description": "Shorthand for maximum."
+    },
+    "min": "ต่ำสุด",
+    "@min": {
+        "description": "Shorthand for minimum."
+    },
+    "change": "ความต่าง",
+    "@change": {
+        "description": "A short word describing a difference in numbers, i.e. the change of the weight"
+    },
+    "totalChange": "การเปลี่ยนแปลงทั้งหมด",
+    "@totalChange": {
+        "description": "The quantity describing the overall change of body weight"
+    },
+    "schemeVariant": "รูปแบบชุดโทนสี",
+    "@schemeVariant": {
+        "description": "(Color) scheme variant label."
+    },
+    "schemeVariantDescription": "เลือกรูปแบบเพื่อกำหนดวิธีที่ชุดโทนสีถูกสร้างจากเม็ดสีที่เลือก",
+    "@schemeVariantDescription": {
+        "description": "Description for scheme variant selection."
+    },
+    "themeDescription": "เลือกเม็ดสีเพื่อกำหนดชุดโทนสี",
+    "@themeDescription": {
+        "description": "Description for theme selection."
+    },
+    "additionalSettings": "การตั้งค่าเพิ่มเติม",
+    "@additionalSettings": {
+        "description": "additional settings"
+    },
+    "mean": "ค่าเฉลี่ย",
+    "@mean": {
+        "description": "The mathematical quantity (arithmetic mean)"
+    },
+    "median": "ค่ามัธยฐาน",
+    "@median": {
+        "description": "The mathematical quantity (median)"
+    },
+    "measurementFrequency": "ความถี่ของการวัด",
+    "@measurementFrequency": {
+        "description": "The frequency of measurements, i.e., how often the user measures their weight within a day on average"
+    },
+    "targetWeightReached": "คุณถึงน้ําหนักเป้าหมายแล้ว!",
+    "@targetWeightReached": {
+        "description": "Message shown when the user reached their target weight."
+    },
+    "targetWeightReachedIn": "จนถึงน้ำหนักเป้าหมาย",
+    "@targetWeightReachedIn": {
+        "description": "Message shown when the user has not reached its target weight. Here, the sentence starts with 'x days/weeks/ left...'"
+    },
+    "maxStreak": "สถิติที่ยาวที่สุด",
+    "@maxStreak": {
+        "description": "The longest streak of measurements"
+    },
+    "currentStreak": "สถิติปัจจุบัน",
+    "@currentStreak": {
+        "description": "The current streak of measurements"
+    },
+    "timeSinceFirstMeasurement": "เวลาตั้งแต่การวัดครั้งแรก",
+    "@timeSinceFirstMeasurement": {
+        "description": "A brief sentence describing the duration from the first measurement to the present"
+    },
+    "firstDay": "วันแรก",
+    "@firstDay": {
+        "description": "First displayed day of the week"
+    },
+    "highContrast": "คอนทราสต์สูง",
+    "@highContrast": {
+        "description": "High contrast mode label (accessibility setting)."
+    },
+    "bmi": "BMI",
+    "back": "ถอยกลับ",
+    "userDialogTitle": "ตั้งค่าผู้ใช้",
+    "@userDialogTitle": {
+        "description": "User settings"
+    },
+    "importLongDescription": "คุณสามารถนำเข้าข้อมูลได้ วิธีนี้จะไม่ลบข้อมูลที่มีอยู่ของคุณ และรายการซ้ำจะถูกละเลย แอปนี้รองรับไฟล์ 'txt' จาก trale และ 'csv' จาก OpenScales ในไฟล์ 'csv' คอลัมน์จะต้องมีชื่อว่า 'weight' และ 'datetime' มิฉะนั้นคอลัมน์แรกจะถูกวิเคราะห์เป็นวันที่ และคอลัมน์ที่สองจะถูกวิเคราะห์เป็นน้ำหนัก หากคุณกำลังใช้ไฟล์ 'txt' แบบกำหนดเอง ไฟล์ดังกล่าวควรจะมีรูปแบบดังต่อไปนี้:",
+    "@importLongDescription": {
+        "description": "Explanation of which files are supported by import."
+    },
+    "donation": "บริจาค",
+    "@donation": {
+        "description": "Donation title"
+    },
+    "donationSubtitle": "สนับสนุนการพัฒนาของ trale",
+    "@donationSubtitle": {
+        "description": "Donation subtitle"
+    },
+    "customization": "การปรับแต่ง",
+    "@customization": {
+        "description": "Customization section title"
+    },
+    "personalizationTitle": "การปรับแต่งเฉพาะบุคคล",
+    "@personalizationTitle": {
+        "description": "Personalization settings title"
+    },
+    "personalizationSubtitle": "ปรับแต่งประสบการณ์ของคุณ",
+    "@personalizationSubtitle": {
+        "description": "Personalization settings subtitle"
+    },
+    "themeSubtitle": "ตั้งค่าชุดโทนสี",
+    "@themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "languageSubtitle": "ตั้งค่าภาษา",
+    "@languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "dataSettings": "ตั้งค่าข้อมูล",
+    "@dataSettings": {
+        "description": "Data settings section title"
+    },
+    "importAndExport": "นำเข้าและส่งออก",
+    "@importAndExport": {
+        "description": "Import and export settings title"
+    },
+    "importAndExportSubtitle": "บันทึกและโหลดข้อมูลของคุณ",
+    "@importAndExportSubtitle": {
+        "description": "Import and export settings subtitle"
+    },
+    "aboutTheApp": "เกี่ยวกับแอป",
+    "@aboutTheApp": {
+        "description": "About the app section title"
+    },
+    "faqSubtitle": "ค้นหาคําตอบสําหรับคําถามที่พบบ่อย",
+    "@faqSubtitle": {
+        "description": "FAQ settings subtitle"
+    },
+    "aboutSubtitle": "ข้อมูลเวอร์ชั่นและใบอนุญาต",
+    "@aboutSubtitle": {
+        "description": "About settings subtitle"
+    },
+    "interpolationExplanation": "การประมาณค่าในช่วงใช้การกรองข้อมูลแบบเกาส์เซียนที่ทันสมัยเพื่อทําให้กราฟน้ําหนักของคุณเรียบเนียนและสร้างแนวโน้มที่ชัดเจนขึ้น ระดับความเข้มข้นที่สูงขึ้นช่วยลดความผันผวนรายวัน แต่อาจซ่อนการเปลี่ยนแปลงในระยะสั้น เลือก '{nonInterpol}' เพื่อดูข้อมูลการวัดแบบดิบ การประมาณค่านอกช่วงจะยังคงใช้กราฟแบบเรียบเนียน",
+    "@interpolationExplanation": {
+        "description": "Explanation text for interpolation settings",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "unitTitle": "หน่วย",
+    "@unitTitle": {
+        "description": "Unit section title"
+    },
+    "dateSettings": "ตั่งค่าวันที่",
+    "@dateSettings": {
+        "description": "Date settings section title"
+    },
+    "format": "รูปแบบ",
+    "@format": {
+        "description": "Format label"
+    },
+    "defaultFormat": "ค่าเริ่มต้น",
+    "@defaultFormat": {
+        "description": "Default format option"
+    },
+    "openIssueSubtitle": "ช่วยปรับปรุงแอปโดยการให้ข้อเสนอแนะ",
+    "@openIssueSubtitle": {
+        "description": "Open issue subtitle for feedback"
+    },
+    "starOnGithub": "ให้ดาวบน GitHub",
+    "@starOnGithub": {
+        "description": "Star banner title"
+    },
+    "starOnGithubSubtitle": "สนับสนุนเราด้วยดาว",
+    "@starOnGithubSubtitle": {
+        "description": "Star banner subtitle"
+    },
+    "aboutDescription1": "บันทึกน้ำหนักที่เรียบง่ายด้วยการประมาณค่านอกช่วงระยะสั้น",
+    "@aboutDescription1": {
+        "description": "About page first paragraph"
+    },
+    "aboutDescription2": "เราเคารพความเป็นส่วนตัวของคุณ แอปนี้ไม่มีแหล่งรายได้ และไม่มีการส่งบันทึกข้อผิดพลาด กรุณาเปิดประเด็นหากคุณมีปัญหา",
+    "@aboutDescription2": {
+        "description": "About page second paragraph"
+    },
+    "aboutDescription3": "สร้างโดยผู้พัฒนาสองคนที่มีเวลาว่างน้อย ลองพิจารณามีส่วนร่วมหรือบริจาค",
+    "@aboutDescription3": {
+        "description": "About page third paragraph"
+    },
+    "measurementDeleted": "ข้อมูลการวัดถูกลบออก",
+    "@measurementDeleted": {
+        "description": "Message shown when a measurement is deleted"
+    },
+    "undo": "ย้อนกลับ",
+    "@undo": {
+        "description": "Undo action label"
+    },
+    "measurementHintTitle": "แก้ไขข้อมูลการวัด",
+    "@measurementHintTitle": {
+        "description": "Title for measurement hint banner"
+    },
+    "measurementHintSubtitle": "กดค้างที่ข้อมูลการวัดเพื่อแก้ไขหรือลบ ปัดข้อความนี้เพื่อปิด",
+    "@measurementHintSubtitle": {
+        "description": "Subtitle explaining how to edit or delete measurements"
+    },
+    "heightUnit": "หน่วยความสูง",
+    "@heightUnit": {
+        "description": "Label for height unit selection"
+    },
+    "notifications": "ข้อความแจ้งเตือน",
+    "@notifications": {
+        "description": "Notifications section title in settings"
+    },
+    "reminderTitle": "การแจ้งเตือน",
+    "@reminderTitle": {
+        "description": "Title for the reminder settings page"
+    },
+    "reminderSubtitle": "แจ้งเตือนให้ฉันบันทึกข้อมูลน้ำหนัก",
+    "@reminderSubtitle": {
+        "description": "Subtitle shown in settings overview for reminder"
+    },
+    "reminderEnable": "เปิดใช้งานการแจ้งเตือน",
+    "@reminderEnable": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "reminderEnableSubtitle": "รับข้อความแจ้งเตือนให้บันทึกน้ำหนักของคุณ",
+    "@reminderEnableSubtitle": {
+        "description": "Subtitle for the reminder toggle"
+    },
+    "reminderDaysTitle": "วันที่",
+    "@reminderDaysTitle": {
+        "description": "Section title for selecting reminder days"
+    },
+    "reminderTimeTitle": "เวลา",
+    "@reminderTimeTitle": {
+        "description": "Section title for selecting reminder time"
+    },
+    "reminderTimeLabel": "เวลาการแจ้งเตือน",
+    "@reminderTimeLabel": {
+        "description": "Label next to the time picker"
+    },
+    "reminderExplanation": "คุณจะได้รับข้อความแจ้งเตือนในวันและเวลาที่คุณเลือกในกรณีที่คุณยังไม่ได้บันทึกข้อมูลการวัดในวันนั้นเท่านั้น",
+    "@reminderExplanation": {
+        "description": "Explanation text shown below the reminder settings"
+    },
+    "reminderNotificationTitle": "ได้เวลาชั่งน้ำหนักแล้ว!",
+    "@reminderNotificationTitle": {
+        "description": "Title of the reminder notification"
+    },
+    "reminderNotificationBody": "คุณยังไม่ได้บันทึกน้ำหนักในวันนี้",
+    "@reminderNotificationBody": {
+        "description": "Body text of the reminder notification"
+    },
+    "calorieDeficit": "แคลอรี่ดีฟิซิต",
+    "@calorieDeficit": {
+        "description": "Label for the calorie deficit stat"
+    },
+    "diffFromTarget": "ความต่างจากเป้าหมาย",
+    "@diffFromTarget": {
+        "description": "Label for the difference from target weight stat"
+    },
+    "statsRange": "ช่วงสถิติ",
+    "@statsRange": {
+        "description": "Title for the stats date range selector dialog"
+    },
+    "from": "จาก",
+    "@from": {
+        "description": "Label for the start date in the stats range selector"
+    },
+    "to": "ถึง",
+    "@to": {
+        "description": "Label for the end date in the stats range selector"
+    },
+    "dates": "วันที่",
+    "@dates": {
+        "description": "Section title for the date range in the stats range selector"
+    },
+    "customDateHint": "กดค้างวันที่เพื่อยกเลิกการตั้งค่า วันที่เริ่มต้นที่ไม่กําหนดหมายถึง ตั้งแต่การวัดครั้งแรก วันที่สิ้นสุดที่ไม่กําหนดหมายถึงจนถึงวันนี้",
+    "@customDateHint": {
+        "description": "Hint text explaining custom date range behaviour"
+    },
+    "statsSourceTitle": "พื้นฐานสถิติ",
+    "@statsSourceTitle": {
+        "description": "Title for the stats data source selector (interpolation vs. raw measurements)"
+    },
+    "statsSourceExplanation": "การประมาณค่าในช่วงจะช่วยปรับความผันผวนรายวันที่เกิดจากการดื่มน้ํา เวลามื้ออาหาร และปัจจัยอื่น ๆ ให้ภาพรวมที่ชัดเจนขึ้นเกี่ยวกับแนวโน้มน้ําหนักที่แท้จริงของคุณ ข้อมูลการวัดดิบสะท้อนสิ่งที่คุณบันทึกไว้โดยตรง แต่สามารถเปลี่ยนแปลงได้สูงในแต่ละวัน การใช้กราฟประมาณค่าในช่วงจะช่วยให้คุณติดตามความก้าวหน้าจริงมากกว่าการเปลี่ยนแปลงเล็กน้อยระยะสั้น",
+    "@statsSourceExplanation": {
+        "description": "Text explaining the difference between using interpolated values vs. raw measurements as the basis for statistics calculations."
+    },
+    "statsHintBanner": "สถิติอ้างอิงจาก {sourceName} คุณสามารถเปลี่ยนแหล่งอ้างอิงของสถิติได้ในการตั้งค่าการปรับแต่งเฉพาะบุคคล",
+    "@statsHintBanner": {
+        "description": "Hint banner on the stats screen telling the user what the stats are based on.",
+        "placeholders": {
+            "sourceName": {
+                "type": "String",
+                "example": "interpolation"
+            }
+        }
+    },
+    "bmiSevereUnderweight": "น้ำหนักต่ำกว่ามาตรฐานอย่างรุนแรง",
+    "@bmiSevereUnderweight": {
+        "description": "BMI category label for BMI < 17"
+    },
+    "bmiUnderweight": "น้ำหนักต่ำกว่ามาตรฐาน",
+    "@bmiUnderweight": {
+        "description": "BMI category label for BMI 17–18.5"
+    },
+    "bmiNormal": "น้ำหนักปกติ",
+    "@bmiNormal": {
+        "description": "BMI category label for BMI 18.5–25"
+    },
+    "bmiOverweight": "น้ำหนักเกินมาตรฐาน",
+    "@bmiOverweight": {
+        "description": "BMI category label for BMI 25–30"
+    },
+    "bmiObese": "โรคอ้วน",
+    "@bmiObese": {
+        "description": "BMI category label for BMI > 30"
+    },
+    "qp_defaultLangLabel": "ค่าเริ่มต้นระบบ",
+    "@qp_defaultLangLabel": {
+        "description": "Label for the system-default language option"
+    },
+    "qp_language": "ภาษา",
+    "@qp_language": {
+        "description": "Language settings title"
+    },
+    "qp_languageSubtitle": "เลือกภาษาที่แสดงผล",
+    "@qp_languageSubtitle": {
+        "description": "Language settings subtitle"
+    },
+    "qp_translate": "แปลภาษา",
+    "@qp_translate": {
+        "description": "Banner title prompting users to help translate the app"
+    },
+    "qp_theme": "ธีม",
+    "@qp_theme": {
+        "description": "Theme settings title"
+    },
+    "qp_themeSubtitle": "จานสีและชุดโทนสี",
+    "@qp_themeSubtitle": {
+        "description": "Theme settings subtitle"
+    },
+    "qp_darkMode": "โหมดมืด",
+    "@qp_darkMode": {
+        "description": "Dark mode setting label"
+    },
+    "qp_darkModeAuto": "อัตโนมัติ",
+    "@qp_darkModeAuto": {
+        "description": "Dark mode option: follow system"
+    },
+    "qp_darkModeLight": "สว่าง",
+    "@qp_darkModeLight": {
+        "description": "Dark mode option: always light"
+    },
+    "qp_darkModeDark": "มืด",
+    "@qp_darkModeDark": {
+        "description": "Dark mode option: always dark"
+    },
+    "qp_amoled": "มืดสนิท",
+    "@qp_amoled": {
+        "description": "AMOLED pure-black mode label"
+    },
+    "qp_amoledSubtitle": "ใช้พื้นหลังมืดสนิทในโหมดมืด",
+    "@qp_amoledSubtitle": {
+        "description": "AMOLED mode subtitle"
+    },
+    "qp_highContrast": "คอนทราสต์",
+    "@qp_highContrast": {
+        "description": "Contrast level setting label"
+    },
+    "qp_themePalette": "จานสี",
+    "@qp_themePalette": {
+        "description": "Palette selection section title"
+    },
+    "qp_schemeVariant": "รูปแบบชุดโทนสี",
+    "@qp_schemeVariant": {
+        "description": "Scheme variant selection section title"
+    },
+    "qp_reminderTitle": "การแจ้งเตือน",
+    "@qp_reminderTitle": {
+        "description": "Reminder settings title"
+    },
+    "qp_reminderEnabled": "เปิดใช้งานการแจ้งเตือน",
+    "@qp_reminderEnabled": {
+        "description": "Label for the reminder on/off toggle"
+    },
+    "qp_reminderDays": "วันที่แจ้งเตือน",
+    "@qp_reminderDays": {
+        "description": "Section title for selecting reminder days"
+    },
+    "qp_reminderTime": "เวลาที่แจ้งเตือน",
+    "@qp_reminderTime": {
+        "description": "Section title for selecting reminder time"
+    },
+    "qp_firstDayOfWeek": "วันแรกของสัปดาห์",
+    "@qp_firstDayOfWeek": {
+        "description": "First day of week setting label"
+    },
+    "qp_firstDayDefault": "ค่าเริ่มต้น (ท้องถิ่น)",
+    "@qp_firstDayDefault": {
+        "description": "First day of week option: use locale default"
+    },
+    "qp_dateFormat": "รูปแบบวันที่",
+    "@qp_dateFormat": {
+        "description": "Date format setting label"
+    },
+    "qp_changelogTitle": "มีอะไรใหม่",
+    "@qp_changelogTitle": {
+        "description": "Changelog sheet title"
+    },
+    "qp_settings": "การตั้งค่า",
+    "@qp_settings": {
+        "description": "Settings overview page title"
+    },
+    "qp_customization": "การปรับแต่ง",
+    "@qp_customization": {
+        "description": "Customization settings group title"
+    },
+    "qp_notifications": "ข้อความแจ้งเตือน",
+    "@qp_notifications": {
+        "description": "Notifications settings group title"
+    },
+    "healthConnect": "Health Connect",
+    "@healthConnect": {
+        "description": "Title of the Health Connect page and tile"
+    },
+    "healthConnectSubtitle": "ซิงค์ข้อมูลการวัดกับ Health Connect",
+    "@healthConnectSubtitle": {
+        "description": "Subtitle of the Health Connect settings option"
+    },
+    "healthConnectWarningTitle": "คําแนะนําด้านความเป็นส่วนตัว",
+    "@healthConnectWarningTitle": {
+        "description": "Title of the privacy advisory card"
+    },
+    "healthConnectWarningText": "การเปิดใช้งาน Health Connect จะทำให้แอปอื่นอื่น ๆ ที่ได้รับอนุญาตบนอุปกรณ์เข้าถึงข้อมูลน้ำหนักของคุณได้ กรุณาตรวจสอบแอปเหล่านี้ก่อนเปิดใช้งานการตั้งค่า",
+    "@healthConnectWarningText": {
+        "description": "Text warning the user about privacy implications of sharing data with Health Connect"
+    },
+    "healthConnectEnable": "เปิดใช้งาน Health Connect",
+    "@healthConnectEnable": {
+        "description": "Label for the master toggle to enable/disable Health Connect integration"
+    },
+    "healthConnectImport": "นำเข้าข้อมูลน้ำหนัก",
+    "@healthConnectImport": {
+        "description": "Label for importing weight data from Health Connect"
+    },
+    "healthConnectImportDesc": "นำเข้าข้อมูลน้ำหนักที่ถูกบันทึกใน Health Connect โดยอัตโนมัติ",
+    "@healthConnectImportDesc": {
+        "description": "Description for the import toggle"
+    },
+    "healthConnectExport": "ส่งออกข้อมูลน้ำหนัก",
+    "@healthConnectExport": {
+        "description": "Label for exporting weight data to Health Connect"
+    },
+    "healthConnectExportDesc": "เขียนน้ำหนักที่บันทึกใน Trale ไปยัง Health Connect โดยอัตโนมัติ",
+    "@healthConnectExportDesc": {
+        "description": "Description for the export toggle"
+    },
+    "healthConnectSyncNow": "ซิงค์ตอนนี้",
+    "@healthConnectSyncNow": {
+        "description": "Label for manual sync trigger button"
+    },
+    "healthConnectImportHistory": "นำเข้าประวัติทั้งหมด",
+    "@healthConnectImportHistory": {
+        "description": "Label for button to import all historical measurements"
+    },
+    "healthConnectExportHistory": "ส่งออกประวัติทั้งหมด",
+    "@healthConnectExportHistory": {
+        "description": "Label for button to export all historical measurements"
+    },
+    "healthConnectNotAvailable": "Health Connect ไม่ได้รับการรองรับหรือติดตั้งบนอุปกรณ์นี้",
+    "@healthConnectNotAvailable": {
+        "description": "Error message when Health Connect is not available on the device"
+    },
+    "healthConnectSyncSuccess": "นำเข้า {importCount, plural, =1{1 ข้อมูลการวัด} other{{importCount} ข้อมูลการวัด}} และส่งออก {exportCount, plural, =1{1 ข้อมูลการวัด} other{{exportCount} ข้อมูลการวัด}}.",
+    "@healthConnectSyncSuccess": {
+        "description": "Success message after a sync session",
+        "placeholders": {
+            "importCount": {
+                "type": "int"
+            },
+            "exportCount": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectImportSuccess": "{count, plural, =1{นำเข้า 1 ข้อมูลการวัด.} other{นำเข้า {count} ข้อมูลการวัด.}}",
+    "@healthConnectImportSuccess": {
+        "description": "Success message after importing measurements from Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectExportSuccess": "{count, plural, =1{ส่งออก 1 ข้อมูลการวัด.} other{ส่งออก {count} ข้อมูลการวัด.}}",
+    "@healthConnectExportSuccess": {
+        "description": "Success message after exporting measurements to Health Connect",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "healthConnectSyncError": "ซิงค์กับ Health Connect ล้มเหลว",
+    "@healthConnectSyncError": {
+        "description": "Error message shown when synchronization fails"
+    },
+    "healthConnectPermissionsRequired": "จำเป็นต้องเข้าถึงการอนุญาตเพื่อซิงค์ กรุณาเปิดใช้งานการอนุญาต",
+    "@healthConnectPermissionsRequired": {
+        "description": "Warning message when required permissions are not granted"
+    },
+    "healthConnectImportNothingFound": "ไม่พบบันทึกน้ำหนักใน Health Connect",
+    "@healthConnectImportNothingFound": {
+        "description": "Message shown when Health Connect returned no weight records to import"
+    },
+    "healthConnectHistoryLimited": "{result} Health Connect แชร์ข้อมูลแค่ 30 วันล่าสุดเท่านั้น. อนุญาตการเข้าถึงการวางข้อมูลใน Health Connect เพื่อนำเข้าประวัติเต็มของคุณ",
+    "@healthConnectHistoryLimited": {
+        "description": "Shown when a full history import was capped at 30 days. {result} is the import result sentence, e.g. \"Imported 3 measurements.\"",
+        "placeholders": {
+            "result": {
+                "type": "String"
+            }
+        }
+    },
+    "healthConnectImportError": "นำเข้าจาก Health Connect ล้มเหลว",
+    "@healthConnectImportError": {
+        "description": "Message shown when reading measurements from Health Connect failed"
+    },
+    "healthConnectImportPermissionRequired": "จำเป็นต้องเข้าถึงการอนุญาตเพื่ออ่านข้อมูลน้ำหนัก กรุณาอนุญาตใน Health Connect",
+    "@healthConnectImportPermissionRequired": {
+        "description": "Message shown when an import is triggered without read permission"
+    },
+    "healthConnectBusy": "กำลังซิงค์อยู่ กรุณาลองใหม่อีกครั้งในสักครู่",
+    "@healthConnectBusy": {
+        "description": "Message shown when a sync or import is triggered while another one is still running"
+    }
+}
