@@ -18,6 +18,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Experimental physiological AI model for your weight trend, learned from your data entirely on your device. Try it in the interpolation settings (#481)
 - Faster with long histories (#279)
 - Buttons and animations in the new Material 3 Expressive style
+- สวัสดีชาวโลก! Thx to the community, the app is now available in Thai 🎉
 - Use the latest Flutter (3.50) with upgraded deps
 - Target Android 17 (SDK 37)
 
