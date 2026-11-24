@@ -14,6 +14,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Bugfix 🐛:
+- Fixed the F-Droid release (#598)
+
 ## [1.6.0] - 2026-11-22
 
 Christmas is approaching quickly, and we've been working hard on a physiological weight prediction model: an AI model that runs entirely on your phone and makes even better predictions. It's still experimental, and you can try it out now in the interpolation settings 🎉

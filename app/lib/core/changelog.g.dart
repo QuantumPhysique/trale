@@ -10,6 +10,11 @@ part of 'changelog.dart';
 const Changelog changelog = Changelog(<ChangelogEntry>[
   ChangelogEntry(
     version: 'Unreleased',
+    sections: <ChangelogSection, List<String>>{
+      ChangelogSection.bugfix: <String>[
+        'Fixed the F-Droid release (#598)',
+      ],
+    },
   ),
   ChangelogEntry(
     version: '1.6.0',
