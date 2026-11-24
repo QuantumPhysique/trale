@@ -239,7 +239,7 @@
     "@export": {
         "description": "Export all measurements"
     },
-    "exportSubtitle": "ข้อมูลการวัดทั้งหมดจะถูกเปิดเผยไปยังทุกแอป.",
+    "exportSubtitle": "ข้อมูลการวัดทั้งหมดจะถูกเปิดเผยไปยังทุกแอป",
     "@exportSubtitle": {
         "description": "This exposes all measurements to all apps."
     },
@@ -381,7 +381,7 @@
     "@changelog": {
         "description": "changelog"
     },
-    "openIssue": "เปิดประเด็น",
+    "openIssue": "เปิดประเด็น Github",
     "@openIssue": {
         "description": "open an issue"
     },
@@ -579,7 +579,7 @@
     "@faq_q1": {
         "description": "The feature/function X is missing. When will it be implemented?"
     },
-    "faq_a1": "แอปนี้ได้รับการพัฒนาดูแลในเวลาว่างของเรา และเราพยายามทำให้แอปดูเรียบง่ายและทันสมัย เราเชื่อว่าการเพิ่มคุณสมบัติมากเกินไปจะทำให้การใช้งานแอปลดลง หากคุณเชื่อว่าเรากำลังพลาดคุณสมบัติสำคัญใดไป คุณสามารถเปิดประเด็นหรือสร้างคำขอได้เลย",
+    "faq_a1": "แอปนี้ได้รับการพัฒนาดูแลในเวลาว่างของเรา และเราพยายามทำให้แอปดูเรียบง่ายและทันสมัย เราเชื่อว่าการเพิ่มคุณสมบัติมากเกินไปจะทำให้การใช้งานแอปลดลง หากคุณเชื่อว่าเรากำลังพลาดคุณสมบัติสำคัญใดไป คุณสามารถเปิดประเด็นหรือสร้างคำขอบน Github ได้เลย",
     "@faq_a1": {
         "description": "The app is maintained in our free time and we try to keep the app sleek and simple. We believe that adding to many features making the app less usable. If you believe that we are missing a key feature, feel free to open an issue or a merge request."
     },
@@ -787,15 +787,15 @@
     "@starOnGithubSubtitle": {
         "description": "Star banner subtitle"
     },
-    "aboutDescription1": "บันทึกน้ำหนักที่เรียบง่ายด้วยการประมาณค่านอกช่วงระยะสั้น",
+    "aboutDescription1": "บันทึกน้ำหนักอย่างง่ายดายด้วยการประมาณค่านอกในช่วงระยะสั้น",
     "@aboutDescription1": {
         "description": "About page first paragraph"
     },
-    "aboutDescription2": "เราเคารพความเป็นส่วนตัวของคุณ แอปนี้ไม่มีแหล่งรายได้ และไม่มีการส่งบันทึกข้อผิดพลาด กรุณาเปิดประเด็นหากคุณมีปัญหา",
+    "aboutDescription2": "เราเคารพความเป็นส่วนตัวของคุณ แอปนี้ไม่มีแหล่งรายได้ และไม่มีการส่งบันทึกข้อผิดพลาด กรุณาเปิดประเด็น Github หากคุณมีปัญหา",
     "@aboutDescription2": {
         "description": "About page second paragraph"
     },
-    "aboutDescription3": "สร้างโดยผู้พัฒนาสองคนที่มีเวลาว่างน้อย ลองพิจารณามีส่วนร่วมหรือบริจาค",
+    "aboutDescription3": "สร้างโดยผู้พัฒนาสองคนที่มีเวลาว่างนิดเดียว ทำไมไม่ลองพิจารณาให้ความมีส่วนร่วมหรือบริจาคสักนิดดูหล่ะ",
     "@aboutDescription3": {
         "description": "About page third paragraph"
     },
@@ -1147,5 +1147,23 @@
     "healthConnectBusy": "กำลังซิงค์อยู่ กรุณาลองใหม่อีกครั้งในสักครู่",
     "@healthConnectBusy": {
         "description": "Message shown when a sync or import is triggered while another one is still running"
+    },
+    "interpolationExplanationPhysiological": "โมเดล AI ทางสรีรวิทยาจะค้นหาแนวโน้มเบื้องหลังความขึ้นลงในแต่ละวันของคุณด้วยตัวกรองคาลมานที่คํานวณบนอุปกรณ์ของคุณ เรียนรู้จากการวัดของคุณว่าน้ําหนักของคุณเปลี่ยนแปลงไปมากแค่ไหนในแต่ละวันและในแต่ละสัปดาห์ ความเข้มข้นที่สูงขึ้นจะช่วยปรับความผันผวนในแต่ละวันให้เรียบเนียนมากขึ้น แต่จะตามมาด้วยการเปลี่ยนแปลงจริงที่ช้ากว่า เลือก '{noneInterpol}' เพื่อเชื่อมค่าการวัดของคุณด้วยเส้นตรง อัตราการคาดคะเนยังคงมาจากค่าเรียบเนียนปานกลาง",
+    "@interpolationExplanationPhysiological": {
+        "description": "Explanation text for interpolation settings when the physiological AI model is on",
+        "placeholders": {
+            "noneInterpol": {
+                "type": "String",
+                "example": "none"
+            }
+        }
+    },
+    "physiologicalModel": "โมเดล AI ทางสรีรวิทยา",
+    "@physiologicalModel": {
+        "description": "Title of the setting that switches the weight curve to the experimental physiological AI model"
+    },
+    "physiologicalModelSubtitle": "คุณสมบัติทดลอง เรียนรู้จากข้อมูลของคุณว่าน้ำหนักของคุณเปลี่ยนแปลงอย่างไร การประมวลผลทั้งหมดจะเกิดขึ้นแค่บนอุปกรณ์ของคุณ",
+    "@physiologicalModelSubtitle": {
+        "description": "Subtitle of the physiological AI model setting"
     }
 }
