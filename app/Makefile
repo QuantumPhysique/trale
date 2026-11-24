@@ -34,9 +34,16 @@ generate: $(CHANGELOG_GEN)
 run: $(CHANGELOG_GEN)
 	flutter run
 
+# One run per ABI, as on F-Droid: NativeAssetsManifest.json lists every ABI of
+# the run, so APKs from a joint run do not reproduce there.
+ANDROID_PLATFORMS := android-arm android-arm64 android-x64
+
 .PHONY: build
 build: $(CHANGELOG_GEN)
-	flutter build apk --split-per-abi --release
+	for platform in $(ANDROID_PLATFORMS); do \
+		flutter build apk --split-per-abi --release \
+			--target-platform=$$platform || exit 1; \
+	done
 
 .PHONY: build-aab
 build-aab: $(CHANGELOG_GEN)
